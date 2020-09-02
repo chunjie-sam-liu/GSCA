@@ -1,0 +1,30 @@
+{
+  "workbench.sideBar.location": "left",
+  "files.exclude": {
+    "node_modules": true,
+    "documentation": true
+  },
+  "gitlens.mode.active": "zen",
+  "editor.minimap.enabled": false,
+  "workbench.colorCustomizations": {
+    "activityBar.activeBackground": "#2f7c47",
+    "activityBar.activeBorder": "#422c74",
+    "activityBar.background": "#2f7c47",
+    "activityBar.foreground": "#e7e7e7",
+    "activityBar.inactiveForeground": "#e7e7e799",
+    "activityBarBadge.background": "#422c74",
+    "activityBarBadge.foreground": "#e7e7e7",
+    "statusBar.background": "#215732",
+    "statusBar.foreground": "#e7e7e7",
+    "statusBarItem.hoverBackground": "#2f7c47",
+    "titleBar.activeBackground": "#215732",
+    "titleBar.activeForeground": "#e7e7e7",
+    "titleBar.inactiveBackground": "#21573299",
+    "titleBar.inactiveForeground": "#e7e7e799"
+  },
+  "peacock.remoteColor": "#215732",
+  "terminal.integrated.shellArgs.linux": [
+    "-i"
+  ],
+  "peacock.color": "#215732"
+}
