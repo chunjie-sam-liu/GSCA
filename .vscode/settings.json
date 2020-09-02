@@ -1,0 +1,51 @@
+{
+  "python.pythonPath": "venv/bin/python",
+  "[python]": {
+    "editor.insertSpaces": true,
+    "editor.tabSize": 4,
+    "editor.formatOnSave": true
+  },
+  "files.exclude": {
+    "**/__pycache__": true,
+    "**/*.pyc": { "when": "$(basename).py" },
+    "node_modules": true,
+    "venv": true
+  },
+  "python.jediEnabled": false,
+  "python.linting.enabled": true,
+  "python.linting.pylintEnabled": false,
+  "python.linting.flake8Path": "venv/bin/flake8",
+  "python.linting.flake8Enabled": true,
+  "python.linting.flake8Args": [
+    "--max-line-length=128",
+    "--ignore=E401,E402,F841,F401,E302,E305,W391"
+  ],
+
+  "editor.wordWrap": "on",
+  "python.languageServer": "Microsoft",
+  "editor.minimap.enabled": false,
+  "python.linting.lintOnSave": true,
+
+  "python.formatting.provider": "black",
+  "python.formatting.blackPath": "venv/bin/black",
+  "gitlens.mode.active": "zen",
+  "cSpell.words": ["Exosome", "exosomes", "imgs"],
+  "workbench.colorCustomizations": {
+    "activityBar.activeBackground": "#ab307e",
+    "activityBar.activeBorder": "#25320e",
+    "activityBar.background": "#ab307e",
+    "activityBar.foreground": "#e7e7e7",
+    "activityBar.inactiveForeground": "#e7e7e799",
+    "activityBarBadge.background": "#25320e",
+    "activityBarBadge.foreground": "#e7e7e7",
+    "statusBar.background": "#832561",
+    "statusBar.foreground": "#e7e7e7",
+    "statusBarItem.hoverBackground": "#ab307e",
+    "titleBar.activeBackground": "#832561",
+    "titleBar.activeForeground": "#e7e7e7",
+    "titleBar.inactiveBackground": "#83256199",
+    "titleBar.inactiveForeground": "#e7e7e799"
+  },
+  "peacock.remoteColor": "#832561",
+  "peacock.color": "#832561"
+}
