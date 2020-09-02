@@ -22,7 +22,7 @@
   ],
 
   "editor.wordWrap": "on",
-  "python.languageServer": "Microsoft",
+  "python.languageServer": "Pylance",
   "editor.minimap.enabled": false,
   "python.linting.lintOnSave": true,
 
