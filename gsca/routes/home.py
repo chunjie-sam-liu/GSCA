@@ -9,9 +9,10 @@ api = Api(home)
 
 
 class TestGSCA(Resource):
-    def get(self):
+    def get(self, gene_name):
         print("cj")
-        return {"new": "gsca"}
+        expr = mongo.db.expr.find({'gene': gene_name})
+        return expr
 
 
 api.add_resource(TestGSCA, "/gsca")
