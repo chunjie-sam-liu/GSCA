@@ -1,0 +1,45 @@
+<div fxLayout="row" (click)="isExpanded = !isExpanded">
+  <button mat-fab color="warn" style="margin: 10px;">
+    <img [src]="assets + '/imgs/logo.png'" alt="EVA" />
+  </button>
+  <h1 *ngIf="isExpanded">EVAtlas</h1>
+</div>
+
+<mat-nav-list>
+  <a mat-list-item routerLink="/" routerLinkActive="list-item-active">
+    <mat-icon mat-list-icon color="warn">home</mat-icon>
+    <h4 style="font-weight: bold;" mat-line *ngIf="isExpanded">Home</h4>
+  </a>
+  <a mat-list-item routerLink="/samples" routerLinkActive="list-item-active">
+    <mat-icon mat-list-icon color="warn">how_to_reg</mat-icon>
+    <h4 style="font-weight: bold;" mat-line *ngIf="isExpanded">Samples</h4>
+  </a>
+  <a mat-list-item routerLink="/rna" routerLinkActive="list-item-active">
+    <mat-icon mat-list-icon color="warn">touch_app</mat-icon>
+    <h4 style="font-weight: bold;" mat-line *ngIf="isExpanded">RNA Expression</h4>
+  </a>
+  <a mat-list-item routerLink="/specific" routerLinkActive="list-item-active">
+    <mat-icon mat-list-icon color="warn">tour</mat-icon>
+    <h4 style="font-weight: bold;" mat-line *ngIf="isExpanded">Specific Expression</h4>
+  </a>
+
+  <mat-divider></mat-divider>
+
+  <a mat-list-item routerLink="/document" routerLinkActive="list-item-active">
+    <mat-icon mat-list-icon color="warn">book_marks</mat-icon>
+    <h4 style="font-weight: bold;" mat-line *ngIf="isExpanded">Document</h4>
+  </a>
+  <a mat-list-item routerLink="/contact" routerLinkActive="list-item-active">
+    <mat-icon mat-list-icon color="warn">contacts</mat-icon>
+    <h4 style="font-weight: bold;" mat-line *ngIf="isExpanded">Contact</h4>
+  </a>
+
+  <mat-divider></mat-divider>
+
+  <a mat-list-item href="http://bioinfo.life.hust.edu.cn/EVmiRNA#!/" target="_blank" routerLinkActive="list-item-active">
+    <mat-icon mat-list-icon color="warn">archive</mat-icon>
+    <h4 style="font-weight: bold;" mat-line *ngIf="isExpanded">EVmiRNA (old version)</h4>
+  </a>
+
+  <mat-divider></mat-divider>
+</mat-nav-list>

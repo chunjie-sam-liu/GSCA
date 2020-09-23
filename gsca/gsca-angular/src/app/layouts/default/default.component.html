@@ -1,0 +1,12 @@
+<app-header (toggleSideBarForMe)="sideBarToggle($event)"></app-header>
+
+<mat-drawer-container autosize>
+  <mat-drawer #drawer mode="side" disableClose="true" opened="true" class="mat-elevation-z4">
+    <app-sidebar></app-sidebar>
+  </mat-drawer>
+  <mat-drawer-content>
+    <router-outlet>
+      <span class="loader" *ngIf="loading"></span>
+    </router-outlet>
+  </mat-drawer-content>
+</mat-drawer-container>
