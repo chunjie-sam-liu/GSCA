@@ -15,7 +15,7 @@ export class ContactCardComponent implements OnInit {
 
   public assets = environment.assets;
 
-  
+
   // Canvas 2d context
   private context: CanvasRenderingContext2D;
 
@@ -36,3 +36,4 @@ export class ContactCardComponent implements OnInit {
     this.drawEmail(this.author.email);
   }
 }
+

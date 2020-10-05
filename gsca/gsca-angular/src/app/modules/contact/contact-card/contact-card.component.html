@@ -1,18 +1,14 @@
-
-<h2 style="text-align:left">Contact</h2>
-
-<div class="card">
-  <img src="assets + '/avatars/' + author.avatar" [alt]="author.avatar" style="width:50%">
-  <div class="container">
-    <h1>{{author.name}}</h1>
-    <p class="title">{{author.title}}</p>
-    <p>{{author.department}}</p>
-    <div style="margin: 24px 0;">
-      <a href="#"><i class="fa fa-dribbble"></i></a> 
-      <a href="#"><i class="fa fa-twitter"></i></a>  
-      <a href="#"><i class="fa fa-linkedin"></i></a>  
-      <a href="#"><i class="fa fa-facebook"></i></a> 
-   </div>
-   <p><button>Contact</button></p>
+<mat-card appMaterialElevation>
+  <mat-card-header>
+    <mat-card-title> {{ author.name }}, {{ author.title }} </mat-card-title>
+    <mat-card-subtitle><canvas #canvasEl height="30px"></canvas> </mat-card-subtitle>
+  </mat-card-header>
+  <div fxLayout="row" fxLayoutAlign="center center">
+    <img mat-card-image [src]="assets + '/avatars/' + author.avatar" [alt]="author.avatar" />
   </div>
-</div>
+  <mat-card-content>
+    <p>Department of Bioinformatics and Systems Biology.</p>
+    <p>College of Life Science and Technology</p>
+    <p>Huazhong University of Science and Technology, Wuhan 430074 P.R. China</p>
+  </mat-card-content>
+</mat-card>
