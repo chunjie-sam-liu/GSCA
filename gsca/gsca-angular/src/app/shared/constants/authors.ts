@@ -4,12 +4,14 @@ export default [
     title: 'Ph.D., Professor',
     email: 'guoay@hust.edu.cn',
     avatar: 'guoay.png',
+    department: 'Department of Bioinformatics and Systems Biology, College of Life Science and Technology, Huazhong University of Science and Technology, Wuhan 430074 P.R. China'
   },
   {
     name: 'Fei-Fei Hu',
-    title: 'Ph.D. Candidate',
-    email: 'xieguiyan@hust.edu.cn',
-    avatar: 'xiegy.png',
+    title: 'Ph.D., Lecturer',
+    email: 'hufeifei@wust.edu.cn',
+    avatar: 'hufeifei.jpg',
+    department: 'Brain Science and Advanced Technology Institute, Wuhan University of Science & Technology, Wuhan P.R. China'
   },
   // {
   //   name: 'Qiong Zhang',

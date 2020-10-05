@@ -1,0 +1,40 @@
+:host {
+    margin-bottom: 20px;
+  }
+  
+  p {
+    margin: 5px 0 0 5px;
+  }
+  
+  canvas {
+    transition: 300ms;
+    border-radius: 4px;
+  }
+  
+  canvas:hover {
+    border-bottom: 2px solid #da4233;
+  }
+  
+  img {
+    width: 250px;
+    height: 300px;
+  }
+  
+  .card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    max-width: 300px;
+    margin: auto;
+    text-align: center;
+    font-family: arial;
+  }
+  
+  .container {
+    padding: 0 16px;
+  }
+  
+  .container::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+  
