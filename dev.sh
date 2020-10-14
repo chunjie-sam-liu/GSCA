@@ -12,4 +12,4 @@ pip install -r requirements.txt
 cd gsca/gsca-angular/
 npm install
 
-npm run build:dev
+#npm run build:dev
