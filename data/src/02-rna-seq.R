@@ -36,13 +36,15 @@ fn_transform_samples <- function(.x) {
 }
 
 fn_gene_tcga_all_expr <- function(cancer_types, expr){
+  message(glue::glue('Handling {cancer_types} all expression.'))
   # transform data as mongo json format
   .x <- expr
   
-  .x %>% dplyr::filter(symbol %in% search_symbol$symbol) -> .xx
-  
-  .xx %>% 
-    dplyr::group_by(entrez_id, symbol) %>% 
+  .x %>% 
+    dplyr::filter(symbol %in% search_symbol$symbol) %>% 
+    dplyr::rename(entrez = entrez_id) %>% 
+    dplyr::mutate(entrez = as.numeric(entrez)) %>% 
+    dplyr::group_by(entrez, symbol) %>% 
     tidyr::nest() -> 
     .d
   
@@ -62,6 +64,8 @@ fn_gene_tcga_all_expr <- function(cancer_types, expr){
   # insert data
   .coll_expr$drop()
   .coll_expr$insert(data = .dd)
+  .coll_expr$index(add = '{"symbol": 1}')
+  message(glue::glue('Insert data for {cancer_types} into {.coll_name}.'))
   
   # save the result
   .dd
