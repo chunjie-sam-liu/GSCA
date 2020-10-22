@@ -14,7 +14,8 @@ gene_symbol <- readr::read_rds('/home/huff/data/GSCA/id/NCBI_id_in_TCGA-final.rd
 gene_symbol %>%
   dplyr::filter(!is.na(symbol)) %>% 
   dplyr::distinct() %>% 
-  dplyr::mutate(searchname = gsub(pattern = '[^a-z0-9]',replacement = '', x = stringr::str_to_lower(symbol))) ->
+  dplyr::mutate(searchname = gsub(pattern = '[^a-z0-9]',replacement = '', x = stringr::str_to_lower(symbol))) %>% 
+  dplyr::mutate(entrez = as.numeric(entrez)) ->
   search_symbol
 
 gsca_gene_symbol <- mongolite::mongo(collection = 'gene_symbol', url = gsca_conf)
