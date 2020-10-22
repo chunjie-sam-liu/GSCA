@@ -9,12 +9,11 @@ library(magrittr)
 gsca_conf <- readr::read_lines(file = 'data/src/gsca.conf')
 
 # Gene Symbol ------------------------------------------------------------------
-gene_symbol <- readr::read_rds('/home/huff/data/GSCA/NCBI_id_in_TCGA.rds.gz')
+gene_symbol <- readr::read_rds('/home/huff/data/GSCA/id/NCBI_id_in_TCGA-final.rds.gz')
 
 gene_symbol %>%
-  dplyr::filter(!is.na(NCBI_sym)) %>% 
+  dplyr::filter(!is.na(symbol)) %>% 
   dplyr::distinct() %>% 
-  dplyr::select(entrez = entrez_id, symbol = NCBI_sym, description, biotype = type_of_gene, ensembl = Ensembl) %>% 
   dplyr::mutate(searchname = gsub(pattern = '[^a-z0-9]',replacement = '', x = stringr::str_to_lower(symbol))) ->
   search_symbol
 

@@ -4,10 +4,11 @@
 library(magrittr)
 
 # Load data ---------------------------------------------------------------
+rda_path <- "/home/huff/github/GSCA/data"
 
 gtex_expr <- readr::read_rds(file = '/home/huff/data/GSCA/expr/gtex_gene_mean_exp.IdTrans.rds.gz')
-load(file = 'data/rda/01-gene-symbols.rda')
-gsca_conf <- readr::read_lines(file = 'data/src/gsca.conf')
+load(file = file.path(rda_path,"rda",'01-gene-symbols.rda'))
+gsca_conf <- readr::read_lines(file = file.path(rda_path,"src",'gsca.conf'))
 
 
 search_symbol <- search_symbol
@@ -78,4 +79,4 @@ gtex_eqtl %>%
 
 # Save image --------------------------------------------------------------
 
-save.image(file = 'data/rda/06-gtex-expr.rda')
+save.image(file = file.path(rda_path,"rda",'06-gtex-expr.rda'))

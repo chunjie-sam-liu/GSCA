@@ -5,10 +5,10 @@ library(magrittr)
 
 
 # Load data ---------------------------------------------------------------
-
+rda_path <- "/home/huff/github/GSCA/data"
 all_expr <- readr::read_rds(file = '/home/huff/data/GSCA/expr/pancan33_expr.IdTrans.rds.gz')
-load(file = 'data/rda/01-gene-symbols.rda')
-gsca_conf <- readr::read_lines(file = 'data/src/gsca.conf')
+load(file = file.path(rda_path,"rda",'01-gene-symbols.rda'))
+gsca_conf <- readr::read_lines(file = file.path(rda_path,"src",'gsca.conf'))
 
 
 search_symbol <- search_symbol
@@ -80,4 +80,4 @@ all_expr %>%
 
 # Save image --------------------------------------------------------------
 
-save.image(file = 'data/rda/02-rna-seq.rda')
+save.image(file = file.path(rda_path,"rda",'02-rna-seq.rda'))

@@ -4,10 +4,11 @@
 library(magrittr)
 
 # Load data ---------------------------------------------------------------
+rda_path <- "/home/huff/github/GSCA/data"
 
 expr_survival <- readr::read_rds(file = '/home/huff/data/GSCA/expr/expr_survival.IdTrans.rds.gz')
-load(file = 'data/rda/01-gene-symbols.rda')
-gsca_conf <- readr::read_lines(file = 'data/src/gsca.conf')
+load(file = file.path(rda_path,"rda",'01-gene-symbols.rda'))
+gsca_conf <- readr::read_lines(file = file.path(rda_path,"src",'gsca.conf'))
 
 
 search_symbol <- search_symbol
@@ -53,4 +54,4 @@ expr_survival_nest %>%
 
 # Save image --------------------------------------------------------------
 
-save.image(file = 'data/rda/04-expr-survival.rda')
+save.image(file = file.path(rda_path,"rda",'04-expr-survival.rda'))
