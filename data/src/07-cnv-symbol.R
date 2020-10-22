@@ -75,7 +75,7 @@ cnv_symbol_no_search_symbol_ncbi_filter %>%
 cnv_symbol_search_symbol %>% 
   tibble::add_column('cnvsymbol' = cnv_symbol_search_symbol$symbol, .before = 1) %>% 
   dplyr::bind_rows(cnv_symbol_no_search_symbol_ncbi_filter_retain) %>% 
-  dplyr::distinct() ->
+  dplyr::distinct(entrez, symbol, .keep_all = T) ->
   cnv_symbol_search_symbol_final
 
 
@@ -88,3 +88,4 @@ readr::write_rds(x = cnv_symbol_search_symbol_final, file = 'data/rda/cnv_symbol
 # Save image --------------------------------------------------------------
 
 save.image(file = 'data/rda/07-cnv-symbol.rda')
+#load('data/rda/07-cnv-symbol.rda')
