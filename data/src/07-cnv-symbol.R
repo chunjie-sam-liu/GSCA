@@ -5,8 +5,6 @@ library(magrittr)
 
 # Load data ---------------------------------------------------------------
 rda_path <- "/home/huff/github/GSCA/data"
-
-gtex_expr <- readr::read_rds(file = '/home/huff/data/GSCA/expr/gtex_gene_mean_exp.IdTrans.rds.gz')
 load(file = file.path(rda_path,"rda",'01-gene-symbols.rda'))
 gsca_conf <- readr::read_lines(file = file.path(rda_path,"src",'gsca.conf'))
 
@@ -30,7 +28,7 @@ ncbi_name <-
     c(.x, strsplit(x = .y, split = '\\|')[[1]]) %>% unique()
   }))
 
-ncbi_name %>% readr::write_rds(file = 'data/rda/ncbi_name.rds', compress = 'gz')
+readr::write_rds(x = ncbi_name, file = 'data/rda/ncbi_name.rds.gz', compress = 'gz')
 
 cnv <- readr::read_rds(file = '/home/liucj/shiny-data/GSCALite/TCGA/cnv/pancan34_cnv.rds.gz')
 
@@ -61,4 +59,32 @@ cnv_symbol_no_search_symbol_ncbi %>%
 
 
 cnv_symbol_no_search_symbol_ncbi_filter %>% 
-  dplyr::filter()
+  dplyr::filter(purrr::map_lgl(.x = new_data, .f = function(.x){nrow(.x) > 1})) %>% 
+  tidyr::unnest(cols = new_data) %>% 
+  dplyr::filter(cnvsymbol == symbol) ->
+  cnv_symbol_no_search_symbol_ncbi_filter_2unique
+
+
+cnv_symbol_no_search_symbol_ncbi_filter %>% 
+  dplyr::filter(purrr::map_lgl(.x = new_data, .f = function(.x){nrow(.x) == 1})) %>% 
+  tidyr::unnest(cols = new_data) %>% 
+  dplyr::bind_rows(cnv_symbol_no_search_symbol_ncbi_filter_2unique) %>% 
+  dplyr::select(-Synonyms) ->
+  cnv_symbol_no_search_symbol_ncbi_filter_retain
+
+cnv_symbol_search_symbol %>% 
+  tibble::add_column('cnvsymbol' = cnv_symbol_search_symbol$symbol, .before = 1) %>% 
+  dplyr::bind_rows(cnv_symbol_no_search_symbol_ncbi_filter_retain) %>% 
+  dplyr::distinct() ->
+  cnv_symbol_search_symbol_final
+
+
+# save cnv symbol ---------------------------------------------------------
+
+readr::write_rds(x = cnv_symbol_search_symbol_final, file = 'data/rda/cnv_symbol_search_symbol_final.rds.gz', compress = 'gz')
+
+
+
+# Save image --------------------------------------------------------------
+
+save.image(file = 'data/rda/07-cnv-symbol.rda')
