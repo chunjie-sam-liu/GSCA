@@ -28,7 +28,7 @@
   "python.linting.lintOnSave": true,
   "python.formatting.provider": "black",
   "python.formatting.blackPath": "venv/bin/black",
-  "python.formatting.blackArgs": ["--line-length", "256"],
+  "python.formatting.blackArgs": ["--line-length", "128"],
   "gitlens.mode.active": "zen",
   "python.autoComplete.addBrackets": true,
   "workbench.colorCustomizations": {

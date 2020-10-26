@@ -1,7 +1,7 @@
 from flask import render_template
 from gsca import app
 
-from gsca.routes.home import home  # ok
+from gsca.routes.home import home
 
 
 # routing
