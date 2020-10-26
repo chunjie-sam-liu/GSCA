@@ -1,9 +1,11 @@
 {
   "python.pythonPath": "venv/bin/python",
+  "python.analysis.disabled": ["unresolved-import"],
   "[python]": {
     "editor.insertSpaces": true,
-    "editor.tabSize": 4,
-    "editor.formatOnSave": true
+    "editor.tabSize": 2,
+    "editor.formatOnSave": true,
+    "editor.formatOnSaveMode": "file"
   },
   "files.exclude": {
     "**/__pycache__": true,
@@ -17,19 +19,18 @@
   "python.linting.flake8Path": "venv/bin/flake8",
   "python.linting.flake8Enabled": true,
   "python.linting.flake8Args": [
-    "--max-line-length=128",
-    "--ignore=E401,E402,F841,F401,E302,E305,W391"
+    "--max-line-length=256",
+    "--ignore=E401,E402,F841,F401,E302,E305,W391,W503"
   ],
-
   "editor.wordWrap": "on",
   "python.languageServer": "Pylance",
   "editor.minimap.enabled": false,
   "python.linting.lintOnSave": true,
-
   "python.formatting.provider": "black",
   "python.formatting.blackPath": "venv/bin/black",
+  "python.formatting.blackArgs": ["--line-length", "256"],
   "gitlens.mode.active": "zen",
-  "cSpell.words": ["Exosome", "exosomes", "imgs"],
+  "python.autoComplete.addBrackets": true,
   "workbench.colorCustomizations": {
     "activityBar.activeBackground": "#ab307e",
     "activityBar.activeBorder": "#25320e",
