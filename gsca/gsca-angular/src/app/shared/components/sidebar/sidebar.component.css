@@ -1,5 +1,12 @@
+mat-icon.mat-list-icon {
+  width: 15px;
+  height: 40px;
+  font-size: 35px;
+  padding: 10px;
+}
+
 img {
-  width: 50px;
+  width: 40px;
 }
 
 h4 {
