@@ -39,7 +39,7 @@ fn_gene_tcga_snv_count <- function(cancer_types, n, snv) {
 
 # data --------------------------------------------------------------------
 
-snv %>% head(1) %>%
+snv %>%
   purrr::pmap(.f = fn_gene_tcga_snv_count) ->
   snv_count_mongo_data
 
