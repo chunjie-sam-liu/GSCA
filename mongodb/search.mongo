@@ -1,0 +1,1 @@
+db.gene_symbol.find().limit(5).pretty()

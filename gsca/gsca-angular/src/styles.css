@@ -1,8 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 
 /* for material themes */
-@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
-/* @import '~@angular/material/prebuilt-themes/indigo-pink.css'; */
+/* @import '~@angular/material/prebuilt-themes/deeppurple-amber.css'; */
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
 /* @import '~@angular/material/prebuilt-themes/pink-bluegrey.css'; */
 /* @import '~@angular/material/prebuilt-themes/purple-green.css'; */
 
@@ -13,7 +13,6 @@
   font-weight: 400;
   src: url(assets/style/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2) format('woff2');
 }
-
 
 .material-icons {
   font-family: 'Material Icons';
@@ -37,4 +36,75 @@ body {
   padding: 0px;
   height: 100%;
   width: 100%;
+}
+
+h1.page-header {
+  margin: 10px 0px;
+  border-bottom: 0.5px solid #6400b2;
+  font-weight: bolder;
+}
+h2.page-subheader {
+  margin: 10px 0px;
+  border-bottom: 0.5px solid #b8c3f1;
+  font-weight: bolder;
+}
+
+.mat-header-cell {
+  font-weight: bold;
+  font-size: 16px;
+  color: black;
+}
+
+.mat-tab-label {
+  font-weight: bold;
+  font-size: 16px;
+  color: #560395;
+}
+
+a {
+  text-decoration: none;
+  color: #6400b2;
+}
+
+.not-float {
+  min-height: fit-content;
+}
+
+dt::after {
+  content: ': ';
+}
+
+dl {
+  display: flex;
+  flex-flow: row wrap;
+  font-size: medium;
+}
+dt {
+  flex-basis: 20%;
+  padding: 2px 10px;
+  text-align: right;
+  font-weight: bolder;
+  font-size: medium;
+}
+dd {
+  flex-basis: 70%;
+  flex-grow: 1;
+  margin: 0;
+  padding: 2px 10px;
+}
+
+.red-seed {
+  color: #da4233;
+}
+
+.chart-hight {
+  height: 400px;
+}
+
+.chart-heathight {
+  height: 700px;
+}
+
+.chart-tcgahight {
+  height: 700px;
 }

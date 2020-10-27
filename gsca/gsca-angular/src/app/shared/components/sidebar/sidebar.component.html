@@ -1,5 +1,5 @@
 <div fxLayout="row" (click)="isExpanded = !isExpanded">
-  <button mat-fab color="warn" style="margin: 10px;">
+  <button mat-flat-button style="margin: 10px">
     <img [src]="assets + '/imgs/logo.png'" alt="EVA" />
   </button>
   <h1 *ngIf="isExpanded">GSCA</h1>
@@ -7,73 +7,73 @@
 
 <mat-nav-list>
   <a mat-list-item routerLink="/" routerLinkActive="list-item-active">
-    <mat-icon mat-list-icon color="warn">home</mat-icon>
-    <h4 style="font-weight: bold;" mat-line *ngIf="isExpanded">Home</h4>
+    <mat-icon mat-list-icon color="primary">home</mat-icon>
+    <h4 style="font-weight: bold" mat-line *ngIf="isExpanded">Home</h4>
   </a>
-  <a mat-list-item routerLink="/samples" routerLinkActive="list-item-active">
-    <mat-icon mat-list-icon color="warn">how_to_reg</mat-icon>
-    <h4 style="font-weight: bold;" mat-line *ngIf="isExpanded">Samples</h4>
+  <a mat-list-item routerLink="/expression" routerLinkActive="list-item-active">
+    <mat-icon mat-list-icon color="primary">how_to_reg</mat-icon>
+    <h4 style="font-weight: bold" mat-line *ngIf="isExpanded">Expression</h4>
   </a>
-  <a mat-list-item routerLink="/exp" routerLinkActive="list-item-active">
-    <mat-icon mat-list-icon color="warn">touch_app</mat-icon>
-    <h4 style="font-weight: bold;" mat-line *ngIf="isExpanded">Expression</h4>
+  <a mat-list-item routerLink="/mutation" routerLinkActive="list-item-active">
+    <mat-icon mat-list-icon color="primary">touch_app</mat-icon>
+    <h4 style="font-weight: bold" mat-line *ngIf="isExpanded">Mutation</h4>
   </a>
-  <a mat-list-item routerLink="/protein" routerLinkActive="list-item-active">
-    <mat-icon mat-list-icon color="warn">touch_app</mat-icon>
-    <h4 style="font-weight: bold;" mat-line *ngIf="isExpanded">Protein Expression</h4>
+  <a mat-list-item routerLink="/immune" routerLinkActive="list-item-active">
+    <mat-icon mat-list-icon color="primary">tour</mat-icon>
+    <h4 style="font-weight: bold" mat-line *ngIf="isExpanded">Immune</h4>
   </a>
-  <a mat-list-item routerLink="/specific" routerLinkActive="list-item-active">
-    <mat-icon mat-list-icon color="warn">tour</mat-icon>
-    <h4 style="font-weight: bold;" mat-line *ngIf="isExpanded">Specific Expression</h4>
+  <a mat-list-item routerLink="/drug" routerLinkActive="list-item-active">
+    <mat-icon mat-list-icon color="primary">drug</mat-icon>
+    <h4 style="font-weight: bold" mat-line *ngIf="isExpanded">Drug</h4>
   </a>
   <a mat-list-item routerLink="/snv" routerLinkActive="list-item-active">
     <mat-icon mat-list-icon color="warn">touch_app</mat-icon>
-    <h4 style="font-weight: bold;" mat-line *ngIf="isExpanded">SNV</h4>
+    <h4 style="font-weight: bold" mat-line *ngIf="isExpanded">SNV</h4>
   </a>
   <a mat-list-item routerLink="/cnv" routerLinkActive="list-item-active">
     <mat-icon mat-list-icon color="warn">touch_app</mat-icon>
-    <h4 style="font-weight: bold;" mat-line *ngIf="isExpanded">CNV</h4>
+    <h4 style="font-weight: bold" mat-line *ngIf="isExpanded">CNV</h4>
   </a>
   <a mat-list-item routerLink="/methy" routerLinkActive="list-item-active">
     <mat-icon mat-list-icon color="warn">touch_app</mat-icon>
-    <h4 style="font-weight: bold;" mat-line *ngIf="isExpanded">Methylation</h4>
+    <h4 style="font-weight: bold" mat-line *ngIf="isExpanded">Methylation</h4>
   </a>
   <a mat-list-item routerLink="/drug" routerLinkActive="list-item-active">
     <mat-icon mat-list-icon color="warn">touch_app</mat-icon>
-    <h4 style="font-weight: bold;" mat-line *ngIf="isExpanded">Drug sensitivity</h4>
+    <h4 style="font-weight: bold" mat-line *ngIf="isExpanded">Drug sensitivity</h4>
   </a>
   <a mat-list-item routerLink="/gtex" routerLinkActive="list-item-active">
     <mat-icon mat-list-icon color="warn">touch_app</mat-icon>
-    <h4 style="font-weight: bold;" mat-line *ngIf="isExpanded">GTEx</h4>
+    <h4 style="font-weight: bold" mat-line *ngIf="isExpanded">GTEx</h4>
   </a>
   <a mat-list-item routerLink="/immune" routerLinkActive="list-item-active">
     <mat-icon mat-list-icon color="warn">touch_app</mat-icon>
-    <h4 style="font-weight: bold;" mat-line *ngIf="isExpanded">Immune cell</h4>
+    <h4 style="font-weight: bold" mat-line *ngIf="isExpanded">Immune cell</h4>
   </a>
   <mat-divider></mat-divider>
 
   <a mat-list-item routerLink="/document" routerLinkActive="list-item-active">
-    <mat-icon mat-list-icon color="warn">book_marks</mat-icon>
-    <h4 style="font-weight: bold;" mat-line *ngIf="isExpanded">Document</h4>
+    <mat-icon mat-list-icon color="primary">book_marks</mat-icon>
+    <h4 style="font-weight: bold" mat-line *ngIf="isExpanded">Document</h4>
   </a>
   <a mat-list-item routerLink="/contact" routerLinkActive="list-item-active">
-    <mat-icon mat-list-icon color="warn">contacts</mat-icon>
-    <h4 style="font-weight: bold;" mat-line *ngIf="isExpanded">Contact</h4>
+    <mat-icon mat-list-icon color="primary">contacts</mat-icon>
+    <h4 style="font-weight: bold" mat-line *ngIf="isExpanded">Contact</h4>
   </a>
 
   <mat-divider></mat-divider>
 
   <a mat-list-item href="http://bioinfo.life.hust.edu.cn/EVAtlas/#/" target="_blank" routerLinkActive="list-item-active">
     <mat-icon mat-list-icon color="warn">archive</mat-icon>
-    <h4 style="font-weight: bold;" mat-line *ngIf="isExpanded">EVmiRNA (Ref)</h4>
+    <h4 style="font-weight: bold" mat-line *ngIf="isExpanded">EVmiRNA (Ref)</h4>
   </a>
   <a mat-list-item href="http://gepia2.cancer-pku.cn/#index" target="_blank" routerLinkActive="list-item-active">
     <mat-icon mat-list-icon color="warn">archive</mat-icon>
-    <h4 style="font-weight: bold;" mat-line *ngIf="isExpanded">GEPIA2 (Ref)</h4>
+    <h4 style="font-weight: bold" mat-line *ngIf="isExpanded">GEPIA2 (Ref)</h4>
   </a>
   <a mat-list-item href="http://bioinfo.life.hust.edu.cn/web/GSCALite/" target="_blank" routerLinkActive="list-item-active">
-    <mat-icon mat-list-icon color="warn">archive</mat-icon>
-    <h4 style="font-weight: bold;" mat-line *ngIf="isExpanded">GSCALite (old version)</h4>
+    <mat-icon mat-list-icon color="primary">archive</mat-icon>
+    <h4 style="font-weight: bold" mat-line *ngIf="isExpanded">GSCALite (old version)</h4>
   </a>
   <mat-divider></mat-divider>
 </mat-nav-list>
