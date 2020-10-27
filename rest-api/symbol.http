@@ -1,1 +1,5 @@
-GET http://localhost:5000/api/search/symbols
+GET http://localhost:5000/api/search/searchnamelist
+
+
+###
+GET http://localhost:5000/api/search/symbollist
