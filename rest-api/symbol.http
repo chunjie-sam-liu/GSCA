@@ -3,3 +3,6 @@ GET http://localhost:5000/api/search/searchnamelist
 
 ###
 GET http://localhost:5000/api/search/symbollist
+
+###
+GET http://localhost:5000/api/search/symbol/MRE

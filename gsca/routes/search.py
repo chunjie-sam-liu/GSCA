@@ -34,3 +34,23 @@ class SymbolList(Resource):
 
 api.add_resource(SymbolList, "/symbollist")
 
+model_symbol = {
+    "entrez": fields.Integer,
+    "symbol": fields.String,
+    "description": fields.String,
+    "biotype": fields.String,
+    "searchname": fields.String,
+}
+
+
+class SingleSymbol(Resource):
+    @marshal_with(model_symbol)
+    def get(self, s):
+        condition = {"searchname": {"$regex": s, "$options": "i"}}
+        print(condition)
+        output = {"_id": 0}
+        mcur = mongo.db.gene_symbol.find(condition, output).limit(5)
+        return list(mcur)
+
+
+api.add_resource(SingleSymbol, "/symbol/<string:s>")
