@@ -28,6 +28,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 // import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { MatSortModule } from '@angular/material/sort';
+import { MatSelectModule } from '@angular/material/select';
 
 const MaterialComponents = [
   FlexLayoutModule,
@@ -54,6 +55,7 @@ const MaterialComponents = [
   MatPaginatorModule,
   // MatProgressSpinner,
   MatSortModule,
+  MatSelectModule,
 ];
 
 @NgModule({
