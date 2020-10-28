@@ -15,6 +15,8 @@ export class DegComponent implements OnInit, OnChanges {
   ngOnInit(): void {}
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.expressionApiService.getDEGTable(this.searchTerm);
+    this.expressionApiService.getDEGTable(this.searchTerm).subscribe((res) => {
+      console.log(res);
+    });
   }
 }
