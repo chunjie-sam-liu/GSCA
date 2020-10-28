@@ -27,3 +27,10 @@ class DEG(Resource):
 
 api.add_resource(DEG, "/degs")
 
+
+class DEGTable(Resource):
+    def get(self):
+        print("cj")
+
+api.add_resource(DEGTable, "/degtable")
+

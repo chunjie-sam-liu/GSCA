@@ -1,1 +1,5 @@
 GET http://localhost:5000/api/expression/degs
+
+
+###
+GET http://localhost:5000/api/expression/degtable

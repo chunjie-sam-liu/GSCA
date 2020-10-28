@@ -9,6 +9,7 @@ export class BaseHttpService {
   constructor(private http: HttpClient) {}
 
   public getData(route: string, data?: any): Observable<any> {
+    console.log(this._generateOptions(data));
     return this.http.get(this._generateRoute(route, environment.apiURL), this._generateOptions(data));
   }
 
