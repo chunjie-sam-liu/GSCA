@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import symbolList from 'src/app/shared/constants/symbollist';
 const symbolListLower = symbolList.map((v) => v.toLowerCase().replace(/[^0-9a-z]+/g, ''));
 import cancerTypeList from 'src/app/shared/constants/cancertypelist';
+import { ExprSearch } from 'src/app/shared/model/exprsearch';
 
 @Component({
   selector: 'app-search-box',
@@ -17,6 +18,8 @@ export class SearchBoxComponent implements OnInit {
   inputString = '';
   cancerTypesSelected = new FormControl();
 
+  @Output() $searchSelected = new EventEmitter<ExprSearch>();
+
   constructor() {}
 
   ngOnInit(): void {}
@@ -27,10 +30,12 @@ export class SearchBoxComponent implements OnInit {
   }
 
   public submit(str: string): void {
-    const validSymbol = this._getSearchSymbol(str);
-    this.inputString = validSymbol.join(', ');
-    console.error(validSymbol);
-    console.error(this.cancerTypesSelected);
+    this.inputString = this._getSearchSymbol(str).join(', ');
+
+    this.$searchSelected.emit({
+      validSymbol: this._getSearchSymbol(str),
+      cancerTypesSelected: this.cancerTypesSelected.value,
+    });
   }
 
   public clear(): void {
