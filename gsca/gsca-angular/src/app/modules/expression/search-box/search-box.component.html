@@ -1,23 +1,36 @@
 <mat-card appMaterialElevation defaultElevation="4" raisedElevation="4" fxLayout="row" fxLayoutGap="10px">
   <div fxFlex>
-    <form>
-      <mat-form-field appearance="outline" class="search-box">
-        <mat-label>Input your interested gene sets</mat-label>
-        <input matInput type="text" [(ngModel)]="inputString" [ngModelOptions]="{ standalone: true }" />
-        <button mat-button *ngIf="inputString" mat-icon-button color="primary" matPrefix (click)="submit(inputString)">
-          <mat-icon style="font-weight: bolder">search</mat-icon>
-        </button>
-        <button mat-button *ngIf="inputString" mat-icon-button color="primary" matSuffix (click)="inputString = ''">
-          <mat-icon style="font-weight: bolder">close</mat-icon>
-        </button>
+    <mat-form-field appearance="outline" class="search-box">
+      <mat-label>Input your interested gene sets</mat-label>
+      <input matInput type="text" [(ngModel)]="inputString" [ngModelOptions]="{ standalone: true }" />
+      <button mat-button *ngIf="inputString" mat-icon-button color="primary" matPrefix (click)="submit(inputString)">
+        <mat-icon style="font-weight: bolder">search</mat-icon>
+      </button>
+      <button mat-button *ngIf="inputString" mat-icon-button color="primary" matSuffix (click)="inputString = ''">
+        <mat-icon style="font-weight: bolder">close</mat-icon>
+      </button>
 
-        <mat-hint>
-          <mat-chip-list>
-            <mat-chip color="primary" selected (click)="showExample()">Example</mat-chip>
-          </mat-chip-list>
-        </mat-hint>
-      </mat-form-field>
-    </form>
+      <mat-hint>
+        <mat-chip-list>
+          <mat-chip color="primary" selected (click)="showExample()">Example</mat-chip>
+        </mat-chip-list>
+      </mat-hint>
+    </mat-form-field>
   </div>
-  <div fxFlex>{{ inputString }}</div>
+  <div fxFlex>
+    <mat-form-field appearance="outline" class="search-box">
+      <mat-label>Cancer types</mat-label>
+      <mat-select [formControl]="cancerTypesFormControl" multiple>
+        <mat-select-trigger>
+          {{ cancerTypesFormControl.value ? cancerTypesFormControl.value[0] : '' }}
+          <span *ngIf="cancerTypesFormControl.value?.length > 1">
+            (+{{ cancerTypesFormControl.value.length - 1 }} {{ cancerTypesFormControl.value?.length === 2 ? 'other' : 'others' }})
+          </span>
+        </mat-select-trigger>
+        <mat-option *ngFor="let cancerType of cancerTypeList" [value]="cancerType.shortname">
+          ({{ cancerType.shortname }}) {{ cancerType.fullname }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
 </mat-card>
