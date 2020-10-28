@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ExprSearch } from 'src/app/shared/model/exprsearch';
+import { ExpressionApiService } from './expression-api.service';
 
 @Component({
   selector: 'app-expression',
@@ -7,15 +8,15 @@ import { ExprSearch } from 'src/app/shared/model/exprsearch';
   styleUrls: ['./expression.component.css'],
 })
 export class ExpressionComponent implements OnInit {
-  searchSymbol: string[];
-  selectedCancerTypes: string[];
+  searchTerm: ExprSearch;
+  showDEG = false;
 
   constructor() {}
 
   ngOnInit(): void {}
 
   public showContent(exprSearch: ExprSearch): void {
-    this.searchSymbol = exprSearch.validSymbol;
-    this.selectedCancerTypes = exprSearch.cancerTypesSelected;
+    this.searchTerm = exprSearch;
+    this.showDEG = true;
   }
 }
