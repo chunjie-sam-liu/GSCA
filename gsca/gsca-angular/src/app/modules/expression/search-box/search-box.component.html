@@ -1,9 +1,23 @@
-<mat-card appMaterialElevation defaultElevation="4" raisedElevation="4" fxLayoutAlign="center center">
-  <div fxFlex="90%">
+<mat-card appMaterialElevation defaultElevation="4" raisedElevation="4" fxLayout="row" fxLayoutGap="10px">
+  <div fxFlex>
     <form>
       <mat-form-field appearance="outline" class="search-box">
         <mat-label>Input your interested gene sets</mat-label>
+        <input matInput type="text" [(ngModel)]="inputString" [ngModelOptions]="{ standalone: true }" />
+        <button mat-button *ngIf="inputString" mat-icon-button color="primary" matPrefix (click)="submit(inputString)">
+          <mat-icon style="font-weight: bolder">search</mat-icon>
+        </button>
+        <button mat-button *ngIf="inputString" mat-icon-button color="primary" matSuffix (click)="inputString = ''">
+          <mat-icon style="font-weight: bolder">close</mat-icon>
+        </button>
+
+        <mat-hint>
+          <mat-chip-list>
+            <mat-chip color="primary" selected (click)="showExample()">Example</mat-chip>
+          </mat-chip-list>
+        </mat-hint>
       </mat-form-field>
     </form>
   </div>
+  <div fxFlex>{{ inputString }}</div>
 </mat-card>

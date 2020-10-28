@@ -9,14 +9,20 @@ const symbolListLower = symbolList.map((v) => v.toLowerCase().replace(/[^0-9a-z]
 })
 export class SearchBoxComponent implements OnInit {
   example = 'A2M ACE ANGPT2 BPI CD1B CDR1 EGR2 EGR3 HBEGF HERPUD1 MCM2 MRE11A PCTP PODXL; PPAP2B PPY PTGS2, RCAN1 SLC4A7 THBD THB-d';
-  inputString: string;
-  searchString: string[];
+  inputString = '';
 
   constructor() {}
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  public showExample(): void {
     this.inputString = this.example;
-    this.searchString = this._getSearchSymbol(this.inputString);
+  }
+
+  public submit(str: string): void {
+    const validSymbol = this._getSearchSymbol(str);
+    this.inputString = validSymbol.join(',');
+    console.error(this._getSearchSymbol(str));
   }
 
   private _getSearchSymbol(str: string): string[] {
