@@ -24,13 +24,12 @@ export class SearchBoxComponent implements OnInit {
   public showExample(): void {
     this.inputString = this.exampleGeneList;
     this.cancerTypesSelected.patchValue(this.exampleCancerTypes);
-    console.log(this.cancerTypesSelected);
   }
 
   public submit(str: string): void {
     const validSymbol = this._getSearchSymbol(str);
     this.inputString = validSymbol.join(', ');
-    console.error(this._getSearchSymbol(str));
+    console.error(validSymbol);
     console.error(this.cancerTypesSelected);
   }
 
