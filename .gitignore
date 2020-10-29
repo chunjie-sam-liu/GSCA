@@ -130,3 +130,6 @@ dmypy.json
 .Rproj.user
 .Rhistory
 nohup.out
+
+gsca.conf
+resource/
