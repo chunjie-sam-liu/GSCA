@@ -5,9 +5,13 @@
 
   <div fxFlex fxLayout="column" fxLayoutGap="10px" class="not-float">
     <div fxFlex="grow" fxLayout="row" style="border: 1px red solid">
-      <app-search-box fxFlex></app-search-box>
+      <app-search-box fxFlex ($searchSelected)="showContent($event)"></app-search-box>
     </div>
-    <div fxFlex="grow" fxLayout="row" style="border: 1px black solid">result</div>
+    <div fxFlex="grow" fxLayout="row" style="border: 1px black solid">
+      <ng-container *ngIf="showDEG">
+        <app-deg [searchTerm]="searchTerm"></app-deg>
+      </ng-container>
+    </div>
   </div>
 
   <div fxFlex="none">

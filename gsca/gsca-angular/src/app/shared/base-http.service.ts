@@ -12,6 +12,10 @@ export class BaseHttpService {
     return this.http.get(this._generateRoute(route, environment.apiURL), this._generateOptions(data));
   }
 
+  public postData(route: string, data?: any): Observable<any> {
+    return this.http.post(this._generateRoute(route, environment.apiURL), data);
+  }
+
   private _generateRoute(route: string, envURL: string): string {
     return `${envURL}/${route}`;
   }
