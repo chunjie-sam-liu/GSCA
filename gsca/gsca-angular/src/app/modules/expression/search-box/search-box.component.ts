@@ -48,7 +48,8 @@ export class SearchBoxComponent implements OnInit {
       .split(/\s|,|;/)
       .filter(Boolean)
       .map((v) => v.toLowerCase().replace(/[^0-9a-z]+/g, ''))
-      .filter((item, pos, self) => self.indexOf(item) === pos);
+      .filter((item, pos, self) => self.indexOf(item) === pos)
+      .sort();
 
     return arr
       .map((v) => {
