@@ -1,1 +1,1 @@
-db.gene_symbol.find().limit(5).pretty()
+db.gene_symbol.find({}, {"_id": 0, "symbol": 1}).limit(5).pretty().sort({"symbol": 1})
