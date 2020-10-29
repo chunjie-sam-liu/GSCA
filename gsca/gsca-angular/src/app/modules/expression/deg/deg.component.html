@@ -1,1 +1,56 @@
-{{ searchTerm.validSymbol }} {{ searchTerm.cancerTypeSelected }}
+<mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
+  <mat-card-header>
+    <mat-card-title>DEG</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="spinner-container" *ngIf="!displayedColumnsDeg">
+      <mat-progress-bar mode="query" color="warn"></mat-progress-bar>
+    </div>
+    <mat-form-field>
+      <input matInput placeholder="Input target gene" (keyup)="applyFilter($event)" #inputDeg />
+      <button mat-icon-button color="warn" matPrefix>
+        <mat-icon style="font-size: 25px">search</mat-icon>
+      </button>
+    </mat-form-field>
+    <mat-table [dataSource]="dataSourceDeg" matSort>
+      <ng-container matColumnDef="cancertype">
+        <mat-header-cell *matHeaderCellDef>Cancer types</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.cancertype }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="symbol">
+        <mat-header-cell *matHeaderCellDef>Gene symbol</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.symbol }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="tumor">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Expr. tumor</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.tumor | number: '1.2-2' }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="normal">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Expr. normal</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.normal | number: '1.2-2' }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="fc">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Fold change</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.fc | number: '1.2-2' }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="fdr">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>FDR</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.fdr | number: '1.2-2' }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="n_tumor">
+        <mat-header-cell *matHeaderCellDef># samples</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.n_tumor | number }}</mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumnsDeg"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumnsDeg"></mat-row>
+    </mat-table>
+    <mat-paginator #paginatorDeg [pageSizeOptions]="[10, 20]" showFirstLastButtons></mat-paginator>
+  </mat-card-content>
+</mat-card>
