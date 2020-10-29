@@ -25,7 +25,7 @@ class SymbolList(Resource):
     def get(self):
         condition = {}
         output = {"_id": 0, "symbol": 1}
-        mcur = mongo.db.gene_symbol.find(condition, output)
+        mcur = mongo.db.gene_symbol.find(condition, output).sort("symbol", 1)
         res = []
         for item in mcur:
             res.append(item["symbol"])
