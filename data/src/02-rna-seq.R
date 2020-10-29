@@ -81,3 +81,4 @@ all_expr %>%
 # Save image --------------------------------------------------------------
 
 save.image(file = file.path(rda_path,"rda",'02-rna-seq.rda'))
+load(file.path(rda_path,"rda",'02-rna-seq.rda'))
