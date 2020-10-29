@@ -4,8 +4,7 @@ from gsca.config import Config, ProductionConfig
 
 app = Flask(__name__)
 CORS(app)
-
-app.config.from_object(ProductionConfig)
+app.config.from_object(Config)
 
 import gsca.db
 import gsca.routing
