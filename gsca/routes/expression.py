@@ -25,11 +25,13 @@ class DEGTable(Resource):
         condition = {"symbol": {"$in": args["validSymbol"]}}
         output = {"_id": 0}
         res = list()
+        print(args)
         for collname in args["validColl"]:
             mcur = mongo.db[collname].find(condition, output)
             for m in mcur:
                 m["cancertype"] = collname.rstrip("_deg")
                 res.append(m)
+
         return res
 
 
