@@ -2,6 +2,10 @@ from flask import Blueprint, request
 from gsca.db import mongo
 from flask_restful import Api, Resource, fields, marshal_with, reqparse
 
+# r plot resource
+Rscript = "/usr/bin/Rscript"
+
+
 expression = Blueprint("expression", __name__)
 api = Api(expression)
 
@@ -25,7 +29,7 @@ class DEGTable(Resource):
         condition = {"symbol": {"$in": args["validSymbol"]}}
         output = {"_id": 0}
         res = list()
-        print(args)
+        print(api.app.root_path)
         for collname in args["validColl"]:
             mcur = mongo.db[collname].find(condition, output)
             for m in mcur:
