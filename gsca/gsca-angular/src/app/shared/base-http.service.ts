@@ -13,7 +13,7 @@ export class BaseHttpService {
   }
 
   public postData(route: string, data?: any): Observable<any> {
-    return this.http.post(this._generateRoute(route, environment.apiURL), data);
+    return this.http.post(this._generateRoute(route, environment.apiURL), data, { headers: { 'content-type': 'application/json' } });
   }
 
   private _generateRoute(route: string, envURL: string): string {
