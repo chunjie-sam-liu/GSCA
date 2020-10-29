@@ -1,13 +1,23 @@
 from flask import Blueprint, request
+from flask import app
 from gsca.db import mongo
 from flask_restful import Api, Resource, fields, marshal_with, reqparse
-
-# r plot resource
-Rscript = "/usr/bin/Rscript"
+from pathlib import Path
+import subprocess
 
 
 expression = Blueprint("expression", __name__)
 api = Api(expression)
+
+# r plot resource
+apppath = Path(api.app.root_path)
+rcommand = "/usr/bin/Rscript"
+rscriptpath = apppath.parent / "rscripts"
+resource_pngs = apppath.parent / "resource/pngs"
+
+if not resource_pngs.exists():
+    resource_pngs.mkdir(parents=True)
+
 
 mdoel_degtable = {
     "entrez": fields.Integer(attribute="entrez"),
@@ -29,15 +39,32 @@ class DEGTable(Resource):
         condition = {"symbol": {"$in": args["validSymbol"]}}
         output = {"_id": 0}
         res = list()
-        print(api.app.root_path)
         for collname in args["validColl"]:
             mcur = mongo.db[collname].find(condition, output)
             for m in mcur:
                 m["cancertype"] = collname.rstrip("_deg")
                 res.append(m)
-
         return res
 
 
 api.add_resource(DEGTable, "/degtable")
 
+
+class DEGplot(Resource):
+    def post(self):
+        args = request.get_json()
+        rarg = "#".join(args["validSymbol"]) + "@" + "#".join(args["validColl"])
+
+        filename = rarg + ".png"
+        filepath = resource_pngs / filename
+
+        cmd = [rcommand, str(rscriptpath / "degplot.R"), rarg, str(filepath)]
+        if not filepath.exists():
+            subprocess.check_output(cmd, universal_newlines=True)
+
+        print(cmd)
+
+        return {"cj": "cj"}
+
+
+api.add_resource(DEGplot, "/degplot")
