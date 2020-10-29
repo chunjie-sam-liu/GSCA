@@ -1,6 +1,7 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { ExprSearch } from 'src/app/shared/model/exprsearch';
 import { ExpressionApiService } from '../expression-api.service';
+import collectionList from 'src/app/shared/constants/collectionlist';
 
 @Component({
   selector: 'app-deg',
@@ -15,8 +16,20 @@ export class DegComponent implements OnInit, OnChanges {
   ngOnInit(): void {}
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.expressionApiService.getDEGTable(this.searchTerm).subscribe((res) => {
+    const postTerm = this._validCollection(this.searchTerm);
+    console.log(postTerm);
+    this.expressionApiService.getDEGTable(postTerm).subscribe((res) => {
       console.log(res);
     });
+  }
+
+  private _validCollection(st: ExprSearch): any {
+    st.validColl = st.cancerTypeSelected
+      .map((val) => {
+        return collectionList.deg.collnames[collectionList.deg.cancertypes.indexOf(val)];
+      })
+      .filter(Boolean);
+
+    return st;
   }
 }

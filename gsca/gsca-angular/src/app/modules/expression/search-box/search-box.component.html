@@ -21,11 +21,11 @@
   <div fxFlex>
     <mat-form-field appearance="outline" class="search-box">
       <mat-label>Select cancer types</mat-label>
-      <mat-select [formControl]="cancerTypesSelected" multiple>
+      <mat-select [formControl]="cancerTypeSelected" multiple>
         <mat-select-trigger>
-          {{ cancerTypesSelected.value ? cancerTypesSelected.value[0] : '' }}
-          <span *ngIf="cancerTypesSelected.value?.length > 1">
-            (+{{ cancerTypesSelected.value.length - 1 }} {{ cancerTypesSelected.value?.length === 2 ? 'other' : 'others' }})
+          {{ cancerTypeSelected.value ? cancerTypeSelected.value[0] : '' }}
+          <span *ngIf="cancerTypeSelected.value?.length > 1">
+            (+{{ cancerTypeSelected.value.length - 1 }} {{ cancerTypeSelected.value?.length === 2 ? 'other' : 'others' }})
           </span>
         </mat-select-trigger>
         <mat-option *ngFor="let cancerType of cancerTypeList" [value]="cancerType.shortname">

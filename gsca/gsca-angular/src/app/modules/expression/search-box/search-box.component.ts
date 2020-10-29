@@ -16,7 +16,7 @@ export class SearchBoxComponent implements OnInit {
   exampleCancerTypes = ['KICH', 'KIRC', 'KIRP', 'LUAD', 'LUSC'];
   cancerTypeList = cancerTypeList;
   inputString = '';
-  cancerTypesSelected = new FormControl();
+  cancerTypeSelected = new FormControl();
 
   @Output() $searchSelected = new EventEmitter<ExprSearch>();
 
@@ -26,7 +26,7 @@ export class SearchBoxComponent implements OnInit {
 
   public showExample(): void {
     this.inputString = this.exampleGeneList;
-    this.cancerTypesSelected.patchValue(this.exampleCancerTypes);
+    this.cancerTypeSelected.patchValue(this.exampleCancerTypes);
   }
 
   public submit(str: string): void {
@@ -34,13 +34,13 @@ export class SearchBoxComponent implements OnInit {
 
     this.$searchSelected.emit({
       validSymbol: this._getSearchSymbol(str),
-      cancerTypesSelected: this.cancerTypesSelected.value,
+      cancerTypeSelected: this.cancerTypeSelected.value,
     });
   }
 
   public clear(): void {
     this.inputString = '';
-    this.cancerTypesSelected.patchValue([]);
+    this.cancerTypeSelected.patchValue([]);
   }
 
   private _getSearchSymbol(str: string): string[] {

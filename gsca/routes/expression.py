@@ -2,40 +2,35 @@ from flask import Blueprint, request
 from gsca.db import mongo
 from flask_restful import Api, Resource, fields, marshal_with, reqparse
 
-
 expression = Blueprint("expression", __name__)
 api = Api(expression)
 
-mdoel_degs = {}
-
-
-class DEG(Resource):
-    def get(self):
-        parser = reqparse.RequestParser()
-        parser.add_argument("symbol", type=str, required=True)
-        parser.add_argument("cancertypes", type=str)
-
-        args = parser.parse_args()
-
-        condition = {}
-        if args.filter != "":
-            condition["symbol"] = {"$regex": args.filter, "$options": "i"}
-        mcur = mongo.db["BLCA_deg"].find(condition)
-        n_record = mcur.count()
-        return {""}
-
-
-api.add_resource(DEG, "/degs")
+mdoel_degtable = {
+    "entrez": fields.Integer(attribute="entrez"),
+    "symbol": fields.String(attribute="symbol"),
+    "normal": fields.Float(attribute="normal"),
+    "tumor": fields.Float(attribute="tumor"),
+    "fc": fields.Float(attribute="fc"),
+    "fdr": fields.Float(attribute="fdr"),
+    "n_normal": fields.Float(attribute="n_normal"),
+    "n_tumor": fields.Float(attribute="n_tumor"),
+    "cancertype": fields.String(attribute="cancertype"),
+}
 
 
 class DEGTable(Resource):
+    @marshal_with(mdoel_degtable)
     def post(self):
         args = request.get_json()
-        deg_coll_names = [f"{i}_deg" for i in args["cancertypes"]]
-        print(deg_coll_names)
-        coll_names = list(set(deg_coll_names) & set(mongo.db.list_collection_names()))
-        print(coll_names)
-        return {"cj": "cj"}
+        condition = {"symbol": {"$in": args["validSymbol"]}}
+        output = {"_id": 0}
+        res = list()
+        for collname in args["validColl"]:
+            mcur = mongo.db[collname].find(condition, output)
+            for m in mcur:
+                m["cancertype"] = collname.rstrip("_deg")
+                res.append(m)
+        return res
 
 
 api.add_resource(DEGTable, "/degtable")

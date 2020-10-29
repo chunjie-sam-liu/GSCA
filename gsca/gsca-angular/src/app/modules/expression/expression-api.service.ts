@@ -13,10 +13,7 @@ export class ExpressionApiService extends BaseHttpService {
     super(http);
   }
 
-  public getDEGTable(searchIterm: ExprSearch): Observable<any> {
-    return this.postData('expression/degtable', {
-      symbol: searchIterm.validSymbol,
-      cancertypes: searchIterm.cancerTypesSelected,
-    }).pipe(map((res) => res.cj));
+  public getDEGTable(postTerm: ExprSearch): Observable<any> {
+    return this.postData('expression/degtable', postTerm);
   }
 }
