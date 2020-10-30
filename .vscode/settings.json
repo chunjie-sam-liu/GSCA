@@ -1,5 +1,6 @@
 {
   "python.pythonPath": "venv/bin/python",
+  "python.dataScience.jupyterServerURI": "http://localhost:9797/?token=null",
   "python.analysis.disabled": ["unresolved-import"],
   "[python]": {
     "editor.insertSpaces": true,
