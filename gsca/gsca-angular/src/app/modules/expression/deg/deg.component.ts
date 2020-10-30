@@ -16,26 +16,58 @@ export class DegComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() searchTerm: ExprSearch;
 
   // deg table data source
+  dataSourceDegLoading = true;
   dataSourceDeg: MatTableDataSource<DegTableRecord>;
   @ViewChild('paginatorDeg', { static: true }) paginatorDeg: MatPaginator;
   @ViewChild(MatSort) sortDeg: MatSort;
   displayedColumnsDeg = ['cancertype', 'symbol', 'tumor', 'normal', 'fc', 'fdr', 'n_tumor'];
+
+  // degPlot
+  degImageLoading = true;
+  degImage: any;
 
   constructor(private expressionApiService: ExpressionApiService) {}
 
   ngOnInit(): void {}
 
   ngOnChanges(changes: SimpleChanges): void {
+    this.dataSourceDegLoading = true;
+    this.degImageLoading = true;
     const postTerm = this._validCollection(this.searchTerm);
 
     this.expressionApiService.getDEGTable(postTerm).subscribe((res) => {
+      this.dataSourceDegLoading = false;
       this.dataSourceDeg = new MatTableDataSource(res);
       this.dataSourceDeg.paginator = this.paginatorDeg;
       this.dataSourceDeg.sort = this.sortDeg;
     });
+
+    this.expressionApiService.getDEGPlot(postTerm).subscribe(
+      (res) => {
+        this._createImageFromBlob(res);
+        this.degImageLoading = false;
+      },
+      (err) => {
+        this.degImageLoading = false;
+      }
+    );
   }
 
   ngAfterViewInit(): void {}
+
+  private _createImageFromBlob(image: Blob) {
+    const reader = new FileReader();
+    reader.addEventListener(
+      'load',
+      () => {
+        this.degImage = reader.result;
+      },
+      false
+    );
+    if (image) {
+      reader.readAsDataURL(image);
+    }
+  }
 
   private _validCollection(st: ExprSearch): any {
     st.validColl = st.cancerTypeSelected
