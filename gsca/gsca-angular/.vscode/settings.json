@@ -23,7 +23,7 @@
     "titleBar.inactiveForeground": "#e7e7e799"
   },
   "peacock.remoteColor": "#215732",
-  "terminal.integrated.shellArgs.linux": ["-i"],
+  "terminal.integrated.shellArgs.linux": ["-i", "-l"],
   "terminal.integrated.shell.linux": "bash",
   "peacock.color": "#215732",
   // prettier
