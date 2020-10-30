@@ -68,5 +68,6 @@
   "emmet.triggerExpansionOnTab": true,
   "workbench.editor.tabCloseButton": "left",
   "git.confirmSync": false,
-  "remote.SSH.connectTimeout": 10000
+  "remote.SSH.connectTimeout": 10000,
+  "debug.javascript.usePreview": false
 }
