@@ -25,6 +25,7 @@
   "peacock.remoteColor": "#215732",
   "terminal.integrated.shellArgs.linux": ["-i", "-l"],
   "terminal.integrated.shell.linux": "bash",
+  "terminal.integrated.inheritEnv": true,
   "peacock.color": "#215732",
   // prettier
   "editor.codeActionsOnSave": {
