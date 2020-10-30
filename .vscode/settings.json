@@ -2,6 +2,8 @@
   "python.pythonPath": "venv/bin/python",
   "python.dataScience.jupyterServerURI": "http://localhost:9797/?token=null",
   "python.analysis.disabled": ["unresolved-import"],
+  "terminal.integrated.shellArgs.linux": ["-i"],
+  "terminal.integrated.shell.linux": "bash",
   "[python]": {
     "editor.insertSpaces": true,
     "editor.detectIndentation": true,
