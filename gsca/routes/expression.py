@@ -57,8 +57,7 @@ class DEGplot(Resource):
 
         if res["run"]:
             self.__degplot(args, res["filepath"])
-
-        return send_file(res["filepath"], mimetype="image/png")
+        return send_file(str(res["filepath"]), mimetype="image/png")
 
     def __check_run(self, args):
         uuidname = str(uuid.uuid4())
