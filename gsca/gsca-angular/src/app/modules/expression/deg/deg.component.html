@@ -52,6 +52,10 @@
     <mat-paginator #paginatorDeg [pageSizeOptions]="[10, 20]" showFirstLastButtons></mat-paginator>
   </mat-card-content>
 </mat-card>
+
+<mat-card-header>
+  <mat-card-title>Bouble plot of DEGs.</mat-card-title>
+</mat-card-header>
 <img [src]="this.degImage" alt="degplot" *ngIf="!degImageLoading; else loading" height="500px" />
 
 <ng-template #loading>

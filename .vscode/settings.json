@@ -52,5 +52,6 @@
     "titleBar.inactiveForeground": "#e7e7e799"
   },
   "peacock.remoteColor": "#832561",
-  "peacock.color": "#832561"
+  "peacock.color": "#832561",
+  "python.analysis.completeFunctionParens": true
 }
