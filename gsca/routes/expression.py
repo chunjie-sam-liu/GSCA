@@ -90,6 +90,7 @@ class DEGplot(Resource):
         rarg = "#".join(args["validSymbol"]) + "@" + "#".join(args["validColl"])
 
         cmd = [rcommand, str(rscriptpath / "degplot.R"), rarg, str(filepath), str(apppath)]
+        print(cmd)
 
         subprocess.check_output(cmd, universal_newlines=True)
 

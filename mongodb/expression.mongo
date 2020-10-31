@@ -3,4 +3,4 @@ db.BLCA_all_expr.findOne()
 
 db.BLCA_deg.findOne()
 
-db.BLCA_deg.find({"symbol": {"$in": ["A2M","ACE","ANGPT2","BPI","CD1B","CDR1","EGR2","EGR3","HBEGF","HERPUD1","MCM2","PCTP","PODXL","PPY","PTGS2","RCAN1","SLC4A7","THBD"]}}, {"_id": 0})
+db.KICH_deg.find({"symbol": {"$in": ["A2M","ACE","ANGPT2","BPI","CD1B","CDR1","EGR2","EGR3","HBEGF","HERPUD1","MCM2","PCTP","PODXL","PPY","PTGS2","RCAN1","SLC4A7","THBD"]}}, {"_id": 0})
