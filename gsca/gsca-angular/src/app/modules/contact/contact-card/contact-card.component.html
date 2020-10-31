@@ -7,8 +7,8 @@
     <img mat-card-image [src]="assets + '/avatars/' + author.avatar" [alt]="author.avatar" />
   </div>
   <mat-card-content>
-    <p>Department of Bioinformatics and Systems Biology.</p>
-    <p>College of Life Science and Technology</p>
-    <p>Huazhong University of Science and Technology, Wuhan 430074 P.R. China</p>
+    <p>{{ author.department1 }}</p>
+    <p>{{ author.department2 }}</p>
+    <p>{{ author.department3 }}</p>
   </mat-card-content>
 </mat-card>
