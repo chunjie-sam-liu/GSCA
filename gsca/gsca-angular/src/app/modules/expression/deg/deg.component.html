@@ -53,10 +53,14 @@
   </mat-card-content>
 </mat-card>
 
-<mat-card-header>
-  <mat-card-title>Bouble plot of DEGs.</mat-card-title>
-</mat-card-header>
-<img [src]="this.degImage" alt="degplot" *ngIf="!degImageLoading; else loading" height="500px" />
+<mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
+  <mat-card-header>
+    <mat-card-title>Bouble plot of DEGs.</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <img [src]="this.degImage" alt="degplot" *ngIf="!degImageLoading; else loading" height="600px" />
+  </mat-card-content>
+</mat-card>
 
 <ng-template #loading>
   <mat-progress-bar mode="query" color="warn"></mat-progress-bar>

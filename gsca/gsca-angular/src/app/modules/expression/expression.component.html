@@ -10,7 +10,7 @@
 
     <div fxFlex="grow" fxLayout="row" style="border: 1px rebeccapurple solid">
       <ng-container *ngIf="showDEG; else empty">
-        <app-deg [searchTerm]="searchTerm"></app-deg>
+        <app-deg fxLayout="row" fxLayoutGap="10px" fxLayout.lt-lg="column" [searchTerm]="searchTerm"></app-deg>
       </ng-container>
     </div>
 
