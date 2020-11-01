@@ -14,9 +14,9 @@ search_str <- args[1]
 filepath <- args[2]
 apppath <- args[3]
 
-search_str = 'A2M#ACE#ANGPT2#BPI#CD1B#CDR1#EGR2#EGR3#HBEGF#HERPUD1#MCM2#PCTP#PODXL#PPY#PTGS2#RCAN1#SLC4A7#THBD@KICH_deg#KIRC_deg#KIRP_deg#LUAD_deg#LUSC_deg'
-filepath = '/home/liucj/github/GSCA/gsca/resource/pngs/A2M#ACE#ANGPT2#BPI#CD1B#CDR1#EGR2#EGR3#HBEGF#HERPUD1#MCM2#PCTP#PODXL#PPY#PTGS2#RCAN1#SLC4A7#THBD@KICH_deg#KIRC_deg#KIRP_deg#LUAD_deg#LUSC_deg.png'
-apppath <- '/home/liucj/github/GSCA'
+# search_str = 'A2M#ACE#ANGPT2#BPI#CD1B#CDR1#EGR2#EGR3#HBEGF#HERPUD1#MCM2#PCTP#PODXL#PPY#PTGS2#RCAN1#SLC4A7#THBD@KICH_deg#KIRC_deg#KIRP_deg#LUAD_deg#LUSC_deg'
+# filepath = '/home/liucj/github/GSCA/gsca/resource/pngs/A2M#ACE#ANGPT2#BPI#CD1B#CDR1#EGR2#EGR3#HBEGF#HERPUD1#MCM2#PCTP#PODXL#PPY#PTGS2#RCAN1#SLC4A7#THBD@KICH_deg#KIRC_deg#KIRP_deg#LUAD_deg#LUSC_deg.png'
+# apppath <- '/home/liucj/github/GSCA'
 
 
 search_str_split <- strsplit(x = search_str, split = '@')[[1]]
@@ -44,16 +44,68 @@ fn_fetch_mongo <- function(.x) {
     dplyr::mutate(cancertype = gsub(pattern = '_deg', replacement = '', x = .x))
 }
 
+fn_filter_fc_pval <- function(.x) {
+  .x %>%
+    dplyr::filter(abs(log2(fc)) >= log2(3 / 2), fdr <= 0.05) %>%
+    dplyr::mutate(fdr = -log10(fdr)) %>%
+    dplyr::mutate(fdr = ifelse(fdr > 15, 15, fdr)) %>%
+    dplyr::mutate(fc = ifelse(fc < 1 / 8, 1 / 8, ifelse(fc > 8, 8, fc)))
+}
+
+fn_filter_pattern <- function(fc, fdr) {
+  if ((fc > 3 / 2) && (fdr < 0.05)) {
+    return(1)
+  } else if ((fc < 2 / 3) && (fdr < 0.05)) {
+    return(-1)
+  } else {
+    return(0)
+  }
+}
+
+fn_get_pattern <- function(.x) {
+  .x %>%
+    dplyr::mutate(expr_pattern = purrr::map2_dbl(fc, fdr, fn_filter_pattern)) %>%
+    dplyr::select(cancertype, symbol, expr_pattern) %>%
+    tidyr::spread(key = cancertype, value = expr_pattern) %>%
+    dplyr::mutate_if(.predicate = is.numeric, .funs = function(.) {ifelse(is.na(.), 0, .)})
+}
+
+fn_get_cancer_types_rank <- function(.x) {
+  .x %>%
+    dplyr::summarise_if(.predicate = is.numeric, dplyr::funs(sum(abs(.)))) %>%
+    tidyr::gather(key = cancertype, value = rank) %>%
+    dplyr::arrange(dplyr::desc(rank))
+}
+
+fn_get_gene_rank <- function(.x) {
+  .x %>%
+    dplyr::rowwise() %>%
+    dplyr::do(
+      symbol = .$symbol,
+      rank = unlist(.[-1], use.names = F) %>% sum(),
+      up = (unlist(.[-1], use.names = F) == 1) %>% sum(),
+      down = (unlist(.[-1], use.names = F) == -1) %>% sum()
+    ) %>%
+    dplyr::ungroup() %>%
+    tidyr::unnest(cols = c(symbol, rank, up, down)) %>%
+    dplyr::mutate(up_p = up / 14, down_p = down / 14, none = 1 - up_p - down_p) %>%
+    dplyr::arrange(rank)
+}
 
 # Query data --------------------------------------------------------------
+fetched_data <- purrr::map(.x = search_cancertypes, .f = fn_fetch_mongo) %>% dplyr::bind_rows()
 
-fetched_data <-  purrr::map(.x = search_cancertypes, .f = fn_fetch_mongo) %>% 
-  dplyr::bind_rows() %>% 
-  dplyr::mutate(fdr = -log10(fdr))
+# Sort --------------------------------------------------------------------
+
+fetched_data_clean_pattern <- fn_get_pattern(.x = fetched_data)
+cancer_rank <- fn_get_cancer_types_rank(.x = fetched_data_clean_pattern)
+gene_rank <- fn_get_gene_rank(.x = fetched_data_clean_pattern)
+
+fetched_data_filter <- fn_filter_fc_pval(.x = fetched_data)
 
 # Plot --------------------------------------------------------------------
 CPCOLS <- c("#000080", "#F8F8FF", "#CD0000")
-bubble_plot <- fetched_data %>% 
+bubble_plot <- fetched_data_filter %>% 
   ggplot(aes(x = cancertype, y = symbol)) +
   geom_point(aes(size = fdr, col = log2(fc))) +
   scale_color_gradient2(
@@ -65,9 +117,35 @@ bubble_plot <- fetched_data %>%
     breaks = seq(-3, 3, length.out = 5),
     labels = c("<= -3", "-1.5", "0", "1.5", ">= 3"),
     name = "log2 FC"
-  ) 
+  ) +
+  scale_size_continuous(
+    limit = c(-log10(0.05), 15),
+    range = c(1, 6),
+    breaks = c(-log10(0.05), 5, 10, 15),
+    labels = c("0.05", latex2exp::TeX("$10^{-5}$"), latex2exp::TeX("$10^{-10}$"), latex2exp::TeX("$< 10^{-15}$")),
+    name = "FDR"
+  ) +
+  scale_y_discrete(limit = gene_rank$symbol) +
+  scale_x_discrete(limit = cancer_rank$cancer_types) +
+  theme(
+    panel.background = element_rect(colour = "black", fill = "white"),
+    panel.grid = element_line(colour = "grey", linetype = "dashed"),
+    panel.grid.major = element_line(
+      colour = "grey",
+      linetype = "dashed",
+      size = 0.2
+    ),
+    axis.title = element_blank(),
+    axis.ticks = element_line(color = "black"),
+    # axis.text.y = element_text(color = gene_rank$color),
+    axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5),
+    
+    legend.text = element_text(size = 12),
+    legend.title = element_text(size = 14),
+    legend.key = element_rect(fill = "white", colour = "black")
+  )
 
 
 # Save --------------------------------------------------------------------
-ggsave(filename = filepath, plot = bubble_plot, device = 'png')
+ggsave(filename = filepath, plot = bubble_plot, device = 'png', width = 7, height = 7)
 
