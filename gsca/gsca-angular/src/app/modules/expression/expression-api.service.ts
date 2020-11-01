@@ -19,4 +19,7 @@ export class ExpressionApiService extends BaseHttpService {
   public getDEGPlot(postTerm: ExprSearch): Observable<any> {
     return this.postDataImage('expression/degplot', postTerm);
   }
+  public getSurvivalTable(postTerm: ExprSearch): Observable<any> {
+    return this.postData('expression/survivaltable', postTerm);
+  }
 }
