@@ -23,7 +23,8 @@ snv_survival <- readr::read_rds(file.path(data_path,"pancan32_snv_survival_genel
 fn_snv_survival_mongo <-function(cancer_types,snv_survival){
   .y <- cancer_types 
   .x <- snv_survival %>%
-    dplyr::rename(worse_group=worse,cox_p=coxP,log_rank_p=logRankP)
+    dplyr::rename(higher_risk_of_death=worse,cox_p=coxP,log_rank_p=logRankP) %>%
+    dplyr::mutate(higher_risk_of_death=ifelse(higher_risk_of_death=="High","Mutated","Non-mutated"))
   
   # insert to collection
   .coll_name <- glue::glue('{.y}_snv_survival')
