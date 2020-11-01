@@ -23,7 +23,8 @@ methy_survival <- readr::read_rds(file.path(data_path,"pancan32_meth_survival.Id
 fn_methy_survival_mongo <-function(cancer_types,methy){
   .y <- cancer_types 
   .x <- methy %>%
-    dplyr::rename(worse_group=Hyper_worse,cox_p=coxP,log_rank_p=logRankP)
+    dplyr::rename(higher_risk_of_death=Hyper_worse,cox_p=coxP,log_rank_p=logRankP) %>%
+    dplyr::mutate(higher_risk_of_death=ifelse(higher_risk_of_death=="High","Hypermethylation","Hypomethylation")) 
   
   # insert to collection
   .coll_name <- glue::glue('{.y}_methy_survival')
