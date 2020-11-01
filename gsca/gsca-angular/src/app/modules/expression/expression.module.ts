@@ -7,9 +7,10 @@ import { SearchBoxComponent } from './search-box/search-box.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { DegComponent } from './deg/deg.component';
 import { ColorDiyComponent } from './color-diy/color-diy.component';
+import { SurvivalComponent } from './survival/survival.component';
 
 @NgModule({
-  declarations: [ExpressionComponent, SearchBoxComponent, DegComponent, ColorDiyComponent],
+  declarations: [ExpressionComponent, SearchBoxComponent, DegComponent, ColorDiyComponent, SurvivalComponent],
   imports: [CommonModule, ExpressionRoutingModule, SharedModule],
 })
 export class ExpressionModule {}
