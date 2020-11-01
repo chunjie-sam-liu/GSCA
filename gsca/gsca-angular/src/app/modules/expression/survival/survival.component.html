@@ -1,0 +1,54 @@
+<div fxLayout="row" fxLayoutGap="20px">
+  <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
+    <mat-card-header>
+      <mat-card-title>Survival</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <ng-container *ngIf="!dataSourceSurvivalLoading; else loading"></ng-container>
+
+      <mat-form-field>
+        <input matInput placeholder="Input target gene" (keyup)="applyFilter($event)" #inputSurvival />
+        <button mat-icon-button color="warn" matPrefix>
+          <mat-icon style="font-size: 25px">search</mat-icon>
+        </button>
+      </mat-form-field>
+
+      <mat-table [dataSource]="dataSourceSurvival" matSort>
+        <ng-container matColumnDef="cancertype">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Cancer types</mat-header-cell>
+          <mat-cell *matCellDef="let row">{{ row.cancertype }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="symbol">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Gene symbol</mat-header-cell>
+          <mat-cell *matCellDef="let row">{{ row.symbol }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="pval">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>P value</mat-header-cell>
+          <mat-cell *matCellDef="let row">{{ row.pval }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="worse_group">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Worse group</mat-header-cell>
+          <mat-cell *matCellDef="let row">{{ row.worse_group }}</mat-cell>
+        </ng-container>
+      </mat-table>
+      <mat-paginator #paginatorSurvival [pageSizeOptions]="[10, 20]" showFirstLastButtons></mat-paginator>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card appMaterialElevation defaultElevation="4" raisedElevation="4" fxLayout="row" fxLayoutGap="10px">
+    <div fxFlex>
+      <mat-card-header>
+        <mat-card-title>Profile of the survival of gene expression.</mat-card-title>
+      </mat-card-header>
+      <img mat-card-image [src]="this.survivalImage" alt="survivalplot" *ngIf="!survivalImageLoading; else loading" height="500px" />
+    </div>
+  </mat-card>
+</div>
+
+<ng-template #loading>
+  <mat-progress-bar mode="query" color="warn"></mat-progress-bar>
+</ng-template>
