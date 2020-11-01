@@ -12,7 +12,7 @@ import { ExpressionApiService } from '../expression-api.service';
   templateUrl: './survival.component.html',
   styleUrls: ['./survival.component.css'],
 })
-export class SurvivalComponent implements OnInit {
+export class SurvivalComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() searchTerm: ExprSearch;
 
   // survival table data source
