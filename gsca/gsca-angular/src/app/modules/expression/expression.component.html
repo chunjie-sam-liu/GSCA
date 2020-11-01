@@ -9,6 +9,10 @@
     </div>
 
     <div fxFlex="grow" fxLayout="row" style="border: 1px rebeccapurple solid">
+      <app-color-diy></app-color-diy>
+    </div>
+
+    <div fxFlex="grow" fxLayout="row" style="border: 1px rebeccapurple solid">
       <ng-container *ngIf="showDEG; else empty">
         <app-deg [searchTerm]="searchTerm"></app-deg>
       </ng-container>
