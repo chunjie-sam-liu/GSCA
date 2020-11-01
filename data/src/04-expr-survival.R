@@ -40,8 +40,8 @@ fn_transform_df <- function(cancer_types, data) {
 # Tidy data ---------------------------------------------------------------
 
 expr_survival %>% 
-  dplyr::rename(worse_group=status) %>%
-  dplyr::mutate(worse_group=ifelse(worse_group=="H","High expr.","Low expr.")) %>%
+  dplyr::rename(higher_risk_of_death=status) %>%
+  dplyr::mutate(higher_risk_of_death=ifelse(higher_risk_of_death=="H","Higher expr.","Lower expr.")) %>%
   dplyr::filter(symbol %in% search_symbol$symbol) %>% 
   dplyr::mutate(entrez = as.numeric(entrez)) %>% 
   dplyr::group_by(cancer_types) %>% 
