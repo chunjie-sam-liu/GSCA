@@ -12,12 +12,12 @@
     </mat-form-field>
     <mat-table [dataSource]="dataSourceDeg" matSort>
       <ng-container matColumnDef="cancertype">
-        <mat-header-cell *matHeaderCellDef>Cancer types</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Cancer types</mat-header-cell>
         <mat-cell *matCellDef="let row">{{ row.cancertype }}</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="symbol">
-        <mat-header-cell *matHeaderCellDef>Gene symbol</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Gene symbol</mat-header-cell>
         <mat-cell *matCellDef="let row">{{ row.symbol }}</mat-cell>
       </ng-container>
 
@@ -42,7 +42,7 @@
       </ng-container>
 
       <ng-container matColumnDef="n_tumor">
-        <mat-header-cell *matHeaderCellDef># samples</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header># samples</mat-header-cell>
         <mat-cell *matCellDef="let row">{{ row.n_tumor | number }}</mat-cell>
       </ng-container>
 
