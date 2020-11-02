@@ -29,10 +29,13 @@
         <mat-cell *matCellDef="let row">{{ row.pval }}</mat-cell>
       </ng-container>
 
-      <ng-container matColumnDef="higher_risk_of_death">
+      <ng-container matColumnDef="worse_group">
         <mat-header-cell *matHeaderCellDef mat-sort-header>Higher risk of death</mat-header-cell>
         <mat-cell *matCellDef="let row">{{ row.higher_risk_of_death }}</mat-cell>
       </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumnsSurvival"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumnsSurvival"></mat-row>
     </mat-table>
     <mat-paginator #paginatorSurvival [pageSizeOptions]="[10, 20]" showFirstLastButtons></mat-paginator>
   </mat-card-content>
