@@ -18,7 +18,7 @@ export class SurvivalComponent implements OnInit, OnChanges, AfterViewInit {
   // survival table data source
   dataSourceSurvivalLoading = true;
   dataSourceSurvival: MatTableDataSource<SurvivalTableRecord>;
-  @ViewChild('paginatorSurvival', { static: true }) paginatorDeg: MatPaginator;
+  @ViewChild('paginatorSurvival', { static: true }) paginatorSurvival: MatPaginator;
   @ViewChild(MatSort) sortSurvival: MatSort;
   displayedColumnsSurvival = ['cancertype', 'symbol', 'pval', 'worse_group'];
 
@@ -35,14 +35,24 @@ export class SurvivalComponent implements OnInit, OnChanges, AfterViewInit {
     // Add '${implements OnChanges}' to the class.
     this.dataSourceSurvivalLoading = true;
     this.survivalImageLoading = true;
-    const psotTerm = this._validCollection(this.searchTerm);
+    const postTerm = this._validCollection(this.searchTerm);
 
-    this.expressionApiService.getSurvivalTable(psotTerm).subscribe((res) => {
+    this.expressionApiService.getSurvivalTable(postTerm).subscribe((res) => {
       this.dataSourceSurvivalLoading = false;
       this.dataSourceSurvival = new MatTableDataSource(res);
-      this.dataSourceSurvival.paginator = this.paginatorDeg;
+      this.dataSourceSurvival.paginator = this.paginatorSurvival;
       this.dataSourceSurvival.sort = this.sortSurvival;
     });
+
+    this.expressionApiService.getSurvivalPlot(postTerm).subscribe(
+      (res) => {
+        this.survivalImageLoading = false;
+        this._createImageFromBlob(res);
+      },
+      (err) => {
+        this.survivalImageLoading = false;
+      }
+    );
   }
 
   ngAfterViewInit(): void {
@@ -59,6 +69,19 @@ export class SurvivalComponent implements OnInit, OnChanges, AfterViewInit {
     return st;
   }
 
+  private _createImageFromBlob(res: Blob) {
+    const reader = new FileReader();
+    reader.addEventListener(
+      'load',
+      () => {
+        this.survivalImage = reader.result;
+      },
+      false
+    );
+    if (res) {
+      reader.readAsDataURL(res);
+    }
+  }
   public applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSourceSurvival.filter = filterValue.trim().toLowerCase();
