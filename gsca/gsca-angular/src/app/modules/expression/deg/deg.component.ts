@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { ExprSearch } from 'src/app/shared/model/exprsearch';
 import { ExpressionApiService } from '../expression-api.service';
 import collectionList from 'src/app/shared/constants/collectionlist';
@@ -18,13 +18,15 @@ export class DegComponent implements OnInit, OnChanges, AfterViewInit {
   // deg table data source
   dataSourceDegLoading = true;
   dataSourceDeg: MatTableDataSource<DegTableRecord>;
-  @ViewChild('paginatorDeg', { static: true }) paginatorDeg: MatPaginator;
+  @ViewChild('paginatorDeg') paginatorDeg: MatPaginator;
   @ViewChild(MatSort) sortDeg: MatSort;
   displayedColumnsDeg = ['cancertype', 'symbol', 'tumor', 'normal', 'fc', 'fdr', 'n_tumor'];
 
   // degPlot
   degImageLoading = true;
   degImage: any;
+  showDEGTable = true;
+  showDEGImage = true;
 
   constructor(private expressionApiService: ExpressionApiService) {}
 
@@ -33,24 +35,39 @@ export class DegComponent implements OnInit, OnChanges, AfterViewInit {
   ngOnChanges(changes: SimpleChanges): void {
     this.dataSourceDegLoading = true;
     this.degImageLoading = true;
+
     const postTerm = this._validCollection(this.searchTerm);
 
-    this.expressionApiService.getDEGTable(postTerm).subscribe((res) => {
+    if (!postTerm.validColl.length) {
       this.dataSourceDegLoading = false;
-      this.dataSourceDeg = new MatTableDataSource(res);
-      this.dataSourceDeg.paginator = this.paginatorDeg;
-      this.dataSourceDeg.sort = this.sortDeg;
-    });
+      this.degImageLoading = false;
+      this.showDEGTable = false;
+      this.showDEGImage = false;
+    } else {
+      this.showDEGTable = true;
+      this.expressionApiService.getDEGTable(postTerm).subscribe(
+        (res) => {
+          this.dataSourceDegLoading = false;
+          this.dataSourceDeg = new MatTableDataSource(res);
+          this.dataSourceDeg.paginator = this.paginatorDeg;
+          this.dataSourceDeg.sort = this.sortDeg;
+        },
+        (err) => {
+          this.showDEGTable = false;
+        }
+      );
 
-    this.expressionApiService.getDEGPlot(postTerm).subscribe(
-      (res) => {
-        this._createImageFromBlob(res);
-        this.degImageLoading = false;
-      },
-      (err) => {
-        this.degImageLoading = false;
-      }
-    );
+      this.expressionApiService.getDEGPlot(postTerm).subscribe(
+        (res) => {
+          this.showDEGImage = true;
+          this.degImageLoading = false;
+          this._createImageFromBlob(res);
+        },
+        (err) => {
+          this.showDEGImage = false;
+        }
+      );
+    }
   }
 
   ngAfterViewInit(): void {}
