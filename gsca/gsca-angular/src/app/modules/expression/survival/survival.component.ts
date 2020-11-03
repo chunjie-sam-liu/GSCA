@@ -36,7 +36,6 @@ export class SurvivalComponent implements OnInit, OnChanges, AfterViewInit {
     this.dataSourceSurvivalLoading = true;
     this.survivalImageLoading = true;
     const postTerm = this._validCollection(this.searchTerm);
-    console.log(postTerm);
 
     this.expressionApiService.getSurvivalTable(postTerm).subscribe((res) => {
       this.dataSourceSurvivalLoading = false;
