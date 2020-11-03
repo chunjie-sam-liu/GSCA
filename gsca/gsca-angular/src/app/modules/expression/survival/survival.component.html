@@ -26,12 +26,12 @@
 
       <ng-container matColumnDef="hr">
         <mat-header-cell *matHeaderCellDef mat-sort-header>Hazard Ratio</mat-header-cell>
-        <mat-cell *matCellDef="let row">{{ row.hr }}</mat-cell>
+        <mat-cell *matCellDef="let row">{{ row.hr | number: '1.2-2' }}</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="pval">
         <mat-header-cell *matHeaderCellDef mat-sort-header>P value</mat-header-cell>
-        <mat-cell *matCellDef="let row">{{ row.pval }}</mat-cell>
+        <mat-cell *matCellDef="let row">{{ row.pval | number: '1.2-2' }}</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="worse_group">
