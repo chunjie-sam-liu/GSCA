@@ -138,8 +138,8 @@ bubble_plot <- fetched_data_filter %>%
     axis.title = element_blank(),
     axis.ticks = element_line(color = "black"),
     # axis.text.y = element_text(color = gene_rank$color),
-    axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5),
-    
+    axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, colour = "black"),
+    axis.text.y = element_text(colour = "black"),
     legend.text = element_text(size = 12),
     legend.title = element_text(size = 14),
     legend.key = element_rect(fill = "white", colour = "black")
