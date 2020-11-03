@@ -24,7 +24,8 @@ fn_snv_survival_mongo <-function(cancer_types,snv_survival){
   .y <- cancer_types 
   .x <- snv_survival %>%
     dplyr::rename(higher_risk_of_death=worse,cox_p=coxP,log_rank_p=logRankP) %>%
-    dplyr::mutate(higher_risk_of_death=ifelse(higher_risk_of_death=="High","Mutated","Non-mutated"))
+    dplyr::mutate(higher_risk_of_death=ifelse(higher_risk_of_death=="High","Mutated","Non-mutated")) %>%
+    dplyr::mutate(HR = exp(estimate))
   
   # insert to collection
   .coll_name <- glue::glue('{.y}_snv_survival')

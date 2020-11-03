@@ -1,3 +1,4 @@
 src/gsca.conf
 rda
 src/*out
+*rda

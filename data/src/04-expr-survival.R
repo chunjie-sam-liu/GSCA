@@ -42,6 +42,7 @@ fn_transform_df <- function(cancer_types, data) {
 expr_survival %>% 
   dplyr::rename(higher_risk_of_death=status) %>%
   dplyr::mutate(higher_risk_of_death=ifelse(higher_risk_of_death=="H","Higher expr.","Lower expr.")) %>%
+  dplyr::mutate(HR = exp(estimate)) %>%
   dplyr::filter(symbol %in% search_symbol$symbol) %>% 
   dplyr::mutate(entrez = as.numeric(entrez)) %>% 
   dplyr::group_by(cancer_types) %>% 
