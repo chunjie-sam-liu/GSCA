@@ -24,6 +24,11 @@
         <mat-cell *matCellDef="let row">{{ row.symbol }}</mat-cell>
       </ng-container>
 
+      <ng-container matColumnDef="hr">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Hazard Ratio</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.hr }}</mat-cell>
+      </ng-container>
+
       <ng-container matColumnDef="pval">
         <mat-header-cell *matHeaderCellDef mat-sort-header>P value</mat-header-cell>
         <mat-cell *matCellDef="let row">{{ row.pval }}</mat-cell>
@@ -31,7 +36,7 @@
 
       <ng-container matColumnDef="worse_group">
         <mat-header-cell *matHeaderCellDef mat-sort-header>Higher risk of death</mat-header-cell>
-        <mat-cell *matCellDef="let row">{{ row.higher_risk_of_death }}</mat-cell>
+        <mat-cell *matCellDef="let row">{{ row.worse_group }}</mat-cell>
       </ng-container>
 
       <mat-header-row *matHeaderRowDef="displayedColumnsSurvival"></mat-header-row>

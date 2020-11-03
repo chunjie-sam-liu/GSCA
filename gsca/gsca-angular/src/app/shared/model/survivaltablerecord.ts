@@ -6,4 +6,5 @@ export interface SurvivalTableRecord {
   pval: number;
   worse_group: string;
   cancertype: string;
+  hr: number;
 }

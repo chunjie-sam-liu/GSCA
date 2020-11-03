@@ -20,7 +20,7 @@ export class SurvivalComponent implements OnInit, OnChanges, AfterViewInit {
   dataSourceSurvival: MatTableDataSource<SurvivalTableRecord>;
   @ViewChild('paginatorSurvival', { static: true }) paginatorSurvival: MatPaginator;
   @ViewChild(MatSort) sortSurvival: MatSort;
-  displayedColumnsSurvival = ['cancertype', 'symbol', 'pval', 'worse_group'];
+  displayedColumnsSurvival = ['cancertype', 'symbol', 'hr', 'pval', 'worse_group'];
 
   // survival plot
   survivalImageLoading = true;
