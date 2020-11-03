@@ -1,13 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ExprSearch } from 'src/app/shared/model/exprsearch';
-import { ExpressionApiService } from './expression-api.service';
 
 @Component({
   selector: 'app-expression',
   templateUrl: './expression.component.html',
   styleUrls: ['./expression.component.css'],
 })
-export class ExpressionComponent implements OnInit {
+export class ExpressionComponent implements OnInit, AfterViewInit {
   searchTerm: ExprSearch;
   showDEG = false;
   showSurvival = false;
@@ -15,6 +14,7 @@ export class ExpressionComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
+  ngAfterViewInit(): void {}
 
   public showContent(exprSearch: ExprSearch): void {
     this.searchTerm = exprSearch;
