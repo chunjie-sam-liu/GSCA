@@ -19,7 +19,9 @@
     </div>
 
     <div fxFlex="grow" fxLayout="row" style="border: 1px rebeccapurple solid">
-      <app-survival></app-survival>
+      <ng-container *ngIf="showSurvival; else empty">
+        <app-survival fxLayout="row" fxLayoutGap="10px" fxLayout.lt-lg="column" [searchTerm]="searchTerm"></app-survival>
+      </ng-container>
     </div>
 
     <ng-template #loading>

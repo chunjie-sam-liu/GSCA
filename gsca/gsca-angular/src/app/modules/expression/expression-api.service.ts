@@ -22,4 +22,7 @@ export class ExpressionApiService extends BaseHttpService {
   public getSurvivalTable(postTerm: ExprSearch): Observable<any> {
     return this.postData('expression/survivaltable', postTerm);
   }
+  public getSurvivalPlot(postTerm: ExprSearch): Observable<any> {
+    return this.postDataImage('expression/survivalplot', postTerm);
+  }
 }

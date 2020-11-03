@@ -10,6 +10,7 @@ import { ExpressionApiService } from './expression-api.service';
 export class ExpressionComponent implements OnInit {
   searchTerm: ExprSearch;
   showDEG = false;
+  showSurvival = false;
 
   constructor() {}
 
@@ -18,5 +19,6 @@ export class ExpressionComponent implements OnInit {
   public showContent(exprSearch: ExprSearch): void {
     this.searchTerm = exprSearch;
     this.showDEG = true;
+    this.showSurvival = true;
   }
 }

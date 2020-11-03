@@ -55,7 +55,7 @@ export class DegComponent implements OnInit, OnChanges, AfterViewInit {
 
   ngAfterViewInit(): void {}
 
-  private _createImageFromBlob(image: Blob) {
+  private _createImageFromBlob(res: Blob) {
     const reader = new FileReader();
     reader.addEventListener(
       'load',
@@ -64,8 +64,8 @@ export class DegComponent implements OnInit, OnChanges, AfterViewInit {
       },
       false
     );
-    if (image) {
-      reader.readAsDataURL(image);
+    if (res) {
+      reader.readAsDataURL(res);
     }
   }
 
