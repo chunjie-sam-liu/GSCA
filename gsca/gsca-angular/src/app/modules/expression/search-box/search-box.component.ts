@@ -32,10 +32,21 @@ export class SearchBoxComponent implements OnInit {
   public submit(str: string): void {
     this.inputString = this._getSearchSymbol(str).join(', ');
 
-    this.$searchSelected.emit({
+    const searchTerm = {
       validSymbol: this._getSearchSymbol(str),
       cancerTypeSelected: this.cancerTypeSelected.value,
-    });
+    };
+
+    if (!searchTerm.cancerTypeSelected || searchTerm.cancerTypeSelected.length < 1) {
+      console.error('please select at least one cancer type');
+      return;
+    }
+    if (searchTerm.validSymbol.length < 1) {
+      console.error('please input at least one gene symbol');
+      return;
+    }
+
+    this.$searchSelected.emit(searchTerm);
   }
 
   public clear(): void {
