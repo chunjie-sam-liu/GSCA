@@ -5,11 +5,11 @@ from pathlib import Path
 import subprocess
 import uuid
 
-mutation = Blueprint("mutation", __name__)
-api = Api(mutation)
+snv = Blueprint("snv", __name__)
+api = Api(snv)
 
 # r plot resource
-apppath = Path(api.app.root_path).parent.parent
+apppath = Path(api.app.root_path).parent.parent.parent  # notice apppath parent
 rcommand = "/usr/bin/Rscript"
 rscriptpath = apppath / "gsca/rscripts"
 resource_pngs = apppath / "gsca/resource/pngs"

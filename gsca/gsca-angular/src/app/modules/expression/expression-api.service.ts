@@ -14,21 +14,21 @@ export class ExpressionApiService extends BaseHttpService {
   }
 
   public getDEGTable(postTerm: ExprSearch): Observable<any> {
-    return this.postData('expression/degtable', postTerm);
+    return this.postData('expression/deg/degtable', postTerm);
   }
   public getDEGPlot(postTerm: ExprSearch): Observable<any> {
-    return this.postDataImage('expression/degplot', postTerm);
+    return this.postDataImage('expression/deg/degplot', postTerm);
   }
   public getSurvivalTable(postTerm: ExprSearch): Observable<any> {
-    return this.postData('expression/survivaltable', postTerm);
+    return this.postData('expression/survival/survivaltable', postTerm);
   }
   public getSurvivalPlot(postTerm: ExprSearch): Observable<any> {
-    return this.postDataImage('expression/survivalplot', postTerm);
+    return this.postDataImage('expression/survival/survivalplot', postTerm);
   }
   public getSubtypeTable(postTerm: ExprSearch): Observable<any> {
-    return this.postData('expression/subtypetable', postTerm);
+    return this.postData('expression/subtype/subtypetable', postTerm);
   }
   public getSubtypePlot(postTerm: ExprSearch): Observable<any> {
-    return this.postDataImage('expression/subtypeplot', postTerm);
+    return this.postDataImage('expression/subtype/subtypeplot', postTerm);
   }
 }

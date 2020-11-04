@@ -9,7 +9,7 @@ immune = Blueprint("immune", __name__)
 api = Api(immune)
 
 # r plot resource
-apppath = Path(api.app.root_path).parent.parent
+apppath = Path(api.app.root_path).parent.parent  # notice apppath parent
 rcommand = "/usr/bin/Rscript"
 rscriptpath = apppath / "gsca/rscripts"
 resource_pngs = apppath / "gsca/resource/pngs"
