@@ -18,7 +18,7 @@ if not resource_pngs.exists():
     resource_pngs.mkdir(parents=True)
 
 
-mdoel_degtable = {
+model_degtable = {
     "entrez": fields.Integer(attribute="entrez"),
     "symbol": fields.String(attribute="symbol"),
     "normal": fields.Float(attribute="normal"),
@@ -32,7 +32,7 @@ mdoel_degtable = {
 
 
 class DEGTable(Resource):
-    @marshal_with(mdoel_degtable)
+    @marshal_with(model_degtable)
     def post(self):
         args = request.get_json()
         condition = {"symbol": {"$in": args["validSymbol"]}}
@@ -44,9 +44,6 @@ class DEGTable(Resource):
                 m["cancertype"] = collname.rstrip("_deg")
                 res.append(m)
         return res
-
-
-api.add_resource(DEGTable, "/degtable")
 
 
 class DEGplot(Resource):
@@ -95,9 +92,7 @@ class DEGplot(Resource):
         subprocess.check_output(cmd, universal_newlines=True)
 
 
-api.add_resource(DEGplot, "/degplot")
-
-mdoel_survivaltable = {
+model_survivaltable = {
     "entrez": fields.Integer(attribute="entrez"),
     "symbol": fields.String(attribute="symbol"),
     "hr": fields.Float(attribute="HR"),
@@ -108,7 +103,7 @@ mdoel_survivaltable = {
 
 
 class SurvivalTable(Resource):
-    @marshal_with(mdoel_survivaltable)
+    @marshal_with(model_survivaltable)
     def post(self):
         args = request.get_json()
         condition = {"symbol": {"$in": args["validSymbol"]}}
@@ -120,9 +115,6 @@ class SurvivalTable(Resource):
                 m["cancertype"] = collname.rstrip("_expr_survival")
                 res.append(m)
         return res
-
-
-api.add_resource(SurvivalTable, "/survivaltable")
 
 
 class SurvivalPlot(Resource):
@@ -171,5 +163,8 @@ class SurvivalPlot(Resource):
         subprocess.check_output(cmd, universal_newlines=True)
 
 
+api.add_resource(DEGTable, "/degtable")
+api.add_resource(DEGplot, "/degplot")
+api.add_resource(SurvivalTable, "/survivaltable")
 api.add_resource(SurvivalPlot, "/survivalplot")
 
