@@ -8,9 +8,10 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { DegComponent } from './deg/deg.component';
 import { ColorDiyComponent } from './color-diy/color-diy.component';
 import { SurvivalComponent } from './survival/survival.component';
+import { SubtypeComponent } from './subtype/subtype.component';
 
 @NgModule({
-  declarations: [ExpressionComponent, SearchBoxComponent, DegComponent, ColorDiyComponent, SurvivalComponent],
+  declarations: [ExpressionComponent, SearchBoxComponent, DegComponent, ColorDiyComponent, SurvivalComponent, SubtypeComponent],
   imports: [CommonModule, ExpressionRoutingModule, SharedModule],
 })
 export class ExpressionModule {}
