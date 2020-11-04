@@ -38,11 +38,11 @@ export class SearchBoxComponent implements OnInit {
     };
 
     if (!searchTerm.cancerTypeSelected || searchTerm.cancerTypeSelected.length < 1) {
-      console.error('please select at least one cancer type');
+      window.alert('please select at least one cancer type');
       return;
     }
     if (searchTerm.validSymbol.length < 1) {
-      console.error('please input at least one gene symbol');
+      window.alert('please input at least one gene symbol');
       return;
     }
 
