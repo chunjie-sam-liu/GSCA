@@ -18,6 +18,7 @@ export class DegComponent implements OnInit, OnChanges, AfterViewInit {
   // deg table data source
   dataSourceDegLoading = true;
   dataSourceDeg: MatTableDataSource<DegTableRecord>;
+  showDEGTable = true;
   @ViewChild('paginatorDeg') paginatorDeg: MatPaginator;
   @ViewChild(MatSort) sortDeg: MatSort;
   displayedColumnsDeg = ['cancertype', 'symbol', 'tumor', 'normal', 'fc', 'fdr', 'n_tumor'];
@@ -25,7 +26,6 @@ export class DegComponent implements OnInit, OnChanges, AfterViewInit {
   // degPlot
   degImageLoading = true;
   degImage: any;
-  showDEGTable = true;
   showDEGImage = true;
 
   constructor(private expressionApiService: ExpressionApiService) {}

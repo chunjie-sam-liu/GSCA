@@ -18,6 +18,7 @@ export class SurvivalComponent implements OnInit, OnChanges, AfterViewInit {
   // survival table data source
   dataSourceSurvivalLoading = true;
   dataSourceSurvival: MatTableDataSource<SurvivalTableRecord>;
+  showSurvivalTable = true;
   @ViewChild('paginatorSurvival', { static: true }) paginatorSurvival: MatPaginator;
   @ViewChild(MatSort) sortSurvival: MatSort;
   displayedColumnsSurvival = ['cancertype', 'symbol', 'hr', 'pval', 'worse_group'];
@@ -25,6 +26,7 @@ export class SurvivalComponent implements OnInit, OnChanges, AfterViewInit {
   // survival plot
   survivalImageLoading = true;
   survivalImage: any;
+  showSuvivalImage = true;
 
   constructor(private expressionApiService: ExpressionApiService) {}
 
@@ -35,24 +37,41 @@ export class SurvivalComponent implements OnInit, OnChanges, AfterViewInit {
     // Add '${implements OnChanges}' to the class.
     this.dataSourceSurvivalLoading = true;
     this.survivalImageLoading = true;
+
     const postTerm = this._validCollection(this.searchTerm);
 
-    this.expressionApiService.getSurvivalTable(postTerm).subscribe((res) => {
+    if (!postTerm.validColl.length) {
       this.dataSourceSurvivalLoading = false;
-      this.dataSourceSurvival = new MatTableDataSource(res);
-      this.dataSourceSurvival.paginator = this.paginatorSurvival;
-      this.dataSourceSurvival.sort = this.sortSurvival;
-    });
+      this.survivalImageLoading = false;
+      this.showSurvivalTable = false;
+      this.showSuvivalImage = false;
+    } else {
+      this.showSurvivalTable = true;
+      this.expressionApiService.getSurvivalTable(postTerm).subscribe(
+        (res) => {
+          this.dataSourceSurvivalLoading = false;
+          this.dataSourceSurvival = new MatTableDataSource(res);
+          this.dataSourceSurvival.paginator = this.paginatorSurvival;
+          this.dataSourceSurvival.sort = this.sortSurvival;
+        },
+        (err) => {
+          this.dataSourceSurvivalLoading = false;
+          this.showSurvivalTable = false;
+        }
+      );
 
-    this.expressionApiService.getSurvivalPlot(postTerm).subscribe(
-      (res) => {
-        this.survivalImageLoading = false;
-        this._createImageFromBlob(res);
-      },
-      (err) => {
-        this.survivalImageLoading = false;
-      }
-    );
+      this.expressionApiService.getSurvivalPlot(postTerm).subscribe(
+        (res) => {
+          this.showSuvivalImage = true;
+          this.survivalImageLoading = false;
+          this._createImageFromBlob(res);
+        },
+        (err) => {
+          this.survivalImageLoading = false;
+          this.showSuvivalImage = false;
+        }
+      );
+    }
   }
 
   ngAfterViewInit(): void {
