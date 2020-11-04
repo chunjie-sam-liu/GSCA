@@ -152,4 +152,5 @@ heat_plot <- for_plot %>%
 
 # Save --------------------------------------------------------------------
 ggsave(filename = filepath, plot = heat_plot, device = 'png', width = 7, height = 7)
-ggsave(filename = filepath, plot = heat_plot, device = 'pdf', width = 7, height = 7)
+pdf_name <- gsub("\\.png",".pdf",filepath)
+ggsave(filename = pdf_name, plot = heat_plot, device = 'pdf', width = 7, height = 7)
