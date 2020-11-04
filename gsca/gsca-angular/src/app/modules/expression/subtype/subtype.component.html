@@ -1,1 +1,49 @@
-<p>subtype works!</p>
+<ng-container *ngIf="showSubtypeTable">
+  <mat-card fxFlex appMaterialElevation defaultElevation="4" raiseElevation="4">
+    <mat-card-header>
+      <mat-card-title>Difference of mRNA expression between subtype</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <ng-container *ngIf="!subtypeTableLoading; else loading"></ng-container>
+      <mat-form-field>
+        <input matInput placeholder="Search" (keyup)="applyFilter($event)" #inputSubtype />
+      </mat-form-field>
+      <mat-table [dataSource]="subtypeTable" matSort>
+        <ng-container matColumnDef="cancertype">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Cancer type</mat-header-cell>
+          <mat-cell *matCellDef="let row">{{ row.cancertype }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="pval">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>P value</mat-header-cell>
+          <mat-cell *matCellDef="let row">{{ row.pval | number: '1.2-2' }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="fdr">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>FDR</mat-header-cell>
+          <mat-cell *matCellDef="let row">{{ row.fdr | number: '1.2-2' }}</mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumnsSubtype"></mat-header-row>
+      </mat-table>
+      <mat-paginator #paginatorSubtype [pageSizeOptions]="[10, 20]" showFirstLastButtons></mat-paginator>
+    </mat-card-content>
+  </mat-card>
+</ng-container>
+
+<ng-container *ngIf="showSubtypeImage">
+  <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
+    <mat-card-header>
+      <mat-card-title>Profile of gene expression on subtype</mat-card-title>
+    </mat-card-header>
+    <ng-container *ngIf="!subtypeImageLoading; else loading"></ng-container>
+    <mat-card-content>
+      <img [src]="this.subtypeImage" alt="subtypeplot" height="600px" />
+    </mat-card-content>
+  </mat-card>
+</ng-container>
+
+<ng-template #loading>
+  <mat-progress-bar mode="query" color="warn"></mat-progress-bar>
+</ng-template>
