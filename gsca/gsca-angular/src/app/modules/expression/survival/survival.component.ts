@@ -19,7 +19,7 @@ export class SurvivalComponent implements OnInit, OnChanges, AfterViewInit {
   dataSourceSurvivalLoading = true;
   dataSourceSurvival: MatTableDataSource<SurvivalTableRecord>;
   showSurvivalTable = true;
-  @ViewChild('paginatorSurvival', { static: true }) paginatorSurvival: MatPaginator;
+  @ViewChild('paginatorSurvival') paginatorSurvival: MatPaginator;
   @ViewChild(MatSort) sortSurvival: MatSort;
   displayedColumnsSurvival = ['cancertype', 'symbol', 'hr', 'pval', 'worse_group'];
 
@@ -46,9 +46,9 @@ export class SurvivalComponent implements OnInit, OnChanges, AfterViewInit {
       this.showSurvivalTable = false;
       this.showSuvivalImage = false;
     } else {
-      this.showSurvivalTable = true;
       this.expressionApiService.getSurvivalTable(postTerm).subscribe(
         (res) => {
+          this.showSurvivalTable = true;
           this.dataSourceSurvivalLoading = false;
           this.dataSourceSurvival = new MatTableDataSource(res);
           this.dataSourceSurvival.paginator = this.paginatorSurvival;

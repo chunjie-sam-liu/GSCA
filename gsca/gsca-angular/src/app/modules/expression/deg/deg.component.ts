@@ -44,9 +44,9 @@ export class DegComponent implements OnInit, OnChanges, AfterViewInit {
       this.showDEGTable = false;
       this.showDEGImage = false;
     } else {
-      this.showDEGTable = true;
       this.expressionApiService.getDEGTable(postTerm).subscribe(
         (res) => {
+          this.showDEGTable = true;
           this.dataSourceDegLoading = false;
           this.dataSourceDeg = new MatTableDataSource(res);
           this.dataSourceDeg.paginator = this.paginatorDeg;
