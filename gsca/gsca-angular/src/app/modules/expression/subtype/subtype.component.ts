@@ -46,9 +46,9 @@ export class SubtypeComponent implements OnInit, OnChanges, AfterViewChecked {
       this.showSubtypeImage = false;
       this.showSubtypeTable = false;
     } else {
+      this.showSubtypeTable = true;
       this.expressionApiService.getSubtypeTable(postTerm).subscribe(
         (res) => {
-          this.showSubtypeTable = true;
           this.subtypeTableLoading = false;
           this.subtypeTable = new MatTableDataSource(res);
           this.subtypeTable.paginator = this.paginatorSubtype;

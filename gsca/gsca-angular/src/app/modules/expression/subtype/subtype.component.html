@@ -34,6 +34,7 @@
         </ng-container>
 
         <mat-header-row *matHeaderRowDef="displayedColumnsSubtype"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumnsSubtype"></mat-row>
       </mat-table>
       <mat-paginator #paginatorSubtype [pageSizeOptions]="[10, 20]" showFirstLastButtons></mat-paginator>
     </mat-card-content>

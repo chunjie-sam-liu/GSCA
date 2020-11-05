@@ -46,9 +46,9 @@ export class SurvivalComponent implements OnInit, OnChanges, AfterViewInit {
       this.showSurvivalTable = false;
       this.showSuvivalImage = false;
     } else {
+      this.showSurvivalTable = true;
       this.expressionApiService.getSurvivalTable(postTerm).subscribe(
         (res) => {
-          this.showSurvivalTable = true;
           this.dataSourceSurvivalLoading = false;
           this.dataSourceSurvival = new MatTableDataSource(res);
           this.dataSourceSurvival.paginator = this.paginatorSurvival;
