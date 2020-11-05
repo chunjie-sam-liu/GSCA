@@ -25,10 +25,6 @@ search_cancertypes <- strsplit(x = search_str_split[[2]], split = '#')[[1]]
 
 gsca_conf <- readr::read_lines(file = file.path(apppath, 'gsca/rscripts/gsca.conf'))
 
-# Query data --------------------------------------------------------------
-
-fetched_data <- purrr::map(.x = search_cancertypes, .f = fn_fetch_mongo) %>% dplyr::bind_rows()
-
 # Function ----------------------------------------------------------------
 
 fn_query_str <- function(.x) {
@@ -101,6 +97,10 @@ fn_pval_label <- function(.x){
     tidyr::unnest()
 }
 
+
+# Query data --------------------------------------------------------------
+
+fetched_data <- purrr::map(.x = search_cancertypes, .f = fn_fetch_mongo) %>% dplyr::bind_rows()
 # Sort --------------------------------------------------------------------
 
 fetched_data_clean_pattern <- fn_get_pattern(.x = fetched_data)
