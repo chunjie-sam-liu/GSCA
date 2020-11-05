@@ -15,6 +15,11 @@
           <mat-cell *matCellDef="let row">{{ row.cancertype }}</mat-cell>
         </ng-container>
 
+        <ng-container matColumnDef="symbol">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Gene symbol</mat-header-cell>
+          <mat-cell *matCellDef="let row">{{ row.symbol }}</mat-cell>
+        </ng-container>
+
         <ng-container matColumnDef="pval">
           <mat-header-cell *matHeaderCellDef mat-sort-header>P value</mat-header-cell>
           <mat-cell *matCellDef="let row">{{ row.pval | number: '1.2-2' }}</mat-cell>
