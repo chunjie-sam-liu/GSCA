@@ -65,7 +65,6 @@ class SurvivalPlot(Resource):
             {"search": "#".join(args["validSymbol"]), "coll": "#".join(args["validColl"]), "purpose": "survivalplot"},
             {"_id": 0, "uuid": 1},
         )
-        print(preanalysised)
 
         if preanalysised:
             uuidname = preanalysised["uuid"]
@@ -88,7 +87,6 @@ class SurvivalPlot(Resource):
         rargs = "#".join(args["validSymbol"]) + "@" + "#".join(args["validColl"])
 
         cmd = [rcommand, str(rscriptpath / "exp_survivalplot_profile.R"), rargs, str(filepath), str(apppath)]
-        print(cmd)
         subprocess.check_output(cmd, universal_newlines=True)
 
 

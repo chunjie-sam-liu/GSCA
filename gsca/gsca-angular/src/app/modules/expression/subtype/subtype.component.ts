@@ -16,17 +16,17 @@ export class SubtypeComponent implements OnInit, OnChanges, AfterViewChecked {
   @Input() searchTerm: ExprSearch;
 
   // subtype table
-  showSubtypeTable = true;
   subtypeTableLoading = true;
   subtypeTable: MatTableDataSource<SubtypeTableRecord>;
-  displayedColumnsSubtype = ['cancertype', 'symbol', 'pval', 'fdr'];
+  showSubtypeTable = true;
   @ViewChild('paginatorSubtype') paginatorSubtype: MatPaginator;
   @ViewChild(MatSort) sortSubtype: MatSort;
+  displayedColumnsSubtype = ['cancertype', 'symbol', 'pval', 'fdr'];
 
   // subtype image
-  showSubtypeImage = true;
   subtypeImageLoading = true;
   subtypeImage: any;
+  showSubtypeImage = true;
 
   constructor(private expressionApiService: ExpressionApiService) {}
 

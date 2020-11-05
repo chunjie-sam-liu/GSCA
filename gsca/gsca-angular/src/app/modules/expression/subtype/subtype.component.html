@@ -8,6 +8,9 @@
       <ng-container *ngIf="!subtypeTableLoading; else loading"></ng-container>
       <mat-form-field>
         <input matInput placeholder="Search" (keyup)="applyFilter($event)" #inputSubtype />
+        <button mat-icon-button color="warn" matPrefix>
+          <mat-icon style="font-size: 25px">search</mat-icon>
+        </button>
       </mat-form-field>
       <mat-table [dataSource]="subtypeTable" matSort>
         <ng-container matColumnDef="cancertype">
