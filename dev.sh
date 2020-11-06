@@ -11,6 +11,6 @@ git pull
 source venv/bin/activate
 pip install -r requirements.txt
 
-cd gsca/gsca-angular/
+cd gsca-angular/
 npm install
 
