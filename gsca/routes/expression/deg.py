@@ -1,23 +1,10 @@
 from flask import Blueprint, request, send_file
 from gsca.db import mongo
 from flask_restful import Api, Resource, fields, marshal_with, reqparse
-from pathlib import Path
-import subprocess
-import uuid
+from gsca.utils.checkplot import CheckPlot
 
 deg = Blueprint("deg", __name__)
 api = Api(deg)
-
-# r plot resource
-
-apppath = Path(api.app.root_path).parent.parent.parent  # notice apppath parent
-rcommand = "/usr/bin/Rscript"
-rscriptpath = apppath / "gsca/rscripts"
-resource_pngs = apppath / "gsca/resource/pngs"
-
-if not resource_pngs.exists():
-    resource_pngs.mkdir(parents=True)
-
 
 model_degtable = {
     "entrez": fields.Integer(attribute="entrez"),
@@ -53,46 +40,11 @@ api.add_resource(DEGTable, "/degtable")
 class DEGplot(Resource):
     def post(self):
         args = request.get_json()
-
-        res = self.__check_run(args, purpose="degplot")
-
+        checkplot = CheckPlot(args=args, purpose="degplot", rplot="degplot.R")
+        res = checkplot.check_run()
         if res["run"]:
-            self.__degplot(args, res["filepath"])
+            checkplot.plot(filepath=res["filepath"])
         return send_file(str(res["filepath"]), mimetype="image/png")
-
-    def __check_run(self, args, purpose):
-        uuidname = str(uuid.uuid4())
-        filename = uuidname + ".png"
-        filepath = resource_pngs / filename
-
-        preanalysised = mongo.db.preanalysised.find_one(
-            {"search": "#".join(args["validSymbol"]), "coll": "#".join(args["validColl"]), "purpose": purpose},
-            {"_id": 0, "uuid": 1},
-        )
-        print(preanalysised)
-        if preanalysised:
-            uuidname = preanalysised["uuid"]
-            filename = uuidname + ".png"
-            filepath = resource_pngs / filename
-            run = False if filepath.exists() else True
-            return {"run": run, "filepath": filepath}
-        else:
-            mongo.db.preanalysised.insert_one(
-                {
-                    "search": "#".join(args["validSymbol"]),
-                    "coll": "#".join(args["validColl"]),
-                    "purpose": purpose,
-                    "uuid": uuidname,
-                }
-            )
-            return {"run": True, "filepath": filepath}
-
-    def __degplot(self, args, filepath):
-        rarg = "#".join(args["validSymbol"]) + "@" + "#".join(args["validColl"])
-
-        cmd = [rcommand, str(rscriptpath / "degplot.R"), rarg, str(filepath), str(apppath)]
-
-        subprocess.check_output(cmd, universal_newlines=True)
 
 
 api.add_resource(DEGplot, "/degplot")
