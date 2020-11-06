@@ -54,19 +54,19 @@ class DEGplot(Resource):
     def post(self):
         args = request.get_json()
 
-        res = self.__check_run(args)
+        res = self.__check_run(args, purpose="degplot")
 
         if res["run"]:
             self.__degplot(args, res["filepath"])
         return send_file(str(res["filepath"]), mimetype="image/png")
 
-    def __check_run(self, args):
+    def __check_run(self, args, purpose):
         uuidname = str(uuid.uuid4())
         filename = uuidname + ".png"
         filepath = resource_pngs / filename
 
         preanalysised = mongo.db.preanalysised.find_one(
-            {"search": "#".join(args["validSymbol"]), "coll": "#".join(args["validColl"]), "purpose": "degplot"},
+            {"search": "#".join(args["validSymbol"]), "coll": "#".join(args["validColl"]), "purpose": purpose},
             {"_id": 0, "uuid": 1},
         )
         print(preanalysised)
@@ -81,7 +81,7 @@ class DEGplot(Resource):
                 {
                     "search": "#".join(args["validSymbol"]),
                     "coll": "#".join(args["validColl"]),
-                    "purpose": "degplot",
+                    "purpose": purpose,
                     "uuid": uuidname,
                 }
             )

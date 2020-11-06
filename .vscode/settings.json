@@ -29,7 +29,8 @@
     "**/__pycache__": true,
     "**/*.pyc": { "when": "$(basename).py" },
     "node_modules": true,
-    "venv": true
+    "venv": true,
+    "**/resource": true
   },
   "terminal.integrated.shellArgs.linux": ["-i", "-l"],
   "terminal.integrated.shell.linux": "bash",

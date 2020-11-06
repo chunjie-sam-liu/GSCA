@@ -47,22 +47,22 @@ api.add_resource(SubtypeTable, "/subtypetable")
 class SubtypePlot(Resource):
     def post(self):
         args = request.get_json()
-        res = self.__check_run(args)
+        res = self.__check_run(args=args, purpose="subtypeplot")
 
         if res["run"]:
             self.__subtypeplot(args, res["filepath"])
         return send_file(str(res["filepath"]), mimetype="image/png")
 
-    def __check_run(self, args):
+    def __check_run(self, args, purpose):
         uuidname = str(uuid.uuid4())
         filename = uuidname + ".png"
         filepath = resource_pngs / filename
 
         preanalysised = mongo.db.preanalysised.find_one(
-            {"search": "#".join(args["validSymbol"]), "coll": "#".join(args["validColl"]), "purpose": "subtypeplot"},
+            {"search": "#".join(args["validSymbol"]), "coll": "#".join(args["validColl"]), "purpose": purpose},
             {"_id": 0, "uuid": 1},
         )
-
+        print(preanalysised)
         if preanalysised:
             uuidname = preanalysised["uuid"]
             filename = uuidname + ".png"
@@ -74,7 +74,7 @@ class SubtypePlot(Resource):
                 {
                     "search": "#".join(args["validSymbol"]),
                     "coll": "#".join(args["validColl"]),
-                    "purpose": "survivalplot",
+                    "purpose": purpose,
                     "uuid": uuidname,
                 }
             )
