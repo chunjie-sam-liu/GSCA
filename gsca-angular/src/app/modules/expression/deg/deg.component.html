@@ -11,45 +11,37 @@
           <mat-icon style="font-size: 25px">search</mat-icon>
         </button>
       </mat-form-field>
-      <mat-table [dataSource]="dataSourceDeg" matSort>
-        <ng-container matColumnDef="cancertype">
-          <mat-header-cell *matHeaderCellDef>Cancer types</mat-header-cell>
-          <mat-cell *matCellDef="let row">{{ row.cancertype }}</mat-cell>
+      <table mat-table [dataSource]="dataSourceDeg" multiTemplateDataRows matSort>
+        <ng-container matColumnDef="{{ column }}" *ngFor="let column of displayedColumnsDeg; index as ind">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ displayedColumnsDegHeader[ind] }}</th>
+          <td mat-cell *matCellDef="let element">
+            <ng-container *ngIf="column === 'cancertype' || column === 'symbol'; then btn; else plain"></ng-container>
+            <ng-template #btn>
+              <button (click)="expandDetail(element)">
+                {{ element[column] }}
+              </button>
+            </ng-template>
+            <ng-template #plain>
+              {{ column === 'n_tumor' ? (element[column] | number) : (element[column] | number: '1.2-2') }}
+            </ng-template>
+          </td>
         </ng-container>
 
-        <ng-container matColumnDef="symbol">
-          <mat-header-cell *matHeaderCellDef>Gene symbol</mat-header-cell>
-          <mat-cell *matCellDef="let row">{{ row.symbol }}</mat-cell>
+        <ng-container matColumnDef="expandedDetail">
+          <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumnsDeg.length">
+            <div class="example-element-detail" [@detailExpand]="element === expandedElement ? 'expanded' : 'collapsed'"></div>
+          </td>
         </ng-container>
 
-        <ng-container matColumnDef="tumor">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Expr. tumor</mat-header-cell>
-          <mat-cell *matCellDef="let row">{{ row.tumor | number: '1.2-2' }}</mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="normal">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Expr. normal</mat-header-cell>
-          <mat-cell *matCellDef="let row">{{ row.normal | number: '1.2-2' }}</mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="fc">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Fold change</mat-header-cell>
-          <mat-cell *matCellDef="let row">{{ row.fc | number: '1.2-2' }}</mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="fdr">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>FDR</mat-header-cell>
-          <mat-cell *matCellDef="let row">{{ row.fdr | number: '1.2-2' }}</mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="n_tumor">
-          <mat-header-cell *matHeaderCellDef># samples</mat-header-cell>
-          <mat-cell *matCellDef="let row">{{ row.n_tumor | number }}</mat-cell>
-        </ng-container>
-
-        <mat-header-row *matHeaderRowDef="displayedColumnsDeg"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumnsDeg"></mat-row>
-      </mat-table>
+        <tr mat-header-row *matHeaderRowDef="displayedColumnsDeg"></tr>
+        <tr
+          mat-row
+          *matRowDef="let element; columns: displayedColumnsDeg"
+          class="example-element-row"
+          [class.example-expanded-row]="expandedElement === element"
+        ></tr>
+        <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+      </table>
       <mat-paginator #paginatorDeg [pageSizeOptions]="[10, 20]" showFirstLastButtons></mat-paginator>
     </mat-card-content>
   </mat-card>

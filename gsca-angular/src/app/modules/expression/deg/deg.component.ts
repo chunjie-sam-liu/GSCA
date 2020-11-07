@@ -6,11 +6,19 @@ import { MatTableDataSource } from '@angular/material/table';
 import { DegTableRecord } from 'src/app/shared/model/degtablerecord';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-deg',
   templateUrl: './deg.component.html',
   styleUrls: ['./deg.component.css'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({ height: '0px', minHeight: '0' })),
+      state('expanded', style({ height: '*' })),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
 export class DegComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() searchTerm: ExprSearch;
@@ -22,6 +30,8 @@ export class DegComponent implements OnInit, OnChanges, AfterViewInit {
   @ViewChild('paginatorDeg') paginatorDeg: MatPaginator;
   @ViewChild(MatSort) sortDeg: MatSort;
   displayedColumnsDeg = ['cancertype', 'symbol', 'tumor', 'normal', 'fc', 'fdr', 'n_tumor'];
+  displayedColumnsDegHeader = ['Cancer type', 'Gene symbol', 'Expr. tumor', 'Expr. normal', 'Fold change', 'FDR', '# samples'];
+  expandedElement: DegTableRecord | null;
 
   // degPlot
   degImageLoading = true;
@@ -102,5 +112,10 @@ export class DegComponent implements OnInit, OnChanges, AfterViewInit {
     if (this.dataSourceDeg.paginator) {
       this.dataSourceDeg.paginator.firstPage();
     }
+  }
+
+  public expandDetail(e: DegTableRecord): void {
+    console.log(e);
+    this.expandedElement = this.expandedElement === e ? null : e;
   }
 }
