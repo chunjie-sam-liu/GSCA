@@ -28,3 +28,18 @@ POST http://bioinfo.life.hust.edu.cn/GSCA/api/expression/degplot HTTP/1.1
 content-type: application/json
 
 {"validSymbol":["A2M","ACE","ANGPT2","BPI","CD1B","CDR1","EGR2","EGR3","HBEGF","HERPUD1","MCM2","PCTP","PODXL","PPY","PTGS2","RCAN1","SLC4A7","THBD"],"cancerTypeSelected":["KICH","KIRC","KIRP","LUAD","LUSC"],"validColl":["KICH_deg","KIRC_deg","KIRP_deg","LUAD_deg","LUSC_deg"]}
+
+
+### single gene
+POST http://localhost:5000/api/expression/deg/degplot/single/gene HTTP/1.1
+Content-Type: application/json
+
+{"validSymbol":["TP53"],"cancerTypeSelected":["ACC","BLCA","BRCA","CESC","CHOL","COAD","DLBC","ESCA","GBM","HNSC","KICH","KIRC","KIRP","LAML","LGG","LIHC","LUAD","LUSC","MESO","OV","PAAD","PCPG","PRAD","READ","SARC","SKCM","STAD","TGCT","THCA","THYM","UCEC","UCS","UVM"],"validColl":["ACC_all_expr","BLCA_all_expr","BRCA_all_expr","CESC_all_expr","CHOL_all_expr","COAD_all_expr","DLBC_all_expr","ESCA_all_expr","GBM_all_expr","HNSC_all_expr","KICH_all_expr","KIRC_all_expr","KIRP_all_expr","LAML_all_expr","LGG_all_expr","LIHC_all_expr","LUAD_all_expr","LUSC_all_expr","MESO_all_expr","OV_all_expr","PAAD_all_expr","PCPG_all_expr","PRAD_all_expr","READ_all_expr","SARC_all_expr","SKCM_all_expr","STAD_all_expr","TGCT_all_expr","THCA_all_expr","THYM_all_expr","UCEC_all_expr","UCS_all_expr","UVM_all_expr"]}
+
+
+###
+# single cancer type
+POST http://localhost:5000/api/expression/deg/degplot/single/cancertype HTTP/1.1
+Content-Type: application/json
+
+{"validSymbol":["A2M"],"cancerTypeSelected":["KICH"],"validColl":["KICH_all_expr"]}
