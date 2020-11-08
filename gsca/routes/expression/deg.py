@@ -37,7 +37,7 @@ class DEGTable(Resource):
 api.add_resource(DEGTable, "/degtable")
 
 
-class DEGplot(Resource):
+class DEGPlot(Resource):
     def post(self):
         args = request.get_json()
         checkplot = CheckPlot(args=args, purpose="degplot", rplot="degplot.R")
@@ -47,4 +47,31 @@ class DEGplot(Resource):
         return send_file(str(res["filepath"]), mimetype="image/png")
 
 
-api.add_resource(DEGplot, "/degplot")
+api.add_resource(DEGPlot, "/degplot")
+
+
+class DEGPlotSingleGene(Resource):
+    def post(self):
+        args = request.get_json()
+        checkplot = CheckPlot(args=args, purpose="degplotsinglegene", rplot="degplotsinglegene.R")
+        res = checkplot.check_run()
+        if res["run"]:
+            checkplot.plot(filepath=res["filepath"])
+        return send_file(str(res["filepath"]), mimetype="image/png")
+
+
+api.add_resource(DEGPlotSingleGene, "/degplot/single/gene")
+
+
+class DEGPlotSingleCancerType(Resource):
+    def post(self):
+        args = request.get_json()
+        checkplot = CheckPlot(args=args, purpose="degplotsinglecancertype", rplot="degplotsinglecancertype.R")
+        res = checkplot.check_run()
+        if res["run"]:
+            checkplot.plot(filepath=res["filepath"])
+        return send_file(str(res["filepath"]), mimetype="image/png")
+
+
+api.add_resource(DEGPlotSingleCancerType, "/degplot/single/cancertype")
+
