@@ -45,7 +45,6 @@ export class SearchBoxComponent implements OnInit {
       window.alert('please input at least one gene symbol');
       return;
     }
-
     this.$searchSelected.emit(searchTerm);
   }
 
