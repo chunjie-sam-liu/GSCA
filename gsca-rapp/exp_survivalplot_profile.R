@@ -24,7 +24,7 @@ search_cancertypes <- strsplit(x = search_str_split[[2]], split = '#')[[1]]
 
 # pic size ----------------------------------------------------------------
 
-source(file.path(apppath, "gsca/rscripts/utils/fn_figure_height.R"))
+source(file.path(apppath, "gsca-rapp/utils/fn_figure_height.R"))
 size <- fn_height_width(search_genes,search_cancertypes)
 
 # Mongo -------------------------------------------------------------------
