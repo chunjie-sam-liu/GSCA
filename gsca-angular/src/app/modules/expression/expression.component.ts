@@ -10,6 +10,7 @@ export class ExpressionComponent implements OnInit, AfterViewInit {
   searchTerm: ExprSearch;
   showDEG = false;
   showSurvival = false;
+  showSubtype = false;
 
   constructor() {}
 
@@ -20,5 +21,6 @@ export class ExpressionComponent implements OnInit, AfterViewInit {
     this.searchTerm = exprSearch;
     this.showDEG = true;
     this.showSurvival = true;
+    this.showSubtype = true;
   }
 }

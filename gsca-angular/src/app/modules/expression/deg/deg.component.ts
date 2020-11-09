@@ -31,12 +31,23 @@ export class DegComponent implements OnInit, OnChanges, AfterViewInit {
   @ViewChild(MatSort) sortDeg: MatSort;
   displayedColumnsDeg = ['cancertype', 'symbol', 'tumor', 'normal', 'fc', 'fdr', 'n_tumor'];
   displayedColumnsDegHeader = ['Cancer type', 'Gene symbol', 'Expr. tumor', 'Expr. normal', 'Fold change', 'FDR', '# samples'];
-  expandedElement: DegTableRecord | null;
+  expandedElement: DegTableRecord;
+  expandedColumn: string;
 
   // degPlot
-  degImageLoading = true;
   degImage: any;
+  degImageLoading = true;
   showDEGImage = true;
+
+  // single gene
+  degSingleGeneImage: any;
+  degSingleGeneImageLoading = true;
+  showDEGSingleGeneImage = false;
+
+  // single cancer type
+  degSingleCancerTypeImage: any;
+  degSingleCancerTypeImageLoading = true;
+  showdegSingleCancerTypeImage = false;
 
   constructor(private expressionApiService: ExpressionApiService) {}
 
@@ -71,7 +82,7 @@ export class DegComponent implements OnInit, OnChanges, AfterViewInit {
         (res) => {
           this.showDEGImage = true;
           this.degImageLoading = false;
-          this._createImageFromBlob(res);
+          this._createImageFromBlob(res, 'degImage');
         },
         (err) => {
           this.showDEGImage = false;
@@ -82,12 +93,22 @@ export class DegComponent implements OnInit, OnChanges, AfterViewInit {
 
   ngAfterViewInit(): void {}
 
-  private _createImageFromBlob(res: Blob) {
+  private _createImageFromBlob(res: Blob, present: string) {
     const reader = new FileReader();
     reader.addEventListener(
       'load',
       () => {
-        this.degImage = reader.result;
+        switch (present) {
+          case 'degImage':
+            this.degImage = reader.result;
+            break;
+          case 'degSingleGeneImage':
+            this.degSingleGeneImage = reader.result;
+            break;
+          case 'degSingleCancerTypeImage':
+            this.degSingleCancerTypeImage = reader.result;
+            break;
+        }
       },
       false
     );
@@ -114,8 +135,48 @@ export class DegComponent implements OnInit, OnChanges, AfterViewInit {
     }
   }
 
-  public expandDetail(e: DegTableRecord): void {
-    console.log(e);
-    this.expandedElement = this.expandedElement === e ? null : e;
+  public expandDetail(element: DegTableRecord, column: string): void {
+    this.expandedElement = this.expandedElement === element && this.expandedColumn === column ? null : element;
+    this.expandedColumn = column;
+    if (this.expandedElement) {
+      if (this.expandedColumn === 'symbol') {
+        this.showDEGSingleGeneImage = true;
+        this.showdegSingleCancerTypeImage = false;
+
+        const postTerm = {
+          validSymbol: [this.expandedElement.symbol],
+          cancerTypeSelected: collectionList.all_expr.cancertypes,
+          validColl: collectionList.all_expr.collnames,
+        };
+
+        this.expressionApiService.getDEGSingleGenePlot(postTerm).subscribe(
+          (res) => {
+            this._createImageFromBlob(res, 'degSingleGeneImage');
+          },
+          (err) => {}
+        );
+      }
+      if (this.expandedColumn === 'cancertype') {
+        this.showDEGSingleGeneImage = false;
+        this.showdegSingleCancerTypeImage = true;
+
+        const postTerm = {
+          validSymbol: [this.expandedElement.symbol],
+          cancerTypeSelected: [this.expandedElement.cancertype],
+          validColl: [collectionList.all_expr.collnames[collectionList.all_expr.cancertypes.indexOf(this.expandedElement.cancertype)]],
+        };
+
+        this.expressionApiService.getDEGSingleCancerTypePlot(postTerm).subscribe(
+          (res) => {
+            this._createImageFromBlob(res, 'degSingleCancerTypeImage');
+          },
+          (err) => {}
+        );
+      }
+    }
+  }
+
+  public triggerDetail(element: DegTableRecord): string {
+    return element === this.expandedElement ? 'expanded' : 'collapsed';
   }
 }
