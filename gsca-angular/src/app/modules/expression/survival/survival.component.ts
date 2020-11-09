@@ -144,8 +144,8 @@ export class SurvivalComponent implements OnInit, OnChanges, AfterViewInit {
       if (this.expandedColumn === 'symbol') {
         const postTerm = {
           validSymbol: [this.expandedElement.symbol],
-          cancerTypeSelected: collectionlist.all_expr.cancertypes,
-          validColl: collectionlist.all_expr.collnames,
+          cancerTypeSelected: collectionlist.expr_survival.cancertypes,
+          validColl: collectionlist.expr_survival.collnames,
         };
 
         this.expressionApiService.getSurvivalSingleGenePlot(postTerm).subscribe(
