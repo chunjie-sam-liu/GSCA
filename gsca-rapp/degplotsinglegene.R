@@ -26,7 +26,7 @@ search_cancertypes <- strsplit(x = search_str_split[[2]], split = '#')[[1]]
 
 # Mongo -------------------------------------------------------------------
 
-gsca_conf <- readr::read_lines(file = file.path(apppath, 'gsca/rscripts/gsca.conf'))
+gsca_conf <- readr::read_lines(file = file = file.path(apppath, 'gsca-rapp/gsca.conf'))
 
 # Function ----------------------------------------------------------------
 
@@ -40,21 +40,21 @@ fn_fetch_mongo <- function(.x) {
   .coll$find(
     query = fn_query_str(search_genes),
     fields = '{"type": true, "expr": true, "_id": false}'
-  ) %>% 
-    dplyr::mutate(cancertype = gsub(pattern = '_all_expr', replacement = '', x = .x)) %>% 
-    tidyr::unnest(cols = c(type, expr)) %>% 
+  ) %>%
+    dplyr::mutate(cancertype = gsub(pattern = '_all_expr', replacement = '', x = .x)) %>%
+    tidyr::unnest(cols = c(type, expr)) %>%
     dplyr::mutate(type = factor(x = type, levels = c('tumor', 'normal')), expr = log2(expr + 1))
 }
 
 
 # Query data --------------------------------------------------------------
-fetched_data <- purrr::map(.x = search_cancertypes, .f = fn_fetch_mongo) %>% 
+fetched_data <- purrr::map(.x = search_cancertypes, .f = fn_fetch_mongo) %>%
   dplyr::bind_rows()
 
 
 # Plot --------------------------------------------------------------------
 CPCOLS <- c("#000080", "#F8F8FF", "#CD0000")
-fetched_data %>% 
+fetched_data %>%
   ggplot(aes(x = cancertype, y = expr, color = type)) +
   geom_boxplot(outlier.colour = NA) +
   scale_color_manual(name = "Type", labels = c("Tumor", "Normal"), values = c(CPCOLS[3], CPCOLS[1])) +
