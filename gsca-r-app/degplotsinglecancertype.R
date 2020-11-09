@@ -26,7 +26,7 @@ search_cancertypes <- strsplit(x = search_str_split[[2]], split = '#')[[1]]
 
 # Mongo -------------------------------------------------------------------
 
-gsca_conf <- readr::read_lines(file = file = file.path(apppath, 'gsca-r-app/gsca.conf'))
+gsca_conf <- readr::read_lines(file = file.path(apppath, 'gsca-r-app/gsca.conf'))
 
 # Function ----------------------------------------------------------------
 

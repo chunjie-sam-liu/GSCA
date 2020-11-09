@@ -28,7 +28,7 @@ size <- fn_height_width(search_genes,search_cancertypes)
 
 # Mongo -------------------------------------------------------------------
 
-gsca_conf <- readr::read_lines(file = file = file.path(apppath, 'gsca-r-app/gsca.conf'))
+gsca_conf <- readr::read_lines(file = file.path(apppath, 'gsca-r-app/gsca.conf'))
 
 # Function ----------------------------------------------------------------
 
