@@ -31,7 +31,9 @@
     "node_modules": true,
     "venv": true,
     "**/gsca-r-plot": true,
-    "**/node_modules": true
+    "**/node_modules": true,
+    "**/templates": true,
+    "**/rda": true
   },
   "terminal.integrated.shellArgs.linux": ["-i", "-l"],
   "terminal.integrated.shell.linux": "bash",
