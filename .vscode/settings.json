@@ -30,7 +30,7 @@
     "**/*.pyc": { "when": "$(basename).py" },
     "node_modules": true,
     "venv": true,
-    "**/resource": true,
+    "**/gsca-r-plot": true,
     "**/node_modules": true
   },
   "terminal.integrated.shellArgs.linux": ["-i", "-l"],

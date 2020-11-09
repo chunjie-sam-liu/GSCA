@@ -15,7 +15,7 @@ filepath <- args[2]
 apppath <- args[3]
 
 # search_str = 'A2M#ACE#ANGPT2#BPI#CD1B#CDR1#EGR2#EGR3#HBEGF#HERPUD1#MCM2#PCTP#PODXL#PPY#PTGS2#RCAN1#SLC4A7#THBD@KICH_expr_survival#KIRC_expr_survival#KIRP_expr_survival#LUAD_expr_survival#LUSC_expr_survival'
-# filepath = 'home/huff/github/GSCA/gsca/resource/pngs/b47556d1-e6ee-4b8b-aae0-2a7db026cebf.png'
+# filepath = 'home/huff/github/GSCA/gsca-r-plot/pngs/b47556d1-e6ee-4b8b-aae0-2a7db026cebf.png'
 # apppath <- '/home/liucj/github/GSCA'
 
 search_str_split <- strsplit(x = search_str, split = '@')[[1]]
@@ -24,12 +24,12 @@ search_cancertypes <- strsplit(x = search_str_split[[2]], split = '#')[[1]]
 
 # pic size ----------------------------------------------------------------
 
-source(file.path(apppath, "gsca-rapp/utils/fn_figure_height.R"))
+source(file.path(apppath, "gsca-r-app/utils/fn_figure_height.R"))
 size <- fn_height_width(search_genes,search_cancertypes)
 
 # Mongo -------------------------------------------------------------------
 
-gsca_conf <- readr::read_lines(file = file.path(apppath, 'gsca/rscripts/gsca.conf'))
+gsca_conf <- readr::read_lines(file = file.path(apppath, 'gsca-r-app/gsca.conf'))
 
 # Function ----------------------------------------------------------------
 
