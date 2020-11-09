@@ -1,1 +1,58 @@
-<p>stage works!</p>
+<!--<ng-container *ngIf="showStageTable">
+  <mat-card fxFlex appMaterialElevation defaultElevation="4" raiseElevation="4">
+    <mat-card-header>
+      <mat-card-title>Difference of mRNA expression between Stage</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <ng-container *ngIf="!StageTableLoading; else loading"></ng-container>
+      <mat-form-field>
+        <input matInput placeholder="Search" (keyup)="applyFilter($event)" #inputStage />
+        <button mat-icon-button color="warn" matPrefix>
+          <mat-icon style="font-size: 25px">search</mat-icon>
+        </button>
+      </mat-form-field>
+      <mat-table [dataSource]="StageTable" matSort>
+        <ng-container matColumnDef="cancertype">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Cancer type</mat-header-cell>
+          <mat-cell *matCellDef="let row">{{ row.cancertype }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="symbol">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Gene symbol</mat-header-cell>
+          <mat-cell *matCellDef="let row">{{ row.symbol }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="pval">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>P value</mat-header-cell>
+          <mat-cell *matCellDef="let row">{{ row.pval | number: '1.2-2' }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="fdr">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>FDR</mat-header-cell>
+          <mat-cell *matCellDef="let row">{{ row.fdr | number: '1.2-2' }}</mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumnsStage"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumnsStage"></mat-row>
+      </mat-table>
+      <mat-paginator #paginatorStage [pageSizeOptions]="[10, 20]" showFirstLastButtons></mat-paginator>
+    </mat-card-content>
+  </mat-card>
+</ng-container>
+
+<ng-container *ngIf="showStageImage">
+  <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
+    <mat-card-header>
+      <mat-card-title>Profile of gene expression on Stage</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <img [src]="this.StageImage" alt="Stageplot" *ngIf="!StageImageLoading; else loading" height="600px" />
+    </mat-card-content>
+  </mat-card>
+</ng-container>
+
+<ng-template #loading>
+  <mat-progress-bar mode="query" color="warn"></mat-progress-bar>
+</ng-template>
+-->
