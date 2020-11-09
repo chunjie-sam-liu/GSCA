@@ -126,6 +126,7 @@ export class DegComponent implements OnInit, OnChanges, AfterViewInit {
 
     return st;
   }
+
   public applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSourceDeg.filter = filterValue.trim().toLowerCase();
@@ -138,11 +139,13 @@ export class DegComponent implements OnInit, OnChanges, AfterViewInit {
   public expandDetail(element: DegTableRecord, column: string): void {
     this.expandedElement = this.expandedElement === element && this.expandedColumn === column ? null : element;
     this.expandedColumn = column;
-    if (this.expandedElement) {
-      if (this.expandedColumn === 'symbol') {
-        this.showDEGSingleGeneImage = true;
-        this.showdegSingleCancerTypeImage = false;
 
+    if (this.expandedElement) {
+      this.degSingleGeneImageLoading = true;
+      this.degSingleCancerTypeImageLoading = true;
+      this.showDEGSingleGeneImage = false;
+      this.showdegSingleCancerTypeImage = false;
+      if (this.expandedColumn === 'symbol') {
         const postTerm = {
           validSymbol: [this.expandedElement.symbol],
           cancerTypeSelected: collectionList.all_expr.cancertypes,
@@ -152,14 +155,20 @@ export class DegComponent implements OnInit, OnChanges, AfterViewInit {
         this.expressionApiService.getDEGSingleGenePlot(postTerm).subscribe(
           (res) => {
             this._createImageFromBlob(res, 'degSingleGeneImage');
+            this.degSingleGeneImageLoading = false;
+            this.degSingleCancerTypeImageLoading = false;
+            this.showDEGSingleGeneImage = true;
+            this.showdegSingleCancerTypeImage = false;
           },
-          (err) => {}
+          (err) => {
+            this.degSingleGeneImageLoading = false;
+            this.degSingleCancerTypeImageLoading = false;
+            this.showDEGSingleGeneImage = false;
+            this.showdegSingleCancerTypeImage = false;
+          }
         );
       }
       if (this.expandedColumn === 'cancertype') {
-        this.showDEGSingleGeneImage = false;
-        this.showdegSingleCancerTypeImage = true;
-
         const postTerm = {
           validSymbol: [this.expandedElement.symbol],
           cancerTypeSelected: [this.expandedElement.cancertype],
@@ -169,10 +178,24 @@ export class DegComponent implements OnInit, OnChanges, AfterViewInit {
         this.expressionApiService.getDEGSingleCancerTypePlot(postTerm).subscribe(
           (res) => {
             this._createImageFromBlob(res, 'degSingleCancerTypeImage');
+            this.degSingleGeneImageLoading = false;
+            this.degSingleCancerTypeImageLoading = false;
+            this.showDEGSingleGeneImage = false;
+            this.showdegSingleCancerTypeImage = true;
           },
-          (err) => {}
+          (err) => {
+            this.degSingleGeneImageLoading = false;
+            this.degSingleCancerTypeImageLoading = false;
+            this.showDEGSingleGeneImage = false;
+            this.showdegSingleCancerTypeImage = false;
+          }
         );
       }
+    } else {
+      this.degSingleGeneImageLoading = false;
+      this.degSingleCancerTypeImageLoading = false;
+      this.showDEGSingleGeneImage = false;
+      this.showdegSingleCancerTypeImage = false;
     }
   }
 
