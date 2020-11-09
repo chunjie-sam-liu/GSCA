@@ -15,7 +15,7 @@ filepath <- args[2]
 apppath <- args[3]
 
 # search_str = 'A2M@KICH_all_expr'
-# filepath = '/home/liucj/github/GSCA/gsca/resource/pngs/48c070a7-5daf-423b-ac35-838d550b624e.png'
+# filepath = '/home/liucj/github/GSCA/gsca-r-plot/pngs/48c070a7-5daf-423b-ac35-838d550b624e.png'
 # apppath <- '/home/liucj/github/GSCA'
 
 
@@ -26,7 +26,7 @@ search_cancertypes <- strsplit(x = search_str_split[[2]], split = '#')[[1]]
 
 # Mongo -------------------------------------------------------------------
 
-gsca_conf <- readr::read_lines(file = file = file.path(apppath, 'gsca-rapp/gsca.conf'))
+gsca_conf <- readr::read_lines(file = file = file.path(apppath, 'gsca-r-app/gsca.conf'))
 
 # Function ----------------------------------------------------------------
 

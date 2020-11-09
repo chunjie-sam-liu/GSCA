@@ -8,8 +8,8 @@ import subprocess
 class CheckPlot:
     apppath = Path(app.root_path).parent  # notice apppath parent
     rcommand = "/usr/bin/Rscript"
-    rscriptpath = apppath / "gsca-rapp"
-    resource_pngs = apppath / "gsca-rplot/pngs"
+    rscriptpath = apppath / "gsca-r-app"
+    resource_pngs = apppath / "gsca-r-plot/pngs"
 
     def __init__(self, args, purpose, rplot):
         self.args = args
