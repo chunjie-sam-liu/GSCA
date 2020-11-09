@@ -23,7 +23,7 @@ search_genes <- strsplit(x = search_str_split[1], split = '#')[[1]]
 search_cancertypes <- strsplit(x = search_str_split[[2]], split = '#')[[1]]
 
 # pic size ----------------------------------------------------------------
-source(file.path("gsca/rscripts/global functions/fn_figure_height.R"))
+source(file.path(apppath, "gsca/rscripts/utils/fn_figure_height.R"))
 size <- fn_height_width(search_genes,search_cancertypes)
 
 # Mongo -------------------------------------------------------------------
@@ -42,7 +42,7 @@ fn_fetch_mongo <- function(.x) {
   .coll$find(
     query = fn_query_str(search_genes),
     fields = '{"symbol": true, "pval": true, "higher_risk_of_death": true,"HR": true, "_id": false}'
-  ) %>% 
+  ) %>%
     dplyr::mutate(cancertype = gsub(pattern = '_expr_survival', replacement = '', x = .x))
 }
 
@@ -116,7 +116,7 @@ for_plot <- fn_pval_label(fetched_data)
 
 # Plot --------------------------------------------------------------------
 CPCOLS <- c("#000080", "#F8F8FF", "#CD0000")
-heat_plot <- for_plot %>% 
+heat_plot <- for_plot %>%
   ggplot(aes(x = cancertype, y = symbol)) +
   geom_tile(aes(fill = higher_risk_of_death, color=HR),height=0.8,width=0.8,size=1.5) +
   geom_text(aes(label=p_label)) +
@@ -147,7 +147,7 @@ heat_plot <- for_plot %>%
     # axis.text.y = element_text(color = gene_rank$color),
     axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, colour = "black"),
     axis.text.y = element_text(colour = "black"),
-    
+
     legend.text = element_text(size = 12),
     legend.title = element_text(size = 14),
     legend.key = element_rect(fill = "white", colour = "black")

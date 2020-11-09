@@ -25,7 +25,7 @@ search_cancertypes <- strsplit(x = search_str_split[[2]], split = '#')[[1]]
 
 
 # pic size ----------------------------------------------------------------
-source(file.path("gsca/rscripts/global functions/fn_figure_height.R"))
+source(file.path(apppath, "gsca/rscripts/utils/fn_figure_height.R"))
 size <- fn_height_width(search_genes,search_cancertypes)
 
 # Mongo -------------------------------------------------------------------
@@ -44,7 +44,7 @@ fn_fetch_mongo <- function(.x) {
   .coll$find(
     query = fn_query_str(search_genes),
     fields = '{"symbol": true, "fc": true, "fdr": true, "_id": false}'
-  ) %>% 
+  ) %>%
     dplyr::mutate(cancertype = gsub(pattern = '_deg', replacement = '', x = .x))
 }
 
@@ -109,7 +109,7 @@ fetched_data_filter <- fn_filter_fc_pval(.x = fetched_data)
 
 # Plot --------------------------------------------------------------------
 CPCOLS <- c("#000080", "#F8F8FF", "#CD0000")
-bubble_plot <- fetched_data_filter %>% 
+bubble_plot <- fetched_data_filter %>%
   ggplot(aes(x = cancertype, y = symbol)) +
   geom_point(aes(size = fdr, col = log2(fc))) +
   scale_color_gradient2(
