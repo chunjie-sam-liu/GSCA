@@ -22,6 +22,10 @@ search_str_split <- strsplit(x = search_str, split = '@')[[1]]
 search_genes <- strsplit(x = search_str_split[1], split = '#')[[1]]
 search_cancertypes <- strsplit(x = search_str_split[[2]], split = '#')[[1]]
 
+# pic size ----------------------------------------------------------------
+source(file.path("gsca/rscripts/global functions/fn_figure_height.R"))
+size <- fn_height_width(search_genes,search_cancertypes)
+
 # Mongo -------------------------------------------------------------------
 
 gsca_conf <- readr::read_lines(file = file.path(apppath, 'gsca/rscripts/gsca.conf'))
@@ -151,6 +155,6 @@ heat_plot <- for_plot %>%
 
 
 # Save --------------------------------------------------------------------
-ggsave(filename = filepath, plot = heat_plot, device = 'png', width = 7, height = 7)
+ggsave(filename = filepath, plot = heat_plot, device = 'png', width = size$width, height = size$height)
 pdf_name <- gsub("\\.png",".pdf",filepath)
-ggsave(filename = pdf_name, plot = heat_plot, device = 'pdf', width = 7, height = 7)
+ggsave(filename = pdf_name, plot = heat_plot, device = 'pdf', width = size$width, height = size$height)
