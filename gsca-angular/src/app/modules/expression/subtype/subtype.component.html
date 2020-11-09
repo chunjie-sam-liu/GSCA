@@ -46,9 +46,8 @@
     <mat-card-header>
       <mat-card-title>Profile of gene expression on subtype</mat-card-title>
     </mat-card-header>
-    <ng-container *ngIf="!subtypeImageLoading; else loading"></ng-container>
     <mat-card-content>
-      <img [src]="this.subtypeImage" alt="subtypeplot" height="600px" />
+      <img [src]="this.subtypeImage" alt="subtypeplot" *ngIf="!subtypeImageLoading; else loading" height="600px" />
     </mat-card-content>
   </mat-card>
 </ng-container>
