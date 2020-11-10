@@ -21,7 +21,7 @@ gsca_conf <- readr::read_lines(file = file.path(rda_path,"src",'gsca.conf'))
 
 fn_list_subtype <- function(.x){
   tibble::tibble(
-    barcode = list(.x$barcode),
+    sample_name = list(.x$barcode),
     subtype = list(.x$subtype)
   )
 }
@@ -81,7 +81,7 @@ fn_list_survival <- function(.x){
     })) %>%
     tidyr::unnest() -> .x
   tibble::tibble(
-    barcode = list(.x$barcode),
+    sample_name = list(.x$barcode),
     os_days = list(.x$os_days),
     os_status = list(.x$os_status),
     pfs_days = list(.x$pfs_days),
@@ -128,7 +128,7 @@ system.time(
 
 fn_list_stage <- function(.x){
   tibble::tibble(
-    barcode = list(.x$barcode),
+    sample_name = list(.x$barcode),
     stage = list(.x$stage),
     stage_type = list(.x$stage_type)
   )
