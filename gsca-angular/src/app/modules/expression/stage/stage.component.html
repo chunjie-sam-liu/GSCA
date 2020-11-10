@@ -1,18 +1,18 @@
-<ng-container *ngIf="showSubtypeTable">
+<!--<ng-container *ngIf="showStageTable">
   <mat-card fxFlex appMaterialElevation defaultElevation="4" raiseElevation="4">
     <mat-card-header>
-      <mat-card-title>Difference of mRNA expression between subtype</mat-card-title>
+      <mat-card-title>Difference of mRNA expression between Stage</mat-card-title>
     </mat-card-header>
 
     <mat-card-content>
-      <ng-container *ngIf="!subtypeTableLoading; else loading"></ng-container>
+      <ng-container *ngIf="!StageTableLoading; else loading"></ng-container>
       <mat-form-field>
-        <input matInput placeholder="Search" (keyup)="applyFilter($event)" #inputSubtype />
+        <input matInput placeholder="Search" (keyup)="applyFilter($event)" #inputStage />
         <button mat-icon-button color="warn" matPrefix>
           <mat-icon style="font-size: 25px">search</mat-icon>
         </button>
       </mat-form-field>
-      <mat-table [dataSource]="subtypeTable" matSort>
+      <mat-table [dataSource]="StageTable" matSort>
         <ng-container matColumnDef="cancertype">
           <mat-header-cell *matHeaderCellDef mat-sort-header>Cancer type</mat-header-cell>
           <mat-cell *matCellDef="let row">{{ row.cancertype }}</mat-cell>
@@ -33,21 +33,21 @@
           <mat-cell *matCellDef="let row">{{ row.fdr | number: '1.2-2' }}</mat-cell>
         </ng-container>
 
-        <mat-header-row *matHeaderRowDef="displayedColumnsSubtype"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumnsSubtype"></mat-row>
+        <mat-header-row *matHeaderRowDef="displayedColumnsStage"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumnsStage"></mat-row>
       </mat-table>
-      <mat-paginator #paginatorSubtype [pageSizeOptions]="[10, 20]" showFirstLastButtons></mat-paginator>
+      <mat-paginator #paginatorStage [pageSizeOptions]="[10, 20]" showFirstLastButtons></mat-paginator>
     </mat-card-content>
   </mat-card>
 </ng-container>
 
-<ng-container *ngIf="showSubtypeImage">
+<ng-container *ngIf="showStageImage">
   <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
     <mat-card-header>
-      <mat-card-title>Profile of gene expression on subtype</mat-card-title>
+      <mat-card-title>Profile of gene expression on Stage</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <img [src]="this.subtypeImage" alt="subtypeplot" *ngIf="!subtypeImageLoading; else loading" height="600px" />
+      <img [src]="this.StageImage" alt="Stageplot" *ngIf="!StageImageLoading; else loading" height="600px" />
     </mat-card-content>
   </mat-card>
 </ng-container>
@@ -55,3 +55,4 @@
 <ng-template #loading>
   <mat-progress-bar mode="query" color="warn"></mat-progress-bar>
 </ng-template>
+-->

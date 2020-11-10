@@ -9,9 +9,10 @@ import { DegComponent } from './deg/deg.component';
 import { ColorDiyComponent } from './color-diy/color-diy.component';
 import { SurvivalComponent } from './survival/survival.component';
 import { SubtypeComponent } from './subtype/subtype.component';
+import { StageComponent } from './stage/stage.component';
 
 @NgModule({
-  declarations: [ExpressionComponent, SearchBoxComponent, DegComponent, ColorDiyComponent, SurvivalComponent, SubtypeComponent],
+  declarations: [ExpressionComponent, SearchBoxComponent, DegComponent, ColorDiyComponent, SurvivalComponent, SubtypeComponent, StageComponent],
   imports: [CommonModule, ExpressionRoutingModule, SharedModule],
 })
 export class ExpressionModule {}

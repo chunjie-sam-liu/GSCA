@@ -33,7 +33,8 @@
     "**/gsca-r-plot": true,
     "**/node_modules": true,
     "**/templates": true,
-    "**/rda": true
+    "**/rda": true,
+    "**/.Rproj.user": true
   },
   "terminal.integrated.shellArgs.linux": ["-i", "-l"],
   "terminal.integrated.shell.linux": "bash",

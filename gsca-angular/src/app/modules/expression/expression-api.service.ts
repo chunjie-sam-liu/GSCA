@@ -32,6 +32,9 @@ export class ExpressionApiService extends BaseHttpService {
   public getSurvivalPlot(postTerm: ExprSearch): Observable<any> {
     return this.postDataImage('expression/survival/survivalplot', postTerm);
   }
+  public getSurvivalSingleGenePlot(postTerm: ExprSearch): Observable<any> {
+    return this.postDataImage('expression/survival/single/gene', postTerm);
+  }
   public getSubtypeTable(postTerm: ExprSearch): Observable<any> {
     return this.postData('expression/subtype/subtypetable', postTerm);
   }

@@ -11,6 +11,7 @@ export class ExpressionComponent implements OnInit, AfterViewInit {
   showDEG = false;
   showSurvival = false;
   showSubtype = false;
+  showStage = false;
 
   constructor() {}
 
@@ -22,5 +23,6 @@ export class ExpressionComponent implements OnInit, AfterViewInit {
     this.showDEG = true;
     this.showSurvival = true;
     this.showSubtype = true;
+    this.showStage = true;
   }
 }
