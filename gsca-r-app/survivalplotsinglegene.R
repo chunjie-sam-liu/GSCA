@@ -19,10 +19,10 @@ apppath <- args[3]
 break_point <- "median"
 survival_type <- c("os")
 color_list <- tibble::tibble(color=c( "#CD2626","#00B2EE"),
-                             group=c("High expr.","Low expr."))
+                             group=c("Higher expr.","Lower expr."))
 
-# search_str = 'CDR1@KICH_expr_survival'
-# filepath = '/home/huff/github/GSCA/gsca-r-plot/pngs/89bdb2f8-912a-4b89-9b43-1603e6db17cd.png'
+# search_str = 'HERPUD1@KIRC_expr_survival'
+# filepath = '/home/huff/github/GSCA/gsca-r-plot/pngs/9624753a-1aae-4288-b610-9c9337f960c6.png'
 # apppath <- '/home/huff/github/GSCA'
 
 
@@ -62,7 +62,9 @@ survival_group  %>%
 combine_data %>%
   dplyr::filter(!is.na(expr)) %>%
   dplyr::select(symbol,sample_name,expr,cancer_types,time=survival_type_to_draw$time,status=survival_type_to_draw$status) %>%
-  dplyr::mutate(group = ifelse(expr>quantile(expr,cutoff$cutoff),"High expr.","Low expr.")) -> combine_data_group
+  dplyr::filter(!is.na(time)) %>%
+  dplyr::filter(!is.na(status)) %>%
+  dplyr::mutate(group = ifelse(expr>quantile(expr,cutoff$cutoff),"Higher expr.","Lower expr.")) -> combine_data_group
 
 # draw survival plot ------------------------------------------------------
 title <- paste(search_cancertypes, search_genes, sep=", ")
