@@ -6,11 +6,19 @@ import collectionlist from 'src/app/shared/constants/collectionlist';
 import { ExprSearch } from 'src/app/shared/model/exprsearch';
 import { SubtypeTableRecord } from 'src/app/shared/model/subtypetablerecord';
 import { ExpressionApiService } from '../expression-api.service';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-subtype',
   templateUrl: './subtype.component.html',
   styleUrls: ['./subtype.component.css'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({ height: '0px', minHeight: '0' })),
+      state('expanded', style({ height: '*' })),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
 export class SubtypeComponent implements OnInit, OnChanges, AfterViewChecked {
   @Input() searchTerm: ExprSearch;
@@ -22,11 +30,24 @@ export class SubtypeComponent implements OnInit, OnChanges, AfterViewChecked {
   @ViewChild('paginatorSubtype') paginatorSubtype: MatPaginator;
   @ViewChild(MatSort) sortSubtype: MatSort;
   displayedColumnsSubtype = ['cancertype', 'symbol', 'pval', 'fdr'];
+  displayedColumnsSubtypeHeader = ['Cancer type', 'Symbol', 'P value', 'FDR'];
+  expandedElement: SubtypeTableRecord;
+  expandedColumn: string;
 
   // subtype image
   subtypeImageLoading = true;
   subtypeImage: any;
   showSubtypeImage = true;
+
+  // single gene
+  subtypeSingleGeneImage: any;
+  subtypeSingleGeneImageLoading = true;
+  showSubtypeSingleGeneImage = false;
+
+  // single cancer type
+  subtypeSingleCancerTypeImage: any;
+  subtypeSingleCancerTypeImageLoading = true;
+  showSubtypeSingleCancerTypeImage = false;
 
   constructor(private expressionApiService: ExpressionApiService) {}
 
@@ -63,7 +84,7 @@ export class SubtypeComponent implements OnInit, OnChanges, AfterViewChecked {
         (res) => {
           this.showSubtypeImage = true;
           this.subtypeImageLoading = false;
-          this._createImageFromBlob(res);
+          this._createImageFromBlob(res, 'survivalImage');
         },
         (err) => {
           this.showSubtypeImage = false;
@@ -78,6 +99,30 @@ export class SubtypeComponent implements OnInit, OnChanges, AfterViewChecked {
     // Add 'implements AfterViewChecked' to the class.
   }
 
+  private _createImageFromBlob(res: Blob, present: string) {
+    const reader = new FileReader();
+    reader.addEventListener(
+      'load',
+      () => {
+        switch (present) {
+          case 'subtypeImage':
+            this.subtypeImage = reader.result;
+            break;
+          case 'subtypeSingleGeneImage':
+            this.subtypeSingleGeneImage = reader.result;
+            break;
+          case 'subtypeSingleCancerTypeImage':
+            this.subtypeSingleCancerTypeImage = reader.result;
+            break;
+        }
+      },
+      false
+    );
+    if (res) {
+      reader.readAsDataURL(res);
+    }
+  }
+
   private _validCollection(st: ExprSearch): any {
     st.validColl = st.cancerTypeSelected
       .map((val) => {
@@ -86,19 +131,7 @@ export class SubtypeComponent implements OnInit, OnChanges, AfterViewChecked {
       .filter(Boolean);
     return st;
   }
-  private _createImageFromBlob(res: Blob) {
-    const reader = new FileReader();
-    reader.addEventListener(
-      'load',
-      () => {
-        this.subtypeImage = reader.result;
-      },
-      false
-    );
-    if (res) {
-      reader.readAsDataURL(res);
-    }
-  }
+
   public applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.subtypeTable.filter = filterValue.trim().toLowerCase();
@@ -106,5 +139,72 @@ export class SubtypeComponent implements OnInit, OnChanges, AfterViewChecked {
     if (this.subtypeTable.paginator) {
       this.subtypeTable.paginator.firstPage();
     }
+  }
+
+  public expandDetail(element: SubtypeTableRecord, column: string): void {
+    this.expandedElement = this.expandedElement === element && this.expandedColumn === column ? null : element;
+    this.expandedColumn = column;
+
+    if (this.expandedElement) {
+      this.subtypeSingleGeneImageLoading = true;
+      this.subtypeSingleCancerTypeImageLoading = true;
+      this.showSubtypeSingleGeneImage = false;
+      this.showSubtypeSingleCancerTypeImage = false;
+      if (this.expandedColumn === 'symbol') {
+        const postTerm = {
+          validSymbol: [this.expandedElement.symbol],
+          cancerTypeSelected: collectionlist.all_expr.cancertypes,
+          validColl: collectionlist.all_expr.collnames,
+        };
+
+        this.expressionApiService.getSubtypeSingleGenePlot(postTerm).subscribe(
+          (res) => {
+            this._createImageFromBlob(res, 'subtypeSingleGeneImage');
+            this.subtypeSingleGeneImageLoading = false;
+            this.subtypeSingleCancerTypeImageLoading = false;
+            this.showSubtypeSingleGeneImage = true;
+            this.showSubtypeSingleCancerTypeImage = false;
+          },
+          (err) => {
+            this.subtypeSingleGeneImageLoading = false;
+            this.subtypeSingleCancerTypeImageLoading = false;
+            this.showSubtypeSingleGeneImage = false;
+            this.showSubtypeSingleCancerTypeImage = false;
+          }
+        );
+      }
+      if (this.expandedColumn === 'cancertype') {
+        const postTerm = {
+          validSymbol: [this.expandedElement.symbol],
+          cancerTypeSelected: [this.expandedElement.cancertype],
+          validColl: [collectionlist.all_expr.collnames[collectionlist.all_expr.cancertypes.indexOf(this.expandedElement.cancertype)]],
+        };
+
+        this.expressionApiService.getSubtypeSingleCancerTypePlot(postTerm).subscribe(
+          (res) => {
+            this._createImageFromBlob(res, 'subtypeSingleCancerTypeImage');
+            this.subtypeSingleGeneImageLoading = false;
+            this.subtypeSingleCancerTypeImageLoading = false;
+            this.showSubtypeSingleGeneImage = false;
+            this.showSubtypeSingleCancerTypeImage = true;
+          },
+          (err) => {
+            this.subtypeSingleGeneImageLoading = false;
+            this.subtypeSingleCancerTypeImageLoading = false;
+            this.showSubtypeSingleGeneImage = false;
+            this.showSubtypeSingleCancerTypeImage = false;
+          }
+        );
+      }
+    } else {
+      this.subtypeSingleGeneImageLoading = false;
+      this.subtypeSingleCancerTypeImageLoading = false;
+      this.showSubtypeSingleGeneImage = false;
+      this.showSubtypeSingleCancerTypeImage = false;
+    }
+  }
+
+  public triggerDetail(element: SubtypeTableRecord): string {
+    return element === this.expandedElement ? 'expanded' : 'collapsed';
   }
 }

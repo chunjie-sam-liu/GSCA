@@ -5,4 +5,5 @@ export interface SubtypeTableRecord {
   symbol: string;
   pval: number;
   fdr: number;
+  cancertype: string;
 }
