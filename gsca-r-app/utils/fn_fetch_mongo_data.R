@@ -1,4 +1,5 @@
 
+library(magrittr)
 
 
 fn_query_str <- function(.key,.keyindex) {
@@ -31,4 +32,17 @@ fn_fetch_mongo_all_survival <- function(.data, .key, .keyindex) {
     fields = '{"cancer_types": true, "sample_name": true, "os_days": true,"os_status": true, "pfs_days": true,"pfs_status": true,"_id": false}'
   ) %>%
     tidyr::unnest(cols = c(cancer_types, sample_name, os_days, os_status, pfs_days, pfs_status)) 
+}
+
+# function to fectch all_subtype of a cancer type from mongo -------------
+
+
+fn_fetch_mongo_all_subtype <- function(.data, .key, .keyindex) {
+  coll <- .data
+  .coll <- mongolite::mongo(collection = coll, url = gsca_conf)
+  .coll$find(
+    query = fn_query_str(.key,.keyindex),
+    fields = '{"cancer_types": true, "sample_name": true, "subtype": true,"_id": false}'
+  ) %>%
+    tidyr::unnest(cols = c(cancer_types, sample_name, subtype)) 
 }
