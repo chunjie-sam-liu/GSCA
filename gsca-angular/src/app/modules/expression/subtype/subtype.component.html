@@ -16,14 +16,14 @@
         <ng-container matColumnDef="{{ column }}" *ngFor="let column of displayedColumnsSubtype; index as ind">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ displayedColumnsSubtypeHeader[ind] }}</th>
           <td mat-cell *matCellDef="let element">
-            <ng-container *ngIf="column === 'cancertype' || column === 'symbol'; then btn; else plain"></ng-container>
+            <ng-container *ngIf="column === 'symbol'; then btn; else plain"></ng-container>
             <ng-template #btn>
               <button mat-raised-button (click)="expandDetail(element, column)">
                 {{ element[column] }}
               </button>
             </ng-template>
             <ng-template #plain>
-              {{ element[column] | number: '1.2-2' }}
+              {{ column === 'cancertype' ? element[column] : (element[column] | number: '1.2-2') }}
             </ng-template>
           </td>
         </ng-container>
@@ -31,9 +31,8 @@
         <ng-container matColumnDef="expandedDetail">
           <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumnsSubtype.length">
             <div class="example-element-detail" [@detailExpand]="triggerDetail(element)">
-              <ng-container *ngIf="subtypeSingleGeneImageLoading || subtypeSingleCancerTypeImageLoading; then loading"> </ng-container>
+              <ng-container *ngIf="subtypeSingleGeneImageLoading; then loading"> </ng-container>
               <img [src]="subtypeSingleGeneImage" *ngIf="showSubtypeSingleGeneImage" height="600px" />
-              <img [src]="subtypeSingleCancerTypeImage" *ngIf="showSubtypeSingleCancerTypeImage" height="600px" />
             </div>
           </td>
         </ng-container>
