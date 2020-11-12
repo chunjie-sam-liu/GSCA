@@ -29,8 +29,19 @@ export class StageComponent implements OnInit, OnChanges, AfterViewChecked {
   showStageTable = true;
   @ViewChild('paginatorStage') paginatorStage: MatPaginator;
   @ViewChild(MatSort) sortStage: MatSort;
-  displayedColumnsStage = ['cancertype', 'symbol', 'pval', 'fdr'];
-  displayedColumnsStageHeader = ['Cancer type', 'Gene symbol', 'P value', 'FDR'];
+  displayedColumnsStage = ['cancertype', 'symbol', 'stage_type', 'stage1', 'stage2', 'stage3', 'stage4', 'stagex', 'pval', 'fdr'];
+  displayedColumnsStageHeader = [
+    'Cancer type',
+    'Gene symbol',
+    'Stage type',
+    'Stage I (mean expr./n)',
+    'Stage II (mean expr./n)',
+    'Stage III (mean expr./n)',
+    'Stage IV (mean expr./n)',
+    'Stage X (mean expr./n)',
+    'P value',
+    'FDR',
+  ];
   expandedElement: StageTableRecord;
   expandedColumn: string;
 

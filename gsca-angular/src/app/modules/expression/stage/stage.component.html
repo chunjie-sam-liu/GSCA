@@ -23,7 +23,7 @@
               </button>
             </ng-template>
             <ng-template #plain>
-              {{ column === 'cancertype' ? element[column] : (element[column] | number: '1.2-2') }}
+              {{ column === 'fdr' || column === 'pval' ? (element[column] | number: '1.2-2') : element[column] }}
             </ng-template>
           </td>
         </ng-container>
