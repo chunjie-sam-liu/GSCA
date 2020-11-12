@@ -29,7 +29,7 @@ export class StageComponent implements OnInit, OnChanges, AfterViewChecked {
   showStageTable = true;
   @ViewChild('paginatorStage') paginatorStage: MatPaginator;
   @ViewChild(MatSort) sortStage: MatSort;
-  displayedColumnsStage = ['cancertype', 'symbol', 'stage_type', 'stage1', 'stage2', 'stage3', 'stage4', 'stagex', 'pval', 'fdr'];
+  displayedColumnsStage = ['cancertype', 'symbol', 'stagetype', 'stage1', 'stage2', 'stage3', 'stage4', 'stagex', 'pval', 'fdr'];
   displayedColumnsStageHeader = [
     'Cancer type',
     'Gene symbol',
