@@ -32,7 +32,7 @@
 
     <div fxFlex="grow" fxLayout="row" style="border: 1px rebeccapurple solid">
       <ng-container *ngIf="showStage; else empty">
-        <app-stage fxLayout="row" fxLayoutGap="10px" fxLayout.lt-lg="column"></app-stage>
+        <app-stage fxLayout="row" fxLayoutGap="10px" fxLayout.lt-lg="column" [searchTerm]="searchTerm"></app-stage>
       </ng-container>
     </div>
 
