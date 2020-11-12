@@ -45,7 +45,9 @@ fetched_subtype_data <- fn_fetch_mongo_all_subtype(.data="all_subtype",.keyindex
 
 fetched_expr_data %>%
   dplyr::filter(type=="tumor") %>%
-  dplyr::inner_join(fetched_subtype_data,by=c("cancer_types", "sample_name")) -> combine_data
+  dplyr::inner_join(fetched_subtype_data,by=c("cancer_types", "sample_name"))  %>%
+  dplyr::filter(!is.na(subtype)) %>%
+  dplyr::filter(!is.na(expr)) -> combine_data
 
 # draw survival plot ------------------------------------------------------
 title <- paste(search_genes, "expression in subtypes of TCGA",search_cancertypes,"cancer type", sep=" ")
@@ -53,9 +55,7 @@ color <- c("#1B9E77", "#D95F02", "#7570B3", "#E7298A", "#66A61E", "#E6AB02", "#A
 len_subtype <- length(unique(combine_data$subtype))
 color_list <- tibble::tibble(color=color[1:len_subtype],
                              group=unique(combine_data$subtype))
-combine_data %>%
-  dplyr::filter(!is.na(subtype)) %>%
-  dplyr::filter(!is.na(expr)) %>%
+combine_data%>%
   dplyr::mutate(expr=log2(expr+1)) %>%
   dplyr::rename(group=subtype, value=expr) %>%
   fn_boxplot(title=title,colorkey=color_list,xlab="Subtypes",ylab="Expression log2(RSEM)") -> plot
