@@ -46,3 +46,16 @@ fn_fetch_mongo_all_subtype <- function(.data, .key, .keyindex) {
   ) %>%
     tidyr::unnest(cols = c(cancer_types, sample_name, subtype)) 
 }
+
+
+# function to fetch expr_subtype ------------------------------------------
+
+fn_fetch_mongo_all_stage <- function(.data, .key, .keyindex) {
+  coll <- .data
+  .coll <- mongolite::mongo(collection = coll, url = gsca_conf)
+  .coll$find(
+    query = fn_query_str(.key,.keyindex),
+    fields = '{"cancer_types": true, "sample_name": true, "stage": true,"_id": false}'
+  ) %>%
+    tidyr::unnest(cols = c(cancer_types, sample_name, stage)) 
+}
