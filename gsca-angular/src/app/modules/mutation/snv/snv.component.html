@@ -1,1 +1,69 @@
-<p>snv works!</p>
+<ng-container *ngIf="showSnvTable">
+  <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
+    <mat-card-header>
+      <mat-card-title>Snv</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <ng-container *ngIf="!dataSourceSnvLoading; else loading"></ng-container>
+
+      <mat-form-field>
+        <input matInput placeholder="Search gene symbol" (keyup)="applyFilter($event)" #inputSnv />
+        <button mat-icon-button color="warn" matPrefix>
+          <mat-icon style="font-size: 25px">search</mat-icon>
+        </button>
+      </mat-form-field>
+
+      <table mat-table [dataSource]="dataSourceSnv" multiTemplateDataRows matSort>
+        <ng-container matColumnDef="{{ column }}" *ngFor="let column of displayedColumnsSnv; index as ind">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ displayedColumnsSnvHeader[ind] }}</th>
+          <td mat-cell *matCellDef="let element">
+            <ng-container *ngIf="column === 'symbol'; then btn; else plain"></ng-container>
+            <ng-template #btn>
+              <button mat-raised-button (click)="expandDetail(element, column)">
+                {{ element[column] }}
+              </button>
+            </ng-template>
+            <ng-template #plain>
+              {{ column === 'percentage' ? (element[column] | number: '1.2-2') : element[column] }}
+            </ng-template>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="expandedDetail">
+          <td mat-cell *matCellDef="let element" [attr.colSpan]="displayedColumnsSnv.length">
+            <div class="example-element-detail" [@detailExpand]="triggerDetail(element)">
+              <ng-container *ngIf="snvSingleGeneImageLoading; then loading"></ng-container>
+              <img [src]="snvSingleGeneImage" *ngIf="showSnvSingleGeneImage" height="600px" />
+            </div>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumnsSnv"></tr>
+        <tr
+          mat-row
+          *matRowDef="let element; columns: displayedColumnsSnv"
+          class="example-element-row"
+          [class.example-expanded-row]="expandedElement === element"
+        ></tr>
+        <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+      </table>
+      <mat-paginator #paginatorSnv [pageSizeOptions]="[10, 20]" showFirstLastButtons></mat-paginator>
+    </mat-card-content>
+  </mat-card>
+</ng-container>
+
+<ng-container *ngIf="showSnvImage">
+  <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
+    <mat-card-header>
+      <mat-card-title>Profile of the snv of gene expression.</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <img [src]="this.snvImage" alt="snvplot" *ngIf="!snvImageLoading; else loading" height="600px" />
+    </mat-card-content>
+  </mat-card>
+</ng-container>
+
+<ng-template #loading>
+  <mat-progress-bar mode="query" color="warn"></mat-progress-bar>
+</ng-template>
+<ng-template #empty></ng-template>
