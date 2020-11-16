@@ -6,4 +6,5 @@ export interface SnvTableRecord {
   mutated_sample_size: number;
   percentage: number;
   sample_size: number;
+  cancertype: string;
 }
