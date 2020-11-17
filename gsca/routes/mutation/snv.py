@@ -50,3 +50,16 @@ class SnvPlot(Resource):
 
 
 api.add_resource(SnvPlot, "/snvplot")
+
+
+class SnvPlotLollipop(Resource):
+    def post(self):
+        args = request.get_json()
+        checkplot = CheckPlot(args=args, purpose="snvplotlollipop", rplot="snvplot_lollipop.R")
+        res = checkplot.check_run()
+        if res["run"]:
+            checkplot.plot(filepath=res["filepath"])
+        return send_file(str(res["filepath"]), mimetype="image/png")
+
+
+api.add_resource(SnvPlotLollipop, "/lollipop")
