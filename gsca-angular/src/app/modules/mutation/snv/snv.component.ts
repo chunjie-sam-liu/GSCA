@@ -39,7 +39,7 @@ export class SnvComponent implements OnInit, OnChanges, AfterViewInit {
   snvImage: any;
   showSnvImage = true;
 
-  // single gene
+  // single gene lolliplot
   snvSingleGeneImage: any;
   snvSingleGeneImageLoading = true;
   showSnvSingleGeneImage = false;
@@ -148,7 +148,7 @@ export class SnvComponent implements OnInit, OnChanges, AfterViewInit {
           validColl: [collectionlist.snv_count.collnames[collectionlist.snv_count.cancertypes.indexOf(this.expandedElement.cancertype)]],
         };
 
-        this.mutationApiService.getSnvSingleGenePlot(postTerm).subscribe(
+        this.mutationApiService.getSnvLollipop(postTerm).subscribe(
           (res) => {
             this._createImageFromBlob(res, 'snvSingleGeneImage');
             this.snvSingleGeneImageLoading = false;
