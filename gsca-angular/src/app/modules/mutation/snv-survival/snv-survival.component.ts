@@ -29,17 +29,24 @@ export class SnvSurvivalComponent implements OnInit, OnChanges, AfterViewInit {
   showSnvSurvivalTable = true;
   @ViewChild('paginatorSnvSurvival') paginatorSnvSurvival: MatPaginator;
   @ViewChild(MatSort) sortSnvSurvival: MatSort;
-  displayedColumnsSnvSurvival = ['cancertype', 'symbol', 'hr', 'pval', 'worse_group'];
-  displayedColumnsSnvSurvivalHeader = ['Cancer type', 'Gene symbol', 'Hazard Ratio', 'P value', 'Higher risk of death'];
+  displayedColumnsSnvSurvival = ['cancertype', 'symbol', 'hr', 'cox_p', 'log_rank_p', 'worse_group'];
+  displayedColumnsSnvSurvivalHeader = [
+    'Cancer type',
+    'Gene symbol',
+    'Hazard Ratio',
+    'Cox P value',
+    'Log rank P value',
+    'Higher risk of death',
+  ];
   expandedElement: SnvSurvivalTableRecord;
   expandedColumn: string;
 
-  // snv plot
+  // snv survival plot
   snvSurvivalImageLoading = true;
   snvSurvivalImage: any;
   showSnvSurvivalImage = true;
 
-  // single gene lolliplot
+  // single gene survival
   snvSurvivalSingleGeneImage: any;
   snvSurvivalSingleGeneImageLoading = true;
   showSnvSurvivalSingleGeneImage = false;
@@ -119,7 +126,7 @@ export class SnvSurvivalComponent implements OnInit, OnChanges, AfterViewInit {
   private _validCollection(st: ExprSearch): any {
     st.validColl = st.cancerTypeSelected
       .map((val) => {
-        return collectionlist.snv_count.collnames[collectionlist.snv_count.cancertypes.indexOf(val)];
+        return collectionlist.snv_survival.collnames[collectionlist.snv_survival.cancertypes.indexOf(val)];
       })
       .filter(Boolean);
     return st;
@@ -145,7 +152,9 @@ export class SnvSurvivalComponent implements OnInit, OnChanges, AfterViewInit {
         const postTerm = {
           validSymbol: [this.expandedElement.symbol],
           cancerTypeSelected: [this.expandedElement.cancertype],
-          validColl: [collectionlist.snv_count.collnames[collectionlist.snv_count.cancertypes.indexOf(this.expandedElement.cancertype)]],
+          validColl: [
+            collectionlist.snv_survival.collnames[collectionlist.snv_survival.cancertypes.indexOf(this.expandedElement.cancertype)],
+          ],
         };
 
         this.mutationApiService.getSnvSurvivalSingleGene(postTerm).subscribe(
