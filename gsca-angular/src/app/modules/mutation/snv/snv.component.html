@@ -1,7 +1,7 @@
 <ng-container *ngIf="showSnvTable">
   <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
     <mat-card-header>
-      <mat-card-title>Snv</mat-card-title>
+      <mat-card-title>Snv of genes in each TCGA cancer type</mat-card-title>
     </mat-card-header>
 
     <mat-card-content>
@@ -55,7 +55,7 @@
 <ng-container *ngIf="showSnvImage">
   <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
     <mat-card-header>
-      <mat-card-title>Profile of the snv of gene expression.</mat-card-title>
+      <mat-card-title>Profile of the snv of gene set.</mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <img [src]="this.snvImage" alt="snvplot" *ngIf="!snvImageLoading; else loading" height="600px" />
