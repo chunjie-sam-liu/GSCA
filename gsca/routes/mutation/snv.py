@@ -36,3 +36,17 @@ class SnvTable(Resource):
 
 
 api.add_resource(SnvTable, "/snvtable")
+
+
+class SnvPlot(Resource):
+    def post(self):
+        args = request.get_json()
+        checkplot = CheckPlot(args=args, purpose="snvplot", rplot="snvplot_profile.R")
+        res = checkplot.check_run()
+
+        if res["run"]:
+            checkplot.plot(filepath=res["filepath"])
+        return send_file(str(res["filepath"]), mimetype="image/png")
+
+
+api.add_resource(SnvPlot, "/snvplot")
