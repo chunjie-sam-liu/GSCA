@@ -9,7 +9,7 @@ import { ExprSearch } from 'src/app/shared/model/exprsearch';
 export class MutationComponent implements OnInit, AfterViewInit {
   searchTerm: ExprSearch;
   showSnv = false;
-
+  showSnvSurvival = false;
   constructor() {}
 
   ngOnInit(): void {}
@@ -18,5 +18,6 @@ export class MutationComponent implements OnInit, AfterViewInit {
   public showContent(exprSearch: ExprSearch): void {
     this.searchTerm = exprSearch;
     this.showSnv = true;
+    this.showSnvSurvival = true;
   }
 }

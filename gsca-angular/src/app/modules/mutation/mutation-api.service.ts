@@ -22,12 +22,12 @@ export class MutationApiService extends BaseHttpService {
     return this.postDataImage('mutation/snv/lollipop', postTerm);
   }
   public getSnvSurvivalTable(postTerm: ExprSearch): Observable<any> {
-    return this.postData('mutation/snv/snvsurvivaltable', postTerm);
+    return this.postData('mutation/snvsurvival/snvsurvivaltable', postTerm);
   }
   public getSnvSurvivalPlot(postTerm: ExprSearch): Observable<any> {
-    return this.postDataImage('mutation/snv/snvsurvivalplot', postTerm);
+    return this.postDataImage('mutation/snvsurvival/snvsurvivalplot', postTerm);
   }
   public getSnvSurvivalSingleGene(postTerm: ExprSearch): Observable<any> {
-    return this.postDataImage('mutation/snv/snvsurvivalsinglegeneplot', postTerm);
+    return this.postDataImage('mutation/snvsurvival/snvsurvivalsinglegeneplot', postTerm);
   }
 }

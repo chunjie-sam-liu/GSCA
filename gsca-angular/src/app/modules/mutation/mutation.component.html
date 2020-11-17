@@ -15,7 +15,7 @@
     </div>
 
     <div fxFlex="grow" fxLayout="row" style="border: 1px rebeccapurple solid">
-      <ng-container *ngIf="showSnv; else empty">
+      <ng-container *ngIf="showSnvSurvival; else empty">
         <app-snv-survival fxLayout="row" fxLayoutGap="10px" fxLayout.lt-lg="column" [searchTerm]="searchTerm"></app-snv-survival>
       </ng-container>
     </div>
