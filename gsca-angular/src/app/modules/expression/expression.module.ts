@@ -12,7 +12,15 @@ import { SubtypeComponent } from './subtype/subtype.component';
 import { StageComponent } from './stage/stage.component';
 
 @NgModule({
-  declarations: [ExpressionComponent, SearchBoxComponent, DegComponent, ColorDiyComponent, SurvivalComponent, SubtypeComponent, StageComponent],
+  declarations: [
+    ExpressionComponent,
+    SearchBoxComponent,
+    DegComponent,
+    ColorDiyComponent,
+    SurvivalComponent,
+    SubtypeComponent,
+    StageComponent,
+  ],
   imports: [CommonModule, ExpressionRoutingModule, SharedModule],
 })
 export class ExpressionModule {}
