@@ -34,6 +34,7 @@ gsca_conf <- readr::read_lines(file = file.path(apppath, 'gsca-r-app/gsca.conf')
 # Functions ----------------------------------------------------------------
 
 source(file.path(apppath, "gsca-r-app/utils/fn_fetch_mongo_data.R"))
+source(file.path(apppath, "gsca-r-app/utils/plot_theme.R"))
 source(file.path(apppath, "gsca-r-app/utils/fn_boxplot.R"))
 # Query data --------------------------------------------------------------
 fetched_expr_data <- fn_fetch_mongo_all_expr_single_cancer(.cancer_types = search_cancertypes, .keyindex="symbol", .key=search_genes) %>%
