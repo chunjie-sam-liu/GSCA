@@ -7,4 +7,8 @@ export interface SnvTableRecord {
   percentage: number;
   sample_size: number;
   cancertype: string;
+  deletion: number;
+  insertion: number;
+  SNV: number;
+  substitution: number;
 }

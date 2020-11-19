@@ -16,6 +16,10 @@ model_snvtable = {
     "mutated_sample_size": fields.Integer(attribute="mutated_sample_size"),
     "percentage": fields.Float(attribute="percentage"),
     "sample_size": fields.Integer(attribute="sample_size"),
+    "deletion": fields.Integer(attribute="deletion"),
+    "insertion": fields.Integer(attribute="insertion"),
+    "SNV": fields.Integer(attribute="SNV"),
+    "substitution": fields.Integer(attribute="substitution"),
 }
 
 
