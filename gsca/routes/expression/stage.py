@@ -3,21 +3,26 @@ from gsca.db import mongo
 from flask_restful import Api, Resource, fields, marshal_with, reqparse
 from gsca.utils.checkplot import CheckPlot
 
-survival = Blueprint("survival", __name__)
-api = Api(survival)
+stage = Blueprint("stage", __name__)
+api = Api(stage)
 
-model_survivaltable = {
+model_stagetable = {
     "entrez": fields.Integer(attribute="entrez"),
     "symbol": fields.String(attribute="symbol"),
-    "hr": fields.Float(attribute="HR"),
     "pval": fields.Float(attribute="pval"),
-    "worse_group": fields.String(attribute="higher_risk_of_death"),
+    "fdr": fields.Float(attribute="fdr"),
     "cancertype": fields.String(attribute="cancertype"),
+    "stagetype": fields.String(attribute="stage_type"),
+    "stage1": fields.String(attribute="Stage I (mean/n)"),
+    "stage2": fields.String(attribute="Stage II (mean/n)"),
+    "stage3": fields.String(attribute="Stage III (mean/n)"),
+    "stage4": fields.String(attribute="Stage IV (mean/n)"),
+    "stagex": fields.String(attribute="Stage X (mean/n)"),
 }
 
 
-class SurvivalTable(Resource):
-    @marshal_with(model_survivaltable)
+class StageTable(Resource):
+    @marshal_with(model_stagetable)
     def post(self):
         args = request.get_json()
         condition = {"symbol": {"$in": args["validSymbol"]}}
@@ -26,35 +31,36 @@ class SurvivalTable(Resource):
         for collname in args["validColl"]:
             mcur = mongo.db[collname].find(condition, output)
             for m in mcur:
-                m["cancertype"] = collname.rstrip("_expr_survival")
+                m["cancertype"] = collname.rstrip("_expr_stage")
                 res.append(m)
         return res
 
 
-api.add_resource(SurvivalTable, "/survivaltable")
+api.add_resource(StageTable, "/stagetable")
 
 
-class SurvivalPlot(Resource):
+class StagePlot(Resource):
     def post(self):
         args = request.get_json()
-        checkplot = CheckPlot(args=args, purpose="survivalplot", rplot="exp_survivalplot_profile.R")
+        checkplot = CheckPlot(args=args, purpose="stageplot", rplot="exp_stageplot_profile.R")
+        res = checkplot.check_run()
+
+        if res["run"]:
+            checkplot.plot(filepath=res["filepath"])
+        return send_file(str(res["filepath"]), mimetype="image/png")
+
+
+api.add_resource(StagePlot, "/stageplot")
+
+
+class StagePlotSingleGene(Resource):
+    def post(self):
+        args = request.get_json()
+        checkplot = CheckPlot(args=args, purpose="stageplotsinglegene", rplot="stageplot_singlegene.R")
         res = checkplot.check_run()
         if res["run"]:
             checkplot.plot(filepath=res["filepath"])
         return send_file(str(res["filepath"]), mimetype="image/png")
 
 
-api.add_resource(SurvivalPlot, "/survivalplot")
-
-
-class SurvivalPlotSingleGene(Resource):
-    def post(self):
-        args = request.get_json()
-        checkplot = CheckPlot(args=args, purpose="survivalplotsinglegene", rplot="survivalplotsinglegene.R")
-        res = checkplot.check_run()
-        if res["run"]:
-            checkplot.plot(filepath=res["filepath"])
-        return send_file(str(res["filepath"]), mimetype="image/png")
-
-
-api.add_resource(SurvivalPlotSingleGene, "/single/gene")
+api.add_resource(StagePlotSingleGene, "/single/gene")

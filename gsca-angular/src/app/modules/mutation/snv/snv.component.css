@@ -11,7 +11,7 @@ table {
 }
 
 .example-element-row:not(.example-expanded-row):active {
-  background: #efefef;
+  background: #ebbcbc;
 }
 
 .example-element-row td {

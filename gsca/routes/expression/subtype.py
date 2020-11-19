@@ -45,3 +45,16 @@ class SubtypePlot(Resource):
 
 
 api.add_resource(SubtypePlot, "/subtypeplot")
+
+
+class SubtypePlotSingleGene(Resource):
+    def post(self):
+        args = request.get_json()
+        checkplot = CheckPlot(args=args, purpose="subtypeplotsinglegene", rplot="subtypeplot_singlegene.R")
+        res = checkplot.check_run()
+        if res["run"]:
+            checkplot.plot(filepath=res["filepath"])
+        return send_file(str(res["filepath"]), mimetype="image/png")
+
+
+api.add_resource(SubtypePlotSingleGene, "/single/gene")

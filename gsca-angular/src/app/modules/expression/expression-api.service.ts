@@ -41,4 +41,16 @@ export class ExpressionApiService extends BaseHttpService {
   public getSubtypePlot(postTerm: ExprSearch): Observable<any> {
     return this.postDataImage('expression/subtype/subtypeplot', postTerm);
   }
+  public getSubtypeSingleGenePlot(postTerm: ExprSearch): Observable<any> {
+    return this.postDataImage('expression/subtype/single/gene', postTerm);
+  }
+  public getStageTable(postTerm: ExprSearch): Observable<any> {
+    return this.postData('expression/stage/stagetable', postTerm);
+  }
+  public getStagePlot(postTerm: ExprSearch): Observable<any> {
+    return this.postDataImage('expression/stage/stageplot', postTerm);
+  }
+  public getStageSingleGenePlot(postTerm: ExprSearch): Observable<any> {
+    return this.postDataImage('expression/stage/single/gene', postTerm);
+  }
 }
