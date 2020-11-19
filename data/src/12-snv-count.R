@@ -11,17 +11,17 @@ gsca_conf <- readr::read_lines(file = file.path(rda_path,"src",'gsca.conf'))
 
 # Load snv count----------------------------------------------------------------
 
-snv <- readr::read_rds(file.path(data_path,"gene_list_snv_count.IdTrans.rds.gz"))
+snv <- readr::read_rds(file.path(data_path,"all_maf.snv_count_per.rds.gz"))
 
 # Function ----------------------------------------------------------------
 
-fn_gene_tcga_snv_count <- function(cancer_types, n, snv) {
-  .x <- snv
+fn_gene_tcga_snv_count <- function(cancer_types, cancer_sample, data) {
+  .x <- data
   .y <- cancer_types
-  .z <- n
+  .z <- cancer_sample
   
   .x %>%
-    dplyr::rename(mutated_sample_size=sm_count,percentage=per) %>%
+    dplyr::rename(mutated_sample_size=mut_sum,percentage=per) %>%
     dplyr::mutate(sample_size = .z) -> .d
   
   # insert to collection
