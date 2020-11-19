@@ -34,7 +34,7 @@ class SnvTable(Resource):
             mcur = mongo.db[collname].find(condition, output)
             for m in mcur:
                 m["cancertype"] = collname.rstrip("_snv_count")
-                m["percentage"] = m["percentage"] * 100
+                m["percentage"] = m["percentage"]
                 res.append(m)
         return res
 
@@ -56,14 +56,14 @@ class SnvPlot(Resource):
 api.add_resource(SnvPlot, "/snvplot")
 
 
-class SnvPlotLollipop(Resource):
+class SnvLollipop(Resource):
     def post(self):
         args = request.get_json()
-        checkplot = CheckPlot(args=args, purpose="snvplotlollipop", rplot="snvplot_lollipop.R")
+        checkplot = CheckPlot(args=args, purpose="lollipop", rplot="snvplot_lollipop.R")
         res = checkplot.check_run()
         if res["run"]:
             checkplot.plot(filepath=res["filepath"])
         return send_file(str(res["filepath"]), mimetype="image/png")
 
 
-api.add_resource(SnvPlotLollipop, "/lollipop")
+api.add_resource(SnvLollipop, "/lollipop")
