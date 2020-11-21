@@ -31,8 +31,7 @@ for (file in file_list) {
 fn_snv_survival_mongo <-function(cancer_types,data){
   .y <- cancer_types 
   .x <- data %>%
-    dplyr::rename(symbol=Hugo_Symbol ,log_rank_p=logrankp,HR=hr) %>%
-    dplyr::mutate(higher_risk_of_death=ifelse(higher_risk_of_death=="High","Mutated","Non-mutated"))
+    dplyr::rename(symbol=Hugo_Symbol ,log_rank_p=logrankp,HR=hr) 
   
   # insert to collection
   .coll_name <- glue::glue('{.y}_snv_survival')
@@ -50,7 +49,7 @@ fn_snv_survival_mongo <-function(cancer_types,data){
 # data --------------------------------------------------------------------
 snv_survival %>%
   dplyr::filter(!is.na(higher_risk_of_death)) %>%
-  tidyr::nest(data = c(Hugo_Symbol, entrez, logrankp, cox_p, hr, higher_risk_of_death, sur_type)) %>%
+  tidyr::nest(data = c(Hugo_Symbol, entrez, logrankp, cox_p, hr, higher_risk_of_death,sur_type)) %>%
   purrr::pmap(.f=fn_snv_survival_mongo) -> snv_survival_mongo_data
 
 # Save image --------------------------------------------------------------
