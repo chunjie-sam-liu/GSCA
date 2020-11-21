@@ -21,6 +21,15 @@ export class MutationApiService extends BaseHttpService {
   public getSnvLollipop(postTerm: ExprSearch): Observable<any> {
     return this.postDataImage('mutation/snv/lollipop', postTerm);
   }
+  public getSnvSummary(postTerm: ExprSearch): Observable<any> {
+    return this.postDataImage('mutation/snv/snvsummary', postTerm);
+  }
+  public getSnvOncoplot(postTerm: ExprSearch): Observable<any> {
+    return this.postDataImage('mutation/snv/snvoncoplot', postTerm);
+  }
+  public getSnvTitv(postTerm: ExprSearch): Observable<any> {
+    return this.postDataImage('mutation/snv/snvtitv', postTerm);
+  }
   public getSnvSurvivalTable(postTerm: ExprSearch): Observable<any> {
     return this.postData('mutation/snvsurvival/snvsurvivaltable', postTerm);
   }
