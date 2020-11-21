@@ -29,10 +29,11 @@ export class SnvSurvivalComponent implements OnInit, OnChanges, AfterViewInit {
   showSnvSurvivalTable = true;
   @ViewChild('paginatorSnvSurvival') paginatorSnvSurvival: MatPaginator;
   @ViewChild(MatSort) sortSnvSurvival: MatSort;
-  displayedColumnsSnvSurvival = ['cancertype', 'symbol', 'hr', 'cox_p', 'log_rank_p', 'worse_group'];
+  displayedColumnsSnvSurvival = ['cancertype', 'symbol', 'sur_type', 'hr', 'cox_p', 'log_rank_p', 'higher_risk_of_death'];
   displayedColumnsSnvSurvivalHeader = [
     'Cancer type',
     'Gene symbol',
+    'Survival type',
     'Hazard Ratio',
     'Cox P value',
     'Log rank P value',

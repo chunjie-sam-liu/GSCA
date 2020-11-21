@@ -19,19 +19,44 @@ search_genes <- strsplit(x = search_str_split[1], split = '#')[[1]]
 search_colls <- strsplit(x = search_str_split[[2]], split = '#')[[1]]
 search_cancertypes <- strsplit(x = search_colls, split = '_')[[1]][1]
 
+# mongo -------------------------------------------------------------------
+
+gsca_conf <- readr::read_lines(file = file.path(apppath, 'gsca-r-app/gsca.conf'))
+
+# Functions ----------------------------------------------------------------
+
+source(file.path(apppath, "gsca-r-app/utils/fn_fetch_mongo_data.R"))
 # fetch data --------------------------------------------------------------
 
 data_path <- "/home/huff/data/GSCA/mutation/snv/sub_cancer_maf"
 filename <-  paste(search_cancertypes,"_maf_data.IdTrans.maf.rds.gz",sep="")
 pan_maf <- readr::read_rds(file.path(data_path,filename))
 
+snv_count <- fn_fetch_mongo_snv_count(.data=search_colls,.keyindex="symbol", .key=search_genes)
+# pic size ----------------------------------------------------------------
 
+fn_height <- function(.g){
+  .lg <- length(.g)
+  if(.lg<=5){
+    .height <- 3
+  } else{
+    .height <- 3 + (.lg-5)*0.5
+  }
+  if(.height>=15){
+    .height <- 15
+  } else {
+    .height <- .height
+  }
+  .height
+}
 # plot --------------------------------------------------------------------
-png(filename = filepath,height = 3,width = 4,units = "in",res=500)
+height <- fn_height(snv_count)
+
+png(filename = filepath,height = height,width = 4,units = "in",res=500)
 lollipopPlot(maf = pan_maf,gene = search_genes, showMutationRate = TRUE)
 dev.off()
 
 pdf_name <- gsub("\\.png",".pdf",filepath)
-pdf(file = pdf_name,height = 3,width = 4)
+pdf(file = pdf_name,height = height,width = 4)
 lollipopPlot(maf = pan_maf,gene = search_genes, showMutationRate = TRUE)
 dev.off()

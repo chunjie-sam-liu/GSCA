@@ -54,9 +54,9 @@ fn_fetch_mongo <- function(.x) {
 
 fn_heatmap <- function( data, cancer, gene, fill, label, cancer_rank, gene_rank){
   limit_high <- data$percentage %>% max()
-  if(limit_high<5){
-    limit_high <- 5
-    seq <- 1
+  if(limit_high<=10){
+    limit_high <- 10
+    seq <- 2
   } else{
     seq <- 5
   }
@@ -115,7 +115,7 @@ fetched_data %>%
   dplyr::mutate(x_label = paste(cancertype, " (n=", sample_size , ")", sep = "")) %>%
   # dplyr::mutate(sm_count = ifelse(sm_count > 0, sm_count, NA)) %>%
   dplyr::mutate(percentage = ifelse(is.na(percentage) , 0, percentage)) %>%
-  dplyr::mutate(percentage =percentage *100) -> snv_per_plot_ready
+  dplyr::mutate(percentage =percentage) -> snv_per_plot_ready
 snv_per_plot_ready %>%
   dplyr::group_by(x_label) %>%
   dplyr::summarise(s = sum(percentage)) %>%

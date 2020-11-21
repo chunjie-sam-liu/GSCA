@@ -12,10 +12,11 @@ api = Api(snvsurvival)
 model_snvsurvivaltable = {
     "entrez": fields.Integer(attribute="entrez"),
     "symbol": fields.String(attribute="symbol"),
+    "sur_type": fields.String(attribute="sur_type"),
     "hr": fields.Float(attribute="HR"),
     "cox_p": fields.Float(attribute="cox_p"),
     "log_rank_p": fields.Float(attribute="log_rank_p"),
-    "worse_group": fields.String(attribute="higher_risk_of_death"),
+    "higher_risk_of_death": fields.String(attribute="higher_risk_of_death"),
     "cancertype": fields.String(attribute="cancertype"),
 }
 

@@ -4,7 +4,8 @@ export interface SurvivalTableRecord {
   entrez: number;
   symbol: string;
   pval: number;
-  worse_group: string;
+  higher_risk_of_death: string;
   cancertype: string;
   hr: number;
+  sur_type: string;
 }
