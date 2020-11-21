@@ -67,3 +67,42 @@ class SnvLollipop(Resource):
 
 
 api.add_resource(SnvLollipop, "/lollipop")
+
+
+class SnvSummary(Resource):
+    def post(self):
+        args = request.get_json()
+        checkplot = CheckPlot(args=args, purpose="snvsummary", rplot="snv_summary.R")
+        res = checkplot.check_run()
+        if res["run"]:
+            checkplot.plot(filepath=res["filepath"])
+        return send_file(str(res["filepath"]), mimetype="image/png")
+
+
+api.add_resource(SnvSummary, "/snvsummary")
+
+
+class SnvOncoplot(Resource):
+    def post(self):
+        args = request.get_json()
+        checkplot = CheckPlot(args=args, purpose="snvoncoplot", rplot="snv_oncoplot.R")
+        res = checkplot.check_run()
+        if res["run"]:
+            checkplot.plot(filepath=res["filepath"])
+        return send_file(str(res["filepath"]), mimetype="image/png")
+
+
+api.add_resource(SnvOncoplot, "/snvoncoplot")
+
+
+class SnvTitv(Resource):
+    def post(self):
+        args = request.get_json()
+        checkplot = CheckPlot(args=args, purpose="snvtitv", rplot="snv_titv.R")
+        res = checkplot.check_run()
+        if res["run"]:
+            checkplot.plot(filepath=res["filepath"])
+        return send_file(str(res["filepath"]), mimetype="image/png")
+
+
+api.add_resource(SnvTitv, "/snvtitv")
