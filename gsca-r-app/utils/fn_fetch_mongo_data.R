@@ -47,15 +47,38 @@ fn_fetch_mongo_all_subtype <- function(.data, .key, .keyindex) {
     tidyr::unnest(cols = c(cancer_types, sample_name, subtype)) 
 }
 
+# function to fectch all_subtype of a cancer type from mongo -------------
 
-# function to fetch expr_subtype ------------------------------------------
 
-fn_fetch_mongo_all_stage <- function(.data, .key, .keyindex) {
+fn_fetch_mongo_all_subtype <- function(.data, .key, .keyindex) {
   coll <- .data
   .coll <- mongolite::mongo(collection = coll, url = gsca_conf)
   .coll$find(
     query = fn_query_str(.key,.keyindex),
-    fields = '{"cancer_types": true, "sample_name": true, "stage": true,"_id": false}'
+    fields = '{"cancer_types": true, "sample_name": true, "subtype": true,"_id": false}'
   ) %>%
-    tidyr::unnest(cols = c(cancer_types, sample_name, stage)) 
+    tidyr::unnest(cols = c(cancer_types, sample_name, subtype)) 
+}
+# function to fetch snv_count ------------------------------------------
+
+fn_fetch_mongo_snv_count <- function(.data, .key, .keyindex) {
+  coll <- .data
+  .coll <- mongolite::mongo(collection = coll, url = gsca_conf)
+  .coll$find(
+    query = fn_query_str(.key,.keyindex),
+    fields = '{"mutated_sample_size": true, "_id": false}'
+  ) %>%
+    tidyr::unnest(cols = c(mutated_sample_size)) 
+}
+
+# function to fetch snv_maf ------------------------------------------
+
+fn_fetch_mongo_snv_maf <-  function(.data, .key, .keyindex) {
+  coll <- .data
+  .coll <- mongolite::mongo(collection = coll, url = gsca_conf)
+  .coll$find(
+    query = fn_query_str(.key,.keyindex),
+    fields = '{"_id": false}'
+  ) %>%
+    tidyr::unnest() 
 }
