@@ -55,6 +55,11 @@ export class SnvSurvivalComponent implements OnInit, OnChanges, AfterViewInit {
   snvSurvivalSingleGeneImageLoading = true;
   showSnvSurvivalSingleGeneImage = false;
 
+  // geneset survival plot
+  showSnvGenesetSurvivalImage = true;
+  snvGenesetSurvivalImage: any;
+  snvGenesetSurvivalImageLoading = true;
+
   constructor(private mutationApiService: MutationApiService) {}
 
   ngOnInit(): void {}
@@ -99,6 +104,18 @@ export class SnvSurvivalComponent implements OnInit, OnChanges, AfterViewInit {
           this.showSnvSurvivalImage = false;
         }
       );
+
+      this.mutationApiService.getSnvGenesetSurvivalPlot(postTerm).subscribe(
+        (res) => {
+          this.showSnvGenesetSurvivalImage = true;
+          this.snvGenesetSurvivalImageLoading = false;
+          this._createImageFromBlob(res, 'snvGenesetSurvivalImage');
+        },
+        (err) => {
+          this.snvGenesetSurvivalImageLoading = false;
+          this.showSnvGenesetSurvivalImage = false;
+        }
+      );
     }
   }
 
@@ -118,6 +135,9 @@ export class SnvSurvivalComponent implements OnInit, OnChanges, AfterViewInit {
             break;
           case 'snvSurvivalSingleGeneImage':
             this.snvSurvivalSingleGeneImage = reader.result;
+            break;
+          case 'snvGenesetSurvivalImage':
+            this.snvGenesetSurvivalImage = reader.result;
             break;
         }
       },

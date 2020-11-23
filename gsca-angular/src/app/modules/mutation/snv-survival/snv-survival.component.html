@@ -67,6 +67,22 @@
   </mat-card>
 </ng-container>
 
+<ng-container *ngIf="showSnvGenesetSurvivalImage">
+  <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
+    <mat-card-header>
+      <mat-card-title>Profile of survival of mutated gene set.</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <img
+        [src]="this.snvGenesetSurvivalImage"
+        alt="snvGenesetSurvivalplot"
+        *ngIf="!snvGenesetSurvivalImageLoading; else loading"
+        height="600px"
+      />
+    </mat-card-content>
+  </mat-card>
+</ng-container>
+
 <ng-template #loading>
   <mat-progress-bar mode="query" color="warn"></mat-progress-bar>
 </ng-template>

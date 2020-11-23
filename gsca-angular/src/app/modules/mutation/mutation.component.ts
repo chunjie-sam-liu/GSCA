@@ -17,9 +17,8 @@ export class MutationComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {}
   ngAfterViewInit(): void {}
 
-  public showContent(exprSearch: ExprSearch, snvGeneset: SnvGeneset): void {
+  public showContent(exprSearch: ExprSearch): void {
     this.searchTerm = exprSearch;
-    this.searchTermGeneset = snvGeneset;
     this.showSnv = true;
     this.showSnvSurvival = true;
   }
