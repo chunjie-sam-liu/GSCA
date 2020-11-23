@@ -42,7 +42,7 @@ api.add_resource(SnvSurvivalTable, "/snvsurvivaltable")
 class SnvSurvivalPlot(Resource):
     def post(self):
         args = request.get_json()
-        checkplot = CheckPlot(args=args, purpose="snvsurvivalplot", rplot="snvsurvivalplot_profile.R")
+        checkplot = CheckPlot(args=args, purpose="snvsurvivalplot", rplot="snv_survivalplot_profile.R")
         res = checkplot.check_run()
 
         if res["run"]:
