@@ -66,7 +66,8 @@ class SnvSurvivalSingleGene(Resource):
 
 
 api.add_resource(SnvSurvivalSingleGene, "/snvsurvivalsinglegeneplot")
-
+"""
+"""
 model_snvgenesetsurvivaltable = {
     "sur_type": fields.String(attribute="sur_type"),
     "hr": fields.Float(attribute="HR"),
@@ -88,10 +89,10 @@ class SnvGenesetSurvivalTable(Resource):
         return res
 
 
-api.add_resource(SnvSurvivalTable, "/snvgenesetsurvivaltable")
+api.add_resource(SnvGenesetSurvivalTable, "/snvgenesetsurvivaltable")
 
 
-class SnvSurvivalGenesetPlot(Resource):
+class SnvGenesetSurvivalPlot(Resource):
     def post(self):
         args = request.get_json()
         checkplot = CheckPlot(args=args, purpose="snvsurvivalgenesetplot", rplot="snv_geneset_survival_profile.R")
@@ -101,4 +102,4 @@ class SnvSurvivalGenesetPlot(Resource):
         return send_file(str(res["filepath"]), mimetype="image/png")
 
 
-api.add_resource(SnvSurvivalSingleGene, "/snvsurvivalgenesetplot")
+api.add_resource(SnvGenesetSurvivalPlot, "/snvgenesetsurvivalplot")
