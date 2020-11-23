@@ -26,9 +26,7 @@ class SnvSurvivalTable(Resource):
     @marshal_with(model_snvsurvivaltable)
     def post(self):
         args = request.get_json()
-        print(args)
         condition = {"symbol": {"$in": args["validSymbol"]}}
-        print(condition)
         output = {"_id": 0}
         res = list()
         for collname in args["validColl"]:
