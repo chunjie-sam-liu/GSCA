@@ -180,6 +180,7 @@ export class SnvSurvivalComponent implements OnInit, OnChanges, AfterViewInit {
           validColl: [
             collectionlist.snv_survival.collnames[collectionlist.snv_survival.cancertypes.indexOf(this.expandedElement.cancertype)],
           ],
+          surType: [this.expandedElement.sur_type],
         };
 
         this.mutationApiService.getSnvSurvivalSingleGene(postTerm).subscribe(
