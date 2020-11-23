@@ -5,6 +5,7 @@ from pathlib import Path
 import subprocess
 import uuid
 from gsca.utils.checkplot import CheckPlot
+from gsca.utils.check_survivalPlot import CheckSurvivalPlot
 
 snvsurvival = Blueprint("snvsurvival", __name__)
 api = Api(snvsurvival)
@@ -58,7 +59,7 @@ api.add_resource(SnvSurvivalPlot, "/snvsurvivalplot")
 class SnvSurvivalSingleGene(Resource):
     def post(self):
         args = request.get_json()
-        checkplot = CheckPlot(args=args, purpose="snvsurvivalsinglegene", rplot="snvsurvival_singlegene.R")
+        checkplot = CheckSurvivalPlot(args=args, purpose="snvsurvivalsinglegene", rplot="snvsurvival_singlegene.R")
         res = checkplot.check_run()
         if res["run"]:
             checkplot.plot(filepath=res["filepath"])
