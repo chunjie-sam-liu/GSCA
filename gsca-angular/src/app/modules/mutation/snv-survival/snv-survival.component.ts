@@ -1,6 +1,8 @@
 import { AfterViewInit, Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { ExprSearch } from 'src/app/shared/model/exprsearch';
+import { SnvGeneset } from 'src/app/shared/model/snvgeneset';
+
 import { SnvSurvivalTableRecord } from 'src/app/shared/model/snvsurvivaltablerecord';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -22,6 +24,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 })
 export class SnvSurvivalComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() searchTerm: ExprSearch;
+  @Input() searchTermGeneset: SnvGeneset;
 
   // snv table data source
   dataSourceSnvSurvivalLoading = true;
@@ -63,6 +66,7 @@ export class SnvSurvivalComponent implements OnInit, OnChanges, AfterViewInit {
     this.snvSurvivalImageLoading = true;
 
     const postTerm = this._validCollection(this.searchTerm);
+    // const postTermGenset = this._validCollection(this.searchTermGeneset);
 
     if (!postTerm.validColl.length) {
       this.dataSourceSnvSurvivalLoading = false;
