@@ -18,7 +18,9 @@ apppath <- args[3]
 
 search_str_split <- strsplit(x = search_str, split = '@')[[1]]
 search_genes <- strsplit(x = search_str_split[1], split = '#')[[1]]
-search_cancertypes <- strsplit(x = search_str_split[[2]], split = '#')[[1]]
+search_colls <- strsplit(x = search_str_split[[2]], split = '#')[[1]]
+search_cancertypes <- list(strsplit(x = search_str_split[[2]], split = '#')[[1]] )%>%
+  purrr::pmap(.f=function(.x){strsplit(x = .x, split = '_')[[1]][1]}) %>% unlist()
 
 # pic size ----------------------------------------------------------------
 
@@ -103,13 +105,13 @@ fn_pval_label <- function(.x){
 
 # Query data --------------------------------------------------------------
 
-fetched_data <- purrr::map(.x = search_cancertypes, .f = fn_fetch_mongo) %>% dplyr::bind_rows()
+fetched_data <- purrr::map(.x = search_colls, .f = fn_fetch_mongo) %>% dplyr::bind_rows()
 
 # Sort --------------------------------------------------------------------
 
 fetched_data_clean_pattern <- fn_get_pattern(.x = fetched_data)
 cancer_rank <- fn_get_cancer_types_rank(.x = fetched_data_clean_pattern %>% dplyr::filter(sur_type=="os"))
-gene_rank <- fn_get_gene_rank(.x = fetched_data_clean_pattern%>% dplyr::filter(sur_type=="os"))
+gene_rank <- fn_get_gene_rank(.x = fetched_data_clean_pattern %>% dplyr::filter(sur_type=="os"))
 
 for_plot <- fn_pval_label(fetched_data)
 
@@ -160,3 +162,5 @@ heat_plot <- for_plot %>%
 ggsave(filename = filepath, plot = heat_plot, device = 'png', width = size$width, height = size$height)
 pdf_name <- gsub("\\.png",".pdf",filepath)
 ggsave(filename = pdf_name, plot = heat_plot, device = 'pdf', width = size$width, height = size$height)
+
+
