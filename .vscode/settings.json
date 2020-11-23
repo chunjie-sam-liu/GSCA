@@ -1,6 +1,5 @@
 {
-  "python.pythonPath": "venv/bin/python",
-  "python.dataScience.jupyterServerURI": "http://localhost:9797/?token=null",
+"python.pythonPath": "venv/bin/python",
   "python.analysis.disabled": ["unresolved-import"],
   "python.analysis.completeFunctionParens": true,
   "python.languageServer": "Pylance",
@@ -58,5 +57,6 @@
     "titleBar.inactiveForeground": "#e7e7e799"
   },
   "peacock.remoteColor": "#832561",
-  "peacock.color": "#832561"
+"peacock.color": "#832561",
+"jupyter.jupyterServerType": "remote"
 }
