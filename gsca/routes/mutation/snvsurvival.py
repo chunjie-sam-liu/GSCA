@@ -101,8 +101,7 @@ class SnvGenesetSurvivalTable(Resource):
         }
         output = {"_id": 0, "res": 1}
         res = mongo.db.snv_geneset_survival.find_one(condition, output)
-        print(res)
-        return list(res)
+        return res
 
 
 api.add_resource(SnvGenesetSurvivalTable, "/snvgenesetsurvivaltable")
