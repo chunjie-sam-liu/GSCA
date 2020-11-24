@@ -13,13 +13,10 @@ model_snvtable = {
     "entrez": fields.Integer(attribute="entrez"),
     "symbol": fields.String(attribute="symbol"),
     "cancertype": fields.String(attribute="cancertype"),
-    "mutated_sample_size": fields.Integer(attribute="mutated_sample_size"),
+    "EffectiveMut": fields.Integer(attribute="EffectiveMut"),
+    "NonEffectiveMut": fields.Integer(attribute="NonEffectiveMut"),
     "percentage": fields.Float(attribute="percentage"),
     "sample_size": fields.Integer(attribute="sample_size"),
-    "deletion": fields.Integer(attribute="deletion"),
-    "insertion": fields.Integer(attribute="insertion"),
-    "SNV": fields.Integer(attribute="SNV"),
-    "substitution": fields.Integer(attribute="substitution"),
 }
 
 

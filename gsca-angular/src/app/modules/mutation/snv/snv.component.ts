@@ -29,25 +29,12 @@ export class SnvComponent implements OnInit, OnChanges, AfterViewInit {
   showSnvTable = true;
   @ViewChild('paginatorSnv') paginatorSnv: MatPaginator;
   @ViewChild(MatSort) sortSnv: MatSort;
-  displayedColumnsSnv = [
-    'cancertype',
-    'symbol',
-    'deletion',
-    'insertion',
-    'SNV',
-    'substitution',
-    'mutated_sample_size',
-    'sample_size',
-    'percentage',
-  ];
+  displayedColumnsSnv = ['cancertype', 'symbol', 'EffectiveMut', 'NonEffectiveMut', 'sample_size', 'percentage'];
   displayedColumnsSnvHeader = [
     'Cancer type',
     'Gene symbol',
-    'Deletion',
-    'insertion',
-    'SNV',
-    'substitution',
-    'Mutated sample size',
+    'Effective mutation',
+    'Non-effective mutation',
     'Total sample size',
     'Percentage',
   ];
