@@ -77,24 +77,10 @@ model_snvgenesetsurvivaltable = {
 }
 
 
-class SnvGenesetSurvivalTable(Resource):
-    @marshal_with(model_snvgenesetsurvivaltable)
-    def post(self):
-        args = request.get_json()
-        condition = {"cancertype": {"$in": args["cancerTypeSelected"]}}
-        output = {"_id": 0}
-        res = list()
-        mcur = mongo.db["snv_geneset_survival"].find(condition, output)
-        return res
-
-
-api.add_resource(SnvGenesetSurvivalTable, "/snvgenesetsurvivaltable")
-
-
 class SnvGenesetSurvivalPlot(Resource):
     def post(self):
         args = request.get_json()
-        checkplot = CheckPlot(args=args, purpose="snvsurvivalgenesetplot", rplot="snv_geneset_survival_profile.R")
+        checkplot = CheckPlot(args=args, purpose="snvsurvivalgeneset", rplot="snv_geneset_survival_profile.R")
         res = checkplot.check_run()
         if res["run"]:
             checkplot.plot(filepath=res["filepath"])
@@ -102,3 +88,21 @@ class SnvGenesetSurvivalPlot(Resource):
 
 
 api.add_resource(SnvGenesetSurvivalPlot, "/snvgenesetsurvivalplot")
+
+
+class SnvGenesetSurvivalTable(Resource):
+    def post(self):
+        args = request.get_json()
+        print(args)
+        condition = {
+            "search": "#".join(args["validSymbol"]),
+            "coll": "#".join(args["validColl"]),
+            "purpose": "snv_geneset_survival",
+        }
+        output = {"_id": 0, "res": 1}
+        res = mongo.db.snv_geneset_survival.find_one(condition, output)
+        print(res)
+        return list(res)
+
+
+api.add_resource(SnvGenesetSurvivalTable, "/snvgenesetsurvivaltable")
