@@ -8,6 +8,7 @@ import subprocess
 class CheckPlot:
     apppath = Path(app.root_path).parent  # notice apppath parent
     rcommand = "/usr/bin/Rscript"
+    # rcommand = "/usr/local/bin/Rscript"
     rscriptpath = apppath / "gsca-r-app"
     resource_pngs = apppath / "gsca-r-plot/pngs"
 

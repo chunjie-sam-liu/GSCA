@@ -1,7 +1,6 @@
 {
-    "python.analysis.disabled": [
-        "unresolved-import"
-    ],
+"python.pythonPath": "venv/bin/python",
+  "python.analysis.disabled": ["unresolved-import"],
   "python.analysis.completeFunctionParens": true,
   "python.languageServer": "Pylance",
   "python.linting.lintOnSave": true,
