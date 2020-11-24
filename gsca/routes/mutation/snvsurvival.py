@@ -65,8 +65,7 @@ class SnvSurvivalSingleGene(Resource):
 
 
 api.add_resource(SnvSurvivalSingleGene, "/snvsurvivalsinglegeneplot")
-"""
-"""
+
 model_snvgenesetsurvivaltable = {
     "sur_type": fields.String(attribute="sur_type"),
     "hr": fields.Float(attribute="HR"),
