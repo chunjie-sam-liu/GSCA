@@ -25,7 +25,11 @@
               </button>
             </ng-template>
             <ng-template #plain>
-              {{ column === 'percentage' ? (element[column] | number: '1.2-2') : element[column] }}
+              {{
+                column === 'symbol' || column === 'cancertype' || column === 'gene_tag' || column === 'trend'
+                  ? element[column]
+                  : (element[column] | number: '1.2-2')
+              }}
             </ng-template>
           </td>
         </ng-container>

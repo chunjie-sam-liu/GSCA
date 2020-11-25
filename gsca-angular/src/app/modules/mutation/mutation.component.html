@@ -21,7 +21,7 @@
     </div>
 
     <div fxFlex="grow" fxLayout="row" style="border: 1px rebeccapurple solid">
-      <ng-container *ngIf="showSnvSurvival; else empty">
+      <ng-container *ngIf="showMethylation; else empty">
         <app-methylation fxLayout="row" fxLayoutGap="10px" fxLayout.lt-lg="column" [searchTerm]="searchTerm"></app-methylation>
       </ng-container>
     </div>
