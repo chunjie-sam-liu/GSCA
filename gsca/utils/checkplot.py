@@ -49,5 +49,5 @@ class CheckPlot:
     def plot(self, filepath):
         rargs = "#".join(self.args["validSymbol"]) + "@" + "#".join(self.args["validColl"])
         cmd = [self.rcommand, str(self.rscriptpath / self.rplot), rargs, str(filepath), str(self.apppath)]
-        print("\n\n  ".join(cmd))
+        print("\n\n ", "\n\n  ".join(cmd), "\n\n")
         subprocess.check_output(cmd, universal_newlines=True)
