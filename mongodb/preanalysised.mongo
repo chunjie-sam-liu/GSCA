@@ -2,7 +2,10 @@ db.preanalysised.find({
   "search": "A2M#ACE#ANGPT2#BPI#CD1B#CDR1#EGR2#EGR3#HBEGF#HERPUD1#MCM2#PCTP#PODXL#PPY#PTGS2#RCAN1#SLC4A7#THBD",
   "coll": "KIRC_expr_subtype#LUAD_expr_subtype#LUSC_expr_subtype",
   "purpose": "subtypeplot"
-})
+}, {"_id": 0, "uuid": 1, "purpose": 1})
 
 
-db.preanalysised.find({"purpose": "subtypeplot"})
+db.preanalysised.findOne({"purpose": "subtypeplot"})
+
+
+db.preanalysised.find({"purpose": {"$in": ["testa", "testb"]}}).count()
