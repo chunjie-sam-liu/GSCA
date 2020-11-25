@@ -132,5 +132,4 @@ dmypy.json
 nohup.out
 
 gsca.conf
-resource/
 gsca-r-plot/

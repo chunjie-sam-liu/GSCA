@@ -14,11 +14,15 @@ export class ExpressionApiService extends BaseHttpService {
     super(http);
   }
 
+  public getResourcePlotBlob(uuidname: string, plotType = 'png'): Observable<any> {
+    return this.getDataImage('resource/responseplot/' + uuidname + '.' + plotType);
+  }
+
   public getDEGTable(postTerm: ExprSearch): Observable<any> {
     return this.postData('expression/deg/degtable', postTerm);
   }
   public getDEGPlot(postTerm: ExprSearch): Observable<any> {
-    return this.postDataImage('expression/deg/degplot', postTerm);
+    return this.postData('expression/deg/degplot', postTerm);
   }
   public getDEGSingleGenePlot(postTerm: ExprSearch): Observable<any> {
     return this.postDataImage('expression/deg/degplot/single/gene', postTerm);

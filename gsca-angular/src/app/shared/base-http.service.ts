@@ -16,6 +16,10 @@ export class BaseHttpService {
     return this.http.post(this._generateRoute(route, environment.apiURL), data, { headers: { 'content-type': 'application/json' } });
   }
 
+  public getDataImage(route: string, data?: any): Observable<any> {
+    return this.http.get(this._generateRoute(route, environment.apiURL), { responseType: 'blob' });
+  }
+
   public postDataImage(route: string, data: any): Observable<any> {
     return this.http.post(this._generateRoute(route, environment.apiURL), data, {
       headers: { 'content-type': 'application/json' },
