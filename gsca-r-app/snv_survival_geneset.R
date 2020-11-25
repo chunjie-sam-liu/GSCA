@@ -110,6 +110,5 @@ tibble::tibble(uuid=uuid,search=search_str_split[1],coll=search_str_split[2],pur
 .coll_name <- 'snv_geneset_survival'
 .coll <- mongolite::mongo(collection = .coll_name, url = gsca_conf)
 
-.coll$drop()
 .coll$insert(data=for_mongo)
 message(glue::glue('Refresh snv geneset mongo res'))

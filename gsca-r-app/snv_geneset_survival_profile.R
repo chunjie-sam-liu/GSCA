@@ -53,6 +53,7 @@ fn_pval_label <- function(.x){
     tidyr::unnest()
 }
 heat_plot <- geneset_survival %>%
+  dplyr::mutate(sur_type=toupper(sur_type)) %>%
   dplyr::mutate(p_label=purrr::map(logrankp,fn_pval_class))%>%
   tidyr::unnest() %>%
   ggplot(aes(x = sur_type, y = cancertype)) +
@@ -92,6 +93,6 @@ heat_plot <- geneset_survival %>%
   )
 
 # Save --------------------------------------------------------------------
-ggsave(filename = filepath, plot = heat_plot, device = 'png', width = size$width, height = size$height)
+ggsave(filename = filepath, plot = heat_plot, device = 'png', width = 4, height = size$height)
 pdf_name <- gsub("\\.png",".pdf",filepath)
-ggsave(filename = pdf_name, plot = heat_plot, device = 'pdf', width = size$width, height = size$height)
+ggsave(filename = pdf_name, plot = heat_plot, device = 'pdf', width = 4, height = size$height)

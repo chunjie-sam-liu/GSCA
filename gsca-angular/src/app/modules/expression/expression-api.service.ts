@@ -26,6 +26,9 @@ export class ExpressionApiService extends BaseHttpService {
   public getDEGSingleCancerTypePlot(postTerm: ExprSearch): Observable<any> {
     return this.postDataImage('expression/deg/degplot/single/cancertype', postTerm);
   }
+  public getDegGsvaTable(postTerm: ExprSearch): Observable<any> {
+    return this.postDataImage('expression/deg/deggsva', postTerm);
+  }
   public getSurvivalTable(postTerm: ExprSearch): Observable<any> {
     return this.postData('expression/survival/survivaltable', postTerm);
   }

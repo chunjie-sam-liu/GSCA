@@ -110,8 +110,8 @@ fetched_data <- purrr::map(.x = search_colls, .f = fn_fetch_mongo) %>% dplyr::bi
 # Sort --------------------------------------------------------------------
 
 fetched_data_clean_pattern <- fn_get_pattern(.x = fetched_data)
-cancer_rank <- fn_get_cancer_types_rank(.x = fetched_data_clean_pattern %>% dplyr::filter(sur_type=="os"))
-gene_rank <- fn_get_gene_rank(.x = fetched_data_clean_pattern %>% dplyr::filter(sur_type=="os"))
+cancer_rank <- fn_get_cancer_types_rank(.x = fetched_data_clean_pattern %>% dplyr::filter(sur_type=="OS"))
+gene_rank <- fn_get_gene_rank(.x = fetched_data_clean_pattern %>% dplyr::filter(sur_type=="OS"))
 
 for_plot <- fn_pval_label(fetched_data)
 

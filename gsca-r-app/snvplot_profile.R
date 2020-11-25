@@ -47,7 +47,7 @@ fn_fetch_mongo <- function(.x) {
   .coll <- mongolite::mongo(collection = .x, url = gsca_conf)
   .coll$find(
     query = fn_query_str(search_genes),
-    fields = '{"symbol": true, "percentage": true,"sample_size": true, "mutated_sample_size": true ,"_id": false}'
+    fields = '{"symbol": true, "percentage": true,"sample_size": true, "EffectiveMut": true ,"_id": false}'
   ) %>%
     dplyr::mutate(cancertype = gsub(pattern = '_snv_count', replacement = '', x = .x))
 }
@@ -85,7 +85,7 @@ fn_heatmap <- function( data, cancer, gene, fill, label, cancer_rank, gene_rank)
       axis.title = element_blank(),
       axis.ticks = element_line(color = "black"),
       # axis.text.y = element_text(color = gene_rank$color),
-      axis.text.x = element_text(colour = "black",angle = 45, hjust = -0.05,),
+      axis.text.x = element_text(colour = "black",angle = 45, hjust = -0.05),
       axis.text.y = element_text(colour = "black"),
       
       legend.text = element_text(size = 12),
@@ -128,7 +128,7 @@ snv_per_plot_ready %>%
 # plot --------------------------------------------------------------------
 
 p <- fn_heatmap(data = snv_per_plot_ready,
-           cancer = "x_label", gene = "symbol", fill = "percentage", label = "mutated_sample_size",
+           cancer = "x_label", gene = "symbol", fill = "percentage", label = "EffectiveMut",
            cancer_rank = snv_per_cancer_rank, gene_rank = snv_per_gene_rank)
 
 # Save --------------------------------------------------------------------

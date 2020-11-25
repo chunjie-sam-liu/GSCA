@@ -2,6 +2,7 @@ from flask import Blueprint, request, send_file
 from gsca.db import mongo
 from flask_restful import Api, Resource, fields, marshal_with, reqparse
 from gsca.utils.checkplot import CheckPlot
+from gsca.utils.checktable import CheckTable
 
 deg = Blueprint("deg", __name__)
 api = Api(deg)
@@ -75,3 +76,15 @@ class DEGPlotSingleCancerType(Resource):
 
 api.add_resource(DEGPlotSingleCancerType, "/degplot/single/cancertype")
 
+
+class DegGsvaTable(Resource):
+    def post(self):
+        args = request.get_json()
+        checktable = CheckTable(args=args, purpose="deggsva", rtable="deg_gsva.R")
+        res = checktable.check_run()
+        if res["run"]:
+            checktable.table(filepath=res["filepath"])
+        return send_file(str(res["filepath"]), mimetype="table/tsv")
+
+
+api.add_resource(DegGsvaTable, "/deggsva")

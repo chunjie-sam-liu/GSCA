@@ -1,7 +1,7 @@
 from flask import Blueprint, request, send_file
 from gsca.db import mongo
 from flask_restful import Api, Resource, fields, marshal_with, reqparse
-from pathlib import Path
+from pathlib import Path, PurePath
 import subprocess
 import uuid
 from gsca.utils.checkplot import CheckPlot
@@ -92,6 +92,7 @@ api.add_resource(SnvGenesetSurvivalPlot, "/snvgenesetsurvivalplot")
 class SnvGenesetSurvivalTable(Resource):
     def post(self):
         args = request.get_json()
+        print(args)
         condition = {
             "search": "#".join(args["validSymbol"]),
             "coll": "#".join(args["validColl"]),
@@ -103,3 +104,17 @@ class SnvGenesetSurvivalTable(Resource):
 
 
 api.add_resource(SnvGenesetSurvivalTable, "/snvgenesetsurvivaltable")
+
+
+class SnvGenesetSurvivalSingleCancer(Resource):
+    def post(self):
+        args = request.get_json()
+        checkplot = CheckPlot(args=args, purpose="snvgenesetsurvivalsinglecancer", rplot="snv_geneset_survival_singlecancer.R")
+        res = checkplot.check_run()
+        if res["run"]:
+            checkplot.plot(filepath=res["filepath"])
+        return send_file(str(res["filepath"]), mimetype="image/png")
+
+
+api.add_resource(SnvGenesetSurvivalSingleCancer, "/snvgenesetsurvivalsinglecancer")
+
