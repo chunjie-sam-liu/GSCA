@@ -102,6 +102,7 @@ export class SnvSurvivalComponent implements OnInit, OnChanges, AfterViewInit {
       this.showSnvGenesetSurvivalTable = false;
     } else {
       this.showSnvSurvivalTable = true;
+      this.showSnvGenesetSurvivalTable = true;
       this.mutationApiService.getSnvSurvivalTable(postTerm).subscribe(
         (res) => {
           this.dataSourceSnvSurvivalLoading = false;
@@ -139,7 +140,6 @@ export class SnvSurvivalComponent implements OnInit, OnChanges, AfterViewInit {
         }
       );
 
-      this.showSnvGenesetSurvivalTable = true;
       this.mutationApiService.getSnvGenesetSurvivalTable(postTerm).subscribe(
         (res) => {
           this.snvGenesetSurvivalTableLoading = false;
