@@ -1,6 +1,5 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ExprSearch } from 'src/app/shared/model/exprsearch';
-import { SnvGeneset } from 'src/app/shared/model/snvgeneset';
 
 @Component({
   selector: 'app-mutation',
@@ -9,7 +8,6 @@ import { SnvGeneset } from 'src/app/shared/model/snvgeneset';
 })
 export class MutationComponent implements OnInit, AfterViewInit {
   searchTerm: ExprSearch;
-  searchTermGeneset: SnvGeneset;
   showSnv = false;
   showSnvSurvival = false;
   constructor() {}

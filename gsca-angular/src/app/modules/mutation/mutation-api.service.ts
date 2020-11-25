@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BaseHttpService } from 'src/app/shared/base-http.service';
 import { ExprSearch } from 'src/app/shared/model/exprsearch';
-
 @Injectable({
   providedIn: 'root',
 })
@@ -39,7 +38,13 @@ export class MutationApiService extends BaseHttpService {
   public getSnvSurvivalSingleGene(postTerm: ExprSearch): Observable<any> {
     return this.postDataImage('mutation/snvsurvival/snvsurvivalsinglegeneplot', postTerm);
   }
+  public getSnvGenesetSurvivalTable(postTerm: ExprSearch): Observable<any> {
+    return this.postData('mutation/snvsurvival/snvgenesetsurvivaltable', postTerm);
+  }
   public getSnvGenesetSurvivalPlot(postTerm: ExprSearch): Observable<any> {
     return this.postDataImage('mutation/snvsurvival/snvgenesetsurvivalplot', postTerm);
+  }
+  public getSnvGenesetSurvivalSingleCancer(postTerm: ExprSearch): Observable<any> {
+    return this.postDataImage('mutation/snvsurvival/snvgenesetsurvivalsinglecancer', postTerm);
   }
 }

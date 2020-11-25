@@ -102,14 +102,14 @@ geneset_survival %>%
   readr::write_tsv(file.path(apppath,"gsca-r-plot/tables","geneset_survival_table.tsv"))
 
 # results into mongo database ---------------------------------------------
+uuid <- gsub("\\.png","",gsub("\\/home/huff/github/GSCA/gsca-r-plot/pngs/","",filepath))
 
 # insert to collection
-.coll_name <- glue::glue('snv_geneset_survival')
+tibble::tibble(uuid=uuid,search=search_str_split[1],coll=search_str_split[2],purpose="snv_geneset_survival",res=list(geneset_survival)) -> for_mongo
+
+.coll_name <- 'snv_geneset_survival'
 .coll <- mongolite::mongo(collection = .coll_name, url = gsca_conf)
 
 .coll$drop()
-.coll$insert(data=geneset_survival)
-.coll$index(add='{"cancertype": 1}')
-
+.coll$insert(data=for_mongo)
 message(glue::glue('Refresh snv geneset mongo res'))
-
