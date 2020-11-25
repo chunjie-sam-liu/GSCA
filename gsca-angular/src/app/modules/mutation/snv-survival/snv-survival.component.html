@@ -1,7 +1,7 @@
 <ng-container *ngIf="showSnvSurvivalTable">
   <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
     <mat-card-header>
-      <mat-card-title>Survival of mutated genes in each TCGA cancer type</mat-card-title>
+      <mat-card-title>Survival between mutated (effective) and non-mutated in the specific cancers</mat-card-title>
     </mat-card-header>
 
     <mat-card-content>
@@ -59,7 +59,7 @@
 <ng-container *ngIf="showSnvSurvivalImage">
   <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
     <mat-card-header>
-      <mat-card-title>Profile of survival of mutated gene.</mat-card-title>
+      <mat-card-title>Survival between mutated (effective) and non-mutated in the specific cancers</mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <img [src]="this.snvSurvivalImage" alt="snvSurvivalplot" *ngIf="!snvSurvivalImageLoading; else loading" height="600px" />
@@ -70,7 +70,7 @@
 <ng-container *ngIf="showSnvGenesetSurvivalTable">
   <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
     <mat-card-header>
-      <mat-card-title>Survival of mutated geneset in TCGA cancer type</mat-card-title>
+      <mat-card-title>Survival of gene set mutation and non-mutation in the specific cancers</mat-card-title>
     </mat-card-header>
 
     <mat-card-content>
@@ -128,7 +128,7 @@
 <ng-container *ngIf="showSnvGenesetSurvivalImage">
   <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
     <mat-card-header>
-      <mat-card-title>Profile of survival of mutated gene set.</mat-card-title>
+      <mat-card-title>Survival of gene set mutation and non-mutation in the specific cancers</mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <img
