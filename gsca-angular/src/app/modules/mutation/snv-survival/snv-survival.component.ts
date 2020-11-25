@@ -8,6 +8,7 @@ import { MatSort } from '@angular/material/sort';
 import collectionlist from 'src/app/shared/constants/collectionlist';
 import { MutationApiService } from '../mutation-api.service';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { timeout } from 'rxjs/operators';
 
 @Component({
   selector: 'app-snv-survival',
@@ -140,18 +141,21 @@ export class SnvSurvivalComponent implements OnInit, OnChanges, AfterViewInit {
       );
 
       this.showSnvGenesetSurvivalTable = true;
-      this.mutationApiService.getSnvGenesetSurvivalTable(postTerm).subscribe(
-        (res) => {
-          this.snvGenesetSurvivalTableLoading = false;
-          this.snvGenesetSurvivalTable = new MatTableDataSource(res);
-          this.snvGenesetSurvivalTable.paginator = this.paginatorSnvGenesetSurvival;
-          this.snvGenesetSurvivalTable.sort = this.sortSnvGenesetSurvival;
-        },
-        (err) => {
-          this.snvGenesetSurvivalTableLoading = false;
-          this.showSnvGenesetSurvivalTable = false;
-        }
-      );
+      this.mutationApiService
+        .getSnvGenesetSurvivalTable(postTerm)
+        .pipe(timeout(2000))
+        .subscribe(
+          (res) => {
+            this.snvGenesetSurvivalTableLoading = false;
+            this.snvGenesetSurvivalTable = new MatTableDataSource(res);
+            this.snvGenesetSurvivalTable.paginator = this.paginatorSnvGenesetSurvival;
+            this.snvGenesetSurvivalTable.sort = this.sortSnvGenesetSurvival;
+          },
+          (err) => {
+            this.snvGenesetSurvivalTableLoading = false;
+            this.showSnvGenesetSurvivalTable = false;
+          }
+        );
     }
   }
 
