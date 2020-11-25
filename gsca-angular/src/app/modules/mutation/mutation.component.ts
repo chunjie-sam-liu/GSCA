@@ -10,6 +10,7 @@ export class MutationComponent implements OnInit, AfterViewInit {
   searchTerm: ExprSearch;
   showSnv = false;
   showSnvSurvival = false;
+  showMethylation = false;
   constructor() {}
 
   ngOnInit(): void {}
@@ -19,5 +20,6 @@ export class MutationComponent implements OnInit, AfterViewInit {
     this.searchTerm = exprSearch;
     this.showSnv = true;
     this.showSnvSurvival = true;
+    this.showMethylation = true;
   }
 }

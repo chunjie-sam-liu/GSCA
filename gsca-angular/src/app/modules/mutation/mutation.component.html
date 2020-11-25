@@ -20,6 +20,12 @@
       </ng-container>
     </div>
 
+    <div fxFlex="grow" fxLayout="row" style="border: 1px rebeccapurple solid">
+      <ng-container *ngIf="showSnvSurvival; else empty">
+        <app-methylation fxLayout="row" fxLayoutGap="10px" fxLayout.lt-lg="column" [searchTerm]="searchTerm"></app-methylation>
+      </ng-container>
+    </div>
+
     <ng-template #loading>
       <mat-progress-bar mode="query" color="warn"></mat-progress-bar>
     </ng-template>
