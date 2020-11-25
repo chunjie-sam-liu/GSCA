@@ -85,24 +85,6 @@ fn_get_gene_rank <- function(.x) {
     dplyr::arrange(rank)
 }
 
-fn_pval_class <- function(.p){
-  if(.p>0.05){
-    ""
-  }else if(.p<=0.05 & .p>=0.01){
-    "*"
-  }else if(.p<0.01 & .p>=0.001){
-    "**"
-  } else{
-    "***"
-  }
-}
-fn_pval_label <- function(.x){
-  .x %>%
-    dplyr::mutate(p_label=purrr::map(pval,fn_pval_class)) %>%
-    tidyr::unnest()
-}
-
-
 # Query data --------------------------------------------------------------
 
 fetched_data <- purrr::map(.x = search_cancertypes, .f = fn_fetch_mongo) %>% dplyr::bind_rows()
@@ -112,7 +94,7 @@ fetched_data_clean_pattern <- fn_get_pattern(.x = fetched_data)
 cancer_rank <- fn_get_cancer_types_rank(.x = fetched_data_clean_pattern)
 gene_rank <- fn_get_gene_rank(.x = fetched_data_clean_pattern)
 
-for_plot <- fn_pval_label(fetched_data) %>%
+for_plot <- fetched_data %>%
   dplyr::mutate(logFDR = -log10(fdr)) %>%
   dplyr::mutate(logFDR = ifelse(logFDR>10,10,logFDR))
 
@@ -120,8 +102,7 @@ for_plot <- fn_pval_label(fetched_data) %>%
 CPCOLS <- c("#000080", "#F8F8FF", "#CD0000")
 for_plot %>%
   ggplot(aes(x = cancertype, y = symbol)) +
-  geom_tile(aes(fill = logFDR),height=0.9,width=0.9,size=1.5) +
-  geom_text(aes(label=p_label)) +
+  geom_tile(aes(fill = logFDR),height=0.9,width=0.9,size=0.5,color="grey") +
   scale_y_discrete(limit = gene_rank$symbol) +
   scale_x_discrete(limit = cancer_rank$cancer_types) +
   scale_fill_gradient2(
