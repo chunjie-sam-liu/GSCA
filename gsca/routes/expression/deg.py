@@ -45,7 +45,9 @@ class DEGPlot(Resource):
         res = checkplot.check_run()
         if res["run"]:
             checkplot.plot(filepath=res["filepath"])
-        return send_file(str(res["filepath"]), mimetype="image/png")
+        print(res["uuid"])
+        # return send_file(str(res["filepath"]), mimetype="image/png")
+        return {"degplotuuid": res["uuid"]}
 
 
 api.add_resource(DEGPlot, "/degplot")

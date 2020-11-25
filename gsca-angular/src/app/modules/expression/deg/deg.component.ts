@@ -80,9 +80,16 @@ export class DegComponent implements OnInit, OnChanges, AfterViewInit {
 
       this.expressionApiService.getDEGPlot(postTerm).subscribe(
         (res) => {
-          this.showDEGImage = true;
-          this.degImageLoading = false;
-          this._createImageFromBlob(res, 'degImage');
+          this.expressionApiService.getResourcePlotBlob(res.degplotuuid).subscribe(
+            (r) => {
+              this.showDEGImage = true;
+              this.degImageLoading = false;
+              this._createImageFromBlob(r, 'degImage');
+            },
+            (e) => {
+              this.showDEGImage = false;
+            }
+          );
         },
         (err) => {
           this.showDEGImage = false;

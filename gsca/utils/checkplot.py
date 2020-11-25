@@ -34,7 +34,7 @@ class CheckPlot:
             filename = uuidname + ".png"
             filepath = self.resource_pngs / filename
             run = False if filepath.exists() else True
-            return {"run": run, "filepath": filepath}
+            return {"run": run, "filepath": filepath, "uuid": uuidname}
         else:
             mongo.db.preanalysised.insert_one(
                 {
@@ -44,7 +44,7 @@ class CheckPlot:
                     "uuid": uuidname,
                 }
             )
-            return {"run": True, "filepath": filepath}
+            return {"run": True, "filepath": filepath, "uuid": uuidname}
 
     def plot(self, filepath):
         rargs = "#".join(self.args["validSymbol"]) + "@" + "#".join(self.args["validColl"])
