@@ -3,3 +3,21 @@ POST http://localhost:5000/api/mutation/methylation/methylationdetable HTTP/1.1
 content-type: application/json
 
 {"validSymbol":["A2M","ACE","ANGPT2","BPI","CD1B","CDR1","EGR2","EGR3","HBEGF","HERPUD1","MCM2","PCTP","PODXL","PPY","PTGS2","RCAN1","SLC4A7","THBD"],"cancerTypeSelected":["KICH","KIRC","KIRP","LUAD","LUSC"],"validColl":["KIRC_methy_diff","KIRP_methy_diff","LUAD_methy_diff","LUSC_methy_diff"]}
+
+#### methy de summary plot
+POST http://localhost:5000/api/mutation/methylation/methylationdeplot HTTP/1.1
+content-type: application/json
+
+{"validSymbol":["A2M","ACE","ANGPT2","BPI","CD1B","CDR1","EGR2","EGR3","HBEGF","HERPUD1","MCM2","PCTP","PODXL","PPY","PTGS2","RCAN1","SLC4A7","THBD"],"cancerTypeSelected":["KICH","KIRC","KIRP","LUAD","LUSC"],"validColl":["KIRC_methy_diff","KIRP_methy_diff","LUAD_methy_diff","LUSC_methy_diff"]}
+
+#### methy single gene in all cancers
+POST http://localhost:5000/api/mutation/methylation/singlegenemethyde HTTP/1.1
+content-type: application/json
+
+{"validSymbol":["A2M"],"cancerTypeSelected":["KIRC","KIRP","LUAD","LUSC"],"validColl":["KIRC_methy_diff","KIRP_methy_diff","LUAD_methy_diff","LUSC_methy_diff"]}
+
+#### methy single gene in single cancer
+POST http://localhost:5000/api/mutation/methylation/singlecancermethyde HTTP/1.1
+content-type: application/json
+
+{"validSymbol":["A2M"],"cancerTypeSelected":["KIRC"],"validColl":["KIRC_methy_diff"]}

@@ -36,4 +36,4 @@ content-type: application/json
 POST http://localhost:5000/api/mutation/snv/snvsummary HTTP/1.1
 content-type: application/json
 
-{"validSymbol":["TP53"],"cancerTypeSelected":["ACC","BLCA","BRCA"],"validColl":["ACC_snv_count","BLCA_snv_count","BRCA_snv_count"]}
+{"validSymbol":["TP53","CBX2"],"cancerTypeSelected":["ACC","BLCA","BRCA"],"validColl":["ACC_snv_count","BLCA_snv_count","BRCA_snv_count"]}
