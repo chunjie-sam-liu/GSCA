@@ -40,6 +40,20 @@ class MethyDeTable(Resource):
 api.add_resource(MethyDeTable, "/methylationdetable")
 
 
+class MethyDePlot(Resource):
+    def post(self):
+        args = request.get_json()
+        checkplot = CheckPlot(args=args, purpose="singleGeneMethyDiff", rplot="methy_diff_plot.R")
+        res = checkplot.check_run()
+
+        if res["run"]:
+            checkplot.plot(filepath=res["filepath"])
+        return send_file(str(res["filepath"]), mimetype="image/png")
+
+
+api.add_resource(MethyDePlot, "/methylationdeplot")
+
+
 class SingleGeneMethyDE(Resource):
     def post(self):
         args = request.get_json()
