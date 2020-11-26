@@ -38,3 +38,31 @@ class MethyDeTable(Resource):
 
 
 api.add_resource(MethyDeTable, "/methylationdetable")
+
+
+class SingleGeneMethyDE(Resource):
+    def post(self):
+        args = request.get_json()
+        checkplot = CheckPlot(args=args, purpose="singleGeneMethyDiff", rplot="methy_diff_single_gene.R")
+        res = checkplot.check_run()
+
+        if res["run"]:
+            checkplot.plot(filepath=res["filepath"])
+        return send_file(str(res["filepath"]), mimetype="image/png")
+
+
+api.add_resource(SingleGeneMethyDE, "/singlegenemethyde")
+
+
+class SingleCancerMethyDE(Resource):
+    def post(self):
+        args = request.get_json()
+        checkplot = CheckPlot(args=args, purpose="singleCancerMethyDiff", rplot="methy_diff_single_cancer.R")
+        res = checkplot.check_run()
+
+        if res["run"]:
+            checkplot.plot(filepath=res["filepath"])
+        return send_file(str(res["filepath"]), mimetype="image/png")
+
+
+api.add_resource(SingleCancerMethyDE, "/singlecancermethyde")
