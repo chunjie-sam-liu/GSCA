@@ -56,8 +56,8 @@ png(filename = filepath_snvsummary,height = 4,width = 6,units = "in",res=500)
 plotmafSummary(maf = maf_project, rmOutlier = TRUE, addStat = 'median', dashboard = TRUE, titvRaw = FALSE)
 dev.off()
 
-pdf_name_snvsummary <- gsub("\\.png",".pdf",filepath)
-pdf(file = pdf_name,height = 4,width = 6)
+pdf_name_snvsummary <- gsub("\\.png",".pdf",filepath_snvsummary)
+pdf(file = pdf_name_snvsummary,height = 4,width = 6)
 plotmafSummary(maf = maf_project, rmOutlier = TRUE, addStat = 'median', dashboard = TRUE, titvRaw = FALSE)
 dev.off()
 
@@ -66,17 +66,19 @@ png(filename = filepath_snvoncoplot,height = 4,width = 6,units = "in",res=500)
 oncoplot(maf = maf_project, top = 10)
 dev.off()
 
-pdf_name_snvoncoplot <- gsub("\\.png",".pdf",filepath)
+pdf_name_snvoncoplot <- gsub("\\.png",".pdf",filepath_snvoncoplot)
 pdf(file = pdf_name_snvoncoplot,height = 4,width = 6)
 oncoplot(maf = maf_project, top = 10)
 dev.off()
 
 # titv plot
+maf.titv = titv(maf = maf_project, plot = FALSE, useSyn = TRUE)
+
 png(filename = filepath_snvtitvplot,height = 4,width = 6,units = "in",res=500)
 plotTiTv(res = maf.titv)
 dev.off()
 
-pdf_name_snvtitvplot <- gsub("\\.png",".pdf",filepath)
+pdf_name_snvtitvplot <- gsub("\\.png",".pdf",filepath_snvtitvplot)
 pdf(file = pdf_name_snvtitvplot,height = 4,width = 6)
 plotTiTv(res = maf.titv)
 dev.off()
