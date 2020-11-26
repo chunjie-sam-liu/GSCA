@@ -4,7 +4,7 @@ from flask_restful import Api, Resource, fields, marshal_with, reqparse
 from pathlib import Path
 import subprocess
 import uuid
-from gsca.utils.checkplot import CheckPlot
+from gsca.utils.checkplot import CheckPlot, CheckParallelPlot
 
 snv = Blueprint("snv", __name__)
 api = Api(snv)
@@ -69,6 +69,24 @@ api.add_resource(SnvLollipop, "/lollipop")
 class SnvSummary(Resource):
     def post(self):
         args = request.get_json()
+        print(args)
+        purposes = ("snvsummary", "snvoncoplot", "snvtitvplot")
+        rplot = "snv_summary.R"
+        checkplot = CheckParallelPlot(args=args, purposes=purposes, rplot=rplot)
+        check_run = checkplot.check_run()
+        if any([res["run"] for res in check_run.values()]):
+            filepaths = [str(check_run[purpose]["filepath"]) for purpose in purposes]
+            checkplot.plot(filepaths=filepaths)
+        uuidnames = {purpose + "uuid": check_run[purpose]["uuid"] for purpose in purposes}
+        # return uuidnames
+        return uuidnames
+
+
+api.add_resource(SnvSummary, "/snvsummary")
+"""
+class SnvSummary(Resource):
+    def post(self):
+        args = request.get_json()
         checkplot = CheckPlot(args=args, purpose="snvsummary", rplot="snv_summary.R")
         res = checkplot.check_run()
         if res["run"]:
@@ -77,7 +95,6 @@ class SnvSummary(Resource):
 
 
 api.add_resource(SnvSummary, "/snvsummary")
-
 
 class SnvOncoplot(Resource):
     def post(self):
@@ -103,3 +120,5 @@ class SnvTitv(Resource):
 
 
 api.add_resource(SnvTitv, "/snvtitv")
+"""
+

@@ -7,8 +7,10 @@ library(magrittr)
 args <- commandArgs(TRUE)
 
 search_str <- args[1]
-filepath <- args[2]
-apppath <- args[3]
+filepath_snvsummary <- args[2]
+filepath_snvoncoplot <- args[3]
+filepath_snvtitvplot <- args[4]
+apppath <- args[5]
 
 
 # search_str = "A2M#ACE#ANGPT2#BPI#CD1B#CDR1#EGR2#EGR3#HBEGF#HERPUD1#MCM2#PCTP#PODXL#PPY#PTGS2#RCAN1#SLC4A7#THBD@KICH_snv_count#KIRC_snv_count#KIRP_snv_count#LUAD_snv_count#LUSC_snv_count"
@@ -44,16 +46,37 @@ maf_project <- read.maf(maf=pan_maf,clinicalData=clincial_info)
 
 # save maf ----------------------------------------------------------------
 
-maf_project %>% 
-  readr::write_rds(file.path(apppath,"gsca-r-plot","maf_project.rds.gz"),compress = "gz")
+# maf_project %>% 
+#   readr::write_rds(file.path(apppath,"gsca-r-plot","maf_project.rds.gz"),compress = "gz")
 
 
 # draw plot ---------------------------------------------------------------
-png(filename = filepath,height = 4,width = 6,units = "in",res=500)
+# summary plot
+png(filename = filepath_snvsummary,height = 4,width = 6,units = "in",res=500)
 plotmafSummary(maf = maf_project, rmOutlier = TRUE, addStat = 'median', dashboard = TRUE, titvRaw = FALSE)
 dev.off()
 
-pdf_name <- gsub("\\.png",".pdf",filepath)
+pdf_name_snvsummary <- gsub("\\.png",".pdf",filepath)
 pdf(file = pdf_name,height = 4,width = 6)
 plotmafSummary(maf = maf_project, rmOutlier = TRUE, addStat = 'median', dashboard = TRUE, titvRaw = FALSE)
+dev.off()
+
+# oncoplot
+png(filename = filepath_snvoncoplot,height = 4,width = 6,units = "in",res=500)
+oncoplot(maf = maf_project, top = 10)
+dev.off()
+
+pdf_name_snvoncoplot <- gsub("\\.png",".pdf",filepath)
+pdf(file = pdf_name_snvoncoplot,height = 4,width = 6)
+oncoplot(maf = maf_project, top = 10)
+dev.off()
+
+# titv plot
+png(filename = filepath_snvtitvplot,height = 4,width = 6,units = "in",res=500)
+plotTiTv(res = maf.titv)
+dev.off()
+
+pdf_name_snvtitvplot <- gsub("\\.png",".pdf",filepath)
+pdf(file = pdf_name_snvtitvplot,height = 4,width = 6)
+plotTiTv(res = maf.titv)
 dev.off()

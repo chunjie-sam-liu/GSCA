@@ -11,6 +11,9 @@ export class MutationApiService extends BaseHttpService {
     super(http);
   }
 
+  public getResourcePlotBlob(uuidname: string, plotType = 'png'): Observable<any> {
+    return this.getDataImage('resource/responseplot/' + uuidname + '.' + plotType);
+  }
   public getSnvTable(postTerm: ExprSearch): Observable<any> {
     return this.postData('mutation/snv/snvtable', postTerm);
   }
@@ -21,6 +24,10 @@ export class MutationApiService extends BaseHttpService {
     return this.postDataImage('mutation/snv/lollipop', postTerm);
   }
   public getSnvSummary(postTerm: ExprSearch): Observable<any> {
+    return this.postData('mutation/snv/snvsummary', postTerm);
+  }
+  /*
+  public getSnvSummary(postTerm: ExprSearch): Observable<any> {
     return this.postDataImage('mutation/snv/snvsummary', postTerm);
   }
   public getSnvOncoplot(postTerm: ExprSearch): Observable<any> {
@@ -29,6 +36,7 @@ export class MutationApiService extends BaseHttpService {
   public getSnvTitv(postTerm: ExprSearch): Observable<any> {
     return this.postDataImage('mutation/snv/snvtitv', postTerm);
   }
+  */
   public getSnvSurvivalTable(postTerm: ExprSearch): Observable<any> {
     return this.postData('mutation/snvsurvival/snvsurvivaltable', postTerm);
   }
