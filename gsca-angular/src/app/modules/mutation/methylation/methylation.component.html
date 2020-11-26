@@ -18,18 +18,14 @@
         <ng-container matColumnDef="{{ column }}" *ngFor="let column of displayedColumnsMethy; index as ind">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ displayedColumnsMethyHeader[ind] }}</th>
           <td mat-cell *matCellDef="let element">
-            <ng-container *ngIf="column === 'symbol'; then btn; else plain"></ng-container>
+            <ng-container *ngIf="column === 'symbol' || column === 'cancertype'; then btn; else plain"></ng-container>
             <ng-template #btn>
               <button mat-raised-button (click)="expandDetail(element, column)">
                 {{ element[column] }}
               </button>
             </ng-template>
             <ng-template #plain>
-              {{
-                column === 'symbol' || column === 'cancertype' || column === 'gene_tag' || column === 'trend'
-                  ? element[column]
-                  : (element[column] | number: '1.2-2')
-              }}
+              {{ column === 'gene_tag' || column === 'trend' ? element[column] : (element[column] | number: '1.2-2') }}
             </ng-template>
           </td>
         </ng-container>
@@ -37,8 +33,9 @@
         <ng-container matColumnDef="expandedDetail">
           <td mat-cell *matCellDef="let element" [attr.colSpan]="displayedColumnsMethy.length">
             <div class="example-element-detail" [@detailExpand]="triggerDetail(element)">
-              <ng-container *ngIf="methySingleGeneImageLoading; then loading"></ng-container>
+              <ng-container *ngIf="methySingleGeneImageLoading || methySingleCancerImageLoading; then loading"></ng-container>
               <img [src]="methySingleGeneImage" *ngIf="showMethySingleGeneImage" height="600px" />
+              <img [src]="methySingleCancerImage" *ngIf="showMethySingleCancerImage" height="600px" />
             </div>
           </td>
         </ng-container>

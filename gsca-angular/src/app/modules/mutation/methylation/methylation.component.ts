@@ -43,6 +43,11 @@ export class MethylationComponent implements OnInit, OnChanges, AfterViewInit {
   methySingleGeneImageLoading = true;
   showMethySingleGeneImage = false;
 
+  // DE methylation single cancer
+  methySingleCancerImage: any;
+  methySingleCancerImageLoading = true;
+  showMethySingleCancerImage = false;
+
   constructor(private mutationApiService: MutationApiService) {}
 
   ngOnInit(): void {}
@@ -139,20 +144,49 @@ export class MethylationComponent implements OnInit, OnChanges, AfterViewInit {
     if (this.expandedElement) {
       this.methySingleGeneImageLoading = true;
       this.showMethySingleGeneImage = false;
+      this.methySingleCancerImageLoading = true;
+      this.showMethySingleCancerImage = false;
       if (this.expandedColumn === 'symbol') {
+        const postTerm = {
+          validSymbol: [this.expandedElement.symbol],
+          cancerTypeSelected: collectionlist.methy_diff.cancertypes,
+          validColl: collectionlist.methy_diff.collnames,
+        };
+
+        this.mutationApiService.getSingleGeneMethyDE(postTerm).subscribe(
+          (res) => {
+            this._createImageFromBlob(res, 'methySingleGeneImage');
+            this.methySingleGeneImageLoading = false;
+            this.showMethySingleGeneImage = true;
+            this.methySingleCancerImageLoading = false;
+            this.showMethySingleCancerImage = false;
+          },
+          (err) => {
+            this.methySingleGeneImageLoading = false;
+            this.showMethySingleGeneImage = false;
+            this.methySingleCancerImageLoading = false;
+            this.showMethySingleCancerImage = false;
+          }
+        );
+      }
+      if (this.expandedColumn === 'cancertype') {
         const postTerm = {
           validSymbol: [this.expandedElement.symbol],
           cancerTypeSelected: [this.expandedElement.cancertype],
           validColl: [collectionlist.methy_diff.collnames[collectionlist.methy_diff.cancertypes.indexOf(this.expandedElement.cancertype)]],
         };
 
-        this.mutationApiService.getSingleMethyDE(postTerm).subscribe(
+        this.mutationApiService.getSingleCancerMethyDE(postTerm).subscribe(
           (res) => {
             this._createImageFromBlob(res, 'methySingleGeneImage');
             this.methySingleGeneImageLoading = false;
             this.showMethySingleGeneImage = true;
+            this.methySingleGeneImageLoading = false;
+            this.showMethySingleGeneImage = false;
           },
           (err) => {
+            this.methySingleCancerImageLoading = false;
+            this.showMethySingleCancerImage = false;
             this.methySingleGeneImageLoading = false;
             this.showMethySingleGeneImage = false;
           }
@@ -161,6 +195,8 @@ export class MethylationComponent implements OnInit, OnChanges, AfterViewInit {
     } else {
       this.methySingleGeneImageLoading = false;
       this.showMethySingleGeneImage = false;
+      this.methySingleCancerImageLoading = false;
+      this.showMethySingleCancerImage = false;
     }
   }
 
