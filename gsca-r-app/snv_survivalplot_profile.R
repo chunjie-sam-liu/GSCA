@@ -59,7 +59,7 @@ min(HR_value) %>% trunc() -> min
 max(HR_value) %>% ceiling() -> max
 title <- ""
 
-fn_survival_summary_plot(data = for_plot,aesx = "cancertype", aesy = "symbol",color = "HR",fill = "higher_risk_of_death",label = "p_label",y_rank = gene_rank$symbol,x_rank = cancer_rank$cancertype,color_low = CPCOLS[1],color_high = CPCOLS[3],color_mid = CPCOLS[2],midpoint = 1,min = min,max = max,color_name ="Hazard ratio",fill_color = fill_color,fill_group = fill_group,fill_name = "Higher risk of death",title = title,xlab = "Cancer types",ylab = "Gene symbol") +
+heat_plot<- fn_survival_summary_plot(data = for_plot,aesx = "cancertype", aesy = "symbol",color = "HR",fill = "higher_risk_of_death",label = "p_label",y_rank = gene_rank$symbol,x_rank = cancer_rank$cancertype,color_low = CPCOLS[1],color_high = CPCOLS[3],color_mid = CPCOLS[2],midpoint = 1,min = min,max = max,color_name ="Hazard ratio",fill_color = fill_color,fill_group = fill_group,fill_name = "Higher risk of death",title = title,xlab = "Cancer types",ylab = "Gene symbol") +
   facet_grid(.~sur_type) +
   theme(
     strip.background = element_rect(fill="white",color="black"),
