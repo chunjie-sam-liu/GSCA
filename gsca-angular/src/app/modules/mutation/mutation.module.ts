@@ -8,9 +8,10 @@ import { SearchBoxComponent } from './search-box/search-box.component';
 import { SnvComponent } from './snv/snv.component';
 import { SnvSurvivalComponent } from './snv-survival/snv-survival.component';
 import { MethylationComponent } from './methylation/methylation.component';
+import { MethySurvivalComponent } from './methy-survival/methy-survival.component';
 
 @NgModule({
-  declarations: [MutationComponent, SearchBoxComponent, SnvComponent, SnvSurvivalComponent, MethylationComponent],
+  declarations: [MutationComponent, SearchBoxComponent, SnvComponent, SnvSurvivalComponent, MethylationComponent, MethySurvivalComponent],
   imports: [CommonModule, MutationRoutingModule, SharedModule],
 })
 export class MutationModule {}
