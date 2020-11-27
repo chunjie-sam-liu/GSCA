@@ -34,7 +34,7 @@ class MethySurvivalTable(Resource):
         return res
 
 
-api.add_resource(methysurvival, "/methysurvivaltable")
+api.add_resource(MethySurvivalTable, "/methysurvivaltable")
 
 
 class MethySurvivalPlot(Resource):
@@ -48,7 +48,7 @@ class MethySurvivalPlot(Resource):
         return send_file(str(res["filepath"]), mimetype="image/png")
 
 
-api.add_resource(methysurvival, "/methysurvivalplot")
+api.add_resource(MethySurvivalPlot, "/methysurvivalplot")
 
 
 class MethySurvivalSingleGene(Resource):
@@ -62,4 +62,4 @@ class MethySurvivalSingleGene(Resource):
         return send_file(str(res["filepath"]), mimetype="image/png")
 
 
-api.add_resource(methysurvival, "/methysurvivalsinglegene")
+api.add_resource(MethySurvivalSingleGene, "/methysurvivalsinglegene")
