@@ -1,3 +1,5 @@
+library(ggplot2)
+
 bubble_plot <- function(data, cancer, gene, size, color, cancer_rank, gene_rank, sizename, colorname, title) {
     CPCOLS <- c("red", "white", "blue")
     data %>%

@@ -1,3 +1,5 @@
+library(ggplot2)
+
 box_plot_single_gene_multi_cancers <- function(data,aesx,aesy,color,color_name,facets,color_labels,color_values,title,xlab,ylab){
   
   data %>%

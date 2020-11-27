@@ -1,3 +1,6 @@
+###################################
+# snv gene set definition
+####################################
 fn_geneset_snv <- function(.x){
   .x %>%
     dplyr::select(symbol,sample_name,group) %>%
