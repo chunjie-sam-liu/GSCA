@@ -67,4 +67,13 @@ export class MutationApiService extends BaseHttpService {
   public getSingleCancerMethyDE(postTerm: ExprSearch): Observable<any> {
     return this.postDataImage('mutation/methylation/singlecancermethyde', postTerm);
   }
+  public getMethySurvivalTable(postTerm: ExprSearch): Observable<any> {
+    return this.postData('mutation/methysurvival/methysurvivaltable', postTerm);
+  }
+  public getMethySurvivalPlot(postTerm: ExprSearch): Observable<any> {
+    return this.postDataImage('mutation/methysurvival/methysurvivalplot', postTerm);
+  }
+  public getMethySurvivalSingleGene(postTerm: ExprSearch): Observable<any> {
+    return this.postDataImage('mutation/methysurvival/methysurvivalsinglegene', postTerm);
+  }
 }
