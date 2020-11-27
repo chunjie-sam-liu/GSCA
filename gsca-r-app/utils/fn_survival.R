@@ -22,8 +22,7 @@ fn_survival <- function(data,title,color){
   fit <- survfit(survival::Surv(time, status) ~ group, data = data, na.action = na.exclude)
   diff <- survdiff(survival::Surv(time, status) ~ group, data = data, na.action = na.exclude)
   kmp <- 1 - pchisq(diff$chisq, df = length(levels(as.factor(data$group))) - 1)
-  coxp <-  broom::tidy(coxph(survival::Surv(time, status) ~ expr, data = data, na.action = na.exclude))$p.value
-  
+  coxp <-  broom::tidy(coxph(survival::Surv(time, status) ~ group, data = data, na.action = na.exclude))$p.value
   x_lable <- max(data$time)/4
   color %>%
     dplyr::inner_join(data,by="group") %>%
@@ -58,7 +57,7 @@ fn_survival <- function(data,title,color){
   )[[1]] +
     annotate("text", 
              x = x_lable, y = 0.2, # x and y coordinates of the text
-             label = paste("Log rank P =", round(kmp,2),"\n cox P =", round(coxp,2))) +
+             label = paste("Log rank P =", round(kmp,2))) +
     scale_color_manual(
       values = color_paired$color,
       labels = color_paired$group

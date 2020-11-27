@@ -5,14 +5,14 @@ fn_height_width <- function(.g,.c){
   .lg <- length(.g)
   .lc <- length(.c)
   if(.lg<=20){
-    .height <- 7
+    .height <- 4
   } else{
-    .height <- 7 + (.lg-20)*0.5
+    .height <- 4 + (.lg-20)*0.5
   }
   if(.lc<=10){
-    .width <- 7
+    .width <- 6
   } else {
-    .wdith <- 7 + (.lc-10)*0.5
+    .wdith <- 6 + (.lc-10)*0.5
   }
   tibble::tibble(width=.width,height=.height)
 }

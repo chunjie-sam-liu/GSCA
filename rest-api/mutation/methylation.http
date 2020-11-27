@@ -1,0 +1,23 @@
+#### methy de table
+POST http://localhost:5000/api/mutation/methylation/methylationdetable HTTP/1.1
+content-type: application/json
+
+{"validSymbol":["A2M","ACE","ANGPT2","BPI","CD1B","CDR1","EGR2","EGR3","HBEGF","HERPUD1","MCM2","PCTP","PODXL","PPY","PTGS2","RCAN1","SLC4A7","THBD"],"cancerTypeSelected":["KICH","KIRC","KIRP","LUAD","LUSC"],"validColl":["KIRC_methy_diff","KIRP_methy_diff","LUAD_methy_diff","LUSC_methy_diff"]}
+
+#### methy de summary plot
+POST http://localhost:5000/api/mutation/methylation/methylationdeplot HTTP/1.1
+content-type: application/json
+
+{"validSymbol":["A2M","ACE","ANGPT2","BPI","CD1B","CDR1","EGR2","EGR3","HBEGF","HERPUD1","MCM2","PCTP","PODXL","PPY","PTGS2","RCAN1","SLC4A7","THBD"],"cancerTypeSelected":["KICH","KIRC","KIRP","LUAD","LUSC"],"validColl":["KIRC_methy_diff","KIRP_methy_diff","LUAD_methy_diff","LUSC_methy_diff"]}
+
+#### methy single gene in all cancers
+POST http://localhost:5000/api/mutation/methylation/singlegenemethyde HTTP/1.1
+content-type: application/json
+
+{"validSymbol":["A2M"],"cancerTypeSelected":["ACC","BLCA","BRCA","CESC","CHOL","COAD","DLBC","ESCA","GBM","HNSC","KICH","KIRC","KIRP","LAML","LGG","LIHC","LUAD","LUSC","MESO","OV","PAAD","PCPG","PRAD","READ","SARC","SKCM","STAD","TGCT","THCA","THYM","UCEC","UCS","UVM"],"validColl":["ACC_all_methy","BLCA_all_methy","BRCA_all_methy","CESC_all_methy","CHOL_all_methy","COAD_all_methy","DLBC_all_methy","ESCA_all_methy","GBM_all_methy","HNSC_all_methy","KICH_all_methy","KIRC_all_methy","KIRP_all_methy","LAML_all_methy","LGG_all_methy","LIHC_all_methy","LUAD_all_methy","LUSC_all_methy","MESO_all_methy","OV_all_methy","PAAD_all_methy","PCPG_all_methy","PRAD_all_methy","READ_all_methy","SARC_all_methy","SKCM_all_methy","STAD_all_methy","TGCT_all_methy","THCA_all_methy","THYM_all_methy","UCEC_all_methy","UCS_all_methy","UVM_all_methy"]}
+
+#### methy single gene in single cancer
+POST http://localhost:5000/api/mutation/methylation/singlecancermethyde HTTP/1.1
+content-type: application/json
+
+{"validSymbol":["A2M"],"cancerTypeSelected":["KIRC"],"validColl":["KIRC_all_methy"]}

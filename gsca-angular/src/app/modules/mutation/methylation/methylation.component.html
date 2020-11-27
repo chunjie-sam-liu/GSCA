@@ -1,0 +1,69 @@
+<ng-container *ngIf="showMethyTable">
+  <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
+    <mat-card-header>
+      <mat-card-title>Methyaltion difference between tumor and normal of inputed genes in the specific cancers</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <ng-container *ngIf="!dataSourceMethyLoading; else loading"></ng-container>
+
+      <mat-form-field>
+        <input matInput placeholder="Search gene symbol" (keyup)="applyFilter($event)" #inputMethy />
+        <button mat-icon-button color="warn" matPrefix>
+          <mat-icon style="font-size: 25px">search</mat-icon>
+        </button>
+      </mat-form-field>
+
+      <table mat-table [dataSource]="dataSourceMethy" multiTemplateDataRows matSort>
+        <ng-container matColumnDef="{{ column }}" *ngFor="let column of displayedColumnsMethy; index as ind">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ displayedColumnsMethyHeader[ind] }}</th>
+          <td mat-cell *matCellDef="let element">
+            <ng-container *ngIf="column === 'symbol' || column === 'cancertype'; then btn; else plain"></ng-container>
+            <ng-template #btn>
+              <button mat-raised-button (click)="expandDetail(element, column)">
+                {{ element[column] }}
+              </button>
+            </ng-template>
+            <ng-template #plain>
+              {{ column === 'gene_tag' || column === 'trend' ? element[column] : (element[column] | number: '1.2-2') }}
+            </ng-template>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="expandedDetail">
+          <td mat-cell *matCellDef="let element" [attr.colSpan]="displayedColumnsMethy.length">
+            <div class="example-element-detail" [@detailExpand]="triggerDetail(element)">
+              <ng-container *ngIf="methySingleGeneImageLoading || methySingleCancerImageLoading; then loading"></ng-container>
+              <img [src]="methySingleGeneImage" *ngIf="showMethySingleGeneImage" height="600px" />
+              <img [src]="methySingleCancerImage" *ngIf="showMethySingleCancerImage" height="600px" />
+            </div>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumnsMethy"></tr>
+        <tr
+          mat-row
+          *matRowDef="let element; columns: displayedColumnsMethy"
+          class="example-element-row"
+          [class.example-expanded-row]="expandedElement === element"
+        ></tr>
+        <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+      </table>
+      <mat-paginator #paginatorMethy [pageSizeOptions]="[10, 20]" showFirstLastButtons></mat-paginator>
+    </mat-card-content>
+  </mat-card>
+</ng-container>
+
+<ng-container *ngIf="showMethyImage">
+  <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
+    <mat-card-header>
+      <mat-card-title>Methyaltion difference between tumor and normal of inputed genes in the specific cancers</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <img [src]="this.methyImage" alt="methyplot" *ngIf="!methyImageLoading; else loading" height="600px" />
+    </mat-card-content>
+  </mat-card>
+</ng-container>
+<ng-template #loading>
+  <mat-progress-bar mode="query" color="warn"></mat-progress-bar>
+</ng-template>
+<ng-template #empty></ng-template>

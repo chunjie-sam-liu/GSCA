@@ -7,4 +7,5 @@ export interface SnvSurvivalTableRecord {
   worse_group: string;
   cancertype: string;
   hr: number;
+  sur_type: string;
 }

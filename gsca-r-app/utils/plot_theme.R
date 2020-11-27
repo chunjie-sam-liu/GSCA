@@ -12,6 +12,6 @@ boxplot_theme_small_groups <- theme(
   axis.text.y = element_text(colour = "black"),
   legend.position = 'right',
   legend.text = element_text(size = 12),
-  legend.title = element_text(size = 14),
+  legend.title = element_text(size = 12),
   legend.key = element_rect(fill = "white")
 )

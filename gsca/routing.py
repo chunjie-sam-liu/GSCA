@@ -13,6 +13,10 @@ app.register_blueprint(drug, url_prefix="/api/drug")
 app.register_blueprint(search, url_prefix="/api/search")
 
 
+# resource routing
+import gsca.routes.resource
+
+
 @app.route("/", methods=["GET"])
 def index():
     return render_template("index.html")

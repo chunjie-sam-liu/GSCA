@@ -53,32 +53,13 @@ fetched_data <- purrr::map(.x = search_cancertypes, .f = fn_fetch_mongo) %>%
 
 
 # Plot --------------------------------------------------------------------
+source(file.path(apppath,"gsca-r-app/utils/fn_boxplot_single_gene_in_cancer.R"))
 CPCOLS <- c("#000080", "#F8F8FF", "#CD0000")
-fetched_data %>%
-  ggplot(aes(x = cancertype, y = expr, color = type)) +
-  geom_boxplot(outlier.colour = NA) +
-  scale_color_manual(name = "Type", labels = c("Tumor", "Normal"), values = c(CPCOLS[3], CPCOLS[1])) +
-  theme(
-    panel.background = element_rect(colour = "black", fill = "white"),
-    panel.grid = element_line(colour = "grey", linetype = "dashed"),
-    panel.grid.major = element_line(
-      colour = "grey",
-      linetype = "dashed",
-      size = 0.2
-    ),
-    plot.title = element_text(hjust = 0.5),
-    axis.ticks = element_line(color = "black"),
-    axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, colour = "black"),
-    axis.text.y = element_text(colour = "black"),
-    legend.position = 'right',
-    legend.text = element_text(size = 12),
-    legend.title = element_text(size = 14),
-    legend.key = element_rect(fill = "white")
-  ) +
-  labs(title = glue::glue('{search_genes} expression across TCGA cancer types'), x = 'Cancer types', y = 'Expression log2(RSEM)') ->
-  singlegene_boxplot
+plot <- box_plot_single_gene_multi_cancers(data = fetched_data,aesx = "type",aesy="expr",facets=".~cancertype",color = "type",color_name = "Type",color_labels = c("Tumor", "Normal"),color_values = c(CPCOLS[3], CPCOLS[1]),title = glue::glue('{search_genes} expression across TCGA cancer types'),xlab = '', ylab = 'Expression log2(RSEM)')
 
 
 # Save image --------------------------------------------------------------
 
-ggsave(filename = filepath, plot = singlegene_boxplot, device = 'png', width = 12, height = 5)
+ggsave(filename = filepath, plot = plot, device = 'png', width = 15, height = 5)
+pdf_name <- gsub("\\.png",".pdf",filepath)
+ggsave(filename = pdf_name, plot = plot, device = 'pdf', width = 15, height = 5)

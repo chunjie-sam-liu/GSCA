@@ -29,25 +29,12 @@ export class SnvComponent implements OnInit, OnChanges, AfterViewInit {
   showSnvTable = true;
   @ViewChild('paginatorSnv') paginatorSnv: MatPaginator;
   @ViewChild(MatSort) sortSnv: MatSort;
-  displayedColumnsSnv = [
-    'cancertype',
-    'symbol',
-    'deletion',
-    'insertion',
-    'SNV',
-    'substitution',
-    'mutated_sample_size',
-    'sample_size',
-    'percentage',
-  ];
+  displayedColumnsSnv = ['cancertype', 'symbol', 'EffectiveMut', 'NonEffectiveMut', 'sample_size', 'percentage'];
   displayedColumnsSnvHeader = [
     'Cancer type',
     'Gene symbol',
-    'Deletion',
-    'insertion',
-    'SNV',
-    'substitution',
-    'Mutated sample size',
+    'Effective mutation',
+    'Non-effective mutation',
     'Total sample size',
     'Percentage',
   ];
@@ -129,6 +116,52 @@ export class SnvComponent implements OnInit, OnChanges, AfterViewInit {
       // get snvSummary
       this.mutationApiService.getSnvSummary(postTerm).subscribe(
         (res) => {
+          // summary plot
+          this.mutationApiService.getResourcePlotBlob(res.snvSummaryImageuuid).subscribe(
+            (r) => {
+              this.showSnvSummaryImage = true;
+              this.snvSummaryImageLoading = false;
+              this._createImageFromBlob(res, 'snvSummaryImage');
+            },
+            (e) => {
+              this.snvSummaryImageLoading = false;
+              this.showSnvSummaryImage = false;
+            }
+          );
+          // oncoplot
+          this.mutationApiService.getResourcePlotBlob(res.snvOncoplotImageuuid).subscribe(
+            (r) => {
+              this.showSnvOncoplotImage = true;
+              this.snvOncoplotImageLoading = false;
+              this._createImageFromBlob(res, 'snvOncoplotImage');
+            },
+            (e) => {
+              this.snvOncoplotImageLoading = false;
+              this.showSnvOncoplotImage = false;
+            }
+          );
+          // titv plot
+          this.mutationApiService.getResourcePlotBlob(res.snvTitvImageuuid).subscribe(
+            (r) => {
+              this.showSnvTitvImage = true;
+              this.snvTitvImageLoading = false;
+              this._createImageFromBlob(res, 'snvTitvImage');
+            },
+            (e) => {
+              this.snvTitvImageLoading = false;
+              this.showSnvTitvImage = false;
+            }
+          );
+        },
+        (err) => {
+          this.showSnvSummaryImage = false;
+          this.showSnvOncoplotImage = false;
+          this.showSnvTitvImage = false;
+        }
+      );
+      /*
+      this.mutationApiService.getSnvSummary(postTerm).subscribe(
+        (res) => {
           this.showSnvSummaryImage = true;
           this.snvSummaryImageLoading = false;
           this._createImageFromBlob(res, 'snvSummaryImage');
@@ -162,6 +195,7 @@ export class SnvComponent implements OnInit, OnChanges, AfterViewInit {
           this.showSnvTitvImage = false;
         }
       );
+      */
     }
   }
 

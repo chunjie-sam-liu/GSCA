@@ -1,7 +1,7 @@
 <ng-container *ngIf="showSnvTable">
   <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
     <mat-card-header>
-      <mat-card-title>Snv of genes in each TCGA cancer type</mat-card-title>
+      <mat-card-title>SNV of inputed genes in the specific cancers</mat-card-title>
     </mat-card-header>
 
     <mat-card-content>
@@ -55,7 +55,7 @@
 <ng-container *ngIf="showSnvImage">
   <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
     <mat-card-header>
-      <mat-card-title>Profile of the snv of gene set.</mat-card-title>
+      <mat-card-title>SNV of inputed gene set in the specific cancers</mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <img [src]="this.snvImage" alt="snvplot" *ngIf="!snvImageLoading; else loading" height="600px" />
@@ -66,7 +66,7 @@
 <ng-container *ngIf="showSnvSummaryImage">
   <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
     <mat-card-header>
-      <mat-card-title>Summary of the mutation of gene set in TCGA cancers.</mat-card-title>
+      <mat-card-title>Summary of the SNV of inputed gene set in the specific cancers</mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <img [src]="this.snvSummaryImage" alt="snvsummary" *ngIf="!snvSummaryImageLoading; else loading" height="600px" />
@@ -77,7 +77,7 @@
 <ng-container *ngIf="showSnvOncoplotImage">
   <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
     <mat-card-header>
-      <mat-card-title>Oncoplot of the mutation of gene set in TCGA cancers (Top 10).</mat-card-title>
+      <mat-card-title>Oncoplot of the SNV of inputed gene set in the specific cancers(Top 10).</mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <img [src]="this.snvOncoplotImage" alt="snvoncoplot" *ngIf="!snvOncoplotImageLoading; else loading" height="600px" />
@@ -88,7 +88,7 @@
 <ng-container *ngIf="showSnvTitvImage">
   <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
     <mat-card-header>
-      <mat-card-title>Transitions(Ti) and transversions(Tv) classification of the mutations.</mat-card-title>
+      <mat-card-title>Transitions(Ti) and transversions(Tv) classification of the SNV of inputed gene set in the specific cancers</mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <img [src]="this.snvTitvImage" alt="snvtitv" *ngIf="!snvTitvImageLoading; else loading" height="600px" />

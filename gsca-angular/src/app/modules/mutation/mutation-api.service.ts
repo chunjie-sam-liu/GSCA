@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BaseHttpService } from 'src/app/shared/base-http.service';
 import { ExprSearch } from 'src/app/shared/model/exprsearch';
-
 @Injectable({
   providedIn: 'root',
 })
@@ -12,6 +11,9 @@ export class MutationApiService extends BaseHttpService {
     super(http);
   }
 
+  public getResourcePlotBlob(uuidname: string, plotType = 'png'): Observable<any> {
+    return this.getDataImage('resource/responseplot/' + uuidname + '.' + plotType);
+  }
   public getSnvTable(postTerm: ExprSearch): Observable<any> {
     return this.postData('mutation/snv/snvtable', postTerm);
   }
@@ -22,6 +24,10 @@ export class MutationApiService extends BaseHttpService {
     return this.postDataImage('mutation/snv/lollipop', postTerm);
   }
   public getSnvSummary(postTerm: ExprSearch): Observable<any> {
+    return this.postData('mutation/snv/snvsummary', postTerm);
+  }
+  /*
+  public getSnvSummary(postTerm: ExprSearch): Observable<any> {
     return this.postDataImage('mutation/snv/snvsummary', postTerm);
   }
   public getSnvOncoplot(postTerm: ExprSearch): Observable<any> {
@@ -30,6 +36,7 @@ export class MutationApiService extends BaseHttpService {
   public getSnvTitv(postTerm: ExprSearch): Observable<any> {
     return this.postDataImage('mutation/snv/snvtitv', postTerm);
   }
+  */
   public getSnvSurvivalTable(postTerm: ExprSearch): Observable<any> {
     return this.postData('mutation/snvsurvival/snvsurvivaltable', postTerm);
   }
@@ -38,5 +45,26 @@ export class MutationApiService extends BaseHttpService {
   }
   public getSnvSurvivalSingleGene(postTerm: ExprSearch): Observable<any> {
     return this.postDataImage('mutation/snvsurvival/snvsurvivalsinglegeneplot', postTerm);
+  }
+  public getSnvGenesetSurvivalTable(postTerm: ExprSearch): Observable<any> {
+    return this.postData('mutation/snvsurvival/snvgenesetsurvivaltable', postTerm);
+  }
+  public getSnvGenesetSurvivalPlot(postTerm: ExprSearch): Observable<any> {
+    return this.postDataImage('mutation/snvsurvival/snvgenesetsurvivalplot', postTerm);
+  }
+  public getSnvGenesetSurvivalSingleCancer(postTerm: ExprSearch): Observable<any> {
+    return this.postDataImage('mutation/snvsurvival/snvgenesetsurvivalsinglecancer', postTerm);
+  }
+  public getMethyDeTable(postTerm: ExprSearch): Observable<any> {
+    return this.postData('mutation/methylation/methylationdetable', postTerm);
+  }
+  public getMethyDePlot(postTerm: ExprSearch): Observable<any> {
+    return this.postDataImage('mutation/methylation/methylationdeplot', postTerm);
+  }
+  public getSingleGeneMethyDE(postTerm: ExprSearch): Observable<any> {
+    return this.postDataImage('mutation/methylation/singlegenemethyde', postTerm);
+  }
+  public getSingleCancerMethyDE(postTerm: ExprSearch): Observable<any> {
+    return this.postDataImage('mutation/methylation/singlecancermethyde', postTerm);
   }
 }

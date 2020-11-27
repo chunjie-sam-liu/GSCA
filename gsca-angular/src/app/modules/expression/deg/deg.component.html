@@ -1,7 +1,7 @@
 <ng-container *ngIf="showDEGTable">
   <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
     <mat-card-header>
-      <mat-card-title>DEG</mat-card-title>
+      <mat-card-title>DEGs between tumor and normal in the specific cancers</mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <ng-container *ngIf="!dataSourceDegLoading; else loading"></ng-container>
@@ -54,7 +54,18 @@
 <ng-container *ngIf="showDEGImage">
   <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
     <mat-card-header>
-      <mat-card-title>Bouble plot of DEGs.</mat-card-title>
+      <mat-card-title>DEGs between tumor and normal in the specific cancers</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <img [src]="this.degImage" alt="degplot" *ngIf="!degImageLoading; else loading" height="600px" />
+    </mat-card-content>
+  </mat-card>
+</ng-container>
+
+<ng-container *ngIf="showDEGImage">
+  <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
+    <mat-card-header>
+      <mat-card-title>Gene expression level of gene set (GSVA score) between tumor and normal tissue.</mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <img [src]="this.degImage" alt="degplot" *ngIf="!degImageLoading; else loading" height="600px" />

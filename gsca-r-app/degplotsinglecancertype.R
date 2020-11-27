@@ -21,7 +21,8 @@ apppath <- args[3]
 
 search_str_split <- strsplit(x = search_str, split = '@')[[1]]
 search_genes <- strsplit(x = search_str_split[1], split = '#')[[1]]
-search_cancertypes <- strsplit(x = search_str_split[[2]], split = '#')[[1]]
+search_colls <- strsplit(x = search_str_split[[2]], split = '#')[[1]]
+search_cancertypes <- strsplit(x = search_colls, split = '_')[[1]][1]
 
 
 # Mongo -------------------------------------------------------------------
@@ -48,37 +49,19 @@ fn_fetch_mongo <- function(.x) {
 
 
 # Query data --------------------------------------------------------------
-fetched_data <- purrr::map(.x = search_cancertypes, .f = fn_fetch_mongo) %>%
-  dplyr::bind_rows()
+fetched_data <- purrr::map(.x = search_colls, .f = fn_fetch_mongo) %>%
+  dplyr::bind_rows()%>%
+  dplyr::mutate(type=ifelse(type=="tumor","Tumor","Normal"))
 
 
 # Plot --------------------------------------------------------------------
 CPCOLS <- c("#000080", "#F8F8FF", "#CD0000")
-fetched_data %>%
-  ggplot(aes(x = cancertype, y = expr, color = type)) +
-  geom_boxplot(outlier.colour = NA) +
-  scale_color_manual(name = "Type", labels = c("Tumor", "Normal"), values = c(CPCOLS[3], CPCOLS[1])) +
-  theme(
-    panel.background = element_rect(colour = "black", fill = "white"),
-    panel.grid = element_line(colour = "grey", linetype = "dashed"),
-    panel.grid.major = element_line(
-      colour = "grey",
-      linetype = "dashed",
-      size = 0.2
-    ),
-    plot.title = element_text(hjust = 0.5),
-    axis.ticks = element_line(color = "black"),
-    axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, colour = "black"),
-    axis.text.y = element_text(colour = "black"),
-    legend.position = 'right',
-    legend.text = element_text(size = 12),
-    legend.title = element_text(size = 14),
-    legend.key = element_rect(fill = "white")
-  ) +
-  labs(title = glue::glue("{search_genes} expression in TCGA-{gsub(pattern = '_all_expr', replacement = '', x = search_cancertypes)} cancer types"), x = 'Cancer type', y = 'Expression log2(RSEM)') ->
-  singlegene_boxplot
+source(file.path(apppath,"gsca-r-app/utils/fn_boxplot_single_gene_in_cancer.R"))
+plot <- box_plot_single_gene_single_cancer(data = fetched_data,aesx = "type",aesy="expr",color = "type",color_name = "Types",color_labels =  c("Normal", "Tumor"),color_values = c(CPCOLS[1], CPCOLS[3]),title = glue::glue('{search_genes} methylation in {search_cancertypes}'),xlab = 'Types', ylab = 'Expression log2(RSEM)',xangle = 0)
 
 
 # Save image --------------------------------------------------------------
 
-ggsave(filename = filepath, plot = singlegene_boxplot, device = 'png', width = 5, height = 5)
+ggsave(filename = filepath, plot = plot, device = 'png', width = 5, height = 3)
+pdf_name <- gsub("\\.png",".pdf",filepath)
+ggsave(filename = pdf_name, plot = plot, device = 'pdf', width = 5, height = 3)

@@ -67,7 +67,7 @@ combine_data %>%
   dplyr::mutate(group = ifelse(expr>quantile(expr,cutoff$cutoff),"Higher expr.","Lower expr.")) -> combine_data_group
 
 # draw survival plot ------------------------------------------------------
-title <- paste(search_cancertypes, search_genes, sep=", ")
+title <- paste("OS survival between",search_genes, "high and low mRNA \nexpression in",search_cancertypes)
 combine_data_group %>%
   dplyr::filter(!is.na(group)) %>%
   fn_survival(title,color_list) -> plot

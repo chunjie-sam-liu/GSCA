@@ -1,7 +1,9 @@
 from flask import Blueprint, request, send_file
+from flask.helpers import send_from_directory
 from gsca.db import mongo
 from flask_restful import Api, Resource, fields, marshal_with, reqparse
-from gsca.utils.checkplot import CheckPlot
+from gsca.utils.checkplot import CheckParallelPlot, CheckPlot, CheckMultiplePlot
+from gsca.utils.checktable import CheckTable
 
 deg = Blueprint("deg", __name__)
 api = Api(deg)
@@ -44,7 +46,7 @@ class DEGPlot(Resource):
         res = checkplot.check_run()
         if res["run"]:
             checkplot.plot(filepath=res["filepath"])
-        return send_file(str(res["filepath"]), mimetype="image/png")
+        return {"degplotuuid": res["uuid"]}
 
 
 api.add_resource(DEGPlot, "/degplot")
@@ -75,3 +77,51 @@ class DEGPlotSingleCancerType(Resource):
 
 api.add_resource(DEGPlotSingleCancerType, "/degplot/single/cancertype")
 
+
+class DegGsvaTable(Resource):
+    def post(self):
+        args = request.get_json()
+        checktable = CheckTable(args=args, purpose="deggsva", rtable="deg_gsva.R")
+        res = checktable.check_run()
+        if res["run"]:
+            checktable.table(filepath=res["filepath"])
+        return send_file(str(res["filepath"]), mimetype="table/tsv")
+
+
+api.add_resource(DegGsvaTable, "/deggsva")
+
+
+class testMultiplePlot(Resource):
+    def post(self):
+        args = request.get_json()
+        purposes = ("testa", "testb")
+        rplots = ("testa.R", "testb.R")
+        checkplot = CheckMultiplePlot(args=args, purposes=purposes, rplots=rplots)
+        check_run = checkplot.check_run()
+        for purpose, res in check_run.items():
+            if res["run"]:
+                checkplot.plot(filepath=res["filepath"], rplot=res["rplot"])
+
+        uuidnames = {purpose + "uuid": check_run[purpose]["uuid"] for purpose in purposes}
+        return uuidnames
+
+
+api.add_resource(testMultiplePlot, "/testMultiplePlot")
+
+
+class testParallelPlot(Resource):
+    def post(self):
+        args = request.get_json()
+        purposes = ("testaparallelplot", "testbparallelplot")
+        rplot = "testc.R"
+        checkplot = CheckParallelPlot(args=args, purposes=purposes, rplot=rplot)
+        check_run = checkplot.check_run()
+        if any([res["run"] for res in check_run.values()]):
+            filepaths = [str(check_run[purpose]["filepath"]) for purpose in purposes]
+            checkplot.plot(filepaths=filepaths)
+        uuidnames = {purpose + "uuid": check_run[purpose]["uuid"] for purpose in purposes}
+        # return uuidnames
+        return uuidnames
+
+
+api.add_resource(testParallelPlot, "/testParallelPlot")

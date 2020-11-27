@@ -1,6 +1,9 @@
 
 library(magrittr)
 
+# Mongo -------------------------------------------------------------------
+
+gsca_conf <- readr::read_lines(file = file.path(apppath, 'gsca-r-app/gsca.conf'))
 
 fn_query_str <- function(.key,.keyindex) {
   .xx <- paste0(.key, collapse = '","')
@@ -47,8 +50,8 @@ fn_fetch_mongo_all_subtype <- function(.data, .key, .keyindex) {
     tidyr::unnest(cols = c(cancer_types, sample_name, subtype)) 
 }
 
+# function to fectch all_subtype of a cancer type from mongo -------------
 
-# function to fetch expr_subtype ------------------------------------------
 
 fn_fetch_mongo_all_stage <- function(.data, .key, .keyindex) {
   coll <- .data
@@ -59,3 +62,39 @@ fn_fetch_mongo_all_stage <- function(.data, .key, .keyindex) {
   ) %>%
     tidyr::unnest(cols = c(cancer_types, sample_name, stage)) 
 }
+# function to fetch snv_count ------------------------------------------
+
+fn_fetch_mongo_snv_count <- function(.data, .key, .keyindex) {
+  coll <- .data
+  .coll <- mongolite::mongo(collection = coll, url = gsca_conf)
+  .coll$find(
+    query = fn_query_str(.key,.keyindex),
+    fields = '{"mutated_sample_size": true, "_id": false}'
+  ) %>%
+    tidyr::unnest(cols = c(mutated_sample_size)) 
+}
+
+# function to fetch snv_maf ------------------------------------------
+
+fn_fetch_mongo_snv_maf <-  function(.data, .key, .keyindex) {
+  coll <- .data
+  .coll <- mongolite::mongo(collection = coll, url = gsca_conf)
+  .coll$find(
+    query = fn_query_str(.key,.keyindex),
+    fields = '{"_id": false}'
+  ) %>%
+    tidyr::unnest() 
+}
+
+
+# function to fetch data [common use]--------------------------------------------------
+fn_fetch_mongo <- function(.x,pattern,fields,.key,.keyindex) {
+  .coll <- mongolite::mongo(collection = .x, url = gsca_conf)
+  .coll$find(
+    query = fn_query_str(.key,.keyindex),
+    fields =fields #'{"symbol": true, "fc": true,"trend": true,"gene_tag": true,"logfdr": true, "_id": false}'
+  ) %>%
+    dplyr::mutate(cancertype = gsub(pattern = pattern, replacement = '', x = .x)) %>%
+    tidyr::unnest() 
+}
+
