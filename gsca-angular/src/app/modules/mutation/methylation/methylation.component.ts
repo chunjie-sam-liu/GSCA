@@ -149,8 +149,8 @@ export class MethylationComponent implements OnInit, OnChanges, AfterViewInit {
       if (this.expandedColumn === 'symbol') {
         const postTerm = {
           validSymbol: [this.expandedElement.symbol],
-          cancerTypeSelected: collectionlist.methy_diff.cancertypes,
-          validColl: collectionlist.methy_diff.collnames,
+          cancerTypeSelected: collectionlist.all_methy.cancertypes,
+          validColl: collectionlist.all_methy.collnames,
         };
 
         this.mutationApiService.getSingleGeneMethyDE(postTerm).subscribe(
@@ -173,7 +173,7 @@ export class MethylationComponent implements OnInit, OnChanges, AfterViewInit {
         const postTerm = {
           validSymbol: [this.expandedElement.symbol],
           cancerTypeSelected: [this.expandedElement.cancertype],
-          validColl: [collectionlist.methy_diff.collnames[collectionlist.methy_diff.cancertypes.indexOf(this.expandedElement.cancertype)]],
+          validColl: [collectionlist.all_methy.collnames[collectionlist.all_methy.cancertypes.indexOf(this.expandedElement.cancertype)]],
         };
 
         this.mutationApiService.getSingleCancerMethyDE(postTerm).subscribe(
