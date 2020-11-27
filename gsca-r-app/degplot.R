@@ -156,4 +156,4 @@ bubble_plot <- fetched_data_filter %>%
 ggsave(filename = filepath, plot = bubble_plot, device = 'png', width = size$width, height = size$height)
 pdf_name <- gsub("\\.png",".pdf",filepath)
 ggsave(filename = pdf_name, plot = bubble_plot, device = 'pdf', width = size$width, height = size$height)
-
+                                                                    
