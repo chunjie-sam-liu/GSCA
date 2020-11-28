@@ -38,7 +38,6 @@ source(file.path(apppath, "gsca-r-app/utils/fn_fetch_mongo_data.R"))
 source(file.path(apppath, "gsca-r-app/utils/fn_survival.R"))
 
 # Query data --------------------------------------------------------------
-source(file.path(apppath, "gsca-r-app/utils/fn_fetch_mongo_data.R"))
 
 fetched_survival_data <- fn_fetch_mongo_all_survival(.data="all_survival",.keyindex="cancer_types", .key=search_cancertypes) %>%
   dplyr::bind_rows()
