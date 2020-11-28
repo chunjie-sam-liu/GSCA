@@ -70,7 +70,7 @@ class SnvSummary(Resource):
     def post(self):
         args = request.get_json()
         print(args)
-        purposes = ("snvsummary", "snvoncoplot", "snvtitvplot")
+        purposes = ("snvSummaryImage", "snvOncoplotImage", "snvTitvImage")
         rplot = "snv_summary.R"
         checkplot = CheckParallelPlot(args=args, purposes=purposes, rplot=rplot)
         check_run = checkplot.check_run()

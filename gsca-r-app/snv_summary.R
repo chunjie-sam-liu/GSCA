@@ -30,7 +30,7 @@ search_cancertypes <- list(strsplit(x = search_str_split[[2]], split = '#')[[1]]
 data_path <- "/home/huff/data/GSCA/mutation/snv/sub_cancer_maf_tsv"
 pan_maf <- tibble::tibble()
 for (cancer in search_cancertypes) {
-  filename <- paste(cancer,"_maf_data.IdTrans.tsv.rds.gz",sep="") 
+  filename <- paste(cancer,"_maf_data.IdTrans.tsv.rds.gz",sep="")
   maf_file <- readr::read_rds(file.path(data_path,filename)) %>%
     dplyr::filter(Hugo_Symbol %in% search_genes)
   if(nrow(pan_maf)<1){
@@ -46,7 +46,7 @@ maf_project <- read.maf(maf=pan_maf,clinicalData=clincial_info)
 
 # save maf ----------------------------------------------------------------
 
-# maf_project %>% 
+# maf_project %>%
 #   readr::write_rds(file.path(apppath,"gsca-r-plot","maf_project.rds.gz"),compress = "gz")
 
 
