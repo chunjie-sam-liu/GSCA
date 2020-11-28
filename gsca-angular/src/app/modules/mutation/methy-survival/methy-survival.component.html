@@ -1,7 +1,7 @@
 <ng-container *ngIf="showMethySurvivalTable">
     <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
       <mat-card-header>
-        <mat-card-title>Survival between mutated (effective) and non-mutated in the specific cancers</mat-card-title>
+        <mat-card-title>Overall survival between higher and lower methylation groups in the specific cancers</mat-card-title>
       </mat-card-header>
   
       <mat-card-content>
@@ -26,7 +26,7 @@
               </ng-template>
               <ng-template #plain>
                 {{
-                  column === 'worse_group' || column === 'cancertype' || column === 'sur_type' || column === 'higher_risk_of_death'
+                  column === 'cancertype' || column === 'higher_risk_of_death'
                     ? element[column]
                     : (element[column] | number: '1.2-2')
                 }}
@@ -59,7 +59,7 @@
   <ng-container *ngIf="showMethySurvivalImage">
     <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
       <mat-card-header>
-        <mat-card-title>Survival between mutated (effective) and non-mutated in the specific cancers</mat-card-title>
+        <mat-card-title>Overall survival between higher and lower methylation groups in the specific cancers</mat-card-title>
       </mat-card-header>
       <mat-card-content>
         <img [src]="this.methySurvivalImage" alt="methySurvivalplot" *ngIf="!methySurvivalImageLoading; else loading" height="600px" />
