@@ -27,8 +27,14 @@
     </div>
 
     <div fxFlex="grow" fxLayout="row" style="border: 1px rebeccapurple solid">
-      <ng-container *ngIf="showMethylation; else empty">
+      <ng-container *ngIf="showMethylationSurvival; else empty">
         <app-methy-survival fxLayout="row" fxLayoutGap="10px" fxLayout.lt-lg="column" [searchTerm]="searchTerm"></app-methy-survival>
+      </ng-container>
+    </div>
+
+    <div fxFlex="grow" fxLayout="row" style="border: 1px rebeccapurple solid">
+      <ng-container *ngIf="showMethylationCor; else empty">
+        <app-methy-cor fxLayout="row" fxLayoutGap="10px" fxLayout.lt-lg="column" [searchTerm]="searchTerm"></app-methy-cor>
       </ng-container>
     </div>
 
