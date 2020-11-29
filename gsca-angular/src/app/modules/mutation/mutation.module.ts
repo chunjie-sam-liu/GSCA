@@ -11,9 +11,11 @@ import { MethylationComponent } from './methylation/methylation.component';
 import { MethySurvivalComponent } from './methy-survival/methy-survival.component';
 import { MethyCorComponent } from './methy-cor/methy-cor.component';
 import { CnvComponent } from './cnv/cnv.component';
+import { CnvSurvivalComponent } from './cnv-survival/cnv-survival.component';
+import { CnvCorComponent } from './cnv-cor/cnv-cor.component';
 
 @NgModule({
-  declarations: [MutationComponent, SearchBoxComponent, SnvComponent, SnvSurvivalComponent, MethylationComponent, MethySurvivalComponent, MethyCorComponent, CnvComponent],
+  declarations: [MutationComponent, SearchBoxComponent, SnvComponent, SnvSurvivalComponent, MethylationComponent, MethySurvivalComponent, MethyCorComponent, CnvComponent, CnvSurvivalComponent, CnvCorComponent],
   imports: [CommonModule, MutationRoutingModule, SharedModule],
 })
 export class MutationModule {}
