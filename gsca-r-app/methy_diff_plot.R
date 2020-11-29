@@ -44,7 +44,7 @@ fetched_data_clean_pattern <- fn_get_pattern(.x = fetched_data %>% dplyr::mutate
                                              trend1="Up",
                                              trend2="Down",
                                              p_cutoff=1.3,
-                                             selections = c("cancertype","sur_type"))
+                                             selections = c("cancertype","symbol"))
 cancer_rank <- fn_get_cancer_types_rank(.x = fetched_data_clean_pattern)
 gene_rank <- fn_get_gene_rank(.x = fetched_data_clean_pattern)
 
@@ -54,7 +54,7 @@ for_plot <- fetched_data
 source(file.path(apppath,"gsca-r-app/utils/fn_bubble_plot.R"))
 CPCOLS <- c("#000080", "#F8F8FF", "#CD0000")
 
-plot <- bubble_plot(data=for_plot, cancer="cancertype", gene="symbol", size="logfdr", color="fc", cancer_rank=cancer_rank, gene_rank=gene_rank, sizename= "-Log10(FDR)", colorname="Methylation diff (T - N)", title="")
+plot <- bubble_plot(data=for_plot, cancer="cancertype", gene="symbol", size="logfdr", color="fc", cancer_rank=cancer_rank$cancertype, gene_rank=gene_rank$symbol, sizename= "-Log10(FDR)", colorname="Methylation diff (T - N)", title="")
 
 ggsave(filename = filepath,plot = plot, device = 'png', width = size$width, height = size$height)
 pdf_name <- gsub("\\.png",".pdf",filepath)
