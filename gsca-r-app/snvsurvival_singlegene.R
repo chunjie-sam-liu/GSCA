@@ -78,11 +78,15 @@ survival_group  %>%
 combine_group_data %>%
   dplyr::select(sample_name,group,cancer_types,time=survival_type_to_draw$time,status=survival_type_to_draw$status) -> combine_data_group
 
+fields <- '{"symbol": true, "log_rank_p": true,"sur_type": true,"_id": false}'
+fetched_snv_survival <- purrr::map(.x = paste(search_cancertypes,"_snv_survival",sep=""), .f = fn_fetch_mongo, pattern="_methy_cor_expr",fields = fields,.key=search_genes,.keyindex="symbol") %>%
+  dplyr::bind_rows() %>%
+  dplyr::filter(sur_type %in% toupper(survival_type))
 # draw survival plot ------------------------------------------------------
 title <- paste(toupper(survival_type),"survival of",search_genes, "SNV in",search_cancertypes)
 combine_data_group %>%
   dplyr::filter(!is.na(time)) %>%
-  fn_survival(title,color_list) -> plot
+  fn_survival(title,color_list,logrankp=fetched_snv_survival$log_rank_p) -> plot
 
 # Save --------------------------------------------------------------------
 ggsave(filename = filepath, plot = plot, device = 'png', width = 6, height = 4)

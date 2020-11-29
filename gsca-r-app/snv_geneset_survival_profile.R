@@ -35,7 +35,7 @@ color_list <- tibble::tibble(color=c( "#CD2626","#00B2EE"),
                              group=c("Mutated","Non-mutated"))
 
 # rank --------------------------------------------------------------------
-
+source(file.path(apppath,"gsca-r-app/utils/common_used_summary_plot_functions.R"))
 fetched_data_clean_pattern <- fn_get_pattern(
   .x = geneset_survival %>% dplyr::rename(value=logrankp,trend=higher_risk_of_death),
   trend1="Mutated",
@@ -44,7 +44,7 @@ fetched_data_clean_pattern <- fn_get_pattern(
 cancer_rank <- fn_get_cancer_types_rank(.x = fetched_data_clean_pattern)
 
 # plot --------------------------------------------------------------------
-source(file.path(apppath,"gsca-r-app/utils/common_used_summary_plot_functions.R"))
+source(file.path(apppath,"gsca-r-app/utils/fn_survival_summary_plot.R"))
 geneset_survival %>%
   dplyr::mutate(sur_type=toupper(sur_type)) %>%
   dplyr::rename(value=logrankp) %>% fn_pval_label() -> for_plot

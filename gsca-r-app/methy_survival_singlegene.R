@@ -50,6 +50,10 @@ fetched_methy_data %>%
   dplyr::filter(type=="tumor") %>%
   unique() %>%
   dplyr::inner_join(fetched_survival_data,by=c("sample_name")) -> combine_data
+
+fields <- '{"symbol": true, "log_rank_p": true,"_id": false}'
+fetched_methy_survival <- purrr::map(.x = paste(search_cancertypes,"_methy_survival",sep=""), .f = fn_fetch_mongo, pattern="_methy_cor_expr",fields = fields,.key=search_genes,.keyindex="symbol") %>%
+  dplyr::bind_rows()
 # grouped --------------------------------------------------------
 expr_group %>%
   dplyr::filter(group %in% break_point) -> cutoff
@@ -69,7 +73,7 @@ combine_data %>%
 title <- paste(toupper(survival_type),"survival of",search_genes, "methylation in",search_cancertypes)
 combine_data_group %>%
   dplyr::filter(!is.na(time), time > 0, !is.na(status)) %>%
-  fn_survival(title,color_list) -> plot
+  fn_survival(title,color_list,logrankp=fetched_methy_survival$log_rank_p) -> plot
 
 # Save --------------------------------------------------------------------
 ggsave(filename = filepath, plot = plot, device = 'png', width = 6, height = 4)
