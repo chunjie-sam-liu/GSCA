@@ -18,7 +18,7 @@ fn_point_fit <- function(data,aesx,aesy,title,xlab,ylab,label){
         size = 0.2
       ),
       axis.text.y = element_text(size = 10,colour = "black"),
-      axis.text.x = element_text(vjust = 1, hjust = 1, angle = 40, size = 10,colour = "black"),
+      axis.text.x = element_text(size = 10,colour = "black"),
       legend.text = element_text(size = 10),
       axis.title = element_text(size=12),
       legend.title = element_text(size = 12),
@@ -46,7 +46,7 @@ fn_point_fit <- function(data,aesx,aesy,title,xlab,ylab,label){
   
   yoffset <- (1/20)*ymax; xoffset <- (1/20)*xmax
   p +
-    geom_label(x=xmax-xoffset,y=ymax,label=label)
+    geom_label(x=xmax-xoffset,y=ymax,label=label) -> p
   # sp + 
   #   annotation_custom(grob = xbp_grob, xmin = xmin, xmax = xmax, ymin =ymin, ymax = ymin+0.5*yoffset) + 
   #   annotation_custom(grob = ybp_grob, xmin = xmin, xmax = xmin+0.5*xoffset, ymin = ymin, ymax = ymax) -> p

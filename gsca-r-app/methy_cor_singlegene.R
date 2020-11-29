@@ -29,7 +29,8 @@ source(file.path(apppath, "gsca-r-app/utils/fn_fetch_mongo_data.R"))
 fields <- '{"symbol": true, "sample_name": true, "type": true,"expr": true, "_id": false}'
 fetched_expr_data <-purrr::map(.x = paste(search_cancertypes,"_all_expr",sep=""), .f = fn_fetch_mongo, pattern="_all_expr",fields = fields,.key=search_genes,.keyindex="symbol") %>%
   dplyr::bind_rows() %>%
-  dplyr::filter(type=="tumor")
+  dplyr::filter(type=="tumor") %>%
+  dplyr::mutate(expr=log2(expr+1))
 
 fields <- '{"symbol": true, "barcode": true,"sample_name": true,"type": true,"methy": true,"_id": false}'
 fetched_methy_data <- purrr::map(.x = paste(search_cancertypes,"_all_methy",sep=""), .f = fn_fetch_mongo, pattern="_methy_survival",fields = fields,.key=search_genes,.keyindex="symbol") %>%
@@ -46,7 +47,7 @@ fetched_methy_cor <- purrr::map(.x = paste(search_cancertypes,"_methy_cor_expr",
 # plot --------------------------------------------------------------------
 source(file.path(apppath,"gsca-r-app/utils/fn_point_line.R"))
 title <-  glue::glue('Spearman correlation between {search_genes} methylation and mRNA expression in {search_cancertypes}')
-plot <- fn_point_fit(data=combine_data,aesx="expr",aesy="methy",title=title,xlab="Expression (RSEM)",ylab="Methylation (Beta value)",label=paste("Cor. =",round(fetched_methy_cor$spm,2)))
+plot <- fn_point_fit(data=combine_data,aesx="expr",aesy="methy",title=title,xlab="Expression log2(RSEM)",ylab="Methylation (Beta value)",label=paste("Cor. =",round(fetched_methy_cor$spm,2)))
 
 # Save --------------------------------------------------------------------
 ggsave(filename = filepath, plot = plot, device = 'png', width = 6, height = 4)
