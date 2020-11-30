@@ -100,4 +100,13 @@ export class MutationApiService extends BaseHttpService {
   public getCnvSingleGene(postTerm: ExprSearch): Observable<any> {
     return this.postDataImage('mutation/cnv/cnvsinglegene', postTerm);
   }
+  public getCnvCorTable (postTerm: ExprSearch): Observable<any> {
+    return this.postData('mutation/cnvcor/cnvcortable', postTerm);
+  }
+  public getCnvCorPlot(postTerm: ExprSearch): Observable<any> {
+    return this.postDataImage('mutation/cnvcor/cnvcorplot', postTerm);
+  }
+  public getCnvCorSingleGene(postTerm: ExprSearch): Observable<any> {
+    return this.postDataImage('mutation/cnvcor/cnvcorsinglegene', postTerm);
+  }
 }
