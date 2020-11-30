@@ -199,7 +199,7 @@ export class CnvComponent implements OnInit {
         const postTerm = {
           validSymbol: [this.expandedElement.symbol],
           cancerTypeSelected: [this.expandedElement.cancertype],
-          validColl: [collectionlist.all_cnv.collnames[collectionlist.all_cnv.cancertypes.indexOf(this.expandedElement.cancertype)]],
+          validColl: [collectionlist.cnv_threshold.collnames[collectionlist.cnv_threshold.cancertypes.indexOf(this.expandedElement.cancertype)]],
         };
 
         this.mutationApiService.getCnvSingleGene(postTerm).subscribe(
