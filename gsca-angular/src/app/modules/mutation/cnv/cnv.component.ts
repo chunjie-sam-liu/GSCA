@@ -49,10 +49,15 @@ export class CnvComponent implements OnInit {
   cnvPieImage: any;
   showCnvPieImage = true;
 
-  // cnv point plot
-  cnvPointImageLoading = true;
-  cnvPointImage: any;
-  showCnvPointImage = true;
+  // cnv hete point plot
+  cnvHetePointImageLoading = true;
+  cnvHetePointImage: any;
+  showCnvHetePointImage = true;
+  
+  // cnv homo point plot
+  cnvHomoPointImageLoading = true;
+  cnvHomoPointImage: any;
+  showCnvHomoPointImage = true;
 
   // single gene cnv imgae 
   cnvSingleGeneImage: any;
@@ -77,7 +82,8 @@ export class CnvComponent implements OnInit {
       this.cnvPieImageLoading = false;
       this.showCnvTable = false;
       this.showCnvPieImage = false;
-      this.showCnvPointImage = false;
+      this.showCnvHetePointImage = false;
+      this.showCnvHomoPointImage = false;
     } else {
       // get cnvTable
       this.showCnvTable = true;
@@ -105,16 +111,28 @@ export class CnvComponent implements OnInit {
           this.showCnvPieImage = false;
         }
       );
-      // get cnvPoint
-      this.mutationApiService.getCnvPointImage(postTerm).subscribe(
+      // get cnvHetePoint
+      this.mutationApiService.getCnvHetePointImage(postTerm).subscribe(
         (res) => {
-          this.showCnvPointImage = true;
-          this.cnvPointImageLoading = false;
-          this._createImageFromBlob(res, 'cnvPointImage');
+          this.showCnvHetePointImage = true;
+          this.cnvHetePointImageLoading = false;
+          this._createImageFromBlob(res, 'cnvHetePointImage');
         },
         (err) => {
-          this.cnvPointImageLoading = false;
-          this.showCnvPointImage = false;
+          this.cnvHetePointImageLoading = false;
+          this.showCnvHetePointImage = false;
+        }
+      );
+      // get cnvHomoPoint
+      this.mutationApiService.getCnvHomoPointImage(postTerm).subscribe(
+        (res) => {
+          this.showCnvHomoPointImage = true;
+          this.cnvHomoPointImageLoading = false;
+          this._createImageFromBlob(res, 'cnvHomoPointImage');
+        },
+        (err) => {
+          this.cnvHomoPointImageLoading = false;
+          this.showCnvHomoPointImage = false;
         }
       );
     }
@@ -137,8 +155,11 @@ export class CnvComponent implements OnInit {
           case 'cnvSingleGeneImage':
             this.cnvSingleGeneImage = reader.result;
             break;
-          case 'cnvPointImage':
-            this.cnvPointImage = reader.result;
+          case 'cnvHetePointImage':
+            this.cnvHetePointImage = reader.result;
+            break;
+          case 'cnvHomoPointImage':
+            this.cnvHomoPointImage = reader.result;
             break;
         }
       },

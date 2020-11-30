@@ -91,8 +91,11 @@ export class MutationApiService extends BaseHttpService {
   public getCnvPiePlot(postTerm: ExprSearch): Observable<any> {
     return this.postDataImage('mutation/cnv/cnvpieplot', postTerm);
   }
-  public getCnvPointImage(postTerm: ExprSearch): Observable<any> {
-    return this.postDataImage('mutation/cnv/cnvpointplot', postTerm);
+  public getCnvHetePointImage(postTerm: ExprSearch): Observable<any> {
+    return this.postDataImage('mutation/cnv/cnvhetepointplot', postTerm);
+  }
+  public getCnvHomoPointImage(postTerm: ExprSearch): Observable<any> {
+    return this.postDataImage('mutation/cnv/cnvhomopointplot', postTerm);
   }
   public getCnvSingleGene(postTerm: ExprSearch): Observable<any> {
     return this.postDataImage('mutation/cnv/cnvsinglegene', postTerm);

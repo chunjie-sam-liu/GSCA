@@ -58,22 +58,33 @@
         <mat-card-title>CNV of inputed genes in the specific cancers</mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <img [src]="this.CnvPieImage" alt="cnvplot" *ngIf="!CnvPieImageLoading; else loading" height="600px" />
+        <img [src]="this.CnvPieImage" alt="cnvpieplot" *ngIf="!CnvPieImageLoading; else loading" height="600px" />
       </mat-card-content>
     </mat-card>
   </ng-container>
   
-  <ng-container *ngIf="showCnvPointImage">
+  <ng-container *ngIf="showCnvHetePointImage">
     <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
       <mat-card-header>
-        <mat-card-title>CNV of inputed genes in the specific cancers</mat-card-title>
+        <mat-card-title>Heterozygous CNV of inputed genes in the specific cancers</mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <img [src]="this.CnvPointImage" alt="cnvsummary" *ngIf="!CnvPointImageLoading; else loading" height="600px" />
+        <img [src]="this.CnvHetePointImage" alt="cnvhetepoint" *ngIf="!CnvHetePointImageLoading; else loading" height="600px" />
       </mat-card-content>
     </mat-card>
   </ng-container>
 
+  <ng-container *ngIf="showCnvHomoPointImage">
+    <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
+      <mat-card-header>
+        <mat-card-title>Homozygous CNV of inputed genes in the specific cancers</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <img [src]="this.CnvHomoPointImage" alt="cnvhomopoint" *ngIf="!CnvHomoPointImageLoading; else loading" height="600px" />
+      </mat-card-content>
+    </mat-card>
+  </ng-container>
+  
   <ng-template #loading>
     <mat-progress-bar mode="query" color="warn"></mat-progress-bar>
   </ng-template>
