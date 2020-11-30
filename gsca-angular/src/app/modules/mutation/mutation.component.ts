@@ -11,6 +11,8 @@ export class MutationComponent implements OnInit, AfterViewInit {
   showSnv = false;
   showSnvSurvival = false;
   showMethylation = false;
+  showMethylationSurvival = false;
+  showMethylationCor = false;
   constructor() {}
 
   ngOnInit(): void {}
@@ -21,5 +23,7 @@ export class MutationComponent implements OnInit, AfterViewInit {
     this.showSnv = true;
     this.showSnvSurvival = true;
     this.showMethylation = true;
+    this.showMethylationSurvival = true;
+    this.showMethylationCor = true;
   }
 }

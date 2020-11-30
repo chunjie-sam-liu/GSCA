@@ -29,7 +29,7 @@ export class MethylationComponent implements OnInit, OnChanges, AfterViewInit {
   @ViewChild('paginatorMethy') paginatorMethy: MatPaginator;
   @ViewChild(MatSort) sortMethy: MatSort;
   displayedColumnsMethy = ['cancertype', 'symbol', 'gene_tag', 'fc', 'trend', 'pval', 'logfdr'];
-  displayedColumnsMethyHeader = ['Cancer type', 'Gene symbol', 'Tag', 'Fold change', 'Trend', 'P value', 'FDR'];
+  displayedColumnsMethyHeader = ['Cancer type', 'Gene symbol', 'Tag', 'Methylation(Tumor-Normal)', 'Trend', 'P value', 'FDR'];
   expandedElement: MethyTableRecord;
   expandedColumn: string;
 
@@ -111,6 +111,9 @@ export class MethylationComponent implements OnInit, OnChanges, AfterViewInit {
           case 'methySingleGeneImage':
             this.methySingleGeneImage = reader.result;
             break;
+          case 'methySingleCancerImage':
+            this.methySingleCancerImage = reader.result;
+            break;
         }
       },
       false
@@ -178,17 +181,17 @@ export class MethylationComponent implements OnInit, OnChanges, AfterViewInit {
 
         this.mutationApiService.getSingleCancerMethyDE(postTerm).subscribe(
           (res) => {
-            this._createImageFromBlob(res, 'methySingleGeneImage');
-            this.methySingleGeneImageLoading = false;
-            this.showMethySingleGeneImage = true;
+            this._createImageFromBlob(res, 'methySingleCancerImage');
             this.methySingleGeneImageLoading = false;
             this.showMethySingleGeneImage = false;
+            this.methySingleCancerImageLoading = false;
+            this.showMethySingleCancerImage = true;
           },
           (err) => {
-            this.methySingleCancerImageLoading = false;
-            this.showMethySingleCancerImage = false;
             this.methySingleGeneImageLoading = false;
             this.showMethySingleGeneImage = false;
+            this.methySingleCancerImageLoading = false;
+            this.showMethySingleCancerImage = false;
           }
         );
       }

@@ -1,5 +1,7 @@
-box_plot_single_gene_multi_cancers <- function(data,aesx,aesy,color,color_name,facets,color_labels,color_values,title,xlab,ylab){
+library(ggplot2)
 
+box_plot_single_gene_multi_cancers <- function(data,aesx,aesy,color,color_name,facets,color_labels,color_values,title,xlab,ylab){
+  
   data %>%
     ggplot(aes_string(x = aesx, y = aesy, color = color)) +
     geom_boxplot(outlier.colour = NA) +

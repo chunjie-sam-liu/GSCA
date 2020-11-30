@@ -34,63 +34,31 @@ size <- fn_height_width(search_genes,search_cancertypes)
 color_list <- tibble::tibble(color=c( "#CD2626","#00B2EE"),
                              group=c("Mutated","Non-mutated"))
 
+# rank --------------------------------------------------------------------
+source(file.path(apppath,"gsca-r-app/utils/common_used_summary_plot_functions.R"))
+fetched_data_clean_pattern <- fn_get_pattern(
+  .x = geneset_survival %>% dplyr::rename(value=logrankp,trend=higher_risk_of_death),
+  trend1="Mutated",
+  trend2="Non-mutated",
+  p_cutoff=0.05,selections = c("cancertype","sur_type"))
+cancer_rank <- fn_get_cancer_types_rank(.x = fetched_data_clean_pattern)
 
 # plot --------------------------------------------------------------------
-fn_pval_class <- function(.p){
-  if(.p>0.05){
-    ""
-  }else if(.p<=0.05 & .p>=0.01){
-    "*"
-  }else if(.p<0.01 & .p>=0.001){
-    "**"
-  } else{
-    "***"
-  }
-}
-fn_pval_label <- function(.x){
-  .x %>%
-    dplyr::mutate(p_label=purrr::map(pval,fn_pval_class)) %>%
-    tidyr::unnest()
-}
-heat_plot <- geneset_survival %>%
+source(file.path(apppath,"gsca-r-app/utils/fn_survival_summary_plot.R"))
+geneset_survival %>%
   dplyr::mutate(sur_type=toupper(sur_type)) %>%
-  dplyr::mutate(p_label=purrr::map(logrankp,fn_pval_class))%>%
-  tidyr::unnest() %>%
-  ggplot(aes(x = sur_type, y = cancertype)) +
-  geom_tile(aes(fill = higher_risk_of_death, color=hr),height=0.8,width=0.8,size=1.5) +
-  geom_text(aes(label=p_label)) +
-  scale_color_gradient2(
-    low = "blue",
-    mid = "white",
-    high = "red",
-    midpoint = 1,
-    na.value = "white",
-    breaks = seq(0, 3, length.out = 6),
-    name = "Hazard ratio"
-  ) +
-  scale_fill_manual(values = c("tomato","lightskyblue"),
-                    limits = c("Mutated","Non-mutated"),
-                    name="Higher risk of death") +
-  theme(
-    panel.background = element_rect(colour = "black", fill = "white"),
-    panel.grid = element_line(colour = "grey", linetype = "dashed"),
-    panel.grid.major = element_line(
-      colour = "grey",
-      linetype = "dashed",
-      size = 0.2
-    ),
-    axis.title = element_blank(),
-    axis.ticks = element_line(color = "black"),
-    # axis.text.y = element_text(color = gene_rank$color),
-    axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, colour = "black"),
-    axis.text.y = element_text(colour = "black"),
-    
-    legend.text = element_text(size = 12),
-    legend.title = element_text(size = 14),
-    legend.key = element_rect(fill = "white", colour = "black"),
-    strip.background = element_rect(fill="white",color="black"),
-    strip.text = element_text(size= 12)
-  )
+  dplyr::rename(value=logrankp) %>% fn_pval_label() -> for_plot
+CPCOLS <- c("blue", "white", "red")
+fill_color <-  c("tomato","lightskyblue")
+fill_group<- c("Mutated","Non-mutated")
+for_plot %>%
+  dplyr::filter(!is.na(hr)) %>%
+  .$hr -> HR_value
+min(HR_value) %>% trunc() -> min
+max(HR_value) %>% ceiling() -> max
+title <- ""
+
+heat_plot <- fn_survival_summary_plot(data = for_plot,aesx = "sur_type", aesy = "cancertype",color = "hr",fill = "higher_risk_of_death",label = "p_label",y_rank = cancer_rank$cancertype,x_rank = c("OS","PFS"),color_low = CPCOLS[1],color_high = CPCOLS[3],color_mid = CPCOLS[2],midpoint = 1,min = min,max = max,color_name ="Hazard ratio",fill_color = fill_color,fill_group = fill_group,fill_name = "Higher risk of death",title = title,xlab = "Cancer types",ylab = "Gene symbol")
 
 # Save --------------------------------------------------------------------
 ggsave(filename = filepath, plot = heat_plot, device = 'png', width = 4, height = size$height)
