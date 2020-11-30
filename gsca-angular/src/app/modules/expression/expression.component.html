@@ -1,4 +1,4 @@
-<div fxLayout="column" fxLayoutGap="10px" fxFill>
+<div fxLayout="column" fxFill>
   <div fxFlex="none">
     <h1 class="page-header">Expression</h1>
   </div>
@@ -8,17 +8,24 @@
       <app-search-box fxFlex ($searchSelected)="showContent($event)"></app-search-box>
     </div>
 
-    <div fxFlex="grow" fxLayout="row" style="border: 1px rebeccapurple solid">
+    <!-- <div fxFlex="grow" fxLayout="row" style="border: 1px rebeccapurple solid">
       <app-color-diy></app-color-diy>
-    </div>
+    </div> -->
 
-    <div fxFlex="grow" fxLayout="row" style="border: 1px rebeccapurple solid">
+    <div fxFlex="grow" style="border: 1px rebeccapurple solid">
       <ng-container *ngIf="showDEG; else empty">
-        <app-deg fxLayout="row" fxLayoutGap="10px" fxLayout.lt-lg="column" [searchTerm]="searchTerm"></app-deg>
+        <app-deg
+          fxLayout="row"
+          fxLayout.lt-lg="column"
+          fxLayoutGap="10px"
+          fxLayoutWrap
+          fxLayoutAlign="center"
+          [searchTerm]="searchTerm"
+        ></app-deg>
       </ng-container>
     </div>
 
-    <div fxFlex="grow" fxLayout="row" style="border: 1px rebeccapurple solid">
+    <!-- <div fxFlex="grow" fxLayout="row" style="border: 1px rebeccapurple solid">
       <ng-container *ngIf="showSurvival; else empty">
         <app-survival fxLayout="row" fxLayoutGap="10px" fxLayout.lt-lg="column" [searchTerm]="searchTerm"></app-survival>
       </ng-container>
@@ -34,7 +41,7 @@
       <ng-container *ngIf="showStage; else empty">
         <app-stage fxLayout="row" fxLayoutGap="10px" fxLayout.lt-lg="column" [searchTerm]="searchTerm"></app-stage>
       </ng-container>
-    </div>
+    </div> -->
 
     <ng-template #loading>
       <mat-progress-bar mode="query" color="warn"></mat-progress-bar>
