@@ -60,7 +60,7 @@ class CnvPiePlot(Resource):
 api.add_resource(CnvPiePlot, "/cnvpieplot")
 
 
-class CnvHomoPointHomoImage(Resource):
+class CnvHomoPointImage(Resource):
     def post(self):
         args = request.get_json()
         checkplot = CheckPlot(args=args, purpose="cnvhomopointplot", rplot="cnvhomo_pointplot.R")
@@ -70,7 +70,7 @@ class CnvHomoPointHomoImage(Resource):
         return send_file(str(res["filepath"]), mimetype="image/png")
 
 
-api.add_resource(CnvHomoPointHomoImage, "/cnvhomopointplot")
+api.add_resource(CnvHomoPointImage, "/cnvhomopointplot")
 
 
 class CnvHetePointImage(Resource):
@@ -96,7 +96,7 @@ class CnvOncoplot(Resource):
         return send_file(str(res["filepath"]), mimetype="image/png")
 
 
-api.add_resource(CnvOncoplot, "/cnvoncoplot")
+api.add_resource(CnvOncoplot, "/cnconcoplot")
 
 
 class CnvSingleGene(Resource):

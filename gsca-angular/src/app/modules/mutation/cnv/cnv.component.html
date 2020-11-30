@@ -58,7 +58,7 @@
         <mat-card-title>CNV of inputed genes in the specific cancers</mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <img [src]="this.CnvPieImage" alt="cnvpieplot" *ngIf="!CnvPieImageLoading; else loading" height="600px" />
+        <img [src]="this.cnvPieImage" alt="cnvpieplot" *ngIf="!cnvPieImageLoading; else loading" height="600px" />
       </mat-card-content>
     </mat-card>
   </ng-container>
@@ -69,7 +69,7 @@
         <mat-card-title>Heterozygous CNV of inputed genes in the specific cancers</mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <img [src]="this.CnvHetePointImage" alt="cnvhetepoint" *ngIf="!CnvHetePointImageLoading; else loading" height="600px" />
+        <img [src]="this.cnvHetePointImage" alt="cnvhetepoint" *ngIf="!cnvHetePointImageLoading; else loading" height="600px" />
       </mat-card-content>
     </mat-card>
   </ng-container>
@@ -80,7 +80,7 @@
         <mat-card-title>Homozygous CNV of inputed genes in the specific cancers</mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <img [src]="this.CnvHomoPointImage" alt="cnvhomopoint" *ngIf="!CnvHomoPointImageLoading; else loading" height="600px" />
+        <img [src]="this.cnvHomoPointImage" alt="cnvhomopoint" *ngIf="!cnvHomoPointImageLoading; else loading" height="600px" />
       </mat-card-content>
     </mat-card>
   </ng-container>
