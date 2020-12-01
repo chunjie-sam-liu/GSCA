@@ -1,15 +1,15 @@
 ### snv survival table
-POST http://localhost:5000/api/mutation/snv/snvtable HTTP/1.1
+POST http://localhost:5000/api/mutation/snvsurvival/snvtable HTTP/1.1
 content-type: application/json
 
-{"validSymbol":["A2M","ACE","ANGPT2","BPI","CD1B","CDR1","EGR2","EGR3","HBEGF","HERPUD1","MCM2","PCTP","PODXL","PPY","PTGS2","RCAN1","SLC4A7","THBD"],"cancerTypeSelected":["KICH","KIRC","KIRP","LUAD","LUSC"],"validColl":["KICH_snv_count","KIRC_snv_count","KIRP_snv_count","LUAD_snv_count","LUSC_snv_count"]}
+{"validSymbol":["A2M","ACE","ANGPT2","BPI","CD1B","CDR1","EGR2","EGR3","HBEGF","HERPUD1","MCM2","PCTP","PODXL","PPY","PTGS2","RCAN1","SLC4A7","THBD"],"cancerTypeSelected":["KICH","KIRC","KIRP","LUAD","LUSC"],"validColl":["KICH_snv_survival","KIRC_snv_survival","KIRP_snv_survival","LUAD_snv_survival","LUSC_snv_survival"]}
 
 ### snv survival plot
 
-POST http://localhost:5000/api/mutation/snv/snvplot HTTP/1.1
+POST http://localhost:5000/api/mutation/snvsurvival/snvplot HTTP/1.1
 content-type: application/json
 
-{"validSymbol":["A2M","ACE","ANGPT2","CBX2","PDL1","EZH2","BPI","CD1B","CDR1","EGR2","EGR3","HBEGF","HERPUD1","MCM2","PCTP","PODXL","PPY","PTGS2","RCAN1","SLC4A7","THBD"],"cancerTypeSelected":["KICH","KIRC","KIRP","LUAD","LUSC"],"validColl":["KICH_snv_count","KIRC_snv_count","KIRP_snv_count","LUAD_snv_count","LUSC_snv_count"]}
+{"validSymbol":["A2M","ACE","ANGPT2","CBX2","PDL1","EZH2","BPI","CD1B","CDR1","EGR2","EGR3","HBEGF","HERPUD1","MCM2","PCTP","PODXL","PPY","PTGS2","RCAN1","SLC4A7","THBD"],"cancerTypeSelected":["KICH","KIRC","KIRP","LUAD","LUSC"],"validColl":["KICH_snv_survival","KIRC_snv_survival","KIRP_snv_survival","LUAD_snv_survival","LUSC_snv_survival"]}
 
 ### snv geneset survival table
 
@@ -19,8 +19,14 @@ content-type: application/json
 {"validSymbol":["A2M", "ACE", "ANGPT2", "BPI", "CD1B", "CDR1", "EGR2", "EGR3", "HBEGF", "HERPUD1", "MCM2", "PCTP", "PODXL", "PPY", "PTGS2", "RCAN1", "SLC4A7", "THBD"],"cancerTypeSelected":["KICH","KIRC","KIRP","LUAD","LUSC"],"validColl":["KICH_snv_survival", "KIRC_snv_survival", "KIRP_snv_survival", "LUAD_snv_survival", "LUSC_snv_survival"]}
 
 
-### Survival summary
-POST http://localhost:5000/api/mutation/snv/snvtitv HTTP/1.1
+### Survival titv
+POST http://localhost:5000/api/mutation/snvsurvival/snvtitv HTTP/1.1
 content-type: application/json
 
-{"validSymbol":["A2M","ACE","ANGPT2","BPI","CD1B","CDR1","EGR2","EGR3","HBEGF","HERPUD1","MCM2","PCTP","PODXL","PPY","PTGS2","RCAN1","SLC4A7","THBD"],"cancerTypeSelected":["KICH","KIRC","KIRP","LUAD","LUSC"],"validColl":["KICH_snv_count","KIRC_snv_count","KIRP_snv_count","LUAD_snv_count","LUSC_snv_count"]}
+{"validSymbol":["A2M","ACE","ANGPT2","BPI","CD1B","CDR1","EGR2","EGR3","HBEGF","HERPUD1","MCM2","PCTP","PODXL","PPY","PTGS2","RCAN1","SLC4A7","THBD"],"cancerTypeSelected":["KICH","KIRC","KIRP","LUAD","LUSC"],"validColl":["KICH_snv_survival","KIRC_snv_survival","KIRP_snv_survival","LUAD_snv_survival","LUSC_snv_survival"]}
+
+### geneset Survival single cancer
+POST http://localhost:5000/api/mutation/snvsurvival/snvgenesetsurvivalsinglecancer HTTP/1.1
+content-type: application/json
+
+{"validSymbol":["A2M","ACE","ANGPT2","BPI","CD1B","CDR1","EGR2","EGR3","HBEGF","HERPUD1","MCM2","PCTP","PODXL","PPY","PTGS2","RCAN1","SLC4A7","THBD"],"cancerTypeSelected":["LUSC"],"validColl":["LUSC_snv_survival"],"surType":["OS"]}
