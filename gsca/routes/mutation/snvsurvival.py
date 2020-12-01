@@ -33,6 +33,7 @@ class SnvSurvivalTable(Resource):
             mcur = mongo.db[collname].find(condition, output)
             for m in mcur:
                 m["cancertype"] = collname.rstrip("_snv_survival")
+                m["sur_type"] = m["sur_type"].ascii_uppercase
                 res.append(m)
         return res
 
@@ -109,7 +110,9 @@ api.add_resource(SnvGenesetSurvivalTable, "/snvgenesetsurvivaltable")
 class SnvGenesetSurvivalSingleCancer(Resource):
     def post(self):
         args = request.get_json()
-        checkplot = CheckPlot(args=args, purpose="snvgenesetsurvivalsinglecancer", rplot="snv_geneset_survival_singlecancer.R")
+        checkplot = CheckSurvivalPlot(
+            args=args, purpose="snvgenesetsurvivalsinglecancer", rplot="snv_geneset_survival_singlecancer.R"
+        )
         res = checkplot.check_run()
         if res["run"]:
             checkplot.plot(filepath=res["filepath"])
