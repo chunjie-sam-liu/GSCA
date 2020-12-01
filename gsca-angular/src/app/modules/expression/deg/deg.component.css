@@ -1,5 +1,6 @@
-table {
-  width: 100%;
+mat-icon {
+  font-size: 25px;
+  font-weight: bold;
 }
 
 .example-detail-row {
@@ -21,4 +22,9 @@ table {
 .example-element-detail {
   overflow: auto;
   display: flex;
+  justify-content: center;
+}
+
+mat-card-content {
+  text-align: center;
 }
