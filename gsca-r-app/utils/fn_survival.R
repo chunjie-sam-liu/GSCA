@@ -17,9 +17,30 @@ survival_group <- tibble::tibble(type=c("OS","PFS"),
 
 # function to draw survival plot ------------------------------------------
 
-fn_survival <- function(data,title,color,logrankp){
-  library(survival)
-  library(survminer)
+library(survminer)
+fn_survival <- function(data,title,color,logrankp=NA){
+  if(is.na(logrankp)){
+    data %>% 
+      dplyr::filter(!is.na(group)) %>%
+      dplyr::filter(!is.na(time)) %>%
+      dplyr::filter(!is.na(status)) %>%
+      dplyr::group_by(group) %>%
+      dplyr::mutate(n=dplyr::n()) %>%
+      dplyr::select(group,n) %>%
+      dplyr::ungroup() %>%
+      dplyr::filter(n>5) %>%
+      .$group %>% unique() %>% length() -> len_group
+    if(!is.na(len_group)){
+      logrankp <- tryCatch(
+        1 - pchisq(survival::survdiff(survival::Surv(time, status) ~ group, data = data, na.action = na.exclude)$chisq, df = len_group - 1),
+        error = function(e) {1}
+      )
+    }else{
+      logrankp<-1
+    }
+  } else {
+    logrankp<-logrankp
+  }
   fit <- survfit(survival::Surv(time, status) ~ group, data = data, na.action = na.exclude)
   x_lable <- max(data$time)/4
   color %>%
