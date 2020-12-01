@@ -18,45 +18,17 @@ fn_cox_logp <- function(.d){
     dplyr::filter(n>5) %>%
     .$group %>% unique() %>% length() -> len_group
   if(!is.na(len_group)){
-    if(len_group==2){
+    if(len_group>=2){
       kmp <- tryCatch(
         1 - pchisq(survival::survdiff(survival::Surv(time, status) ~ group, data = .d, na.action = na.exclude)$chisq, df = len_group - 1),
         error = function(e) {1}
       )
-      
-      coxp <- tryCatch(
-        broom::tidy(survival::coxph(survival::Surv(time, status) ~ group, data = .d, na.action = na.exclude)),
-        error = function(e) {1}
-      )
-      if (!is.numeric(coxp)) {
-        cox_p <- coxp$p.value
-        hr <- exp(coxp$estimate)
-      } else {
-        cox_p <- 1
-        hr <- 1
-      }
-      
-      if(!is.na(hr)){
-        if(hr>1){
-          higher_risk_of_death <- "Mutated"
-        }else if (hr<1){
-          higher_risk_of_death <- "Non-mutated"
-        }else {
-          higher_risk_of_death <- NA
-        }
-      } else {
-        higher_risk_of_death <- NA
-      }
-      
     } else {
       kmp<-1
-      cox_p<-1
-      hr <- 1
-      higher_risk_of_death <- NA
     }
-    tibble::tibble(logrankp=kmp,cox_p=cox_p,hr=hr,higher_risk_of_death=higher_risk_of_death)
+    tibble::tibble(logrankp=kmp)
   } else {
-    tibble::tibble(logrankp=1,cox_p=1,hr=1,higher_risk_of_death=NA)
+    tibble::tibble(logrankp=1)
   }
 }
 
