@@ -7,7 +7,7 @@
     <mat-form-field>
       <input matInput placeholder="Input target gene" (keyup)="applyFilter($event)" #inputDeg />
       <button mat-icon-button color="warn" matPrefix>
-        <mat-icon style="font-size: 25px">search</mat-icon>
+        <mat-icon>search</mat-icon>
       </button>
     </mat-form-field>
     <table mat-table [dataSource]="dataSourceDeg" multiTemplateDataRows matSort>
@@ -54,9 +54,9 @@
     <mat-card-header>
       <mat-card-title>DEGs between tumor and normal in the specific cancers</mat-card-title>
     </mat-card-header>
-    <div>
-      <img [src]="this.degImage" alt="degplot" *ngIf="!degImageLoading; else loading" height="600px" />
-    </div>
+    <mat-card-content>
+      <img [src]="this.degImage" alt="degplot" *ngIf="!degImageLoading; else loading" />
+    </mat-card-content>
   </mat-card>
 </ng-container>
 

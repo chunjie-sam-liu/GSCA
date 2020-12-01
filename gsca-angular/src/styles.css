@@ -108,3 +108,14 @@ dd {
 .chart-tcgahight {
   height: 700px;
 }
+
+mat-card table {
+  object-fit: cover;
+  width: 100%;
+}
+
+mat-card img {
+  object-fit: cover;
+  max-width: 100%;
+  max-height: 600px;
+}
