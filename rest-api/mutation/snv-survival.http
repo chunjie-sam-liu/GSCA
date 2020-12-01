@@ -11,7 +11,7 @@ content-type: application/json
 
 {"validSymbol":["A2M","ACE","ANGPT2","CBX2","PDL1","EZH2","BPI","CD1B","CDR1","EGR2","EGR3","HBEGF","HERPUD1","MCM2","PCTP","PODXL","PPY","PTGS2","RCAN1","SLC4A7","THBD"],"cancerTypeSelected":["KICH","KIRC","KIRP","LUAD","LUSC"],"validColl":["KICH_snv_count","KIRC_snv_count","KIRP_snv_count","LUAD_snv_count","LUSC_snv_count"]}
 
-### snv geneset survival plot
+### snv geneset survival table
 
 POST http://localhost:5000/api/mutation/snvsurvival/snvgenesetsurvivaltable HTTP/1.1
 content-type: application/json
