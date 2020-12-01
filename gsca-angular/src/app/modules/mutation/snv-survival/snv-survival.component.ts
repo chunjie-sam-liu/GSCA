@@ -246,13 +246,13 @@ export class SnvSurvivalComponent implements OnInit, OnChanges, AfterViewInit {
     if (this.expandedElementGeneset) {
       this.snvGenesetSurvivalSingleCancerImageLoading = true;
       this.showSnvGenesetSurvivalSingleCancerImage = false;
-      if (this.expandedColumnGeneset === 'symbol') {
+      if (this.expandedColumnGeneset === 'cancertype') {
         const postTerm = {
-          validSymbol: [this.expandedElement.symbol],
+          validSymbol: this.searchTerm.validSymbol,
           cancerTypeSelected: [this.expandedElementGeneset.cancertype],
-          validColl: this.searchTerm.validColl,
+         // validColl: this.searchTerm.validColl,
           // tslint:disable-next-line: max-line-length
-          // validColl: [collectionlist.snv_survival.collnames[collectionlist.snv_survival.cancertypes.//indexOf(this.expandedElementGeneset.cancertype)],],
+          validColl: [collectionlist.snv_survival.collnames[collectionlist.snv_survival.cancertypes.indexOf(this.expandedElementGeneset.cancertype)],],
           surType: [this.expandedElementGeneset.sur_type],
         };
 
@@ -275,5 +275,8 @@ export class SnvSurvivalComponent implements OnInit, OnChanges, AfterViewInit {
   }
   public triggerDetail(element: SnvSurvivalTableRecord): string {
     return element === this.expandedElement ? 'expanded' : 'collapsed';
+  }
+  public triggerDetailGeneset(element: SnvGenesetSurvivalTableRecord): string {
+    return element === this.expandedElementGeneset ? 'expanded' : 'collapsed';
   }
 }
