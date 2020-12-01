@@ -51,8 +51,8 @@ for_plot <- fn_pval_label(.x = fetched_data %>% dplyr::rename(value=log_rank_p))
 # Plot --------------------------------------------------------------------
 source(file.path(apppath,"gsca-r-app/utils/fn_survival_summary_plot.R"))
 CPCOLS <- c("blue", "white", "red")
-fill_color <-  c("tomato","lightskyblue")
-fill_group<- c("Hypermethylation","Hypomethylation")
+color_color <-  c("tomato","lightskyblue")
+color_group<- c("Hypermethylation","Hypomethylation")
 for_plot %>%
   dplyr::filter(!is.na(HR)) %>%
   .$HR -> HR_value
@@ -60,7 +60,27 @@ min(HR_value) %>% trunc() -> min
 max(HR_value) %>% ceiling() -> max
 title <- ""
 
-heat_plot<- fn_survival_summary_plot(data = for_plot,aesx = "cancertype", aesy = "symbol",color = "HR",fill = "higher_risk_of_death",label = "p_label",y_rank = gene_rank$symbol,x_rank = cancer_rank$cancertype,color_low = CPCOLS[1],color_high = CPCOLS[3],color_mid = CPCOLS[2],midpoint = 1,min = min,max = max,color_name ="Hazard ratio",fill_color = fill_color,fill_group = fill_group,fill_name = "Higher risk of death",title = title,xlab = "Cancer types",ylab = "Gene symbol")
+heat_plot<- fn_survival_summary_plot(data = for_plot,
+                                     aesx = "cancertype", 
+                                     aesy = "symbol",
+                                     color = "higher_risk_of_death",
+                                     fill = "HR",
+                                     label = "p_label",
+                                     y_rank = gene_rank$symbol,
+                                     x_rank = cancer_rank$cancertype,
+                                     fill_low = CPCOLS[1],
+                                     fill_high = CPCOLS[3],
+                                     fill_mid = CPCOLS[2],
+                                     midpoint = 1,
+                                     min = min,
+                                     max = max,
+                                     fill_name ="Hazard ratio",
+                                     color_color = color_color,
+                                     color_group = color_group,
+                                     color_name = "Higher risk of death",
+                                     title = title,
+                                     xlab = "Cancer types",
+                                     ylab = "Gene symbol")
 
 
 # Save --------------------------------------------------------------------

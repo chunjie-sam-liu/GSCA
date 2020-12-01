@@ -11,7 +11,7 @@ expr_group <- tibble::tibble(group=c("median","up_quantile","low_quantile"),
 
 # survival type -----------------------------------------------------------
 
-survival_group <- tibble::tibble(type=c("os","pfs"),
+survival_group <- tibble::tibble(type=c("OS","PFS"),
                                  time=c("os_days","pfs_days"),
                                  status=c("os_status","pfs_status"))
 
@@ -27,9 +27,10 @@ fn_survival <- function(data,title,color,logrankp){
     dplyr::group_by(group) %>%
     dplyr::mutate(n = n()) %>%
     dplyr::ungroup() %>%
-    dplyr::mutate(group = paste(group,", n=",n,sep="")) %>%
-    dplyr::select(group,color) %>%
-    unique() -> color_paired
+    dplyr::mutate(group_label = paste(group,", n=",n,sep="")) %>%
+    dplyr::select(group,group_label,color) %>%
+    unique() %>%
+    dplyr::arrange(group) -> color_paired
   survminer::ggsurvplot(fit,pval=F, #pval.method = T,
                         data = data,
                         surv.median.line = "hv",
@@ -58,7 +59,7 @@ fn_survival <- function(data,title,color,logrankp){
              label = paste("Log rank P =", round(logrankp,2))) +
     scale_color_manual(
       values = color_paired$color,
-      labels = color_paired$group
+      labels = color_paired$group_label
     ) -> p
   return(p)
 }
