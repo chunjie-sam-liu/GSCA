@@ -21,9 +21,6 @@ library(survminer)
 fn_survival <- function(data,title,color,logrankp=NA){
   if(is.na(logrankp)){
     data %>% 
-      dplyr::filter(!is.na(group)) %>%
-      dplyr::filter(!is.na(time)) %>%
-      dplyr::filter(!is.na(status)) %>%
       dplyr::group_by(group) %>%
       dplyr::mutate(n=dplyr::n()) %>%
       dplyr::select(group,n) %>%
