@@ -2,7 +2,7 @@
 
 export interface SnvGenesetSurvivalTableRecord {
   logrankp: number;
-  cox_p: string;
+  cox_p: number;
   cancertype: string;
   hr: number;
   sur_type: string;

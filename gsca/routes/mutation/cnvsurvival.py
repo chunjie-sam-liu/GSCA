@@ -7,23 +7,20 @@ import uuid
 from gsca.utils.checkplot import CheckPlot
 from gsca.utils.check_survivalPlot import CheckSurvivalPlot
 
-snvsurvival = Blueprint("snvsurvival", __name__)
-api = Api(snvsurvival)
+cnvsurvival = Blueprint("cnvsurvival", __name__)
+api = Api(cnvsurvival)
 
-model_snvsurvivaltable = {
+model_cnvsurvivaltable = {
     "entrez": fields.Integer(attribute="entrez"),
     "symbol": fields.String(attribute="symbol"),
     "sur_type": fields.String(attribute="sur_type"),
-    "hr": fields.Float(attribute="HR"),
-    "cox_p": fields.Float(attribute="cox_p"),
     "log_rank_p": fields.Float(attribute="log_rank_p"),
-    "higher_risk_of_death": fields.String(attribute="higher_risk_of_death"),
     "cancertype": fields.String(attribute="cancertype"),
 }
 
 
-class SnvSurvivalTable(Resource):
-    @marshal_with(model_snvsurvivaltable)
+class CnvSurvivalTable(Resource):
+    @marshal_with(model_cnvsurvivaltable)
     def post(self):
         args = request.get_json()
         condition = {"symbol": {"$in": args["validSymbol"]}}
@@ -32,19 +29,18 @@ class SnvSurvivalTable(Resource):
         for collname in args["validColl"]:
             mcur = mongo.db[collname].find(condition, output)
             for m in mcur:
-                m["cancertype"] = collname.rstrip("_snv_survival")
-                m["sur_type"] = m["sur_type"].ascii_uppercase
+                m["cancertype"] = collname.rstrip("_cnv_survival")
                 res.append(m)
         return res
 
 
-api.add_resource(SnvSurvivalTable, "/snvsurvivaltable")
+api.add_resource(CnvSurvivalTable, "/cnvsurvivaltable")
 
 
-class SnvSurvivalPlot(Resource):
+class CnvSurvivalPlot(Resource):
     def post(self):
         args = request.get_json()
-        checkplot = CheckPlot(args=args, purpose="snvsurvivalplot", rplot="snv_survivalplot_profile.R")
+        checkplot = CheckPlot(args=args, purpose="cnvsurvivalplot", rplot="cnv_survivalplot_profile.R")
         res = checkplot.check_run()
 
         if res["run"]:
@@ -52,72 +48,67 @@ class SnvSurvivalPlot(Resource):
         return send_file(str(res["filepath"]), mimetype="image/png")
 
 
-api.add_resource(SnvSurvivalPlot, "/snvsurvivalplot")
+api.add_resource(CnvSurvivalPlot, "/cnvsurvivalplot")
 
 
-class SnvSurvivalSingleGene(Resource):
+class CnvSurvivalSingleGene(Resource):
     def post(self):
         args = request.get_json()
-        checkplot = CheckSurvivalPlot(args=args, purpose="snvsurvivalsinglegene", rplot="snvsurvival_singlegene.R")
+        checkplot = CheckSurvivalPlot(args=args, purpose="cnvsurvivalsinglegene", rplot="cnvsurvival_singlegene.R")
         res = checkplot.check_run()
         if res["run"]:
             checkplot.plot(filepath=res["filepath"])
         return send_file(str(res["filepath"]), mimetype="image/png")
 
 
-api.add_resource(SnvSurvivalSingleGene, "/snvsurvivalsinglegeneplot")
+api.add_resource(CnvSurvivalSingleGene, "/cnvsurvivalsinglegeneplot")
 
-model_snvgenesetsurvivaltable = {
+model_cnvgenesetsurvivaltable = {
     "sur_type": fields.String(attribute="sur_type"),
-    "hr": fields.Float(attribute="HR"),
-    "cox_p": fields.Float(attribute="cox_p"),
     "log_rank_p": fields.Float(attribute="log_rank_p"),
-    "higher_risk_of_death": fields.String(attribute="higher_risk_of_death"),
     "cancertype": fields.String(attribute="cancertype"),
 }
 
 
-class SnvGenesetSurvivalPlot(Resource):
+class CnvGenesetSurvivalPlot(Resource):
     def post(self):
         args = request.get_json()
-        checkplot = CheckPlot(args=args, purpose="snvsurvivalgeneset", rplot="snv_geneset_survival_profile.R")
+        checkplot = CheckPlot(args=args, purpose="cnvsurvivalgeneset", rplot="cnv_geneset_survival_profile.R")
         res = checkplot.check_run()
         if res["run"]:
             checkplot.plot(filepath=res["filepath"])
         return send_file(str(res["filepath"]), mimetype="image/png")
 
 
-api.add_resource(SnvGenesetSurvivalPlot, "/snvgenesetsurvivalplot")
+api.add_resource(CnvGenesetSurvivalPlot, "/cnvgenesetsurvivalplot")
 
 
-class SnvGenesetSurvivalTable(Resource):
+class CnvGenesetSurvivalTable(Resource):
     def post(self):
         args = request.get_json()
-        print(args)
         condition = {
             "search": "#".join(args["validSymbol"]),
             "coll": "#".join(args["validColl"]),
-            "purpose": "snv_geneset_survival",
+            "purpose": "cnv_geneset_survival",
         }
         output = {"_id": 0, "res": 1}
-        res = mongo.db.snv_geneset_survival.find_one(condition, output)
+        res = mongo.db.cnv_geneset_survival.find_one(condition, output)
+        print(res)
         return res["res"]
 
 
-api.add_resource(SnvGenesetSurvivalTable, "/snvgenesetsurvivaltable")
+api.add_resource(CnvGenesetSurvivalTable, "/cnvgenesetsurvivaltable")
 
 
-class SnvGenesetSurvivalSingleCancer(Resource):
+class CnvGenesetSurvivalSingleCancer(Resource):
     def post(self):
         args = request.get_json()
-        checkplot = CheckSurvivalPlot(
-            args=args, purpose="snvgenesetsurvivalsinglecancer", rplot="snv_geneset_survival_singlecancer.R"
-        )
+        checkplot = CheckPlot(args=args, purpose="cnvgenesetsurvivalsinglecancer", rplot="cnv_geneset_survival_singlecancer.R")
         res = checkplot.check_run()
         if res["run"]:
             checkplot.plot(filepath=res["filepath"])
         return send_file(str(res["filepath"]), mimetype="image/png")
 
 
-api.add_resource(SnvGenesetSurvivalSingleCancer, "/snvgenesetsurvivalsinglecancer")
+api.add_resource(CnvGenesetSurvivalSingleCancer, "/cnvgenesetsurvivalsinglecancer")
 

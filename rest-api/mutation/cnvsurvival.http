@@ -1,0 +1,32 @@
+### cnv survival table
+POST http://localhost:5000/api/mutation/cnvsurvival/cnvsurvivaltable HTTP/1.1
+content-type: application/json
+
+{"validSymbol":["A2M","ACE","ANGPT2","BPI","CD1B","CDR1","EGR2","EGR3","HBEGF","HERPUD1","MCM2","PCTP","PODXL","PPY","PTGS2","RCAN1","SLC4A7","THBD"],"cancerTypeSelected":["KICH","KIRC","KIRP","LUAD","LUSC"],"validColl":["KICH_cnv_survival","KIRC_cnv_survival","KIRP_cnv_survival","LUAD_cnv_survival","LUSC_cnv_survival"]}
+
+### cnv survival plot
+
+POST http://localhost:5000/api/mutation/cnvsurvival/cnvsurvivalplot HTTP/1.1
+content-type: application/json
+
+{"validSymbol":["A2M","ACE","ANGPT2","CBX2","PDL1","EZH2","BPI","CD1B","CDR1","EGR2","EGR3","HBEGF","HERPUD1","MCM2","PCTP","PODXL","PPY","PTGS2","RCAN1","SLC4A7","THBD"],"cancerTypeSelected":["KICH","KIRC","KIRP","LUAD","LUSC"],"validColl":["KICH_cnv_survival","KIRC_cnv_survival","KIRP_cnv_survival","LUAD_cnv_survival","LUSC_cnv_survival"]}
+
+
+### cnv single gene survival
+POST http://localhost:5000/api/mutation/cnvsurvival/cnvsurvivalsinglegeneplot HTTP/1.1
+content-type: application/json
+
+{"validSymbol":["EGR2"],"cancerTypeSelected":["KICH"],"validColl":["KICH_cnv_survival"],"surType":["os"]}
+
+### cnv geneset survival plot
+POST http://localhost:5000/api/mutation/cnvsurvival/cnvgenesetsurvivalplot 
+content-type: application/json
+
+{"validSymbol":["A2M", "ACE", "ANGPT2", "BPI", "CD1B", "CDR1", "EGR2", "EGR3", "HBEGF", "HERPUD1", "MCM2", "PCTP", "PODXL", "PPY", "PTGS2", "RCAN1", "SLC4A7", "THBD"],"cancerTypeSelected":["KICH","KIRC","KIRP","LUAD","LUSC"],"validColl":["KICH_cnv_survival", "KIRC_cnv_survival", "KIRP_cnv_survival", "LUAD_cnv_survival", "LUSC_cnv_survival"]}
+
+
+### snv geneset Survival table
+POST http://localhost:5000/api/mutation/cnvsurvival/cnvgenesetsurvivaltable HTTP/1.1
+content-type: application/json
+
+{"validSymbol":["A2M","ACE","ANGPT2","BPI","CD1B","CDR1","EGR2","EGR3","HBEGF","HERPUD1","MCM2","PCTP","PODXL","PPY","PTGS2","RCAN1","SLC4A7","THBD"],"cancerTypeSelected":["KICH","KIRC","KIRP","LUAD","LUSC"],"validColl":["cnv_geneset_survival"]}

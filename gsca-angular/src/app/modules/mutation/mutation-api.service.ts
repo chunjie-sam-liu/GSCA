@@ -109,4 +109,22 @@ export class MutationApiService extends BaseHttpService {
   public getCnvCorSingleGene(postTerm: ExprSearch): Observable<any> {
     return this.postDataImage('mutation/cnvcor/cnvcorsinglegene', postTerm);
   }
+  public getCnvSurvivalTable (postTerm: ExprSearch): Observable<any> {
+    return this.postData('mutation/cnvsurvival/cnvsurvivaltable', postTerm);
+  }
+  public getCnvSurvivalPlot(postTerm: ExprSearch): Observable<any> {
+    return this.postDataImage('mutation/cnvsurvival/cnvsurvivalplot', postTerm);
+  }
+  public getCnvGenesetSurvivalPlot(postTerm: ExprSearch): Observable<any> {
+    return this.postDataImage('mutation/cnvsurvival/cnvgenesetsurvivalplot', postTerm);
+  }
+  public getCnvGenesetSurvivalTable (postTerm: ExprSearch): Observable<any> {
+    return this.postData('mutation/cnvsurvival/cnvgenesetsurvivaltable', postTerm);
+  }
+  public getCnvSurvivalSingleGene(postTerm: ExprSearch): Observable<any> {
+    return this.postDataImage('mutation/cnvsurvival/cnvsurvivalsinglegeneplot', postTerm);
+  }
+  public getCnvGenesetSurvivalSingleCancer(postTerm: ExprSearch): Observable<any> {
+    return this.postDataImage('mutation/cnvsurvival/cnvgenesetsurvivalsinglecancer', postTerm);
+  }
 }
