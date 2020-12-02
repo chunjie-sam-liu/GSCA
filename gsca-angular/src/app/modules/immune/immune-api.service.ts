@@ -12,7 +12,7 @@ export class ImmuneApiService extends BaseHttpService {
   constructor(http: HttpClient) { 
     super(http);
   }
-
+  // immune cnv
   public getImmCnvCorTable(postTerm: ExprSearch): Observable<any> {
     return this.postData('immune/immunecnv/immcnvcortable', postTerm);
   }
@@ -23,4 +23,16 @@ export class ImmuneApiService extends BaseHttpService {
     return this.postDataImage('immune/immunecnv/immcnvcorsinglegene', postTerm);
   }
 
+  // immune expression
+  public getImmExprCorTable(postTerm: ExprSearch): Observable<any> {
+    return this.postData('immune/immuneexpr/immexprcortable', postTerm);
+  }
+  public getImmExprCorPlot(postTerm: ExprSearch): Observable<any> {
+    return this.postDataImage('immune/immuneexpr/immexprcorplot', postTerm);
+  }
+  public getImmExprCorSingleGene(postTerm: ExprSearch): Observable<any> {
+    return this.postDataImage('immune/immuneexpr/immexprcorplot', postTerm);
+  }
+  // immune snv
+  // immune methylation
 }
