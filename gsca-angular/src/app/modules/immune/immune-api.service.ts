@@ -35,4 +35,13 @@ export class ImmuneApiService extends BaseHttpService {
   }
   // immune snv
   // immune methylation
+  public getImmMethyCorTable(postTerm: ExprSearch): Observable<any> {
+    return this.postData('immune/immunemethy/immmethycortable', postTerm);
+  }
+  public getImmMethyCorPlot(postTerm: ExprSearch): Observable<any> {
+    return this.postDataImage('immune/immunemethy/immmethycorplot', postTerm);
+  }
+  public getImmMethyCorSingleGene(postTerm: ExprSearch): Observable<any> {
+    return this.postDataImage('immune/immunemethy/immmethycorplot', postTerm);
+  }
 }
