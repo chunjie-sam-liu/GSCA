@@ -7,6 +7,30 @@
     <div fxFlex="grow" fxLayout="row" style="border: 1px rebeccapurple solid">
       <app-search-box fxFlex></app-search-box>
     </div>
+
+    <div fxFlex="grow" fxLayout="row" style="border: 1px rebeccapurple solid">
+      <ng-container *ngIf="showImmExpr; else empty">
+        <app-snv fxLayout="row" fxLayoutGap="10px" fxLayout.lt-lg="column" [searchTerm]="searchTerm"></app-snv>
+      </ng-container>
+    </div>
+
+    <div fxFlex="grow" fxLayout="row" style="border: 1px rebeccapurple solid">
+      <ng-container *ngIf="showImmSnv; else empty">
+        <app-snv fxLayout="row" fxLayoutGap="10px" fxLayout.lt-lg="column" [searchTerm]="searchTerm"></app-snv>
+      </ng-container>
+    </div>
+
+    <div fxFlex="grow" fxLayout="row" style="border: 1px rebeccapurple solid">
+      <ng-container *ngIf="showImmCnv; else empty">
+        <app-snv fxLayout="row" fxLayoutGap="10px" fxLayout.lt-lg="column" [searchTerm]="searchTerm"></app-snv>
+      </ng-container>
+    </div>
+
+    <div fxFlex="grow" fxLayout="row" style="border: 1px rebeccapurple solid">
+      <ng-container *ngIf="showImmMethy; else empty">
+        <app-snv fxLayout="row" fxLayoutGap="10px" fxLayout.lt-lg="column" [searchTerm]="searchTerm"></app-snv>
+      </ng-container>
+    </div>
   </div>
 
   <div fxFlex="none">
