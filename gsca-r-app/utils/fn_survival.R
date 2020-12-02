@@ -11,9 +11,9 @@ expr_group <- tibble::tibble(group=c("median","up_quantile","low_quantile"),
 
 # survival type -----------------------------------------------------------
 
-survival_group <- tibble::tibble(type=c("OS","PFS"),
-                                 time=c("os_days","pfs_days"),
-                                 status=c("os_status","pfs_status"))
+survival_group <- tibble::tibble(type=c("OS","PFS","os","pfs"),
+                                 time=c("os_days","pfs_days","os_days","pfs_days"),
+                                 status=c("os_status","pfs_status","os_status","pfs_status"))
 
 # function to draw survival plot ------------------------------------------
 
@@ -21,6 +21,9 @@ library(survminer)
 fn_survival <- function(data,title,color,logrankp=NA){
   if(is.na(logrankp)){
     data %>% 
+      dplyr::filter(!is.na(time)) %>%
+      dplyr::filter(!is.na(status)) %>%
+      dplyr::filter(!is.na(group)) %>%
       dplyr::group_by(group) %>%
       dplyr::mutate(n=dplyr::n()) %>%
       dplyr::select(group,n) %>%

@@ -33,7 +33,6 @@ class SnvSurvivalTable(Resource):
             mcur = mongo.db[collname].find(condition, output)
             for m in mcur:
                 m["cancertype"] = collname.rstrip("_snv_survival")
-                m["sur_type"] = m["sur_type"].ascii_uppercase
                 res.append(m)
         return res
 
