@@ -6,7 +6,7 @@ import { ExprSearch } from 'src/app/shared/model/exprsearch';
   templateUrl: './immune.component.html',
   styleUrls: ['./immune.component.css']
 })
-export class ImmuneComponent implements OnInit {
+export class ImmuneComponent implements OnInit, AfterViewInit {
   searchTerm: ExprSearch;
   showImmExpr = false;
   showImmSnv = false;
