@@ -21,7 +21,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
     ]),
   ],
 })
-export class ImmuneCnvComponent implements OnInit {
+export class ImmuneCnvComponent implements  OnInit, OnChanges, AfterViewInit {
   @Input() searchTerm: ExprSearch;
 
   
