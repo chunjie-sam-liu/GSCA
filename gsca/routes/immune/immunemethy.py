@@ -5,6 +5,6 @@ from pathlib import Path
 import subprocess
 import uuid
 
-immune = Blueprint("immune", __name__)
-api = Api(immune)
+immunemethy = Blueprint("immunemethy", __name__)
+api = Api(immunemethy)
 
