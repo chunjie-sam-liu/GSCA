@@ -14,13 +14,13 @@ export class ImmuneApiService extends BaseHttpService {
   }
 
   public getImmCnvCorTable(postTerm: ExprSearch): Observable<any> {
-    return this.postData('immune/immunecnv/immunecnvcortable', postTerm);
+    return this.postData('immune/immunecnv/immcnvcortable', postTerm);
   }
   public getImmCnvCorPlot(postTerm: ExprSearch): Observable<any> {
-    return this.postDataImage('immune/immunecnv/immunecnvcorplot', postTerm);
+    return this.postDataImage('immune/immunecnv/immcnvcorplot', postTerm);
   }
   public getImmCnvCorSingleGene(postTerm: ExprSearch): Observable<any> {
-    return this.postDataImage('immune/immunecnv/immunecnvcorsinglegene', postTerm);
+    return this.postDataImage('immune/immunecnv/immcnvcorsinglegene', postTerm);
   }
 
 }
