@@ -14,7 +14,7 @@ search_str <- args[1]
 filepath <- args[2]
 apppath <- args[3]
 
-# search_str <-'A2M@KIRC_snv_survival@os'
+# search_str <-'A2M@KICH_snv_survival@os'
 # apppath <- '/home/huff/github/GSCA'
 search_str_split <- strsplit(x = search_str, split = '@')[[1]]
 search_genes <- strsplit(x = search_str_split[1], split = '#')[[1]]
@@ -79,9 +79,9 @@ combine_group_data %>%
   dplyr::select(sample_name,group,cancer_types,time=survival_type_to_draw$time,status=survival_type_to_draw$status) -> combine_data_group
 
 fields <- '{"symbol": true, "log_rank_p": true,"sur_type": true,"_id": false}'
-fetched_snv_survival <- purrr::map(.x = paste(search_cancertypes,"_snv_survival",sep=""), .f = fn_fetch_mongo, pattern="_methy_cor_expr",fields = fields,.key=search_genes,.keyindex="symbol") %>%
+fetched_snv_survival <- purrr::map(.x = paste(search_cancertypes,"_snv_survival",sep=""), .f = fn_fetch_mongo, pattern="_snv_survival",fields = fields,.key=search_genes,.keyindex="symbol") %>%
   dplyr::bind_rows() %>%
-  dplyr::filter(sur_type %in% toupper(survival_type))
+  dplyr::filter(sur_type %in% survival_type_to_draw$type)
 # draw survival plot ------------------------------------------------------
 title <- paste(toupper(survival_type),"survival of",search_genes, "SNV in",search_cancertypes)
 combine_data_group %>%

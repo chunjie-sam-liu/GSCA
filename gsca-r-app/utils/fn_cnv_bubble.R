@@ -27,7 +27,9 @@ fn_cnv_bubble <- function(data,aesx,aesy,size,color,xlab,ylab,sizename,min=0,max
           axis.title = element_text(size=12),
           legend.title = element_text(size = 12),
           legend.key = element_rect(fill = "white", colour = "black"),
-          plot.title = element_text(size = 20)
+          plot.title = element_text(size = 20),
+          strip.background = element_blank(),
+          strip.text = element_text(color="black",size = 12)
           ) -> p
   return(p)
 }

@@ -69,9 +69,9 @@ fn_fetch_mongo_snv_count <- function(.data, .key, .keyindex) {
   .coll <- mongolite::mongo(collection = coll, url = gsca_conf)
   .coll$find(
     query = fn_query_str(.key,.keyindex),
-    fields = '{"mutated_sample_size": true, "_id": false}'
+    fields = '{"EffectiveMut": true, "_id": false}'
   ) %>%
-    tidyr::unnest(cols = c(mutated_sample_size)) 
+    tidyr::unnest(cols = c(EffectiveMut)) 
 }
 
 # function to fetch snv_maf ------------------------------------------

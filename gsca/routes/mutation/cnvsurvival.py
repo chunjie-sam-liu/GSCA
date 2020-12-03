@@ -103,7 +103,9 @@ api.add_resource(CnvGenesetSurvivalTable, "/cnvgenesetsurvivaltable")
 class CnvGenesetSurvivalSingleCancer(Resource):
     def post(self):
         args = request.get_json()
-        checkplot = CheckPlot(args=args, purpose="cnvgenesetsurvivalsinglecancer", rplot="cnv_geneset_survival_singlecancer.R")
+        checkplot = CheckSurvivalPlot(
+            args=args, purpose="cnvgenesetsurvivalsinglecancer", rplot="cnv_geneset_survival_singlecancer.R"
+        )
         res = checkplot.check_run()
         if res["run"]:
             checkplot.plot(filepath=res["filepath"])

@@ -27,6 +27,13 @@ gsca_conf <- readr::read_lines(file = file.path(apppath, 'gsca-r-app/gsca.conf')
 
 source(file.path(apppath, "gsca-r-app/utils/fn_fetch_mongo_data.R"))
 # fetch data --------------------------------------------------------------
+# fields <- '{"_id": false}'
+# fetched_snv_maf <- purrr::map(.x = paste(search_cancertypes,"_snv_maf",sep=""), .f = fn_fetch_mongo, pattern="_snv_maf",fields = fields,.key=search_genes,.keyindex="symbol") %>%
+#   dplyr::bind_rows() %>%
+#   dplyr::rename(Hugo_Symbol=symbol)
+# fetched_snv_maf %>%
+#   dplyr::select(cancertype,Tumor_Sample_Barcode) -> clincial_info
+# pan_maf <- read.maf(maf=fetched_snv_maf,clinicalData=clincial_info)
 
 data_path <- "/home/huff/data/GSCA/mutation/snv/sub_cancer_maf"
 filename <-  paste(search_cancertypes,"_maf_data.IdTrans.maf.rds.gz",sep="")
@@ -50,8 +57,8 @@ fn_height <- function(.g){
   .height
 }
 # plot --------------------------------------------------------------------
-height <- fn_height(snv_count)
-
+# height <- fn_height(nrow(fetched_snv_maf))
+height <- fn_height(snv_count$EffectiveMut)
 png(filename = filepath,height = height,width = 4,units = "in",res=500)
 lollipopPlot(maf = pan_maf,gene = search_genes, showMutationRate = TRUE)
 dev.off()

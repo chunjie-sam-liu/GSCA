@@ -30,3 +30,9 @@ POST http://localhost:5000/api/mutation/cnvsurvival/cnvgenesetsurvivaltable HTTP
 content-type: application/json
 
 {"validSymbol":["A2M","ACE","ANGPT2","BPI","CD1B","CDR1","EGR2","EGR3","HBEGF","HERPUD1","MCM2","PCTP","PODXL","PPY","PTGS2","RCAN1","SLC4A7","THBD"],"cancerTypeSelected":["KICH","KIRC","KIRP","LUAD","LUSC"],"validColl":["cnv_geneset_survival"]}
+
+### geneset Survival single cancer
+POST http://localhost:5000/api/mutation/cnvsurvival/cnvgenesetsurvivalsinglecancer HTTP/1.1
+content-type: application/json
+
+{"validSymbol":["A2M","ACE","ANGPT2","BPI","CD1B","CDR1","EGR2","EGR3","HBEGF","HERPUD1","MCM2","PCTP","PODXL","PPY","PTGS2","RCAN1","SLC4A7","THBD"],"cancerTypeSelected":["LUSC"],"validColl":["LUSC_cnv_survival"],"surType":["OS"]}

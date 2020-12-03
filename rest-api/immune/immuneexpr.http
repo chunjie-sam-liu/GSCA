@@ -1,0 +1,5 @@
+### expr table
+POST http://localhost:5000/api/immune/immuneexpr/immexprcortable HTTP/1.1
+content-type: application/json
+
+{"validSymbol":["A2M","ACE","ANGPT2","BPI","CD1B","CDR1","EGR2","EGR3","HBEGF","HERPUD1","MCM2","PCTP","PODXL","PPY","PTGS2","RCAN1","SLC4A7","THBD"],"cancerTypeSelected":["KICH","KIRC","KIRP","LUAD","LUSC"],"validColl":["KICH_immune_cor_expr","KIRC_immune_cor_expr","KIRP_immune_cor_expr","LUAD_immune_cor_expr","LUSC_immune_cor_expr"]}
