@@ -1,6 +1,6 @@
 library(ggplot2)
 
-bubble_plot <- function(data, cancer, gene, size, color, cancer_rank, gene_rank, sizename, colorname, title) {
+bubble_plot <- function(data, cancer, gene, size, color, ylab="Symbol",xlab="Cancer types",cancer_rank, gene_rank, sizename, colorname, title) {
     CPCOLS <- c("red", "white", "blue")
     data %>%
       ggplot(aes_string(y = gene, x = cancer)) +
@@ -8,8 +8,8 @@ bubble_plot <- function(data, cancer, gene, size, color, cancer_rank, gene_rank,
       scale_y_discrete(limit = gene_rank) +
       scale_x_discrete(limit = cancer_rank) +
       labs(title = title) +
-      ylab("Symbol") +
-      xlab("Cancer types") +
+      ylab(ylab) +
+      xlab(xlab) +
       scale_size_continuous(
         name = sizename # "-Log10(FDR)"
       ) +
