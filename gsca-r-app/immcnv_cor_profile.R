@@ -60,6 +60,6 @@ source(file.path(apppath,"gsca-r-app/utils/fn_bubble_plot_immune.R"))
 plot <- bubble_plot(data=for_plot, cancer="cell_type", gene="symbol", xlab="Cell type", ylab="Symbol", size="logfdr", color="cor", colorgroup="group",cancer_rank=celltype_rank$cell_type, gene_rank=gene_rank$symbol, sizename= "-Log10(FDR)", colorname="Correlation", title="")
 
 # Save --------------------------------------------------------------------
-ggsave(filename = filepath, plot = plot, device = 'png', width = size$width, height = size$height)
+ggsave(filename = filepath, plot = plot, device = 'png', width = size$width, height = size$height+2)
 pdf_name <- gsub("\\.png",".pdf",filepath)
-ggsave(filename = pdf_name, plot = plot, device = 'pdf', width = size$width, height = size$height)
+ggsave(filename = pdf_name, plot = plot, device = 'pdf', width = size$width, height = size$height+2)
