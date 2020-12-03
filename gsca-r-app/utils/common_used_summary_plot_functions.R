@@ -20,14 +20,25 @@ fn_get_pattern <- function(.x,trend1,trend2,p_cutoff,selections) {
     tidyr::spread(key = cancertype, value = pattern) %>%
     dplyr::mutate_if(.predicate = is.numeric, .funs = function(.) {ifelse(is.na(.), 0, .)})
 }
-
+fn_get_pattern_celltype <- function(.x,trend1,trend2,p_cutoff,selections) {
+  .x %>%
+    dplyr::mutate(pattern = purrr::map2_dbl(trend,value, fn_filter_pattern,trend1=trend1,trend2=trend2,p_cutoff=p_cutoff)) %>%
+    dplyr::select(all_of(selections), pattern ) %>%
+    tidyr::spread(key = cell_type, value = pattern) %>%
+    dplyr::mutate_if(.predicate = is.numeric, .funs = function(.) {ifelse(is.na(.), 0, .)})
+}
 fn_get_cancer_types_rank <- function(.x) {
   .x %>%
     dplyr::summarise_if(.predicate = is.numeric, dplyr::funs(sum(abs(.)))) %>%
     tidyr::gather(key = cancertype, value = rank) %>%
     dplyr::arrange(dplyr::desc(rank))
 }
-
+fn_get_cell_types_rank <- function(.x) {
+  .x %>%
+    dplyr::summarise_if(.predicate = is.numeric, dplyr::funs(sum(abs(.)))) %>%
+    tidyr::gather(key = cell_type, value = rank) %>%
+    dplyr::arrange(dplyr::desc(rank))
+}
 fn_get_gene_rank <- function(.x) {
   .x %>%
     dplyr::rowwise() %>%
