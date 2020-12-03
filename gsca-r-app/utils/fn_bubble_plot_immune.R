@@ -11,9 +11,9 @@ bubble_plot <- function(data, cancer, gene, size, color, colorgroup, ylab="Symbo
     ylab(ylab) +
     xlab(xlab) +
     scale_size_continuous(
-      name = sizename # "-Log10(FDR)"
+      name = sizename, # "-Log10(FDR)"
+      guide=FALSE
     ) +
-    guides(size=guide_legend(title.position="none")) +
     scale_fill_gradient2(
       name = colorname, # "Methylation diff (T - N)",
       low = CPCOLS[3],
@@ -40,6 +40,7 @@ bubble_plot <- function(data, cancer, gene, size, color, colorgroup, ylab="Symbo
       axis.title = element_text(size=12),
       legend.title = element_text(size = 12),
       legend.key = element_rect(fill = "white", colour = "black"),
+      legend.key.size = unit(0.5, "cm"),
       plot.title = element_text(size = 20)
     ) -> p
   return(p)

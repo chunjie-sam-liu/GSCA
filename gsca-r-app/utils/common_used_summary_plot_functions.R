@@ -35,7 +35,7 @@ fn_get_cancer_types_rank <- function(.x) {
 }
 fn_get_cell_types_rank <- function(.x) {
   .x %>%
-    dplyr::summarise_if(.predicate = is.numeric, dplyr::funs(sum(abs(.)))) %>%
+    dplyr::summarise_if(.predicate = is.numeric, dplyr::funs(sum(.))) %>%
     tidyr::gather(key = cell_type, value = rank) %>%
     dplyr::arrange(dplyr::desc(rank))
 }
