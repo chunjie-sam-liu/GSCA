@@ -30,11 +30,12 @@ export class ImmuneMethyComponent implements  OnInit, OnChanges, AfterViewInit {
   showImmMethyCorTable = true;
   @ViewChild('paginatorImmMethyCor') paginatorImmMethyCor: MatPaginator;
   @ViewChild(MatSort) sortImmMethyCor: MatSort;
-  displayedColumnsImmMethyCor = ['cancertype', 'symbol', 'spm', 'fdr'];
+  displayedColumnsImmMethyCor = ['cancertype', 'symbol', 'cell_type', 'cor', 'fdr'];
   displayedColumnsImmMethyCorHeader = [
     'Cancer type',
     'Gene symbol',
-    'Spearman correlation',
+    "Cell type",
+    'Correlation',
     'FDR',
   ];
   expandedElement: ImmCorTableRecord;
@@ -80,18 +81,6 @@ export class ImmuneMethyComponent implements  OnInit, OnChanges, AfterViewInit {
         (err) => {
           this.dataSourceImmMethyCorLoading = false;
           this.showImmMethyCorTable = false;
-        }
-      );
-
-      this.mutationApiService.getImmMethyCorPlot(postTerm).subscribe(
-        (res) => {
-          this.showImmMethyCorImage = true;
-          this.immMethyCorImageLoading = false;
-          this._createImageFromBlob(res, 'immMethyCorImage');
-        },
-        (err) => {
-          this.immMethyCorImageLoading = false;
-          this.showImmMethyCorImage = false;
         }
       );
     }
@@ -168,9 +157,31 @@ export class ImmuneMethyComponent implements  OnInit, OnChanges, AfterViewInit {
           }
         );
       }
+      if (this.expandedColumn === 'cancertype') {
+        const postTerm = {
+          validSymbol: [this.expandedElement.symbol],
+          cancerTypeSelected: [this.expandedElement.cancertype],
+          validColl: [
+            collectionlist.immune_cor_methy.collnames[collectionlist.immune_cor_methy.cancertypes.indexOf(this.expandedElement.cancertype)],
+          ]
+        };
+        this.mutationApiService.getImmMethyCorPlot(postTerm).subscribe(
+          (res) => {
+            this.showImmMethyCorImage = true;
+            this.immMethyCorImageLoading = false;
+            this._createImageFromBlob(res, 'immMethyCorImage');
+          },
+          (err) => {
+            this.immMethyCorImageLoading = false;
+            this.showImmMethyCorImage = false;
+          }
+        );        
+      }
     } else {
       this.immMethyCorSingleGeneImageLoading = false;
       this.showImmMethyCorSingleGeneImage = false;
+      this.immMethyCorImageLoading = false;
+      this.showImmMethyCorImage = false;
     }
   }
   public triggerDetail(element: ImmCorTableRecord): string {

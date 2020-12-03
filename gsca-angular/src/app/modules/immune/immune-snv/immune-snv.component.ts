@@ -30,11 +30,12 @@ export class ImmuneSnvComponent implements OnInit, OnChanges, AfterViewInit {
   showImmSnvCorTable = true;
   @ViewChild('paginatorImmSnvCor') paginatorImmSnvCor: MatPaginator;
   @ViewChild(MatSort) sortImmSnvCor: MatSort;
-  displayedColumnsImmSnvCor = ['cancertype', 'symbol', 'spm', 'fdr'];
+  displayedColumnsImmSnvCor = ['cancertype', 'symbol', 'cell_type','cor', 'fdr'];
   displayedColumnsImmSnvCorHeader = [
     'Cancer type',
     'Gene symbol',
-    'Spearman correlation',
+    'Cell type',
+    'Correlation',
     'FDR',
   ];
   expandedElement: ImmCorTableRecord;
@@ -78,18 +79,6 @@ export class ImmuneSnvComponent implements OnInit, OnChanges, AfterViewInit {
         (err) => {
           this.dataSourceImmSnvCorLoading = false;
           this.showImmSnvCorTable = false;
-        }
-      );
-
-      this.mutationApiService.getImmSnvCorPlot(postTerm).subscribe(
-        (res) => {
-          this.showImmSnvCorImage = true;
-          this.immSnvCorImageLoading = false;
-          this._createImageFromBlob(res, 'immSnvCorImage');
-        },
-        (err) => {
-          this.immSnvCorImageLoading = false;
-          this.showImmSnvCorImage = false;
         }
       );
     }
@@ -166,9 +155,31 @@ export class ImmuneSnvComponent implements OnInit, OnChanges, AfterViewInit {
           }
         );
       }
+      if (this.expandedColumn === 'cancertype') {
+        const postTerm = {
+          validSymbol: [this.expandedElement.symbol],
+          cancerTypeSelected: [this.expandedElement.cancertype],
+          validColl: [
+            collectionlist.immune_cor_snv.collnames[collectionlist.immune_cor_snv.cancertypes.indexOf(this.expandedElement.cancertype)],
+          ]
+        };
+        this.mutationApiService.getImmSnvCorPlot(postTerm).subscribe(
+          (res) => {
+            this.showImmSnvCorImage = true;
+            this.immSnvCorImageLoading = false;
+            this._createImageFromBlob(res, 'immSnvCorImage');
+          },
+          (err) => {
+            this.immSnvCorImageLoading = false;
+            this.showImmSnvCorImage = false;
+          }
+        );        
+      }
     } else {
       this.immSnvCorSingleGeneImageLoading = false;
       this.showImmSnvCorSingleGeneImage = false;
+      this.immSnvCorImageLoading = false;
+      this.showImmSnvCorImage = false;
     }
   }
   public triggerDetail(element: ImmCorTableRecord): string {

@@ -31,11 +31,12 @@ export class ImmuneCnvComponent implements  OnInit, OnChanges, AfterViewInit {
   showImmCnvCorTable = true;
   @ViewChild('paginatorImmCnvCor') paginatorImmCnvCor: MatPaginator;
   @ViewChild(MatSort) sortImmCnvCor: MatSort;
-  displayedColumnsImmCnvCor = ['cancertype', 'symbol', 'spm', 'fdr'];
+  displayedColumnsImmCnvCor = ['cancertype', 'symbol','cell_type', 'cor', 'fdr'];
   displayedColumnsImmCnvCorHeader = [
     'Cancer type',
     'Gene symbol',
-    'Spearman correlation',
+    "Cell type",
+    'Correlation',
     'FDR',
   ];
   expandedElement: ImmCorTableRecord;
@@ -80,18 +81,6 @@ export class ImmuneCnvComponent implements  OnInit, OnChanges, AfterViewInit {
         (err) => {
           this.dataSourceImmCnvCorLoading = false;
           this.showImmCnvCorTable = false;
-        }
-      );
-
-      this.mutationApiService.getImmCnvCorPlot(postTerm).subscribe(
-        (res) => {
-          this.showImmCnvCorImage = true;
-          this.immCnvCorImageLoading = false;
-          this._createImageFromBlob(res, 'immCnvCorImage');
-        },
-        (err) => {
-          this.immCnvCorImageLoading = false;
-          this.showImmCnvCorImage = false;
         }
       );
     }
@@ -153,7 +142,8 @@ export class ImmuneCnvComponent implements  OnInit, OnChanges, AfterViewInit {
           cancerTypeSelected: [this.expandedElement.cancertype],
           validColl: [
             collectionlist.immune_cor_cnv.collnames[collectionlist.immune_cor_cnv.cancertypes.indexOf(this.expandedElement.cancertype)],
-          ]
+          ],
+          surType: [this.expandedElement.cell_type],
         };
 
         this.mutationApiService.getImmCnvCorSingleGene(postTerm).subscribe(
@@ -168,9 +158,31 @@ export class ImmuneCnvComponent implements  OnInit, OnChanges, AfterViewInit {
           }
         );
       }
+      if (this.expandedColumn === 'cancertype') {
+        const postTerm = {
+          validSymbol: [this.expandedElement.symbol],
+          cancerTypeSelected: [this.expandedElement.cancertype],
+          validColl: [
+            collectionlist.immune_cor_cnv.collnames[collectionlist.immune_cor_cnv.cancertypes.indexOf(this.expandedElement.cancertype)],
+          ]
+        };
+        this.mutationApiService.getImmCnvCorPlot(postTerm).subscribe(
+          (res) => {
+            this.showImmCnvCorImage = true;
+            this.immCnvCorImageLoading = false;
+            this._createImageFromBlob(res, 'immCnvCorImage');
+          },
+          (err) => {
+            this.immCnvCorImageLoading = false;
+            this.showImmCnvCorImage = false;
+          }
+        );        
+      }
     } else {
       this.immCnvCorSingleGeneImageLoading = false;
       this.showImmCnvCorSingleGeneImage = false;
+      this.immCnvCorImageLoading = false;
+      this.showImmCnvCorImage = false;
     }
   }
   public triggerDetail(element: ImmCorTableRecord): string {

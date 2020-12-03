@@ -29,11 +29,12 @@ export class ImmuneExprComponent implements  OnInit, OnChanges, AfterViewInit {
   showImmExprCorTable = true;
   @ViewChild('paginatorImmExprCor') paginatorImmExprCor: MatPaginator;
   @ViewChild(MatSort) sortImmExprCor: MatSort;
-  displayedColumnsImmExprCor = ['cancertype', 'symbol', 'spm', 'fdr'];
+  displayedColumnsImmExprCor = ['cancertype', 'symbol',  'cell_type','cor', 'fdr'];
   displayedColumnsImmExprCorHeader = [
     'Cancer type',
     'Gene symbol',
-    'Spearman correlation',
+    "Cell type",
+    'Correlation',
     'FDR',
   ];
   expandedElement: ImmCorTableRecord;
@@ -78,18 +79,6 @@ export class ImmuneExprComponent implements  OnInit, OnChanges, AfterViewInit {
         (err) => {
           this.dataSourceImmExprCorLoading = false;
           this.showImmExprCorTable = false;
-        }
-      );
-
-      this.mutationApiService.getImmExprCorPlot(postTerm).subscribe(
-        (res) => {
-          this.showImmExprCorImage = true;
-          this.immExprCorImageLoading = false;
-          this._createImageFromBlob(res, 'immExprCorImage');
-        },
-        (err) => {
-          this.immExprCorImageLoading = false;
-          this.showImmExprCorImage = false;
         }
       );
     }
@@ -166,9 +155,31 @@ export class ImmuneExprComponent implements  OnInit, OnChanges, AfterViewInit {
           }
         );
       }
+      if (this.expandedColumn === 'cancertype') {
+        const postTerm = {
+          validSymbol: [this.expandedElement.symbol],
+          cancerTypeSelected: [this.expandedElement.cancertype],
+          validColl: [
+            collectionlist.immune_cor_expr.collnames[collectionlist.immune_cor_expr.cancertypes.indexOf(this.expandedElement.cancertype)],
+          ]
+        };
+        this.mutationApiService.getImmExprCorPlot(postTerm).subscribe(
+          (res) => {
+            this.showImmExprCorImage = true;
+            this.immExprCorImageLoading = false;
+            this._createImageFromBlob(res, 'immExprCorImage');
+          },
+          (err) => {
+            this.immExprCorImageLoading = false;
+            this.showImmExprCorImage = false;
+          }
+        );        
+      }
     } else {
       this.immExprCorSingleGeneImageLoading = false;
       this.showImmExprCorSingleGeneImage = false;
+      this.immExprCorImageLoading = false;
+      this.showImmExprCorImage = false;
     }
   }
   public triggerDetail(element: ImmCorTableRecord): string {
