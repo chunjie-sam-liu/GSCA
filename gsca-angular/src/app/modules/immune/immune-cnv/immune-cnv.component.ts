@@ -60,15 +60,12 @@ export class ImmuneCnvComponent implements  OnInit, OnChanges, AfterViewInit {
     // Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
     // Add '${implements OnChanges}' to the class.
     this.dataSourceImmCnvCorLoading = true;
-    this.immCnvCorImageLoading = true;
 
     const postTerm = this._validCollection(this.searchTerm);
 
     if (!postTerm.validColl.length) {
       this.dataSourceImmCnvCorLoading = false;
-      this.immCnvCorImageLoading = false;
       this.showImmCnvCorTable = false;
-      this.showImmCnvCorImage = false;
     } else {
       this.showImmCnvCorTable = true;
       this.mutationApiService.getImmCnvCorTable(postTerm).subscribe(
@@ -151,16 +148,20 @@ export class ImmuneCnvComponent implements  OnInit, OnChanges, AfterViewInit {
             this._createImageFromBlob(res, 'immCnvCorSingleGeneImage');
             this.immCnvCorSingleGeneImageLoading = false;
             this.showImmCnvCorSingleGeneImage = true;
+            this.showImmCnvCorImage = false;
+            this.immCnvCorImageLoading = false;
           },
           (err) => {
             this.immCnvCorSingleGeneImageLoading = false;
             this.showImmCnvCorSingleGeneImage = false;
+            this.showImmCnvCorImage = false;
+            this.immCnvCorImageLoading = false;
           }
         );
       }
       if (this.expandedColumn === 'cancertype') {
         const postTerm = {
-          validSymbol: [this.expandedElement.symbol],
+          validSymbol: this.searchTerm.validSymbol,               
           cancerTypeSelected: [this.expandedElement.cancertype],
           validColl: [
             collectionlist.immune_cor_cnv.collnames[collectionlist.immune_cor_cnv.cancertypes.indexOf(this.expandedElement.cancertype)],
@@ -170,11 +171,15 @@ export class ImmuneCnvComponent implements  OnInit, OnChanges, AfterViewInit {
           (res) => {
             this.showImmCnvCorImage = true;
             this.immCnvCorImageLoading = false;
+            this.immCnvCorSingleGeneImageLoading = false;
+            this.showImmCnvCorSingleGeneImage = false;
             this._createImageFromBlob(res, 'immCnvCorImage');
           },
           (err) => {
             this.immCnvCorImageLoading = false;
             this.showImmCnvCorImage = false;
+            this.immCnvCorSingleGeneImageLoading = false;
+            this.showImmCnvCorSingleGeneImage = false;
           }
         );        
       }

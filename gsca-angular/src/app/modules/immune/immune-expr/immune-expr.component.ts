@@ -64,9 +64,7 @@ export class ImmuneExprComponent implements  OnInit, OnChanges, AfterViewInit {
 
     if (!postTerm.validColl.length) {
       this.dataSourceImmExprCorLoading = false;
-      this.immExprCorImageLoading = false;
       this.showImmExprCorTable = false;
-      this.showImmExprCorImage = false;
     } else {
       this.showImmExprCorTable = true;
       this.mutationApiService.getImmExprCorTable(postTerm).subscribe(
@@ -134,13 +132,16 @@ export class ImmuneExprComponent implements  OnInit, OnChanges, AfterViewInit {
     if (this.expandedElement) {
       this.immExprCorSingleGeneImageLoading = true;
       this.showImmExprCorSingleGeneImage = false;
+      this.immExprCorImageLoading = true;
+      this.showImmExprCorImage = false;
       if (this.expandedColumn === 'symbol') {
         const postTerm = {
           validSymbol: [this.expandedElement.symbol],
           cancerTypeSelected: [this.expandedElement.cancertype],
           validColl: [
             collectionlist.immune_cor_expr.collnames[collectionlist.immune_cor_expr.cancertypes.indexOf(this.expandedElement.cancertype)],
-          ]
+          ],
+          surType: [this.expandedElement.cell_type],
         };
 
         this.mutationApiService.getImmExprCorSingleGene(postTerm).subscribe(
@@ -148,16 +149,20 @@ export class ImmuneExprComponent implements  OnInit, OnChanges, AfterViewInit {
             this._createImageFromBlob(res, 'immExprCorSingleGeneImage');
             this.immExprCorSingleGeneImageLoading = false;
             this.showImmExprCorSingleGeneImage = true;
+            this.showImmExprCorImage = false;
+            this.immExprCorImageLoading = false;
           },
           (err) => {
             this.immExprCorSingleGeneImageLoading = false;
             this.showImmExprCorSingleGeneImage = false;
+            this.immExprCorImageLoading = false;
+            this.showImmExprCorImage = false;
           }
         );
       }
       if (this.expandedColumn === 'cancertype') {
         const postTerm = {
-          validSymbol: [this.expandedElement.symbol],
+          validSymbol: this.searchTerm.validSymbol,
           cancerTypeSelected: [this.expandedElement.cancertype],
           validColl: [
             collectionlist.immune_cor_expr.collnames[collectionlist.immune_cor_expr.cancertypes.indexOf(this.expandedElement.cancertype)],
@@ -167,11 +172,15 @@ export class ImmuneExprComponent implements  OnInit, OnChanges, AfterViewInit {
           (res) => {
             this.showImmExprCorImage = true;
             this.immExprCorImageLoading = false;
+            this.immExprCorSingleGeneImageLoading = false;
+            this.showImmExprCorSingleGeneImage = false;
             this._createImageFromBlob(res, 'immExprCorImage');
           },
           (err) => {
             this.immExprCorImageLoading = false;
             this.showImmExprCorImage = false;
+            this.immExprCorSingleGeneImageLoading = false;
+            this.showImmExprCorSingleGeneImage = false;
           }
         );        
       }

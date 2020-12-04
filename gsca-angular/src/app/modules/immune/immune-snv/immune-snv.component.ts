@@ -58,15 +58,12 @@ export class ImmuneSnvComponent implements OnInit, OnChanges, AfterViewInit {
     // Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
     // Add '${implements OnChanges}' to the class.
     this.dataSourceImmSnvCorLoading = true;
-    this.immSnvCorImageLoading = true;
 
     const postTerm = this._validCollection(this.searchTerm);
 
     if (!postTerm.validColl.length) {
       this.dataSourceImmSnvCorLoading = false;
-      this.immSnvCorImageLoading = false;
       this.showImmSnvCorTable = false;
-      this.showImmSnvCorImage = false;
     } else {
       this.showImmSnvCorTable = true;
       this.mutationApiService.getImmSnvCorTable(postTerm).subscribe(
@@ -140,7 +137,8 @@ export class ImmuneSnvComponent implements OnInit, OnChanges, AfterViewInit {
           cancerTypeSelected: [this.expandedElement.cancertype],
           validColl: [
             collectionlist.immune_cor_cnv.collnames[collectionlist.immune_cor_cnv.cancertypes.indexOf(this.expandedElement.cancertype)],
-          ]
+          ],
+          surType: [this.expandedElement.cell_type],
         };
 
         this.mutationApiService.getImmSnvCorSingleGene(postTerm).subscribe(
@@ -148,16 +146,20 @@ export class ImmuneSnvComponent implements OnInit, OnChanges, AfterViewInit {
             this._createImageFromBlob(res, 'immSnvCorSingleGeneImage');
             this.immSnvCorSingleGeneImageLoading = false;
             this.showImmSnvCorSingleGeneImage = true;
+            this.immSnvCorImageLoading = false;
+            this.showImmSnvCorImage = false;
           },
           (err) => {
             this.immSnvCorSingleGeneImageLoading = false;
             this.showImmSnvCorSingleGeneImage = false;
+            this.immSnvCorImageLoading = false;
+            this.showImmSnvCorImage = false;
           }
         );
       }
       if (this.expandedColumn === 'cancertype') {
         const postTerm = {
-          validSymbol: [this.expandedElement.symbol],
+          validSymbol: this.searchTerm.validSymbol,
           cancerTypeSelected: [this.expandedElement.cancertype],
           validColl: [
             collectionlist.immune_cor_snv.collnames[collectionlist.immune_cor_snv.cancertypes.indexOf(this.expandedElement.cancertype)],
@@ -167,11 +169,15 @@ export class ImmuneSnvComponent implements OnInit, OnChanges, AfterViewInit {
           (res) => {
             this.showImmSnvCorImage = true;
             this.immSnvCorImageLoading = false;
+            this.immSnvCorSingleGeneImageLoading = false;
+            this.showImmSnvCorSingleGeneImage = false;
             this._createImageFromBlob(res, 'immSnvCorImage');
           },
           (err) => {
             this.immSnvCorImageLoading = false;
             this.showImmSnvCorImage = false;
+            this.immSnvCorSingleGeneImageLoading = false;
+            this.showImmSnvCorSingleGeneImage = false;
           }
         );        
       }

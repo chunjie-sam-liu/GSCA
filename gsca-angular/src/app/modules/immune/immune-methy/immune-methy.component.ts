@@ -60,15 +60,12 @@ export class ImmuneMethyComponent implements  OnInit, OnChanges, AfterViewInit {
     // Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
     // Add '${implements OnChanges}' to the class.
     this.dataSourceImmMethyCorLoading = true;
-    this.immMethyCorImageLoading = true;
 
     const postTerm = this._validCollection(this.searchTerm);
 
     if (!postTerm.validColl.length) {
       this.dataSourceImmMethyCorLoading = false;
-      this.immMethyCorImageLoading = false;
       this.showImmMethyCorTable = false;
-      this.showImmMethyCorImage = false;
     } else {
       this.showImmMethyCorTable = true;
       this.mutationApiService.getImmMethyCorTable(postTerm).subscribe(
@@ -142,7 +139,8 @@ export class ImmuneMethyComponent implements  OnInit, OnChanges, AfterViewInit {
           cancerTypeSelected: [this.expandedElement.cancertype],
           validColl: [
             collectionlist.immune_cor_methy.collnames[collectionlist.immune_cor_methy.cancertypes.indexOf(this.expandedElement.cancertype)],
-          ]
+          ],
+          surType: [this.expandedElement.cell_type],
         };
 
         this.mutationApiService.getImmMethyCorSingleGene(postTerm).subscribe(
@@ -150,16 +148,20 @@ export class ImmuneMethyComponent implements  OnInit, OnChanges, AfterViewInit {
             this._createImageFromBlob(res, 'immMethyCorSingleGeneImage');
             this.immMethyCorSingleGeneImageLoading = false;
             this.showImmMethyCorSingleGeneImage = true;
+            this.immMethyCorImageLoading = false;
+            this.showImmMethyCorImage = false;
           },
           (err) => {
             this.immMethyCorSingleGeneImageLoading = false;
             this.showImmMethyCorSingleGeneImage = false;
+            this.immMethyCorImageLoading = false;
+            this.showImmMethyCorImage = false;
           }
         );
       }
       if (this.expandedColumn === 'cancertype') {
         const postTerm = {
-          validSymbol: [this.expandedElement.symbol],
+          validSymbol: this.searchTerm.validSymbol,
           cancerTypeSelected: [this.expandedElement.cancertype],
           validColl: [
             collectionlist.immune_cor_methy.collnames[collectionlist.immune_cor_methy.cancertypes.indexOf(this.expandedElement.cancertype)],
@@ -169,11 +171,15 @@ export class ImmuneMethyComponent implements  OnInit, OnChanges, AfterViewInit {
           (res) => {
             this.showImmMethyCorImage = true;
             this.immMethyCorImageLoading = false;
+            this.immMethyCorSingleGeneImageLoading = false;
+            this.showImmMethyCorSingleGeneImage = false;
             this._createImageFromBlob(res, 'immMethyCorImage');
           },
           (err) => {
             this.immMethyCorImageLoading = false;
             this.showImmMethyCorImage = false;
+            this.immMethyCorSingleGeneImageLoading = false;
+            this.showImmMethyCorSingleGeneImage = false;
           }
         );        
       }
