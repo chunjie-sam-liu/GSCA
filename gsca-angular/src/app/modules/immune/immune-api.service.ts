@@ -31,7 +31,7 @@ export class ImmuneApiService extends BaseHttpService {
     return this.postDataImage('immune/immuneexpr/immexprcorplot', postTerm);
   }
   public getImmExprCorSingleGene(postTerm: ExprSearch): Observable<any> {
-    return this.postDataImage('immune/immuneexpr/immexprcorplot', postTerm);
+    return this.postDataImage('immune/immuneexpr/immexprcorsinglegene', postTerm);
   }
   // immune snv
   public getImmSnvCorTable(postTerm: ExprSearch): Observable<any> {
@@ -41,7 +41,7 @@ export class ImmuneApiService extends BaseHttpService {
     return this.postDataImage('immune/immunesnv/immsnvcorplot', postTerm);
   }
   public getImmSnvCorSingleGene(postTerm: ExprSearch): Observable<any> {
-    return this.postDataImage('immune/immunesnv/immsnvcorplot', postTerm);
+    return this.postDataImage('immune/immunesnv/immsnvcorsinglegene', postTerm);
   }
   // immune methylation
   public getImmMethyCorTable(postTerm: ExprSearch): Observable<any> {
@@ -51,6 +51,6 @@ export class ImmuneApiService extends BaseHttpService {
     return this.postDataImage('immune/immunemethy/immmethycorplot', postTerm);
   }
   public getImmMethyCorSingleGene(postTerm: ExprSearch): Observable<any> {
-    return this.postDataImage('immune/immunemethy/immmethycorplot', postTerm);
+    return this.postDataImage('immune/immunemethy/immmethycorsinglegene', postTerm);
   }
 }
