@@ -5,6 +5,7 @@ from pathlib import Path
 import subprocess
 import uuid
 from gsca.utils.checkplot import CheckPlot
+from gsca.utils.check_survivalPlot import CheckSurvivalPlot
 
 immunecnv = Blueprint("immunecnv", __name__)
 api = Api(immunecnv)
@@ -55,7 +56,7 @@ api.add_resource(ImmCnvCorPlot, "/immcnvcorplot")
 class ImmCnvCorSingleGene(Resource):
     def post(self):
         args = request.get_json()
-        checkplot = CheckPlot(args=args, purpose="immcnvcorsinglegene", rplot="immcnv_cor_singlegene.R")
+        checkplot = CheckSurvivalPlot(args=args, purpose="immcnvcorsinglegene", rplot="immcnv_cor_singlegene.R")
         res = checkplot.check_run()
 
         if res["run"]:

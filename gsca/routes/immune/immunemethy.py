@@ -5,6 +5,7 @@ from pathlib import Path
 import subprocess
 import uuid
 from gsca.utils.checkplot import CheckPlot
+from gsca.utils.check_survivalPlot import CheckSurvivalPlot
 
 immunemethy = Blueprint("immunemethy", __name__)
 api = Api(immunemethy)
@@ -55,7 +56,7 @@ api.add_resource(ImmMethyCorPlot, "/immmethycorplot")
 class ImmMethyCorSingleGene(Resource):
     def post(self):
         args = request.get_json()
-        checkplot = CheckPlot(args=args, purpose="immmethycorsinglegene", rplot="immmethy_cor_singlegene.R")
+        checkplot = CheckSurvivalPlot(args=args, purpose="immmethycorsinglegene", rplot="immmethy_cor_singlegene.R")
         res = checkplot.check_run()
 
         if res["run"]:
