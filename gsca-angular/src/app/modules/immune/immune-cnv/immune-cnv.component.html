@@ -37,8 +37,9 @@
           <ng-container matColumnDef="expandedDetail">
             <td mat-cell *matCellDef="let element" [attr.colSpan]="displayedColumnsImmCnvCor.length">
               <div class="example-element-detail" [@detailExpand]="triggerDetail(element)">
-                <ng-container *ngIf="immCnvCorSingleGeneImageLoading; then loading"></ng-container>
+                <ng-container *ngIf="immCnvCorSingleGeneImageLoading || immCnvCorImageLoading; then loading"></ng-container>
                 <img [src]="immCnvCorSingleGeneImage" *ngIf="showImmCnvCorSingleGeneImage"/>
+                <img [src]="immCnvCorImage" *ngIf="showImmCnvCorImage" />
               </div>
             </td>
           </ng-container>
