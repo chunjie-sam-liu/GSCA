@@ -14,20 +14,6 @@ gsca_conf <- readr::read_lines(file = file.path(rda_path,"src",'gsca.conf'))
 ctrp_exp <- readr::read_rds(file.path(data_path,"ctrp_exp_spearman.IdTrans.rds.gz"))
 
 # Function ----------------------------------------------------------------
-fn_list_data <- function(.x){
-  .x %>% 
-    dplyr::mutate(fdr=p.adjust(p_val,method = "fdr")) %>%
-    dplyr::mutate(logfdr=-log10(fdr))%>%
-    dplyr::mutate(logfdr=ifelse(logfdr>50,50,logfdr)) %>%
-    dplyr::mutate(method="Spearman's rank correlation rho") -> .x
-  tibble::tibble(
-    drug = list(.x$drug_name),
-    cor = list(.x$cor_sprm),
-    fdr = list(.x$fdr),
-    logfdr = list(.x$logfdr),
-    method = list(.x$method)
-  )
-}
 
 fn_gene_tcga_all_cor_immune_methy <- function(cancer_types,data) {
   .x <- data
@@ -35,11 +21,8 @@ fn_gene_tcga_all_cor_immune_methy <- function(cancer_types,data) {
   
   
   .x %>% 
-    dplyr::rename(entrez=entrez_id) %>%
-    dplyr::mutate(entrez=as.numeric(entrez)) %>%
-    dplyr::group_by(entrez,symbol) %>%
-    dplyr::mutate(drug=purrr::map(drug,.f=fn_list_data)) %>%
-    tidyr::unnest() -> .dd
+    dplyr::rename(entrez=entrez_id,drug=drug_name,cor=cor_sprm,) %>%
+    dplyr::mutate(entrez=as.numeric(entrez)) -> .dd
   
   
   # insert to collection
@@ -57,7 +40,14 @@ fn_gene_tcga_all_cor_immune_methy <- function(cancer_types,data) {
 # data --------------------------------------------------------------------
 system.time(
   ctrp_exp %>% 
+    tidyr::unnest() %>%
     dplyr::mutate(cancer_types="all") %>%
+    dplyr::group_by(drug_name) %>%
+    tidyr::nest() %>%
+    dplyr::mutate(fdr = purrr::map(data,.f=function(.x){
+      p.adjust(.x$p_val,method = "fdr")
+    })) %>%
+    tidyr::unnest() %>%
     tidyr::nest(-cancer_types) %>%
     purrr::pmap(.f = fn_gene_tcga_all_cor_immune_methy) ->
     ctrp_exp_cor_mongo_data
