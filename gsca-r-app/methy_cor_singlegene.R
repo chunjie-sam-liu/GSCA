@@ -46,7 +46,7 @@ fetched_methy_cor <- purrr::map(.x = paste(search_cancertypes,"_methy_cor_expr",
 
 # plot --------------------------------------------------------------------
 source(file.path(apppath,"gsca-r-app/utils/fn_point_line.R"))
-title <-  glue::glue('Spearman correlation between {search_genes} methylation and mRNA expression in {search_cancertypes}')
+title <-  glue::glue('Spearman correlation between {search_genes} methylation and mRNA \nexpression in {search_cancertypes}')
 plot <- fn_point_fit(data=combine_data,aesx="expr",aesy="methy",title=title,xlab="Expression log2(RSEM)",ylab="Methylation (Beta value)",label=paste("Cor. =",round(fetched_methy_cor$spm,2)))
 
 # Save --------------------------------------------------------------------

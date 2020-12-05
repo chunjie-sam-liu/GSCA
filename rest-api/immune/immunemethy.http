@@ -1,0 +1,17 @@
+### methy table
+POST http://localhost:5000/api/immune/immunemethy/immmethycortable HTTP/1.1
+content-type: application/json
+
+{"validSymbol":["A2M","ACE","ANGPT2","BPI","CD1B","CDR1","EGR2","EGR3","HBEGF","HERPUD1","MCM2","PCTP","PODXL","PPY","PTGS2","RCAN1","SLC4A7","THBD"],"cancerTypeSelected":["KICH","KIRC","KIRP","LUAD","LUSC"],"validColl":["KICH_immune_cor_methy","KIRC_immune_cor_methy","KIRP_immune_cor_methy","LUAD_immune_cor_methy","LUSC_immune_cor_methy"]}
+
+### immune methy plot
+POST http://localhost:5000/api/immune/immunemethy/immmethycorplot HTTP/1.1
+content-type: application/json
+
+{"validSymbol":["A2M","ACE","ANGPT2","BPI","CD1B","CDR1","EGR2","EGR3","HBEGF","HERPUD1","MCM2","PCTP","PODXL","PPY","PTGS2","RCAN1","SLC4A7","THBD"],"cancerTypeSelected":["KICH","KIRC","KIRP","LUAD","LUSC"],"validColl":["KICH_immune_cor_methy"]}
+
+### immune methy single gene plot
+POST http://localhost:5000/api/immune/immunemethy/immmethycorsinglegene HTTP/1.1
+content-type: application/json
+
+{"validSymbol":["A2M"],"cancerTypeSelected":["KICH","KIRC","KIRP","LUAD","LUSC"],"validColl":["KICH_immune_cor_methy"],"surType":["Bcell"]}

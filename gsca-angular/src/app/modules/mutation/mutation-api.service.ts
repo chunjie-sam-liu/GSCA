@@ -85,4 +85,46 @@ export class MutationApiService extends BaseHttpService {
   public getMethyCorSingleGene(postTerm: ExprSearch): Observable<any> {
     return this.postDataImage('mutation/methycor/methycorsinglegene', postTerm);
   }
+  public getCnvTable(postTerm: ExprSearch): Observable<any> {
+    return this.postData('mutation/cnv/cnvtable', postTerm);
+  }
+  public getCnvPiePlot(postTerm: ExprSearch): Observable<any> {
+    return this.postDataImage('mutation/cnv/cnvpieplot', postTerm);
+  }
+  public getCnvHetePointImage(postTerm: ExprSearch): Observable<any> {
+    return this.postDataImage('mutation/cnv/cnvhetepointplot', postTerm);
+  }
+  public getCnvHomoPointImage(postTerm: ExprSearch): Observable<any> {
+    return this.postDataImage('mutation/cnv/cnvhomopointplot', postTerm);
+  }
+  public getCnvSingleGene(postTerm: ExprSearch): Observable<any> {
+    return this.postDataImage('mutation/cnv/cnvsinglegene', postTerm);
+  }
+  public getCnvCorTable (postTerm: ExprSearch): Observable<any> {
+    return this.postData('mutation/cnvcor/cnvcortable', postTerm);
+  }
+  public getCnvCorPlot(postTerm: ExprSearch): Observable<any> {
+    return this.postDataImage('mutation/cnvcor/cnvcorplot', postTerm);
+  }
+  public getCnvCorSingleGene(postTerm: ExprSearch): Observable<any> {
+    return this.postDataImage('mutation/cnvcor/cnvcorsinglegene', postTerm);
+  }
+  public getCnvSurvivalTable (postTerm: ExprSearch): Observable<any> {
+    return this.postData('mutation/cnvsurvival/cnvsurvivaltable', postTerm);
+  }
+  public getCnvSurvivalPlot(postTerm: ExprSearch): Observable<any> {
+    return this.postDataImage('mutation/cnvsurvival/cnvsurvivalplot', postTerm);
+  }
+  public getCnvGenesetSurvivalPlot(postTerm: ExprSearch): Observable<any> {
+    return this.postDataImage('mutation/cnvsurvival/cnvgenesetsurvivalplot', postTerm);
+  }
+  public getCnvGenesetSurvivalTable (postTerm: ExprSearch): Observable<any> {
+    return this.postData('mutation/cnvsurvival/cnvgenesetsurvivaltable', postTerm);
+  }
+  public getCnvSurvivalSingleGene(postTerm: ExprSearch): Observable<any> {
+    return this.postDataImage('mutation/cnvsurvival/cnvsurvivalsinglegeneplot', postTerm);
+  }
+  public getCnvGenesetSurvivalSingleCancer(postTerm: ExprSearch): Observable<any> {
+    return this.postDataImage('mutation/cnvsurvival/cnvgenesetsurvivalsinglecancer', postTerm);
+  }
 }

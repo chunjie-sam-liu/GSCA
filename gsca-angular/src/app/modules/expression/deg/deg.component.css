@@ -1,5 +1,6 @@
-table {
-  width: 100%;
+mat-icon {
+  font-size: 25px;
+  font-weight: bold;
 }
 
 .example-detail-row {
@@ -19,29 +20,11 @@ table {
 }
 
 .example-element-detail {
-  overflow: hidden;
+  overflow: auto;
   display: flex;
+  justify-content: center;
 }
 
-.example-element-diagram {
-  min-width: 80px;
-  border: 2px solid black;
-  padding: 8px;
-  font-weight: lighter;
-  margin: 8px 0;
-  height: 104px;
-}
-
-.example-element-symbol {
-  font-weight: bold;
-  font-size: 40px;
-  line-height: normal;
-}
-
-.example-element-description {
-  padding: 16px;
-}
-
-.example-element-description-attribution {
-  opacity: 0.5;
+mat-card-content {
+  text-align: center;
 }

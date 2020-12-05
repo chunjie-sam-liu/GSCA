@@ -38,6 +38,24 @@
       </ng-container>
     </div>
 
+    <div fxFlex="grow" fxLayout="row" style="border: 1px rebeccapurple solid">
+      <ng-container *ngIf="showCnv; else empty">
+        <app-cnv fxLayout="row" fxLayoutGap="10px" fxLayout.lt-lg="column" [searchTerm]="searchTerm"></app-cnv>
+      </ng-container>
+    </div>
+
+    <div fxFlex="grow" fxLayout="row" style="border: 1px rebeccapurple solid">
+      <ng-container *ngIf="showCnvSurvival; else empty">
+        <app-cnv-survival fxLayout="row" fxLayoutGap="10px" fxLayout.lt-lg="column" [searchTerm]="searchTerm"></app-cnv-survival>
+      </ng-container>
+    </div>
+
+    <div fxFlex="grow" fxLayout="row" style="border: 1px rebeccapurple solid">
+      <ng-container *ngIf="showCnvCor; else empty">
+        <app-cnv-cor fxLayout="row" fxLayoutGap="10px" fxLayout.lt-lg="column" [searchTerm]="searchTerm"></app-cnv-cor>
+      </ng-container>
+    </div>
+
     <ng-template #loading>
       <mat-progress-bar mode="query" color="warn"></mat-progress-bar>
     </ng-template>

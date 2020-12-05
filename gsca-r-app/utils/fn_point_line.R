@@ -23,7 +23,7 @@ fn_point_fit <- function(data,aesx,aesy,title,xlab,ylab,label){
       axis.title = element_text(size=12),
       legend.title = element_text(size = 12),
       legend.key = element_rect(fill = "white", colour = "black"),
-      plot.title = element_text(size = 20)
+      plot.title = element_text(size = 14)
     ) -> p
   # data %>%
   #   ggplot(aes_string(y=aesx)) +

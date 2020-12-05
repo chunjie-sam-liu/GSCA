@@ -49,8 +49,8 @@ geneset_survival %>%
   dplyr::mutate(sur_type=toupper(sur_type)) %>%
   dplyr::rename(value=logrankp) %>% fn_pval_label() -> for_plot
 CPCOLS <- c("blue", "white", "red")
-fill_color <-  c("tomato","lightskyblue")
-fill_group<- c("Mutated","Non-mutated")
+color_color <-  c("tomato","lightskyblue")
+color_group<- c("Mutated","Non-mutated")
 for_plot %>%
   dplyr::filter(!is.na(hr)) %>%
   .$hr -> HR_value
@@ -58,8 +58,27 @@ min(HR_value) %>% trunc() -> min
 max(HR_value) %>% ceiling() -> max
 title <- ""
 
-heat_plot <- fn_survival_summary_plot(data = for_plot,aesx = "sur_type", aesy = "cancertype",color = "hr",fill = "higher_risk_of_death",label = "p_label",y_rank = cancer_rank$cancertype,x_rank = c("OS","PFS"),color_low = CPCOLS[1],color_high = CPCOLS[3],color_mid = CPCOLS[2],midpoint = 1,min = min,max = max,color_name ="Hazard ratio",fill_color = fill_color,fill_group = fill_group,fill_name = "Higher risk of death",title = title,xlab = "Cancer types",ylab = "Gene symbol")
-
+heat_plot <- fn_survival_summary_plot(data = for_plot,
+                         aesx = "sur_type", 
+                         aesy = "cancertype",
+                         color = "higher_risk_of_death",
+                         fill = "hr",
+                         label = "p_label",
+                         y_rank = cancer_rank$cancertype,
+                         x_rank = c("OS","PFS"),
+                         fill_low = CPCOLS[1],
+                         fill_high = CPCOLS[3],
+                         fill_mid = CPCOLS[2],
+                         midpoint = 1,
+                         min = min,
+                         max = max,
+                         fill_name ="Hazard ratio",
+                         color_color = color_color,
+                         color_group = color_group,
+                         color_name = "Higher risk of death",
+                         title = title,
+                         ylab = "Cancer types",
+                         xlab = "")
 # Save --------------------------------------------------------------------
 ggsave(filename = filepath, plot = heat_plot, device = 'png', width = 4, height = size$height)
 pdf_name <- gsub("\\.png",".pdf",filepath)

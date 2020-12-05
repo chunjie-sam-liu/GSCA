@@ -1,0 +1,60 @@
+<ng-container *ngIf="showImmSnvCorTable">
+    <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
+      <mat-card-header>
+        <mat-card-title>Difference of immune infiltrates between mutatant and WT in the specific cancers</mat-card-title>
+      </mat-card-header>
+  
+      <mat-card-content>
+        <ng-container *ngIf="!dataSourceImmSnvCorLoading; else loading"></ng-container>
+  
+        <mat-form-field>
+          <input matInput placeholder="Search gene symbol" (keyup)="applyFilter($event)" #inputImmSnvCor />
+          <button mat-icon-button color="warn" matPrefix>
+            <mat-icon style="font-size: 25px">search</mat-icon>
+          </button>
+        </mat-form-field>
+  
+        <table mat-table [dataSource]="dataSourceImmSnvCor" multiTemplateDataRows matSort>
+          <ng-container matColumnDef="{{ column }}" *ngFor="let column of displayedColumnsImmSnvCor; index as ind">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ displayedColumnsImmSnvCorHeader[ind] }}</th>
+            <td mat-cell *matCellDef="let element">
+              <ng-container *ngIf="column === 'symbol' || column === 'cancertype'; then btn; else plain"></ng-container>
+              <ng-template #btn>
+                <button mat-raised-button (click)="expandDetail(element, column)">
+                  {{ element[column] }}
+                </button>
+              </ng-template>
+              <ng-template #plain>
+                {{column === 'cell_type'? element[column]: (element[column] | number: '1.2-2')}}
+              </ng-template>
+            </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="expandedDetail">
+            <td mat-cell *matCellDef="let element" [attr.colSpan]="displayedColumnsImmSnvCor.length">
+              <div class="example-element-detail" [@detailExpand]="triggerDetail(element)">
+                <ng-container *ngIf="immSnvCorSingleGeneImageLoading || immSnvCorImageLoading; then loading"></ng-container>
+                <img [src]="immSnvCorSingleGeneImage" *ngIf="showImmSnvCorSingleGeneImage"/>
+                <img [src]="immSnvCorImage" *ngIf="showImmSnvCorImage" />
+              </div>
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumnsImmSnvCor"></tr>
+          <tr
+            mat-row
+            *matRowDef="let element; columns: displayedColumnsImmSnvCor"
+            class="example-element-row"
+            [class.example-expanded-row]="expandedElement === element"
+          ></tr>
+          <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+        </table>
+        <mat-paginator #paginatorImmSnvCor [pageSizeOptions]="[10, 20]" showFirstLastButtons></mat-paginator>
+      </mat-card-content>
+    </mat-card>
+  </ng-container>
+ 
+  <ng-template #loading>
+    <mat-progress-bar mode="query" color="warn"></mat-progress-bar>
+  </ng-template>
+  <ng-template #empty></ng-template>
+  

@@ -3,51 +3,49 @@
     <mat-card-header>
       <mat-card-title>DEGs between tumor and normal in the specific cancers</mat-card-title>
     </mat-card-header>
-    <mat-card-content>
-      <ng-container *ngIf="!dataSourceDegLoading; else loading"></ng-container>
-      <mat-form-field>
-        <input matInput placeholder="Input target gene" (keyup)="applyFilter($event)" #inputDeg />
-        <button mat-icon-button color="warn" matPrefix>
-          <mat-icon style="font-size: 25px">search</mat-icon>
-        </button>
-      </mat-form-field>
-      <table mat-table [dataSource]="dataSourceDeg" multiTemplateDataRows matSort>
-        <ng-container matColumnDef="{{ column }}" *ngFor="let column of displayedColumnsDeg; index as ind">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ displayedColumnsDegHeader[ind] }}</th>
-          <td mat-cell *matCellDef="let element">
-            <ng-container *ngIf="column === 'cancertype' || column === 'symbol'; then btn; else plain"></ng-container>
-            <ng-template #btn>
-              <button mat-raised-button (click)="expandDetail(element, column)">
-                {{ element[column] }}
-              </button>
-            </ng-template>
-            <ng-template #plain>
-              {{ column === 'n_tumor' ? (element[column] | number) : (element[column] | number: '1.2-2') }}
-            </ng-template>
-          </td>
-        </ng-container>
+    <ng-container *ngIf="!dataSourceDegLoading; else loading"></ng-container>
+    <mat-form-field>
+      <input matInput placeholder="Input target gene" (keyup)="applyFilter($event)" #inputDeg />
+      <button mat-icon-button color="warn" matPrefix>
+        <mat-icon>search</mat-icon>
+      </button>
+    </mat-form-field>
+    <table mat-table [dataSource]="dataSourceDeg" multiTemplateDataRows matSort>
+      <ng-container matColumnDef="{{ column }}" *ngFor="let column of displayedColumnsDeg; index as ind">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ displayedColumnsDegHeader[ind] }}</th>
+        <td mat-cell *matCellDef="let element">
+          <ng-container *ngIf="column === 'cancertype' || column === 'symbol'; then btn; else plain"></ng-container>
+          <ng-template #btn>
+            <button mat-raised-button (click)="expandDetail(element, column)">
+              {{ element[column] }}
+            </button>
+          </ng-template>
+          <ng-template #plain>
+            {{ column === 'n_tumor' ? (element[column] | number) : (element[column] | number: '1.2-2') }}
+          </ng-template>
+        </td>
+      </ng-container>
 
-        <ng-container matColumnDef="expandedDetail">
-          <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumnsDeg.length">
-            <div class="example-element-detail" [@detailExpand]="triggerDetail(element)">
-              <ng-container *ngIf="degSingleGeneImageLoading || degSingleCancerTypeImageLoading; then loading"> </ng-container>
-              <img [src]="degSingleGeneImage" *ngIf="showDEGSingleGeneImage" height="600px" />
-              <img [src]="degSingleCancerTypeImage" *ngIf="showdegSingleCancerTypeImage" height="600px" />
-            </div>
-          </td>
-        </ng-container>
+      <ng-container matColumnDef="expandedDetail">
+        <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumnsDeg.length">
+          <div class="example-element-detail" [@detailExpand]="triggerDetail(element)">
+            <ng-container *ngIf="degSingleGeneImageLoading || degSingleCancerTypeImageLoading; then loading"> </ng-container>
+            <img [src]="degSingleGeneImage" *ngIf="showDEGSingleGeneImage" />
+            <img [src]="degSingleCancerTypeImage" *ngIf="showdegSingleCancerTypeImage" />
+          </div>
+        </td>
+      </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumnsDeg"></tr>
-        <tr
-          mat-row
-          *matRowDef="let element; columns: displayedColumnsDeg"
-          class="example-element-row"
-          [class.example-expanded-row]="expandedElement === element"
-        ></tr>
-        <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
-      </table>
-      <mat-paginator #paginatorDeg [pageSizeOptions]="[10, 20]" showFirstLastButtons></mat-paginator>
-    </mat-card-content>
+      <tr mat-header-row *matHeaderRowDef="displayedColumnsDeg"></tr>
+      <tr
+        mat-row
+        *matRowDef="let element; columns: displayedColumnsDeg"
+        class="example-element-row"
+        [class.example-expanded-row]="expandedElement === element"
+      ></tr>
+      <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+    </table>
+    <mat-paginator #paginatorDeg [pageSizeOptions]="[10, 20]" showFirstLastButtons></mat-paginator>
   </mat-card>
 </ng-container>
 
@@ -57,12 +55,12 @@
       <mat-card-title>DEGs between tumor and normal in the specific cancers</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <img [src]="this.degImage" alt="degplot" *ngIf="!degImageLoading; else loading" height="600px" />
+      <img [src]="this.degImage" alt="degplot" *ngIf="!degImageLoading; else loading" />
     </mat-card-content>
   </mat-card>
 </ng-container>
 
-<ng-container *ngIf="showDEGImage">
+<!-- <ng-container *ngIf="showDEGImage">
   <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
     <mat-card-header>
       <mat-card-title>Gene expression level of gene set (GSVA score) between tumor and normal tissue.</mat-card-title>
@@ -71,7 +69,7 @@
       <img [src]="this.degImage" alt="degplot" *ngIf="!degImageLoading; else loading" height="600px" />
     </mat-card-content>
   </mat-card>
-</ng-container>
+</ng-container> -->
 
 <ng-template #loading>
   <mat-progress-bar mode="query" color="warn"></mat-progress-bar>

@@ -1,7 +1,7 @@
 <ng-container *ngIf="showMethyCorTable">
     <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
       <mat-card-header>
-        <mat-card-title>Corraltion between gene methylation and expression in the specific cancers</mat-card-title>
+        <mat-card-title>Correlation between gene methylation and expression in the specific cancers</mat-card-title>
       </mat-card-header>
   
       <mat-card-content>
@@ -59,7 +59,7 @@
   <ng-container *ngIf="showMethyCorImage">
     <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
       <mat-card-header>
-        <mat-card-title>Corraltion between gene methylation and expression in the specific cancers</mat-card-title>
+        <mat-card-title>Correlation between gene methylation and expression in the specific cancers</mat-card-title>
       </mat-card-header>
       <mat-card-content>
         <img [src]="this.methyCorImage" alt="methyCorplot" *ngIf="!methyCorImageLoading; else loading" height="600px" />

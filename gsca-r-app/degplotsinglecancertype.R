@@ -57,7 +57,7 @@ fetched_data <- purrr::map(.x = search_colls, .f = fn_fetch_mongo) %>%
 # Plot --------------------------------------------------------------------
 CPCOLS <- c("#000080", "#F8F8FF", "#CD0000")
 source(file.path(apppath,"gsca-r-app/utils/fn_boxplot_single_gene_in_cancer.R"))
-plot <- box_plot_single_gene_single_cancer(data = fetched_data,aesx = "type",aesy="expr",color = "type",color_name = "Types",color_labels =  c("Normal", "Tumor"),color_values = c(CPCOLS[1], CPCOLS[3]),title = glue::glue('{search_genes} methylation in {search_cancertypes}'),xlab = 'Types', ylab = 'Expression log2(RSEM)',xangle = 0)
+plot <- box_plot_single_gene_single_cancer(data = fetched_data,aesx = "type",aesy="expr",color = "type",color_name = "Types",color_labels =  c("Normal", "Tumor"),color_values = c(CPCOLS[1], CPCOLS[3]),title = glue::glue('{search_genes} expression between tumor and normal in {search_cancertypes}'),xlab = 'Types', ylab = 'Expression log2(RSEM)',xangle = 0)
 
 
 # Save image --------------------------------------------------------------

@@ -1,0 +1,17 @@
+#### cnv cor table
+POST http://localhost:5000/api/mutation/cnvcor/cnvcortable HTTP/1.1
+content-type: application/json
+
+{"validSymbol":["A2M","ACE","ANGPT2","BPI","CD1B","CDR1","EGR2","EGR3","HBEGF","HERPUD1","MCM2","PCTP","PODXL","PPY","PTGS2","RCAN1","SLC4A7","THBD"],"cancerTypeSelected":["KICH","KIRC","KIRP","LUAD","LUSC"],"validColl":["KIRC_cnv_cor_expr","KIRP_cnv_cor_expr","LUAD_cnv_cor_expr","LUSC_cnv_cor_expr"]}
+
+#### cnv cor summary plot
+POST http://localhost:5000/api/mutation/cnvcor/cnvcorplot HTTP/1.1
+content-type: application/json
+
+{"validSymbol":["A2M","ACE","ANGPT2","BPI","CD1B","CDR1","EGR2","EGR3","HBEGF","HERPUD1","MCM2","PCTP","PODXL","PPY","PTGS2","RCAN1","SLC4A7","THBD"],"cancerTypeSelected":["KICH","KIRC","KIRP","LUAD","LUSC"],"validColl":["KICH_cnv_cor_expr","KIRC_cnv_cor_expr","KIRP_cnv_cor_expr","LUAD_cnv_cor_expr","LUSC_cnv_cor_expr"]}
+
+#### cnv cor single gene in single cancer
+POST http://localhost:5000/api/mutation/cnvcor/cnvcorsinglegene HTTP/1.1
+content-type: application/json
+
+{"validSymbol":["ANGPT2"],"cancerTypeSelected":["KIRC"],"validColl":["KICH_all_cnv"]}
