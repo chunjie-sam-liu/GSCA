@@ -15,30 +15,15 @@ immune_methy <- readr::read_rds(file.path(data_path,"pan33_ImmuneCellAI_cor_gene
 
 # Function ----------------------------------------------------------------
 
-fn_list_data <- function(.x){
-  tibble::tibble(
-    cell_type = list(.x$cell_type),
-    cor = list(.x$cor),
-    fdr = list(.x$fdr),
-    logfdr = list(.x$logfdr),
-    method = list(.x$method)
-  )
-}
-
 fn_gene_tcga_all_cor_immune_methy <- function(cancer_types, cor) {
   .x <- cor
   .y <- cancer_types
   
   
   .x %>% 
-    dplyr::select(-statistic,-alternative,-p.value) %>%
     dplyr::mutate(entrez=as.numeric(entrez)) %>%
-    dplyr::select(cell_type,entrez,symbol,gene_tag=gene,cor,fdr,logfdr,method) %>%
-    dplyr::group_by(entrez,symbol) %>%
-    tidyr::nest() %>%
-    dplyr::mutate(data=purrr::map(data,.f=fn_list_data)) %>%
-    tidyr::unnest() %>%
-    dplyr::ungroup() -> .dd
+    dplyr::select(-statistic,-alternative) %>%
+    dplyr::select(cell_type,entrez,symbol,cor,p.value,fdr,logfdr,method)-> .dd
   
   
   # insert to collection
@@ -54,11 +39,25 @@ fn_gene_tcga_all_cor_immune_methy <- function(cancer_types, cor) {
   .dd
 }
 # data --------------------------------------------------------------------
-system.time(
-  immune_methy %>% 
-    purrr::pmap(.f = fn_gene_tcga_all_cor_immune_methy) ->
-    immune_methy_cor_mongo_data
-)
+filename <- dir(file.path(data_path,"methy_immune"))
+immune_methy <- tibble::tibble()
+for (file in filename) {
+  data <- readr::read_rds(file.path(data_path,"methy_immune",file)) %>%
+    dplyr::group_by(cell_type) %>%
+    tidyr::nest() %>% 
+    dplyr::mutate(data=purrr::map(data,.f=function(.x){
+      .fdr=p.adjust(.x$p.value, method = "fdr")
+      .x %>%
+        dplyr::mutate(fdr=.fdr,logfdr=-log10(fdr))
+    })) %>%
+    tidyr::unnest() %>%
+    dplyr::ungroup() 
+  cancertype <- strsplit(file,split = "\\.")[[1]][1]
+  .tmp <- fn_gene_tcga_all_cor_immune_methy(cancertype,data)
+  immune_methy <- rbind(data %>% dplyr::mutate(cancer_types=cancertype),immune_methy)
+}
+immune_methy %>%
+  readr::write_rds(file.path(data_path,"pan33_ImmuneCellAI_spearmancor_geneMethy.rds.gz"),compress = "gz")
 # Save image --------------------------------------------------------------
 
 save.image(file = file.path(rda_path,'rda/21-immune-methy-cor.rda'))

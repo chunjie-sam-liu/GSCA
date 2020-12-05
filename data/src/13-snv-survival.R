@@ -14,10 +14,10 @@ data_path <- "/home/huff/data/GSCA/snv"
 gsca_conf <- readr::read_lines(file = file.path(rda_path,"src",'gsca.conf'))
 
 # Load snv survival----------------------------------------------------------------
-file_list <- grep("*_survival.snv.rds.gz",dir(file.path(data_path,"cancer_snv_survival")),value = TRUE)
+file_list <- grep("*_survival.snv.rds.gz",dir(file.path(data_path,"cancer_snv_survival_v1")),value = TRUE)
 snv_survival <- tibble::tibble()
 for (file in file_list) {
-  .snv_survival <- readr::read_rds(file.path(data_path,"cancer_snv_survival",file)) %>%
+  .snv_survival <- readr::read_rds(file.path(data_path,"cancer_snv_survival_v1",file)) %>%
     dplyr::mutate(cancer_types= strsplit(file,split = "_")[[1]][1])
   if(nrow(snv_survival)<1){
     snv_survival<-.snv_survival
@@ -31,7 +31,8 @@ for (file in file_list) {
 fn_snv_survival_mongo <-function(cancer_types,data){
   .y <- cancer_types 
   .x <- data %>%
-    dplyr::rename(symbol=Hugo_Symbol ,log_rank_p=logrankp,HR=hr) 
+    dplyr::rename(symbol=Hugo_Symbol ,log_rank_p=logrankp,HR=hr) %>%
+    dplyr::mutate(sur_type=toupper(sur_type))
   
   # insert to collection
   .coll_name <- glue::glue('{.y}_snv_survival')
@@ -43,7 +44,7 @@ fn_snv_survival_mongo <-function(cancer_types,data){
   
   message(glue::glue('Save all {.y} SNV survival into mongo'))
   
-  .x
+  .xs
 }
 
 # data --------------------------------------------------------------------

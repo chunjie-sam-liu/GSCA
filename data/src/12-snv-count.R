@@ -21,7 +21,7 @@ fn_gene_tcga_snv_count <- function(cancer_types, cancer_sample, data) {
   .z <- cancer_sample
   
   .x %>%
-    dplyr::rename(mutated_sample_size=mut_sum,percentage=per) %>%
+    dplyr::rename(EffectiveMut =EffectiveMut_sample,NonEffectiveMut=NonEffectiveMut_n,percentage=per) %>%
     dplyr::mutate(sample_size = .z) -> .d
   
   # insert to collection
@@ -40,6 +40,7 @@ fn_gene_tcga_snv_count <- function(cancer_types, cancer_sample, data) {
 # data --------------------------------------------------------------------
 
 snv %>%
+  tidyr::nest(data = c(symbol, entrez, EffectiveMut_sample, NonEffectiveMut_n, per)) %>%
   purrr::pmap(.f = fn_gene_tcga_snv_count) ->
   snv_count_mongo_data
 

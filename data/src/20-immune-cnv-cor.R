@@ -14,34 +14,24 @@ gsca_conf <- readr::read_lines(file = file.path(rda_path,"src",'gsca.conf'))
 immune_cnv <- readr::read_rds(file.path(data_path,"pan33_ImmuneCellAI_cor_geneCNV.rds.gz"))
 
 # Function ----------------------------------------------------------------
-fn_list_data <- function(.x){
-  tibble::tibble(
-    cell_type = list(.x$cell_type),
-    cor = list(.x$cor),
-    fdr = list(.x$fdr),
-    logfdr = list(.x$logfdr),
-    method = list(.x$method)
-  )
-}
-
-fn_gene_tcga_all_cor_immune_cnv <- function(cancer_types, cor) {
-  .x <- cor
+fn_gene_tcga_all_cor_immune_cnv <- function(cancer_types, data) {
+  .x <- data
   .y <- cancer_types
   
-  
   .x %>% 
-    dplyr::rename(entrez=entrez_id,cor=estimate) %>% 
-    dplyr::mutate(fdr=p.adjust(p.value, method = "fdr")) %>%
-    dplyr::mutate(logfdr=-log10(fdr))%>%
-    dplyr::mutate(logfdr=ifelse(logfdr>50,50,logfdr)) %>%
-    dplyr::mutate(entrez=as.numeric(entrez)) %>%
-    dplyr::select(-statistic,-alternative,-p.value) %>%
-    dplyr::select(cell_type,entrez,symbol,cor,fdr,logfdr,method) %>%
-    dplyr::group_by(entrez,symbol) %>%
-    tidyr::nest() %>%
-    dplyr::mutate(data=purrr::map(data,.f=fn_list_data)) %>%
+    dplyr::filter(method=="Spearman's rank correlation rho") %>%
+    dplyr::group_by(cell_type) %>%
+    tidyr::nest() %>% 
+    dplyr::mutate(data=purrr::map(data,.f=function(.x){
+      .fdr=p.adjust(.x$p.value, method = "fdr")
+      .x %>%
+        dplyr::mutate(fdr=.fdr)
+    })) %>%
     tidyr::unnest() %>%
-    dplyr::ungroup() -> .dd
+    dplyr::ungroup() %>%
+    dplyr::mutate(entrez=as.numeric(entrez)) %>%
+    dplyr::select(-statistic) %>%
+    dplyr::select(cell_type,entrez,symbol,cor,p.value,fdr,method) -> .dd
   
   
   # insert to collection
@@ -53,8 +43,7 @@ fn_gene_tcga_all_cor_immune_cnv <- function(cancer_types, cor) {
   .coll$index(add = '{"symbol": 1, "cell_type": 1}')
   
   message(glue::glue('Save all {.y} all immune cnv cor into mongo'))
-  
-  .dd
+
 }
 # data --------------------------------------------------------------------
 system.time(

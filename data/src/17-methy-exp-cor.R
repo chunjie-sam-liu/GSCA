@@ -11,7 +11,8 @@ data_path <- "/home/huff/data/GSCA/methy"
 gsca_conf <- readr::read_lines(file = file.path(rda_path,"src",'gsca.conf'))
 
 # Load data ----------------------------------------------------------------
-methy_expr <- readr::read_rds(file.path(data_path,"pancan34_all_gene_exp_cor_meth.IdTrans.rds.gz"))
+# methy_expr <- readr::read_rds(file.path(data_path,"pancan34_all_gene_exp_cor_meth.IdTrans.rds.gz"))
+methy_expr <- readr::read_rds(file.path(data_path,"pancan34_exp-cor-meth_GSCAv2.rds.gz"))
 
 # Function ----------------------------------------------------------------
 
@@ -21,8 +22,7 @@ fn_gene_tcga_all_cor_methy_expr <- function(cancer_types, methy) {
   
   
   .x %>% 
-    dplyr::mutate(fdr = 1/10^logfdr) %>% 
-    dplyr::select(entrez, symbol, spm, fdr, logfdr) -> 
+    dplyr::select(entrez, symbol, gene, spm, p.value, fdr, logfdr) -> 
     .dd
   
   # insert to collection
@@ -40,6 +40,9 @@ fn_gene_tcga_all_cor_methy_expr <- function(cancer_types, methy) {
 # data --------------------------------------------------------------------
 
 methy_expr %>% 
+  dplyr::group_by(cancer_types) %>%
+  tidyr::nest() %>%
+  dplyr::rename("methy"="data") %>%
   purrr::pmap(.f = fn_gene_tcga_all_cor_methy_expr) ->
   methy_expr_cor_mongo_data
 
