@@ -59,7 +59,7 @@ class CheckTable(AppPaths):
 
 class CheckTableGSVA(AppPaths):
     def __init__(self, args):
-        args["validColl"] = [x.split("_")[0] + "_expr_gsva" for x in args["validColl"]]
+        args["validColl"] = [x.split("_")[0] + "_all_expr_gene_set.rds.gz" for x in args["validColl"]]
         self.args = args
         self.purpose = "GSVATable"
         self.ranalysis = "expr_gsva.R"
