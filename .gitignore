@@ -135,3 +135,6 @@ gsca.conf
 gsca-r-plot/
 .DS_Store
 *rds.gz
+gsca-r-rds/README
+gsca-r-rds/maf/*gz
+gsca-r-rds/maf_tsv/*gz

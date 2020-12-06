@@ -86,6 +86,7 @@ fetched_snv %>%
 
 fetched_snv.grouped %>%
   dplyr::right_join(fetched_snv_samples, by=c("barcode","cancertype")) %>%
+  dplyr::mutate(sample_name = substr(barcode,1,12)) %>%
   dplyr::inner_join(fetched_survival_data, by=c("sample_name","cancer_types")) %>%
   dplyr::mutate(group = ifelse(is.na(group),"WT",group)) -> combine
 
