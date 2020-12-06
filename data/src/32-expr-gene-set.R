@@ -2,6 +2,7 @@
 # Library -----------------------------------------------------------------
 
 library(magrittr)
+library(doParallel)
 
 
 # Mongo -------------------------------------------------------------------
@@ -36,12 +37,29 @@ fn_fetch_all <- function(.x) {
   .new_coll$index(add = '{"symbol": 1}')
   message(glue::glue('Insert data for {.new_coll_name} into {.x}.'))
   
-  .m <- .new_coll$find(fields = '{"_id": false}')
-  
+  .rds_filename <- glue::glue("~/tmp/gene-set/{.new_coll_name}.rds.gz")
+  readr::write_rds(x = .data_matrix, file = .rds_filename, compress = 'gz')
 }
 
+fn_parallel_start <- function(n_cores = 10) {
+  n_detected_cores <- parallel::detectCores()
+  global_cluster <<- parallel::makeForkCluster(nnodes = n_cores)
+  doParallel::registerDoParallel(cl = global_cluster)
+}
+
+fn_parallel_stop <- function() {
+  parallel::stopCluster(cl = global_cluster)
+  foreach::registerDoSEQ()
+}
+
+
+# Update data -------------------------------------------------------------
 
 
 all_expr_colls <- collnames$name[grepl(pattern = "_all_expr", x = collnames$name)]
 
-
+fn_parallel_start(n_cores = length(all_expr_colls))
+foreach(i = all_expr_colls, .packages = c('magrittr')) %dopar% {
+  fn_fetch_all(.x = i)
+}
+fn_parallel_stop()
