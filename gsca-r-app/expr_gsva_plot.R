@@ -16,10 +16,10 @@ filepath <- args[3]
 apppath <- args[4]
 
 
-tableuuid <- 'ba16c786-93ca-421e-a426-7a361f4c3e7a'
-tablecol <- 'preanalysised_gsva'
-filepath <- "/home/liucj/github/GSCA/gsca-r-plot/pngs/688682d4-977f-432b-8338-f0c28730cbcb.png"
-apppath <- '/home/liucj/github/GSCA'
+# tableuuid <- 'ba16c786-93ca-421e-a426-7a361f4c3e7a'
+# tablecol <- 'preanalysised_gsva'
+# filepath <- "/home/liucj/github/GSCA/gsca-r-plot/pngs/688682d4-977f-432b-8338-f0c28730cbcb.png"
+# apppath <- '/home/liucj/github/GSCA'
 
 # Mongo -------------------------------------------------------------------
 
