@@ -32,7 +32,7 @@ class ExprGSVAPlot(Resource):
         if res["run"]:
             checkplot.plot()
 
-        return {"exprgsvaplotuuid": res["uuid"]}
+        return {"exprgsvaplotuuid": res["uuid"], "exprgsvatableuuid": uuidname}
 
 
 api.add_resource(ExprGSVAPlot, "/exprgsvaplot/<string:uuidname>")

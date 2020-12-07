@@ -58,7 +58,7 @@ class CheckPlot(AppPaths):
     def plot(self, filepath):
         rargs = "#".join(self.args["validSymbol"]) + "@" + "#".join(self.args["validColl"])
         cmd = [self.rcommand, str(self.rscriptpath / self.rplot), rargs, str(filepath), str(self.apppath)]
-        print("\n\n ", "\n\n  ".join(cmd), "\n\n")
+        print("\n\n ", " \\\n ".join(cmd), "\n\n")
         subprocess.check_output(cmd, universal_newlines=True)
 
 
@@ -113,7 +113,7 @@ class CheckMultiplePlot(AppPaths):
     def plot(self, filepath, rplot):
         rargs = "#".join(self.args["validSymbol"]) + "@" + "#".join(self.args["validColl"])
         cmd = [self.rcommand, str(self.rscriptpath / rplot), rargs, str(filepath), str(self.apppath)]
-        print("\n\n ", "\n\n  ".join(cmd), "\n\n")
+        print("\n\n ", " \\\n ".join(cmd), "\n\n")
         subprocess.check_output(cmd, universal_newlines=True)
 
 
@@ -162,7 +162,7 @@ class CheckParallelPlot(AppPaths):
     def plot(self, filepaths):
         rargs = "#".join(self.args["validSymbol"]) + "@" + "#".join(self.args["validColl"])
         cmd = [self.rcommand, str(self.rscriptpath / self.rplot), rargs] + filepaths + [str(self.apppath)]
-        print("\n\n ", "\n\n  ".join(cmd), "\n\n")
+        print("\n\n ", " \\\n ".join(cmd), "\n\n")
         subprocess.check_output(cmd, universal_newlines=True)
 
 
@@ -253,7 +253,7 @@ class CheckTablePlot(AppPaths):
             uuidname,
             self.tablecol,
         ]
-        print("\n\n ", "\n\n  ".join(cmd), "\n\n")
+        print("\n\n ", " \\\n ".join(cmd), "\n\n")
 
 
 class CheckUUIDPlot(AppPaths):
@@ -294,5 +294,6 @@ class CheckUUIDPlot(AppPaths):
             str(self.filepath),
             str(self.apppath),
         ]
-        print("\n\n ", "\n\n  ".join(cmd), "\n\n")
+        print("\n\n ", " \\\n ".join(cmd), "\n\n")
+        subprocess.check_output(cmd, universal_newlines=True)
 
