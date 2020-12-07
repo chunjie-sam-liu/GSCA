@@ -30,12 +30,12 @@ export class ImmuneSnvComponent implements OnInit, OnChanges, AfterViewInit {
   showImmSnvCorTable = true;
   @ViewChild('paginatorImmSnvCor') paginatorImmSnvCor: MatPaginator;
   @ViewChild(MatSort) sortImmSnvCor: MatSort;
-  displayedColumnsImmSnvCor = ['cancertype', 'symbol', 'cell_type','cor', 'fdr'];
+  displayedColumnsImmSnvCor = ['cancertype', 'symbol', 'cell_type','logfc', 'fdr'];
   displayedColumnsImmSnvCorHeader = [
     'Cancer type',
     'Gene symbol',
     'Cell type',
-    'Correlation',
+    'Log2(FC)',
     'FDR',
   ];
   expandedElement: ImmCorTableRecord;
@@ -110,7 +110,7 @@ export class ImmuneSnvComponent implements OnInit, OnChanges, AfterViewInit {
   private _validCollection(st: ExprSearch): any {
     st.validColl = st.cancerTypeSelected
       .map((val) => {
-        return collectionlist.immune_cor_cnv.collnames[collectionlist.immune_cor_cnv.cancertypes.indexOf(val)];
+        return collectionlist.immune_cor_snv.collnames[collectionlist.immune_cor_snv.cancertypes.indexOf(val)];
       })
       .filter(Boolean);
     return st;
@@ -136,7 +136,7 @@ export class ImmuneSnvComponent implements OnInit, OnChanges, AfterViewInit {
           validSymbol: [this.expandedElement.symbol],
           cancerTypeSelected: [this.expandedElement.cancertype],
           validColl: [
-            collectionlist.immune_cor_cnv.collnames[collectionlist.immune_cor_cnv.cancertypes.indexOf(this.expandedElement.cancertype)],
+            collectionlist.immune_cor_snv.collnames[collectionlist.immune_cor_snv.cancertypes.indexOf(this.expandedElement.cancertype)],
           ],
           surType: [this.expandedElement.cell_type],
         };
