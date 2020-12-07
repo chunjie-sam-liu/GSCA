@@ -62,12 +62,6 @@ fn_test <- function(.x) {
 fetched_data <- fn_fetch_data(.uuid = tableuuid)
 
 fetched_data$gsva_score %>% 
-  purrr::map(.f = fn_reorg) %>% 
-  tibble::enframe(name = "cancertype") %>% 
-  tidyr::unnest(cols = value)
-
-
-fetched_data$gsva_score %>% 
   tibble::as_tibble() %>% 
   tidyr::gather(key = "cancertype", value = "gsva") %>% 
   dplyr::mutate(gsva = purrr::map(.x = gsva, .f = fn_reorg)) ->
