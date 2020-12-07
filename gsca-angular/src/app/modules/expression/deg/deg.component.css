@@ -21,7 +21,6 @@ mat-icon {
 
 .example-element-detail {
   overflow: auto;
-  display: flex;
   justify-content: center;
 }
 

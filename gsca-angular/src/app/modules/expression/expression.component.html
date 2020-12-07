@@ -4,7 +4,7 @@
   </div>
 
   <div fxFlex fxLayout="column" fxLayoutGap="10px" class="not-float">
-    <div fxFlex="grow" style="border: 1px rebeccapurple solid">
+    <div fxFlex="grow">
       <app-search-box ($searchSelected)="showContent($event)"></app-search-box>
     </div>
 
@@ -12,7 +12,7 @@
       <app-color-diy></app-color-diy>
     </div> -->
 
-    <div fxFlex="grow" style="border: 1px rebeccapurple solid">
+    <div fxFlex="grow">
       <ng-container *ngIf="showDEG; else empty">
         <app-deg
           fxLayout="row"
