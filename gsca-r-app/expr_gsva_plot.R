@@ -74,7 +74,7 @@ gsva_score_nest %>%
   gsva_score_test
 
 # Insert table ------------------------------------------------------------
-insert_data <- list(uuid = tableuuid, gsva_score_test = gsva_score_test)
+insert_data <- list(uuid = tableuuid, res_table = gsva_score_test)
 #post_gsva_coll$drop()
 uuid_query <- post_gsva_coll$find(
   query = fn_query_str(.x = tableuuid),
