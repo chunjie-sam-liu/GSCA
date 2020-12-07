@@ -17,6 +17,10 @@ export class ExpressionApiService extends BaseHttpService {
   public getResourcePlotBlob(uuidname: string, plotType = 'png'): Observable<any> {
     return this.getDataImage('resource/responseplot/' + uuidname + '.' + plotType);
   }
+  public getResourceTable(coll: string, uuidname: string): Observable<any> {
+    return this.getData('resource/responsetable/' + coll + '/' + uuidname);
+  }
+
   public getResourcePlotURL(uuidname: string, plotType = 'pdf'): string {
     return this.generateRoute('resource/responseplot/' + uuidname + '.' + plotType);
   }
@@ -29,10 +33,14 @@ export class ExpressionApiService extends BaseHttpService {
   }
 
   public getGSVAAnalysis(postTerm: ExprSearch): Observable<any> {
-    return this.postData('expression/geneset/gsvaanalysis', postTerm);
+    return this.postData('expression/gsva/gsvaanalysis', postTerm);
   }
   public getExprGSVAPlot(uuidname: string): Observable<any> {
-    return this.getData('expression/geneset/exprgsvaplot/' + uuidname);
+    return this.getData('expression/gsva/exprgsvaplot/' + uuidname);
+  }
+
+  public getGSEAAnalysis(postTerm: ExprSearch): Observable<any> {
+    return this.postData('expression/gsea/gseaanalysis', postTerm);
   }
 
   public getDEGSingleGenePlot(postTerm: ExprSearch): Observable<any> {
