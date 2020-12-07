@@ -72,6 +72,7 @@ maf_snv %>%
   tidyr::nest(-cancer_types) -> tmp
 
 tmp %>% 
+  dplyr::filter(!cancer_types %in% c("GBM","OV","LUAD","LUSC","PRAD","UCEC","BLCA","TGCT","ESCA","PAAD","KIRP","LIHC")) %>%
   purrr::pmap(.f = fn_snv_mongo) ->
   all_snv_mongo_data
 

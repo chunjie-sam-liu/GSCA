@@ -18,9 +18,10 @@ fn_gene_tcga_all_cor_cnv_expr <- function(cancer_types, spm) {
   .x <- spm
   .y <- cancer_types
   
-  
+  .fdr <- p.adjust(.x$fdr,method = "fdr")
   .x %>% 
     dplyr::left_join(cnv_symbol_search_symbol_final, by = 'symbol') %>% 
+    dplyr::mutate(fdr = .fdr) %>%
     dplyr::mutate(logfdr = -log10(fdr)) %>% 
     dplyr::select(entrez, symbol, spm, fdr, logfdr) -> 
     .dd
