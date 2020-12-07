@@ -8,7 +8,7 @@ import { ExprSearch } from 'src/app/shared/model/exprsearch';
 })
 export class ExpressionComponent implements OnInit, AfterViewInit {
   searchTerm: ExprSearch;
-  showDEG = true;
+  showDEG = false;
   showSurvival = false;
   showSubtype = false;
   showStage = false;
