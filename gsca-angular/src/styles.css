@@ -93,22 +93,6 @@ dd {
   padding: 2px 10px;
 }
 
-.red-seed {
-  color: #da4233;
-}
-
-.chart-hight {
-  height: 400px;
-}
-
-.chart-heathight {
-  height: 700px;
-}
-
-.chart-tcgahight {
-  height: 700px;
-}
-
 mat-card table {
   width: 100%;
   table-layout: fixed;
