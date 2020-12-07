@@ -8,10 +8,6 @@
       <app-search-box ($searchSelected)="showContent($event)"></app-search-box>
     </div>
 
-    <!-- <div fxFlex="grow" fxLayout="row" style="border: 1px rebeccapurple solid">
-      <app-color-diy></app-color-diy>
-    </div> -->
-
     <div fxFlex="grow">
       <ng-container *ngIf="showDEG; else empty">
         <app-deg
@@ -25,19 +21,19 @@
       </ng-container>
     </div>
 
-    <div fxFlex="grow" fxLayout="row" style="border: 1px rebeccapurple solid">
+    <div fxFlex="grow" fxLayout="row">
       <ng-container *ngIf="showSurvival; else empty">
         <app-survival fxLayout="row" fxLayoutGap="10px" fxLayout.lt-lg="column" [searchTerm]="searchTerm"></app-survival>
       </ng-container>
     </div>
 
-    <div fxFlex="grow" fxLayout="row" style="border: 1px rebeccapurple solid">
+    <div fxFlex="grow" fxLayout="row">
       <ng-container *ngIf="showSubtype; else empty">
         <app-subtype fxLayout="row" fxLayoutGap="10px" fxLayout.lt-lg="column" [searchTerm]="searchTerm"></app-subtype>
       </ng-container>
     </div>
 
-    <div fxFlex="grow" fxLayout="row" style="border: 1px rebeccapurple solid">
+    <div fxFlex="grow" fxLayout="row">
       <ng-container *ngIf="showStage; else empty">
         <app-stage fxLayout="row" fxLayoutGap="10px" fxLayout.lt-lg="column" [searchTerm]="searchTerm"></app-stage>
       </ng-container>
