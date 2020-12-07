@@ -57,14 +57,14 @@ class CheckTable(AppPaths):
         subprocess.check_output(cmd, universal_newlines=True)
 
 
-class CheckTableGSVA(AppPaths):
-    def __init__(self, args):
+class CheckTableGSXA(AppPaths):
+    def __init__(self, args, purpose, ranalysis, precol, gsxacol):
         args["validColl"] = [x.split("_")[0] + "_all_expr_gene_set.rds.gz" for x in args["validColl"]]
         self.args = args
-        self.purpose = "GSVATable"
-        self.ranalysis = "expr_gsva.R"
-        self.precol = "preanalysised"
-        self.gsvacol = "preanalysised_gsva"
+        self.purpose = purpose
+        self.ranalysis = ranalysis
+        self.precol = precol
+        self.gsxacol = gsxacol
         self.uuid = str(uuid.uuid4())
 
     def check_run(self):
@@ -76,8 +76,8 @@ class CheckTableGSVA(AppPaths):
 
         if preanalysised:
             self.uuid = preanalysised["uuid"]
-            gsvacol = mongo.db[self.gsvacol].find_one({"uuid": self.uuid}, {"_id": 0, "uuid": 1})
-            run = False if gsvacol else True
+            gsxacol = mongo.db[self.gsxacol].find_one({"uuid": self.uuid}, {"_id": 0, "uuid": 1})
+            run = False if gsxacol else True
         else:
             mongo.db[self.precol].insert_one(
                 {
@@ -91,7 +91,7 @@ class CheckTableGSVA(AppPaths):
 
     def analysis(self):
         rargs = "#".join(self.args["validSymbol"]) + "@" + "#".join(self.args["validColl"])
-        cmd = [self.rcommand, str(self.rscriptpath / self.ranalysis), rargs, str(self.apppath), self.uuid, self.gsvacol]
+        cmd = [self.rcommand, str(self.rscriptpath / self.ranalysis), rargs, str(self.apppath), self.uuid, self.gsxacol]
         print("\n\n ", " \\\n ".join(cmd), "\n\n")
         subprocess.check_output(cmd, universal_newlines=True)
 

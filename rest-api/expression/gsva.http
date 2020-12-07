@@ -15,4 +15,4 @@ content-type: application/json
 
 
 ###
-GET http://localhost:5000/api/expression/geneset/exprgsvaplot/ba16c786-93ca-421e-a426-7a361f4c3e7a
+GET http://localhost:5000/api/expression/gsva/exprgsvaplot/ba16c786-93ca-421e-a426-7a361f4c3e7a

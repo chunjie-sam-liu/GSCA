@@ -69,7 +69,6 @@ api.add_resource(SnvLollipop, "/lollipop")
 class SnvSummary(Resource):
     def post(self):
         args = request.get_json()
-        print(args)
         purposes = ("snvSummaryImage", "snvOncoplotImage", "snvTitvImage")
         rplot = "snv_summary.R"
         checkplot = CheckParallelPlot(args=args, purposes=purposes, rplot=rplot)
