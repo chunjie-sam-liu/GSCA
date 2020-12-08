@@ -9,7 +9,7 @@
     </div>
 
     <div fxFlex="grow">
-      <ng-container *ngIf="showSelected && showList.showDEG; else empty">
+      <ng-container *ngIf="showList.showContent && showList.showDEG; else empty">
         <app-deg
           fxLayout="row"
           fxLayout.lt-lg="column"
@@ -22,7 +22,7 @@
     </div>
 
     <div fxFlex="grow">
-      <ng-container *ngIf="showSelected && showList.showSurvival; else empty">
+      <ng-container *ngIf="showList.showContent && showList.showSurvival; else empty">
         <app-survival
           fxLayout="row"
           fxLayout.lt-lg="column"
@@ -35,7 +35,7 @@
     </div>
 
     <div fxFlex="grow">
-      <ng-container *ngIf="showSelected && showList.showSubtype; else empty">
+      <ng-container *ngIf="showList.showContent && showList.showSubtype; else empty">
         <app-subtype
           fxLayout="row"
           fxLayout.lt-lg="column"
@@ -48,7 +48,7 @@
     </div>
 
     <div fxFlex="grow">
-      <ng-container *ngIf="showSelected && showList.showStage; else empty">
+      <ng-container *ngIf="showList.showContent && showList.showStage; else empty">
         <app-stage
           fxLayout="row"
           fxLayout.lt-lg="column"

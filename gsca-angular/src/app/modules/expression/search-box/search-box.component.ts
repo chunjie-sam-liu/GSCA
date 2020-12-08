@@ -32,6 +32,7 @@ export class SearchBoxComponent implements OnInit {
     this.showList.showSurvival = true;
     this.showList.showSubtype = false;
     this.showList.showStage = false;
+    this.showList.showContent = false;
   }
 
   public submit(str: string): void {
@@ -51,15 +52,17 @@ export class SearchBoxComponent implements OnInit {
       return;
     }
     this.$searchSelected.emit(searchTerm);
+
+    this.showList.showContent = true;
   }
 
   public clear(): void {
     this.inputString = '';
     this.cancerTypeSelected.patchValue([]);
-    this.showList.showDEG = false;
-    this.showList.showSurvival = false;
-    this.showList.showSubtype = false;
-    this.showList.showStage = false;
+
+    Object.keys(this.showList).map((v) => {
+      this.showList[v] = false;
+    });
   }
 
   private _getSearchSymbol(str: string): string[] {
