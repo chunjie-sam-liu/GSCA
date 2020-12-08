@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import symbolList from 'src/app/shared/constants/symbollist';
 const symbolListLower = symbolList.map((v) => v.toLowerCase().replace(/[^0-9a-z]+/g, ''));
@@ -19,6 +19,7 @@ export class SearchBoxComponent implements OnInit {
   cancerTypeSelected = new FormControl();
 
   @Output() $searchSelected = new EventEmitter<ExprSearch>();
+  @Input() showList: any;
 
   constructor() {}
 
@@ -27,6 +28,11 @@ export class SearchBoxComponent implements OnInit {
   public showExample(): void {
     this.inputString = this.exampleGeneList;
     this.cancerTypeSelected.patchValue(this.exampleCancerTypes);
+    this.showList.showDEG = true;
+    this.showList.showSurvival = true;
+    this.showList.showSubtype = false;
+    this.showList.showStage = false;
+    this.showList.showContent = false;
   }
 
   public submit(str: string): void {
@@ -46,11 +52,17 @@ export class SearchBoxComponent implements OnInit {
       return;
     }
     this.$searchSelected.emit(searchTerm);
+
+    this.showList.showContent = true;
   }
 
   public clear(): void {
     this.inputString = '';
     this.cancerTypeSelected.patchValue([]);
+
+    Object.keys(this.showList).map((v) => {
+      this.showList[v] = false;
+    });
   }
 
   private _getSearchSymbol(str: string): string[] {
