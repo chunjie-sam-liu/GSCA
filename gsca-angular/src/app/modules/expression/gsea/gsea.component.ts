@@ -125,6 +125,9 @@ export class GseaComponent implements OnInit, OnChanges, AfterViewInit {
           case 'GSEAImage':
             this.GSEAImage = reader.result;
             break;
+          case 'gseaSingleCancerTypeImage':
+            this.gseaSingleCancerTypeImage = reader.result;
+            break;
         }
       },
       false
@@ -152,7 +155,19 @@ export class GseaComponent implements OnInit, OnChanges, AfterViewInit {
       if (this.expandedColumn === 'cancertype') {
         this.expressionApiService.getGSEASingleCancerTypePlot(this.gseaResourceUUID, this.expandedElement.cancertype).subscribe(
           (res) => {
-            console.log(res);
+            this.gseaSingleCancerTypePdfURL = this.expressionApiService.getResourcePlotURL(res.gseaplotsinglecancertypeuuid, 'pdf');
+            this.expressionApiService.getResourcePlotBlob(res.gseaplotsinglecancertypeuuid, 'png').subscribe(
+              (r) => {
+                this.gseaSingleCancerTypeImageLoading = false;
+                this.showgseaSingleCancerTypeImage = true;
+                this._createImageFromBlob(r, 'gseaSingleCancerTypeImage');
+                console.log(this.gseaSingleCancerTypeImage);
+              },
+              (e) => {
+                this.gseaSingleCancerTypeImageLoading = false;
+                this.showgseaSingleCancerTypeImage = false;
+              }
+            );
           },
           (err) => {
             this.gseaSingleCancerTypeImageLoading = false;

@@ -344,7 +344,7 @@ class CheckGSEAPlotSingleCancerType(AppPaths):
             str(self.apppath),
         ]
         print("\n\n ", " \\\n ".join(cmd), "\n\n")
-        # subprocess.check_output(cmd, universal_newlines=True)
+        subprocess.check_output(cmd, universal_newlines=True)
 
 
 class CheckGSVASurvivalSingleCancerType(AppPaths):

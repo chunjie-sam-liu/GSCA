@@ -28,7 +28,23 @@
 
       <ng-container matColumnDef="expandedDetail">
         <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumnsGSEA.length">
-          <div class="example-element-detail" [@detailExpand]="triggerDetail(element)">😆</div>
+          <div class="example-element-detail" [@detailExpand]="triggerDetail(element)">
+            <ng-container *ngIf="gseaSingleCancerTypeImageLoading; then loading"></ng-container>
+            <ng-container *ngIf="showgseaSingleCancerTypeImage">
+              <a
+                mat-button
+                mat-mini-fab
+                color="warn"
+                arial-label="download"
+                [href]="gseaSingleCancerTypePdfURL"
+                target="_blank"
+                class="download-button"
+              >
+                <mat-icon>cloud_download</mat-icon>
+              </a>
+              <img [src]="gseaSingleCancerTypeImage" loading="lazy" />
+            </ng-container>
+          </div>
         </td>
       </ng-container>
 
