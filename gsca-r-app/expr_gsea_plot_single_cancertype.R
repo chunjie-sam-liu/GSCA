@@ -181,7 +181,7 @@ fn_gseaplot <- function(es, pos) {
     plotlist = plotlist,
     ncol = 1,
     align = 'v',
-    rel_heights = c(1.5, 0.2, 0.7)
+    rel_heights = c(1.5, 0.2, 1)
   )
 }
 # Process -----------------------------------------------------------------
