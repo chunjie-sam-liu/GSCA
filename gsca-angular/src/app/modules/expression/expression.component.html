@@ -21,21 +21,42 @@
       </ng-container>
     </div>
 
-    <div fxFlex="grow" fxLayout="row">
+    <div fxFlex="grow">
       <ng-container *ngIf="showSelected && showList.showSurvival; else empty">
-        <app-survival fxLayout="row" fxLayoutGap="10px" fxLayout.lt-lg="column" [searchTerm]="searchTerm"></app-survival>
+        <app-survival
+          fxLayout="row"
+          fxLayout.lt-lg="column"
+          fxLayoutGap="10px"
+          fxLayoutWrap
+          fxLayoutAlign="center"
+          [searchTerm]="searchTerm"
+        ></app-survival>
       </ng-container>
     </div>
 
-    <div fxFlex="grow" fxLayout="row">
+    <div fxFlex="grow">
       <ng-container *ngIf="showSelected && showList.showSubtype; else empty">
-        <app-subtype fxLayout="row" fxLayoutGap="10px" fxLayout.lt-lg="column" [searchTerm]="searchTerm"></app-subtype>
+        <app-subtype
+          fxLayout="row"
+          fxLayout.lt-lg="column"
+          fxLayoutGap="10px"
+          fxLayoutWrap
+          fxLayoutAlign="center"
+          [searchTerm]="searchTerm"
+        ></app-subtype>
       </ng-container>
     </div>
 
-    <div fxFlex="grow" fxLayout="row">
+    <div fxFlex="grow">
       <ng-container *ngIf="showSelected && showList.showStage; else empty">
-        <app-stage fxLayout="row" fxLayoutGap="10px" fxLayout.lt-lg="column" [searchTerm]="searchTerm"></app-stage>
+        <app-stage
+          fxLayout="row"
+          fxLayout.lt-lg="column"
+          fxLayoutGap="10px"
+          fxLayoutWrap
+          fxLayoutAlign="center"
+          [searchTerm]="searchTerm"
+        ></app-stage>
       </ng-container>
     </div>
 
