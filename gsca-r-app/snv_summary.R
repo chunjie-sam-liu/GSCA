@@ -26,22 +26,29 @@ search_cancertypes <- list(strsplit(x = search_str_split[[2]], split = '#')[[1]]
 
 
 # fetch data --------------------------------------------------------------
+fields <- '{"_id": false}'
+fetched_snv_maf <- purrr::map(.x = paste(search_cancertypes,"_snv_maf",sep=""), .f = fn_fetch_mongo, pattern="_snv_maf",fields = fields,.key=search_genes,.keyindex="symbol") %>%
+  dplyr::bind_rows()%>%
+  dplyr::rename(Hugo_Symbol=symbol)
+fetched_snv_maf %>%
+  dplyr::select(cancertype,Tumor_Sample_Barcode) -> clincial_info
+maf_project <- read.maf(maf=fetched_snv_maf,clinicalData=clincial_info)
 
-data_path <- "/home/huff/data/GSCA/mutation/snv/sub_cancer_maf_tsv"
-pan_maf <- tibble::tibble()
-for (cancer in search_cancertypes) {
-  filename <- paste(cancer,"_maf_data.IdTrans.tsv.rds.gz",sep="")
-  maf_file <- readr::read_rds(file.path(data_path,filename)) %>%
-    dplyr::filter(Hugo_Symbol %in% search_genes)
-  if(nrow(pan_maf)<1){
-    pan_maf<-maf_file
-  } else {
-    rbind(pan_maf,maf_file) ->pan_maf
-  }
-}
-pan_maf %>%
-  dplyr::select(cancer_types,Tumor_Sample_Barcode) -> clincial_info
-maf_project <- read.maf(maf=pan_maf,clinicalData=clincial_info)
+# data_path <- "/home/huff/data/GSCA/mutation/snv/sub_cancer_maf_tsv"
+# pan_maf <- tibble::tibble()
+# for (cancer in search_cancertypes) {
+#   filename <- paste(cancer,"_maf_data.IdTrans.tsv.rds.gz",sep="")
+#   maf_file <- readr::read_rds(file.path(data_path,filename)) %>%
+#     dplyr::filter(Hugo_Symbol %in% search_genes)
+#   if(nrow(pan_maf)<1){
+#     pan_maf<-maf_file
+#   } else {
+#     rbind(pan_maf,maf_file) ->pan_maf
+#   }
+# }
+# pan_maf %>%
+#   dplyr::select(cancer_types,Tumor_Sample_Barcode) -> clincial_info
+# maf_project <- read.maf(maf=pan_maf,clinicalData=clincial_info)
 
 
 # save maf ----------------------------------------------------------------
