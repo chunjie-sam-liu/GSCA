@@ -28,11 +28,12 @@ export class SearchBoxComponent implements OnInit {
   public showExample(): void {
     this.inputString = this.exampleGeneList;
     this.cancerTypeSelected.patchValue(this.exampleCancerTypes);
+
+    Object.keys(this.showList).map((v) => {
+      this.showList[v] = false;
+    });
     this.showList.showDEG = true;
     this.showList.showSurvival = true;
-    this.showList.showSubtype = false;
-    this.showList.showStage = false;
-    this.showList.showContent = false;
   }
 
   public submit(str: string): void {
@@ -44,13 +45,18 @@ export class SearchBoxComponent implements OnInit {
     };
 
     if (!searchTerm.cancerTypeSelected || searchTerm.cancerTypeSelected.length < 1) {
-      window.alert('please select at least one cancer type');
+      window.alert('Please select at least one cancer type');
       return;
     }
     if (searchTerm.validSymbol.length < 1) {
-      window.alert('please input at least one gene symbol');
+      window.alert('Please input at least one gene symbol');
       return;
     }
+    if (Object.values(this.showList).indexOf(true) < 0) {
+      window.alert('Please select at least one section!');
+      return;
+    }
+
     this.$searchSelected.emit(searchTerm);
 
     this.showList.showContent = true;
