@@ -9,29 +9,29 @@ export class BaseHttpService {
   constructor(private http: HttpClient) {}
 
   public getData(route: string, data?: any): Observable<any> {
-    return this.http.get(this._generateRoute(route, environment.apiURL), this._generateOptions(data));
+    return this.http.get(this.generateRoute(route, environment.apiURL), this.generateOptions(data));
   }
 
   public postData(route: string, data: any): Observable<any> {
-    return this.http.post(this._generateRoute(route, environment.apiURL), data, { headers: { 'content-type': 'application/json' } });
+    return this.http.post(this.generateRoute(route, environment.apiURL), data, { headers: { 'content-type': 'application/json' } });
   }
 
   public getDataImage(route: string, data?: any): Observable<any> {
-    return this.http.get(this._generateRoute(route, environment.apiURL), { responseType: 'blob' });
+    return this.http.get(this.generateRoute(route, environment.apiURL), { responseType: 'blob' });
   }
 
   public postDataImage(route: string, data: any): Observable<any> {
-    return this.http.post(this._generateRoute(route, environment.apiURL), data, {
+    return this.http.post(this.generateRoute(route, environment.apiURL), data, {
       headers: { 'content-type': 'application/json' },
       responseType: 'blob',
     });
   }
 
-  private _generateRoute(route: string, envURL: string): string {
+  public generateRoute(route: string, envURL = environment.apiURL): string {
     return `${envURL}/${route}`;
   }
 
-  private _generateOptions(data?: any): any {
+  public generateOptions(data?: any): any {
     return { params: data };
   }
 }

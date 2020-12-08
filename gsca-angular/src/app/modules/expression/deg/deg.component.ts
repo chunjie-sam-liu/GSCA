@@ -36,6 +36,7 @@ export class DegComponent implements OnInit, OnChanges, AfterViewInit {
 
   // degPlot
   degImage: any;
+  degPdfURL: string;
   degImageLoading = true;
   showDEGImage = true;
 
@@ -80,7 +81,8 @@ export class DegComponent implements OnInit, OnChanges, AfterViewInit {
 
       this.expressionApiService.getDEGPlot(postTerm).subscribe(
         (res) => {
-          this.expressionApiService.getResourcePlotBlob(res.degplotuuid).subscribe(
+          this.degPdfURL = this.expressionApiService.getResourcePlotURL(res.degplotuuid, 'pdf');
+          this.expressionApiService.getResourcePlotBlob(res.degplotuuid, 'png').subscribe(
             (r) => {
               this.showDEGImage = true;
               this.degImageLoading = false;

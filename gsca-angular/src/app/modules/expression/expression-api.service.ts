@@ -17,6 +17,9 @@ export class ExpressionApiService extends BaseHttpService {
   public getResourcePlotBlob(uuidname: string, plotType = 'png'): Observable<any> {
     return this.getDataImage('resource/responseplot/' + uuidname + '.' + plotType);
   }
+  public getResourcePlotURL(uuidname: string, plotType = 'pdf'): string {
+    return this.generateRoute('resource/responseplot/' + uuidname + '.' + plotType);
+  }
 
   public getDEGTable(postTerm: ExprSearch): Observable<any> {
     return this.postData('expression/deg/degtable', postTerm);

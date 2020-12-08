@@ -55,7 +55,9 @@
       <mat-card-title>DEGs between tumor and normal in the specific cancers</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <img [src]="this.degImage" alt="degplot" *ngIf="!degImageLoading; else loading" loading="lazy" />
+      <a [href]="degPdfURL" target="_blank">
+        <img [src]="degImage" alt="degplot" *ngIf="!degImageLoading; else loading" loading="lazy" />
+      </a>
     </mat-card-content>
   </mat-card>
 </ng-container>
