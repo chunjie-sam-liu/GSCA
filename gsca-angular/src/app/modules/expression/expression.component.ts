@@ -8,10 +8,13 @@ import { ExprSearch } from 'src/app/shared/model/exprsearch';
 })
 export class ExpressionComponent implements OnInit, AfterViewInit {
   searchTerm: ExprSearch;
-  showDEG = false;
-  showSurvival = false;
-  showSubtype = false;
-  showStage = false;
+  showSelected = false;
+  showList = {
+    showDEG: false,
+    showSurvival: false,
+    showSubtype: false,
+    showStage: false,
+  };
 
   constructor() {}
 
@@ -20,9 +23,6 @@ export class ExpressionComponent implements OnInit, AfterViewInit {
 
   public showContent(exprSearch: ExprSearch): void {
     this.searchTerm = exprSearch;
-    this.showDEG = true;
-    this.showSurvival = true;
-    this.showSubtype = true;
-    this.showStage = true;
+    this.showSelected = true;
   }
 }

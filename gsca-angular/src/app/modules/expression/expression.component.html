@@ -5,11 +5,11 @@
 
   <div fxFlex fxLayout="column" fxLayoutGap="10px" class="not-float">
     <div fxFlex="grow">
-      <app-search-box ($searchSelected)="showContent($event)"></app-search-box>
+      <app-search-box ($searchSelected)="showContent($event)" [showList]="showList"></app-search-box>
     </div>
 
     <div fxFlex="grow">
-      <ng-container *ngIf="showDEG; else empty">
+      <ng-container *ngIf="showSelected && showList.showDEG; else empty">
         <app-deg
           fxLayout="row"
           fxLayout.lt-lg="column"
@@ -22,19 +22,19 @@
     </div>
 
     <div fxFlex="grow" fxLayout="row">
-      <ng-container *ngIf="showSurvival; else empty">
+      <ng-container *ngIf="showSelected && showList.showSurvival; else empty">
         <app-survival fxLayout="row" fxLayoutGap="10px" fxLayout.lt-lg="column" [searchTerm]="searchTerm"></app-survival>
       </ng-container>
     </div>
 
     <div fxFlex="grow" fxLayout="row">
-      <ng-container *ngIf="showSubtype; else empty">
+      <ng-container *ngIf="showSelected && showList.showSubtype; else empty">
         <app-subtype fxLayout="row" fxLayoutGap="10px" fxLayout.lt-lg="column" [searchTerm]="searchTerm"></app-subtype>
       </ng-container>
     </div>
 
     <div fxFlex="grow" fxLayout="row">
-      <ng-container *ngIf="showStage; else empty">
+      <ng-container *ngIf="showSelected && showList.showStage; else empty">
         <app-stage fxLayout="row" fxLayoutGap="10px" fxLayout.lt-lg="column" [searchTerm]="searchTerm"></app-stage>
       </ng-container>
     </div>
