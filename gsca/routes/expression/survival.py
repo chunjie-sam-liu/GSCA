@@ -30,7 +30,6 @@ class SurvivalTable(Resource):
             for m in mcur:
                 m["cancertype"] = collname.rstrip("_expr_survival")
                 res.append(m)
-        print(res[0])
         return res
 
 
