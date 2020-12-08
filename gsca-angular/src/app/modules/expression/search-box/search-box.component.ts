@@ -56,6 +56,10 @@ export class SearchBoxComponent implements OnInit {
   public clear(): void {
     this.inputString = '';
     this.cancerTypeSelected.patchValue([]);
+    this.showList.showDEG = false;
+    this.showList.showSurvival = false;
+    this.showList.showSubtype = false;
+    this.showList.showStage = false;
   }
 
   private _getSearchSymbol(str: string): string[] {
