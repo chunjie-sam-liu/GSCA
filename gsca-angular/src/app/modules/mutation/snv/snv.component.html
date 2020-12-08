@@ -34,7 +34,7 @@
           <td mat-cell *matCellDef="let element" [attr.colSpan]="displayedColumnsSnv.length">
             <div class="example-element-detail" [@detailExpand]="triggerDetail(element)">
               <ng-container *ngIf="snvSingleGeneImageLoading; then loading"></ng-container>
-              <img [src]="snvSingleGeneImage" *ngIf="showSnvSingleGeneImage" height="600px" />
+              <img [src]="snvSingleGeneImage" *ngIf="showSnvSingleGeneImage"/>
             </div>
           </td>
         </ng-container>
@@ -58,7 +58,7 @@
       <mat-card-title>SNV of inputed gene set in the specific cancers</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <img [src]="this.snvImage" alt="snvplot" *ngIf="!snvImageLoading; else loading" height="600px" />
+      <img [src]="snvImage" alt="snvplot" *ngIf="!snvImageLoading; else loading"/>
     </mat-card-content>
   </mat-card>
 </ng-container>
@@ -69,7 +69,7 @@
       <mat-card-title>Summary of the SNV of inputed gene set in the specific cancers</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <img [src]="this.snvSummaryImage" alt="snvsummary" *ngIf="!snvSummaryImageLoading; else loading" height="600px" />
+      <img [src]="snvSummaryImage" alt="snvsummary" *ngIf="!snvSummaryImageLoading; else loading"/>
     </mat-card-content>
   </mat-card>
 </ng-container>
@@ -80,7 +80,7 @@
       <mat-card-title>Oncoplot of the SNV of inputed gene set in the specific cancers(Top 10).</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <img [src]="this.snvOncoplotImage" alt="snvoncoplot" *ngIf="!snvOncoplotImageLoading; else loading" height="600px" />
+      <img [src]="snvOncoplotImage" alt="snvoncoplot" *ngIf="!snvOncoplotImageLoading; else loading"/>
     </mat-card-content>
   </mat-card>
 </ng-container>
@@ -91,7 +91,7 @@
       <mat-card-title>Transitions(Ti) and transversions(Tv) classification of the SNV of inputed gene set in the specific cancers</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <img [src]="this.snvTitvImage" alt="snvtitv" *ngIf="!snvTitvImageLoading; else loading" height="600px" />
+      <img [src]="snvTitvImage" alt="snvtitv" *ngIf="!snvTitvImageLoading; else loading"/>
     </mat-card-content>
   </mat-card>
 </ng-container>

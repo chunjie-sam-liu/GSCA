@@ -121,7 +121,7 @@ export class SnvComponent implements OnInit, OnChanges, AfterViewInit {
             (r) => {
               this.showSnvSummaryImage = true;
               this.snvSummaryImageLoading = false;
-              this._createImageFromBlob(res, 'snvSummaryImage');
+              this._createImageFromBlob(r, 'snvSummaryImage');
             },
             (e) => {
               this.snvSummaryImageLoading = false;
@@ -133,7 +133,7 @@ export class SnvComponent implements OnInit, OnChanges, AfterViewInit {
             (r) => {
               this.showSnvOncoplotImage = true;
               this.snvOncoplotImageLoading = false;
-              this._createImageFromBlob(res, 'snvOncoplotImage');
+              this._createImageFromBlob(r, 'snvOncoplotImage');
             },
             (e) => {
               this.snvOncoplotImageLoading = false;
@@ -145,7 +145,7 @@ export class SnvComponent implements OnInit, OnChanges, AfterViewInit {
             (r) => {
               this.showSnvTitvImage = true;
               this.snvTitvImageLoading = false;
-              this._createImageFromBlob(res, 'snvTitvImage');
+              this._createImageFromBlob(r, 'snvTitvImage');
             },
             (e) => {
               this.snvTitvImageLoading = false;

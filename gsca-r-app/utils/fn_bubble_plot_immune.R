@@ -1,10 +1,10 @@
 library(ggplot2)
 
-bubble_plot <- function(data, cancer, gene, size, color, colorgroup, ylab="Symbol",xlab="Cancer types",cancer_rank, gene_rank, sizename, colorname, title) {
+bubble_plot <- function(data, cancer, gene, size, fill, fillmipoint=0, fillbreaks,colorgroup, ylab="Symbol",xlab="Cancer types",facet_exp,cancer_rank, gene_rank, sizename,colorvalue, colorbreaks, colorname, fillname, title) {
   CPCOLS <- c("red", "white", "blue")
   data %>%
     ggplot(aes_string(y = gene, x = cancer)) +
-    geom_point(aes_string(size = size, fill = color, colour=colorgroup), shape = 21,stroke = 1) +
+    geom_point(aes_string(size = size, fill = fill, colour=colorgroup), shape = 21,stroke = 1) +
     scale_y_discrete(limit = gene_rank) +
     scale_x_discrete(limit = cancer_rank) +
     labs(title = title) +
@@ -15,15 +15,17 @@ bubble_plot <- function(data, cancer, gene, size, color, colorgroup, ylab="Symbo
       guide=FALSE
     ) +
     scale_fill_gradient2(
-      name = colorname, # "Methylation diff (T - N)",
+      name = fillname, # "Methylation diff (T - N)",
       low = CPCOLS[3],
       mid = CPCOLS[2],
-      high = CPCOLS[1]
+      high = CPCOLS[1],
+      midpoint = fillmipoint,
+      breaks=fillbreaks
     ) +
     guides(fill=guide_colourbar(title.position="top",reverse=TRUE)) +
-    scale_color_manual(values = c("black","grey"),
-                       breaks = c("FDR<0.05","FDR>0.05"),
-                       name="FDR") +
+    scale_color_manual(values = colorvalue, #c("black","grey"),
+                       breaks = colorbreaks, #c("FDR<0.05","FDR>0.05"),
+                       name=colorname) +
     guides(color=guide_legend(title.position="top")) +
     theme(
       legend.position = "bottom",
@@ -41,7 +43,15 @@ bubble_plot <- function(data, cancer, gene, size, color, colorgroup, ylab="Symbo
       legend.title = element_text(size = 12),
       legend.key = element_rect(fill = "white", colour = "black"),
       legend.key.size = unit(0.5, "cm"),
-      plot.title = element_text(size = 20)
+      plot.title = element_text(size = 20),
+      strip.background =  element_rect(fill="white",color="black"),
+      strip.text = element_text(color="black",size = 12)
     ) -> p
+  if(!is.na(facet_exp)){
+    p +
+      facet_grid(as.formula(facet_exp)) ->p
+  } else {
+    p -> p
+  }
   return(p)
 }

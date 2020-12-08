@@ -46,10 +46,12 @@ fetched_data_clean_pattern <- fn_get_pattern(
 cancer_rank <- fn_get_cancer_types_rank(.x = fetched_data_clean_pattern)
 gene_rank <- fn_get_gene_rank(.x = fetched_data_clean_pattern)
 for_plot <- fn_pval_label(.x = fetched_data %>% dplyr::rename(value=log_rank_p)) %>%
-  dplyr::mutate(HR = ifelse(HR>5,5,HR))
+  dplyr::mutate(HR = ifelse(HR>10,10,HR)) %>%
+  dplyr::mutate(logp = -log10(value),
+                group = ifelse(value>0.05,">0.05","<0.05"))
 
 # Plot --------------------------------------------------------------------
-source(file.path(apppath,"gsca-r-app/utils/fn_survival_summary_plot.R"))
+source(file.path(apppath,"gsca-r-app/utils/fn_bubble_plot_immune.R"))
 CPCOLS <- c("blue", "white", "red")
 color_color <-  c("tomato","lightskyblue")
 color_group<- c("Hypermethylation","Hypomethylation")
@@ -58,29 +60,28 @@ for_plot %>%
   .$HR -> HR_value
 min(HR_value) %>% trunc() -> min
 max(HR_value) %>% ceiling() -> max
-title <- ""
+fillbreaks <- sort(unique(c(1,seq(min,max,length.out = 3))))
 
-heat_plot<- fn_survival_summary_plot(data = for_plot,
-                                     aesx = "cancertype", 
-                                     aesy = "symbol",
-                                     color = "higher_risk_of_death",
-                                     fill = "HR",
-                                     label = "p_label",
-                                     y_rank = gene_rank$symbol,
-                                     x_rank = cancer_rank$cancertype,
-                                     fill_low = CPCOLS[1],
-                                     fill_high = CPCOLS[3],
-                                     fill_mid = CPCOLS[2],
-                                     midpoint = 1,
-                                     min = min,
-                                     max = max,
-                                     fill_name ="Hazard ratio",
-                                     color_color = color_color,
-                                     color_group = color_group,
-                                     color_name = "Higher risk of death",
-                                     title = title,
-                                     xlab = "Cancer types",
-                                     ylab = "Gene symbol")
+title <- ""
+heat_plot <- bubble_plot(data=for_plot, 
+                         cancer="cancertype", 
+                         gene="symbol", 
+                         xlab="Cancer types", 
+                         ylab="Symbol", 
+                         facet_exp = NA,
+                         size="logp", 
+                         fill="HR", 
+                         fillmipoint =1,
+                         fillbreaks =fillbreaks,
+                         colorgroup="group",
+                         cancer_rank=cancer_rank$cancertype, 
+                         gene_rank=gene_rank$symbol, 
+                         sizename= "-Log(P)", 
+                         fillname="Hazard ratio", 
+                         colorvalue=c("black","grey"), 
+                         colorbreaks=c("<0.05",">0.05"),
+                         colorname="Logrank P",
+                         title=title)
 
 
 # Save --------------------------------------------------------------------

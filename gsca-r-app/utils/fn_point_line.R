@@ -44,9 +44,9 @@ fn_point_fit <- function(data,aesx,aesy,title,xlab,ylab,label){
   xmin <- xmin_max[1]; xmax <- xmin_max[2]
   ymin <- ymin_max[1]; ymax <- ymin_max[2]
   
-  yoffset <- (1/20)*ymax; xoffset <- (1/20)*xmax
+  yoffset <- (1/20)*ymax; xoffset <- (1/18)*xmax
   p +
-    geom_label(x=xmax-xoffset,y=ymax,label=label) -> p
+    geom_label(x=xmax-xoffset,y=ymax-yoffset,label=label) -> p
   # sp + 
   #   annotation_custom(grob = xbp_grob, xmin = xmin, xmax = xmax, ymin =ymin, ymax = ymin+0.5*yoffset) + 
   #   annotation_custom(grob = ybp_grob, xmin = xmin, xmax = xmin+0.5*xoffset, ymin = ymin, ymax = ymax) -> p
