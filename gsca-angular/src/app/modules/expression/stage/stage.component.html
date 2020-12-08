@@ -29,10 +29,10 @@
 
       <ng-container matColumnDef="expandedDetail">
         <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumnsStage.length">
-          <div class="example-element-detail" [@detailExpand]="triggerDetail(element)">
+          <section class="example-element-detail" [@detailExpand]="triggerDetail(element)">
             <ng-container *ngIf="stageSingleGeneImageLoading; then loading"> </ng-container>
             <img [src]="stageSingleGeneImage" *ngIf="showStageSingleGeneImage" loading="lazy" />
-          </div>
+          </section>
         </td>
       </ng-container>
       <tr mat-header-row *matHeaderRowDef="displayedColumnsStage"></tr>
