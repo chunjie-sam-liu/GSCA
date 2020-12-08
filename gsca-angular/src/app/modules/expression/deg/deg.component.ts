@@ -42,11 +42,13 @@ export class DegComponent implements OnInit, OnChanges, AfterViewInit {
 
   // single gene
   degSingleGeneImage: any;
+  degSingleGenePdfURL: string;
   degSingleGeneImageLoading = true;
   showDEGSingleGeneImage = false;
 
   // single cancer type
   degSingleCancerTypeImage: any;
+  degSingleCancerTypePdfURL: string;
   degSingleCancerTypeImageLoading = true;
   showdegSingleCancerTypeImage = false;
 
@@ -163,11 +165,22 @@ export class DegComponent implements OnInit, OnChanges, AfterViewInit {
 
         this.expressionApiService.getDEGSingleGenePlot(postTerm).subscribe(
           (res) => {
-            this._createImageFromBlob(res, 'degSingleGeneImage');
-            this.degSingleGeneImageLoading = false;
-            this.degSingleCancerTypeImageLoading = false;
-            this.showDEGSingleGeneImage = true;
-            this.showdegSingleCancerTypeImage = false;
+            this.degSingleGenePdfURL = this.expressionApiService.getResourcePlotURL(res.degplotsinglegeneuuid, 'pdf');
+            this.expressionApiService.getResourcePlotBlob(res.degplotsinglegeneuuid, 'png').subscribe(
+              (r) => {
+                this._createImageFromBlob(r, 'degSingleGeneImage');
+                this.degSingleGeneImageLoading = false;
+                this.degSingleCancerTypeImageLoading = false;
+                this.showDEGSingleGeneImage = true;
+                this.showdegSingleCancerTypeImage = false;
+              },
+              (e) => {
+                this.degSingleGeneImageLoading = false;
+                this.degSingleCancerTypeImageLoading = false;
+                this.showDEGSingleGeneImage = false;
+                this.showdegSingleCancerTypeImage = false;
+              }
+            );
           },
           (err) => {
             this.degSingleGeneImageLoading = false;
@@ -186,11 +199,22 @@ export class DegComponent implements OnInit, OnChanges, AfterViewInit {
 
         this.expressionApiService.getDEGSingleCancerTypePlot(postTerm).subscribe(
           (res) => {
-            this._createImageFromBlob(res, 'degSingleCancerTypeImage');
-            this.degSingleGeneImageLoading = false;
-            this.degSingleCancerTypeImageLoading = false;
-            this.showDEGSingleGeneImage = false;
-            this.showdegSingleCancerTypeImage = true;
+            this.degSingleCancerTypePdfURL = this.expressionApiService.getResourcePlotURL(res.degplotsinglecancertypeuuid, 'pdf');
+            this.expressionApiService.getResourcePlotBlob(res.degplotsinglecancertypeuuid, 'png').subscribe(
+              (r) => {
+                this._createImageFromBlob(r, 'degSingleCancerTypeImage');
+                this.degSingleGeneImageLoading = false;
+                this.degSingleCancerTypeImageLoading = false;
+                this.showDEGSingleGeneImage = false;
+                this.showdegSingleCancerTypeImage = true;
+              },
+              (e) => {
+                this.degSingleGeneImageLoading = false;
+                this.degSingleCancerTypeImageLoading = false;
+                this.showDEGSingleGeneImage = false;
+                this.showdegSingleCancerTypeImage = false;
+              }
+            );
           },
           (err) => {
             this.degSingleGeneImageLoading = false;

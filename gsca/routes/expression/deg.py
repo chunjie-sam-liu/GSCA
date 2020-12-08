@@ -59,7 +59,8 @@ class DEGPlotSingleGene(Resource):
         res = checkplot.check_run()
         if res["run"]:
             checkplot.plot(filepath=res["filepath"])
-        return send_file(str(res["filepath"]), mimetype="image/png")
+        # return send_file(str(res["filepath"]), mimetype="image/png")
+        return {"degplotsinglegeneuuid": res["uuid"]}
 
 
 api.add_resource(DEGPlotSingleGene, "/degplot/single/gene")
@@ -72,7 +73,8 @@ class DEGPlotSingleCancerType(Resource):
         res = checkplot.check_run()
         if res["run"]:
             checkplot.plot(filepath=res["filepath"])
-        return send_file(str(res["filepath"]), mimetype="image/png")
+        # return send_file(str(res["filepath"]), mimetype="image/png")
+        return {"degplotsinglecancertypeuuid": res["uuid"]}
 
 
 api.add_resource(DEGPlotSingleCancerType, "/degplot/single/cancertype")
