@@ -34,8 +34,8 @@
           <td mat-cell *matCellDef="let element" [attr.colSpan]="displayedColumnsMethy.length">
             <div class="example-element-detail" [@detailExpand]="triggerDetail(element)">
               <ng-container *ngIf="methySingleGeneImageLoading || methySingleCancerImageLoading; then loading"></ng-container>
-              <img [src]="methySingleGeneImage" *ngIf="showMethySingleGeneImage" height="600px" />
-              <img [src]="methySingleCancerImage" *ngIf="showMethySingleCancerImage" height="600px" />
+              <img [src]="methySingleGeneImage" *ngIf="showMethySingleGeneImage" loading="lazy" />
+              <img [src]="methySingleCancerImage" *ngIf="showMethySingleCancerImage" loading="lazy" />
             </div>
           </td>
         </ng-container>
@@ -59,7 +59,7 @@
       <mat-card-title>Methyaltion difference between tumor and normal of inputed genes in the specific cancers</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <img [src]="this.methyImage" alt="methyplot" *ngIf="!methyImageLoading; else loading" height="600px" />
+      <img [src]="this.methyImage" alt="methyplot" *ngIf="!methyImageLoading; else loading" loading="lazy" />
     </mat-card-content>
   </mat-card>
 </ng-container>

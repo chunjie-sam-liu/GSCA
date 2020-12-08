@@ -38,7 +38,7 @@
             <td mat-cell *matCellDef="let element" [attr.colSpan]="displayedColumnsMethySurvival.length">
               <div class="example-element-detail" [@detailExpand]="triggerDetail(element)">
                 <ng-container *ngIf="methySurvivalSingleGeneImageLoading; then loading"></ng-container>
-                <img [src]="methySurvivalSingleGeneImage" *ngIf="showMethySurvivalSingleGeneImage" height="600px" />
+                <img [src]="methySurvivalSingleGeneImage" *ngIf="showMethySurvivalSingleGeneImage" loading="lazy" />
               </div>
             </td>
           </ng-container>
@@ -62,7 +62,7 @@
         <mat-card-title>Overall survival between higher and lower methylation groups in the specific cancers</mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <img [src]="this.methySurvivalImage" alt="methySurvivalplot" *ngIf="!methySurvivalImageLoading; else loading" height="600px" />
+        <img [src]="this.methySurvivalImage" alt="methySurvivalplot" *ngIf="!methySurvivalImageLoading; else loading" loading="lazy" />
       </mat-card-content>
     </mat-card>
   </ng-container>

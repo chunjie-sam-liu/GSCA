@@ -34,7 +34,7 @@
             <td mat-cell *matCellDef="let element" [attr.colSpan]="displayedColumnsCnv.length">
               <div class="example-element-detail" [@detailExpand]="triggerDetail(element)">
                 <ng-container *ngIf="cnvSingleGeneImageLoading; then loading"></ng-container>
-                <img [src]="cnvSingleGeneImage" *ngIf="showCnvSingleGeneImage" height="600px" />
+                <img [src]="cnvSingleGeneImage" *ngIf="showCnvSingleGeneImage" loading="lazy" />
               </div>
             </td>
           </ng-container>
@@ -58,7 +58,7 @@
         <mat-card-title>CNV of inputed genes in the specific cancers</mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <img [src]="this.cnvPieImage" alt="cnvpieplot" *ngIf="!cnvPieImageLoading; else loading" height="600px" />
+        <img [src]="this.cnvPieImage" alt="cnvpieplot" *ngIf="!cnvPieImageLoading; else loading" loading="lazy"/>
       </mat-card-content>
     </mat-card>
   </ng-container>
@@ -69,7 +69,7 @@
         <mat-card-title>Heterozygous CNV of inputed genes in the specific cancers</mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <img [src]="this.cnvHetePointImage" alt="cnvhetepoint" *ngIf="!cnvHetePointImageLoading; else loading" height="600px" />
+        <img [src]="this.cnvHetePointImage" alt="cnvhetepoint" *ngIf="!cnvHetePointImageLoading; else loading" loading="lazy" />
       </mat-card-content>
     </mat-card>
   </ng-container>
@@ -80,7 +80,7 @@
         <mat-card-title>Homozygous CNV of inputed genes in the specific cancers</mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <img [src]="this.cnvHomoPointImage" alt="cnvhomopoint" *ngIf="!cnvHomoPointImageLoading; else loading" height="600px" />
+        <img [src]="this.cnvHomoPointImage" alt="cnvhomopoint" *ngIf="!cnvHomoPointImageLoading; else loading" loading="lazy" />
       </mat-card-content>
     </mat-card>
   </ng-container>

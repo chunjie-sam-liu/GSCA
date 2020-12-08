@@ -38,7 +38,7 @@
             <td mat-cell *matCellDef="let element" [attr.colSpan]="displayedColumnsCnvCor.length">
               <div class="example-element-detail" [@detailExpand]="triggerDetail(element)">
                 <ng-container *ngIf="cnvCorSingleGeneImageLoading; then loading"></ng-container>
-                <img [src]="cnvCorSingleGeneImage" *ngIf="showCnvCorSingleGeneImage" height="600px" />
+                <img [src]="cnvCorSingleGeneImage" *ngIf="showCnvCorSingleGeneImage" loading="lazy" />
               </div>
             </td>
           </ng-container>
@@ -62,7 +62,7 @@
         <mat-card-title>Correlation between gene CNV and mRNA expression in the specific cancers</mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <img [src]="this.cnvCorImage" alt="cnvCorplot" *ngIf="!cnvCorImageLoading; else loading" height="600px" />
+        <img [src]="this.cnvCorImage" alt="cnvCorplot" *ngIf="!cnvCorImageLoading; else loading" loading="lazy" />
       </mat-card-content>
     </mat-card>
   </ng-container>
