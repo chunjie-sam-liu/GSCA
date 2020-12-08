@@ -33,6 +33,12 @@ fn_get_cancer_types_rank <- function(.x) {
     tidyr::gather(key = cancertype, value = rank) %>%
     dplyr::arrange(dplyr::desc(rank))
 }
+fn_get_cancer_types_rank_v2 <- function(.x) {
+  .x %>%
+    dplyr::summarise_if(.predicate = is.numeric, dplyr::funs(sum((.)))) %>%
+    tidyr::gather(key = cancertype, value = rank) %>%
+    dplyr::arrange(dplyr::desc(rank))
+}
 fn_get_cell_types_rank <- function(.x) {
   .x %>%
     dplyr::summarise_if(.predicate = is.numeric, dplyr::funs(sum(.))) %>%

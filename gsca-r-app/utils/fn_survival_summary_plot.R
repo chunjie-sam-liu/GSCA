@@ -1,11 +1,12 @@
 library(ggplot2)
-fn_survival_summary_plot <- function(data,aesx,aesy,color,fill,label,y_rank,x_rank,fill_low,fill_high,fill_mid,midpoint,min, max,fill_name,color_color,color_group,color_name,title,xlab,ylab){
+fn_survival_summary_plot <- function(data,aesx,aesy,color,fill,label,y_rank,x_rank,facet_exp,fill_low,fill_high,fill_mid,midpoint,min, max,fill_name,color_color,color_group,color_name,title,xlab,ylab){
   data %>%
     ggplot(aes_string(x = aesx, y = aesy)) +
-    geom_tile(aes_string(fill = fill, color=color),height=0.8,width=0.8,size=1) +
+    geom_tile(aes_string(fill = fill, color=color),height=0.8,width=0.8,size=0.8) +
     geom_text(aes_string(label=label)) +
     scale_y_discrete(limit = y_rank) +
     scale_x_discrete(limit = x_rank) +
+    facet_grid(as.formula(facet_exp)) +
     scale_fill_gradient2(
       low = fill_low,
       mid = fill_mid,
@@ -34,8 +35,11 @@ fn_survival_summary_plot <- function(data,aesx,aesy,color,fill,label,y_rank,x_ra
       axis.text.y = element_text(colour = "black"),
       
       legend.text = element_text(size = 12),
-      legend.title = element_text(size = 14),
-      legend.key = element_rect(fill = "white", colour = "black")
+      legend.title = element_text(size = 12),
+      legend.key.size = unit(0.5, "cm"),
+      legend.key = element_rect(fill = "white", colour = "black"),
+      strip.background =  element_rect(fill="white",color="black"),
+      strip.text = element_text(color="black",size = 12)
     )
 }
 

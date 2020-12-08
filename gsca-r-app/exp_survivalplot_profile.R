@@ -30,21 +30,22 @@ size <- fn_height_width(search_genes,search_cancertypes)
 # fetch data --------------------------------------------------------------
 
 source(file.path(apppath, "gsca-r-app/utils/fn_fetch_mongo_data.R"))
-fields <- '{"symbol": true, "pval": true, "higher_risk_of_death": true,"HR": true, "_id": false}'
+fields <- '{"symbol": true, "logrankp": true, "higher_risk_of_death": true,"hr_categorical(H/L)": true,"sur_type": true, "_id": false}'
 fetched_data <- purrr::map(.x = search_cancertypes, .f = fn_fetch_mongo, pattern="_expr_survival",fields = fields,.key=search_genes,.keyindex="symbol") %>%
-  dplyr::bind_rows()
+  dplyr::bind_rows() %>%
+  dplyr::rename("HR"="hr_categorical(H/L)","pval"="logrankp")
 
 
 # Sort -------------------------------------------------------------------
 source(file.path(apppath,"gsca-r-app/utils/common_used_summary_plot_functions.R"))
 
 fetched_data_clean_pattern <- fn_get_pattern(
-  .x = fetched_data %>% dplyr::rename(value=pval,trend=higher_risk_of_death),
+  .x = fetched_data %>% dplyr::rename(value=pval,trend=higher_risk_of_death) %>% dplyr::filter(sur_type=="OS"),
   trend1="Higher expr.",
   trend2="Lower expr.",
   p_cutoff=0.05,
   selections =c("cancertype","symbol"))
-cancer_rank <- fn_get_cancer_types_rank(.x = fetched_data_clean_pattern)
+cancer_rank <- fn_get_cancer_types_rank_v2(.x = fetched_data_clean_pattern)
 gene_rank <- fn_get_gene_rank(.x = fetched_data_clean_pattern)
 for_plot <- fn_pval_label(.x = fetched_data %>% dplyr::rename(value=pval))
 
@@ -68,6 +69,7 @@ heat_plot <- fn_survival_summary_plot(data = for_plot,
                                       label = "p_label",
                                       y_rank = gene_rank$symbol,
                                       x_rank = cancer_rank$cancertype,
+                                      facet_exp = ".~sur_type",
                                       fill_low = CPCOLS[1],
                                       fill_high = CPCOLS[3],
                                       fill_mid = CPCOLS[2],
