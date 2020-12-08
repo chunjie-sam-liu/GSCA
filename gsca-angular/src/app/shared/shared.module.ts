@@ -1,3 +1,4 @@
+import { PdfModule } from './pdf.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MaterialElevationDirective } from './directives/material-elevation.directive';
@@ -11,13 +12,14 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 
 @NgModule({
   declarations: [MaterialElevationDirective, HeaderComponent, FooterComponent, SidebarComponent],
-  imports: [CommonModule, RouterModule, FormsModule, ReactiveFormsModule, MaterialModule, EchartsModule],
+  imports: [CommonModule, RouterModule, FormsModule, ReactiveFormsModule, MaterialModule, EchartsModule, PdfModule],
   exports: [
     MaterialElevationDirective,
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
     EchartsModule,
+    PdfModule,
     HeaderComponent,
     FooterComponent,
     SidebarComponent,
