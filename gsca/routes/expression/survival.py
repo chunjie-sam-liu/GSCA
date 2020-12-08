@@ -2,6 +2,7 @@ from flask import Blueprint, request, send_file
 from gsca.db import mongo
 from flask_restful import Api, Resource, fields, marshal_with, reqparse
 from gsca.utils.checkplot import CheckPlot
+from gsca.utils.check_survivalPlot import CheckSurvivalPlot
 
 survival = Blueprint("survival", __name__)
 api = Api(survival)
@@ -9,10 +10,11 @@ api = Api(survival)
 model_survivaltable = {
     "entrez": fields.Integer(attribute="entrez"),
     "symbol": fields.String(attribute="symbol"),
-    "hr": fields.Float(attribute="HR"),
-    "pval": fields.Float(attribute="pval"),
-    "worse_group": fields.String(attribute="higher_risk_of_death"),
+    "hr_categorical(H/L)": fields.Float(attribute="hr_categorical(H/L)"),
+    "logrankp": fields.Float(attribute="logrankp"),
+    "higher_risk_of_death": fields.String(attribute="higher_risk_of_death"),
     "cancertype": fields.String(attribute="cancertype"),
+    "sur_type": fields.String(attribute="sur_type"),
 }
 
 
@@ -50,7 +52,7 @@ api.add_resource(SurvivalPlot, "/survivalplot")
 class SurvivalPlotSingleGene(Resource):
     def post(self):
         args = request.get_json()
-        checkplot = CheckPlot(args=args, purpose="survivalplotsinglegene", rplot="survivalplotsinglegene.R")
+        checkplot = CheckSurvivalPlot(args=args, purpose="survivalplotsinglegene", rplot="survivalplotsinglegene.R")
         res = checkplot.check_run()
         if res["run"]:
             checkplot.plot(filepath=res["filepath"])

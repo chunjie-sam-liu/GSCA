@@ -3,9 +3,9 @@
 export interface SurvivalTableRecord {
   entrez: number;
   symbol: string;
-  pval: number;
+  logrankp: number;
   higher_risk_of_death: string;
   cancertype: string;
-  hr: number;
+  'hr_categorical(H/L)': number;
   sur_type: string;
 }

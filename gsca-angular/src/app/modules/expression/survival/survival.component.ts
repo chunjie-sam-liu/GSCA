@@ -29,8 +29,8 @@ export class SurvivalComponent implements OnInit, OnChanges, AfterViewInit {
   showSurvivalTable = true;
   @ViewChild('paginatorSurvival') paginatorSurvival: MatPaginator;
   @ViewChild(MatSort) sortSurvival: MatSort;
-  displayedColumnsSurvival = ['cancertype', 'symbol', 'hr', 'pval', 'worse_group'];
-  displayedColumnsSurvivalHeader = ['Cancer type', 'Gene symbol', 'Hazard Ratio', 'P value', 'Higher risk of death'];
+  displayedColumnsSurvival = ['cancertype', 'symbol', 'sur_type','hr_categorical(H/L)', 'logrankp', 'higher_risk_of_death'];
+  displayedColumnsSurvivalHeader = ['Cancer type', 'Gene symbol', "Survival type",'Hazard Ratio', 'Logrank P', 'Higher risk of death'];
   expandedElement: SurvivalTableRecord;
   expandedColumn: string;
 
@@ -148,6 +148,7 @@ export class SurvivalComponent implements OnInit, OnChanges, AfterViewInit {
           validColl: [
             collectionlist.expr_survival.collnames[collectionlist.expr_survival.cancertypes.indexOf(this.expandedElement.cancertype)],
           ],
+          surType: [this.expandedElement.sur_type]
         };
 
         this.expressionApiService.getSurvivalSingleGenePlot(postTerm).subscribe(
