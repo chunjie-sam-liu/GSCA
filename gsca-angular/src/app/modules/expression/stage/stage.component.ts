@@ -90,14 +90,14 @@ export class StageComponent implements OnInit, OnChanges, AfterViewChecked {
       );
       this.expressionApiService.getStagePlot(postTerm).subscribe(
         (res) => {
-          this.stageImagePdfURL = this.expressionApiService.getResourcePlotURL(res.stageplotuuid,'pdf');
-          this.expressionApiService.getResourcePlotBlob(res.stageplotuuid,'png').subscribe(
+          this.stageImagePdfURL = this.expressionApiService.getResourcePlotURL(res.stageplotuuid, 'pdf');
+          this.expressionApiService.getResourcePlotBlob(res.stageplotuuid, 'png').subscribe(
             (r) => {
               this.showStageImage = true;
               this.stageImageLoading = false;
               this._createImageFromBlob(r, 'stageImage');
             },
-            (e)=>{
+            (e) => {
               this.showStageImage = false;
             }
           );
@@ -170,7 +170,7 @@ export class StageComponent implements OnInit, OnChanges, AfterViewChecked {
 
         this.expressionApiService.getStageSingleGenePlot(postTerm).subscribe(
           (res) => {
-            this.stageSingleGenePdfURL = this.expressionApiService.getResourcePlotURL(res.stagesinglegeneuuid,'pdf');
+            this.stageSingleGenePdfURL = this.expressionApiService.getResourcePlotURL(res.stagesinglegeneuuid, 'pdf');
             this.expressionApiService.getResourcePlotBlob(res.stagesinglegeneuuid, 'png').subscribe(
               (r) => {
                 this._createImageFromBlob(r, 'stageSingleGeneImage');
