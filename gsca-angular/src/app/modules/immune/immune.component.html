@@ -5,7 +5,7 @@
 
   <section fxFlex fxLayout="column" fxLayoutGap="10px" class="not-float">
     <section fxFlex="grow">
-      <app-search-box ($searchSelected)="showContent($event)"></app-search-box>
+      <app-search-box ($searchSelected)="showContent($event)" [showList]="showList"></app-search-box>
       
       <ng-container *ngIf="showList.showContent && showList.showImmExpr; else empty">
         <app-immune-expr 
