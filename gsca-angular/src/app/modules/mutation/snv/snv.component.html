@@ -32,10 +32,10 @@
 
         <ng-container matColumnDef="expandedDetail">
           <td mat-cell *matCellDef="let element" [attr.colSpan]="displayedColumnsSnv.length">
-            <section class="example-element-detail" [@detailExpand]="triggerDetail(element)">
+            <div class="example-element-detail" [@detailExpand]="triggerDetail(element)">
               <ng-container *ngIf="snvSingleGeneImageLoading; then loading"></ng-container>
               <img [src]="snvSingleGeneImage" *ngIf="showSnvSingleGeneImage" loading="lazy" />
-            </section>
+            </div>
           </td>
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumnsSnv"></tr>
@@ -88,7 +88,9 @@
 <ng-container *ngIf="showSnvTitvImage">
   <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
     <mat-card-header>
-      <mat-card-title>Transitions(Ti) and transversions(Tv) classification of the SNV of inputed gene set in the specific cancers</mat-card-title>
+      <mat-card-title
+        >Transitions(Ti) and transversions(Tv) classification of the SNV of inputed gene set in the specific cancers</mat-card-title
+      >
     </mat-card-header>
     <mat-card-content>
       <img [src]="snvTitvImage" alt="snvtitv" *ngIf="!snvTitvImageLoading; else loading" loading="lazy" />
