@@ -22,7 +22,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 })
 export class MethyCorComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() searchTerm: ExprSearch;
-  
+
   // methy cor table data source
   dataSourceMethyCorLoading = true;
   dataSourceMethyCor: MatTableDataSource<MethyCorTableRecord>;
@@ -30,12 +30,7 @@ export class MethyCorComponent implements OnInit, OnChanges, AfterViewInit {
   @ViewChild('paginatorMethyCor') paginatorMethyCor: MatPaginator;
   @ViewChild(MatSort) sortMethyCor: MatSort;
   displayedColumnsMethyCor = ['cancertype', 'symbol', 'spm', 'fdr'];
-  displayedColumnsMethyCorHeader = [
-    'Cancer type',
-    'Gene symbol',
-    'Spearman correlation',
-    'FDR',
-  ];
+  displayedColumnsMethyCorHeader = ['Cancer type', 'Gene symbol', 'Spearman correlation', 'FDR'];
   expandedElement: MethyCorTableRecord;
   expandedColumn: string;
 
@@ -49,10 +44,9 @@ export class MethyCorComponent implements OnInit, OnChanges, AfterViewInit {
   methyCorSingleGeneImageLoading = true;
   showMethyCorSingleGeneImage = false;
 
-  constructor(private mutationApiService: MutationApiService) { }
+  constructor(private mutationApiService: MutationApiService) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   ngOnChanges(changes: SimpleChanges): void {
     // Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
@@ -152,7 +146,7 @@ export class MethyCorComponent implements OnInit, OnChanges, AfterViewInit {
           cancerTypeSelected: [this.expandedElement.cancertype],
           validColl: [
             collectionlist.methy_cor_expr.collnames[collectionlist.methy_cor_expr.cancertypes.indexOf(this.expandedElement.cancertype)],
-          ]
+          ],
         };
 
         this.mutationApiService.getMethyCorSingleGene(postTerm).subscribe(

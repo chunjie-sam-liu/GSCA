@@ -4,7 +4,7 @@
   </div>
 
   <div fxFlex fxLayout="column" fxLayoutGap="10px" class="not-float">
-    <app-search-box fxFlex="grow" ($searchSelected)="showContent($event)" [showList]="showList"></app-search-box>
+    <app-search-box fxFlex ($searchSelected)="showContent($event)" [showList]="showList"></app-search-box>
 
     <ng-container *ngIf="showList.showContent && showList.showDEG; else empty">
       <div fxFlex="grow">

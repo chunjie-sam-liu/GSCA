@@ -39,7 +39,7 @@ export class SubtypeComponent implements OnInit, OnChanges, AfterViewChecked {
   subtypeImage: any;
   showSubtypeImage = true;
   subtypeImagePdfURL: string;
-  
+
   // single gene
   subtypeSingleGeneImage: any;
   subtypeSingleGeneImageLoading = true;
@@ -78,7 +78,7 @@ export class SubtypeComponent implements OnInit, OnChanges, AfterViewChecked {
         }
       );
       this.expressionApiService.getSubtypePlot(postTerm).subscribe(
-        (res) => {          
+        (res) => {
           this.subtypeImagePdfURL = this.expressionApiService.getResourcePlotURL(res.subtypeplotuuid, 'pdf');
           this.expressionApiService.getResourcePlotBlob(res.subtypeplotuuid, 'png').subscribe(
             (r) => {
@@ -91,7 +91,6 @@ export class SubtypeComponent implements OnInit, OnChanges, AfterViewChecked {
               this.subtypeImageLoading = false;
             }
           );
-          
         },
         (err) => {
           this.showSubtypeImage = false;

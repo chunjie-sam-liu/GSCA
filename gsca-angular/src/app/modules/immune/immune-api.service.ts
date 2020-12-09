@@ -5,11 +5,10 @@ import { BaseHttpService } from 'src/app/shared/base-http.service';
 import { ExprSearch } from 'src/app/shared/model/exprsearch';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ImmuneApiService extends BaseHttpService {
-
-  constructor(http: HttpClient) { 
+  constructor(http: HttpClient) {
     super(http);
   }
   public getResourcePlotBlob(uuidname: string, plotType = 'png'): Observable<any> {

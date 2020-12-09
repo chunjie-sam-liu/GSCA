@@ -20,39 +20,33 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
     ]),
   ],
 })
-export class CnvCorComponent implements OnInit, OnChanges, AfterViewInit  {
+export class CnvCorComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() searchTerm: ExprSearch;
 
-    // cnv cor table data source
-    dataSourceCnvCorLoading = true;
-    dataSourceCnvCor: MatTableDataSource<CnvCorTableRecord>;
-    showCnvCorTable = true;
-    @ViewChild('paginatorCnvCor') paginatorCnvCor: MatPaginator;
-    @ViewChild(MatSort) sortCnvCor: MatSort;
-    displayedColumnsCnvCor = ['cancertype', 'symbol', 'spm', 'fdr'];
-    displayedColumnsCnvCorHeader = [
-      'Cancer type',
-      'Gene symbol',
-      'Spearman correlation',
-      'FDR',
-    ];
-    expandedElement: CnvCorTableRecord;
-    expandedColumn: string;
-  
-    // cnv cor plot
-    cnvCorImageLoading = true;
-    cnvCorImage: any;
-    showCnvCorImage = true;
-  
-    // single gene cor
-    cnvCorSingleGeneImage: any;
-    cnvCorSingleGeneImageLoading = true;
-    showCnvCorSingleGeneImage = false;
+  // cnv cor table data source
+  dataSourceCnvCorLoading = true;
+  dataSourceCnvCor: MatTableDataSource<CnvCorTableRecord>;
+  showCnvCorTable = true;
+  @ViewChild('paginatorCnvCor') paginatorCnvCor: MatPaginator;
+  @ViewChild(MatSort) sortCnvCor: MatSort;
+  displayedColumnsCnvCor = ['cancertype', 'symbol', 'spm', 'fdr'];
+  displayedColumnsCnvCorHeader = ['Cancer type', 'Gene symbol', 'Spearman correlation', 'FDR'];
+  expandedElement: CnvCorTableRecord;
+  expandedColumn: string;
 
-  constructor(private mutationApiService: MutationApiService) { }
+  // cnv cor plot
+  cnvCorImageLoading = true;
+  cnvCorImage: any;
+  showCnvCorImage = true;
 
-  ngOnInit(): void {
-  }
+  // single gene cor
+  cnvCorSingleGeneImage: any;
+  cnvCorSingleGeneImageLoading = true;
+  showCnvCorSingleGeneImage = false;
+
+  constructor(private mutationApiService: MutationApiService) {}
+
+  ngOnInit(): void {}
   ngOnChanges(changes: SimpleChanges): void {
     // Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
     // Add '${implements OnChanges}' to the class.
@@ -149,9 +143,7 @@ export class CnvCorComponent implements OnInit, OnChanges, AfterViewInit  {
         const postTerm = {
           validSymbol: [this.expandedElement.symbol],
           cancerTypeSelected: [this.expandedElement.cancertype],
-          validColl: [
-            collectionlist.all_cnv.collnames[collectionlist.all_cnv.cancertypes.indexOf(this.expandedElement.cancertype)],
-          ]
+          validColl: [collectionlist.all_cnv.collnames[collectionlist.all_cnv.cancertypes.indexOf(this.expandedElement.cancertype)]],
         };
 
         this.mutationApiService.getCnvCorSingleGene(postTerm).subscribe(

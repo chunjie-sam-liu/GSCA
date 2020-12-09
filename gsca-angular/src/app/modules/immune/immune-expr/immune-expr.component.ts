@@ -20,7 +20,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
     ]),
   ],
 })
-export class ImmuneExprComponent implements  OnInit, OnChanges, AfterViewInit {
+export class ImmuneExprComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() searchTerm: ExprSearch;
 
   // immExpr cor table data source
@@ -29,14 +29,8 @@ export class ImmuneExprComponent implements  OnInit, OnChanges, AfterViewInit {
   showImmExprCorTable = true;
   @ViewChild('paginatorImmExprCor') paginatorImmExprCor: MatPaginator;
   @ViewChild(MatSort) sortImmExprCor: MatSort;
-  displayedColumnsImmExprCor = ['cancertype', 'symbol',  'cell_type','cor', 'fdr'];
-  displayedColumnsImmExprCorHeader = [
-    'Cancer type',
-    'Gene symbol',
-    "Cell type",
-    'Correlation',
-    'FDR',
-  ];
+  displayedColumnsImmExprCor = ['cancertype', 'symbol', 'cell_type', 'cor', 'fdr'];
+  displayedColumnsImmExprCorHeader = ['Cancer type', 'Gene symbol', 'Cell type', 'Correlation', 'FDR'];
   expandedElement: ImmCorTableRecord;
   expandedColumn: string;
 
@@ -50,10 +44,9 @@ export class ImmuneExprComponent implements  OnInit, OnChanges, AfterViewInit {
   immExprCorSingleGeneImageLoading = true;
   showImmExprCorSingleGeneImage = false;
 
-  constructor(private mutationApiService: ImmuneApiService) { }
+  constructor(private mutationApiService: ImmuneApiService) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
   ngOnChanges(changes: SimpleChanges): void {
     // Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
     // Add '${implements OnChanges}' to the class.
@@ -166,7 +159,7 @@ export class ImmuneExprComponent implements  OnInit, OnChanges, AfterViewInit {
           cancerTypeSelected: [this.expandedElement.cancertype],
           validColl: [
             collectionlist.immune_cor_expr.collnames[collectionlist.immune_cor_expr.cancertypes.indexOf(this.expandedElement.cancertype)],
-          ]
+          ],
         };
         this.mutationApiService.getImmExprCorPlot(postTerm).subscribe(
           (res) => {
@@ -182,7 +175,7 @@ export class ImmuneExprComponent implements  OnInit, OnChanges, AfterViewInit {
             this.immExprCorSingleGeneImageLoading = false;
             this.showImmExprCorSingleGeneImage = false;
           }
-        );        
+        );
       }
     } else {
       this.immExprCorSingleGeneImageLoading = false;

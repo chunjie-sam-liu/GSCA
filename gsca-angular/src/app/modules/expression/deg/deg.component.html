@@ -81,10 +81,12 @@
       <mat-card-title>DEGs between tumor and normal in the specific cancers</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <a mat-button mat-mini-fab color="warn" arial-label="download" [href]="degPdfURL" target="_blank" class="download-button">
-        <mat-icon>cloud_download</mat-icon>
-      </a>
-      <img [src]="degImage" alt="degplot" *ngIf="!degImageLoading; else loading" loading="lazy" />
+      <ng-container *ngIf="!degImageLoading; else loading">
+        <a mat-button mat-mini-fab color="warn" arial-label="download" [href]="degPdfURL" target="_blank" class="download-button">
+          <mat-icon>cloud_download</mat-icon>
+        </a>
+        <img [src]="degImage" alt="degplot" loading="lazy" />
+      </ng-container>
     </mat-card-content>
   </mat-card>
 </ng-container>

@@ -4,69 +4,67 @@
   </div>
 
   <div fxFlex fxLayout="column" fxLayoutGap="10px" class="not-float">
-    <div fxFlex="grow">
-      <app-search-box ($searchSelected)="showContent($event)" [showList]="showList"></app-search-box>
+    <app-search-box ($searchSelected)="showContent($event)" [showList]="showList"></app-search-box>
 
-      <ng-container *ngIf="showList.showContent && showList.showImmExpr; else empty">
-        <div fxFlex="grow">
-          <app-immune-expr
-            fxLayout="row"
-            fxLayout.lt-lg="column"
-            fxLayoutGap="10px"
-            fxLayoutWrap
-            fxLayoutAlign="center"
-            [searchTerm]="searchTerm"
-          ></app-immune-expr>
-        </div>
-      </ng-container>
+    <ng-container *ngIf="showList.showContent && showList.showImmExpr; else empty">
+      <div fxFlex="grow">
+        <app-immune-expr
+          fxLayout="row"
+          fxLayout.lt-lg="column"
+          fxLayoutGap="10px"
+          fxLayoutWrap
+          fxLayoutAlign="center"
+          [searchTerm]="searchTerm"
+        ></app-immune-expr>
+      </div>
+    </ng-container>
 
-      <ng-container *ngIf="showList.showContent && showList.showImmSnv; else empty">
-        <div fxFlex="grow">
-          <app-immune-snv
-            fxLayout="row"
-            fxLayout.lt-lg="column"
-            fxLayoutGap="10px"
-            fxLayoutWrap
-            fxLayoutAlign="center"
-            [searchTerm]="searchTerm"
-          ></app-immune-snv>
-        </div>
-      </ng-container>
+    <ng-container *ngIf="showList.showContent && showList.showImmSnv; else empty">
+      <div fxFlex="grow">
+        <app-immune-snv
+          fxLayout="row"
+          fxLayout.lt-lg="column"
+          fxLayoutGap="10px"
+          fxLayoutWrap
+          fxLayoutAlign="center"
+          [searchTerm]="searchTerm"
+        ></app-immune-snv>
+      </div>
+    </ng-container>
 
-      <ng-container *ngIf="showList.showContent && showList.showImmCnv; else empty">
-        <div fxFlex="grow">
-          <app-immune-cnv
-            fxLayout="row"
-            fxLayout.lt-lg="column"
-            fxLayoutGap="10px"
-            fxLayoutWrap
-            fxLayoutAlign="center"
-            [searchTerm]="searchTerm"
-          ></app-immune-cnv>
-        </div>
-      </ng-container>
+    <ng-container *ngIf="showList.showContent && showList.showImmCnv; else empty">
+      <div fxFlex="grow">
+        <app-immune-cnv
+          fxLayout="row"
+          fxLayout.lt-lg="column"
+          fxLayoutGap="10px"
+          fxLayoutWrap
+          fxLayoutAlign="center"
+          [searchTerm]="searchTerm"
+        ></app-immune-cnv>
+      </div>
+    </ng-container>
 
-      <ng-container *ngIf="showList.showContent && showList.showImmMethy; else empty">
-        <div fxFlex="grow">
-          <app-immune-methy
-            fxLayout="row"
-            fxLayout.lt-lg="column"
-            fxLayoutGap="10px"
-            fxLayoutWrap
-            fxLayoutAlign="center"
-            [searchTerm]="searchTerm"
-          ></app-immune-methy>
-        </div>
-      </ng-container>
+    <ng-container *ngIf="showList.showContent && showList.showImmMethy; else empty">
+      <div fxFlex="grow">
+        <app-immune-methy
+          fxLayout="row"
+          fxLayout.lt-lg="column"
+          fxLayoutGap="10px"
+          fxLayoutWrap
+          fxLayoutAlign="center"
+          [searchTerm]="searchTerm"
+        ></app-immune-methy>
+      </div>
+    </ng-container>
 
-      <ng-template #loading>
-        <mat-progress-bar mode="query" color="warn"></mat-progress-bar>
-      </ng-template>
-      <ng-template #empty></ng-template>
-    </div>
+    <ng-template #loading>
+      <mat-progress-bar mode="query" color="warn"></mat-progress-bar>
+    </ng-template>
+    <ng-template #empty></ng-template>
+  </div>
 
-    <div fxFlex="none">
-      <app-footer></app-footer>
-    </div>
+  <div fxFlex="none">
+    <app-footer></app-footer>
   </div>
 </div>

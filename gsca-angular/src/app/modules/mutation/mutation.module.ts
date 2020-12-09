@@ -15,7 +15,18 @@ import { CnvSurvivalComponent } from './cnv-survival/cnv-survival.component';
 import { CnvCorComponent } from './cnv-cor/cnv-cor.component';
 
 @NgModule({
-  declarations: [MutationComponent, SearchBoxComponent, SnvComponent, SnvSurvivalComponent, MethylationComponent, MethySurvivalComponent, MethyCorComponent, CnvComponent, CnvSurvivalComponent, CnvCorComponent],
+  declarations: [
+    MutationComponent,
+    SearchBoxComponent,
+    SnvComponent,
+    SnvSurvivalComponent,
+    MethylationComponent,
+    MethySurvivalComponent,
+    MethyCorComponent,
+    CnvComponent,
+    CnvSurvivalComponent,
+    CnvCorComponent,
+  ],
   imports: [CommonModule, MutationRoutingModule, SharedModule],
 })
 export class MutationModule {}

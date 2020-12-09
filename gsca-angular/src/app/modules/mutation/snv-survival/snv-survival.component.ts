@@ -250,9 +250,11 @@ export class SnvSurvivalComponent implements OnInit, OnChanges, AfterViewInit {
         const postTerm = {
           validSymbol: this.searchTerm.validSymbol,
           cancerTypeSelected: [this.expandedElementGeneset.cancertype],
-         // validColl: this.searchTerm.validColl,
+          // validColl: this.searchTerm.validColl,
           // tslint:disable-next-line: max-line-length
-          validColl: [collectionlist.snv_survival.collnames[collectionlist.snv_survival.cancertypes.indexOf(this.expandedElementGeneset.cancertype)],],
+          validColl: [
+            collectionlist.snv_survival.collnames[collectionlist.snv_survival.cancertypes.indexOf(this.expandedElementGeneset.cancertype)],
+          ],
           surType: [this.expandedElementGeneset.sur_type],
         };
 

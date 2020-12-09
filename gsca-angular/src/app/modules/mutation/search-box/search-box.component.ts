@@ -28,7 +28,7 @@ export class SearchBoxComponent implements OnInit {
   public showExample(): void {
     this.inputString = this.exampleGeneList;
     this.cancerTypeSelected.patchValue(this.exampleCancerTypes);
-    
+
     Object.keys(this.showList).map((v) => {
       this.showList[v] = false;
     });
