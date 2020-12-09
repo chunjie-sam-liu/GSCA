@@ -134,3 +134,4 @@ nohup.out
 gsca.conf
 gsca-r-plot/
 .DS_Store
+*rds.gz
