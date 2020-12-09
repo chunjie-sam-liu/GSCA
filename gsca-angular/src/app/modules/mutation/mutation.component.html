@@ -1,9 +1,9 @@
-<section fxLayout="column" fxFill>
-  <section fxFlex="none">
+<div fxLayout="column" fxFill>
+  <div fxFlex="none">
     <h1 class="page-header">Mutation</h1>
-  </section>
+  </div>
 
-  <section fxFlex fxLayout="column" fxLayoutGap="10px" class="not-float">
+  <div fxFlex fxLayout="column" fxLayoutGap="10px" class="not-float">
     <app-search-box ($searchSelected)="showContent($event)" [showList]="showList"></app-search-box>
 
     <ng-container *ngIf="showList.showContent && showList.showSnv; else empty">
@@ -29,7 +29,7 @@
         [searchTerm]="searchTerm"
       ></app-snv-survival>
     </ng-container>
-    
+
     <ng-container *ngIf="showList.showContent && showList.showMethylation; else empty">
       <app-methylation
         fxFlex="grow"
@@ -106,9 +106,9 @@
       <mat-progress-bar mode="query" color="warn"></mat-progress-bar>
     </ng-template>
     <ng-template #empty></ng-template>
-  </section>
+  </div>
 
-  <section fxFlex="none">
+  <div fxFlex="none">
     <app-footer></app-footer>
-  </section>
-</section>
+  </div>
+</div>
