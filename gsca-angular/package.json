@@ -7,7 +7,7 @@
     "build:dev": "ng build --prod --deploy-url /static/ --aot true --stats-json",
     "build:prod": "ng build --prod --base-href /GSCA/ --deploy-url /GSCA/static/ --aot true --stats-json",
     "compodoc": "npx compodoc -p tsconfig.json",
-    "stat": "npx webpack-bundle-analyzer ../static/stats-es2015.json",
+    "stat": "npx webpack-bundle-analyzer ../gsca/static/stats-es2015.json",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
