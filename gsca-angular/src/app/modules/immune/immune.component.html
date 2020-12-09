@@ -1,44 +1,44 @@
-<div fxLayout="column" fxFill>
-  <div fxFlex="none">
+<section fxLayout="column" fxFill>
+  <section fxFlex="none">
     <h1 class="page-header">Immune infiltrates</h1>
-  </div>
+  </section>
 
-  <div fxFlex fxLayout="column" fxLayoutGap="10px" class="not-float">
-    <div fxFlex="grow">
+  <section fxFlex fxLayout="column" fxLayoutGap="10px" class="not-float">
+    <section fxFlex="grow">
       <app-search-box ($searchSelected)="showContent($event)"></app-search-box>
-    </div>
+    </section>
 
-    <div fxFlex="grow" fxLayout="row">
+    <section fxFlex="grow" fxLayout="row">
       <ng-container *ngIf="showImmExpr; else empty">
         <app-immune-expr fxLayout="row" fxLayoutGap="10px" fxLayout.lt-lg="column" [searchTerm]="searchTerm"></app-immune-expr>
       </ng-container>
-    </div>
+    </section>
 
-    <div fxFlex="grow" fxLayout="row">
+    <section fxFlex="grow" fxLayout="row">
       <ng-container *ngIf="showImmSnv; else empty">
         <app-immune-snv fxLayout="row" fxLayoutGap="10px" fxLayout.lt-lg="column" [searchTerm]="searchTerm"></app-immune-snv>
       </ng-container>
-    </div>
+    </section>
 
-    <div fxFlex="grow" fxLayout="row">
+    <section fxFlex="grow" fxLayout="row">
       <ng-container *ngIf="showImmCnv; else empty">
         <app-immune-cnv fxLayout="row" fxLayoutGap="10px" fxLayout.lt-lg="column" [searchTerm]="searchTerm"></app-immune-cnv>
       </ng-container>
-    </div>
+    </section>
 
-    <div fxFlex="grow" fxLayout="row">
+    <section fxFlex="grow" fxLayout="row">
       <ng-container *ngIf="showImmMethy; else empty">
         <app-immune-methy fxLayout="row" fxLayoutGap="10px" fxLayout.lt-lg="column" [searchTerm]="searchTerm"></app-immune-methy>
       </ng-container>
-    </div>
+    </section>
 
     <ng-template #loading>
       <mat-progress-bar mode="query" color="warn"></mat-progress-bar>
     </ng-template>
     <ng-template #empty></ng-template>
-  </div>
+  </section>
 
-  <div fxFlex="none">
+  <section fxFlex="none">
     <app-footer></app-footer>
-  </div>
-</div>
+  </section>
+</section>

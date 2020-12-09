@@ -36,11 +36,11 @@
   
           <ng-container matColumnDef="expandedDetail">
             <td mat-cell *matCellDef="let element" [attr.colSpan]="displayedColumnsImmMethyCor.length">
-              <div class="example-element-detail" [@detailExpand]="triggerDetail(element)">
+              <section class="example-element-detail" [@detailExpand]="triggerDetail(element)">
                 <ng-container *ngIf="immMethyCorSingleGeneImageLoading || immMethyCorImageLoading; then loading"></ng-container>
                 <img [src]="immMethyCorSingleGeneImage" *ngIf="showImmMethyCorSingleGeneImage"/>
                 <img [src]="immMethyCorImage" *ngIf="showImmMethyCorImage" />
-              </div>
+              </section>
             </td>
           </ng-container>
           <tr mat-header-row *matHeaderRowDef="displayedColumnsImmMethyCor"></tr>

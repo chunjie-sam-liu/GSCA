@@ -1,68 +1,68 @@
-<div fxLayout="column" fxFill>
-  <div fxFlex="none">
+<section fxLayout="column" fxFill>
+  <section fxFlex="none">
     <h1 class="page-header">Mutation</h1>
-  </div>
+  </section>
 
-  <div fxFlex fxLayout="column" fxLayoutGap="10px" class="not-float">
-    <div fxFlex="grow">
+  <section fxFlex fxLayout="column" fxLayoutGap="10px" class="not-float">
+    <section fxFlex="grow">
       <app-search-box ($searchSelected)="showContent($event)"></app-search-box>
-    </div>
+    </section>
 
-    <div fxFlex="grow" fxLayout="row">
+    <section fxFlex="grow" fxLayout="row">
       <ng-container *ngIf="showSnv; else empty">
         <app-snv fxLayout="row" fxLayoutGap="10px" fxLayout.lt-lg="column" [searchTerm]="searchTerm"></app-snv>
       </ng-container>
-    </div>
+    </section>
 
-    <div fxFlex="grow" fxLayout="row">
+    <section fxFlex="grow" fxLayout="row">
       <ng-container *ngIf="showSnvSurvival; else empty">
         <app-snv-survival fxLayout="row" fxLayoutGap="10px" fxLayout.lt-lg="column" [searchTerm]="searchTerm"></app-snv-survival>
       </ng-container>
-    </div>
+    </section>
 
-    <div fxFlex="grow" fxLayout="row">
+    <section fxFlex="grow" fxLayout="row">
       <ng-container *ngIf="showMethylation; else empty">
         <app-methylation fxLayout="row" fxLayoutGap="10px" fxLayout.lt-lg="column" [searchTerm]="searchTerm"></app-methylation>
       </ng-container>
-    </div>
+    </section>
 
-    <div fxFlex="grow" fxLayout="row">
+    <section fxFlex="grow" fxLayout="row">
       <ng-container *ngIf="showMethylationSurvival; else empty">
         <app-methy-survival fxLayout="row" fxLayoutGap="10px" fxLayout.lt-lg="column" [searchTerm]="searchTerm"></app-methy-survival>
       </ng-container>
-    </div>
+    </section>
 
-    <div fxFlex="grow" fxLayout="row">
+    <section fxFlex="grow" fxLayout="row">
       <ng-container *ngIf="showMethylationCor; else empty">
         <app-methy-cor fxLayout="row" fxLayoutGap="10px" fxLayout.lt-lg="column" [searchTerm]="searchTerm"></app-methy-cor>
       </ng-container>
-    </div>
+    </section>
 
-    <div fxFlex="grow" fxLayout="row">
+    <section fxFlex="grow" fxLayout="row">
       <ng-container *ngIf="showCnv; else empty">
         <app-cnv fxLayout="row" fxLayoutGap="10px" fxLayout.lt-lg="column" [searchTerm]="searchTerm"></app-cnv>
       </ng-container>
-    </div>
+    </section>
 
-    <div fxFlex="grow" fxLayout="row">
+    <section fxFlex="grow" fxLayout="row">
       <ng-container *ngIf="showCnvSurvival; else empty">
         <app-cnv-survival fxLayout="row" fxLayoutGap="10px" fxLayout.lt-lg="column" [searchTerm]="searchTerm"></app-cnv-survival>
       </ng-container>
-    </div>
+    </section>
 
-    <div fxFlex="grow" fxLayout="row">
+    <section fxFlex="grow" fxLayout="row">
       <ng-container *ngIf="showCnvCor; else empty">
         <app-cnv-cor fxLayout="row" fxLayoutGap="10px" fxLayout.lt-lg="column" [searchTerm]="searchTerm"></app-cnv-cor>
       </ng-container>
-    </div>
+    </section>
 
     <ng-template #loading>
       <mat-progress-bar mode="query" color="warn"></mat-progress-bar>
     </ng-template>
     <ng-template #empty></ng-template>
-  </div>
+  </section>
 
-  <div fxFlex="none">
+  <section fxFlex="none">
     <app-footer></app-footer>
-  </div>
-</div>
+  </section>
+</section>

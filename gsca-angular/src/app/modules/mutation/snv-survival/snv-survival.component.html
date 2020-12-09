@@ -36,10 +36,10 @@
 
         <ng-container matColumnDef="expandedDetail">
           <td mat-cell *matCellDef="let element" [attr.colSpan]="displayedColumnsSnvSurvival.length">
-            <div class="example-element-detail" [@detailExpand]="triggerDetail(element)">
+            <section class="example-element-detail" [@detailExpand]="triggerDetail(element)">
               <ng-container *ngIf="snvSurvivalSingleGeneImageLoading; then loading"></ng-container>
               <img [src]="snvSurvivalSingleGeneImage" *ngIf="showSnvSurvivalSingleGeneImage" loading="lazy" />
-            </div>
+            </section>
           </td>
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumnsSnvSurvival"></tr>
@@ -105,10 +105,10 @@
 
         <ng-container matColumnDef="expandedDetailGeneset">
           <td mat-cell *matCellDef="let element" [attr.colSpan]="displayedColumnsSnvGenesetSurvival.length">
-            <div class="example-element-detail" [@detailExpand]="triggerDetailGeneset(element)">
+            <section class="example-element-detail" [@detailExpand]="triggerDetailGeneset(element)">
               <ng-container *ngIf="snvGenesetSurvivalSingleCancerImageLoading; then loading"></ng-container>
               <img [src]="snvGenesetSurvivalSingleCancerImage" *ngIf="showSnvGenesetSurvivalSingleCancerImage" loading="lazy" />
-            </div>
+            </section>
           </td>
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumnsSnvGenesetSurvival"></tr>

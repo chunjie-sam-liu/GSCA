@@ -1,6 +1,6 @@
 <mat-card appMaterialElevation defaultElevation="4" raisedElevation="4" fxLayout="column" fxLayoutGap="10px">
-  <div fxLayout="row" fxLayout.lt-lg="column" fxLayoutGap="10px" fxLayoutWrap fxLayoutAlign="center">
-    <div fxFlex>
+  <section fxLayout="row" fxLayout.lt-lg="column" fxLayoutGap="10px" fxLayoutWrap fxLayoutAlign="center">
+    <section fxFlex>
       <mat-form-field appearance="outline" class="search-box">
         <mat-label>Input your interested gene sets</mat-label>
         <input
@@ -17,8 +17,8 @@
           <mat-icon style="font-weight: bolder">close</mat-icon>
         </button>
       </mat-form-field>
-    </div>
-    <div fxFlex>
+    </section>
+    <section fxFlex>
       <mat-form-field appearance="outline" class="search-box">
         <mat-label>Select cancer types</mat-label>
         <mat-select [formControl]="cancerTypeSelected" multiple>
@@ -33,14 +33,14 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
-    </div>
-  </div>
-  <div fxFlex>
+    </section>
+  </section>
+  <section fxFlex>
     <mat-hint>
       <mat-chip-list>
         <mat-chip color="warn" selected (click)="submit(inputString)">Submit</mat-chip>
         <mat-chip color="primary" selected (click)="showExample()">Example</mat-chip>
       </mat-chip-list>
     </mat-hint>
-  </div>
+  </section>
 </mat-card>
