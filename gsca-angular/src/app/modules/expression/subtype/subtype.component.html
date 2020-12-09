@@ -31,7 +31,7 @@
         <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumnsSubtype.length">
           <section class="example-element-detail" [@detailExpand]="triggerDetail(element)">
             <ng-container *ngIf="subtypeSingleGeneImageLoading; then loading"> </ng-container>
-            <img [src]="subtypeSingleGeneImage" *ngIf="showSubtypeSingleGeneImage" loading="lazy" />
+            <a [href]="subtypeSingleGenePdfURL" target="_blank"><img [src]="subtypeSingleGeneImage" *ngIf="showSubtypeSingleGeneImage" loading="lazy" /></a>
           </section>
         </td>
       </ng-container>
@@ -54,7 +54,8 @@
       <mat-card-title>Gene expression correlates with subtypes in selected cancer types</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <img [src]="this.subtypeImage" alt="subtypeplot" *ngIf="!subtypeImageLoading; else loading" loading="lazy" />
+      <a [href]="subtypeImagePdfURL" target="_blank">
+      <img [src]="subtypeImage" alt="subtypeplot" *ngIf="!subtypeImageLoading; else loading" loading="lazy" /></a>
     </mat-card-content>
   </mat-card>
 </ng-container>

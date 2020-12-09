@@ -38,11 +38,13 @@ export class SubtypeComponent implements OnInit, OnChanges, AfterViewChecked {
   subtypeImageLoading = true;
   subtypeImage: any;
   showSubtypeImage = true;
-
+  subtypeImagePdfURL: string;
+  
   // single gene
   subtypeSingleGeneImage: any;
   subtypeSingleGeneImageLoading = true;
   showSubtypeSingleGeneImage = false;
+  subtypeSingleGenePdfURL: string;
 
   constructor(private expressionApiService: ExpressionApiService) {}
 
@@ -76,10 +78,20 @@ export class SubtypeComponent implements OnInit, OnChanges, AfterViewChecked {
         }
       );
       this.expressionApiService.getSubtypePlot(postTerm).subscribe(
-        (res) => {
-          this.showSubtypeImage = true;
-          this.subtypeImageLoading = false;
-          this._createImageFromBlob(res, 'subtypeImage');
+        (res) => {          
+          this.subtypeImagePdfURL = this.expressionApiService.getResourcePlotURL(res.subtypeplotuuid, 'pdf');
+          this.expressionApiService.getResourcePlotBlob(res.subtypeplotuuid, 'png').subscribe(
+            (r) => {
+              this.showSubtypeImage = true;
+              this.subtypeImageLoading = false;
+              this._createImageFromBlob(r, 'subtypeImage');
+            },
+            (e) => {
+              this.showSubtypeImage = false;
+              this.subtypeImageLoading = false;
+            }
+          );
+          
         },
         (err) => {
           this.showSubtypeImage = false;
@@ -151,9 +163,18 @@ export class SubtypeComponent implements OnInit, OnChanges, AfterViewChecked {
 
         this.expressionApiService.getSubtypeSingleGenePlot(postTerm).subscribe(
           (res) => {
-            this._createImageFromBlob(res, 'subtypeSingleGeneImage');
-            this.subtypeSingleGeneImageLoading = false;
-            this.showSubtypeSingleGeneImage = true;
+            this.subtypeSingleGenePdfURL = this.expressionApiService.getResourcePlotURL(res.subtypesinglegeneuuid, 'pdf');
+            this.expressionApiService.getResourcePlotBlob(res.subtypesinglegeneuuid, 'png').subscribe(
+              (r) => {
+                this._createImageFromBlob(r, 'subtypeSingleGeneImage');
+                this.subtypeSingleGeneImageLoading = false;
+                this.showSubtypeSingleGeneImage = true;
+              },
+              (e) => {
+                this.subtypeSingleGeneImageLoading = false;
+                this.showSubtypeSingleGeneImage = false;
+              }
+            );
           },
           (err) => {
             this.subtypeSingleGeneImageLoading = false;
