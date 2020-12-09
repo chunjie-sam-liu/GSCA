@@ -8,14 +8,18 @@ import { ExprSearch } from 'src/app/shared/model/exprsearch';
 })
 export class MutationComponent implements OnInit, AfterViewInit {
   searchTerm: ExprSearch;
-  showSnv = false;
-  showSnvSurvival = false;
-  showMethylation = false;
-  showMethylationSurvival = false;
-  showMethylationCor = false;
-  showCnv = false;
-  showCnvSurvival = false;
-  showCnvCor = false;
+  showList = {
+    showSnv: false,
+    showSnvSurvival: false,
+    showMethylation: false,
+    showMethylationSurvival: false,
+    showMethylationCor: false,
+    showCnv: false,
+    showCnvSurvival: false,
+    showCnvCor: false,
+    showContent: false,
+  }
+  
   constructor() {}
 
   ngOnInit(): void {}
@@ -23,13 +27,5 @@ export class MutationComponent implements OnInit, AfterViewInit {
 
   public showContent(exprSearch: ExprSearch): void {
     this.searchTerm = exprSearch;
-    this.showSnv = true;
-    this.showSnvSurvival = true;
-    this.showMethylation = true;
-    this.showMethylationSurvival = true;
-    this.showMethylationCor = true;
-    this.showCnv = true;
-    this.showCnvSurvival = true;
-    this.showCnvCor = true;
   }
 }

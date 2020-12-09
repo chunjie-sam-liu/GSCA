@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import symbolList from 'src/app/shared/constants/symbollist';
 const symbolListLower = symbolList.map((v) => v.toLowerCase().replace(/[^0-9a-z]+/g, ''));
@@ -19,6 +19,7 @@ export class SearchBoxComponent implements OnInit {
   cancerTypeSelected = new FormControl();
 
   @Output() $searchSelected = new EventEmitter<ExprSearch>();
+  @Input() showList: any;
 
   constructor() {}
 
@@ -27,6 +28,12 @@ export class SearchBoxComponent implements OnInit {
   public showExample(): void {
     this.inputString = this.exampleGeneList;
     this.cancerTypeSelected.patchValue(this.exampleCancerTypes);
+    
+    Object.keys(this.showList).map((v) => {
+      this.showList[v] = false;
+    });
+    this.showList.showSnv = true;
+    this.showList.showSnvSurvival = true;
   }
 
   public submit(str: string): void {
@@ -38,19 +45,28 @@ export class SearchBoxComponent implements OnInit {
     };
 
     if (!searchTerm.cancerTypeSelected || searchTerm.cancerTypeSelected.length < 1) {
-      window.alert('please select at least one cancer type');
+      window.alert('Please select at least one cancer type');
       return;
     }
     if (searchTerm.validSymbol.length < 1) {
-      window.alert('please input at least one gene symbol');
+      window.alert('Please input at least one gene symbol');
+      return;
+    }
+    if (Object.values(this.showList).indexOf(true) < 0) {
+      window.alert('Please select at least one section!');
       return;
     }
     this.$searchSelected.emit(searchTerm);
+    this.showList.showContent = true;
   }
 
   public clear(): void {
     this.inputString = '';
     this.cancerTypeSelected.patchValue([]);
+
+    Object.keys(this.showList).map((v) => {
+      this.showList[v] = false;
+    });
   }
 
   private _getSearchSymbol(str: string): string[] {
