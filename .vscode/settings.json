@@ -33,7 +33,8 @@
     "**/node_modules": true,
     "**/templates": true,
     "**/rda": true,
-    "**/.Rproj.user": true
+    "**/.Rproj.user": true,
+    "**/*rds.gz": true
   },
   "terminal.integrated.shellArgs.linux": ["-i", "-l"],
   "terminal.integrated.shell.linux": "bash",
