@@ -81,3 +81,10 @@ mat-card img {
   margin: 0px;
   padding: 0px;
 }
+
+a.download-button {
+  float: right;
+  top: 10px;
+  right: 10px;
+  z-index: 100;
+}
