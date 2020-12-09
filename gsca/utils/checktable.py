@@ -7,7 +7,7 @@ import subprocess
 
 class CheckTable:
     apppath = Path(app.root_path).parent  # notice apppath parent
-    rcommand = "/usr/bin/Rscript"
+    rcommand = "/usr/local/bin/Rscript"
     rscriptpath = apppath / "gsca-r-app"
     resource_tables = apppath / "gsca-r-plot/tables"
 
