@@ -54,7 +54,7 @@ export class ImmuneCnvComponent implements  OnInit, OnChanges, AfterViewInit {
   showImmCnvCorSingleGeneImage = false;
   immCnvCorSingleGenePdfURL: string;
 
-  constructor(private mutationApiService: ImmuneApiService) { }
+  constructor(private immuneApiService: ImmuneApiService) { }
 
   ngOnInit(): void {
   }
@@ -70,7 +70,7 @@ export class ImmuneCnvComponent implements  OnInit, OnChanges, AfterViewInit {
       this.showImmCnvCorTable = false;
     } else {
       this.showImmCnvCorTable = true;
-      this.mutationApiService.getImmCnvCorTable(postTerm).subscribe(
+      this.immuneApiService.getImmCnvCorTable(postTerm).subscribe(
         (res) => {
           this.dataSourceImmCnvCorLoading = false;
           this.dataSourceImmCnvCor = new MatTableDataSource(res);
@@ -145,10 +145,10 @@ export class ImmuneCnvComponent implements  OnInit, OnChanges, AfterViewInit {
           surType: [this.expandedElement.cell_type],
         };
 
-        this.mutationApiService.getImmCnvCorSingleGene(postTerm).subscribe(
+        this.immuneApiService.getImmCnvCorSingleGene(postTerm).subscribe(
           (res) => {
-            this.immCnvCorPdfURL = this.mutationApiService.getResourcePlotURL(res.immcnvcorsinglegeneuuid, 'pdf');
-            this.mutationApiService.getResourcePlotBlob(res.immcnvcorsinglegeneuuid, 'png').subscribe(
+            this.immCnvCorSingleGenePdfURL = this.immuneApiService.getResourcePlotURL(res.immcnvcorsinglegeneuuid, 'pdf');
+            this.immuneApiService.getResourcePlotBlob(res.immcnvcorsinglegeneuuid, 'png').subscribe(
               (r) => {
                 this._createImageFromBlob(r, 'immCnvCorSingleGeneImage');
                 this.immCnvCorSingleGeneImageLoading = false;
@@ -178,16 +178,16 @@ export class ImmuneCnvComponent implements  OnInit, OnChanges, AfterViewInit {
             collectionlist.immune_cor_cnv.collnames[collectionlist.immune_cor_cnv.cancertypes.indexOf(this.expandedElement.cancertype)],
           ]
         };
-        this.mutationApiService.getImmCnvCorPlot(postTerm).subscribe(
+        this.immuneApiService.getImmCnvCorPlot(postTerm).subscribe(
           (res) => {
-            this.immCnvCorPdfURL = this.mutationApiService.getResourcePlotURL(res.immcnvcorplotuuid, 'pdf');
-            this.mutationApiService.getResourcePlotBlob(res.immcnvcorplotuuid, 'png').subscribe(
+            this.immCnvCorPdfURL = this.immuneApiService.getResourcePlotURL(res.immcnvcorplotuuid, 'pdf');
+            this.immuneApiService.getResourcePlotBlob(res.immcnvcorplotuuid, 'png').subscribe(
               (r) => {
                 this.showImmCnvCorImage = true;
                 this.immCnvCorImageLoading = false;
                 this.immCnvCorSingleGeneImageLoading = false;
                 this.showImmCnvCorSingleGeneImage = false;
-                this._createImageFromBlob(res, 'immCnvCorImage');
+                this._createImageFromBlob(r, 'immCnvCorImage');
               },
               (e) => {
                 this.showImmCnvCorSingleGeneImage = false;
