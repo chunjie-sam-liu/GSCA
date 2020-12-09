@@ -43,20 +43,21 @@ class SurvivalPlot(Resource):
         res = checkplot.check_run()
         if res["run"]:
             checkplot.plot(filepath=res["filepath"])
-        return send_file(str(res["filepath"]), mimetype="image/png")
+        return {"survivalplotuuid": res["uuid"]}
 
 
 api.add_resource(SurvivalPlot, "/survivalplot")
 
 
-class SurvivalPlotSingleGene(Resource):
+class SurvivalSingleGenePlot(Resource):
     def post(self):
         args = request.get_json()
-        checkplot = CheckSurvivalPlot(args=args, purpose="survivalplotsinglegene", rplot="survivalplotsinglegene.R")
+        print(args)
+        checkplot = CheckSurvivalPlot(args=args, purpose="survivalsinglegene", rplot="survivalplotsinglegene.R")
         res = checkplot.check_run()
         if res["run"]:
             checkplot.plot(filepath=res["filepath"])
-        return send_file(str(res["filepath"]), mimetype="image/png")
+        return {"survivalsinglegeneuuid": res["uuid"]}
 
 
-api.add_resource(SurvivalPlotSingleGene, "/single/gene")
+api.add_resource(SurvivalSingleGenePlot, "/single/gene")
