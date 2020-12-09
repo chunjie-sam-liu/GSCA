@@ -46,11 +46,13 @@ export class ImmuneCnvComponent implements  OnInit, OnChanges, AfterViewInit {
   immCnvCorImageLoading = true;
   immCnvCorImage: any;
   showImmCnvCorImage = true;
+  immCnvCorPdfURL: string;
 
   // single gene cor
   immCnvCorSingleGeneImage: any;
   immCnvCorSingleGeneImageLoading = true;
   showImmCnvCorSingleGeneImage = false;
+  immCnvCorSingleGenePdfURL: string;
 
   constructor(private mutationApiService: ImmuneApiService) { }
 
@@ -145,11 +147,20 @@ export class ImmuneCnvComponent implements  OnInit, OnChanges, AfterViewInit {
 
         this.mutationApiService.getImmCnvCorSingleGene(postTerm).subscribe(
           (res) => {
-            this._createImageFromBlob(res, 'immCnvCorSingleGeneImage');
-            this.immCnvCorSingleGeneImageLoading = false;
-            this.showImmCnvCorSingleGeneImage = true;
-            this.showImmCnvCorImage = false;
-            this.immCnvCorImageLoading = false;
+            this.immCnvCorPdfURL = this.mutationApiService.getResourcePlotURL(res.immcnvcorsinglegeneuuid, 'pdf');
+            this.mutationApiService.getResourcePlotBlob(res.immcnvcorsinglegeneuuid, 'png').subscribe(
+              (r) => {
+                this._createImageFromBlob(r, 'immCnvCorSingleGeneImage');
+                this.immCnvCorSingleGeneImageLoading = false;
+                this.showImmCnvCorSingleGeneImage = true;
+                this.showImmCnvCorImage = false;
+                this.immCnvCorImageLoading = false;
+              },
+              (e) => {
+                this.showImmCnvCorSingleGeneImage = false;
+                this.showImmCnvCorImage = false;
+              }
+            );            
           },
           (err) => {
             this.immCnvCorSingleGeneImageLoading = false;
@@ -169,11 +180,22 @@ export class ImmuneCnvComponent implements  OnInit, OnChanges, AfterViewInit {
         };
         this.mutationApiService.getImmCnvCorPlot(postTerm).subscribe(
           (res) => {
-            this.showImmCnvCorImage = true;
-            this.immCnvCorImageLoading = false;
-            this.immCnvCorSingleGeneImageLoading = false;
-            this.showImmCnvCorSingleGeneImage = false;
-            this._createImageFromBlob(res, 'immCnvCorImage');
+            this.immCnvCorPdfURL = this.mutationApiService.getResourcePlotURL(res.immcnvcorplotuuid, 'pdf');
+            this.mutationApiService.getResourcePlotBlob(res.immcnvcorplotuuid, 'png').subscribe(
+              (r) => {
+                this.showImmCnvCorImage = true;
+                this.immCnvCorImageLoading = false;
+                this.immCnvCorSingleGeneImageLoading = false;
+                this.showImmCnvCorSingleGeneImage = false;
+                this._createImageFromBlob(res, 'immCnvCorImage');
+              },
+              (e) => {
+                this.showImmCnvCorSingleGeneImage = false;
+                this.showImmCnvCorImage = false;
+                this.immCnvCorImageLoading = false;
+                this.immCnvCorSingleGeneImageLoading = false;
+              }
+            );            
           },
           (err) => {
             this.immCnvCorImageLoading = false;
