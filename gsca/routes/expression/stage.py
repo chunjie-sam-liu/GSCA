@@ -47,7 +47,8 @@ class StagePlot(Resource):
 
         if res["run"]:
             checkplot.plot(filepath=res["filepath"])
-        return send_file(str(res["filepath"]), mimetype="image/png")
+        # return send_file(str(res["filepath"]), mimetype="image/png")
+        return {"stageplotuuid": res["uuid"]}
 
 
 api.add_resource(StagePlot, "/stageplot")
@@ -56,11 +57,12 @@ api.add_resource(StagePlot, "/stageplot")
 class StagePlotSingleGene(Resource):
     def post(self):
         args = request.get_json()
-        checkplot = CheckPlot(args=args, purpose="stageplotsinglegene", rplot="stageplot_singlegene.R")
+        checkplot = CheckPlot(args=args, purpose="stagesinglegene", rplot="stageplot_singlegene.R")
         res = checkplot.check_run()
         if res["run"]:
             checkplot.plot(filepath=res["filepath"])
-        return send_file(str(res["filepath"]), mimetype="image/png")
+        # return send_file(str(res["filepath"]), mimetype="image/png")
+        return {"stagesinglegeneuuid": res["uuid"]}
 
 
 api.add_resource(StagePlotSingleGene, "/single/gene")
