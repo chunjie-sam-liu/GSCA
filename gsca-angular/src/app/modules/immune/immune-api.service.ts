@@ -12,15 +12,21 @@ export class ImmuneApiService extends BaseHttpService {
   constructor(http: HttpClient) { 
     super(http);
   }
+  public getResourcePlotBlob(uuidname: string, plotType = 'png'): Observable<any> {
+    return this.getDataImage('resource/responseplot/' + uuidname + '.' + plotType);
+  }
+  public getResourcePlotURL(uuidname: string, plotType = 'pdf'): string {
+    return this.generateRoute('resource/responseplot/' + uuidname + '.' + plotType);
+  }
   // immune cnv
   public getImmCnvCorTable(postTerm: ExprSearch): Observable<any> {
     return this.postData('immune/immunecnv/immcnvcortable', postTerm);
   }
   public getImmCnvCorPlot(postTerm: ExprSearch): Observable<any> {
-    return this.postDataImage('immune/immunecnv/immcnvcorplot', postTerm);
+    return this.postData('immune/immunecnv/immcnvcorplot', postTerm);
   }
   public getImmCnvCorSingleGene(postTerm: ExprSearch): Observable<any> {
-    return this.postDataImage('immune/immunecnv/immcnvcorsinglegene', postTerm);
+    return this.postData('immune/immunecnv/immcnvcorsinglegene', postTerm);
   }
 
   // immune expression

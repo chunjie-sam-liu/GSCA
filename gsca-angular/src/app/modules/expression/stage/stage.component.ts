@@ -49,11 +49,13 @@ export class StageComponent implements OnInit, OnChanges, AfterViewChecked {
   stageImageLoading = true;
   stageImage: any;
   showStageImage = true;
+  stageImagePdfURL: string;
 
   // single gene
   stageSingleGeneImage: any;
   stageSingleGeneImageLoading = true;
   showStageSingleGeneImage = false;
+  stageSingleGenePdfURL: string;
 
   constructor(private expressionApiService: ExpressionApiService) {}
 
@@ -88,9 +90,17 @@ export class StageComponent implements OnInit, OnChanges, AfterViewChecked {
       );
       this.expressionApiService.getStagePlot(postTerm).subscribe(
         (res) => {
-          this.showStageImage = true;
-          this.stageImageLoading = false;
-          this._createImageFromBlob(res, 'stageImage');
+          this.stageImagePdfURL = this.expressionApiService.getResourcePlotURL(res.stageplotuuid,'pdf');
+          this.expressionApiService.getResourcePlotBlob(res.stageplotuuid,'png').subscribe(
+            (r) => {
+              this.showStageImage = true;
+              this.stageImageLoading = false;
+              this._createImageFromBlob(r, 'stageImage');
+            },
+            (e)=>{
+              this.showStageImage = false;
+            }
+          );
         },
         (err) => {
           this.showStageImage = false;
@@ -160,9 +170,18 @@ export class StageComponent implements OnInit, OnChanges, AfterViewChecked {
 
         this.expressionApiService.getStageSingleGenePlot(postTerm).subscribe(
           (res) => {
-            this._createImageFromBlob(res, 'stageSingleGeneImage');
-            this.stageSingleGeneImageLoading = false;
-            this.showStageSingleGeneImage = true;
+            this.stageSingleGenePdfURL = this.expressionApiService.getResourcePlotURL(res.stagesinglegeneuuid,'pdf');
+            this.expressionApiService.getResourcePlotBlob(res.stagesinglegeneuuid, 'png').subscribe(
+              (r) => {
+                this._createImageFromBlob(r, 'stageSingleGeneImage');
+                this.stageSingleGeneImageLoading = false;
+                this.showStageSingleGeneImage = true;
+              },
+              (e) => {
+                this.stageSingleGeneImageLoading = false;
+                this.showStageSingleGeneImage = false;
+              }
+            );
           },
           (err) => {
             this.stageSingleGeneImageLoading = false;

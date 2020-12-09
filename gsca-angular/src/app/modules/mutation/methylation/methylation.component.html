@@ -32,11 +32,11 @@
 
         <ng-container matColumnDef="expandedDetail">
           <td mat-cell *matCellDef="let element" [attr.colSpan]="displayedColumnsMethy.length">
-            <div class="example-element-detail" [@detailExpand]="triggerDetail(element)">
+            <section class="example-element-detail" [@detailExpand]="triggerDetail(element)">
               <ng-container *ngIf="methySingleGeneImageLoading || methySingleCancerImageLoading; then loading"></ng-container>
               <img [src]="methySingleGeneImage" *ngIf="showMethySingleGeneImage" loading="lazy" />
               <img [src]="methySingleCancerImage" *ngIf="showMethySingleCancerImage" loading="lazy" />
-            </div>
+            </section>
           </td>
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumnsMethy"></tr>

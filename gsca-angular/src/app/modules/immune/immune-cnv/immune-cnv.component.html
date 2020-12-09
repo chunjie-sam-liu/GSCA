@@ -36,11 +36,13 @@
   
           <ng-container matColumnDef="expandedDetail">
             <td mat-cell *matCellDef="let element" [attr.colSpan]="displayedColumnsImmCnvCor.length">
-              <div class="example-element-detail" [@detailExpand]="triggerDetail(element)">
+              <section class="example-element-detail" [@detailExpand]="triggerDetail(element)">
                 <ng-container *ngIf="immCnvCorSingleGeneImageLoading || immCnvCorImageLoading; then loading"></ng-container>
-                <img [src]="immCnvCorSingleGeneImage" *ngIf="showImmCnvCorSingleGeneImage"/>
-                <img [src]="immCnvCorImage" *ngIf="showImmCnvCorImage" />
-              </div>
+                <a [href]="immCnvCorSingleGenePdfURL" target="_blank">
+                <img [src]="immCnvCorSingleGeneImage" *ngIf="showImmCnvCorSingleGeneImage"/></a>
+                <a [href]="immCnvCorPdfURL" target="_blank">
+                <img [src]="immCnvCorImage" *ngIf="showImmCnvCorImage" /></a>
+              </section>
             </td>
           </ng-container>
           <tr mat-header-row *matHeaderRowDef="displayedColumnsImmCnvCor"></tr>

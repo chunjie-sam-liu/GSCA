@@ -16,3 +16,6 @@ mat-hint {
 mat-card {
   padding-bottom: 25px;
 }
+mat-checkbox {
+  margin: 0 10px;
+}

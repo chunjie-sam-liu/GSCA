@@ -41,7 +41,7 @@ class SubtypePlot(Resource):
 
         if res["run"]:
             checkplot.plot(filepath=res["filepath"])
-        return send_file(str(res["filepath"]), mimetype="image/png")
+        return {"subtypeplotuuid": res["uuid"]}
 
 
 api.add_resource(SubtypePlot, "/subtypeplot")
@@ -54,7 +54,7 @@ class SubtypePlotSingleGene(Resource):
         res = checkplot.check_run()
         if res["run"]:
             checkplot.plot(filepath=res["filepath"])
-        return send_file(str(res["filepath"]), mimetype="image/png")
+        return {"subtypesinglegeneuuid": res["uuid"]}
 
 
 api.add_resource(SubtypePlotSingleGene, "/single/gene")

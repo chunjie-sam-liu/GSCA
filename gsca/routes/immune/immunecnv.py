@@ -47,7 +47,7 @@ class ImmCnvCorPlot(Resource):
 
         if res["run"]:
             checkplot.plot(filepath=res["filepath"])
-        return send_file(str(res["filepath"]), mimetype="image/png")
+        return {"immcnvcorplotuuid": res["uuid"]}
 
 
 api.add_resource(ImmCnvCorPlot, "/immcnvcorplot")
@@ -61,7 +61,7 @@ class ImmCnvCorSingleGene(Resource):
 
         if res["run"]:
             checkplot.plot(filepath=res["filepath"])
-        return send_file(str(res["filepath"]), mimetype="image/png")
+        return {"immcnvcorsinglegeneuuid": res["uuid"]}
 
 
 api.add_resource(ImmCnvCorSingleGene, "/immcnvcorsinglegene")

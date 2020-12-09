@@ -40,27 +40,27 @@ export class ExpressionApiService extends BaseHttpService {
     return this.postData('expression/survival/survivaltable', postTerm);
   }
   public getSurvivalPlot(postTerm: ExprSearch): Observable<any> {
-    return this.postDataImage('expression/survival/survivalplot', postTerm);
+    return this.postData('expression/survival/survivalplot', postTerm);
   }
   public getSurvivalSingleGenePlot(postTerm: ExprSearch): Observable<any> {
-    return this.postDataImage('expression/survival/single/gene', postTerm);
+    return this.postData('expression/survival/single/gene', postTerm);
   }
   public getSubtypeTable(postTerm: ExprSearch): Observable<any> {
     return this.postData('expression/subtype/subtypetable', postTerm);
   }
   public getSubtypePlot(postTerm: ExprSearch): Observable<any> {
-    return this.postDataImage('expression/subtype/subtypeplot', postTerm);
+    return this.postData('expression/subtype/subtypeplot', postTerm);
   }
   public getSubtypeSingleGenePlot(postTerm: ExprSearch): Observable<any> {
-    return this.postDataImage('expression/subtype/single/gene', postTerm);
+    return this.postData('expression/subtype/single/gene', postTerm);
   }
   public getStageTable(postTerm: ExprSearch): Observable<any> {
     return this.postData('expression/stage/stagetable', postTerm);
   }
   public getStagePlot(postTerm: ExprSearch): Observable<any> {
-    return this.postDataImage('expression/stage/stageplot', postTerm);
+    return this.postData('expression/stage/stageplot', postTerm);
   }
   public getStageSingleGenePlot(postTerm: ExprSearch): Observable<any> {
-    return this.postDataImage('expression/stage/single/gene', postTerm);
+    return this.postData('expression/stage/single/gene', postTerm);
   }
 }

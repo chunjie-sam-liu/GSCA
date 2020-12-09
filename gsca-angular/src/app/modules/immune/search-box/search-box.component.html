@@ -35,6 +35,14 @@
       </mat-form-field>
     </div>
   </div>
+
+  <div fxFlex>
+    <mat-checkbox [(ngModel)]="showList.showImmExpr">mRNA expression</mat-checkbox>
+    <mat-checkbox [(ngModel)]="showList.showImmSnv">SNV</mat-checkbox>
+    <mat-checkbox [(ngModel)]="showList.showImmCnv">CNV</mat-checkbox>
+    <mat-checkbox [(ngModel)]="showList.showImmMethy">Methylation</mat-checkbox>
+  </div>
+
   <div fxFlex>
     <mat-hint>
       <mat-chip-list>

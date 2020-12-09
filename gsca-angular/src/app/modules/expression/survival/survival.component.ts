@@ -38,11 +38,13 @@ export class SurvivalComponent implements OnInit, OnChanges, AfterViewInit {
   survivalImageLoading = true;
   survivalImage: any;
   showSuvivalImage = true;
+  survivalImagePdfURL: string;
 
   // single gene
   survivalSingleGeneImage: any;
   survivalSingleGeneImageLoading = true;
   showSurvivalSingleGeneImage = false;
+  survivalSingleGenePdfURL: string;
 
   constructor(private expressionApiService: ExpressionApiService) {}
 
@@ -78,9 +80,18 @@ export class SurvivalComponent implements OnInit, OnChanges, AfterViewInit {
 
       this.expressionApiService.getSurvivalPlot(postTerm).subscribe(
         (res) => {
-          this.showSuvivalImage = true;
-          this.survivalImageLoading = false;
-          this._createImageFromBlob(res, 'survivalImage');
+          this.survivalImagePdfURL = this.expressionApiService.getResourcePlotURL(res.survivalplotuuid, 'pdf');
+          this.expressionApiService.getResourcePlotBlob(res.survivalplotuuid, 'png').subscribe(
+            (r) => {
+              this.showSuvivalImage = true;
+              this.survivalImageLoading = false;
+              this._createImageFromBlob(r, 'survivalImage');
+            },
+            (e) => {
+              this.showSuvivalImage = false;
+              this.survivalImageLoading = false;
+            }
+          );
         },
         (err) => {
           this.survivalImageLoading = false;
@@ -153,9 +164,18 @@ export class SurvivalComponent implements OnInit, OnChanges, AfterViewInit {
 
         this.expressionApiService.getSurvivalSingleGenePlot(postTerm).subscribe(
           (res) => {
-            this._createImageFromBlob(res, 'survivalSingleGeneImage');
-            this.survivalSingleGeneImageLoading = false;
-            this.showSurvivalSingleGeneImage = true;
+            this.survivalSingleGenePdfURL = this.expressionApiService.getResourcePlotURL(res.survivalsinglegeneuuid, 'pdf');
+            this.expressionApiService.getResourcePlotBlob(res.survivalsinglegeneuuid, 'png').subscribe(
+              (r) => {
+                this._createImageFromBlob(r, 'survivalSingleGeneImage');
+                this.survivalSingleGeneImageLoading = false;
+                this.showSurvivalSingleGeneImage = true;
+              },
+              (e) => {
+                this.survivalSingleGeneImageLoading = false;
+                this.showSurvivalSingleGeneImage = false;
+              }
+            );
           },
           (err) => {
             this.survivalSingleGeneImageLoading = false;

@@ -8,10 +8,13 @@ import { ExprSearch } from 'src/app/shared/model/exprsearch';
 })
 export class ImmuneComponent implements OnInit, AfterViewInit {
   searchTerm: ExprSearch;
-  showImmExpr = false;
-  showImmSnv = false;
-  showImmCnv = false;
-  showImmMethy = false;
+  showList = {
+    showImmExpr : false,
+    showImmSnv : false,
+    showImmCnv : false,
+    showImmMethy : false,
+    showContent: false,
+  }
   constructor() { }
 
   ngOnInit(): void {}
@@ -19,9 +22,5 @@ export class ImmuneComponent implements OnInit, AfterViewInit {
   
   public showContent(exprSearch: ExprSearch): void {
     this.searchTerm = exprSearch;
-    this.showImmExpr = true;
-    this.showImmSnv = true;
-    this.showImmCnv = true;
-    this.showImmMethy = true;
   }
 }

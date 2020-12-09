@@ -37,7 +37,8 @@
         <td mat-cell *matCellDef="let element" [attr.colSpan]="displayedColumnsSurvival.length">
           <section class="example-element-detail" [@detailExpand]="triggerDetail(element)">
             <ng-container *ngIf="survivalSingleGeneImageLoading; then loading"></ng-container>
-            <img [src]="survivalSingleGeneImage" *ngIf="showSurvivalSingleGeneImage" loading="lazy" />
+            <a [href]="survivalSingleGenePdfURL" target="_blank">
+            <img [src]="survivalSingleGeneImage" *ngIf="showSurvivalSingleGeneImage" loading="lazy" /></a>
           </section>
         </td>
       </ng-container>
@@ -60,7 +61,8 @@
       <mat-card-title>Survival between high and low gene expression in selected cancer types</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <img [src]="this.survivalImage" alt="survivalplot" *ngIf="!survivalImageLoading; else loading" loading="lazy" />
+      <a [href]="survivalImagePdfURL" target="_blank">
+      <img [src]="survivalImage" alt="survivalplot" *ngIf="!survivalImageLoading; else loading" loading="lazy" /></a>
     </mat-card-content>
   </mat-card>
 </ng-container>
