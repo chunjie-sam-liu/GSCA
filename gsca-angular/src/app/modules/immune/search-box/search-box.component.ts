@@ -28,11 +28,11 @@ export class SearchBoxComponent implements OnInit {
   public showExample(): void {
     this.inputString = this.exampleGeneList;
     this.cancerTypeSelected.patchValue(this.exampleCancerTypes);
-    this.showList.showImmExpr= true;
-    this.showList.showImmSnv= true;
-    this.showList.showImmCnv= false;
-    this.showList.showImmMethy= false;
-    this.showList.showContent= false;
+    this.showList.showImmExpr = true;
+    this.showList.showImmSnv = true;
+    this.showList.showImmCnv = false;
+    this.showList.showImmMethy = false;
+    this.showList.showContent = false;
   }
 
   public submit(str: string): void {

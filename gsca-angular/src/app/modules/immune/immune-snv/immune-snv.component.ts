@@ -23,21 +23,14 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 export class ImmuneSnvComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() searchTerm: ExprSearch;
 
-  
   // immSnv cor table data source
   dataSourceImmSnvCorLoading = true;
   dataSourceImmSnvCor: MatTableDataSource<ImmCorTableRecord>;
   showImmSnvCorTable = true;
   @ViewChild('paginatorImmSnvCor') paginatorImmSnvCor: MatPaginator;
   @ViewChild(MatSort) sortImmSnvCor: MatSort;
-  displayedColumnsImmSnvCor = ['cancertype', 'symbol', 'cell_type','logfc', 'fdr'];
-  displayedColumnsImmSnvCorHeader = [
-    'Cancer type',
-    'Gene symbol',
-    'Cell type',
-    'Log2(FC)',
-    'FDR',
-  ];
+  displayedColumnsImmSnvCor = ['cancertype', 'symbol', 'cell_type', 'logfc', 'fdr'];
+  displayedColumnsImmSnvCorHeader = ['Cancer type', 'Gene symbol', 'Cell type', 'Log2(FC)', 'FDR'];
   expandedElement: ImmCorTableRecord;
   expandedColumn: string;
 
@@ -50,10 +43,9 @@ export class ImmuneSnvComponent implements OnInit, OnChanges, AfterViewInit {
   immSnvCorSingleGeneImage: any;
   immSnvCorSingleGeneImageLoading = true;
   showImmSnvCorSingleGeneImage = false;
-  constructor(private mutationApiService: ImmuneApiService) { }
+  constructor(private mutationApiService: ImmuneApiService) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
   ngOnChanges(changes: SimpleChanges): void {
     // Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
     // Add '${implements OnChanges}' to the class.
@@ -163,7 +155,7 @@ export class ImmuneSnvComponent implements OnInit, OnChanges, AfterViewInit {
           cancerTypeSelected: [this.expandedElement.cancertype],
           validColl: [
             collectionlist.immune_cor_snv.collnames[collectionlist.immune_cor_snv.cancertypes.indexOf(this.expandedElement.cancertype)],
-          ]
+          ],
         };
         this.mutationApiService.getImmSnvCorPlot(postTerm).subscribe(
           (res) => {
@@ -179,7 +171,7 @@ export class ImmuneSnvComponent implements OnInit, OnChanges, AfterViewInit {
             this.immSnvCorSingleGeneImageLoading = false;
             this.showImmSnvCorSingleGeneImage = false;
           }
-        );        
+        );
       }
     } else {
       this.immSnvCorSingleGeneImageLoading = false;

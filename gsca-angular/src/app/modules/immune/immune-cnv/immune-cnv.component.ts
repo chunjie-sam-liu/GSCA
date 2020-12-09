@@ -8,7 +8,6 @@ import collectionlist from 'src/app/shared/constants/collectionlist';
 import { ImmuneApiService } from '../immune-api.service';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 
-
 @Component({
   selector: 'app-immune-cnv',
   templateUrl: './immune-cnv.component.html',
@@ -21,24 +20,17 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
     ]),
   ],
 })
-export class ImmuneCnvComponent implements  OnInit, OnChanges, AfterViewInit {
+export class ImmuneCnvComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() searchTerm: ExprSearch;
 
-  
   // immCnv cor table data source
   dataSourceImmCnvCorLoading = true;
   dataSourceImmCnvCor: MatTableDataSource<ImmCorTableRecord>;
   showImmCnvCorTable = true;
   @ViewChild('paginatorImmCnvCor') paginatorImmCnvCor: MatPaginator;
   @ViewChild(MatSort) sortImmCnvCor: MatSort;
-  displayedColumnsImmCnvCor = ['cancertype', 'symbol','cell_type', 'cor', 'fdr'];
-  displayedColumnsImmCnvCorHeader = [
-    'Cancer type',
-    'Gene symbol',
-    "Cell type",
-    'Correlation',
-    'FDR',
-  ];
+  displayedColumnsImmCnvCor = ['cancertype', 'symbol', 'cell_type', 'cor', 'fdr'];
+  displayedColumnsImmCnvCorHeader = ['Cancer type', 'Gene symbol', 'Cell type', 'Correlation', 'FDR'];
   expandedElement: ImmCorTableRecord;
   expandedColumn: string;
 
@@ -54,10 +46,9 @@ export class ImmuneCnvComponent implements  OnInit, OnChanges, AfterViewInit {
   showImmCnvCorSingleGeneImage = false;
   immCnvCorSingleGenePdfURL: string;
 
-  constructor(private immuneApiService: ImmuneApiService) { }
+  constructor(private immuneApiService: ImmuneApiService) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
   ngOnChanges(changes: SimpleChanges): void {
     // Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
     // Add '${implements OnChanges}' to the class.
@@ -160,7 +151,7 @@ export class ImmuneCnvComponent implements  OnInit, OnChanges, AfterViewInit {
                 this.showImmCnvCorSingleGeneImage = false;
                 this.showImmCnvCorImage = false;
               }
-            );            
+            );
           },
           (err) => {
             this.immCnvCorSingleGeneImageLoading = false;
@@ -172,11 +163,11 @@ export class ImmuneCnvComponent implements  OnInit, OnChanges, AfterViewInit {
       }
       if (this.expandedColumn === 'cancertype') {
         const postTerm = {
-          validSymbol: this.searchTerm.validSymbol,               
+          validSymbol: this.searchTerm.validSymbol,
           cancerTypeSelected: [this.expandedElement.cancertype],
           validColl: [
             collectionlist.immune_cor_cnv.collnames[collectionlist.immune_cor_cnv.cancertypes.indexOf(this.expandedElement.cancertype)],
-          ]
+          ],
         };
         this.immuneApiService.getImmCnvCorPlot(postTerm).subscribe(
           (res) => {
@@ -195,7 +186,7 @@ export class ImmuneCnvComponent implements  OnInit, OnChanges, AfterViewInit {
                 this.immCnvCorImageLoading = false;
                 this.immCnvCorSingleGeneImageLoading = false;
               }
-            );            
+            );
           },
           (err) => {
             this.immCnvCorImageLoading = false;
@@ -203,7 +194,7 @@ export class ImmuneCnvComponent implements  OnInit, OnChanges, AfterViewInit {
             this.immCnvCorSingleGeneImageLoading = false;
             this.showImmCnvCorSingleGeneImage = false;
           }
-        );        
+        );
       }
     } else {
       this.immCnvCorSingleGeneImageLoading = false;

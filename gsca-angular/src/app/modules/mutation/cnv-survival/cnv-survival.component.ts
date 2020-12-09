@@ -10,7 +10,6 @@ import { MutationApiService } from '../mutation-api.service';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { timeout } from 'rxjs/operators';
 
-
 @Component({
   selector: 'app-cnv-survival',
   templateUrl: './cnv-survival.component.html',
@@ -23,7 +22,6 @@ import { timeout } from 'rxjs/operators';
     ]),
   ],
 })
-
 export class CnvSurvivalComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() searchTerm: ExprSearch;
 
@@ -34,12 +32,7 @@ export class CnvSurvivalComponent implements OnInit, OnChanges, AfterViewInit {
   @ViewChild('paginatorCnvSurvival') paginatorCnvSurvival: MatPaginator;
   @ViewChild(MatSort) sortCnvSurvival: MatSort;
   displayedColumnsCnvSurvival = ['cancertype', 'symbol', 'sur_type', 'log_rank_p'];
-  displayedColumnsCnvSurvivalHeader = [
-    'Cancer type',
-    'Gene symbol',
-    'Survival type',
-    'Log rank P value'
-  ];
+  displayedColumnsCnvSurvivalHeader = ['Cancer type', 'Gene symbol', 'Survival type', 'Log rank P value'];
   expandedElement: CnvSurvivalTableRecord;
   expandedColumn: string;
 
@@ -65,11 +58,7 @@ export class CnvSurvivalComponent implements OnInit, OnChanges, AfterViewInit {
   @ViewChild('paginatorCnvGenesetSurvival') paginatorCnvGenesetSurvival: MatPaginator;
   @ViewChild(MatSort) sortCnvGenesetSurvival: MatSort;
   displayedColumnsCnvGenesetSurvival = ['cancertype', 'sur_type', 'logrankp'];
-  displayedColumnsCnvGenesetSurvivalHeader = [
-    'Cancer type',
-    'Survival type',
-    'Log rank P value',
-  ];
+  displayedColumnsCnvGenesetSurvivalHeader = ['Cancer type', 'Survival type', 'Log rank P value'];
   expandedElementGeneset: CnvGenesetSurvivalTableRecord;
   expandedColumnGeneset: string;
 
@@ -78,10 +67,9 @@ export class CnvSurvivalComponent implements OnInit, OnChanges, AfterViewInit {
   cnvGenesetSurvivalSingleCancerImageLoading = true;
   showCnvGenesetSurvivalSingleCancerImage = false;
 
-  constructor(private mutationApiService: MutationApiService) { }
+  constructor(private mutationApiService: MutationApiService) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   ngOnChanges(changes: SimpleChanges): void {
     // Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
@@ -138,9 +126,11 @@ export class CnvSurvivalComponent implements OnInit, OnChanges, AfterViewInit {
           this.showCnvGenesetSurvivalImage = false;
         }
       );
-      
 
-      this.mutationApiService.getCnvGenesetSurvivalTable(postTerm).pipe(timeout(3000)).subscribe(
+      this.mutationApiService
+        .getCnvGenesetSurvivalTable(postTerm)
+        .pipe(timeout(3000))
+        .subscribe(
           (res) => {
             this.cnvGenesetSurvivalTableLoading = false;
             this.cnvGenesetSurvivalTable = new MatTableDataSource(res);

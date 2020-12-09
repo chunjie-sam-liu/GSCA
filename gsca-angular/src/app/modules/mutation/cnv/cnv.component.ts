@@ -8,7 +8,6 @@ import collectionlist from 'src/app/shared/constants/collectionlist';
 import { MutationApiService } from '../mutation-api.service';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 
-
 @Component({
   selector: 'app-cnv',
   templateUrl: './cnv.component.html',
@@ -21,7 +20,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
     ]),
   ],
 })
-export class CnvComponent implements OnInit {
+export class CnvComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() searchTerm: ExprSearch;
 
   // cnv table data source
@@ -39,7 +38,7 @@ export class CnvComponent implements OnInit {
     'Heterozygous amplification(%)',
     'Heterozygous deletion(%)',
     'Homozygous amplification(%)',
-    'Homozygous deletion(%)',    
+    'Homozygous deletion(%)',
   ];
   expandedElement: CnvTableRecord;
   expandedColumn: string;
@@ -53,21 +52,20 @@ export class CnvComponent implements OnInit {
   cnvHetePointImageLoading = true;
   cnvHetePointImage: any;
   showCnvHetePointImage = true;
-  
+
   // cnv homo point plot
   cnvHomoPointImageLoading = true;
   cnvHomoPointImage: any;
   showCnvHomoPointImage = true;
 
-  // single gene cnv imgae 
+  // single gene cnv imgae
   cnvSingleGeneImage: any;
   showCnvSingleGeneImage = true;
   cnvSingleGeneImageLoading = true;
 
-  constructor(private mutationApiService: MutationApiService) { }
+  constructor(private mutationApiService: MutationApiService) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   ngOnChanges(changes: SimpleChanges): void {
     // Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
@@ -199,7 +197,9 @@ export class CnvComponent implements OnInit {
         const postTerm = {
           validSymbol: [this.expandedElement.symbol],
           cancerTypeSelected: [this.expandedElement.cancertype],
-          validColl: [collectionlist.cnv_threshold.collnames[collectionlist.cnv_threshold.cancertypes.indexOf(this.expandedElement.cancertype)]],
+          validColl: [
+            collectionlist.cnv_threshold.collnames[collectionlist.cnv_threshold.cancertypes.indexOf(this.expandedElement.cancertype)],
+          ],
         };
 
         this.mutationApiService.getCnvSingleGene(postTerm).subscribe(
@@ -223,5 +223,4 @@ export class CnvComponent implements OnInit {
   public triggerDetail(element: CnvTableRecord): string {
     return element === this.expandedElement ? 'expanded' : 'collapsed';
   }
-
 }

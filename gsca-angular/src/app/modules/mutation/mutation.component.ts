@@ -18,8 +18,8 @@ export class MutationComponent implements OnInit, AfterViewInit {
     showCnvSurvival: false,
     showCnvCor: false,
     showContent: false,
-  }
-  
+  };
+
   constructor() {}
 
   ngOnInit(): void {}

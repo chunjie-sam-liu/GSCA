@@ -8,7 +8,6 @@ import collectionlist from 'src/app/shared/constants/collectionlist';
 import { ImmuneApiService } from '../immune-api.service';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 
-
 @Component({
   selector: 'app-immune-methy',
   templateUrl: './immune-methy.component.html',
@@ -21,7 +20,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
     ]),
   ],
 })
-export class ImmuneMethyComponent implements  OnInit, OnChanges, AfterViewInit {
+export class ImmuneMethyComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() searchTerm: ExprSearch;
 
   // immMethy cor table data source
@@ -31,13 +30,7 @@ export class ImmuneMethyComponent implements  OnInit, OnChanges, AfterViewInit {
   @ViewChild('paginatorImmMethyCor') paginatorImmMethyCor: MatPaginator;
   @ViewChild(MatSort) sortImmMethyCor: MatSort;
   displayedColumnsImmMethyCor = ['cancertype', 'symbol', 'cell_type', 'cor', 'fdr'];
-  displayedColumnsImmMethyCorHeader = [
-    'Cancer type',
-    'Gene symbol',
-    "Cell type",
-    'Correlation',
-    'FDR',
-  ];
+  displayedColumnsImmMethyCorHeader = ['Cancer type', 'Gene symbol', 'Cell type', 'Correlation', 'FDR'];
   expandedElement: ImmCorTableRecord;
   expandedColumn: string;
 
@@ -51,10 +44,9 @@ export class ImmuneMethyComponent implements  OnInit, OnChanges, AfterViewInit {
   immMethyCorSingleGeneImageLoading = true;
   showImmMethyCorSingleGeneImage = false;
 
-  constructor(private mutationApiService: ImmuneApiService) { }
+  constructor(private mutationApiService: ImmuneApiService) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   ngOnChanges(changes: SimpleChanges): void {
     // Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
@@ -165,7 +157,7 @@ export class ImmuneMethyComponent implements  OnInit, OnChanges, AfterViewInit {
           cancerTypeSelected: [this.expandedElement.cancertype],
           validColl: [
             collectionlist.immune_cor_methy.collnames[collectionlist.immune_cor_methy.cancertypes.indexOf(this.expandedElement.cancertype)],
-          ]
+          ],
         };
         this.mutationApiService.getImmMethyCorPlot(postTerm).subscribe(
           (res) => {
@@ -181,7 +173,7 @@ export class ImmuneMethyComponent implements  OnInit, OnChanges, AfterViewInit {
             this.immMethyCorSingleGeneImageLoading = false;
             this.showImmMethyCorSingleGeneImage = false;
           }
-        );        
+        );
       }
     } else {
       this.immMethyCorSingleGeneImageLoading = false;
