@@ -26,6 +26,8 @@ search_cancertypes <- list(strsplit(x = search_str_split[[2]], split = '#')[[1]]
 
 
 # fetch data --------------------------------------------------------------
+
+source(file.path(apppath, "gsca-r-app/utils/fn_fetch_mongo_data.R"))
 fields <- '{"_id": false}'
 fetched_snv_maf <- purrr::map(.x = paste(search_cancertypes,"_snv_maf",sep=""), .f = fn_fetch_mongo, pattern="_snv_maf",fields = fields,.key=search_genes,.keyindex="symbol") %>%
   dplyr::bind_rows()%>%
