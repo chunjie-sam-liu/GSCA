@@ -130,12 +130,19 @@ export class CnvSurvivalComponent implements OnInit, OnChanges, AfterViewInit {
 
       this.mutationApiService.getCnvGenesetSurvivalPlot(postTerm).subscribe(
         (res) => {
-          this.showCnvGenesetSurvivalImage = true;
-          this.cnvGenesetSurvivalImageLoading = false;
-          this._createImageFromBlob(res, 'cnvGenesetSurvivalImage');
+          this.cnvGenesetSurvivalPdfURL = this.mutationApiService.getResourcePlotURL(res.cnvsurvivalgenesetuuid, 'pdf');
+          this.mutationApiService.getResourcePlotBlob(res.cnvsurvivalgenesetuuid, 'png').subscribe(
+            (r) => {
+              this.showCnvGenesetSurvivalImage = true;
+              this.cnvGenesetSurvivalImageLoading = false;
+              this._createImageFromBlob(r, 'cnvGenesetSurvivalImage');
+            },
+            (e) => {
+              this.showCnvGenesetSurvivalImage = false;
+            }
+          );
         },
         (err) => {
-          this.cnvGenesetSurvivalImageLoading = false;
           this.showCnvGenesetSurvivalImage = false;
         }
       );
@@ -223,18 +230,24 @@ export class CnvSurvivalComponent implements OnInit, OnChanges, AfterViewInit {
 
         this.mutationApiService.getCnvSurvivalSingleGene(postTerm).subscribe(
           (res) => {
-            this._createImageFromBlob(res, 'cnvSurvivalSingleGeneImage');
-            this.cnvSurvivalSingleGeneImageLoading = false;
-            this.showCnvSurvivalSingleGeneImage = true;
+            this.cnvSurvivalSingleGenePdfURL = this.mutationApiService.getResourcePlotURL(res.cnvsurvivalsinglegeneuuid, 'pdf');
+            this.mutationApiService.getResourcePlotBlob(res.cnvsurvivalsinglegeneuuid, 'png').subscribe(
+              (r) => {
+                this._createImageFromBlob(r, 'cnvSurvivalSingleGeneImage');
+                this.cnvSurvivalSingleGeneImageLoading = false;
+                this.showCnvSurvivalSingleGeneImage = true;
+              },
+              (e) => {
+                this.showCnvSurvivalSingleGeneImage = false;
+              }
+            );
           },
           (err) => {
-            this.cnvSurvivalSingleGeneImageLoading = false;
             this.showCnvSurvivalSingleGeneImage = false;
           }
         );
       }
     } else {
-      this.cnvSurvivalSingleGeneImageLoading = false;
       this.showCnvSurvivalSingleGeneImage = false;
     }
   }
@@ -257,9 +270,20 @@ export class CnvSurvivalComponent implements OnInit, OnChanges, AfterViewInit {
 
         this.mutationApiService.getCnvGenesetSurvivalSingleCancer(postTerm).subscribe(
           (res) => {
-            this._createImageFromBlob(res, 'cnvGenesetSurvivalSingleCancerImage');
-            this.cnvGenesetSurvivalSingleCancerImageLoading = false;
-            this.showCnvGenesetSurvivalSingleCancerImage = true;
+            this.cnvGenesetSurvivalSingleCancerPdfURL = this.mutationApiService.getResourcePlotURL(
+              res.cnvgenesetsurvivalsinglecanceruuid,
+              'pdf'
+            );
+            this.mutationApiService.getResourcePlotBlob(res.cnvgenesetsurvivalsinglecanceruuid, 'png').subscribe(
+              (r) => {
+                this._createImageFromBlob(r, 'cnvGenesetSurvivalSingleCancerImage');
+                this.cnvGenesetSurvivalSingleCancerImageLoading = false;
+                this.showCnvGenesetSurvivalSingleCancerImage = true;
+              },
+              (e) => {
+                this.showCnvGenesetSurvivalSingleCancerImage = false;
+              }
+            );
           },
           (err) => {
             this.cnvGenesetSurvivalSingleCancerImageLoading = false;
