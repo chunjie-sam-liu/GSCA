@@ -31,9 +31,20 @@
         <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumnsSubtype.length">
           <div class="example-element-detail" [@detailExpand]="triggerDetail(element)">
             <ng-container *ngIf="subtypeSingleGeneImageLoading; then loading"> </ng-container>
-            <a [href]="subtypeSingleGenePdfURL" target="_blank"
-              ><img [src]="subtypeSingleGeneImage" *ngIf="showSubtypeSingleGeneImage" loading="lazy"
-            /></a>
+            <ng-container>
+              <a
+                [href]="subtypeSingleGenePdfURL"
+                target="_blank"
+                mat-button
+                mat-mini-fab
+                color="warn"
+                arial-label="download"
+                class="download-button"
+              >
+                <mat-icon>cloud_download</mat-icon>
+              </a>
+              <img [src]="subtypeSingleGeneImage" loading="lazy" /> </ng-container
+            >s
           </div>
         </td>
       </ng-container>
@@ -56,9 +67,12 @@
       <mat-card-title>Gene expression correlates with subtypes in selected cancer types</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <a [href]="subtypeImagePdfURL" target="_blank">
-        <img [src]="subtypeImage" alt="subtypeplot" *ngIf="!subtypeImageLoading; else loading" loading="lazy"
-      /></a>
+      <ng-container *ngIf="!subtypeImageLoading; else loading">
+        <a [href]="subtypeImagePdfURL" target="_blank" mat-button mat-mini-fab color="warn" arial-label="download" class="download-button">
+          <mat-icon>cloud_download</mat-icon>
+        </a>
+        <img [src]="subtypeImage" alt="subtypeplot" loading="lazy" />
+      </ng-container>
     </mat-card-content>
   </mat-card>
 </ng-container>
