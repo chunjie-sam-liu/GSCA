@@ -8,14 +8,7 @@
 
     <ng-container *ngIf="showList.showContent && showList.showSnv; else empty">
       <div fxFlex="grow">
-        <app-snv
-          fxLayout="row"
-          fxLayout.lt-lg="column"
-          fxLayoutGap="10px"
-          fxLayoutWrap
-          fxLayoutAlign="center"
-          [searchTerm]="searchTerm"
-        ></app-snv>
+        <app-snv [searchTerm]="searchTerm"></app-snv>
       </div>
     </ng-container>
 
