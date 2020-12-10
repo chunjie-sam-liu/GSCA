@@ -12,7 +12,7 @@ export class MutationApiService extends BaseHttpService {
   }
 
   public getResourcePlotBlob(uuidname: string, plotType = 'png'): Observable<any> {
-    return this.getData('resource/responseplot/' + uuidname + '.' + plotType);
+    return this.getDataImage('resource/responseplot/' + uuidname + '.' + plotType);
   }
   public getResourcePlotURL(uuidname: string, plotType = 'pdf'): string {
     return this.generateRoute('resource/responseplot/' + uuidname + '.' + plotType);
