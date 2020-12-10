@@ -84,19 +84,24 @@ fn_gsea_running_score <- function(pathway, stats, gseaParam = 1) {
 }
 
 fn_gseaplot <- function(es, pos) {
+  CPCOLS <- c("#ffffff", RColorBrewer::brewer.pal(9, "Set1"))
   ggplot() +
     scale_x_continuous(expand = c(0, 0)) +
     theme_classic(11) +
     theme(
-      panel.grid.major = element_line(colour = "grey92"),
-      panel.grid.minor = element_line(colour = "grey92"),
-      panel.grid.major.y = element_blank(),
-      panel.grid.minor.y = element_blank(),
+      panel.grid = element_line(colour = "grey", linetype = "dashed"),
+      panel.grid.major = element_line(
+        colour = "grey",
+        linetype = "dashed",
+        size = 0.2
+      ),
       legend.position = c(0.8, 0.8),
       legend.title = element_blank(),
       legend.background = element_rect(fill = "transparent"),
       axis.text.x = element_blank(),
       axis.ticks.x = element_blank(), 
+      axis.text.y = element_text(size = 12,colour = "black"),
+      axis.title = element_text(size=16),
       plot.margin = margin(
         t = 0.2, r = 0.2, b = 0, l = 0.2,
         unit = "cm"
@@ -106,9 +111,11 @@ fn_gseaplot <- function(es, pos) {
     pproto
   
   pproto + 
-    geom_line(data = es, aes(x = x, y = y), color = "green") +
-    theme() +
-    labs(x = NULL, y = "Enrichment score", title = glue::glue("{cancertype} enrichment plot")) ->
+    geom_line(data = es, aes(x = x, y = y), color = CPCOLS[4]) +
+    theme(
+      plot.title = element_text(size = 18, hjust = 0.5)
+    ) +
+    labs(x = NULL, y = "Enrichment score", title = glue::glue("{cancertype} gene set enrichment plot")) ->
     pup
   
   pos %>% dplyr::mutate(ymin = 0, ymax = 1) -> pos
@@ -123,10 +130,10 @@ fn_gseaplot <- function(es, pos) {
       plot.margin = margin(t = -0.1, b = 0, unit = "cm"),
       axis.ticks = element_blank(),
       axis.text = element_blank(),
-      axis.line.x = element_blank()
+      axis.line.x = element_blank(),
     ) +
     labs(x = NULL, y = NULL) ->
-    pmiddle; pmiddle
+    pmiddle
   
   v <- seq(1, nrow(pos), length.out = 9)
   vt <- ifelse(is.na(match(seq_along(rank_genes), pos$x) ), 0, 1)
@@ -136,7 +143,7 @@ fn_gseaplot <- function(es, pos) {
   }
   col <- c(rev(RColorBrewer::brewer.pal(5, "Blues")), RColorBrewer::brewer.pal(5, "Reds"))
   ymin <- min(pmiddle$data$ymin)
-  yy <- max(pmiddle$data$ymax - pmiddle$data$ymin) * 0.4
+  yy <- max(pmiddle$data$ymax - pmiddle$data$ymin) * 0.5
   xmin <- which(!duplicated(inv))
   xmax <- xmin + as.numeric(table(inv)[as.character(unique(inv))])
   
@@ -166,8 +173,8 @@ fn_gseaplot <- function(es, pos) {
         l = 0.2, unit = "cm"
       ),
       axis.line.x = element_line(),
+      axis.text.x = element_text(size = 12,colour = "black"),
       axis.ticks.x = element_line(),
-      axis.text.x = element_text()
     ) +
     labs(
       x = "Rank in Ordered Dataset",
@@ -206,7 +213,8 @@ running_score <- fn_gsea_running_score(pathway = gene_set, stats = rank_genes)
 gsea_plot <- fn_gseaplot(es = running_score$es, pos = running_score$pos)
 
 # Save image --------------------------------------------------------------
-
-ggsave(filename = filepath, plot = gsea_plot, device = 'png', width = 7, height = 5)
+width = 7
+height = 6
+ggsave(filename = filepath, plot = gsea_plot, device = 'png', width = width, height = height)
 pdf_name <- gsub("\\.png",".pdf", filepath)
-ggsave(filename = pdf_name, plot = gsea_plot, device = 'pdf', width = 7, height = 5)
+ggsave(filename = pdf_name, plot = gsea_plot, device = 'pdf', width = width * 2, height = height * 2)
