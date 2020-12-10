@@ -1,5 +1,4 @@
 from flask import Blueprint, request, send_file
-from flask.helpers import send_from_directory
 from gsca.db import mongo
 from flask_restful import Api, Resource, fields, marshal_with, reqparse
 from gsca.utils.checkplot import CheckParallelPlot, CheckPlot, CheckMultiplePlot
