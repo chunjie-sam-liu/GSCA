@@ -54,7 +54,7 @@ class CnvPiePlot(Resource):
 
         if res["run"]:
             checkplot.plot(filepath=res["filepath"])
-        return send_file(str(res["filepath"]), mimetype="image/png")
+        return {"cnvpieplotuuid": res["uuid"]}
 
 
 api.add_resource(CnvPiePlot, "/cnvpieplot")
@@ -67,7 +67,7 @@ class CnvHomoPointImage(Resource):
         res = checkplot.check_run()
         if res["run"]:
             checkplot.plot(filepath=res["filepath"])
-        return send_file(str(res["filepath"]), mimetype="image/png")
+        return {"cnvhomopointplotuuid": res["uuid"]}
 
 
 api.add_resource(CnvHomoPointImage, "/cnvhomopointplot")
@@ -80,23 +80,24 @@ class CnvHetePointImage(Resource):
         res = checkplot.check_run()
         if res["run"]:
             checkplot.plot(filepath=res["filepath"])
-        return send_file(str(res["filepath"]), mimetype="image/png")
+        return {"cnvhetepointplotuuid": res["uuid"]}
 
 
 api.add_resource(CnvHetePointImage, "/cnvhetepointplot")
 
-
+"""
 class CnvOncoplot(Resource):
     def post(self):
         args = request.get_json()
-        checkplot = CheckPlot(args=args, purpose="cnvsinglegene", rplot="cnv_oncoplot.R")
+        checkplot = CheckPlot(args=args, purpose="cnvoncoplot", rplot="cnv_oncoplot.R")
         res = checkplot.check_run()
         if res["run"]:
             checkplot.plot(filepath=res["filepath"])
-        return send_file(str(res["filepath"]), mimetype="image/png")
+        return {"cnvoncoplotuuid": res["uuid"]}
 
 
 api.add_resource(CnvOncoplot, "/cnconcoplot")
+"""
 
 
 class CnvSingleGene(Resource):
@@ -106,7 +107,7 @@ class CnvSingleGene(Resource):
         res = checkplot.check_run()
         if res["run"]:
             checkplot.plot(filepath=res["filepath"])
-        return send_file(str(res["filepath"]), mimetype="image/png")
+        return {"cnvsinglegeneuuid": res["uuid"]}
 
 
 api.add_resource(CnvSingleGene, "/cnvsinglegene")

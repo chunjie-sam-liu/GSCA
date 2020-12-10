@@ -34,7 +34,20 @@
           <td mat-cell *matCellDef="let element" [attr.colSpan]="displayedColumnsCnv.length">
             <div class="example-element-detail" [@detailExpand]="triggerDetail(element)">
               <ng-container *ngIf="cnvSingleGeneImageLoading; then loading"></ng-container>
-              <img [src]="cnvSingleGeneImage" *ngIf="showCnvSingleGeneImage" loading="lazy" />
+              <ng-container *ngIf="showCnvSingleGeneImage">
+                <a
+                  mat-button
+                  mat-mini-fab
+                  color="warn"
+                  arial-label="download"
+                  [href]="cnvSingleGenePdfURL"
+                  target="_blank"
+                  class="download-button"
+                >
+                  <mat-icon>cloud_download</mat-icon>
+                </a>
+                <img [src]="cnvSingleGeneImage" loading="lazy" />
+              </ng-container>
             </div>
           </td>
         </ng-container>
@@ -58,7 +71,12 @@
       <mat-card-title>CNV of inputed genes in the specific cancers</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <img [src]="this.cnvPieImage" alt="cnvpieplot" *ngIf="!cnvPieImageLoading; else loading" loading="lazy" />
+      <ng-container *ngIf="!cnvPieImageLoading; else loading">
+        <a mat-button mat-mini-fab color="warn" arial-label="download" [href]="cnvPiePdfURL" target="_blank" class="download-button">
+          <mat-icon>cloud_download</mat-icon>
+        </a>
+        <img [src]="cnvPieImage" alt="cnvpieplot" loading="lazy" />
+      </ng-container>
     </mat-card-content>
   </mat-card>
 </ng-container>
@@ -69,7 +87,12 @@
       <mat-card-title>Heterozygous CNV of inputed genes in the specific cancers</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <img [src]="this.cnvHetePointImage" alt="cnvhetepoint" *ngIf="!cnvHetePointImageLoading; else loading" loading="lazy" />
+      <ng-container *ngIf="!cnvHetePointImageLoading; else loading">
+        <a mat-button mat-mini-fab color="warn" arial-label="download" [href]="cnvHetePointPdfURL" target="_blank" class="download-button">
+          <mat-icon>cloud_download</mat-icon>
+        </a>
+        <img [src]="cnvHetePointImage" alt="cnvhetepoint" loading="lazy" />
+      </ng-container>
     </mat-card-content>
   </mat-card>
 </ng-container>
@@ -80,7 +103,12 @@
       <mat-card-title>Homozygous CNV of inputed genes in the specific cancers</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <img [src]="this.cnvHomoPointImage" alt="cnvhomopoint" *ngIf="!cnvHomoPointImageLoading; else loading" loading="lazy" />
+      <ng-container *ngIf="!cnvHomoPointImageLoading; else loading">
+        <a mat-button mat-mini-fab color="warn" arial-label="download" [href]="cnvHomoPointPdfURL" target="_blank" class="download-button">
+          <mat-icon>cloud_download</mat-icon>
+        </a>
+        <img [src]="cnvHomoPointImage" alt="cnvhomopoint" loading="lazy" />
+      </ng-container>
     </mat-card-content>
   </mat-card>
 </ng-container>

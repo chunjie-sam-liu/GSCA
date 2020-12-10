@@ -35,7 +35,7 @@ source(file.path(apppath, "gsca-r-app/utils/fn_fetch_mongo_data.R"))
 #   dplyr::select(cancertype,Tumor_Sample_Barcode) -> clincial_info
 # pan_maf <- read.maf(maf=fetched_snv_maf,clinicalData=clincial_info)
 
-data_path <- "/home/huff/data/GSCA/mutation/snv/sub_cancer_maf"
+data_path <- file.path(apppath,'gsca-r-rds')
 filename <-  paste(search_cancertypes,"_maf_data.IdTrans.maf.rds.gz",sep="")
 pan_maf <- readr::read_rds(file.path(data_path,filename))
 

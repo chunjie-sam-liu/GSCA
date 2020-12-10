@@ -47,7 +47,7 @@ class ImmExprCorPlot(Resource):
 
         if res["run"]:
             checkplot.plot(filepath=res["filepath"])
-        return send_file(str(res["filepath"]), mimetype="image/png")
+        return {"immexprcorplotuuid": res["uuid"]}
 
 
 api.add_resource(ImmExprCorPlot, "/immexprcorplot")
@@ -62,7 +62,7 @@ class ImmExprCorSingleGene(Resource):
 
         if res["run"]:
             checkplot.plot(filepath=res["filepath"])
-        return send_file(str(res["filepath"]), mimetype="image/png")
+        return {"immexprcorsinglegeneuuid": res["uuid"]}
 
 
 api.add_resource(ImmExprCorSingleGene, "/immexprcorsinglegene")

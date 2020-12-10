@@ -47,7 +47,7 @@ class ImmMethyCorPlot(Resource):
 
         if res["run"]:
             checkplot.plot(filepath=res["filepath"])
-        return send_file(str(res["filepath"]), mimetype="image/png")
+        return {"immmethycorplotuuid": res["uuid"]}
 
 
 api.add_resource(ImmMethyCorPlot, "/immmethycorplot")
@@ -61,7 +61,7 @@ class ImmMethyCorSingleGene(Resource):
 
         if res["run"]:
             checkplot.plot(filepath=res["filepath"])
-        return send_file(str(res["filepath"]), mimetype="image/png")
+        return {"immmethycorsinglegeneuuid": res["uuid"]}
 
 
 api.add_resource(ImmMethyCorSingleGene, "/immmethycorsinglegene")
