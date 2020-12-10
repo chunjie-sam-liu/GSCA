@@ -45,26 +45,31 @@ export class SnvComponent implements OnInit, OnChanges, AfterViewInit {
   snvImageLoading = true;
   snvImage: any;
   showSnvImage = true;
+  snvImagePdfURL: string;
 
   // single gene lolliplot
   snvSingleGeneImage: any;
   snvSingleGeneImageLoading = true;
   showSnvSingleGeneImage = false;
+  snvSingleGenePdfURL: string;
 
   // snv summary
   snvSummaryImageLoading = true;
   snvSummaryImage: any;
   showSnvSummaryImage = true;
+  snvSummaryPdfURL: string;
 
   // snv oncoplot
   snvOncoplotImageLoading = true;
   snvOncoplotImage: any;
   showSnvOncoplotImage = true;
+  snvOncoplotPdfURL: string;
 
   // snv Titv
   snvTitvImageLoading = true;
   snvTitvImage: any;
   showSnvTitvImage = true;
+  snvTitvPdfURL: string;
 
   constructor(private mutationApiService: MutationApiService) {}
 
@@ -104,12 +109,19 @@ export class SnvComponent implements OnInit, OnChanges, AfterViewInit {
       // get snvPlot
       this.mutationApiService.getSnvPlot(postTerm).subscribe(
         (res) => {
-          this.showSnvImage = true;
-          this.snvImageLoading = false;
-          this._createImageFromBlob(res, 'snvImage');
+          this.snvImagePdfURL = this.mutationApiService.getResourcePlotURL(res.snvplotuuid, 'pdf');
+          this.mutationApiService.getResourcePlotBlob(res.snvplotuuid, 'png').subscribe(
+            (r) => {
+              this.showSnvImage = true;
+              this.snvImageLoading = false;
+              this._createImageFromBlob(r, 'snvImage');
+            },
+            (e) => {
+              this.showSnvImage = false;
+            }
+          );
         },
         (err) => {
-          this.snvImageLoading = false;
           this.showSnvImage = false;
         }
       );
@@ -136,7 +148,6 @@ export class SnvComponent implements OnInit, OnChanges, AfterViewInit {
               this._createImageFromBlob(r, 'snvOncoplotImage');
             },
             (e) => {
-              this.snvOncoplotImageLoading = false;
               this.showSnvOncoplotImage = false;
             }
           );
@@ -148,7 +159,6 @@ export class SnvComponent implements OnInit, OnChanges, AfterViewInit {
               this._createImageFromBlob(r, 'snvTitvImage');
             },
             (e) => {
-              this.snvTitvImageLoading = false;
               this.showSnvTitvImage = false;
             }
           );
@@ -268,12 +278,19 @@ export class SnvComponent implements OnInit, OnChanges, AfterViewInit {
 
         this.mutationApiService.getSnvLollipop(postTerm).subscribe(
           (res) => {
-            this._createImageFromBlob(res, 'snvSingleGeneImage');
-            this.snvSingleGeneImageLoading = false;
-            this.showSnvSingleGeneImage = true;
+            this.snvSingleGenePdfURL = this.mutationApiService.getResourcePlotURL(res.lollipopuuid, 'pdf');
+            this.mutationApiService.getResourcePlotBlob(res.lollipopuuid, 'png').subscribe(
+              (r) => {
+                this._createImageFromBlob(r, 'snvSingleGeneImage');
+                this.snvSingleGeneImageLoading = false;
+                this.showSnvSingleGeneImage = true;
+              },
+              (e) => {
+                this.showSnvSingleGeneImage = false;
+              }
+            );
           },
           (err) => {
-            this.snvSingleGeneImageLoading = false;
             this.showSnvSingleGeneImage = false;
           }
         );

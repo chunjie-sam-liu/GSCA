@@ -47,7 +47,7 @@ class SnvPlot(Resource):
 
         if res["run"]:
             checkplot.plot(filepath=res["filepath"])
-        return send_file(str(res["filepath"]), mimetype="image/png")
+        return {"snvplotuuid": res["uuid"]}
 
 
 api.add_resource(SnvPlot, "/snvplot")
@@ -60,7 +60,7 @@ class SnvLollipop(Resource):
         res = checkplot.check_run()
         if res["run"]:
             checkplot.plot(filepath=res["filepath"])
-        return send_file(str(res["filepath"]), mimetype="image/png")
+        return {"lollipopuuid": res["uuid"]}
 
 
 api.add_resource(SnvLollipop, "/lollipop")

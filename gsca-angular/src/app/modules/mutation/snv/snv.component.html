@@ -34,7 +34,20 @@
           <td mat-cell *matCellDef="let element" [attr.colSpan]="displayedColumnsSnv.length">
             <div class="example-element-detail" [@detailExpand]="triggerDetail(element)">
               <ng-container *ngIf="snvSingleGeneImageLoading; then loading"></ng-container>
-              <img [src]="snvSingleGeneImage" *ngIf="showSnvSingleGeneImage" loading="lazy" />
+              <ng-container *ngIf="showSnvSingleGeneImage">
+                <a
+                  mat-button
+                  mat-mini-fab
+                  color="warn"
+                  arial-label="download"
+                  [href]="snvSingleGenePdfURL"
+                  target="_blank"
+                  class="download-button"
+                >
+                  <mat-icon>cloud_download</mat-icon>
+                </a>
+                <img [src]="snvSingleGeneImage" loading="lazy" />
+              </ng-container>
             </div>
           </td>
         </ng-container>
@@ -58,7 +71,12 @@
       <mat-card-title>SNV of inputed gene set in the specific cancers</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <img [src]="snvImage" alt="snvplot" *ngIf="!snvImageLoading; else loading" loading="lazy" />
+      <ng-container *ngIf="!snvImageLoading; else loading">
+        <a mat-button mat-mini-fab color="warn" arial-label="download" [href]="snvImagePdfURL" target="_blank" class="download-button">
+          <mat-icon>cloud_download</mat-icon>
+        </a>
+        <img [src]="snvImage" loading="lazy" />
+      </ng-container>
     </mat-card-content>
   </mat-card>
 </ng-container>
@@ -69,7 +87,12 @@
       <mat-card-title>Summary of the SNV of inputed gene set in the specific cancers</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <img [src]="snvSummaryImage" alt="snvsummary" *ngIf="!snvSummaryImageLoading; else loading" loading="lazy" />
+      <ng-container *ngIf="!snvSummaryImageLoading; else loading">
+        <a mat-button mat-mini-fab color="warn" arial-label="download" [href]="snvSummaryPdfURL" target="_blank" class="download-button">
+          <mat-icon>cloud_download</mat-icon>
+        </a>
+        <img [src]="snvSummaryImage" loading="lazy" />
+      </ng-container>
     </mat-card-content>
   </mat-card>
 </ng-container>
@@ -80,7 +103,12 @@
       <mat-card-title>Oncoplot of the SNV of inputed gene set in the specific cancers(Top 10).</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <img [src]="snvOncoplotImage" alt="snvoncoplot" *ngIf="!snvOncoplotImageLoading; else loading" loading="lazy" />
+      <ng-container *ngIf="!snvOncoplotImageLoading; else loading">
+        <a mat-button mat-mini-fab color="warn" arial-label="download" [href]="snvOncoplotPdfURL" target="_blank" class="download-button">
+          <mat-icon>cloud_download</mat-icon>
+        </a>
+        <img [src]="snvOncoplotImage" loading="lazy" />
+      </ng-container>
     </mat-card-content>
   </mat-card>
 </ng-container>
@@ -93,7 +121,12 @@
       >
     </mat-card-header>
     <mat-card-content>
-      <img [src]="snvTitvImage" alt="snvtitv" *ngIf="!snvTitvImageLoading; else loading" loading="lazy" />
+      <ng-container *ngIf="!snvTitvImageLoading; else loading">
+        <a mat-button mat-mini-fab color="warn" arial-label="download" [href]="snvTitvPdfURL" target="_blank" class="download-button">
+          <mat-icon>cloud_download</mat-icon>
+        </a>
+        <img [src]="snvTitvImage" loading="lazy" />
+      </ng-container>
     </mat-card-content>
   </mat-card>
 </ng-container>
