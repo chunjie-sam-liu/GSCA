@@ -37,16 +37,19 @@ export class MethylationComponent implements OnInit, OnChanges, AfterViewInit {
   methyImageLoading = true;
   methyImage: any;
   showMethyImage = true;
+  methyImagePdfURL: string;
 
   // DE methylation single gene
   methySingleGeneImage: any;
   methySingleGeneImageLoading = true;
   showMethySingleGeneImage = false;
+  methySingleGenePdfURL: string;
 
   // DE methylation single cancer
   methySingleCancerImage: any;
   methySingleCancerImageLoading = true;
   showMethySingleCancerImage = false;
+  methySingleCancerPdfURL: string;
 
   constructor(private mutationApiService: MutationApiService) {}
 
@@ -83,12 +86,19 @@ export class MethylationComponent implements OnInit, OnChanges, AfterViewInit {
       // get methyPlot
       this.mutationApiService.getMethyDePlot(postTerm).subscribe(
         (res) => {
-          this.showMethyImage = true;
-          this.methyImageLoading = false;
-          this._createImageFromBlob(res, 'methyImage');
+          this.methyImagePdfURL = this.mutationApiService.getResourcePlotURL(res.methyDiffuuid, 'pdf');
+          this.mutationApiService.getResourcePlotBlob(res.methyDiffuuid, 'png').subscribe(
+            (r) => {
+              this.showMethyImage = true;
+              this.methyImageLoading = false;
+              this._createImageFromBlob(r, 'methyImage');
+            },
+            (e) => {
+              this.showMethyImage = false;
+            }
+          );
         },
         (err) => {
-          this.methyImageLoading = false;
           this.showMethyImage = false;
         }
       );
@@ -158,11 +168,22 @@ export class MethylationComponent implements OnInit, OnChanges, AfterViewInit {
 
         this.mutationApiService.getSingleGeneMethyDE(postTerm).subscribe(
           (res) => {
-            this._createImageFromBlob(res, 'methySingleGeneImage');
-            this.methySingleGeneImageLoading = false;
-            this.showMethySingleGeneImage = true;
-            this.methySingleCancerImageLoading = false;
-            this.showMethySingleCancerImage = false;
+            this.methySingleGenePdfURL = this.mutationApiService.getResourcePlotURL(res.singleGeneMethyDiffuuid, 'pdf');
+            this.mutationApiService.getResourcePlotBlob(res.singleGeneMethyDiffuuid, 'png').subscribe(
+              (r) => {
+                this._createImageFromBlob(r, 'methySingleGeneImage');
+                this.methySingleGeneImageLoading = false;
+                this.showMethySingleGeneImage = true;
+                this.methySingleCancerImageLoading = false;
+                this.showMethySingleCancerImage = false;
+              },
+              (e) => {
+                this.methySingleGeneImageLoading = false;
+                this.showMethySingleGeneImage = false;
+                this.methySingleCancerImageLoading = false;
+                this.showMethySingleCancerImage = false;
+              }
+            );
           },
           (err) => {
             this.methySingleGeneImageLoading = false;
@@ -181,11 +202,22 @@ export class MethylationComponent implements OnInit, OnChanges, AfterViewInit {
 
         this.mutationApiService.getSingleCancerMethyDE(postTerm).subscribe(
           (res) => {
-            this._createImageFromBlob(res, 'methySingleCancerImage');
-            this.methySingleGeneImageLoading = false;
-            this.showMethySingleGeneImage = false;
-            this.methySingleCancerImageLoading = false;
-            this.showMethySingleCancerImage = true;
+            this.methySingleCancerPdfURL = this.mutationApiService.getResourcePlotURL(res.singleCancerMethyDiffuuid, 'pdf');
+            this.mutationApiService.getResourcePlotBlob(res.singleCancerMethyDiffuuid, 'png').subscribe(
+              (r) => {
+                this._createImageFromBlob(r, 'methySingleCancerImage');
+                this.methySingleGeneImageLoading = false;
+                this.showMethySingleGeneImage = false;
+                this.methySingleCancerImageLoading = false;
+                this.showMethySingleCancerImage = true;
+              },
+              (e) => {
+                this.methySingleGeneImageLoading = false;
+                this.showMethySingleGeneImage = false;
+                this.methySingleCancerImageLoading = false;
+                this.showMethySingleCancerImage = false;
+              }
+            );
           },
           (err) => {
             this.methySingleGeneImageLoading = false;
