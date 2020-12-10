@@ -45,7 +45,7 @@ class CnvSurvivalPlot(Resource):
 
         if res["run"]:
             checkplot.plot(filepath=res["filepath"])
-        return send_file(str(res["filepath"]), mimetype="image/png")
+        return {"cnvsurvivalplotuuid": res["uuid"]}
 
 
 api.add_resource(CnvSurvivalPlot, "/cnvsurvivalplot")
@@ -58,7 +58,7 @@ class CnvSurvivalSingleGene(Resource):
         res = checkplot.check_run()
         if res["run"]:
             checkplot.plot(filepath=res["filepath"])
-        return send_file(str(res["filepath"]), mimetype="image/png")
+        return {"cnvsurvivalsinglegeneuuid": res["uuid"]}
 
 
 api.add_resource(CnvSurvivalSingleGene, "/cnvsurvivalsinglegeneplot")
@@ -77,7 +77,7 @@ class CnvGenesetSurvivalPlot(Resource):
         res = checkplot.check_run()
         if res["run"]:
             checkplot.plot(filepath=res["filepath"])
-        return send_file(str(res["filepath"]), mimetype="image/png")
+        return {"cnvsurvivalgenesetuuid": res["uuid"]}
 
 
 api.add_resource(CnvGenesetSurvivalPlot, "/cnvgenesetsurvivalplot")
@@ -109,7 +109,7 @@ class CnvGenesetSurvivalSingleCancer(Resource):
         res = checkplot.check_run()
         if res["run"]:
             checkplot.plot(filepath=res["filepath"])
-        return send_file(str(res["filepath"]), mimetype="image/png")
+        return {"cnvgenesetsurvivalsinglecanceruuid": res["uuid"]}
 
 
 api.add_resource(CnvGenesetSurvivalSingleCancer, "/cnvgenesetsurvivalsinglecancer")
