@@ -12,7 +12,15 @@ import { StageComponent } from './stage/stage.component';
 import { GeneSetComponent } from './gene-set/gene-set.component';
 
 @NgModule({
-  declarations: [ExpressionComponent, SearchBoxComponent, DegComponent, SurvivalComponent, SubtypeComponent, StageComponent, GeneSetComponent],
+  declarations: [
+    ExpressionComponent,
+    SearchBoxComponent,
+    DegComponent,
+    SurvivalComponent,
+    SubtypeComponent,
+    StageComponent,
+    GeneSetComponent,
+  ],
   imports: [CommonModule, ExpressionRoutingModule, SharedModule],
 })
 export class ExpressionModule {}
