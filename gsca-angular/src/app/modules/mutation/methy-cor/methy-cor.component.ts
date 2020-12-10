@@ -38,11 +38,13 @@ export class MethyCorComponent implements OnInit, OnChanges, AfterViewInit {
   methyCorImageLoading = true;
   methyCorImage: any;
   showMethyCorImage = true;
+  methyCorPdfURL: string;
 
   // single gene cor
   methyCorSingleGeneImage: any;
   methyCorSingleGeneImageLoading = true;
   showMethyCorSingleGeneImage = false;
+  methyCorSingleGenePdfURL: string;
 
   constructor(private mutationApiService: MutationApiService) {}
 
@@ -78,12 +80,19 @@ export class MethyCorComponent implements OnInit, OnChanges, AfterViewInit {
 
       this.mutationApiService.getMethyCorPlot(postTerm).subscribe(
         (res) => {
-          this.showMethyCorImage = true;
-          this.methyCorImageLoading = false;
-          this._createImageFromBlob(res, 'methyCorImage');
+          this.methyCorPdfURL = this.mutationApiService.getResourcePlotURL(res.methycorplotuuid, 'pdf');
+          this.mutationApiService.getResourcePlotBlob(res.methycorplotuuid, 'png').subscribe(
+            (r) => {
+              this.showMethyCorImage = true;
+              this.methyCorImageLoading = false;
+              this._createImageFromBlob(r, 'methyCorImage');
+            },
+            (e) => {
+              this.showMethyCorImage = false;
+            }
+          );
         },
         (err) => {
-          this.methyCorImageLoading = false;
           this.showMethyCorImage = false;
         }
       );
@@ -151,18 +160,24 @@ export class MethyCorComponent implements OnInit, OnChanges, AfterViewInit {
 
         this.mutationApiService.getMethyCorSingleGene(postTerm).subscribe(
           (res) => {
-            this._createImageFromBlob(res, 'methyCorSingleGeneImage');
-            this.methyCorSingleGeneImageLoading = false;
-            this.showMethyCorSingleGeneImage = true;
+            this.methyCorSingleGenePdfURL = this.mutationApiService.getResourcePlotURL(res.methyCorSingleGenePdfURL, 'pdf');
+            this.mutationApiService.getResourcePlotBlob(res.methyCorSingleGenePdfURL, 'png').subscribe(
+              (r) => {
+                this._createImageFromBlob(r, 'methyCorSingleGeneImage');
+                this.methyCorSingleGeneImageLoading = false;
+                this.showMethyCorSingleGeneImage = true;
+              },
+              (e) => {
+                this.showMethyCorSingleGeneImage = false;
+              }
+            );
           },
           (err) => {
-            this.methyCorSingleGeneImageLoading = false;
             this.showMethyCorSingleGeneImage = false;
           }
         );
       }
     } else {
-      this.methyCorSingleGeneImageLoading = false;
       this.showMethyCorSingleGeneImage = false;
     }
   }
