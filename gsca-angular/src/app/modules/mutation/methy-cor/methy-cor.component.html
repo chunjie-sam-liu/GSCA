@@ -34,7 +34,20 @@
           <td mat-cell *matCellDef="let element" [attr.colSpan]="displayedColumnsMethyCor.length">
             <div class="example-element-detail" [@detailExpand]="triggerDetail(element)">
               <ng-container *ngIf="methyCorSingleGeneImageLoading; then loading"></ng-container>
-              <img [src]="methyCorSingleGeneImage" *ngIf="showMethyCorSingleGeneImage" loading="lazy" />
+              <ng-container *ngIf="showMethyCorSingleGeneImage">
+                <a
+                  mat-button
+                  mat-mini-fab
+                  color="warn"
+                  arial-label="download"
+                  [href]="methyCorSingleGenePdfURL"
+                  target="_blank"
+                  class="download-button"
+                >
+                  <mat-icon>cloud_download</mat-icon>
+                </a>
+                <img [src]="methyCorSingleGeneImage" loading="lazy" />
+              </ng-container>
             </div>
           </td>
         </ng-container>
@@ -58,7 +71,12 @@
       <mat-card-title>Correlation between gene methylation and expression in the specific cancers</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <img [src]="this.methyCorImage" alt="methyCorplot" *ngIf="!methyCorImageLoading; else loading" loading="lazy" />
+      <ng-container *ngIf="!methyCorImageLoading; else loading">
+        <a mat-button mat-mini-fab color="warn" arial-label="download" [href]="methyCorPdfURL" target="_blank" class="download-button">
+          <mat-icon>cloud_download</mat-icon>
+        </a>
+        <img [src]="methyCorImage" alt="methyCorplot" loading="lazy" />
+      </ng-container>
     </mat-card-content>
   </mat-card>
 </ng-container>

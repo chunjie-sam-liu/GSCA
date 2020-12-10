@@ -43,7 +43,7 @@ class MethyCorPlot(Resource):
 
         if res["run"]:
             checkplot.plot(filepath=res["filepath"])
-        return send_file(str(res["filepath"]), mimetype="image/png")
+        return {"methycorplotuuid": res["uuid"]}
 
 
 api.add_resource(MethyCorPlot, "/methycorplot")
@@ -57,7 +57,7 @@ class MethyCorSingleGene(Resource):
 
         if res["run"]:
             checkplot.plot(filepath=res["filepath"])
-        return send_file(str(res["filepath"]), mimetype="image/png")
+        return {"methyCorSingleGenePdfURL": res["uuid"]}
 
 
 api.add_resource(MethyCorSingleGene, "/methycorsinglegene")
