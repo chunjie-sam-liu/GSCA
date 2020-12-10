@@ -47,21 +47,25 @@ export class CnvComponent implements OnInit, OnChanges, AfterViewInit {
   cnvPieImageLoading = true;
   cnvPieImage: any;
   showCnvPieImage = true;
+  cnvPiePdfURL: string;
 
   // cnv hete point plot
   cnvHetePointImageLoading = true;
   cnvHetePointImage: any;
   showCnvHetePointImage = true;
+  cnvHetePointPdfURL: string;
 
   // cnv homo point plot
   cnvHomoPointImageLoading = true;
   cnvHomoPointImage: any;
   showCnvHomoPointImage = true;
+  cnvHomoPointPdfURL: string;
 
   // single gene cnv imgae
   cnvSingleGeneImage: any;
   showCnvSingleGeneImage = true;
   cnvSingleGeneImageLoading = true;
+  cnvSingleGenePdfURL: string;
 
   constructor(private mutationApiService: MutationApiService) {}
 
@@ -100,36 +104,60 @@ export class CnvComponent implements OnInit, OnChanges, AfterViewInit {
       // get cnvPiePlot
       this.mutationApiService.getCnvPiePlot(postTerm).subscribe(
         (res) => {
-          this.showCnvPieImage = true;
-          this.cnvPieImageLoading = false;
-          this._createImageFromBlob(res, 'cnvPieImage');
+          this.cnvPiePdfURL = this.mutationApiService.getResourcePlotURL(res.cnvpieplotuuid, 'pdf');
+          this.mutationApiService.getResourcePlotBlob(res.cnvpieplotuuid, 'png').subscribe(
+            (r) => {
+              this.showCnvPieImage = true;
+              this.cnvPieImageLoading = false;
+              this._createImageFromBlob(r, 'cnvPieImage');
+            },
+            (e) => {
+              this.cnvPieImageLoading = true;
+              this.showCnvPieImage = false;
+            }
+          );
         },
         (err) => {
-          this.cnvPieImageLoading = false;
-          this.showCnvPieImage = false;
+          this.showCnvPieImage = true;
         }
       );
       // get cnvHetePoint
       this.mutationApiService.getCnvHetePointImage(postTerm).subscribe(
         (res) => {
-          this.showCnvHetePointImage = true;
-          this.cnvHetePointImageLoading = false;
-          this._createImageFromBlob(res, 'cnvHetePointImage');
+          this.cnvHetePointPdfURL = this.mutationApiService.getResourcePlotURL(res.cnvhetepointplotuuid, 'pdf');
+          this.mutationApiService.getResourcePlotBlob(res.cnvhetepointplotuuid, 'png').subscribe(
+            (r) => {
+              this.showCnvHetePointImage = true;
+              this.cnvHetePointImageLoading = false;
+              this._createImageFromBlob(r, 'cnvHetePointImage');
+            },
+            (e) => {
+              this.cnvHetePointImageLoading = false;
+              this.showCnvHetePointImage = false;
+            }
+          );
         },
         (err) => {
-          this.cnvHetePointImageLoading = false;
           this.showCnvHetePointImage = false;
         }
       );
       // get cnvHomoPoint
       this.mutationApiService.getCnvHomoPointImage(postTerm).subscribe(
         (res) => {
-          this.showCnvHomoPointImage = true;
-          this.cnvHomoPointImageLoading = false;
-          this._createImageFromBlob(res, 'cnvHomoPointImage');
+          this.cnvHomoPointPdfURL = this.mutationApiService.getResourcePlotURL(res.cnvhomopointplotuuid, 'pdf');
+          this.mutationApiService.getResourcePlotBlob(res.cnvhomopointplotuuid, 'png').subscribe(
+            (r) => {
+              this.showCnvHomoPointImage = true;
+              this.cnvHomoPointImageLoading = false;
+              this._createImageFromBlob(r, 'cnvHomoPointImage');
+            },
+            (e) => {
+              this.cnvHomoPointImageLoading = false;
+              this.showCnvHomoPointImage = false;
+            }
+          );
         },
         (err) => {
-          this.cnvHomoPointImageLoading = false;
           this.showCnvHomoPointImage = false;
         }
       );
@@ -204,12 +232,20 @@ export class CnvComponent implements OnInit, OnChanges, AfterViewInit {
 
         this.mutationApiService.getCnvSingleGene(postTerm).subscribe(
           (res) => {
-            this._createImageFromBlob(res, 'cnvSingleGeneImage');
-            this.cnvSingleGeneImageLoading = false;
-            this.showCnvSingleGeneImage = true;
+            this.cnvSingleGenePdfURL = this.mutationApiService.getResourcePlotURL(res.cnvsinglegeneuuid, 'pdf');
+            this.mutationApiService.getResourcePlotBlob(res.cnvsinglegeneuuid, 'png').subscribe(
+              (r) => {
+                this._createImageFromBlob(r, 'cnvSingleGeneImage');
+                this.cnvSingleGeneImageLoading = false;
+                this.showCnvSingleGeneImage = true;
+              },
+              (e) => {
+                this.cnvSingleGeneImageLoading = false;
+                this.showCnvSingleGeneImage = false;
+              }
+            );
           },
           (err) => {
-            this.cnvSingleGeneImageLoading = false;
             this.showCnvSingleGeneImage = false;
           }
         );
