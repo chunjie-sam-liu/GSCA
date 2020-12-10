@@ -44,7 +44,7 @@ class CnvCorPlot(Resource):
 
         if res["run"]:
             checkplot.plot(filepath=res["filepath"])
-        return send_file(str(res["filepath"]), mimetype="image/png")
+        return {"cnvcorplotuuid": res["uuid"]}
 
 
 api.add_resource(CnvCorPlot, "/cnvcorplot")
@@ -58,7 +58,7 @@ class CnvCorSingleGene(Resource):
 
         if res["run"]:
             checkplot.plot(filepath=res["filepath"])
-        return send_file(str(res["filepath"]), mimetype="image/png")
+        return {"cnvcorsinglegeneuuid": res["uuid"]}
 
 
 api.add_resource(CnvCorSingleGene, "/cnvcorsinglegene")

@@ -38,11 +38,13 @@ export class CnvCorComponent implements OnInit, OnChanges, AfterViewInit {
   cnvCorImageLoading = true;
   cnvCorImage: any;
   showCnvCorImage = true;
+  cnvCorPdfURL: string;
 
   // single gene cor
   cnvCorSingleGeneImage: any;
   cnvCorSingleGeneImageLoading = true;
   showCnvCorSingleGeneImage = false;
+  cnvCorSingleGenePdfURL: string;
 
   constructor(private mutationApiService: MutationApiService) {}
 
@@ -77,9 +79,17 @@ export class CnvCorComponent implements OnInit, OnChanges, AfterViewInit {
 
       this.mutationApiService.getCnvCorPlot(postTerm).subscribe(
         (res) => {
-          this.showCnvCorImage = true;
-          this.cnvCorImageLoading = false;
-          this._createImageFromBlob(res, 'cnvCorImage');
+          this.cnvCorPdfURL = this.mutationApiService.getResourcePlotURL(res.cnvcorplotuuid, 'pdf');
+          this.mutationApiService.getResourcePlotBlob(res.cnvcorplotuuid, 'png').subscribe(
+            (r) => {
+              this._createImageFromBlob(r, 'cnvCorImage');
+              this.showCnvCorImage = true;
+              this.cnvCorImageLoading = false;
+            },
+            (e) => {
+              this.showCnvCorImage = false;
+            }
+          );
         },
         (err) => {
           this.cnvCorImageLoading = false;
@@ -148,9 +158,17 @@ export class CnvCorComponent implements OnInit, OnChanges, AfterViewInit {
 
         this.mutationApiService.getCnvCorSingleGene(postTerm).subscribe(
           (res) => {
-            this._createImageFromBlob(res, 'cnvCorSingleGeneImage');
-            this.cnvCorSingleGeneImageLoading = false;
-            this.showCnvCorSingleGeneImage = true;
+            this.cnvCorSingleGenePdfURL = this.mutationApiService.getResourcePlotURL(res.cnvcorsinglegeneuuid, 'pdf');
+            this.mutationApiService.getResourcePlotBlob(res.cnvcorsinglegeneuuid, 'png').subscribe(
+              (r) => {
+                this._createImageFromBlob(r, 'cnvCorSingleGeneImage');
+                this.cnvCorSingleGeneImageLoading = false;
+                this.showCnvCorSingleGeneImage = true;
+              },
+              (e) => {
+                this.showCnvCorSingleGeneImage = false;
+              }
+            );
           },
           (err) => {
             this.cnvCorSingleGeneImageLoading = false;
