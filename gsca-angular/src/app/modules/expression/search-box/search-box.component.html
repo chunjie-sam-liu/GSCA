@@ -36,9 +36,11 @@
     </div>
   </div>
   <div fxLayout="row" fxLayout.lt-lg="column" fxLayoutWrap fxLayoutAlign="left">
-    <mat-tab-group animationDuration="0ms">
-      <mat-tab label="Single gene level">
-        <p>This section presents the analyses based on single gene expression.</p>
+    <ng-container>
+      <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
+        <h3>Single gene level analysis</h3>
+        <p>This section presents the analysis based on single gene expression level.</p>
+        <h4>Please select analysis:</h4>
         <dl>
           <dd><mat-checkbox [(ngModel)]="showList.showDEG">Differential expression</mat-checkbox></dd>
         </dl>
@@ -51,31 +53,19 @@
         <dl>
           <dd><mat-checkbox [(ngModel)]="showList.showStage">Expression and stage</mat-checkbox></dd>
         </dl>
-      </mat-tab>
-      <mat-tab label="GSEA">
+      </mat-card>
+      <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
+        <h3>GSEA</h3>
         <p>This section presents the analysis based on GSEA (gene set enrichment analysis).</p>
-        <ul>
-          <li>
-            Gene Set Enrichment Analysis (<a href="http://www.gsea-msigdb.org/gsea/index.jsp" target="_blank">GSEA</a>) is a computational
-            method that determines whether an a priori defined set of genes shows statistically significant, concordant differences between
-            two biological states (e.g. phenotypes).
-          </li>
-        </ul>
+        <h4>Please select analysis:</h4>
         <dl>
           <dd><mat-checkbox [(ngModel)]="showList.showGSEA">GSEA</mat-checkbox></dd>
         </dl>
-      </mat-tab>
-      <mat-tab label="Gene set level">
+      </mat-card>
+      <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
+        <h3>Gene set level</h3>
         <p>This section presents the analyses based on GSVA (Gene Set Variation Analysis) score.</p>
-        <ul>
-          <li>
-            Gene Set Variation Analysis (<a href="https://pubmed.ncbi.nlm.nih.gov/23323831/" target="_blank">GSVA</a>) is a non-parametric,
-            unsupervised method which estimates the relative enrichment of a gene set of interest across a sample population. Hence, it
-            allows us to observe the variation in the activity of a set of genes, such us a pathway or a gene signature, corresponding to a
-            particular biological condition, within an entire gene expression set. It produces a value, termed enrichment score (ES), per
-            sample and gene set, which can be examined for associations with clinical features of interest.
-          </li>
-        </ul>
+        <h4>Please select analysis:</h4>
         <dl>
           <dd>
             <mat-checkbox [(ngModel)]="showList.showGSVA">GSVA</mat-checkbox>
@@ -94,8 +84,8 @@
             <mat-checkbox [(ngModel)]="showList.showGSVASubtype">GSVA and subtype</mat-checkbox>
           </dd>
         </dl>
-      </mat-tab>
-    </mat-tab-group>
+      </mat-card>
+    </ng-container>
   </div>
   <div fxFlex>
     <mat-hint>

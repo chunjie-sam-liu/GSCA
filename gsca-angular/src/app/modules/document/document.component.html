@@ -77,6 +77,19 @@
               This function allows users to estimate the association of genomic features (RNA sequencing expression, SNV, CNV and
               methylation) with 25 immune cells infiltration, evaluated by ImmuCellAI.
             </p>
+            <div>
+              <table mat-table [dataSource]="immunecells" multiTemplateDataRows matSort>
+                <ng-container matColumnDef="{{ column }}" *ngFor="let column of displayedColumnsImmuneCells; index as ind">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ displayedColumnsImmuneCellsHeader[ind] }}</th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element[column] }}
+                  </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumnsImmuneCells"></tr>
+                <tr mat-row *matRowDef="let element; columns: displayedColumnsImmuneCells"></tr>
+              </table>
+              <mat-paginator [pageSizeOptions]="[10, 20]" showFirstLastButtons></mat-paginator>
+            </div>
           </li>
           <li>
             <h3>Detailed single gene result</h3>
