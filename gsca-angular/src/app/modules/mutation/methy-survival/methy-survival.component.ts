@@ -8,7 +8,6 @@ import collectionlist from 'src/app/shared/constants/collectionlist';
 import { MutationApiService } from '../mutation-api.service';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 
-
 @Component({
   selector: 'app-methy-survival',
   templateUrl: './methy-survival.component.html',
@@ -46,16 +45,17 @@ export class MethySurvivalComponent implements OnInit, OnChanges, AfterViewInit 
   methySurvivalImageLoading = true;
   methySurvivalImage: any;
   showMethySurvivalImage = true;
+  methySurvivalPdfURL: string;
 
   // single gene survival
   methySurvivalSingleGeneImage: any;
   methySurvivalSingleGeneImageLoading = true;
   showMethySurvivalSingleGeneImage = false;
+  methySurvivalSingleGenePdfURL: string;
 
-  constructor(private mutationApiService: MutationApiService) { }
+  constructor(private mutationApiService: MutationApiService) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   ngOnChanges(changes: SimpleChanges): void {
     // Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
@@ -87,12 +87,19 @@ export class MethySurvivalComponent implements OnInit, OnChanges, AfterViewInit 
 
       this.mutationApiService.getMethySurvivalPlot(postTerm).subscribe(
         (res) => {
-          this.showMethySurvivalImage = true;
-          this.methySurvivalImageLoading = false;
-          this._createImageFromBlob(res, 'methySurvivalImage');
+          this.methySurvivalPdfURL = this.mutationApiService.getResourcePlotURL(res.methysurvivalplotuuid, 'pdf');
+          this.mutationApiService.getResourcePlotBlob(res.methysurvivalplotuuid, 'png').subscribe(
+            (r) => {
+              this.showMethySurvivalImage = true;
+              this.methySurvivalImageLoading = false;
+              this._createImageFromBlob(r, 'methySurvivalImage');
+            },
+            (e) => {
+              this.showMethySurvivalImage = false;
+            }
+          );
         },
         (err) => {
-          this.methySurvivalImageLoading = false;
           this.showMethySurvivalImage = false;
         }
       );
@@ -155,23 +162,29 @@ export class MethySurvivalComponent implements OnInit, OnChanges, AfterViewInit 
           cancerTypeSelected: [this.expandedElement.cancertype],
           validColl: [
             collectionlist.methy_survival.collnames[collectionlist.methy_survival.cancertypes.indexOf(this.expandedElement.cancertype)],
-          ]
+          ],
         };
 
         this.mutationApiService.getMethySurvivalSingleGene(postTerm).subscribe(
           (res) => {
-            this._createImageFromBlob(res, 'methySurvivalSingleGeneImage');
-            this.methySurvivalSingleGeneImageLoading = false;
-            this.showMethySurvivalSingleGeneImage = true;
+            this.methySurvivalSingleGenePdfURL = this.mutationApiService.getResourcePlotURL(res.methysurvivalsinglegeneuuid, 'pdf');
+            this.mutationApiService.getResourcePlotBlob(res.methysurvivalsinglegeneuuid, 'png').subscribe(
+              (r) => {
+                this._createImageFromBlob(r, 'methySurvivalSingleGeneImage');
+                this.methySurvivalSingleGeneImageLoading = false;
+                this.showMethySurvivalSingleGeneImage = true;
+              },
+              (e) => {
+                this.showMethySurvivalSingleGeneImage = false;
+              }
+            );
           },
           (err) => {
-            this.methySurvivalSingleGeneImageLoading = false;
             this.showMethySurvivalSingleGeneImage = false;
           }
         );
       }
     } else {
-      this.methySurvivalSingleGeneImageLoading = false;
       this.showMethySurvivalSingleGeneImage = false;
     }
   }

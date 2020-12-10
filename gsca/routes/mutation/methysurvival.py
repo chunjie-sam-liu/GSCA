@@ -45,7 +45,7 @@ class MethySurvivalPlot(Resource):
 
         if res["run"]:
             checkplot.plot(filepath=res["filepath"])
-        return send_file(str(res["filepath"]), mimetype="image/png")
+        return {"methysurvivalplotuuid": res["uuid"]}
 
 
 api.add_resource(MethySurvivalPlot, "/methysurvivalplot")
@@ -59,7 +59,7 @@ class MethySurvivalSingleGene(Resource):
 
         if res["run"]:
             checkplot.plot(filepath=res["filepath"])
-        return send_file(str(res["filepath"]), mimetype="image/png")
+        return {"methysurvivalsinglegeneuuid": res["uuid"]}
 
 
 api.add_resource(MethySurvivalSingleGene, "/methysurvivalsinglegene")
