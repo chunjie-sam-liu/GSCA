@@ -14,9 +14,9 @@ search_str <- args[1]
 filepath <- args[2]
 apppath <- args[3]
 
-search_str = 'A2M#ACE#ANGPT2#BPI#CD1B#CDR1#EGR2#EGR3#HBEGF#HERPUD1#MCM2#PCTP#PODXL#PPY#PTGS2#RCAN1#SLC4A7#THBD@KICH_deg#KIRC_deg#KIRP_deg#LUAD_deg#LUSC_deg'
-filepath = '/home/liucj/github/GSCA/gsca-r-plot/pngs/156d3e34-0500-40f5-b8ed-58d2512f3918.png'
-apppath <- '/home/liucj/github/GSCA'
+# search_str = 'A2M#ACE#PTGS2#RCAN1#SLC4A7#THBD@KICH_deg#KIRC_deg#KIRP_deg#LUAD_deg#LUSC_deg'
+# filepath = '/home/liucj/github/GSCA/gsca-r-plot/pngs/156d3e34-0500-40f5-b8ed-58d2512f3918.png'
+# apppath <- '/home/liucj/github/GSCA'
 
 
 search_str_split <- strsplit(x = search_str, split = '@')[[1]]
@@ -161,10 +161,10 @@ fetched_data_filter %>%
 
 # Save --------------------------------------------------------------------
 
-# width = length(search_cancertypes) * 0.8
-# height = length(search_genes) * 0.3
+width = 7 / 5 * length(search_cancertypes)
+height = 8 / 18 * length(search_genes)
 
-ggsave(filename = filepath, plot = bubble_plot, device = 'png', width = size$width, height = size$width)
+ggsave(filename = filepath, plot = bubble_plot, device = 'png', width = width, height = height)
 pdf_name <- gsub("\\.png",".pdf",filepath)
-ggsave(filename = pdf_name, plot = bubble_plot, device = 'pdf', width = width * 2,  height = height * 2)
+ggsave(filename = pdf_name, plot = bubble_plot, device = 'pdf', width = width,  height = height)
 
