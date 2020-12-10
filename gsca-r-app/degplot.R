@@ -164,6 +164,9 @@ fetched_data_filter %>%
 width = 7 / 5 * length(search_cancertypes)
 height = 8 / 18 * length(search_genes)
 
+width <- max(c(7, width))
+height <- max(c(7, height))
+
 ggsave(filename = filepath, plot = bubble_plot, device = 'png', width = width, height = height)
 pdf_name <- gsub("\\.png",".pdf",filepath)
 ggsave(filename = pdf_name, plot = bubble_plot, device = 'pdf', width = width,  height = height)
