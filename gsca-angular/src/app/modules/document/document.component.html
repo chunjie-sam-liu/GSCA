@@ -77,19 +77,6 @@
               This function allows users to estimate the association of genomic features (RNA sequencing expression, SNV, CNV and
               methylation) with 25 immune cells infiltration, evaluated by ImmuCellAI.
             </p>
-            <div>
-              <table mat-table [dataSource]="immunecells" multiTemplateDataRows matSort class="immunetable">
-                <ng-container matColumnDef="{{ column }}" *ngFor="let column of displayedColumnsImmuneCells; index as ind">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ displayedColumnsImmuneCellsHeader[ind] }}</th>
-                  <td mat-cell *matCellDef="let element">
-                    {{ element[column] }}
-                  </td>
-                </ng-container>
-                <tr mat-header-row *matHeaderRowDef="displayedColumnsImmuneCells"></tr>
-                <tr mat-row *matRowDef="let element; columns: displayedColumnsImmuneCells"></tr>
-              </table>
-              <mat-paginator #paginatorImm [pageSizeOptions]="[5, 10]" showFirstLastButtons></mat-paginator>
-            </div>
           </li>
           <li>
             <h3>Detailed single gene result</h3>
@@ -243,13 +230,32 @@
                   <li>TCGA 10,995 samples</li>
                   <li>33 cancer types</li>
                   <li>25 immune cells</li>
+                  <div>
+                    <mat-form-field>
+                      <input matInput placeholder="Search" (keyup)="applyFilter($event)" #inputCell />
+                      <button mat-icon-button color="warn" matPrefix>
+                        <mat-icon style="font-weight: bolder">search</mat-icon>
+                      </button>
+                    </mat-form-field>
+                    <table mat-table [dataSource]="immunecells" multiTemplateDataRows matSort class="immunetable">
+                      <ng-container matColumnDef="{{ column }}" *ngFor="let column of displayedColumnsImmuneCells; index as ind">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ displayedColumnsImmuneCellsHeader[ind] }}</th>
+                        <td mat-cell *matCellDef="let element">
+                          {{ element[column] }}
+                        </td>
+                      </ng-container>
+                      <tr mat-header-row *matHeaderRowDef="displayedColumnsImmuneCells"></tr>
+                      <tr mat-row *matRowDef="let element; columns: displayedColumnsImmuneCells"></tr>
+                    </table>
+                    <mat-paginator #paginatorImm [pageSizeOptions]="[5, 10]" showFirstLastButtons class="immunetable"></mat-paginator>
+                  </div>
                 </ul>
               </li>
               <li>
                 Data process
                 <ul>
-                  <li>Based on mRNA expression data, ImmuCellAI was performed to get immune cells infiltrates</li>
-                  <li>25 immune cells</li>
+                  <li>Based on mRNA expression data</li>
+                  <li>ImmuCellAI was performed</li>
                 </ul>
               </li>
             </ul>

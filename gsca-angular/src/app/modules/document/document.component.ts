@@ -26,5 +26,14 @@ export class DocumentComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.immunecells.paginator = this.paginatorImm;
+    this.immunecells.sort = this.sortImm;
+  }
+  public applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.immunecells.filter = filterValue.trim().toLowerCase();
+
+    if (this.immunecells.paginator) {
+      this.immunecells.paginator.firstPage();
+    }
   }
 }
