@@ -38,7 +38,7 @@ export class DegComponent implements OnInit, OnChanges, AfterViewInit {
   degImage: any;
   degPdfURL: string;
   degImageLoading = true;
-  showDEGImage = true;
+  showDEGImage = false;
 
   // single gene
   degSingleGeneImage: any;
