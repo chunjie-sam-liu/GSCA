@@ -48,7 +48,7 @@ class SnvSurvivalPlot(Resource):
 
         if res["run"]:
             checkplot.plot(filepath=res["filepath"])
-        return send_file(str(res["filepath"]), mimetype="image/png")
+        return {"snvsurvivalplotuuid": res["uuid"]}
 
 
 api.add_resource(SnvSurvivalPlot, "/snvsurvivalplot")
@@ -61,7 +61,7 @@ class SnvSurvivalSingleGene(Resource):
         res = checkplot.check_run()
         if res["run"]:
             checkplot.plot(filepath=res["filepath"])
-        return send_file(str(res["filepath"]), mimetype="image/png")
+        return {"snvsurvivalsinglegeneuuid": res["uuid"]}
 
 
 api.add_resource(SnvSurvivalSingleGene, "/snvsurvivalsinglegeneplot")
@@ -83,7 +83,7 @@ class SnvGenesetSurvivalPlot(Resource):
         res = checkplot.check_run()
         if res["run"]:
             checkplot.plot(filepath=res["filepath"])
-        return send_file(str(res["filepath"]), mimetype="image/png")
+        return {"snvsurvivalgenesetuuid": res["uuid"]}
 
 
 api.add_resource(SnvGenesetSurvivalPlot, "/snvgenesetsurvivalplot")
@@ -115,7 +115,7 @@ class SnvGenesetSurvivalSingleCancer(Resource):
         res = checkplot.check_run()
         if res["run"]:
             checkplot.plot(filepath=res["filepath"])
-        return send_file(str(res["filepath"]), mimetype="image/png")
+        return {"snvgenesetsurvivalsinglecanceruuid": res["uuid"]}
 
 
 api.add_resource(SnvGenesetSurvivalSingleCancer, "/snvgenesetsurvivalsinglecancer")
