@@ -112,7 +112,6 @@ export class CnvComponent implements OnInit, OnChanges, AfterViewInit {
               this._createImageFromBlob(r, 'cnvPieImage');
             },
             (e) => {
-              this.cnvPieImageLoading = true;
               this.showCnvPieImage = false;
             }
           );
