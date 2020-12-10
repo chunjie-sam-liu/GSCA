@@ -162,7 +162,7 @@ fetched_data_filter %>%
 # Save --------------------------------------------------------------------
 
 width = length(search_cancertypes) * 0.8
-height = length(search_genes) * 0.3
+height = length(search_genes) * 0.2
 
 ggsave(filename = filepath, plot = bubble_plot, device = 'png', width = width, height = height)
 pdf_name <- gsub("\\.png",".pdf",filepath)
