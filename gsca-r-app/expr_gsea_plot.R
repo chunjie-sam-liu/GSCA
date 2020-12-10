@@ -93,20 +93,21 @@ for_plot %>%
 floor(min_max[1]) -> min
 ceiling(min_max[2]) -> max
 fillbreaks <- sort(unique(c(1.3,min,max)))
-fillname<-"-log10(padj)"
-CPCOLS <- c("#87d932", "white")
+fillname<-"-log10(p.adj.)"
+CPCOLS <- c("#ffffff", RColorBrewer::brewer.pal(9, "Set1"))
+#CPCOLS %>% scales::show_col()
+
 fillmipoint <- 1.3
 for_plot %>% 
   ggplot(aes(x = reorder(cancertype, NES), y = NES, fill = logpadj)) +
-  geom_bar(stat = "identity", color="grey") +
+  geom_bar(stat = "identity") +
   scale_fill_gradient(
-    name = fillname, # "Methylation diff (T - N)",
-    low = CPCOLS[2],
-    high = CPCOLS[1],
+    name = fillname, 
+    low = CPCOLS[1],
+    high = CPCOLS[2],
     limits=c(min(fillbreaks),max(fillbreaks)),
     breaks=fillbreaks
   ) +
-  guides(fill=guide_colourbar(title.position="top",reverse=TRUE)) +
   coord_flip() +
   theme(
     panel.background = element_rect(colour = "black", fill = "white"),
@@ -116,16 +117,14 @@ for_plot %>%
       linetype = "dashed",
       size = 0.2
     ),
-    axis.text.y = element_text(size = 10,colour = "black"),
-    axis.text.x = element_text(size = 10,colour = "black"),
-    legend.text = element_text(size = 10),
-    axis.title = element_text(size=12),
-    legend.title = element_text(size = 12),
+    plot.title = element_text(size = 18, hjust = 0.5),
+    axis.title = element_text(size=16),
+    axis.text.x = element_text(size = 12,colour = "black"),
+    axis.text.y = element_text(size = 12,colour = "black"),
+    legend.title = element_text(size = 16),
+    legend.text = element_text(size = 14),
     legend.key = element_rect(fill = "white", colour = "black"),
     legend.key.size = unit(0.5, "cm"),
-    plot.title = element_text(size = 14),
-    strip.background =  element_rect(fill="white",color="black"),
-    strip.text = element_text(color="black",size = 12)
   ) +
   guides(
     fill = guide_colourbar(
@@ -136,13 +135,15 @@ for_plot %>%
   )+
   labs(
     x = "Cancer type",
-    y = "Normalized enrichment core (NES)",
+    y = "Normalized enrichment score (NES)",
     title = "Enrichment score in selected cancer types"
   ) ->
   gsea_plot
 
 # Save image --------------------------------------------------------------
-height <- 2 + (10-length(unique(for_plot$cancertype)))*0.2
-ggsave(filename = filepath, plot = gsea_plot, device = 'png', width = 5, height = height)
+width = 7
+height = length(unique(for_plot$cancertype)) * 0.8
+
+ggsave(filename = filepath, plot = gsea_plot, device = 'png', width = width, height = height)
 pdf_name <- gsub("\\.png",".pdf", filepath)
-ggsave(filename = pdf_name, plot = gsea_plot, device = 'pdf', width = 5, height = height)
+ggsave(filename = pdf_name, plot = gsea_plot, device = 'pdf', width = width * 2, height = height * 2)
