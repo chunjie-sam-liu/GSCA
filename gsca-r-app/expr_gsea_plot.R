@@ -16,10 +16,10 @@ filepath <- args[3]
 apppath <- args[4]
 
 
-# tableuuid <- 'cf7c811d-3626-4a28-b050-57cd6521e9b2'
-# tablecol <- 'preanalysised_gsea'
-# filepath <- "/home/liucj/github/GSCA/gsca-r-plot/pngs/217c27f6-c12a-413d-8625-b9748fc1ff65.png"
-# apppath <- '/home/liucj/github/GSCA'
+tableuuid <- 'cf7c811d-3626-4a28-b050-57cd6521e9b2'
+tablecol <- 'preanalysised_gsea'
+filepath <- "/home/liucj/github/GSCA/gsca-r-plot/pngs/217c27f6-c12a-413d-8625-b9748fc1ff65.png"
+apppath <- '/home/liucj/github/GSCA'
 
 # Mongo -------------------------------------------------------------------
 
@@ -94,7 +94,8 @@ floor(min_max[1]) -> min
 ceiling(min_max[2]) -> max
 fillbreaks <- sort(unique(c(1.3,min,max)))
 fillname<-"-log10(p.adj.)"
-CPCOLS <- c("#ffffff", RColorBrewer::brewer.pal(9, "Set1"))
+# CPCOLS <- c("#ffffff", RColorBrewer::brewer.pal(9, "Set1"))
+CPCOLS <- c("#000080", "#F8F8FF", "#CD0000")
 #CPCOLS %>% scales::show_col()
 
 fillmipoint <- 1.3
@@ -103,8 +104,8 @@ for_plot %>%
   geom_bar(stat = "identity") +
   scale_fill_gradient(
     name = fillname, 
-    low = CPCOLS[1],
-    high = CPCOLS[2],
+    low = CPCOLS[2],
+    high = CPCOLS[3],
     limits=c(min(fillbreaks),max(fillbreaks)),
     breaks=fillbreaks
   ) +
