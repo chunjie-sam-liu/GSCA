@@ -40,16 +40,19 @@ export class CnvSurvivalComponent implements OnInit, OnChanges, AfterViewInit {
   cnvSurvivalImageLoading = true;
   cnvSurvivalImage: any;
   showCnvSurvivalImage = true;
+  cnvSurvivalPdfURL: string;
 
   // cnv single gene survival
   cnvSurvivalSingleGeneImage: any;
   cnvSurvivalSingleGeneImageLoading = true;
   showCnvSurvivalSingleGeneImage = false;
+  cnvSurvivalSingleGenePdfURL: string;
 
   // cnv geneset survival plot
   showCnvGenesetSurvivalImage = true;
   cnvGenesetSurvivalImage: any;
   cnvGenesetSurvivalImageLoading = true;
+  cnvGenesetSurvivalPdfURL: string;
 
   // cnv geneset survival table
   showCnvGenesetSurvivalTable = true;
@@ -66,6 +69,7 @@ export class CnvSurvivalComponent implements OnInit, OnChanges, AfterViewInit {
   cnvGenesetSurvivalSingleCancerImage: any;
   cnvGenesetSurvivalSingleCancerImageLoading = true;
   showCnvGenesetSurvivalSingleCancerImage = false;
+  cnvGenesetSurvivalSingleCancerPdfURL: string;
 
   constructor(private mutationApiService: MutationApiService) {}
 
@@ -105,9 +109,18 @@ export class CnvSurvivalComponent implements OnInit, OnChanges, AfterViewInit {
 
       this.mutationApiService.getCnvSurvivalPlot(postTerm).subscribe(
         (res) => {
-          this.showCnvSurvivalImage = true;
-          this.cnvSurvivalImageLoading = false;
-          this._createImageFromBlob(res, 'cnvSurvivalImage');
+          this.cnvSurvivalPdfURL = this.mutationApiService.getResourcePlotURL(res.cnvsurvivalplotuuid, 'pdf');
+          this.mutationApiService.getResourcePlotBlob(res.cnvsurvivalplotuuid, 'png').subscribe(
+            (r) => {
+              this.showCnvSurvivalImage = true;
+              this.cnvSurvivalImageLoading = false;
+              this._createImageFromBlob(r, 'cnvSurvivalImage');
+            },
+            (e) => {
+              this.cnvSurvivalImageLoading = false;
+              this.showCnvSurvivalImage = false;
+            }
+          );
         },
         (err) => {
           this.cnvSurvivalImageLoading = false;

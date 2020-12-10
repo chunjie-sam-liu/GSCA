@@ -1,7 +1,3 @@
-table {
-  width: 100%;
-}
-
 .example-detail-row {
   height: 0;
 }
@@ -11,7 +7,7 @@ table {
 }
 
 .example-element-row:not(.example-expanded-row):active {
-  background: #ebbcbc;
+  background: #efefef;
 }
 
 .example-element-row td {
@@ -19,29 +15,10 @@ table {
 }
 
 .example-element-detail {
-  overflow: hidden;
-  display: flex;
+  overflow: auto;
+  justify-content: center;
 }
 
-.example-element-diagram {
-  min-width: 80px;
-  border: 2px solid black;
-  padding: 8px;
-  font-weight: lighter;
-  margin: 8px 0;
-  height: 104px;
-}
-
-.example-element-symbol {
-  font-weight: bold;
-  font-size: 40px;
-  line-height: normal;
-}
-
-.example-element-description {
-  padding: 16px;
-}
-
-.example-element-description-attribution {
-  opacity: 0.5;
+mat-card-content {
+  text-align: center;
 }
