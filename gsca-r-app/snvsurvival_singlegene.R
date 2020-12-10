@@ -42,7 +42,7 @@ source(file.path(apppath, "gsca-r-app/utils/fn_survival.R"))
 #   dplyr::mutate(snv=purrr::map(cancer_types,fn_fetch_mongo_snv_maf, .keyindex="symbol", .key=search_genes))
 
 
-data_path <- "/home/huff/data/GSCA/mutation/snv/sub_cancer_maf_tsv"
+data_path <- file.append(apppath,"gsca-r-rds")
 fetched_snv_data <- tibble::tibble()
 for (cancer in search_cancertypes) {
   filename <- paste(cancer,"_maf_data.IdTrans.tsv.rds.gz",sep="") 
