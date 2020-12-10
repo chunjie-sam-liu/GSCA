@@ -79,14 +79,7 @@
 
     <ng-container *ngIf="showList.showContent && showList.showCnvSurvival; else empty">
       <div fxFlex="grow">
-        <app-cnv-survival
-          fxLayout="row"
-          fxLayout.lt-lg="column"
-          fxLayoutGap="10px"
-          fxLayoutWrap
-          fxLayoutAlign="center"
-          [searchTerm]="searchTerm"
-        ></app-cnv-survival>
+        <app-cnv-survival [searchTerm]="searchTerm"></app-cnv-survival>
       </div>
     </ng-container>
 
