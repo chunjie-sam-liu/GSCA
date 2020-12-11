@@ -11,5 +11,4 @@ export interface StageTableRecord {
   stage2: string;
   stage3: string;
   stage4: string;
-  stagex: string;
 }
