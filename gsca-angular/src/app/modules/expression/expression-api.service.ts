@@ -27,8 +27,8 @@ export class ExpressionApiService extends BaseHttpService {
   public getDEGPlot(postTerm: ExprSearch): Observable<any> {
     return this.postData('expression/deg/degplot', postTerm);
   }
-  public getGeneSetTable(postTerm: ExprSearch): Observable<any> {
-    return this.postData('expression/geneset/genesettable', postTerm);
+  public getGeneSetAnalysis(postTerm: ExprSearch): Observable<any> {
+    return this.postData('expression/geneset/analysis', postTerm);
   }
 
   public getDEGSingleGenePlot(postTerm: ExprSearch): Observable<any> {
