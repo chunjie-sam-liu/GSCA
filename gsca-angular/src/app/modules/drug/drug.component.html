@@ -4,6 +4,25 @@
   </div>
   <div fxFlex fxLayout="column" fxLayoutGap="10px" class="not-float">
     <app-search-box fxFlex ($searchSelected)="showContent($event)" [showList]="showList"></app-search-box>
+
+    <ng-container *ngIf="showList.showContent && showList.showGDSC; else empty">
+      <div fxFlex="grow">
+        <app-gdsc
+          fxLayout="row"
+          fxLayout.lt-lg="column"
+          fxLayoutGap="10px"
+          fxLayoutWrap
+          fxLayoutAlign="center"
+          [searchTerm]="searchTerm"
+        ></app-gdsc>
+      </div>
+    </ng-container>
+
+    <ng-template #loading>
+      <mat-progress-bar mode="query" color="warn"></mat-progress-bar>
+    </ng-template>
+
+    <ng-template #empty></ng-template>
   </div>
 
   <div fxFlex="none">
