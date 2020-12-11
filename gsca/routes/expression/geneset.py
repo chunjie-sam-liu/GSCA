@@ -16,4 +16,4 @@ class GeneSetTable(Resource):
         return args
 
 
-api.add_resource(GeneSetTable, "/genesettable")
+api.add_resource(GeneSetTable, "/analysis")

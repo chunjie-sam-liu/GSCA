@@ -31,8 +31,6 @@ export class GeneSetComponent implements OnInit, OnChanges, AfterViewInit {
     this.geneSetImageLoading = true;
     const postTerm = this._validCollection(this.searchTerm);
 
-    console.log(postTerm);
-
     if (!postTerm.validColl.length) {
       this.dataSourceGeneSetLoading = false;
       this.geneSetImageLoading = false;
@@ -40,10 +38,10 @@ export class GeneSetComponent implements OnInit, OnChanges, AfterViewInit {
       this.showGeneSetImage = false;
     } else {
       this.showGeneSetTable = true;
-      this.expressionApiService.getGeneSetTable(postTerm).subscribe(
+      this.expressionApiService.getGeneSetAnalysis(postTerm).subscribe(
         (res) => {
-          this.dataSourceGeneSetLoading = false;
-          this.dataSourceGeneSet = new MatTableDataSource(res);
+          // this.dataSourceGeneSetLoading = false;
+          // this.dataSourceGeneSet = new MatTableDataSource(res);
           console.log(res);
         },
         (err) => {
