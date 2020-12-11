@@ -36,6 +36,8 @@ fn_fetch_all <- function(.x) {
   .new_coll$index(add = '{"symbol": 1}')
   message(glue::glue('Insert data for {.new_coll_name} into {.x}.'))
   
+  .m <- .new_coll$find(fields = '{"_id": false}')
+  
 }
 
 
