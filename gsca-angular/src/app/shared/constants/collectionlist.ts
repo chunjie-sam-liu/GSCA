@@ -1441,4 +1441,12 @@ export default {
       'UVM',
     ],
   },
+  ctrp_cor_expr: {
+    collnames: ['all_ctrp_cor_expr'],
+    cancertypes: ['all'],
+  },
+  gdsc_cor_expr: {
+    collnames: ['all_gdsc_cor_expr'],
+    cancertypes: ['all'],
+  },
 };
