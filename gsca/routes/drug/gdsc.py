@@ -2,6 +2,7 @@ from flask import Blueprint, request, send_file
 from gsca.db import mongo
 from flask_restful import Api, Resource, fields, marshal_with, reqparse
 from gsca.utils.checkplot import CheckPlot
+from gsca.utils.check_survivalPlot import CheckSurvivalPlot
 
 gdsc = Blueprint("gdsc", __name__)
 api = Api(gdsc)
@@ -51,7 +52,7 @@ api.add_resource(GDSCPlot, "/gdscplot")
 class GDSCSingleGenePlot(Resource):
     def post(self):
         args = request.get_json()
-        checkplot = CheckPlot(args=args, purpose="gdscsinglegene", rplot="gdscplot_singlegene.R")
+        checkplot = CheckSurvivalPlot(args=args, purpose="gdscsinglegene", rplot="gdscplot_singlegene.R")
         res = checkplot.check_run()
         if res["run"]:
             checkplot.plot(filepath=res["filepath"])
