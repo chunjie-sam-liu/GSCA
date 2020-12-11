@@ -92,10 +92,16 @@ source(file.path(apppath,"gsca-r-app/utils/fn_boxplot_single_gene_in_cancer.R"))
 gsva_score_nest %>% tidyr::unnest(cols = gsva) -> for_plot
 CPCOLS <- c("#000080", "#F8F8FF", "#CD0000")
 
-plot <- box_plot_single_gene_multi_cancers(data = for_plot,aesx = "type",aesy="gsva",facets=".~cancertype",color = "type",color_name = "Type",color_labels = c("Tumor", "Normal"),color_values = c(CPCOLS[3], CPCOLS[1]),title = "GSVA score in selected cancer types", xlab = 'Cancer types', ylab = 'GSVA score')
+plot <- box_plot_single_gene_multi_cancers(data = for_plot,aesx = "type",aesy="gsva",facets=".~cancertype",color = "type",color_name = "Group",color_labels = c("Tumor", "Normal"),color_values = c(CPCOLS[3], CPCOLS[1]),title = "GSVA score in selected cancer types", xlab = 'Cancer types', ylab = 'GSVA score')
 
 # Save image --------------------------------------------------------------
+width = 7 / 5 * length(unique(for_plot$cancertype))
+height = 5
 
-ggsave(filename = filepath, plot = plot, device = 'png', width = 15, height = 5)
+width <- max(c(7, width))
+if (width > 20) width <- 20
+height <- max(c(5, height))
+
+ggsave(filename = filepath, plot = plot, device = 'png', width = width, height = height)
 pdf_name <- gsub("\\.png",".pdf", filepath)
-ggsave(filename = pdf_name, plot = plot, device = 'pdf', width = 15, height = 5)
+ggsave(filename = pdf_name, plot = plot, device = 'pdf', width = width, height = height)
