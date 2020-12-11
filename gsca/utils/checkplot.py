@@ -174,7 +174,7 @@ class CheckTablePlot(AppPaths):
     def __init__(self, args, purpose, ranalysis):
         self.args = args
         self.purpose = purpose
-        self.rgenerator = ranalysis
+        self.ranalysis = ranalysis
         self.precol = "preanalysised"
         self.tablecol = "preanalysised_" + purpose
 
@@ -246,7 +246,7 @@ class CheckTablePlot(AppPaths):
         rargs = "#".join(self.args["validSymbol"]) + "@" + "#".join(self.args["validColl"])
         cmd = [
             self.rcommand,
-            str(self.rscriptpath / self.rgenerator),
+            str(self.rscriptpath / self.ranalysis),
             rargs,
             filepath,
             str(self.apppath),
