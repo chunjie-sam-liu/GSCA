@@ -17,7 +17,6 @@ model_stagetable = {
     "stage2": fields.String(attribute="Stage II (mean/n)"),
     "stage3": fields.String(attribute="Stage III (mean/n)"),
     "stage4": fields.String(attribute="Stage IV (mean/n)"),
-    "stagex": fields.String(attribute="Stage X (mean/n)"),
 }
 
 

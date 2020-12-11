@@ -9,7 +9,8 @@ fn_boxplot <- function(data,title,colorkey,xlab,ylab){
     dplyr::ungroup() %>%
     dplyr::mutate(group = paste(group,", n=",n,sep="")) %>%
     dplyr::select(group,color) %>%
-    unique() -> color_paired
+    unique() %>%
+    sort() -> color_paired
   data %>%
     ggplot(aes(x=group,y=value)) +
     geom_boxplot(aes(color=group)) +

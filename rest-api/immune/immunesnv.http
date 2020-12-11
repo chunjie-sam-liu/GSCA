@@ -8,10 +8,10 @@ content-type: application/json
 POST http://localhost:5000/api/immune/immunesnv/immsnvcorplot HTTP/1.1
 content-type: application/json
 
-{"validSymbol":["A2M","ACE","ANGPT2","BPI","CD1B","CDR1","EGR2","EGR3","HBEGF","HERPUD1","MCM2","PCTP","PODXL","PPY","PTGS2","RCAN1","SLC4A7","THBD"],"cancerTypeSelected":["KICH","KIRC","KIRP","LUAD","LUSC"],"validColl":["KICH_immune_cor_snv"]}
+{"validSymbol":["A2M","ACE","ANGPT2","BPI","CD1B","CDR1","EGR2","EGR3","HBEGF","HERPUD1","MCM2","PCTP","PODXL","PPY","PTGS2","RCAN1","SLC4A7","THBD"],"cancerTypeSelected":["KICH","KIRC","KIRP","LUAD","LUSC"],"validColl":["ACC_immune_cor_snv"]}
 
 ### immune snv single gene plot
 POST http://localhost:5000/api/immune/immunesnv/immsnvcorsinglegene HTTP/1.1
 content-type: application/json
 
-{"validSymbol":["A2M"],"cancerTypeSelected":["KICH","KIRC","KIRP","LUAD","LUSC"],"validColl":["KICH_immune_cor_snv"],"surType":["Bcell"]}
+{"validSymbol":["A2M"],"cancerTypeSelected":["KIRC"],"validColl":["KIRC_immune_cor_snv"],"surType":["CD4_naive"]}
