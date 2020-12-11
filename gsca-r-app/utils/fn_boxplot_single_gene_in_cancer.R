@@ -23,6 +23,7 @@ box_plot_single_gene_multi_cancers <- function(data,aesx,aesy,color,color_name,f
       axis.ticks.x = element_blank(),
       axis.text.y = element_text(size = 12, colour = "black"),
       strip.background = element_blank(),
+      strip.text = element_text(size = 12, color = "black"),
       legend.position = 'right',
       legend.text = element_text(size = 12),
       legend.title = element_text(size = 14),
