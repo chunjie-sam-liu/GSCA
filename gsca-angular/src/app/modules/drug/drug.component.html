@@ -1,9 +1,10 @@
-<div fxLayout="column" fxLayoutGap="10px" fxFill>
+<div fxLayout="column" fxFill>
   <div fxFlex="none">
-    <h1 class="page-header">Drug</h1>
+    <h1 class="page-header">Drug sensitivity</h1>
   </div>
-
-  <div fxFlex class="not-float">drug</div>
+  <div fxFlex fxLayout="column" fxLayoutGap="10px" class="not-float">
+    <app-search-box fxFlex ($searchSelected)="showContent($event)" [showList]="showList"></app-search-box>
+  </div>
 
   <div fxFlex="none">
     <app-footer></app-footer>
