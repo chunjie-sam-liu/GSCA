@@ -164,3 +164,94 @@ class CheckParallelPlot(AppPaths):
         cmd = [self.rcommand, str(self.rscriptpath / self.rplot), rargs] + filepaths + [str(self.apppath)]
         print("\n\n ", "\n\n  ".join(cmd), "\n\n")
         subprocess.check_output(cmd, universal_newlines=True)
+
+
+class CheckTablePlot(AppPaths):
+    """
+    The resource to generate table and figure simutaneousely.
+    """
+
+    def __init__(self, args, purpose, ranalysis):
+        self.args = args
+        self.purpose = purpose
+        self.rgenerator = ranalysis
+        self.precol = "preanalysised"
+        self.tablecol = "preanalysised_" + purpose
+
+    def check_run(self):
+        # test table
+        table_uuidname = str(uuid.uuid4())
+        table_run = True
+        table_preanalysised = mongo.db[self.precol].find_one(
+            {
+                "search": "#".join(self.args["validSymbol"]),
+                "coll": "#".join(self.args["validColl"]),
+                "purpose": self.purpose + "table",
+            },
+            {"_id": 0, "uuid": 1},
+        )
+        if table_preanalysised:
+            table_uuidname = table_preanalysised["uuid"]
+            table_col_target = mongo.db[self.tablecol].find_one({"uuid": table_uuidname}, {"_id": 0, "uuid": 1})
+            table_run = False if table_col_target else True
+        else:
+            mongo.db[self.precol].insert_one(
+                {
+                    "search": "#".join(self.args["validSymbol"]),
+                    "coll": "#".join(self.args["validColl"]),
+                    "purpose": self.purpose + "table",
+                    "uuid": table_uuidname,
+                }
+            )
+
+        # test plot
+        plot_uuidname = str(uuid.uuid4())
+        plot_run = True
+        plot_filename = plot_uuidname + ".png"
+        plot_filepath = self.resource_pngs / plot_filename
+
+        plot_preanalysised = mongo.db[self.precol].find_one(
+            {
+                "search": "#".join(self.args["validSymbol"]),
+                "coll": "#".join(self.args["validColl"]),
+                "purpose": self.purpose + "plot",
+            },
+            {"_id": 0, "uuid": 1},
+        )
+        if plot_preanalysised:
+            plot_uuidname = plot_preanalysised["uuid"]
+            plot_filename = plot_uuidname + ".png"
+            plot_filepath = self.resource_pngs / plot_filename
+            plot_run = False if plot_filepath.exists() else True
+        else:
+            mongo.db[self.precol].insert_one(
+                {
+                    "search": "#".join(self.args["validSymbol"]),
+                    "coll": "#".join(self.args["validColl"]),
+                    "purpose": self.purpose + "plot",
+                    "uuid": plot_uuidname,
+                }
+            )
+
+        return {
+            "run": table_run or plot_run,
+            "table_run": table_run,
+            "table_uuidname": table_uuidname,
+            "plot_run": plot_run,
+            "plot_uuidname": plot_uuidname,
+            "plot_filepath": str(plot_filepath),
+        }
+
+    def analysis(self, uuidname, filepath):
+        rargs = "#".join(self.args["validSymbol"]) + "@" + "#".join(self.args["validColl"])
+        cmd = [
+            self.rcommand,
+            str(self.rscriptpath / self.rgenerator),
+            rargs,
+            filepath,
+            str(self.apppath),
+            uuidname,
+            self.tablecol,
+        ]
+        print("\n\n ", "\n\n  ".join(cmd), "\n\n")
+
