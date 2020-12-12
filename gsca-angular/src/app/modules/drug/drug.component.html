@@ -18,6 +18,18 @@
       </div>
     </ng-container>
 
+    <ng-container *ngIf="showList.showContent && showList.showCTRP; else empty">
+      <div fxFlex="grow">
+        <app-ctrp
+          fxLayout="row"
+          fxLayout.lt-lg="column"
+          fxLayoutGap="10px"
+          fxLayoutWrap
+          fxLayoutAlign="center"
+          [searchTerm]="searchTerm"
+        ></app-ctrp>
+      </div>
+    </ng-container>
     <ng-template #loading>
       <mat-progress-bar mode="query" color="warn"></mat-progress-bar>
     </ng-template>

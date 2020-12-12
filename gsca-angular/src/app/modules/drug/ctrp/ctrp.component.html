@@ -1,1 +1,81 @@
-<p>ctrp works!</p>
+<ng-container *ngIf="showCTRPTable">
+  <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
+    <mat-card-header>
+      <mat-card-title>Correlation between gene expression and CTRP drug sensitivity in pan-cancer</mat-card-title>
+    </mat-card-header>
+    <ng-container *ngIf="!dataSourceCtrpLoading; else loading"></ng-container>
+    <mat-form-field>
+      <input matInput placeholder="Input target gene" (keyup)="applyFilter($event)" #inputCtrp />
+      <button mat-icon-button color="warn" matPrefix><mat-icon style="font-weight: bolder">search</mat-icon>i</button>
+    </mat-form-field>
+    <table mat-table [dataSource]="dataSourceCtrp" multiTemplateDataRows matSort>
+      <ng-container matColumnDef="{{ column }}" *ngFor="let column of displayedColumnsCtrp; index as ind">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ displayedColumnsCtrpHeader[ind] }}</th>
+        <td mat-cell *matCellDef="let element">
+          <ng-container *ngIf="column === 'symbol'; then btn; else plain"></ng-container>
+          <ng-template #btn>
+            <button mat-raised-button (click)="expandDetail(element, column)">
+              {{ element[column] }}
+            </button>
+          </ng-template>
+          <ng-template #plain>
+            {{ column === 'drug' ? element[column] : (element[column] | number: '1.2-2') }}
+          </ng-template>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="expandedDetail">
+        <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumnsCtrp.length">
+          <div class="example-element-detail" [@detailExpand]="triggerDetail(element)">
+            <ng-container *ngIf="ctrpSingleGeneImageLoading; then loading"> </ng-container>
+            <ng-container *ngIf="showCTRPSingleGeneImage">
+              <a
+                mat-button
+                mat-mini-fab
+                color="warn"
+                arial-label="download"
+                [href]="ctrpSingleGenePdfURL"
+                target="_blank"
+                class="download-button"
+              >
+                <mat-icon>cloud_download</mat-icon>
+              </a>
+              <img [src]="ctrpSingleGeneImage" loading="lazy" />
+            </ng-container>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumnsCtrp"></tr>
+      <tr
+        mat-row
+        *matRowDef="let element; columns: displayedColumnsCtrp"
+        class="example-element-row"
+        [class.example-expanded-row]="expandedElement === element"
+      ></tr>
+      <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+    </table>
+    <mat-paginator #paginatorCtrp [pageSizeOptions]="[10, 20]" showFirstLastButtons></mat-paginator>
+  </mat-card>
+</ng-container>
+
+<ng-container *ngIf="showCTRPImage">
+  <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
+    <mat-card-header>
+      <mat-card-title>Correlation between gene expression and CTRP drug sensitivity in pan-cancer</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <ng-container *ngIf="!ctrpImageLoading; else loading">
+        <a mat-button mat-mini-fab color="warn" arial-label="download" [href]="ctrpPdfURL" target="_blank" class="download-button">
+          <mat-icon>cloud_download</mat-icon>
+        </a>
+        <img [src]="ctrpImage" alt="ctrpplot" loading="lazy" />
+      </ng-container>
+    </mat-card-content>
+  </mat-card>
+</ng-container>
+
+<ng-template #loading>
+  <mat-progress-bar mode="query" color="warn"></mat-progress-bar>
+</ng-template>
+<ng-template #empty></ng-template>
