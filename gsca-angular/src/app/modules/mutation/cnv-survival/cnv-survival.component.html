@@ -3,7 +3,7 @@
     <ng-container *ngIf="showCnvSurvivalTable">
       <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
         <mat-card-header>
-          <mat-card-title>Survival between CNV and WT in the specific cancers</mat-card-title>
+          <mat-card-title>Survival between CNV and wide type in the specific cancers</mat-card-title>
         </mat-card-header>
 
         <ng-container *ngIf="!dataSourceCnvSurvivalLoading; else loading"></ng-container>
@@ -72,7 +72,7 @@
     <ng-container *ngIf="showCnvSurvivalImage">
       <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
         <mat-card-header>
-          <mat-card-title>Survival between CNV and WT in the specific cancers</mat-card-title>
+          <mat-card-title>Survival between CNV and wide type in the specific cancers</mat-card-title>
         </mat-card-header>
         <mat-card-content>
           <ng-container *ngIf="!cnvSurvivalImageLoading; else loading">
@@ -97,7 +97,7 @@
     <ng-container *ngIf="showCnvGenesetSurvivalTable">
       <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
         <mat-card-header>
-          <mat-card-title>Survival of gene set CNV and WT in the specific cancers</mat-card-title>
+          <mat-card-title>Survival of gene set CNV and wide type in the specific cancers</mat-card-title>
         </mat-card-header>
 
         <ng-container *ngIf="!cnvGenesetSurvivalTable; else loading"></ng-container>
@@ -166,7 +166,7 @@
     <ng-container *ngIf="showCnvGenesetSurvivalImage">
       <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
         <mat-card-header>
-          <mat-card-title>Survival of gene set between CNV and WT in the specific cancers</mat-card-title>
+          <mat-card-title>Survival of gene set between CNV and wide type in the specific cancers</mat-card-title>
         </mat-card-header>
         <mat-card-content>
           <ng-container *ngIf="!cnvGenesetSurvivalImageLoading; else loading">
