@@ -2,7 +2,7 @@
   <div fxLayout="row" fxLayout.lt-lg="column" fxLayoutGap="10px" fxLayoutWrap fxLayoutAlign="center">
     <div fxFlex>
       <mat-form-field appearance="outline" class="search-box">
-        <mat-label>Input your interested gene sets</mat-label>
+        <mat-label>Input your interested gene set</mat-label>
         <input
           matInput
           type="text"
@@ -36,7 +36,7 @@
     </div>
   </div>
   <div fxFlex>
-    <mat-checkbox [(ngModel)]="showList.showDEG"> DEG </mat-checkbox>
+    <mat-checkbox [(ngModel)]="showList.showDEG">Differential expression</mat-checkbox>
     <mat-checkbox [(ngModel)]="showList.showSurvival">Survival</mat-checkbox>
     <mat-checkbox [(ngModel)]="showList.showSubtype">Subtype</mat-checkbox>
     <mat-checkbox [(ngModel)]="showList.showStage">Stage</mat-checkbox>
