@@ -1,7 +1,7 @@
 <ng-container *ngIf="showSnvSurvivalTable">
   <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
     <mat-card-header>
-      <mat-card-title>Survival between mutated (effective) and non-mutated in the specific cancers</mat-card-title>
+      <mat-card-title>Survival between mutant (effective) and wide type in the specific cancers</mat-card-title>
     </mat-card-header>
 
     <mat-card-content>
@@ -59,7 +59,7 @@
 <ng-container *ngIf="showSnvSurvivalImage">
   <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
     <mat-card-header>
-      <mat-card-title>Survival between mutated (effective) and non-mutated in the specific cancers</mat-card-title>
+      <mat-card-title>Survival between mutant (effective) and wide type in the specific cancers</mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <img [src]="this.snvSurvivalImage" alt="snvSurvivalplot" *ngIf="!snvSurvivalImageLoading; else loading" loading="lazy" />
