@@ -3,7 +3,7 @@ import { ExprSearch } from 'src/app/shared/model/exprsearch';
 import { DrugApiService } from '../drug-api.service';
 import collectionList from 'src/app/shared/constants/collectionlist';
 import { MatTableDataSource } from '@angular/material/table';
-import { GdscTableRecord } from 'src/app/shared/model/gdsctablerecord';
+import { DrugTableRecord } from 'src/app/shared/model/gdsctablerecord';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { animate, state, style, transition, trigger } from '@angular/animations';
@@ -25,13 +25,13 @@ export class GdscComponent implements OnInit, OnChanges, AfterViewInit {
 
   // gdsc table data source
   dataSourceGdscLoading = true;
-  dataSourceGdsc: MatTableDataSource<GdscTableRecord>;
+  dataSourceGdsc: MatTableDataSource<DrugTableRecord>;
   showGDSCTable = true;
   @ViewChild('paginatorGdsc') paginatorGdsc: MatPaginator;
   @ViewChild(MatSort) sortGdsc: MatSort;
   displayedColumnsGdsc = ['symbol', 'drug', 'cor', 'fdr'];
   displayedColumnsGdscHeader = ['Gene symbol', 'Drug name', 'Correlation', 'FDR'];
-  expandedElement: GdscTableRecord;
+  expandedElement: DrugTableRecord;
   expandedColumn: string;
 
   // gdscPlot
@@ -142,7 +142,7 @@ export class GdscComponent implements OnInit, OnChanges, AfterViewInit {
     }
   }
 
-  public expandDetail(element: GdscTableRecord, column: string): void {
+  public expandDetail(element: DrugTableRecord, column: string): void {
     this.expandedElement = this.expandedElement === element && this.expandedColumn === column ? null : element;
     this.expandedColumn = column;
 
@@ -218,7 +218,7 @@ export class GdscComponent implements OnInit, OnChanges, AfterViewInit {
     }
   }
 
-  public triggerDetail(element: GdscTableRecord): string {
+  public triggerDetail(element: DrugTableRecord): string {
     return element === this.expandedElement ? 'expanded' : 'collapsed';
   }
 }
