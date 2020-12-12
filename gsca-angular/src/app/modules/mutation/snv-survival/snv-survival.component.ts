@@ -48,16 +48,19 @@ export class SnvSurvivalComponent implements OnInit, OnChanges, AfterViewInit {
   snvSurvivalImageLoading = true;
   snvSurvivalImage: any;
   showSnvSurvivalImage = true;
+  snvSurvivalPdfURL: string;
 
   // single gene survival
   snvSurvivalSingleGeneImage: any;
   snvSurvivalSingleGeneImageLoading = true;
   showSnvSurvivalSingleGeneImage = false;
+  snvSurvivalSingleGenePdfURL: string;
 
   // geneset survival plot
   showSnvGenesetSurvivalImage = true;
   snvGenesetSurvivalImage: any;
   snvGenesetSurvivalImageLoading = true;
+  snvGenesetSurvivalPdfURL: string;
 
   // geneset survival plot
   showSnvGenesetSurvivalTable = true;
@@ -81,6 +84,7 @@ export class SnvSurvivalComponent implements OnInit, OnChanges, AfterViewInit {
   snvGenesetSurvivalSingleCancerImage: any;
   snvGenesetSurvivalSingleCancerImageLoading = true;
   showSnvGenesetSurvivalSingleCancerImage = false;
+  snvGenesetSurvivalSingleCancerPdfURL: string;
 
   constructor(private mutationApiService: MutationApiService) {}
 
@@ -119,24 +123,38 @@ export class SnvSurvivalComponent implements OnInit, OnChanges, AfterViewInit {
 
       this.mutationApiService.getSnvSurvivalPlot(postTerm).subscribe(
         (res) => {
-          this.showSnvSurvivalImage = true;
-          this.snvSurvivalImageLoading = false;
-          this._createImageFromBlob(res, 'snvSurvivalImage');
+          this.snvSurvivalPdfURL = this.mutationApiService.getResourcePlotURL(res.snvsurvivalplotuuid, 'pdf');
+          this.mutationApiService.getResourcePlotBlob(res.snvsurvivalplotuuid, 'png').subscribe(
+            (r) => {
+              this.showSnvSurvivalImage = true;
+              this.snvSurvivalImageLoading = false;
+              this._createImageFromBlob(r, 'snvSurvivalImage');
+            },
+            (e) => {
+              this.showSnvSurvivalImage = false;
+            }
+          );
         },
         (err) => {
-          this.snvSurvivalImageLoading = false;
           this.showSnvSurvivalImage = false;
         }
       );
 
       this.mutationApiService.getSnvGenesetSurvivalPlot(postTerm).subscribe(
         (res) => {
-          this.showSnvGenesetSurvivalImage = true;
-          this.snvGenesetSurvivalImageLoading = false;
-          this._createImageFromBlob(res, 'snvGenesetSurvivalImage');
+          this.snvGenesetSurvivalPdfURL = this.mutationApiService.getResourcePlotURL(res.snvsurvivalgenesetuuid, 'pdf');
+          this.mutationApiService.getResourcePlotBlob(res.snvsurvivalgenesetuuid, 'png').subscribe(
+            (r) => {
+              this.showSnvGenesetSurvivalImage = true;
+              this.snvGenesetSurvivalImageLoading = false;
+              this._createImageFromBlob(r, 'snvGenesetSurvivalImage');
+            },
+            (e) => {
+              this.showSnvGenesetSurvivalImage = false;
+            }
+          );
         },
         (err) => {
-          this.snvGenesetSurvivalImageLoading = false;
           this.showSnvGenesetSurvivalImage = false;
         }
       );
@@ -224,18 +242,24 @@ export class SnvSurvivalComponent implements OnInit, OnChanges, AfterViewInit {
 
         this.mutationApiService.getSnvSurvivalSingleGene(postTerm).subscribe(
           (res) => {
-            this._createImageFromBlob(res, 'snvSurvivalSingleGeneImage');
-            this.snvSurvivalSingleGeneImageLoading = false;
-            this.showSnvSurvivalSingleGeneImage = true;
+            this.snvSurvivalSingleGenePdfURL = this.mutationApiService.getResourcePlotURL(res.snvsurvivalsinglegeneuuid, 'pdf');
+            this.mutationApiService.getResourcePlotBlob(res.snvsurvivalsinglegeneuuid, 'png').subscribe(
+              (r) => {
+                this._createImageFromBlob(r, 'snvSurvivalSingleGeneImage');
+                this.snvSurvivalSingleGeneImageLoading = false;
+                this.showSnvSurvivalSingleGeneImage = true;
+              },
+              (e) => {
+                this.showSnvSurvivalSingleGeneImage = false;
+              }
+            );
           },
           (err) => {
-            this.snvSurvivalSingleGeneImageLoading = false;
             this.showSnvSurvivalSingleGeneImage = false;
           }
         );
       }
     } else {
-      this.snvSurvivalSingleGeneImageLoading = false;
       this.showSnvSurvivalSingleGeneImage = false;
     }
   }
@@ -260,12 +284,22 @@ export class SnvSurvivalComponent implements OnInit, OnChanges, AfterViewInit {
 
         this.mutationApiService.getSnvGenesetSurvivalSingleCancer(postTerm).subscribe(
           (res) => {
-            this._createImageFromBlob(res, 'snvGenesetSurvivalSingleCancerImage');
-            this.snvGenesetSurvivalSingleCancerImageLoading = false;
-            this.showSnvGenesetSurvivalSingleCancerImage = true;
+            this.snvGenesetSurvivalSingleCancerPdfURL = this.mutationApiService.getResourcePlotURL(
+              res.snvgenesetsurvivalsinglecanceruuid,
+              'pdf'
+            );
+            this.mutationApiService.getResourcePlotBlob(res.snvgenesetsurvivalsinglecanceruuid, 'png').subscribe(
+              (r) => {
+                this._createImageFromBlob(r, 'snvGenesetSurvivalSingleCancerImage');
+                this.snvGenesetSurvivalSingleCancerImageLoading = false;
+                this.showSnvGenesetSurvivalSingleCancerImage = true;
+              },
+              (e) => {
+                this.showSnvGenesetSurvivalSingleCancerImage = false;
+              }
+            );
           },
           (err) => {
-            this.snvGenesetSurvivalSingleCancerImageLoading = false;
             this.showSnvGenesetSurvivalSingleCancerImage = false;
           }
         );
