@@ -38,7 +38,7 @@ fetched_data %>%
   tidyr::nest() %>%
   dplyr::mutate(remain = purrr::map(data,.f=function(.x){
     .x %>%
-      dplyr::filter(fdr<=0.05 && abs(cor) >= 0.2) -> fdr_sig
+      dplyr::filter(fdr<=0.05 && abs(cor) >= 0.1) -> fdr_sig
     if(nrow(fdr_sig)>0){
       "yes"
     }else{
