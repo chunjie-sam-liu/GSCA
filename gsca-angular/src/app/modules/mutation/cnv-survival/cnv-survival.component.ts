@@ -32,7 +32,7 @@ export class CnvSurvivalComponent implements OnInit, OnChanges, AfterViewInit {
   @ViewChild('paginatorCnvSurvival') paginatorCnvSurvival: MatPaginator;
   @ViewChild(MatSort) sortCnvSurvival: MatSort;
   displayedColumnsCnvSurvival = ['cancertype', 'symbol', 'sur_type', 'log_rank_p'];
-  displayedColumnsCnvSurvivalHeader = ['Cancer type', 'Gene symbol', 'Survival type', 'Log rank P value'];
+  displayedColumnsCnvSurvivalHeader = ['Cancer type', 'Gene symbol', 'Survival type', 'Logrank P value'];
   expandedElement: CnvSurvivalTableRecord;
   expandedColumn: string;
 
@@ -61,7 +61,7 @@ export class CnvSurvivalComponent implements OnInit, OnChanges, AfterViewInit {
   @ViewChild('paginatorCnvGenesetSurvival') paginatorCnvGenesetSurvival: MatPaginator;
   @ViewChild(MatSort) sortCnvGenesetSurvival: MatSort;
   displayedColumnsCnvGenesetSurvival = ['cancertype', 'sur_type', 'logrankp'];
-  displayedColumnsCnvGenesetSurvivalHeader = ['Cancer type', 'Survival type', 'Log rank P value'];
+  displayedColumnsCnvGenesetSurvivalHeader = ['Cancer type', 'Survival type', 'Logrank P value'];
   expandedElementGeneset: CnvGenesetSurvivalTableRecord;
   expandedColumnGeneset: string;
 
