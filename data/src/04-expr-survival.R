@@ -60,6 +60,8 @@ fn_transform_df <- function(cancertype, data) {
 expr_survival %>%
   dplyr::rename("cancertype"="cancer_types") %>%
   dplyr::mutate(sur_type=toupper(sur_type)) %>%
+  dplyr::filter(!is.na(logrankp)) %>%
+  dplyr::filter(logrankp!=1) %>%
   dplyr::group_by(cancertype) %>%
   tidyr::nest() %>%
   dplyr::ungroup() ->
@@ -69,6 +71,8 @@ expr_survival %>%
 expr_survival_nest %>%
   purrr::pmap(.f = fn_transform_df) ->
   expr_survival_nest_mongo_data
+
+
 # 
 # # Save image --------------------------------------------------------------
 # 
