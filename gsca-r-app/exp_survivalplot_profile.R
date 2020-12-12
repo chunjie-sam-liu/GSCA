@@ -14,7 +14,7 @@ search_str <- args[1]
 filepath <- args[2]
 apppath <- args[3]
 
-# search_str = 'A2M#ACE#ANGPT2#BPI#CD1B#CDR1#EGR2#EGR3#HBEGF#HERPUD1#MCM2#PCTP#PODXL#PPY#PTGS2#RCAN1#SLC4A7#THBD@KICH_expr_survival#KIRC_expr_survival#KIRP_expr_survival#LUAD_expr_survival#LUSC_expr_survival'
+# search_str = 'A2M#ACE#ANGPT2#BPI#CD1B#CDR1#EGR2#EGR3#HBEGF#HERPUD1#MCM2#PCTP#PODXL#PPY#PTGS2#RCAN1#SLC4A7#THBD@KICH_expr_survival#KIRC_expr_survival#KIRP_expr_survival#LUAD_expr_survival#LUSC_expr_survival#TGCT_expr_survival'
 # filepath = 'home/huff/github/GSCA/gsca-r-plot/pngs/b47556d1-e6ee-4b8b-aae0-2a7db026cebf.png'
 # apppath <- '/home/huff/github/GSCA'
 
@@ -49,7 +49,8 @@ cancer_rank <- fn_get_cancer_types_rank_v2(.x = fetched_data_clean_pattern)
 gene_rank <- fn_get_gene_rank(.x = fetched_data_clean_pattern)
 for_plot <- fetched_data %>%
   dplyr::mutate(group=ifelse(pval<=0.05,"<0.05",">0.05")) %>%
-  dplyr::mutate(logp = -log10(pval))
+  dplyr::mutate(logp = -log10(pval)) %>%
+  dplyr::mutate(HR=ifelse(HR>=10,10,HR))
 
 # Plot --------------------------------------------------------------------
 source(file.path(apppath,"gsca-r-app/utils/fn_bubble_plot_immune.R"))
@@ -59,8 +60,8 @@ color_group<- c("Higher expr.","Lower expr.")
 for_plot %>%
   dplyr::filter(!is.na(HR)) %>%
   .$HR -> HR_value
-min(HR_value) %>% trunc() -> min
-max(HR_value) %>% ceiling() -> max
+min(HR_value) %>% ceiling() -> min
+max(HR_value) %>% trunc() -> max
 fillbreaks <- sort(unique(c(1,seq(min,max,length.out = 3))))
 title <- ""
 
