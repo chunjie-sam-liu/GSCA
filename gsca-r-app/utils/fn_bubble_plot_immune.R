@@ -20,6 +20,7 @@ bubble_plot <- function(data, cancer, gene, size, fill, fillmipoint=0, fillbreak
       mid = CPCOLS[2],
       high = CPCOLS[1],
       midpoint = fillmipoint,
+      limits=c(min(fillbreaks),max(fillbreaks)),
       breaks=fillbreaks
     ) +
     guides(fill=guide_colourbar(title.position="top",reverse=TRUE)) +
