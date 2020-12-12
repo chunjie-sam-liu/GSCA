@@ -1,0 +1,21 @@
+.search-box {
+  width: 100%;
+}
+
+mat-hint {
+  font-size: 16px;
+}
+
+.illegal {
+  color: #da4233;
+}
+.has-input {
+  color: #da4233;
+}
+
+mat-card {
+  padding-bottom: 25px;
+}
+mat-checkbox {
+  margin: 0 10px;
+}

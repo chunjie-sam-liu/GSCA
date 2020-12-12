@@ -1,4 +1,4 @@
-################### imm cnv cor singlegene####################
+################### imm methy cor singlegene####################
 
 # Library -----------------------------------------------------------------
 
@@ -15,7 +15,7 @@ search_str <- args[1]
 filepath <- args[2]
 apppath <- args[3]
 
-# search_str <- 'A2M@KICH_immune_cor_cnv@Bcell'
+# search_str <- 'A2M@all_gdsc_cor_expr@(5Z)-7-Oxozeaenol'
 # apppath='/home/huff/github/GSCA'
 # filepath <- "/home/huff/github/GSCA/gsca-r-plot/pngs/3d2e17d3-91b9-40ff-bf8f-d9dd70692a26.png"
 
@@ -30,12 +30,12 @@ celltype <- search_str_split[3]
 
 source(file.path(apppath, "gsca-r-app/utils/fn_fetch_mongo_data.R"))
 fields <- '{"symbol": true, "cell_type": true,"cor": true,"fdr":true,"_id": false}'
-fetched_cnvcor_data <- purrr::map(.x = search_colls, .f = fn_fetch_mongo, pattern="_immune_cor_cnv",fields = fields,.key=search_genes,.keyindex="symbol") %>%
+fetched_methycor_data <- purrr::map(.x = search_colls, .f = fn_fetch_mongo, pattern="_immune_cor_methy",fields = fields,.key=search_genes,.keyindex="symbol") %>%
   dplyr::bind_rows() %>%
   dplyr::filter(cell_type %in% celltype)
 
-fields <- '{"symbol": true,"barcode": true,"sample_name":true, "type":true, "cnv":true, "_id": false}'
-fetched_cnv <- purrr::map(.x = paste(search_cancertypes,"_all_cnv",sep=""), .f = fn_fetch_mongo, pattern="_all_cnv",fields = fields,.key=search_genes,.keyindex="symbol") %>%
+fields <- '{"symbol": true,"barcode": true,"sample_name":true, "type":true, "methy":true, "_id": false}'
+fetched_methy <- purrr::map(.x = paste(search_cancertypes,"_all_methy",sep=""), .f = fn_fetch_mongo, pattern="_all_methy",fields = fields,.key=search_genes,.keyindex="symbol") %>%
   dplyr::bind_rows()%>%
   dplyr::filter(type=="tumor")
 
@@ -45,19 +45,18 @@ fetched_immune <- purrr::map(.x = paste(search_cancertypes,"_all_immune",sep="")
   dplyr::filter(substr(barcode,14,14)==0)
 
 # Sort ----------------------------------------------------------------
-source(file.path(apppath,"gsca-r-app/utils/common_used_summary_plot_functions.R"))
 
 fetched_immune %>%
-  dplyr::inner_join(fetched_cnv, by="barcode") -> for_plot
+  dplyr::inner_join(fetched_methy, by="sample_name") -> for_plot
 
 # plot --------------------------------------------------------------------
 
 source(file.path(apppath,"gsca-r-app/utils/fn_point_line.R"))
 
-title <-  glue::glue('Spearman correlation between {search_genes} cnv and {celltype} \ninfiltrates in {search_cancertypes}')
-plot <- fn_point_fit(data=for_plot,aesx="TIL",aesy="cnv",
-                     title=title,xlab=glue::glue('{celltype} infiltrates (ImmuCellAI)'),ylab="CNV",
-                     label=paste("Cor. =",round(fetched_cnvcor_data$cor,2),"\nFDR =", round(fetched_cnvcor_data$fdr,2)))
+title <-  glue::glue('Spearman correlation between {search_genes} methylation and {celltype} \ninfiltrates in {search_cancertypes}')
+plot <- fn_point_fit(data=for_plot,aesx="TIL",aesy="methy",
+                     title=title,xlab=glue::glue('{celltype} infiltrates (ImmuCellAI)'),ylab="Methylation (Beta value)",
+                     label=paste("Cor. =",round(fetched_methycor_data$cor,2),"\nFDR =", round(fetched_methycor_data$fdr,2)))
 
 # Save --------------------------------------------------------------------
 ggsave(filename = filepath, plot = plot, device = 'png', width = 6, height = 4)

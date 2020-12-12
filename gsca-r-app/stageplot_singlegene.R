@@ -6,7 +6,7 @@
 
 library(magrittr)
 library(ggplot2)
-
+library(dplyr)
 
 # Arguments ---------------------------------------------------------------
 
@@ -35,7 +35,7 @@ gsca_conf <- readr::read_lines(file = file.path(apppath, 'gsca-r-app/gsca.conf')
 
 source(file.path(apppath, "gsca-r-app/utils/fn_fetch_mongo_data.R"))
 source(file.path(apppath, "gsca-r-app/utils/plot_theme.R"))
-source(file.path(apppath, "gsca-r-app/utils/fn_boxplot.R"))
+source(file.path(apppath,"gsca-r-app/utils/fn_boxplot_single_gene_in_cancer.R"))
 # Query data --------------------------------------------------------------
 fetched_expr_data <- fn_fetch_mongo_all_expr_single_cancer(.cancer_types = search_cancertypes, .keyindex="symbol", .key=search_genes) %>%
   dplyr::bind_rows()
@@ -50,16 +50,22 @@ fetched_expr_data %>%
   dplyr::filter(!is.na(expr)) -> combine_data
 
 # draw survival plot ------------------------------------------------------
+combine_data%>%
+  dplyr::mutate(expr=log2(expr+1))  %>%
+  dplyr::rename(group=stage)%>%
+  dplyr::group_by(group) %>%
+  dplyr::mutate(n=n()) %>%
+  dplyr::ungroup() %>%
+  dplyr::mutate(group_n = paste(group,", n=",n,sep="")) -> for_plot
+
 title <- paste(search_genes, "mRNA expression in stages of",search_cancertypes, sep=" ")
 color <- c("#1B9E77", "#D95F02", "#7570B3", "#E7298A", "#66A61E", "#E6AB02", "#A6761D", "#666666")
 len_stage <- length(unique(combine_data$stage))
-color_list <- tibble::tibble(color=color[1:len_stage],
-                             group=unique(combine_data$stage))
-combine_data  %>%
-  dplyr::mutate(expr=log2(expr+1)) %>%
-  dplyr::rename(group=stage, value=expr) %>%
-  fn_boxplot(title=title,colorkey=color_list,xlab="Stage",ylab="Expression log2(RSEM)") -> plot
 
+color_list <- tibble::tibble(color=color[1:len_stage],
+                             group=sort(unique(for_plot$group_n)))
+
+plot <- box_plot_single_gene_single_cancer(data = for_plot,aesx = "group",aesy="expr",color = "group_n",color_name = "Satges",color_labels =  color_list$group,color_values = color_list$color,title = title,xlab = 'Stages', ylab = 'Expression log2(RSEM)',xangle = 0)
 # Save --------------------------------------------------------------------
 ggsave(filename = filepath, plot = plot, device = 'png', width = 5, height = 3)
 pdf_name <- gsub("\\.png",".pdf",filepath)

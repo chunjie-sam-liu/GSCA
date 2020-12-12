@@ -7,12 +7,12 @@ fn_height_width <- function(.g,.c){
   if(.lg<=20){
     .height <- 4
   } else{
-    .height <- 4 + (.lg-20)*0.5
+    .height <- 4 + (.lg-20)*0.2
   }
   if(.lc<=10){
     .width <- 6
   } else {
-    .wdith <- 6 + (.lc-10)*0.5
+    .width <- 6 + (.lc-10)*0.2
   }
   tibble::tibble(width=.width,height=.height)
 }

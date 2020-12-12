@@ -2,6 +2,6 @@
 
 export interface ExprSearch {
   validSymbol: string[];
-  cancerTypeSelected: string[];
+  cancerTypeSelected?: string[];
   validColl?: string[];
 }
