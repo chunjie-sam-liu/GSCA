@@ -88,3 +88,6 @@ a.download-button {
   right: 10px;
   z-index: 100;
 }
+button.expand-button {
+  background: #b8c3f1;
+}
