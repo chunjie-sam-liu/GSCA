@@ -61,7 +61,7 @@ fn_cnv_oncoplot(data=plot_ready,
                 filllabel=color$type,
                 xrank=sample_rank$barcode,
                 yrank=search_genes,
-                title=glue::glue("CNV ditribution of",{search_genes}," in ",{search_cancertypes},"tumor samples"),
+                title=glue::glue("CNV ditribution of",{search_genes}," in ",{search_cancertypes}," tumor samples"),
                 xlab="",ylab="") -> plot
 
 # Save --------------------------------------------------------------------

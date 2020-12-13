@@ -33,12 +33,12 @@ export class CnvComponent implements OnInit, OnChanges, AfterViewInit {
   displayedColumnsCnvHeader = [
     'Cancer type',
     'Gene symbol',
-    'Total amplification(%)',
-    'Total deletion(%)',
-    'Heterozygous amplification(%)',
-    'Heterozygous deletion(%)',
-    'Homozygous amplification(%)',
-    'Homozygous deletion(%)',
+    'Total amp.(%)',
+    'Total dele.(%)',
+    'Hete. amp.(%)',
+    'Hete. dele.(%)',
+    'Homo. amp.(%)',
+    'Homo. dele.(%)',
   ];
   expandedElement: CnvTableRecord;
   expandedColumn: string;
