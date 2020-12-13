@@ -44,7 +44,7 @@ bubble_plot <- function(data, cancer, gene, size, fill, fillmipoint=0, fillbreak
       legend.title = element_text(size = 12),
       legend.key = element_rect(fill = "white", colour = "black"),
       legend.key.size = unit(0.5, "cm"),
-      plot.title = element_text(size = 20),
+      plot.title = element_text(size = 14),
       strip.background =  element_rect(fill="white",color="black"),
       strip.text = element_text(color="black",size = 12)
     ) -> p

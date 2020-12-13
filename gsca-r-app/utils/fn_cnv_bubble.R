@@ -6,7 +6,8 @@ fn_cnv_bubble <- function(data,aesx,aesy,size,color,xlab,ylab,sizename,min=0,max
     ylab(ylab) +
     scale_size_continuous(
       name = sizename,
-      breaks = seq(min, max, by = 25)
+      breaks = trunc(seq(ceiling(min), floor(max), length.out = 3)),
+      limits = c(floor(min),ceiling(max))
     ) +
     ggthemes::scale_color_gdocs(
       name = colorname,
