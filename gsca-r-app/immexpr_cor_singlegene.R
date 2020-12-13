@@ -54,9 +54,9 @@ fetched_immune %>%
 
 source(file.path(apppath,"gsca-r-app/utils/fn_point_line.R"))
 
-title <-  glue::glue('Spearman correlation between {search_genes} methylation and {celltype} \ninfiltrates in {search_cancertypes}')
+title <-  glue::glue('Spearman correlation between {search_genes} expression and {celltype} \ninfiltrate in {search_cancertypes}')
 plot <- fn_point_fit(data=for_plot,aesx="TIL",aesy="expr",
-                     title=title,xlab=glue::glue('{celltype} infiltrates (ImmuCellAI)'),ylab="mRNA expression",
+                     title=title,xlab=glue::glue('{celltype} infiltrate score (ImmuCellAI)'),ylab="mRNA expression",
                      label=paste("Cor. =",round(fetched_exprcor_data$cor,2),"\nFDR =", round(fetched_exprcor_data$fdr,2)))
 
 # Save --------------------------------------------------------------------

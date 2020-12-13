@@ -14,7 +14,7 @@ search_str <- args[1]
 filepath <- args[2]
 apppath <- args[3]
 
-# search_str <- 'A2M#ACE#ANGPT2#BPI#CD1B#CDR1#EGR2#EGR3#HBEGF#HERPUD1#MCM2#PCTP#PODXL#PPY#PTGS2#RCAN1#SLC4A7#THBD@KICH_immune_cor_cnv'
+# search_str <- 'A2M#ACE#ANGPT2#BPI#CD1B#CDR1#EGR2#EGR3#HBEGF#HERPUD1#MCM2#PCTP#PODXL#PPY#PTGS2#RCAN1#SLC4A7#THBD@CHOL_immune_cor_cnv'
 # apppath='/home/huff/github/GSCA'
 # filepath <- "/home/huff/github/GSCA/gsca-r-plot/pngs/3d2e17d3-91b9-40ff-bf8f-d9dd70692a26.png"
 
@@ -57,9 +57,10 @@ gene_rank <- fn_get_gene_rank(.x = fetched_data_clean_pattern)
 
 source(file.path(apppath,"gsca-r-app/utils/fn_bubble_plot_immune.R"))
 for_plot$cor %>% range() -> min_max
-trunc(min_max[1]*10)/10 -> min
+floor(min_max[1]*10)/10 -> min
 ceiling(min_max[2]*10)/10 -> max
-fillbreaks <- sort(unique(c(0,seq(min,max,by = 0.5))))
+fillbreaks <- sort(unique(c(0,min,max)))
+title <- glue::glue("Correlation between CNV and immune infiltrates in ",{search_cancertypes})
 plot <- bubble_plot(data=for_plot, 
                     cancer="cell_type", 
                     gene="symbol", 
@@ -78,7 +79,7 @@ plot <- bubble_plot(data=for_plot,
                     colorbreaks=c("<0.05",">0.05"),
                     colorname="FDR", 
                     fillname="Correlation", 
-                    title="")
+                    title=title)
 
 # Save --------------------------------------------------------------------
 ggsave(filename = filepath, plot = plot, device = 'png', width = size$width, height = size$height+2)

@@ -59,7 +59,7 @@ for_plot %>%
   .$logp -> logp_value
 min(logp_value) %>% trunc() -> min
 max(logp_value) %>% ceiling() -> max
-fillbreaks <- sort(unique(c(1.3,seq(min,max,length.out = 3))))
+fillbreaks <- sort(unique(c(1.3,min,max,seq(min,max,length.out = 3))))
 
 heat_plot <- bubble_plot(data=for_plot, 
                          cancer="cancertype", 
