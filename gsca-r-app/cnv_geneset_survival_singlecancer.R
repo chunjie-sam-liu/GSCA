@@ -69,7 +69,7 @@ combine_data %>%
 
 # draw --------------------------------------------------------------------
 
-title <- paste(toupper(survival_type),"survival of gene set", "SNV in",search_cancertypes)
+title <- paste(toupper(survival_type),"survival of gene set", "CNV in",search_cancertypes)
 combine_data_group %>%
   dplyr::filter(!is.na(time)) %>%
   fn_survival(title,cnv_group) -> plot
