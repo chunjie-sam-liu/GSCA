@@ -65,7 +65,7 @@ class CheckTableGSVA(AppPaths):
         self.ranalysis = "expr_gsva.R"
         self.precol = "preanalysised"
         self.gsvacol = "preanalysised_gsva"
-        self.uuid = str(uuid.uudi4())
+        self.uuid = str(uuid.uuid4())
 
     def check_run(self):
         run = True
