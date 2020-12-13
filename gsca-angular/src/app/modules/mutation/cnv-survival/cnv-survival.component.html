@@ -93,6 +93,7 @@
       </mat-card>
     </ng-container>
   </div>
+
   <div fxLayout="row" fxLayout.lt-lg="column" fxLayoutGap="10px" fxLayoutWrap fxLayoutAlign="center">
     <ng-container *ngIf="showCnvGenesetSurvivalTable">
       <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
@@ -100,7 +101,7 @@
           <mat-card-title>Survival of gene set CNV and wide type in the specific cancers</mat-card-title>
         </mat-card-header>
 
-        <ng-container *ngIf="!cnvGenesetSurvivalTable; else loading"></ng-container>
+        <ng-container *ngIf="!cnvGenesetSurvivalTableLoading; else loading"></ng-container>
 
         <mat-form-field>
           <input matInput placeholder="Search gene symbol" (keyup)="applyFilter($event)" #inputCnvSurvival />

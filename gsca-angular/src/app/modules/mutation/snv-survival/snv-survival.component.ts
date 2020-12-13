@@ -158,7 +158,7 @@ export class SnvSurvivalComponent implements OnInit, OnChanges, AfterViewInit {
           this.showSnvGenesetSurvivalImage = false;
         }
       );
-      this.showSnvGenesetSurvivalTable = true;
+
       this.mutationApiService
         .getSnvGenesetSurvivalTable(postTerm)
         .pipe(timeout(3000))
@@ -170,7 +170,6 @@ export class SnvSurvivalComponent implements OnInit, OnChanges, AfterViewInit {
             this.snvGenesetSurvivalTable.sort = this.sortSnvGenesetSurvival;
           },
           (err) => {
-            this.snvGenesetSurvivalTableLoading = false;
             this.showSnvGenesetSurvivalTable = false;
           }
         );
@@ -308,7 +307,6 @@ export class SnvSurvivalComponent implements OnInit, OnChanges, AfterViewInit {
         );
       }
     } else {
-      this.snvGenesetSurvivalSingleCancerImageLoading = false;
       this.showSnvGenesetSurvivalSingleCancerImage = false;
     }
   }
