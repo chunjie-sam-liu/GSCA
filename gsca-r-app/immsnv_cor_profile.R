@@ -64,6 +64,7 @@ for_plot %>%
 floor(min_max[1]) -> min
 ceiling(min_max[2]) -> max
 fillbreaks <- sort(unique(c(0,min,max)))
+title <- glue::glue("Difference of immune infiltrates between mutant and wide type in ",{search_cancertypes})
 plot <- bubble_plot(data=for_plot, 
                     cancer="cell_type", 
                     gene="symbol", 
@@ -82,7 +83,7 @@ plot <- bubble_plot(data=for_plot,
                     colorbreaks=c("<0.05",">0.05"),
                     colorname="FDR", 
                     fillname="Log2(FC)", 
-                    title="")
+                    title=title)
 
 # Save --------------------------------------------------------------------
 ggsave(filename = filepath, plot = plot, device = 'png', width = size$width, height = size$height+2)
