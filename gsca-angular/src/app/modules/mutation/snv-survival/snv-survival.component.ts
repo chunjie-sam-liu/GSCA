@@ -197,6 +197,9 @@ export class SnvSurvivalComponent implements OnInit, OnChanges, AfterViewInit {
           case 'snvGenesetSurvivalImage':
             this.snvGenesetSurvivalImage = reader.result;
             break;
+          case 'snvGenesetSurvivalSingleCancerImage':
+            this.snvGenesetSurvivalSingleCancerImage = reader.result;
+            break;
         }
       },
       false

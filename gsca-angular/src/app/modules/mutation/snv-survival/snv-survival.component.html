@@ -134,7 +134,7 @@
             <td mat-cell *matCellDef="let element" [attr.colSpan]="displayedColumnsSnvGenesetSurvival.length">
               <div class="example-element-detail" [@detailExpand]="triggerDetailGeneset(element)">
                 <ng-container *ngIf="snvGenesetSurvivalSingleCancerImageLoading; then loading"></ng-container>
-                <ng-container *ngIf="!showSnvGenesetSurvivalSingleCancerImage; else loading">
+                <ng-container *ngIf="!showSnvGenesetSurvivalSingleCancerImage">
                   <a
                     mat-button
                     mat-mini-fab
