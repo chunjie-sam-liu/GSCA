@@ -70,7 +70,7 @@ fetched_survival_data <- fn_fetch_mongo_all_survival(.data="all_survival",.keyin
 fetched_snv_data %>%
   dplyr::rename(symbol=Hugo_Symbol) %>%
   dplyr::mutate(sample_name = substr(x = Tumor_Sample_Barcode, start = 1, stop = 12)) %>%
-  dplyr::mutate(group = ifelse(Variant_Classification %in% c("Missense_Mutation","Nonsense_Mutation","Frame_Shift_Ins","Splice_Site","Frame_Shift_Del","In_Frame_Del","In_Frame_Ins"), "Mutated","Non-mutated"))%>%
+  dplyr::mutate(group = ifelse(Variant_Classification %in% c("Missense_Mutation","Nonsense_Mutation","Frame_Shift_Ins","Splice_Site","Frame_Shift_Del","In_Frame_Del","In_Frame_Ins"), "Mutant","WT"))%>%
   dplyr::group_by(cancer_types) %>%
   tidyr::nest() -> fetched_snv_data.bycancer
 
@@ -84,7 +84,7 @@ mutate_grouped %>%
     fetched_survival_data %>%
       dplyr::filter(cancer_types %in% .x) %>%
       dplyr::left_join(.y,by=c("sample_name")) %>%
-      dplyr::mutate(group=ifelse(is.na(group),"Non-mutated",group))
+      dplyr::mutate(group=ifelse(is.na(group),"WT",group))
   })) %>%
   dplyr::ungroup() %>%
   dplyr::select(-mutataion_group) -> combine_data_group
@@ -97,7 +97,8 @@ combine_data_group %>%
   dplyr::mutate(surviva_res = purrr::map2(cancer_types,combine,fn_survival_res)) %>%
   dplyr::select(-combine) %>%
   tidyr::unnest(cols = c(surviva_res)) %>%
-  dplyr::rename(cancertype=cancer_types)-> geneset_survival
+  dplyr::rename(cancertype=cancer_types) %>%
+  dplyr::filter(!is.na(higher_risk_of_death))-> geneset_survival
 geneset_survival %>%
   readr::write_tsv(file.path(apppath,"gsca-r-plot/tables","geneset_survival_table.tsv"))
 
