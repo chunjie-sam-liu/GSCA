@@ -60,9 +60,9 @@ color_group<- c("Higher expr.","Lower expr.")
 for_plot %>%
   dplyr::filter(!is.na(HR)) %>%
   .$HR -> HR_value
-min(HR_value) %>% ceiling() -> min
-max(HR_value) %>% trunc() -> max
-fillbreaks <- sort(unique(c(1,seq(min,max,length.out = 3))))
+min(HR_value) %>% floor() -> min
+max(HR_value) %>% ceiling() -> max
+fillbreaks <- sort(unique(c(1,min,max,seq(min,max,length.out = 3))))
 title <- ""
 
 heat_plot <- bubble_plot(data=for_plot, 

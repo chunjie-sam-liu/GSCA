@@ -61,8 +61,8 @@ source(file.path(apppath,"gsca-r-app/utils/fn_bubble_plot_immune.R"))
 for_plot %>%
   dplyr::filter(!is.na(logfc)) %>%
   .$logfc %>% range() -> min_max
-trunc(min_max[1]) -> min
-trunc(min_max[2]) -> max
+floor(min_max[1]) -> min
+ceiling(min_max[2]) -> max
 fillbreaks <- sort(unique(c(0,min,max)))
 plot <- bubble_plot(data=for_plot, 
                     cancer="cell_type", 

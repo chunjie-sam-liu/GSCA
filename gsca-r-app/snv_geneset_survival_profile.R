@@ -60,7 +60,7 @@ for_plot %>%
   .$hr -> HR_value
 min(HR_value) %>% trunc() -> min
 max(HR_value) %>% ceiling() -> max
-fillbreaks <- sort(unique(c(1,seq(min,max,length.out = 3))))
+fillbreaks <- sort(unique(c(1,min,max,seq(min,max,length.out = 3))))
 title <- ""
 
 heat_plot <- bubble_plot(data=for_plot, 
