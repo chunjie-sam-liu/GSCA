@@ -9,8 +9,8 @@ import { ExprSearch } from 'src/app/shared/model/exprsearch';
 export class DrugComponent implements OnInit, AfterViewInit {
   searchTerm: ExprSearch;
   showList = {
-    // showGDSC: false,
-    // showCTRP: false,
+    showGDSC: false,
+    showCTRP: false,
     showContent: false,
   };
   constructor() {}

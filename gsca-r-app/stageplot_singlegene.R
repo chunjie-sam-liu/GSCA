@@ -18,7 +18,7 @@ filepath <- args[2]
 apppath <- args[3]
 
 
-# search_str="A2M@KICH_expr_stage"
+# search_str="PTEN@BLCA_expr_stage"
 # filepath='/home/huff/github/GSCA/gsca-r-plot/pngs/2f81a610-a51b-4c6d-816d-a35a2e1ecb26.png'
 # apppath='/home/huff/github/GSCA'
 
@@ -50,8 +50,11 @@ fetched_expr_data %>%
   dplyr::filter(!is.na(expr)) -> combine_data
 
 # draw survival plot ------------------------------------------------------
+stages_included <- tibble::tibble(stage=c("Stage I","Stage II","Stage III","Stage IV"),
+                                  rank=c(1,2,3,4))
 combine_data%>%
   dplyr::mutate(expr=log2(expr+1))  %>%
+  dplyr::inner_join(stages_included, by="stage") %>%
   dplyr::rename(group=stage)%>%
   dplyr::group_by(group) %>%
   dplyr::mutate(n=n()) %>%
@@ -60,12 +63,15 @@ combine_data%>%
 
 title <- paste(search_genes, "mRNA expression in stages of",search_cancertypes, sep=" ")
 color <- c("#1B9E77", "#D95F02", "#7570B3", "#E7298A", "#66A61E", "#E6AB02", "#A6761D", "#666666")
-len_stage <- length(unique(combine_data$stage))
+len_stage <- length(unique(for_plot$group_n))
 
-color_list <- tibble::tibble(color=color[1:len_stage],
-                             group=sort(unique(for_plot$group_n)))
+color_list <- for_plot %>%
+  dplyr::select(group_n,rank) %>%
+  unique() %>%
+  dplyr::arrange(rank) %>%
+  dplyr::mutate(color=color[1:len_stage])
 
-plot <- box_plot_single_gene_single_cancer(data = for_plot,aesx = "group",aesy="expr",color = "group_n",color_name = "Satges",color_labels =  color_list$group,color_values = color_list$color,title = title,xlab = 'Stages', ylab = 'Expression log2(RSEM)',xangle = 0)
+plot <- box_plot_single_gene_single_cancer(data = for_plot,aesx = "group",aesy="expr",color = "group_n",color_name = "Satges",color_labels =  color_list$group_n,color_values = color_list$color,title = title,xlab = 'Stages', ylab = 'Expression log2(RSEM)',xangle = 0)
 # Save --------------------------------------------------------------------
 ggsave(filename = filepath, plot = plot, device = 'png', width = 5, height = 3)
 pdf_name <- gsub("\\.png",".pdf",filepath)

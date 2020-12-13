@@ -7,9 +7,7 @@ bubble_plot <- function(data, cancer, gene, size, color, ylab="Symbol",xlab="Can
       geom_point(aes_string(size = size, color = color)) +
       scale_y_discrete(limit = gene_rank) +
       scale_x_discrete(limit = cancer_rank) +
-      labs(title = title) +
-      ylab(ylab) +
-      xlab(xlab) +
+      labs(title = title, xlab=xlab, ylab = ylab) +
       scale_size_continuous(
         name = sizename # "-Log10(FDR)"
       ) +
@@ -36,7 +34,7 @@ bubble_plot <- function(data, cancer, gene, size, color, ylab="Symbol",xlab="Can
         axis.title = element_text(size=12),
         legend.title = element_text(size = 12),
         legend.key = element_rect(fill = "white", colour = "black"),
-        plot.title = element_text(size = 20)
+        plot.title = element_text(size = 12)
       ) -> p
     return(p)
 }

@@ -1,0 +1,18 @@
+#### ctrp drug cor table
+POST http://localhost:5000/api/drug/ctrp/ctrptable HTTP/1.1
+content-type: application/json
+
+{"validSymbol":["A2M","ACE","ANGPT2","BPI","CD1B","CDR1","EGR2","EGR3","HBEGF","HERPUD1","MCM2","PCTP","PODXL","PPY","PTGS2","RCAN1","SLC4A7","THBD"],"cancerTypeSelected":["all"],"validColl":["all_ctrp_cor_expr"]}
+
+#### drug cor summary plot
+POST http://localhost:5000/api/drug/ctrp/ctrpplot HTTP/1.1
+content-type: application/json
+
+{"validSymbol":["A2M","ACE","ANGPT2","BPI","CD1B","CDR1","EGR2","EGR3","HBEGF","HERPUD1","MCM2","PCTP","PODXL","PPY","PTGS2","RCAN1","SLC4A7","THBD"],"cancerTypeSelected":["all"],"validColl":["all_ctrp_cor_expr"]}
+
+#### drug cor single gene in single cancer
+
+POST http://localhost:5000/api/drug/ctrp/single/gene HTTP/1.1
+content-type: application/json
+
+{"validSymbol":["ANGPT2"],"cancerTypeSelected":["all"],"validColl":["all_ctrp_cor_expr"],"surType": ["17-AAG"]}

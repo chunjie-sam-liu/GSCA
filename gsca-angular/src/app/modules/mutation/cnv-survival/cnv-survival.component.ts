@@ -32,7 +32,7 @@ export class CnvSurvivalComponent implements OnInit, OnChanges, AfterViewInit {
   @ViewChild('paginatorCnvSurvival') paginatorCnvSurvival: MatPaginator;
   @ViewChild(MatSort) sortCnvSurvival: MatSort;
   displayedColumnsCnvSurvival = ['cancertype', 'symbol', 'sur_type', 'log_rank_p'];
-  displayedColumnsCnvSurvivalHeader = ['Cancer type', 'Gene symbol', 'Survival type', 'Log rank P value'];
+  displayedColumnsCnvSurvivalHeader = ['Cancer type', 'Gene symbol', 'Survival type', 'Logrank P value'];
   expandedElement: CnvSurvivalTableRecord;
   expandedColumn: string;
 
@@ -61,7 +61,7 @@ export class CnvSurvivalComponent implements OnInit, OnChanges, AfterViewInit {
   @ViewChild('paginatorCnvGenesetSurvival') paginatorCnvGenesetSurvival: MatPaginator;
   @ViewChild(MatSort) sortCnvGenesetSurvival: MatSort;
   displayedColumnsCnvGenesetSurvival = ['cancertype', 'sur_type', 'logrankp'];
-  displayedColumnsCnvGenesetSurvivalHeader = ['Cancer type', 'Survival type', 'Log rank P value'];
+  displayedColumnsCnvGenesetSurvivalHeader = ['Cancer type', 'Survival type', 'Logrank P value'];
   expandedElementGeneset: CnvGenesetSurvivalTableRecord;
   expandedColumnGeneset: string;
 
@@ -185,6 +185,9 @@ export class CnvSurvivalComponent implements OnInit, OnChanges, AfterViewInit {
           case 'cnvGenesetSurvivalImage':
             this.cnvGenesetSurvivalImage = reader.result;
             break;
+          case 'cnvGenesetSurvivalSingleCancerImage':
+            this.cnvGenesetSurvivalSingleCancerImage = reader.result;
+            break;
         }
       },
       false
@@ -258,11 +261,13 @@ export class CnvSurvivalComponent implements OnInit, OnChanges, AfterViewInit {
     if (this.expandedElementGeneset) {
       this.cnvGenesetSurvivalSingleCancerImageLoading = true;
       this.showCnvGenesetSurvivalSingleCancerImage = false;
-      if (this.expandedColumnGeneset === 'symbol') {
+      if (this.expandedColumnGeneset === 'cancertype') {
         const postTerm = {
-          validSymbol: [this.expandedElement.symbol],
+          validSymbol: this.searchTerm.validSymbol,
           cancerTypeSelected: [this.expandedElementGeneset.cancertype],
-          validColl: this.searchTerm.validColl,
+          validColl: [
+            collectionlist.cnv_survival.collnames[collectionlist.cnv_survival.cancertypes.indexOf(this.expandedElementGeneset.cancertype)],
+          ],
           // tslint:disable-next-line: max-line-length
           // validColl: [collectionlist.cnv_survival.collnames[collectionlist.cnv_survival.cancertypes.//indexOf(this.expandedElementGeneset.cancertype)],],
           surType: [this.expandedElementGeneset.sur_type],
@@ -286,17 +291,18 @@ export class CnvSurvivalComponent implements OnInit, OnChanges, AfterViewInit {
             );
           },
           (err) => {
-            this.cnvGenesetSurvivalSingleCancerImageLoading = false;
             this.showCnvGenesetSurvivalSingleCancerImage = false;
           }
         );
       }
     } else {
-      this.cnvGenesetSurvivalSingleCancerImageLoading = false;
       this.showCnvGenesetSurvivalSingleCancerImage = false;
     }
   }
   public triggerDetail(element: CnvSurvivalTableRecord): string {
     return element === this.expandedElement ? 'expanded' : 'collapsed';
+  }
+  public triggerDetailGeneset(element: CnvGenesetSurvivalTableRecord): string {
+    return element === this.expandedElementGeneset ? 'expanded' : 'collapsed';
   }
 }

@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import symbolList from 'src/app/shared/constants/symbollist';
 const symbolListLower = symbolList.map((v) => v.toLowerCase().replace(/[^0-9a-z]+/g, ''));
-import cancerTypeList from 'src/app/shared/constants/cancertypelist';
+import panCancerTypeList from 'src/app/shared/constants/pancanlist';
 import { ExprSearch } from 'src/app/shared/model/exprsearch';
 
 @Component({
@@ -13,10 +13,10 @@ import { ExprSearch } from 'src/app/shared/model/exprsearch';
 export class SearchBoxComponent implements OnInit {
   exampleGeneList =
     'A2M ACE ANGPT2 BPI CD1B CDR1 EGR2 EGR3 HBEGF HERPUD1 MCM2 MRE11A PCTP PODXL; PPAP2B PPY PTGS2, RCAN1 SLC4A7 THBD THB-d';
-  // exampleCancerTypes = ['KICH', 'KIRC', 'KIRP', 'LUAD', 'LUSC'];
-  // cancerTypeList = cancerTypeList;
+  exampleCancerTypes = ['all'];
+  cancerTypeList = panCancerTypeList;
   inputString = '';
-  // cancerTypeSelected = new FormControl();
+  cancerTypeSelected = new FormControl();
 
   @Output() $searchSelected = new EventEmitter<ExprSearch>();
   @Input() showList: any;
@@ -27,7 +27,7 @@ export class SearchBoxComponent implements OnInit {
 
   public showExample(): void {
     this.inputString = this.exampleGeneList;
-    // this.cancerTypeSelected.patchValue(this.exampleCancerTypes);
+    this.cancerTypeSelected.patchValue(this.exampleCancerTypes);
 
     this.showList.showGDSC = true;
     this.showList.showCTRP = false;
@@ -38,7 +38,7 @@ export class SearchBoxComponent implements OnInit {
 
     const searchTerm = {
       validSymbol: this._getSearchSymbol(str),
-      // cancerTypeSelected: this.cancerTypeSelected.value,
+      cancerTypeSelected: this.cancerTypeSelected.value,
     };
 
     /* if (!searchTerm.cancerTypeSelected || searchTerm.cancerTypeSelected.length < 1) {
