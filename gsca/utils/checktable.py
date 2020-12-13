@@ -93,4 +93,5 @@ class CheckTableGSVA(AppPaths):
         rargs = "#".join(self.args["validSymbol"]) + "@" + "#".join(self.args["validColl"])
         cmd = [self.rcommand, str(self.rscriptpath / self.ranalysis), rargs, str(self.apppath), self.uuid, self.gsvacol]
         print("\n\n ", "\n\n  ".join(cmd), "\n\n")
+        subprocess.check_output(cmd, universal_newlines=True)
 
