@@ -255,3 +255,44 @@ class CheckTablePlot(AppPaths):
         ]
         print("\n\n ", "\n\n  ".join(cmd), "\n\n")
 
+
+class CheckUUIDPlot(AppPaths):
+    def __init__(self, gsva_uuid, purpose, rplot):
+        self.gsva_uuid = gsva_uuid
+        self.purpose = purpose
+        self.rplot = rplot
+
+        self.precol = "preanalysised"
+        self.gsvacol = "preanalysised_gsva"
+        self.uuid = str(uuid.uuid4())
+        self.filename = self.uuid + ".png"
+        self.filepath = self.resource_pngs / self.filename
+
+    def check_run(self):
+        run = True
+        preanalysised = mongo.db[self.precol].find_one(
+            {"gsva_uuid": self.gsva_uuid, "purpose": self.purpose}, {"_id": 0, "uuid": 1},
+        )
+
+        if preanalysised:
+            self.uuid = preanalysised["uuid"]
+            self.filename = self.uuid + ".png"
+            self.filepath = self.resource_pngs / self.filename
+            run = False if self.filepath.exists() else True
+        else:
+            mongo.db[self.precol].insert_one({"gsva_uuid": self.gsva_uuid, "purpose": self.purpose, "uuid": self.uuid})
+
+        return {"run": run, "uuid": self.uuid}
+
+    def plot(self):
+
+        cmd = [
+            self.rcommand,
+            str(self.rscriptpath / self.rplot),
+            self.gsva_uuid,
+            self.gsvacol,
+            str(self.filepath),
+            str(self.apppath),
+        ]
+        print("\n\n ", "\n\n  ".join(cmd), "\n\n")
+
