@@ -1,7 +1,7 @@
 from flask import Blueprint, request
 from flask_restful import Api, Resource
 from gsca.utils.checkplot import CheckUUIDPlot
-from gsca.utils.checktable import CheckTableGSVA
+from gsca.utils.checktable import CheckTableGSXA
 
 gsva = Blueprint("gsva", __name__)
 api = Api(gsva)
@@ -10,7 +10,9 @@ api = Api(gsva)
 class GSVAAnalysis(Resource):
     def post(self):
         args = request.get_json()
-        checktable = CheckTableGSVA(args=args)
+        checktable = CheckTableGSXA(
+            args=args, purpose="GSVATable", ranalysis="expr_gsva.R", precol="preanalysised", gsxacol="preanalysised_gsva"
+        )
         res = checktable.check_run()
         print(res)
         if res["run"]:
