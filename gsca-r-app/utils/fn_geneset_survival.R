@@ -38,9 +38,9 @@ fn_cox_logp <- function(.d){
       
       if(!is.na(hr)){
         if(hr>1){
-          higher_risk_of_death <- "Mutated"
+          higher_risk_of_death <- "Mutant"
         }else if (hr<1){
-          higher_risk_of_death <- "Non-mutated"
+          higher_risk_of_death <- "WT"
         }else {
           higher_risk_of_death <- NA
         }

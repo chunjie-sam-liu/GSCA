@@ -7,11 +7,11 @@ fn_geneset_snv <- function(.x){
     dplyr::group_by(sample_name) %>%
     tidyr::nest() %>%
     dplyr::mutate(group = purrr::map(data,.f=function(.y){
-      mutated_n <- length(grep("Mutated",.y$group,value = T))
+      mutated_n <- length(grep("2Mutant",.y$group,value = T))
       if(mutated_n>0){
-        "Mutated"
+        "2Mutant"
       }else{
-        "Non-mutated"
+        "1WT"
       }
     })) %>%
     dplyr::ungroup() %>%
