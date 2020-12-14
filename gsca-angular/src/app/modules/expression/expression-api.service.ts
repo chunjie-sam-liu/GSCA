@@ -17,6 +17,10 @@ export class ExpressionApiService extends BaseHttpService {
   public getResourcePlotBlob(uuidname: string, plotType = 'png'): Observable<any> {
     return this.getDataImage('resource/responseplot/' + uuidname + '.' + plotType);
   }
+  public getResourceTable(coll: string, uuidname: string): Observable<any> {
+    return this.getData('resource/responsetable/' + coll + '/' + uuidname);
+  }
+
   public getResourcePlotURL(uuidname: string, plotType = 'pdf'): string {
     return this.generateRoute('resource/responseplot/' + uuidname + '.' + plotType);
   }
