@@ -78,6 +78,54 @@
   </mat-card>
 </ng-container>
 
+<ng-container *ngIf="showStageHeatImage">
+  <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
+    <mat-card-header>
+      <mat-card-title>Heatmap of mRNA expression among stages in the specific cancers</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <ng-container *ngIf="!stageHeatImageLoading; else loading">
+        <a
+          [href]="stageHeatImagePdfURL"
+          target="_blank"
+          mat-button
+          mat-mini-fab
+          color="warn"
+          arial-label="download"
+          class="download-button"
+        >
+          <mat-icon>cloud_download</mat-icon>
+        </a>
+        <img [src]="stageHeatImage" alt="stageHeatplot" loading="lazy" />
+      </ng-container>
+    </mat-card-content>
+  </mat-card>
+</ng-container>
+
+<ng-container *ngIf="showStageTrendImage">
+  <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
+    <mat-card-header>
+      <mat-card-title>Trend of mRNA expression from early to late stage in the specific cancers</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <ng-container *ngIf="!stageTrendImageLoading; else loading">
+        <a
+          [href]="stageTrendImagePdfURL"
+          target="_blank"
+          mat-button
+          mat-mini-fab
+          color="warn"
+          arial-label="download"
+          class="download-button"
+        >
+          <mat-icon>cloud_download</mat-icon>
+        </a>
+        <img [src]="stageTrendImage" alt="stageTrendplot" loading="lazy" />
+      </ng-container>
+    </mat-card-content>
+  </mat-card>
+</ng-container>
+
 <ng-template #loading>
   <mat-progress-bar mode="query" color="warn"></mat-progress-bar>
 </ng-template>
