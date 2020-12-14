@@ -1,11 +1,10 @@
-from flask import Blueprint, request, send_file
-from gsca.db import mongo
-from flask_restful import Api, Resource, fields, marshal_with, reqparse
-from gsca.utils.checkplot import CheckParallelPlot, CheckPlot, CheckMultiplePlot, CheckTablePlot, CheckUUIDPlot
+from flask import Blueprint, request
+from flask_restful import Api, Resource
+from gsca.utils.checkplot import CheckUUIDPlot
 from gsca.utils.checktable import CheckTableGSVA
 
-geneset = Blueprint("geneset", __name__)
-api = Api(geneset)
+gsva = Blueprint("gsva", __name__)
+api = Api(gsva)
 
 
 class GSVAAnalysis(Resource):
