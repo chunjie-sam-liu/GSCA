@@ -38,10 +38,11 @@ export class GeneSetComponent implements OnInit, OnChanges, AfterViewInit {
       this.showGeneSetImage = false;
     } else {
       this.showGeneSetTable = true;
-      this.expressionApiService.getGeneSetAnalysis(postTerm).subscribe(
+      this.expressionApiService.getGSVAAnalysis(postTerm).subscribe(
         (res) => {
-          // this.dataSourceGeneSetLoading = false;
-          // this.dataSourceGeneSet = new MatTableDataSource(res);
+          this.expressionApiService.getExprGSVAPlot(res.uuidname).subscribe((r) => {
+            console.log(r);
+          });
           console.log(res);
         },
         (err) => {
