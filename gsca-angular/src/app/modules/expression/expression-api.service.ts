@@ -33,10 +33,14 @@ export class ExpressionApiService extends BaseHttpService {
   }
 
   public getGSVAAnalysis(postTerm: ExprSearch): Observable<any> {
-    return this.postData('expression/geneset/gsvaanalysis', postTerm);
+    return this.postData('expression/gsva/gsvaanalysis', postTerm);
   }
   public getExprGSVAPlot(uuidname: string): Observable<any> {
-    return this.getData('expression/geneset/exprgsvaplot/' + uuidname);
+    return this.getData('expression/gsva/exprgsvaplot/' + uuidname);
+  }
+
+  public getGSEAAnalysis(postTerm: ExprSearch): Observable<any> {
+    return this.postData('expression/gsea/gsvaanalysis', postTerm);
   }
 
   public getDEGSingleGenePlot(postTerm: ExprSearch): Observable<any> {
