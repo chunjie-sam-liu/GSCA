@@ -40,7 +40,7 @@ export class ExpressionApiService extends BaseHttpService {
   }
 
   public getGSEAAnalysis(postTerm: ExprSearch): Observable<any> {
-    return this.postData('expression/gsea/gsvaanalysis', postTerm);
+    return this.postData('expression/gsea/gseaanalysis', postTerm);
   }
 
   public getDEGSingleGenePlot(postTerm: ExprSearch): Observable<any> {

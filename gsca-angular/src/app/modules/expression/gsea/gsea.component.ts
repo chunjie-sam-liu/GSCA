@@ -43,6 +43,15 @@ export class GseaComponent implements OnInit, OnChanges, AfterViewInit {
       this.showGSEATable = false;
       this.showGSEAImage = false;
     } else {
+      this.expressionApiService.getGSEAAnalysis(postTerm).subscribe(
+        (res) => {
+          console.log(res);
+        },
+        (err) => {
+          this.showGSEATable = false;
+          this.showGSEAImage = false;
+        }
+      );
     }
   }
 
