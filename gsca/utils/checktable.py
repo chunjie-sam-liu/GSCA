@@ -59,13 +59,13 @@ class CheckTable(AppPaths):
 
 class CheckTableGSVA(AppPaths):
     def __init__(self, args):
-        args["validColl"] = [x.split("_")[0] + "_expr_gsva" for x in args["validColl"]]
+        args["validColl"] = [x.split("_")[0] + "_all_expr_gene_set.rds.gz" for x in args["validColl"]]
         self.args = args
         self.purpose = "GSVATable"
         self.ranalysis = "expr_gsva.R"
         self.precol = "preanalysised"
         self.gsvacol = "preanalysised_gsva"
-        self.uuid = str(uuid.uudi4())
+        self.uuid = str(uuid.uuid4())
 
     def check_run(self):
         run = True
@@ -93,4 +93,5 @@ class CheckTableGSVA(AppPaths):
         rargs = "#".join(self.args["validSymbol"]) + "@" + "#".join(self.args["validColl"])
         cmd = [self.rcommand, str(self.rscriptpath / self.ranalysis), rargs, str(self.apppath), self.uuid, self.gsvacol]
         print("\n\n ", "\n\n  ".join(cmd), "\n\n")
+        subprocess.check_output(cmd, universal_newlines=True)
 

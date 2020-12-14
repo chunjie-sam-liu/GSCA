@@ -14,6 +14,7 @@ class GSVAAnalysis(Resource):
 
         checktable = CheckTableGSVA(args=args)
         res = checktable.check_run()
+        print(res)
         if res["run"]:
             checktable.analysis()
 
