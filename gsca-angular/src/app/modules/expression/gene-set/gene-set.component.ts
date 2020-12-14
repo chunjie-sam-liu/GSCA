@@ -1,9 +1,11 @@
-import { Component, OnInit, OnChanges, AfterViewInit, SimpleChanges, Input } from '@angular/core';
+import { Component, OnInit, OnChanges, AfterViewInit, SimpleChanges, Input, ViewChild } from '@angular/core';
 import { ExpressionApiService } from './../expression-api.service';
 import { ExprSearch } from './../../../shared/model/exprsearch';
 import collectionList from 'src/app/shared/constants/collectionlist';
 import { MatTableDataSource } from '@angular/material/table';
 import { GSVATableRecord } from 'src/app/shared/model/gsvatablerecord';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-gene-set',
@@ -16,6 +18,10 @@ export class GeneSetComponent implements OnInit, OnChanges, AfterViewInit {
   dataSourceGSVALoading = true;
   dataSourceGSVA: MatTableDataSource<GSVATableRecord>;
   showGSVATable = true;
+  @ViewChild('paginatorGSVA') paginatorGSVA: MatPaginator;
+  @ViewChild(MatSort) sortGSVA: MatSort;
+  displayedColumnsGSVA = ['cancertype', 'tumor_gsva', 'normal_gsva', 'log2fc', 'pval'];
+  displayedColumnsGSVAHeader = ['Cancer type', 'Tumor GSVA', 'Normal GSVA', 'Fold change', 'P value'];
 
   GSVAImage: any;
   GSVAPdfURL: string;
@@ -37,27 +43,37 @@ export class GeneSetComponent implements OnInit, OnChanges, AfterViewInit {
       this.showGSVATable = false;
       this.showGSVAImage = false;
     } else {
-      this.showGSVATable = true;
       this.expressionApiService.getGSVAAnalysis(postTerm).subscribe(
         (res) => {
-          console.log(res);
           this.expressionApiService.getExprGSVAPlot(res.uuidname).subscribe((exprgsvauuids) => {
-            console.log(exprgsvauuids);
-            // get table through resource
-            this.expressionApiService.getResourceTable('preanalysised_gsva_expr', exprgsvauuids.exprgsvatableuuid).subscribe((r) => {
-              console.log(r);
-            });
-            // get image from response
-            this.expressionApiService.getResourcePlotBlob(exprgsvauuids.exprgsvaplotuuid, 'png').subscribe((r) => {
-              console.log(r);
-              this.showGSVAImage = true;
-              this.GSVAImageLoading = false;
-              this._createImageFromBlob(r, 'GSVAImage');
-            });
+            this.showGSVATable = true;
+            this.expressionApiService.getResourceTable('preanalysised_gsva_expr', exprgsvauuids.exprgsvatableuuid).subscribe(
+              (r) => {
+                this.dataSourceGSVALoading = false;
+                this.dataSourceGSVA = new MatTableDataSource(r);
+                this.dataSourceGSVA.paginator = this.paginatorGSVA;
+                this.dataSourceGSVA.sort = this.sortGSVA;
+              },
+              (e) => {
+                this.showGSVATable = false;
+              }
+            );
+            this.GSVAPdfURL = this.expressionApiService.getResourcePlotURL(exprgsvauuids.exprgsvaplotuuid, 'pdf');
+            this.expressionApiService.getResourcePlotBlob(exprgsvauuids.exprgsvaplotuuid, 'png').subscribe(
+              (r) => {
+                this.showGSVAImage = true;
+                this.GSVAImageLoading = false;
+                this._createImageFromBlob(r, 'GSVAImage');
+              },
+              (e) => {
+                this.showGSVAImage = false;
+              }
+            );
           });
         },
         (err) => {
           this.showGSVATable = false;
+          this.showGSVAImage = false;
         }
       );
     }
@@ -89,6 +105,14 @@ export class GeneSetComponent implements OnInit, OnChanges, AfterViewInit {
     );
     if (res) {
       reader.readAsDataURL(res);
+    }
+  }
+  public applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSourceGSVA.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSourceGSVA.paginator) {
+      this.dataSourceGSVA.paginator.firstPage();
     }
   }
 }
