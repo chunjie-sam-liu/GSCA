@@ -3,7 +3,7 @@ import { ExpressionApiService } from './../expression-api.service';
 import { ExprSearch } from './../../../shared/model/exprsearch';
 import collectionList from 'src/app/shared/constants/collectionlist';
 import { MatTableDataSource } from '@angular/material/table';
-import { GeneSetTableRecrod } from 'src/app/shared/model/genesettablerecord';
+import { GSVATableRecord } from 'src/app/shared/model/gsvatablerecord';
 
 @Component({
   selector: 'app-gene-set',
@@ -13,40 +13,51 @@ import { GeneSetTableRecrod } from 'src/app/shared/model/genesettablerecord';
 export class GeneSetComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() searchTerm: ExprSearch;
 
-  dataSourceGeneSetLoading = true;
-  dataSourceGeneSet: MatTableDataSource<GeneSetTableRecrod>;
-  showGeneSetTable = true;
+  dataSourceGSVALoading = true;
+  dataSourceGSVA: MatTableDataSource<GSVATableRecord>;
+  showGSVATable = true;
 
-  geneSetImage: any;
-  geneSetPdfURL: string;
-  geneSetImageLoading = true;
-  showGeneSetImage = true;
+  GSVAImage: any;
+  GSVAPdfURL: string;
+  GSVAImageLoading = true;
+  showGSVAImage = true;
 
   constructor(private expressionApiService: ExpressionApiService) {}
 
   ngOnInit(): void {}
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.dataSourceGeneSetLoading = true;
-    this.geneSetImageLoading = true;
+    this.dataSourceGSVALoading = true;
+    this.GSVAImageLoading = true;
     const postTerm = this._validCollection(this.searchTerm);
 
     if (!postTerm.validColl.length) {
-      this.dataSourceGeneSetLoading = false;
-      this.geneSetImageLoading = false;
-      this.showGeneSetTable = false;
-      this.showGeneSetImage = false;
+      this.dataSourceGSVALoading = false;
+      this.GSVAImageLoading = false;
+      this.showGSVATable = false;
+      this.showGSVAImage = false;
     } else {
-      this.showGeneSetTable = true;
+      this.showGSVATable = true;
       this.expressionApiService.getGSVAAnalysis(postTerm).subscribe(
         (res) => {
-          this.expressionApiService.getExprGSVAPlot(res.uuidname).subscribe((r) => {
-            console.log(r);
-          });
           console.log(res);
+          this.expressionApiService.getExprGSVAPlot(res.uuidname).subscribe((exprgsvauuids) => {
+            console.log(exprgsvauuids);
+            // get table through resource
+            this.expressionApiService.getResourceTable('preanalysised_gsva_expr', exprgsvauuids.exprgsvatableuuid).subscribe((r) => {
+              console.log(r);
+            });
+            // get image from response
+            this.expressionApiService.getResourcePlotBlob(exprgsvauuids.exprgsvaplotuuid, 'png').subscribe((r) => {
+              console.log(r);
+              this.showGSVAImage = true;
+              this.GSVAImageLoading = false;
+              this._createImageFromBlob(r, 'GSVAImage');
+            });
+          });
         },
         (err) => {
-          this.showGeneSetTable = false;
+          this.showGSVATable = false;
         }
       );
     }
@@ -69,8 +80,8 @@ export class GeneSetComponent implements OnInit, OnChanges, AfterViewInit {
       'load',
       () => {
         switch (present) {
-          case 'geneSetImage':
-            this.geneSetImage = reader.result;
+          case 'GSVAImage':
+            this.GSVAImage = reader.result;
             break;
         }
       },
