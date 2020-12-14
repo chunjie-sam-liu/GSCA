@@ -107,6 +107,7 @@ export class GeneSetComponent implements OnInit, OnChanges, AfterViewInit {
       reader.readAsDataURL(res);
     }
   }
+
   public applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSourceGSVA.filter = filterValue.trim().toLowerCase();

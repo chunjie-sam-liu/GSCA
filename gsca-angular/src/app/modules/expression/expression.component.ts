@@ -15,6 +15,7 @@ export class ExpressionComponent implements OnInit, AfterViewInit {
     showSubtype: false,
     showStage: false,
     showGSVA: false,
+    showGSEA: false,
     showContent: false,
   };
 
