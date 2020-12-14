@@ -135,3 +135,4 @@ gsca.conf
 gsca-r-plot/
 .DS_Store
 *rds.gz
+gsca-r-rds/README
