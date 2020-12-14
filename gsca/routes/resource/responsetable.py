@@ -9,9 +9,9 @@ api = Api(responsetable)
 
 class ResponseTable(Resource):
     def get(self, coll, uuidname):
-        mcur = mongo.db[coll].find_one({"uuid": uuidname}, {"_id": 0})
+        mcur = mongo.db[coll].find_one({"uuid": uuidname}, {"uuid": 0, "_id": 0})
         if mcur:
-            return mcur
+            return mcur["res_table"]
         else:
             return {"Error": "Resource not exists."}
 
