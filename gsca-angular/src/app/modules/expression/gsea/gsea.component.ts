@@ -85,7 +85,7 @@ export class GseaComponent implements OnInit, OnChanges, AfterViewInit {
                   this._createImageFromBlob(r, 'GSEAImage');
                 },
                 (e) => {
-                  this.showGSEATable = false;
+                  this.showGSEAImage = false;
                 }
               );
             },
