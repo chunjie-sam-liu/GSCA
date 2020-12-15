@@ -91,11 +91,11 @@ names(gsea_score) <- gsub(pattern = "_all_expr_gene_set.rds.gz", replacement = "
 
 # Update mongo ------------------------------------------------------------
 
-insert_data <- list(uuid = tableuuid, gsea_score = gsea_score)
+insert_data <- list(uuid = tableuuid, gsea_score = gsea_score, gene_set = search_genes)
 
 uuid_query <- pre_gsea_coll$find(
   query = fn_query_str(.x = tableuuid),
-  fields = '{ "_id": false}'
+  fields = '{"uuid":true, "_id": false}'
 )
 # pre_gsea_coll$drop()
 if (nrow(uuid_query) == 0) {

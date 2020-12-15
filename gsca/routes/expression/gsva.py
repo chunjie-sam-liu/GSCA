@@ -26,10 +26,15 @@ api.add_resource(GSVAAnalysis, "/gsvaanalysis")
 
 class ExprGSVAPlot(Resource):
     def get(self, uuidname):
-        print(uuidname)
-        checkplot = CheckUUIDPlot(gsva_uuid=uuidname, purpose="exprgsvaplot", rplot="expr_gsva_plot.R")
+        checkplot = CheckUUIDPlot(
+            gsxa_uuid=uuidname,
+            name_uuid="gsva_uuid",
+            purpose="exprgsvaplot",
+            rplot="expr_gsva_plot.R",
+            precol="preanalysised",
+            gsxacol="preanalysised_gsva",
+        )
         res = checkplot.check_run()
-        print(res)
         if res["run"]:
             checkplot.plot()
 

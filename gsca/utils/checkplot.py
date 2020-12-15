@@ -257,13 +257,14 @@ class CheckTablePlot(AppPaths):
 
 
 class CheckUUIDPlot(AppPaths):
-    def __init__(self, gsva_uuid, purpose, rplot):
-        self.gsva_uuid = gsva_uuid
+    def __init__(self, gsxa_uuid, name_uuid, purpose, rplot, precol, gsxacol):
+        self.gsxa_uuid = gsxa_uuid
+        self.name_uuid = name_uuid
         self.purpose = purpose
         self.rplot = rplot
 
-        self.precol = "preanalysised"
-        self.gsvacol = "preanalysised_gsva"
+        self.precol = precol
+        self.gsxacol = gsxacol
         self.uuid = str(uuid.uuid4())
         self.filename = self.uuid + ".png"
         self.filepath = self.resource_pngs / self.filename
@@ -271,7 +272,7 @@ class CheckUUIDPlot(AppPaths):
     def check_run(self):
         run = True
         preanalysised = mongo.db[self.precol].find_one(
-            {"gsva_uuid": self.gsva_uuid, "purpose": self.purpose}, {"_id": 0, "uuid": 1},
+            {self.name_uuid: self.gsxa_uuid, "purpose": self.purpose}, {"_id": 0, "uuid": 1},
         )
 
         if preanalysised:
@@ -280,7 +281,7 @@ class CheckUUIDPlot(AppPaths):
             self.filepath = self.resource_pngs / self.filename
             run = False if self.filepath.exists() else True
         else:
-            mongo.db[self.precol].insert_one({"gsva_uuid": self.gsva_uuid, "purpose": self.purpose, "uuid": self.uuid})
+            mongo.db[self.precol].insert_one({self.name_uuid: self.gsxa_uuid, "purpose": self.purpose, "uuid": self.uuid})
 
         return {"run": run, "uuid": self.uuid}
 
@@ -289,8 +290,8 @@ class CheckUUIDPlot(AppPaths):
         cmd = [
             self.rcommand,
             str(self.rscriptpath / self.rplot),
-            self.gsva_uuid,
-            self.gsvacol,
+            self.gsxa_uuid,
+            self.gsxacol,
             str(self.filepath),
             str(self.apppath),
         ]
