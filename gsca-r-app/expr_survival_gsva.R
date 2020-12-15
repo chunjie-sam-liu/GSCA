@@ -23,12 +23,11 @@ apppath <- args[4]
 
 # Mongo -------------------------------------------------------------------
 
-gsca_conf <- readr::read_lines(file = file.path(apppath, 'gsca-r-app/gsca.conf'))
+source(file.path(apppath, "gsca-r-app/utils/fn_fetch_mongo_data.R"))
 pre_gsva_coll <- mongolite::mongo(collection = tablecol, url = gsca_conf)
 post_gsva_coll <- mongolite::mongo(collection = glue::glue("{tablecol}_survival"), url = gsca_conf)
 
 # Function ----------------------------------------------------------------
-source(file.path(apppath, "gsca-r-app/utils/fn_fetch_mongo_data.R"))
 
 
 fn_query_str <- function(.x) {
