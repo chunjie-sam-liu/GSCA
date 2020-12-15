@@ -41,8 +41,22 @@ api.add_resource(StageTable, "/stagetable")
 class StagePlot(Resource):
     def post(self):
         args = request.get_json()
-        purposes = ("stagePoint", "stageHeat", "stageTrend")
-        checkplot = CheckParallelPlot(args=args, purposes=purposes, rplot="exp_stageplot_profile.R")
+        checkplot = CheckPlot(args=args, purpose="stagePoint", rplot="exp_stageplot_profile.R")
+        res = checkplot.check_run()
+        if res["run"]:
+            checkplot.plot(filepath=res["filepath"])
+        # return send_file(str(res["filepath"]), mimetype="image/png")
+        return {"stagePointuuid": res["uuid"]}
+
+
+api.add_resource(StagePlot, "/stageplot")
+
+
+class StageHeatTrendPlot(Resource):
+    def post(self):
+        args = request.get_json()
+        purposes = ("stageHeat", "stageTrend")
+        checkplot = CheckParallelPlot(args=args, purposes=purposes, rplot="exp_stageHeatTrend_plot.R")
         check_run = checkplot.check_run()
 
         if any([res["run"] for res in check_run.values()]):
@@ -53,7 +67,7 @@ class StagePlot(Resource):
         return uuidnames
 
 
-api.add_resource(StagePlot, "/stageplot")
+api.add_resource(StageHeatTrendPlot, "/stageheattrendplot")
 
 
 class StagePlotSingleGene(Resource):
