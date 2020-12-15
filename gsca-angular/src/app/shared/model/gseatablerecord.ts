@@ -2,9 +2,9 @@
 
 export interface GSEATableRecord {
   cancertype: string;
-  diff_gsva: number;
-  tumor_gsva: number;
-  normal_gsva: number;
   pval: number;
-  log2fc: number;
+  padj: number;
+  log2err: number;
+  ES: number;
+  NES: number;
 }
