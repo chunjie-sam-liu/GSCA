@@ -1,4 +1,4 @@
-from gsca.utils.checkplot import CheckUUIDPlot
+from gsca.utils.checkplot import CheckGSEAPlotSingleCancerType, CheckUUIDPlot
 from gsca.utils.checktable import CheckTableGSXA
 from flask import Blueprint, request
 from flask_restful import Api, Resource
@@ -41,3 +41,24 @@ class ExprGSEAPlot(Resource):
 
 
 api.add_resource(ExprGSEAPlot, "/exprgseaplot/<string:uuidname>")
+
+
+class GSEAPlotSingleCancerType(Resource):
+    def get(self, uuidname, cancertype):
+        checkplot = CheckGSEAPlotSingleCancerType(
+            gsxa_uuid=uuidname,
+            name_uuid="gseasinglecancertype_uuid",
+            cancertype=cancertype,
+            purpose="gseasinglecancertype",
+            rplot="expr_gsea_plot_single_cancertype.R",
+            precol="preanalysised",
+            gsxacol="preanalysised_gsea",
+        )
+        res = checkplot.check_run()
+        # print(res)
+        if res["run"]:
+            checkplot.plot()
+        return {"gseaplotsinglecancertypeuuid": res["uuid"]}
+
+
+api.add_resource(GSEAPlotSingleCancerType, "/single/cancertype/<string:uuidname>/<string:cancertype>")
