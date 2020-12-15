@@ -25,7 +25,6 @@ export class ExpressionApiService extends BaseHttpService {
     return this.generateRoute('resource/responseplot/' + uuidname + '.' + plotType);
   }
 
-  //DEG
   public getDEGTable(postTerm: ExprSearch): Observable<any> {
     return this.postData('expression/deg/degtable', postTerm);
   }
