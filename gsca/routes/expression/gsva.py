@@ -43,3 +43,22 @@ class ExprGSVAPlot(Resource):
 
 api.add_resource(ExprGSVAPlot, "/exprgsvaplot/<string:uuidname>")
 
+
+class ExprSurvivalGSVAPlot(Resource):
+    def get(self, uuidname):
+        checkplot = CheckUUIDPlot(
+            gsxa_uuid=uuidname,
+            name_uuid="gsva_uuid",
+            purpose="exprsurvivalgsva",
+            rplot="expr_survival_gsva.R",
+            precol="preanalysised",
+            gsxacol="preanalysised_gsva",
+        )
+        res = checkplot.check_run()
+        if res["run"]:
+            checkplot.plot()
+
+        return {"exprsurvivalgsvaplotuuid": res["uuid"], "exprsurvivalgsvatableuuid": uuidname}
+
+
+api.add_resource(ExprSurvivalGSVAPlot, "/exprsurvivalgsva/<string:uuidname>")
