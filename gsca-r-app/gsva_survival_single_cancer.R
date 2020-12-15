@@ -64,7 +64,7 @@ fetched_data$gsva_score %>%
 # fetch survival data -----------------------------------------------------
 
 fields <- '{"cancer_types": true, "sample_name": true, "os_days": true,"os_status": true, "pfs_days": true,"pfs_status": true,"_id": false}'
-fetched_survival_data <- purrr::map(.x = "all_survival", .f = fn_fetch_mongo, pattern="_survival",fields = fields,.key=gsva_score_nest$cancertype,.keyindex="cancer_types") %>%
+fetched_survival_data <- purrr::map(.x = "all_survival", .f = fn_fetch_mongo, pattern="_survival",fields = fields,.key=unique(gsva_score$cancertype),.keyindex="cancer_types") %>%
   dplyr::bind_rows() %>%
   dplyr::group_by(cancer_types) %>%
   tidyr::nest() %>%

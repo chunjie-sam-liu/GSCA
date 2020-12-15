@@ -348,11 +348,11 @@ class CheckGSEAPlotSingleCancerType(AppPaths):
 
 
 class CheckGSVASurvivalSingleCancerType(AppPaths):
-    def __init__(self, gsxa_uuid, name_uuid, cancertype, sur_Type, purpose, rplot, precol, gsxacol):
+    def __init__(self, gsxa_uuid, name_uuid, cancertype, surType, purpose, rplot, precol, gsxacol):
         self.gsxa_uuid = gsxa_uuid
         self.name_uuid = name_uuid
         self.cancertype = cancertype
-        self.sur_Type = sur_Type
+        self.surType = surType
         self.purpose = purpose
         self.rplot = rplot
 
@@ -367,7 +367,7 @@ class CheckGSVASurvivalSingleCancerType(AppPaths):
         run = True
         # print(self.name_uuid, self.cancertype, self.purpose, self.rplot, self.precol, self.gsxacol, self.uuid)
         preanalysised = mongo.db[self.precol].find_one(
-            {self.name_uuid: self.gsxa_uuid, "purpose": self.purpose, "cancertype": self.cancertype, "sur_type": self.sur_Type},
+            {self.name_uuid: self.gsxa_uuid, "purpose": self.purpose, "cancertype": self.cancertype, "surType": self.surType},
             {"_id": 0, "uuid": 1},
         )
         if preanalysised:
@@ -381,7 +381,7 @@ class CheckGSVASurvivalSingleCancerType(AppPaths):
                     self.name_uuid: self.gsxa_uuid,
                     "purpose": self.purpose,
                     "cancertype": self.cancertype,
-                    "sur_type": self.sur_Type,
+                    "surType": self.surType,
                     "uuid": self.uuid,
                 }
             )
@@ -395,9 +395,9 @@ class CheckGSVASurvivalSingleCancerType(AppPaths):
             self.gsxa_uuid,
             self.gsxacol,
             self.cancertype,
-            self.sur_Type,
+            self.surType,
             str(self.filepath),
             str(self.apppath),
         ]
         print("\n\n ", " \\\n ".join(cmd), "\n\n")
-        # subprocess.check_output(cmd, universal_newlines=True)
+        subprocess.check_output(cmd, universal_newlines=True)

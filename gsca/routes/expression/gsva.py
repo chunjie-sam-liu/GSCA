@@ -67,11 +67,11 @@ api.add_resource(ExprSurvivalGSVAPlot, "/exprsurvivalgsva/<string:uuidname>")
 
 
 class GSVASurvivalSingleCancerImage(Resource):
-    def get(self, uuidname, cancertype, sur_Type):
+    def get(self, uuidname, cancertype, surType):
         checkplot = CheckGSVASurvivalSingleCancerType(
             gsxa_uuid=uuidname,
             cancertype=cancertype,
-            sur_Type=sur_Type,
+            surType=surType,
             name_uuid="gsvasurvivalsinglecancer_uuid",
             purpose="gsvasurvivalsinglecancer",
             rplot="gsva_survival_single_cancer.R",
@@ -85,9 +85,7 @@ class GSVASurvivalSingleCancerImage(Resource):
         return {"gsvasurvivalsinglecanceruuid": res["uuid"]}
 
 
-api.add_resource(
-    GSVASurvivalSingleCancerImage, "/survival/singlecancer/<string:uuidname>/<string:cancertype>/<string:sur_Type>"
-)
+api.add_resource(GSVASurvivalSingleCancerImage, "/survival/singlecancer/<string:uuidname>/<string:cancertype>/<string:surType>")
 
 """ GSVA stage"""
 

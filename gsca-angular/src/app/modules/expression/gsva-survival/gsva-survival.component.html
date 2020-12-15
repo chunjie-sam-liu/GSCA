@@ -50,7 +50,13 @@
             </td>
           </ng-container>
           <tr mat-header-row *matHeaderRowDef="displayedColumnsGSVASurvival"></tr>
-          <tr mat-row *matRowDef="let element; columns: displayedColumnsGSVASurvival"></tr>
+          <tr
+            mat-row
+            *matRowDef="let element; columns: displayedColumnsGSVASurvival"
+            class="example-element-row"
+            [class.example-expanded-row]="expandedElement === element"
+          ></tr>
+          <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
         </table>
         <mat-paginator #paginatorGSVASurvival [pageSizeOptions]="[10, 20]" showFirstLastButtons></mat-paginator>
       </mat-card>

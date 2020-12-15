@@ -6,11 +6,19 @@ import { MatTableDataSource } from '@angular/material/table';
 import { GSVASurvivalTableRecord } from 'src/app/shared/model/gsvasurvivaltablerecord';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-gsva-survival',
   templateUrl: './gsva-survival.component.html',
   styleUrls: ['./gsva-survival.component.css'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({ height: '0px', minHeight: '0' })),
+      state('expanded', style({ height: '*' })),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
 export class GsvaSurvivalComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() searchTerm: ExprSearch;
@@ -111,7 +119,7 @@ export class GsvaSurvivalComponent implements OnInit, OnChanges, AfterViewInit {
   private _validCollection(st: ExprSearch): any {
     st.validColl = st.cancerTypeSelected
       .map((val) => {
-        return collectionList.deg.collnames[collectionList.deg.cancertypes.indexOf(val)];
+        return collectionList.expr_survival.collnames[collectionList.expr_survival.cancertypes.indexOf(val)];
       })
       .filter(Boolean);
     return st;
