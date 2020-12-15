@@ -79,6 +79,9 @@ export class ExpressionApiService extends BaseHttpService {
   public getStagePlot(postTerm: ExprSearch): Observable<any> {
     return this.postData('expression/stage/stageplot', postTerm);
   }
+  public getStageHeatTrendPlot(postTerm: ExprSearch): Observable<any> {
+    return this.postData('expression/stage/stageheattrendplot', postTerm);
+  }
   public getStageSingleGenePlot(postTerm: ExprSearch): Observable<any> {
     return this.postData('expression/stage/single/gene', postTerm);
   }

@@ -117,6 +117,13 @@ export class StageComponent implements OnInit, OnChanges, AfterViewChecked {
               this.showStageImage = false;
             }
           );
+        },
+        (err) => {
+          this.showStageImage = false;
+        }
+      );
+      this.expressionApiService.getStageHeatTrendPlot(postTerm).subscribe(
+        (res) => {
           // stage heatmap
           this.stageHeatImagePdfURL = this.expressionApiService.getResourcePlotURL(res.stageHeatuuid, 'pdf');
           this.expressionApiService.getResourcePlotBlob(res.stageHeatuuid, 'png').subscribe(
@@ -143,8 +150,6 @@ export class StageComponent implements OnInit, OnChanges, AfterViewChecked {
           );
         },
         (err) => {
-          this.showStageImage = false;
-          this.stageImageLoading = false;
           this.showStageHeatImage = false;
           this.showStageTrendImage = false;
         }
