@@ -6,3 +6,8 @@ content-type: application/json
 
 ###
 GET http://localhost:5000/api/expression/gsea/exprgseaplot/cf7c811d-3626-4a28-b050-57cd6521e9b2
+
+
+###
+# single cancer type
+GET http://localhost:5000/api/expression/gsea/single/cancertype/3dfee429-973b-4222-bb2b-ba8522b68540/LUSC

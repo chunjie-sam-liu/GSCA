@@ -1,0 +1,4 @@
+db.preanalysised_gsea.find(
+  {"uuid": "3dfee429-973b-4222-bb2b-ba8522b68540", "gsea_score": ""},
+  {"uuid": 0, "_id": 0}
+  )
