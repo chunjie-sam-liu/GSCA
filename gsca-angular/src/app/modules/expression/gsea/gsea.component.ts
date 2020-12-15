@@ -45,7 +45,39 @@ export class GseaComponent implements OnInit, OnChanges, AfterViewInit {
     } else {
       this.expressionApiService.getGSEAAnalysis(postTerm).subscribe(
         (res) => {
-          console.log(res);
+          this.expressionApiService.getExprGSEAPlot(res.uuidname).subscribe(
+            (exprgseauuids) => {
+              this.showGSEATable = true;
+              this.expressionApiService.getResourceTable('preanalysised_gsea_expr', exprgseauuids.exprgseatableuuid).subscribe(
+                (r) => {
+                  this.dataSourceGSEALoading = false;
+                  this.dataSourceGSEA = new MatTableDataSource(r);
+                  this.dataSourceGSEA.paginator = this.paginatorGSEA;
+                  this.dataSourceGSEA.sort = this.sortGSEA;
+                },
+                (e) => {
+                  this.showGSEATable = false;
+                }
+              );
+              this.GSEAPdfURL = this.expressionApiService.getResourcePlotURL(exprgseauuids.exprgseaplotuuid, 'pdf');
+              this.expressionApiService.getResourcePlotBlob(exprgseauuids.exprgseaplotuuid, 'png').subscribe(
+                (r) => {
+                  this.showGSEAImage = true;
+                  this.GSEAImageLoading = false;
+                  this._createImageFromBlob(r, 'GSEAImage');
+                },
+                (e) => {
+                  this.showGSEATable = false;
+                }
+              );
+            },
+            (e) => {
+              this.dataSourceGSEALoading = false;
+              this.GSEAImageLoading = false;
+              this.showGSEATable = false;
+              this.showGSEAImage = false;
+            }
+          );
         },
         (err) => {
           this.showGSEATable = false;
