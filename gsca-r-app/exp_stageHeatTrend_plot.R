@@ -148,6 +148,8 @@ max(statistic_value) %>% ceiling() -> max_trend
 fillbreaks_trend <- sort(unique(c(0,min_trend,max_trend)))
 CPCOLS_trend <- c("#ee0e27", "grey", "#1678f3")
 n_cancers <- for_plot_trend$cancertype %>% unique() %>% length()
+xlabels <- sort(unique(for_plot_trend$stage))
+names(xlabels) <- sort(unique(for_plot_trend$rank))
 
 source(file.path(apppath,"gsca-r-app/utils/fn_trend_plot.R"))
 trendplot <- trend_plot(data = for_plot_trend,
@@ -155,6 +157,7 @@ trendplot <- trend_plot(data = for_plot_trend,
                         aesy="mean_exp",
                         linecolor="statistic",
                         linetype="`Trend P`",
+                        xlabels=xlabels,
                         colorname="Trend",
                         color_list = CPCOLS_trend,
                         fillbreaks=fillbreaks_trend,
