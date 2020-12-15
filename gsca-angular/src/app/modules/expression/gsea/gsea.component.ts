@@ -38,6 +38,13 @@ export class GseaComponent implements OnInit, OnChanges, AfterViewInit {
   GSEAImageLoading = true;
   showGSEAImage = true;
 
+  // single gene
+  gseaResourceUUID: string;
+  gseaSingleCancerTypeImage: any;
+  gseaSingleCancerTypePdfURL: string;
+  gseaSingleCancerTypeImageLoading = true;
+  showgseaSingleCancerTypeImage = false;
+
   constructor(private expressionApiService: ExpressionApiService) {}
 
   ngOnInit(): void {}
@@ -55,6 +62,7 @@ export class GseaComponent implements OnInit, OnChanges, AfterViewInit {
     } else {
       this.expressionApiService.getGSEAAnalysis(postTerm).subscribe(
         (res) => {
+          this.gseaResourceUUID = res.uuidname;
           this.expressionApiService.getExprGSEAPlot(res.uuidname).subscribe(
             (exprgseauuids) => {
               this.showGSEATable = true;
@@ -137,6 +145,25 @@ export class GseaComponent implements OnInit, OnChanges, AfterViewInit {
   public expandDetail(element: GSEATableRecord, column: string): void {
     this.expandedElement = this.expandedElement === element && this.expandedColumn === column ? null : element;
     this.expandedColumn = column;
+
+    if (this.expandedElement) {
+      this.gseaSingleCancerTypeImageLoading = true;
+      this.showgseaSingleCancerTypeImage = false;
+      if (this.expandedColumn === 'cancertype') {
+        this.expressionApiService.getGSEASingleCancerTypePlot(this.gseaResourceUUID, this.expandedElement.cancertype).subscribe(
+          (res) => {
+            console.log(res);
+          },
+          (err) => {
+            this.gseaSingleCancerTypeImageLoading = false;
+            this.showgseaSingleCancerTypeImage = false;
+          }
+        );
+      }
+    } else {
+      this.gseaSingleCancerTypeImageLoading = false;
+      this.showgseaSingleCancerTypeImage = false;
+    }
   }
   public triggerDetail(element: GSEATableRecord): string {
     return element === this.expandedElement ? 'expanded' : 'collapsed';

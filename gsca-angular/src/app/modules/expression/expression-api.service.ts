@@ -45,6 +45,9 @@ export class ExpressionApiService extends BaseHttpService {
   public getExprGSEAPlot(uuidname: string): Observable<any> {
     return this.getData('expression/gsea/exprgseaplot/' + uuidname);
   }
+  public getGSEASingleCancerTypePlot(uuidname: string, cancertype: string): Observable<any> {
+    return this.getData('expression/gsea/single/cancertype/' + uuidname + '/' + cancertype);
+  }
 
   public getDEGSingleGenePlot(postTerm: ExprSearch): Observable<any> {
     return this.postData('expression/deg/degplot/single/gene', postTerm);
