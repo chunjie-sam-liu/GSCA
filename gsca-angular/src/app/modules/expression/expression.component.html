@@ -72,6 +72,20 @@
       </div>
     </ng-container>
 
+    <ng-container *ngIf="showList.showContent && showList.showGSVASurvival; else empty">
+      <div fxFlex="grow">
+        <app-gsva-survival
+          fxLayout="row"
+          fxLayout.lt-lg="column"
+          fxLayoutGap="10px"
+          fxLayoutWrap
+          fxLayoutAlign="center"
+          [searchTerm]="searchTerm"
+        >
+        </app-gsva-survival>
+      </div>
+    </ng-container>
+
     <ng-container *ngIf="showList.showContent && showList.showGSEA">
       <div fxFlex="grow">
         <app-gsea

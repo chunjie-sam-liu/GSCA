@@ -11,6 +11,7 @@ import { SubtypeComponent } from './subtype/subtype.component';
 import { StageComponent } from './stage/stage.component';
 import { GeneSetComponent } from './gene-set/gene-set.component';
 import { GseaComponent } from './gsea/gsea.component';
+import { GsvaSurvivalComponent } from './gsva-survival/gsva-survival.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { GseaComponent } from './gsea/gsea.component';
     StageComponent,
     GeneSetComponent,
     GseaComponent,
+    GsvaSurvivalComponent,
   ],
   imports: [CommonModule, ExpressionRoutingModule, SharedModule],
 })
