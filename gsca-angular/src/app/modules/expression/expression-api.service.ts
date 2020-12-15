@@ -45,8 +45,12 @@ export class ExpressionApiService extends BaseHttpService {
   public getExprGSVAPlot(uuidname: string): Observable<any> {
     return this.getData('expression/gsva/exprgsvaplot/' + uuidname);
   }
+  // GSVA survival
   public getExprSurvivalGSVAPlot(uuidname: string): Observable<any> {
     return this.getData('expression/gsva/exprsurvivalgsva/' + uuidname);
+  }
+  public getGSVASurvivalSingleCancerImage(uuidname: string, cancertype: string, sur_Type: string): Observable<any> {
+    return this.getData('expression/gsva/survival/singlecancer/' + uuidname + '/' + cancertype + '/' + sur_Type);
   }
   // GSEA
   public getGSEAAnalysis(postTerm: ExprSearch): Observable<any> {

@@ -30,12 +30,22 @@ export class GsvaSurvivalComponent implements OnInit, OnChanges, AfterViewInit {
     'Logrank P value',
     'Higher risk of death',
   ];
+  expandedElement: GSVASurvivalTableRecord;
+  expandedColumn: string;
 
   // GSVA survival image
   GSVASurvivalImage: any;
   GSVASurvivalPdfURL: string;
   GSVASurvivalImageLoading = true;
   showGSVASurvivalImage = true;
+
+  // GSVA survival single cancer image
+  gsvaSurvivalResourceUUID: string;
+  GSVASurvivalSingleCancerImage: any;
+  GSVASurvivalSingleCancerPdfURL: string;
+  GSVASurvivalSingleCancerImageLoading = true;
+  showGSVASurvivalSingleCancerImage = true;
+
   constructor(private expressionApiService: ExpressionApiService) {}
 
   ngOnInit(): void {}
@@ -53,6 +63,7 @@ export class GsvaSurvivalComponent implements OnInit, OnChanges, AfterViewInit {
     } else {
       this.expressionApiService.getGSVAAnalysis(postTerm).subscribe(
         (res) => {
+          this.gsvaSurvivalResourceUUID = res.uuidname;
           this.expressionApiService.getExprSurvivalGSVAPlot(res.uuidname).subscribe(
             (exprgsvauuids) => {
               this.showGSVASurvivalTable = true;
@@ -115,6 +126,9 @@ export class GsvaSurvivalComponent implements OnInit, OnChanges, AfterViewInit {
           case 'GSVASurvivalImage':
             this.GSVASurvivalImage = reader.result;
             break;
+          case 'GSVASurvivalSingleCancerImage':
+            this.GSVASurvivalSingleCancerImage = reader.result;
+            break;
         }
       },
       false
@@ -131,5 +145,45 @@ export class GsvaSurvivalComponent implements OnInit, OnChanges, AfterViewInit {
     if (this.dataSourceGSVASurvival.paginator) {
       this.dataSourceGSVASurvival.paginator.firstPage();
     }
+  }
+
+  public expandDetail(element: GSVASurvivalTableRecord, column: string): void {
+    this.expandedElement = this.expandedElement === element && this.expandedColumn === column ? null : element;
+    this.expandedColumn = column;
+
+    if (this.expandedElement) {
+      this.GSVASurvivalSingleCancerImageLoading = true;
+      this.showGSVASurvivalSingleCancerImage = false;
+      if (this.expandedColumn === 'cancertype') {
+        this.expressionApiService
+          .getGSVASurvivalSingleCancerImage(this.gsvaSurvivalResourceUUID, this.expandedElement.cancertype, this.expandedElement.sur_type)
+          .subscribe(
+            (res) => {
+              this.GSVASurvivalSingleCancerPdfURL = this.expressionApiService.getResourcePlotURL(res.gsvasurvivalsinglecanceruuid, 'pdf');
+              this.expressionApiService.getResourcePlotBlob(res.gsvasurvivalsinglecanceruuid, 'png').subscribe(
+                (r) => {
+                  this.showGSVASurvivalSingleCancerImage = true;
+                  this.GSVASurvivalSingleCancerImageLoading = false;
+                  this._createImageFromBlob(r, 'GSVASurvivalSingleCancerImage');
+                },
+                (e) => {
+                  this.showGSVASurvivalSingleCancerImage = false;
+                }
+              );
+            },
+            (err) => {
+              this.showGSVASurvivalSingleCancerImage = false;
+              this.GSVASurvivalSingleCancerImageLoading = false;
+            }
+          );
+      }
+    } else {
+      this.GSVASurvivalSingleCancerImageLoading = false;
+      this.showGSVASurvivalSingleCancerImage = false;
+    }
+  }
+
+  public triggerDetail(element: GSVASurvivalTableRecord): string {
+    return element === this.expandedElement ? 'expanded' : 'collapsed';
   }
 }
