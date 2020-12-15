@@ -45,31 +45,39 @@ export class GeneSetComponent implements OnInit, OnChanges, AfterViewInit {
     } else {
       this.expressionApiService.getGSVAAnalysis(postTerm).subscribe(
         (res) => {
-          this.expressionApiService.getExprGSVAPlot(res.uuidname).subscribe((exprgsvauuids) => {
-            this.showGSVATable = true;
-            this.expressionApiService.getResourceTable('preanalysised_gsva_expr', exprgsvauuids.exprgsvatableuuid).subscribe(
-              (r) => {
-                this.dataSourceGSVALoading = false;
-                this.dataSourceGSVA = new MatTableDataSource(r);
-                this.dataSourceGSVA.paginator = this.paginatorGSVA;
-                this.dataSourceGSVA.sort = this.sortGSVA;
-              },
-              (e) => {
-                this.showGSVATable = false;
-              }
-            );
-            this.GSVAPdfURL = this.expressionApiService.getResourcePlotURL(exprgsvauuids.exprgsvaplotuuid, 'pdf');
-            this.expressionApiService.getResourcePlotBlob(exprgsvauuids.exprgsvaplotuuid, 'png').subscribe(
-              (r) => {
-                this.showGSVAImage = true;
-                this.GSVAImageLoading = false;
-                this._createImageFromBlob(r, 'GSVAImage');
-              },
-              (e) => {
-                this.showGSVAImage = false;
-              }
-            );
-          });
+          this.expressionApiService.getExprGSVAPlot(res.uuidname).subscribe(
+            (exprgsvauuids) => {
+              this.showGSVATable = true;
+              this.expressionApiService.getResourceTable('preanalysised_gsva_expr', exprgsvauuids.exprgsvatableuuid).subscribe(
+                (r) => {
+                  this.dataSourceGSVALoading = false;
+                  this.dataSourceGSVA = new MatTableDataSource(r);
+                  this.dataSourceGSVA.paginator = this.paginatorGSVA;
+                  this.dataSourceGSVA.sort = this.sortGSVA;
+                },
+                (e) => {
+                  this.showGSVATable = false;
+                }
+              );
+              this.GSVAPdfURL = this.expressionApiService.getResourcePlotURL(exprgsvauuids.exprgsvaplotuuid, 'pdf');
+              this.expressionApiService.getResourcePlotBlob(exprgsvauuids.exprgsvaplotuuid, 'png').subscribe(
+                (r) => {
+                  this.showGSVAImage = true;
+                  this.GSVAImageLoading = false;
+                  this._createImageFromBlob(r, 'GSVAImage');
+                },
+                (e) => {
+                  this.showGSVAImage = false;
+                }
+              );
+            },
+            (e) => {
+              this.dataSourceGSVALoading = false;
+              this.GSVAImageLoading = false;
+              this.showGSVATable = false;
+              this.showGSVAImage = false;
+            }
+          );
         },
         (err) => {
           this.showGSVATable = false;
