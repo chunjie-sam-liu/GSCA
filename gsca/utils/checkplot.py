@@ -346,3 +346,58 @@ class CheckGSEAPlotSingleCancerType(AppPaths):
         print("\n\n ", " \\\n ".join(cmd), "\n\n")
         # subprocess.check_output(cmd, universal_newlines=True)
 
+
+class CheckGSVASurvivalSingleCancerType(AppPaths):
+    def __init__(self, gsxa_uuid, name_uuid, cancertype, sur_Type, purpose, rplot, precol, gsxacol):
+        self.gsxa_uuid = gsxa_uuid
+        self.name_uuid = name_uuid
+        self.cancertype = cancertype
+        self.sur_Type = sur_Type
+        self.purpose = purpose
+        self.rplot = rplot
+
+        self.precol = precol
+        self.gsxacol = gsxacol
+
+        self.uuid = str(uuid.uuid4())
+        self.filename = self.uuid + ".png"
+        self.filepath = self.resource_pngs / self.filename
+
+    def check_run(self):
+        run = True
+        # print(self.name_uuid, self.cancertype, self.purpose, self.rplot, self.precol, self.gsxacol, self.uuid)
+        preanalysised = mongo.db[self.precol].find_one(
+            {self.name_uuid: self.gsxa_uuid, "purpose": self.purpose, "cancertype": self.cancertype, "sur_type": self.sur_Type},
+            {"_id": 0, "uuid": 1},
+        )
+        if preanalysised:
+            self.uuid = preanalysised["uuid"]
+            self.filename = self.uuid + ".png"
+            self.filepath = self.resource_pngs / self.filename
+            run = False if self.filepath.exists() else True
+        else:
+            mongo.db[self.precol].insert_one(
+                {
+                    self.name_uuid: self.gsxa_uuid,
+                    "purpose": self.purpose,
+                    "cancertype": self.cancertype,
+                    "sur_type": self.sur_Type,
+                    "uuid": self.uuid,
+                }
+            )
+
+        return {"run": run, "uuid": self.uuid}
+
+    def plot(self):
+        cmd = [
+            self.rcommand,
+            str(self.rscriptpath / self.rplot),
+            self.gsxa_uuid,
+            self.gsxacol,
+            self.cancertype,
+            self.sur_Type,
+            str(self.filepath),
+            str(self.apppath),
+        ]
+        print("\n\n ", " \\\n ".join(cmd), "\n\n")
+        # subprocess.check_output(cmd, universal_newlines=True)
