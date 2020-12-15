@@ -25,7 +25,7 @@ export class ExpressionApiService extends BaseHttpService {
     return this.generateRoute('resource/responseplot/' + uuidname + '.' + plotType);
   }
 
-  //DEG
+  // DEG
   public getDEGTable(postTerm: ExprSearch): Observable<any> {
     return this.postData('expression/deg/degtable', postTerm);
   }
@@ -49,8 +49,15 @@ export class ExpressionApiService extends BaseHttpService {
   public getExprSurvivalGSVAPlot(uuidname: string): Observable<any> {
     return this.getData('expression/gsva/exprsurvivalgsva/' + uuidname);
   }
-  public getGSVASurvivalSingleCancerImage(uuidname: string, cancertype: string, sur_Type: string): Observable<any> {
-    return this.getData('expression/gsva/survival/singlecancer/' + uuidname + '/' + cancertype + '/' + sur_Type);
+  public getGSVASurvivalSingleCancerImage(uuidname: string, cancertype: string, surType: string): Observable<any> {
+    return this.getData('expression/gsva/survival/singlecancer/' + uuidname + '/' + cancertype + '/' + surType);
+  }
+  // GSVA stage
+  public getExprStageGSVAPlot(uuidname: string): Observable<any> {
+    return this.getData('expression/gsva/stage/' + uuidname);
+  }
+  public getGSVAStageSingleCancerImage(uuidname: string, cancertype: string): Observable<any> {
+    return this.getData('expression/gsea/stage/singlecancer/' + uuidname + '/' + cancertype);
   }
   // GSEA
   public getGSEAAnalysis(postTerm: ExprSearch): Observable<any> {
