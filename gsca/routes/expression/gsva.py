@@ -1,6 +1,6 @@
 from flask import Blueprint, request
 from flask_restful import Api, Resource
-from gsca.utils.checkplot import CheckUUIDPlot, CheckGSVASurvivalSingleCancerType
+from gsca.utils.checkplot import CheckUUIDPlot, CheckGSVASurvivalSingleCancerType, CheckGSEAPlotSingleCancerType
 from gsca.utils.checktable import CheckTableGSXA
 
 gsva = Blueprint("gsva", __name__)
@@ -42,6 +42,8 @@ class ExprGSVAPlot(Resource):
 
 
 api.add_resource(ExprGSVAPlot, "/exprgsvaplot/<string:uuidname>")
+
+""" GSVA survival"""
 
 
 class ExprSurvivalGSVAPlot(Resource):
@@ -86,3 +88,46 @@ class GSVASurvivalSingleCancerImage(Resource):
 api.add_resource(
     GSVASurvivalSingleCancerImage, "/survival/singlecancer/<string:uuidname>/<string:cancertype>/<string:sur_Type>"
 )
+
+""" GSVA stage"""
+
+
+class ExprStageGSVAPlot(Resource):
+    def get(self, uuidname):
+        checkplot = CheckUUIDPlot(
+            gsxa_uuid=uuidname,
+            name_uuid="gsva_uuid",
+            purpose="exprstagegsva",
+            rplot="expr_stage_gsva.R",
+            precol="preanalysised",
+            gsxacol="preanalysised_gsva",
+        )
+        res = checkplot.check_run()
+        if res["run"]:
+            checkplot.plot()
+
+        return {"exprstagegsvaplotuuid": res["uuid"], "exprstagegsvatableuuid": uuidname}
+
+
+api.add_resource(ExprStageGSVAPlot, "/stage/<string:uuidname>")
+
+
+class GSEAPlotSingleCancerType(Resource):
+    def get(self, uuidname, cancertype):
+        checkplot = CheckGSEAPlotSingleCancerType(
+            gsxa_uuid=uuidname,
+            name_uuid="gsvastagesinglecancer_uuid",
+            cancertype=cancertype,
+            purpose="gsvastagesinglecancer",
+            rplot="gsva_stage_single_cancer.R",
+            precol="preanalysised",
+            gsxacol="preanalysised_gsva",
+        )
+        res = checkplot.check_run()
+        # print(res)
+        if res["run"]:
+            checkplot.plot()
+        return {"gsvastagesinglecanceruuid": res["uuid"]}
+
+
+api.add_resource(GSEAPlotSingleCancerType, "/stage/singlecancer/<string:uuidname>/<string:cancertype>")
