@@ -14,11 +14,9 @@ args <- commandArgs(TRUE)
 
 search_str <- args[1]
 filepath_stagepoint <- args[2]
-filepath_stageheat <- args[3]
-filepath_stagetrend <- args[4]
-apppath <- args[5]
+apppath <- args[3]
 
-# search_str = "A2M#ACE#ANGPT2#BPI#CD1B#CDR1#EGR2#EGR3#HBEGF#HERPUD1#MCM2#PCTP#PODXL#PPY#PTGS2#RCAN1#SLC4A7#THBD@KICH_expr_stage#KIRC_expr_stage#KIRP_expr_stage#LUAD_expr_stage#LUSC_expr_stage"
+# search_str = "A2M#ACE#ANGPT2#BPI#CD1B#CDR1#EGR2#EGR3#HBEGF#HERPUD1#MCM2#PCTP#PODXL#PPY#PTGS2#RCAN1#SLC4A7#THBD@ESCA_expr_stage#HNSC_expr_stage#KICH_expr_stage#KIRC_expr_stage#KIRP_expr_stage#LUAD_expr_stage#LUSC_expr_stage"
 # filepath = "/home/huff/github/GSCA/gsca-r-plot/pngs/1c16fb64-8ef4-4789-a87a-589d140c5bbe.png"
 # apppath = '/home/huff/github/GSCA'
 
@@ -133,14 +131,14 @@ stage_number <- tibble::tibble(stage=c("I","II","III","IV"),
                                rank=c(1,2,3,4))
 
 for_plot %>%
-  dplyr::mutate(mean_exp = log2(mean_exp+0.01))%>%
+  dplyr::mutate(log2mean_exp = log2(mean_exp+0.01), mean_exp=mean_exp)%>%
   dplyr::mutate(stage = stages) %>%
   dplyr::inner_join(stage_number,by="stage") -> for_plot
 
 # bubble_plot --------------------------------------------------------------------
 source(file.path(apppath,"gsca-r-app/utils/fn_bubble_plot_immune.R"))
 for_plot %>%
-  dplyr::select(-mean_exp,-mean,-stage) %>%
+  dplyr::select(-log2mean_exp,-mean_exp,-mean,-stage) %>%
   unique() -> for_plot_bubble
 for_plot_bubble %>%
   dplyr::filter(!is.na(logFDR)) %>%
@@ -173,92 +171,3 @@ bubbleplot <- bubble_plot(data=for_plot_bubble,
 ggsave(filename = filepath_stagepoint, plot = bubbleplot, device = 'png', width = size$width, height = size$height)
 filepath_stagepoint_pdf_name <- gsub("\\.png",".pdf",filepath_stagepoint)
 ggsave(filename = filepath_stagepoint_pdf_name, plot = bubbleplot, device = 'pdf', width = size$width, height = size$height)
-
-
-# heatmap --------------------------------------------------------------------
-source(file.path(apppath,"gsca-r-app/utils/fn_gradient_heatmap.R"))
-for_plot %>%
-  dplyr::filter(!is.na(mean_exp)) %>%
-  .$mean_exp -> exp_value
-min(exp_value) %>% floor() -> min_heat
-max(exp_value) %>% ceiling() -> max_heat
-fillbreaks_heat <- sort(unique(c(min_heat,max_heat,round(seq(min_heat,max_heat,length.out = 4)))))
-CPCOLS <- c("red", "white", "blue")
-
-heat_plot <- gradient_heatmap(data = for_plot,
-                                fill="mean_exp",
-                                fillname="Log2(RSEM)",
-                                aesx="stage",
-                                aesy="symbol",
-                                fillbreaks=fillbreaks_heat,
-                                yrank=gene_rank$symbol,
-                                xlab="Stages",
-                                ylab="Symbol",
-                                title="")
-
-# Save --------------------------------------------------------------------
-ggsave(filename = filepath_stageheat, plot = heat_plot, device = 'png', width = size$width, height = size$height)
-filepath_stageheat_pdf_name <- gsub("\\.png",".pdf",filepath_stageheat)
-ggsave(filename = filepath_stageheat_pdf_name, plot = heat_plot, device = 'pdf', width = size$width, height = size$height)
-
-
-# TREND PLOT --------------------------------------------------------------
-source(file.path(apppath,"gsca-r-app/utils/trend_analysis.R"))
-
-for_plot %>%
-  dplyr::group_by(symbol,cancertype) %>%
-  tidyr::nest() %>%
-  dplyr::mutate(trend_analysis = purrr::map(data,fn_trend_analysis)) %>%
-  dplyr::select(-data) %>%
-  tidyr::unnest() %>%
-  dplyr::ungroup() -> trend_res
-
-trend_res %>%
-  dplyr::group_by(symbol) %>%
-  dplyr::mutate(rank=sum(statistic)) %>%
-  dplyr::select(symbol,rank) %>%
-  dplyr::ungroup() %>%
-  dplyr::arrange(rank) %>%
-  unique() -> trend_symbol_rank
-
-trend_res %>%
-  dplyr::group_by(cancertype) %>%
-  dplyr::mutate(rank=sum(statistic)) %>%
-  dplyr::select(cancertype,rank) %>%
-  dplyr::ungroup() %>%
-  dplyr::arrange(rank) %>%
-  unique() -> trend_cancertype_rank
-
-for_plot %>%
-  dplyr::inner_join(trend_res,by=c("symbol","cancertype")) %>%
-  dplyr::mutate(`Trend P` = ifelse(p.value>0.05,">0.05","<0.05")) -> for_plot_trend
-
-for_plot_trend <- within(for_plot_trend,symbol<-factor(symbol,levels=unique(trend_symbol_rank$symbol)))
-for_plot_trend <- within(for_plot_trend,cancertype<-factor(cancertype,levels=unique(trend_cancertype_rank$cancertype)))
-
-for_plot_trend %>%
-  dplyr::filter(!is.na(statistic)) %>%
-  .$statistic -> statistic_value
-min(statistic_value) %>% floor() -> min_trend
-max(statistic_value) %>% ceiling() -> max_trend
-fillbreaks_trend <- sort(unique(c(0,min_trend,max_trend)))
-CPCOLS_trend <- c("#ee0e27", "grey", "#1678f3")
-
-source(file.path(apppath,"gsca-r-app/utils/fn_trend_plot.R"))
-trendplot <- trend_plot(data = for_plot_trend,
-           aesx="rank",
-           aesy="mean_exp",
-           linecolor="statistic",
-           linetype="`Trend P`",
-           colorname="Trend",
-           color_list = CPCOLS_trend,
-           fillbreaks=fillbreaks_trend,
-           color_lables=c("Down","Equal","Up"),
-           title="",
-           xlab="Stages",
-           ylab="Symbol")
-
-# Save --------------------------------------------------------------------
-ggsave(filename = filepath_stagetrend, plot = trendplot, device = 'png', width = size$width, height = size$height)
-filepath_stagetrend_pdf_name <- gsub("\\.png",".pdf",filepath_stagetrend)
-ggsave(filename = filepath_stagetrend_pdf_name, plot = trendplot, device = 'pdf', width = size$width, height = size$height)
