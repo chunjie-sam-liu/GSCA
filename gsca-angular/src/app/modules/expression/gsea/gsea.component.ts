@@ -6,11 +6,19 @@ import { MatTableDataSource } from '@angular/material/table';
 import { GSEATableRecord } from 'src/app/shared/model/gseatablerecord';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-gsea',
   templateUrl: './gsea.component.html',
   styleUrls: ['./gsea.component.css'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({ height: '0px', minHeight: '0' })),
+      state('expanded', style({ height: '*' })),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
 export class GseaComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() searchTerm: ExprSearch;
@@ -20,8 +28,10 @@ export class GseaComponent implements OnInit, OnChanges, AfterViewInit {
   showGSEATable = true;
   @ViewChild('paginatorGSEA') paginatorGSEA: MatPaginator;
   @ViewChild(MatSort) sortGSEA: MatSort;
-  displayedColumnsGSEA = ['cancertype'];
-  displayedColumnsGSVAHeader = ['Cancer type'];
+  displayedColumnsGSEA = ['cancertype', 'ES', 'NES', 'pval', 'padj'];
+  displayedColumnsGSEAHeader = ['Cancer type', 'ES', 'NES', 'P value', 'P adj.'];
+  expandedElement: GSEATableRecord;
+  expandedColumn: string;
 
   GSEAImage: any;
   GSEAPdfURL: string;
@@ -123,5 +133,12 @@ export class GseaComponent implements OnInit, OnChanges, AfterViewInit {
     if (this.dataSourceGSEA.paginator) {
       this.dataSourceGSEA.paginator.firstPage();
     }
+  }
+  public expandDetail(element: GSEATableRecord, column: string): void {
+    this.expandedElement = this.expandedElement === element && this.expandedColumn === column ? null : element;
+    this.expandedColumn = column;
+  }
+  public triggerDetail(element: GSEATableRecord): string {
+    return element === this.expandedElement ? 'expanded' : 'collapsed';
   }
 }
