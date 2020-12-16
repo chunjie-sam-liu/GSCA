@@ -113,6 +113,20 @@
       </div>
     </ng-container>
 
+    <ng-container *ngIf="showList.showContent && showList.showGSVASubtype; else empty">
+      <div fxFlex="grow">
+        <app-gsva-subtype
+          fxLayout="row"
+          fxLayout.lt-lg="column"
+          fxLayoutGap="10px"
+          fxLayoutWrap
+          fxLayoutAlign="center"
+          [searchTerm]="searchTerm"
+        >
+        </app-gsva-subtype>
+      </div>
+    </ng-container>
+
     <ng-container *ngIf="showList.showContent && showList.showGSEA">
       <div fxFlex="grow">
         <app-gsea
