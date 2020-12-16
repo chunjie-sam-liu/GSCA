@@ -140,3 +140,23 @@ class GSEAPlotSingleCancerType(Resource):
 
 
 api.add_resource(GSEAPlotSingleCancerType, "/stage/singlecancer/<string:uuidname>/<string:cancertype>")
+
+
+class ExprSubtypeGSVAPlot(Resource):
+    def get(self, uuidname):
+        checkplot = CheckUUIDPlot(
+            gsxa_uuid=uuidname,
+            name_uuid="gsva_uuid",
+            purpose="exprsubtypegsva",
+            rplot="expr_subtype_gsva.R",
+            precol="preanalysised",
+            gsxacol="preanalysised_gsva",
+        )
+        res = checkplot.check_run()
+        if res["run"]:
+            checkplot.plot()
+
+        return {"exprsubtypegsvaplotuuid": res["uuid"], "exprsubtypegsvatableuuid": uuidname}
+
+
+api.add_resource(ExprSubtypeGSVAPlot, "/subtype/<string:uuidname>")
