@@ -4,7 +4,7 @@ from flask_restful import Api, Resource, fields, marshal_with, reqparse
 from pathlib import Path, PurePath
 import subprocess
 import uuid
-from gsca.utils.checkplot import CheckPlot, CheckUUIDPlot
+from gsca.utils.checkplot import CheckPlot, CheckUUIDPlot, CheckGSVASurvivalSingleCancerType
 from gsca.utils.check_survivalPlot import CheckSurvivalPlot
 from gsca.utils.checktable import CheckTableGeneSet, CheckTableGSXA
 
@@ -134,16 +134,25 @@ api.add_resource(SnvGenesetSurvivalTable, "/snvgenesetsurvivaltable")
 
 
 class SnvGenesetSurvivalSingleCancer(Resource):
-    def post(self):
-        args = request.get_json()
-        checkplot = CheckSurvivalPlot(
-            args=args, purpose="snvgenesetsurvivalsinglecancer", rplot="snv_geneset_survival_singlecancer.R"
+    def get(self, uuidname, cancertype, surType):
+        checkplot = CheckGSVASurvivalSingleCancerType(
+            gsxa_uuid=uuidname,
+            cancertype=cancertype,
+            surType=surType,
+            name_uuid="snvgenesetsurvivalsinglecancer_uuid",
+            purpose="snvgenesetsurvivalsinglecancer",
+            rplot="snv_geneset_survival_singlecancer.R",
+            precol="preanalysised",
+            gsxacol="preanalysised_snvgeneset",
         )
         res = checkplot.check_run()
         if res["run"]:
-            checkplot.plot(filepath=res["filepath"])
+            checkplot.plot()
+
         return {"snvgenesetsurvivalsinglecanceruuid": res["uuid"]}
 
 
-api.add_resource(SnvGenesetSurvivalSingleCancer, "/snvgenesetsurvivalsinglecancer")
+api.add_resource(
+    SnvGenesetSurvivalSingleCancer, "/snvgenesetsurvivalsinglecancer<string:uuidname>/<string:cancertype>/<string:surType>"
+)
 
