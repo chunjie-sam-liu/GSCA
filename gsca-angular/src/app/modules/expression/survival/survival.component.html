@@ -7,7 +7,7 @@
     <ng-container *ngIf="!dataSourceSurvivalLoading; else loading"></ng-container>
 
     <mat-form-field>
-      <input matInput placeholder="Input target gene" (keyup)="applyFilter($event)" #inputSurvival />
+      <input matInput placeholder="Search" (keyup)="applyFilter($event)" #inputSurvival />
       <button mat-icon-button color="warn" matPrefix>
         <mat-icon style="font-weight: bolder">search</mat-icon>
       </button>

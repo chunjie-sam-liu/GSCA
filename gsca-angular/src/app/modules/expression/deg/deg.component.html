@@ -5,7 +5,7 @@
     </mat-card-header>
     <ng-container *ngIf="!dataSourceDegLoading; else loading"></ng-container>
     <mat-form-field>
-      <input matInput placeholder="Input target gene" (keyup)="applyFilter($event)" #inputDeg />
+      <input matInput placeholder="Search" (keyup)="applyFilter($event)" #inputDeg />
       <button mat-icon-button color="warn" matPrefix>
         <mat-icon style="font-weight: bolder">search</mat-icon>
       </button>
