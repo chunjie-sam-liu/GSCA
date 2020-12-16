@@ -6,11 +6,19 @@ import { MatTableDataSource } from '@angular/material/table';
 import { GSVAStageTableRecord } from 'src/app/shared/model/gsvastagetablerecord';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+// import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-gsva-stage',
   templateUrl: './gsva-stage.component.html',
   styleUrls: ['./gsva-stage.component.css'],
+  /* animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({ height: '0px', minHeight: '0' })),
+      state('expanded', style({ height: '*' })),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ], */
 })
 export class GsvaStageComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() searchTerm: ExprSearch;
@@ -21,8 +29,17 @@ export class GsvaStageComponent implements OnInit, OnChanges, AfterViewInit {
   showGSVAStageTable = true;
   @ViewChild('paginatorGSVAStage') paginatorGSVAStage: MatPaginator;
   @ViewChild(MatSort) sortGSVAStage: MatSort;
-  displayedColumnsGSVAStage = ['cancertype', 'sur_type', 'hr_categorical', 'coxp_categorical', 'logrankp', 'higher_risk_of_death'];
-  displayedColumnsGSVAStageHeader = ['Cancer type', 'Stage type', 'Hazard Ratio', 'Cox P value', 'Logrank P value', 'Higher risk of death'];
+  displayedColumnsGSVAStage = ['cancertype', 'diff_p', 'trend_p', 'trend_score', 'StageI', 'StageII', 'StageIII', 'StageIV'];
+  displayedColumnsGSVAStageHeader = [
+    'Cancer type',
+    'P value of difference test',
+    'P value of trend test',
+    'Score of trend test',
+    'Stage I (mean/n)',
+    'Stage II (mean/n)',
+    'Stage III (mean/n)',
+    'Stage IV (mean/n)',
+  ];
   expandedElement: GSVAStageTableRecord;
   expandedColumn: string;
 
@@ -32,12 +49,18 @@ export class GsvaStageComponent implements OnInit, OnChanges, AfterViewInit {
   GSVAStageImageLoading = true;
   showGSVAStageImage = true;
 
+  // GSVA stage image
+  GSVAStageTrendImage: any;
+  GSVAStageTrendPdfURL: string;
+  GSVAStageTrendImageLoading = true;
+  showGSVAStageTrendImage = true;
+
   // GSVA stage single cancer image
-  gsvaStageResourceUUID: string;
+  /* gsvaStageResourceUUID: string;
   GSVAStageSingleCancerImage: any;
   GSVAStageSingleCancerPdfURL: string;
   GSVAStageSingleCancerImageLoading = true;
-  showGSVAStageSingleCancerImage = true;
+  showGSVAStageSingleCancerImage = true; */
 
   constructor(private expressionApiService: ExpressionApiService) {}
 
@@ -56,7 +79,7 @@ export class GsvaStageComponent implements OnInit, OnChanges, AfterViewInit {
     } else {
       this.expressionApiService.getGSVAAnalysis(postTerm).subscribe(
         (res) => {
-          this.gsvaStageResourceUUID = res.uuidname;
+          // this.gsvaStageResourceUUID = res.uuidname;
           this.expressionApiService.getExprStageGSVAPlot(res.uuidname).subscribe(
             (exprgsvauuids) => {
               this.showGSVAStageTable = true;
@@ -71,8 +94,8 @@ export class GsvaStageComponent implements OnInit, OnChanges, AfterViewInit {
                   this.showGSVAStageTable = false;
                 }
               );
-              this.GSVAStagePdfURL = this.expressionApiService.getResourcePlotURL(exprgsvauuids.exprstagegsvaplotuuid, 'pdf');
-              this.expressionApiService.getResourcePlotBlob(exprgsvauuids.exprstagegsvaplotuuid, 'png').subscribe(
+              this.GSVAStagePdfURL = this.expressionApiService.getResourcePlotURL(exprgsvauuids.exprstagegsvaboxplotuuid, 'pdf');
+              this.expressionApiService.getResourcePlotBlob(exprgsvauuids.exprstagegsvaboxplotuuid, 'png').subscribe(
                 (r) => {
                   this.showGSVAStageImage = true;
                   this.GSVAStageImageLoading = false;
@@ -82,18 +105,32 @@ export class GsvaStageComponent implements OnInit, OnChanges, AfterViewInit {
                   this.showGSVAStageImage = false;
                 }
               );
+              this.GSVAStageTrendPdfURL = this.expressionApiService.getResourcePlotURL(exprgsvauuids.exprstagegsvatrendplotuuid, 'pdf');
+              this.expressionApiService.getResourcePlotBlob(exprgsvauuids.exprstagegsvatrendplotuuid, 'png').subscribe(
+                (r) => {
+                  this.showGSVAStageTrendImage = true;
+                  this.GSVAStageTrendImageLoading = false;
+                  this._createImageFromBlob(r, 'GSVAStageTrendImage');
+                },
+                (e) => {
+                  this.showGSVAStageTrendImage = false;
+                }
+              );
             },
             (e) => {
               this.dataSourceGSVAStageLoading = false;
               this.GSVAStageImageLoading = false;
+              this.GSVAStageTrendImageLoading = false;
               this.showGSVAStageTable = false;
               this.showGSVAStageImage = false;
+              this.showGSVAStageTrendImage = false;
             }
           );
         },
         (err) => {
           this.showGSVAStageTable = false;
           this.showGSVAStageImage = false;
+          this.showGSVAStageTrendImage = false;
         }
       );
     }
@@ -104,7 +141,7 @@ export class GsvaStageComponent implements OnInit, OnChanges, AfterViewInit {
   private _validCollection(st: ExprSearch): any {
     st.validColl = st.cancerTypeSelected
       .map((val) => {
-        return collectionList.deg.collnames[collectionList.deg.cancertypes.indexOf(val)];
+        return collectionList.expr_stage.collnames[collectionList.expr_stage.cancertypes.indexOf(val)];
       })
       .filter(Boolean);
     return st;
@@ -119,9 +156,12 @@ export class GsvaStageComponent implements OnInit, OnChanges, AfterViewInit {
           case 'GSVAStageImage':
             this.GSVAStageImage = reader.result;
             break;
-          case 'GSVAStageSingleCancerImage':
-            this.GSVAStageSingleCancerImage = reader.result;
+          case 'GSVAStageTrendImage':
+            this.GSVAStageTrendImage = reader.result;
             break;
+          /* case 'GSVAStageSingleCancerImage':
+            this.GSVAStageSingleCancerImage = reader.result;
+            break; */
         }
       },
       false
@@ -140,7 +180,7 @@ export class GsvaStageComponent implements OnInit, OnChanges, AfterViewInit {
     }
   }
 
-  public expandDetail(element: GSVAStageTableRecord, column: string): void {
+  /* public expandDetail(element: GSVAStageTableRecord, column: string): void {
     this.expandedElement = this.expandedElement === element && this.expandedColumn === column ? null : element;
     this.expandedColumn = column;
 
@@ -176,5 +216,5 @@ export class GsvaStageComponent implements OnInit, OnChanges, AfterViewInit {
 
   public triggerDetail(element: GSVAStageTableRecord): string {
     return element === this.expandedElement ? 'expanded' : 'collapsed';
-  }
+  } */
 }
