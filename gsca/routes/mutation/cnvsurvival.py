@@ -93,7 +93,6 @@ class CnvGenesetSurvivalTable(Resource):
         }
         output = {"_id": 0, "res": 1}
         res = mongo.db.cnv_geneset_survival.find_one(condition, output)
-        print(res)
         return res["res"]
 
 

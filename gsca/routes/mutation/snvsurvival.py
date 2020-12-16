@@ -92,7 +92,6 @@ api.add_resource(SnvGenesetSurvivalPlot, "/snvgenesetsurvivalplot")
 class SnvGenesetSurvivalTable(Resource):
     def post(self):
         args = request.get_json()
-        print(args)
         condition = {
             "search": "#".join(args["validSymbol"]),
             "coll": "#".join(args["validColl"]),

@@ -80,7 +80,6 @@ fetched_snv_data.bycancer %>%
 
 mutate_grouped %>%
   dplyr::mutate(combine = purrr::map2(cancertype,mutataion_group,.f=function(.x,.y){
-    print(.x)
     fetched_survival_data %>%
       dplyr::filter(cancertype %in% .x) %>%
       dplyr::inner_join(.y,by=c("sample_name")) %>%

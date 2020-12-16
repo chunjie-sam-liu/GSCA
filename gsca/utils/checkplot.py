@@ -317,7 +317,6 @@ class CheckGSEAPlotSingleCancerType(AppPaths):
 
     def check_run(self):
         run = True
-        # print(self.name_uuid, self.cancertype, self.purpose, self.rplot, self.precol, self.gsxacol, self.uuid)
         preanalysised = mongo.db[self.precol].find_one(
             {self.name_uuid: self.gsxa_uuid, "purpose": self.purpose, "cancertype": self.cancertype}, {"_id": 0, "uuid": 1},
         )
@@ -365,7 +364,6 @@ class CheckGSVASurvivalSingleCancerType(AppPaths):
 
     def check_run(self):
         run = True
-        # print(self.name_uuid, self.cancertype, self.purpose, self.rplot, self.precol, self.gsxacol, self.uuid)
         preanalysised = mongo.db[self.precol].find_one(
             {self.name_uuid: self.gsxa_uuid, "purpose": self.purpose, "cancertype": self.cancertype, "surType": self.surType},
             {"_id": 0, "uuid": 1},

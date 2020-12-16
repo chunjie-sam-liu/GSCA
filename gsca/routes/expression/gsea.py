@@ -14,7 +14,6 @@ class GSEAAnalysis(Resource):
             args=args, purpose="GSEATable", ranalysis="expr_gsea.R", precol="preanalysised", gsxacol="preanalysised_gsea"
         )
         res = checktable.check_run()
-        print(res)
         if res["run"]:
             checktable.analysis()
         table_uuidname = res["uuid"]
@@ -55,7 +54,6 @@ class GSEAPlotSingleCancerType(Resource):
             gsxacol="preanalysised_gsea",
         )
         res = checkplot.check_run()
-        # print(res)
         if res["run"]:
             checkplot.plot()
         return {"gseaplotsinglecancertypeuuid": res["uuid"]}

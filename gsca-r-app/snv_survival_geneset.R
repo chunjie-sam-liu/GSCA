@@ -9,7 +9,7 @@ library(dplyr)
 
 
 # args <- commandArgs(TRUE)
-# 
+#
 # search_str <- args[1]
 # filepath <- args[2]
 # apppath <- args[3]
@@ -40,7 +40,7 @@ source(file.path(apppath, "gsca-r-app/utils/fn_geneset_snv.R"))
 # data_path <-  file.path(apppath,"gsca-r-rds")
 # pan_maf <- tibble::tibble()
 # for (cancer in search_cancertypes) {
-#   filename <- paste(cancer,"_maf_data.IdTrans.tsv.rds.gz",sep="") 
+#   filename <- paste(cancer,"_maf_data.IdTrans.tsv.rds.gz",sep="")
 #   maf_file <- readr::read_rds(file.path(data_path,filename)) %>%
 #     dplyr::filter(Hugo_Symbol %in% search_genes)
 #   if(nrow(pan_maf)<1){
@@ -67,7 +67,7 @@ fetched_survival_data <- fn_fetch_mongo_all_survival(.data="all_survival",.keyin
   dplyr::bind_rows() %>%
   dplyr::filter(cancer_types %in% search_cancertypes) %>%
   dplyr::rename(cancertype=cancer_types)
-  
+
 
 
 # mutation group --------------------------------------------------------
@@ -103,7 +103,6 @@ fetched_snv_data.bycancer %>%
 
 mutate_grouped %>%
   dplyr::mutate(combine = purrr::map2(cancertype,mutataion_group,.f=function(.x,.y){
-    print(.x)
     fetched_survival_data %>%
       dplyr::filter(cancertype %in% .x) %>%
       dplyr::inner_join(.y,by=c("sample_name")) %>%

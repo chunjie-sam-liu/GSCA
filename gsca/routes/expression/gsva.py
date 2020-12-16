@@ -14,7 +14,6 @@ class GSVAAnalysis(Resource):
             args=args, purpose="GSVATable", ranalysis="expr_gsva.R", precol="preanalysised", gsxacol="preanalysised_gsva"
         )
         res = checktable.check_run()
-        print(res)
         if res["run"]:
             checktable.analysis()
         table_uuidname = res["uuid"]
@@ -122,7 +121,6 @@ class GSEAPlotSingleCancerType(Resource):
             gsxacol="preanalysised_gsva",
         )
         res = checkplot.check_run()
-        # print(res)
         if res["run"]:
             checkplot.plot()
         return {"gsvastagesinglecanceruuid": res["uuid"]}

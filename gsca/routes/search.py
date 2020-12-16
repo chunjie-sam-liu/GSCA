@@ -47,7 +47,6 @@ class SingleSymbol(Resource):
     @marshal_with(model_symbol)
     def get(self, s):
         condition = {"searchname": {"$regex": s, "$options": "i"}}
-        print(condition)
         output = {"_id": 0}
         mcur = mongo.db.gene_symbol.find(condition, output).limit(5)
         return list(mcur)

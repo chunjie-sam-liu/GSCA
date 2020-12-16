@@ -56,7 +56,6 @@ api.add_resource(ImmExprCorPlot, "/immexprcorplot")
 class ImmExprCorSingleGene(Resource):
     def post(self):
         args = request.get_json()
-        print(args)
         checkplot = CheckSurvivalPlot(args=args, purpose="immexprcorsinglegene", rplot="immexpr_cor_singlegene.R")
         res = checkplot.check_run()
 
