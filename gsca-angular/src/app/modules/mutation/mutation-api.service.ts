@@ -62,8 +62,8 @@ export class MutationApiService extends BaseHttpService {
   public getSnvGenesetSurvivalPlot(uuidname: string): Observable<any> {
     return this.getData('mutation/snvsurvival/snvgenesetsurvivalplot/' + uuidname);
   }
-  public getSnvGenesetSurvivalSingleCancer(postTerm: ExprSearch): Observable<any> {
-    return this.postData('mutation/snvsurvival/snvgenesetsurvivalsinglecancer', postTerm);
+  public getSnvGenesetSurvivalSingleCancer(uuidname: string, cancertype: string, surType: string): Observable<any> {
+    return this.getData('mutation/snvsurvival/snvgenesetsurvivalsinglecancer' + uuidname + '/' + cancertype + '/' + surType);
   }
   public getMethyDeTable(postTerm: ExprSearch): Observable<any> {
     return this.postData('mutation/methylation/methylationdetable', postTerm);
