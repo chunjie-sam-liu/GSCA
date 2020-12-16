@@ -53,7 +53,6 @@ api.add_resource(SurvivalPlot, "/survivalplot")
 class SurvivalSingleGenePlot(Resource):
     def post(self):
         args = request.get_json()
-        print(args)
         checkplot = CheckSurvivalPlot(args=args, purpose="survivalsinglegene", rplot="survivalplotsinglegene.R")
         res = checkplot.check_run()
         if res["run"]:

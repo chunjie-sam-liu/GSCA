@@ -29,8 +29,24 @@ export class SurvivalComponent implements OnInit, OnChanges, AfterViewInit {
   showSurvivalTable = true;
   @ViewChild('paginatorSurvival') paginatorSurvival: MatPaginator;
   @ViewChild(MatSort) sortSurvival: MatSort;
-  displayedColumnsSurvival = ['cancertype', 'symbol', 'sur_type', 'hr_categorical(H/L)','coxp_categorical','logrankp', 'higher_risk_of_death'];
-  displayedColumnsSurvivalHeader = ['Cancer type', 'Gene symbol', 'Survival type', 'Hazard Ratio','Cox P value', 'Logrank P value', 'Higher risk of death'];
+  displayedColumnsSurvival = [
+    'cancertype',
+    'symbol',
+    'sur_type',
+    'hr_categorical(H/L)',
+    'coxp_categorical',
+    'logrankp',
+    'higher_risk_of_death',
+  ];
+  displayedColumnsSurvivalHeader = [
+    'Cancer type',
+    'Gene symbol',
+    'Survival type',
+    'Hazard Ratio',
+    'Cox P value',
+    'Logrank P value',
+    'Higher risk of death',
+  ];
   expandedElement: SurvivalTableRecord;
   expandedColumn: string;
 

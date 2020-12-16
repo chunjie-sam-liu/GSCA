@@ -161,7 +161,6 @@ export class GseaComponent implements OnInit, OnChanges, AfterViewInit {
                 this.gseaSingleCancerTypeImageLoading = false;
                 this.showgseaSingleCancerTypeImage = true;
                 this._createImageFromBlob(r, 'gseaSingleCancerTypeImage');
-                console.log(this.gseaSingleCancerTypeImage);
               },
               (e) => {
                 this.gseaSingleCancerTypeImageLoading = false;

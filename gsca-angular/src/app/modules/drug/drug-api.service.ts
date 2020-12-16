@@ -29,7 +29,7 @@ export class DrugApiService extends BaseHttpService {
   public getGDSCSingleGenePlot(postTerm: ExprSearch): Observable<any> {
     return this.postData('drug/gdsc/single/gene', postTerm);
   }
-  //CTRP
+  // CTRP
   public getCTRPTable(postTerm: ExprSearch): Observable<any> {
     return this.postData('drug/ctrp/ctrptable', postTerm);
   }
