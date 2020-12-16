@@ -13,6 +13,7 @@ import { MethyCorComponent } from './methy-cor/methy-cor.component';
 import { CnvComponent } from './cnv/cnv.component';
 import { CnvSurvivalComponent } from './cnv-survival/cnv-survival.component';
 import { CnvCorComponent } from './cnv-cor/cnv-cor.component';
+import { SnvGenesetSurvivalComponent } from './snv-geneset-survival/snv-geneset-survival.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { CnvCorComponent } from './cnv-cor/cnv-cor.component';
     CnvComponent,
     CnvSurvivalComponent,
     CnvCorComponent,
+    SnvGenesetSurvivalComponent,
   ],
   imports: [CommonModule, MutationRoutingModule, SharedModule],
 })
