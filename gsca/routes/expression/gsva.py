@@ -1,6 +1,11 @@
 from flask import Blueprint, request
 from flask_restful import Api, Resource
-from gsca.utils.checkplot import CheckUUIDPlot, CheckGSVASurvivalSingleCancerType, CheckGSEAPlotSingleCancerType
+from gsca.utils.checkplot import (
+    CheckUUIDPlot,
+    CheckGSVASurvivalSingleCancerType,
+    CheckGSEAPlotSingleCancerType,
+    CheckParalleUUIDPlot,
+)
 from gsca.utils.checktable import CheckTableGSXA
 
 gsva = Blueprint("gsva", __name__)
@@ -92,19 +97,27 @@ api.add_resource(GSVASurvivalSingleCancerImage, "/survival/singlecancer/<string:
 
 class ExprStageGSVAPlot(Resource):
     def get(self, uuidname):
-        checkplot = CheckUUIDPlot(
+        purposes = ("exprstagegsvaboxplot", "exprstagegsvatrendplot")
+        checkplot = CheckParalleUUIDPlot(
             gsxa_uuid=uuidname,
             name_uuid="gsva_uuid",
-            purpose="exprstagegsva",
+            purposes=purposes,
             rplot="expr_stage_gsva.R",
             precol="preanalysised",
             gsxacol="preanalysised_gsva",
         )
-        res = checkplot.check_run()
-        if res["run"]:
-            checkplot.plot()
-
-        return {"exprstagegsvaplotuuid": res["uuid"], "exprstagegsvatableuuid": uuidname}
+        check_run = checkplot.check_run()
+        if any([res["run"] for res in check_run.values()]):
+            filepaths = [str(check_run[purpose]["filepath"]) for purpose in purposes]
+            checkplot.plot(filepaths=filepaths)
+        """
+        uuidnames = {purpose + "uuid": check_run[purpose]["uuid"] for purpose in purposes, "exprstagegsvatableuuid": uuidname}
+        """
+        uuidnames1 = {purpose + "uuid": check_run[purpose]["uuid"] for purpose in purposes}
+        uuidnames2 = {"exprstagegsvatableuuid": uuidname}
+        uuidnames = dict(uuidnames1, **uuidnames2)
+        print(uuidnames)
+        return uuidnames
 
 
 api.add_resource(ExprStageGSVAPlot, "/stage/<string:uuidname>")
