@@ -25,6 +25,19 @@
       </div>
     </ng-container>
 
+    <ng-container *ngIf="showList.showContent && showList.showSnvGenesetSurvival; else empty">
+      <div fxFlex="grow">
+        <app-snv-geneset-survival
+          fxLayout="row"
+          fxLayout.lt-lg="column"
+          fxLayoutGap="10px"
+          fxLayoutWrap
+          fxLayoutAlign="center"
+          [searchTerm]="searchTerm"
+        ></app-snv-geneset-survival>
+      </div>
+    </ng-container>
+
     <ng-container *ngIf="showList.showContent && showList.showMethylation; else empty">
       <div fxFlex="grow">
         <app-methylation

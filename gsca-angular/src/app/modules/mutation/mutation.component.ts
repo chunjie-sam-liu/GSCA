@@ -11,6 +11,7 @@ export class MutationComponent implements OnInit, AfterViewInit {
   showList = {
     showSnv: false,
     showSnvSurvival: false,
+    showSnvGenesetSurvival: false,
     showMethylation: false,
     showMethylationSurvival: false,
     showMethylationCor: false,

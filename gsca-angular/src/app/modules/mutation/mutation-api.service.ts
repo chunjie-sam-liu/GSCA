@@ -17,6 +17,13 @@ export class MutationApiService extends BaseHttpService {
   public getResourcePlotURL(uuidname: string, plotType = 'pdf'): string {
     return this.generateRoute('resource/responseplot/' + uuidname + '.' + plotType);
   }
+  public getResourceTable(coll: string, uuidname: string): Observable<any> {
+    return this.getData('resource/responsetable/' + coll + '/' + uuidname);
+  }
+  public getGeneSetSNVAnalysis(postTerm: ExprSearch): Observable<any> {
+    return this.postData('mutation/snvsurvival/snvgeneset', postTerm);
+  }
+
   public getSnvTable(postTerm: ExprSearch): Observable<any> {
     return this.postData('mutation/snv/snvtable', postTerm);
   }
@@ -52,8 +59,8 @@ export class MutationApiService extends BaseHttpService {
   public getSnvGenesetSurvivalTable(postTerm: ExprSearch): Observable<any> {
     return this.postData('mutation/snvsurvival/snvgenesetsurvivaltable', postTerm);
   }
-  public getSnvGenesetSurvivalPlot(postTerm: ExprSearch): Observable<any> {
-    return this.postData('mutation/snvsurvival/snvgenesetsurvivalplot', postTerm);
+  public getSnvGenesetSurvivalPlot(uuidname: string): Observable<any> {
+    return this.getData('mutation/snvsurvival/snvgenesetsurvivalplot/' + uuidname);
   }
   public getSnvGenesetSurvivalSingleCancer(postTerm: ExprSearch): Observable<any> {
     return this.postData('mutation/snvsurvival/snvgenesetsurvivalsinglecancer', postTerm);

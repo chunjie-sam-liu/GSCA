@@ -2,13 +2,11 @@ import { AfterViewInit, Component, ElementRef, Input, OnChanges, OnInit, SimpleC
 import { MatTableDataSource } from '@angular/material/table';
 import { ExprSearch } from 'src/app/shared/model/exprsearch';
 import { SnvSurvivalTableRecord } from 'src/app/shared/model/snvsurvivaltablerecord';
-import { SnvGenesetSurvivalTableRecord } from 'src/app/shared/model/snvgenesetsurvivaltablerecord';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import collectionlist from 'src/app/shared/constants/collectionlist';
 import { MutationApiService } from '../mutation-api.service';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { timeout } from 'rxjs/operators';
 
 @Component({
   selector: 'app-snv-survival',
@@ -56,36 +54,6 @@ export class SnvSurvivalComponent implements OnInit, OnChanges, AfterViewInit {
   showSnvSurvivalSingleGeneImage = false;
   snvSurvivalSingleGenePdfURL: string;
 
-  // geneset survival plot
-  showSnvGenesetSurvivalImage = true;
-  snvGenesetSurvivalImage: any;
-  snvGenesetSurvivalImageLoading = true;
-  snvGenesetSurvivalPdfURL: string;
-
-  // geneset survival plot
-  showSnvGenesetSurvivalTable = true;
-  snvGenesetSurvivalTable: MatTableDataSource<SnvGenesetSurvivalTableRecord>;
-  snvGenesetSurvivalTableLoading = true;
-  @ViewChild('paginatorSnvGenesetSurvival') paginatorSnvGenesetSurvival: MatPaginator;
-  @ViewChild(MatSort) sortSnvGenesetSurvival: MatSort;
-  displayedColumnsSnvGenesetSurvival = ['cancertype', 'sur_type', 'hr', 'cox_p', 'logrankp', 'higher_risk_of_death'];
-  displayedColumnsSnvGenesetSurvivalHeader = [
-    'Cancer type',
-    'Survival type',
-    'Hazard Ratio',
-    'Cox P value',
-    'Logrank P value',
-    'Higher risk of death',
-  ];
-  expandedElementGeneset: SnvGenesetSurvivalTableRecord;
-  expandedColumnGeneset: string;
-
-  // single cancertype survival
-  snvGenesetSurvivalSingleCancerImage: any;
-  snvGenesetSurvivalSingleCancerImageLoading = true;
-  showSnvGenesetSurvivalSingleCancerImage = false;
-  snvGenesetSurvivalSingleCancerPdfURL: string;
-
   constructor(private mutationApiService: MutationApiService) {}
 
   ngOnInit(): void {}
@@ -103,11 +71,8 @@ export class SnvSurvivalComponent implements OnInit, OnChanges, AfterViewInit {
       this.snvSurvivalImageLoading = false;
       this.showSnvSurvivalTable = false;
       this.showSnvSurvivalImage = false;
-      this.snvGenesetSurvivalTableLoading = false;
-      this.showSnvGenesetSurvivalTable = false;
     } else {
       this.showSnvSurvivalTable = true;
-      this.showSnvGenesetSurvivalTable = true;
       this.mutationApiService.getSnvSurvivalTable(postTerm).subscribe(
         (res) => {
           this.dataSourceSnvSurvivalLoading = false;
@@ -139,40 +104,6 @@ export class SnvSurvivalComponent implements OnInit, OnChanges, AfterViewInit {
           this.showSnvSurvivalImage = false;
         }
       );
-
-      this.mutationApiService.getSnvGenesetSurvivalPlot(postTerm).subscribe(
-        (res) => {
-          this.snvGenesetSurvivalPdfURL = this.mutationApiService.getResourcePlotURL(res.snvsurvivalgenesetuuid, 'pdf');
-          this.mutationApiService.getResourcePlotBlob(res.snvsurvivalgenesetuuid, 'png').subscribe(
-            (r) => {
-              this.showSnvGenesetSurvivalImage = true;
-              this.snvGenesetSurvivalImageLoading = false;
-              this._createImageFromBlob(r, 'snvGenesetSurvivalImage');
-            },
-            (e) => {
-              this.showSnvGenesetSurvivalImage = false;
-            }
-          );
-        },
-        (err) => {
-          this.showSnvGenesetSurvivalImage = false;
-        }
-      );
-
-      this.mutationApiService
-        .getSnvGenesetSurvivalTable(postTerm)
-        .pipe(timeout(3000))
-        .subscribe(
-          (res) => {
-            this.snvGenesetSurvivalTableLoading = false;
-            this.snvGenesetSurvivalTable = new MatTableDataSource(res);
-            this.snvGenesetSurvivalTable.paginator = this.paginatorSnvGenesetSurvival;
-            this.snvGenesetSurvivalTable.sort = this.sortSnvGenesetSurvival;
-          },
-          (err) => {
-            this.showSnvGenesetSurvivalTable = false;
-          }
-        );
     }
   }
 
@@ -192,12 +123,6 @@ export class SnvSurvivalComponent implements OnInit, OnChanges, AfterViewInit {
             break;
           case 'snvSurvivalSingleGeneImage':
             this.snvSurvivalSingleGeneImage = reader.result;
-            break;
-          case 'snvGenesetSurvivalImage':
-            this.snvGenesetSurvivalImage = reader.result;
-            break;
-          case 'snvGenesetSurvivalSingleCancerImage':
-            this.snvGenesetSurvivalSingleCancerImage = reader.result;
             break;
         }
       },
@@ -265,55 +190,8 @@ export class SnvSurvivalComponent implements OnInit, OnChanges, AfterViewInit {
       this.showSnvSurvivalSingleGeneImage = false;
     }
   }
-  public expandDetailGeneset(element: SnvGenesetSurvivalTableRecord, column: string): void {
-    this.expandedElementGeneset = this.expandedElementGeneset === element && this.expandedColumnGeneset === column ? null : element;
-    this.expandedColumnGeneset = column;
 
-    if (this.expandedElementGeneset) {
-      this.snvGenesetSurvivalSingleCancerImageLoading = true;
-      this.showSnvGenesetSurvivalSingleCancerImage = false;
-      if (this.expandedColumnGeneset === 'cancertype') {
-        const postTerm = {
-          validSymbol: this.searchTerm.validSymbol,
-          cancerTypeSelected: [this.expandedElementGeneset.cancertype],
-          // validColl: this.searchTerm.validColl,
-          // tslint:disable-next-line: max-line-length
-          validColl: [
-            collectionlist.snv_survival.collnames[collectionlist.snv_survival.cancertypes.indexOf(this.expandedElementGeneset.cancertype)],
-          ],
-          surType: [this.expandedElementGeneset.sur_type],
-        };
-
-        this.mutationApiService.getSnvGenesetSurvivalSingleCancer(postTerm).subscribe(
-          (res) => {
-            this.snvGenesetSurvivalSingleCancerPdfURL = this.mutationApiService.getResourcePlotURL(
-              res.snvgenesetsurvivalsinglecanceruuid,
-              'pdf'
-            );
-            this.mutationApiService.getResourcePlotBlob(res.snvgenesetsurvivalsinglecanceruuid, 'png').subscribe(
-              (r) => {
-                this._createImageFromBlob(r, 'snvGenesetSurvivalSingleCancerImage');
-                this.snvGenesetSurvivalSingleCancerImageLoading = false;
-                this.showSnvGenesetSurvivalSingleCancerImage = true;
-              },
-              (e) => {
-                this.showSnvGenesetSurvivalSingleCancerImage = false;
-              }
-            );
-          },
-          (err) => {
-            this.showSnvGenesetSurvivalSingleCancerImage = false;
-          }
-        );
-      }
-    } else {
-      this.showSnvGenesetSurvivalSingleCancerImage = false;
-    }
-  }
   public triggerDetail(element: SnvSurvivalTableRecord): string {
     return element === this.expandedElement ? 'expanded' : 'collapsed';
-  }
-  public triggerDetailGeneset(element: SnvGenesetSurvivalTableRecord): string {
-    return element === this.expandedElementGeneset ? 'expanded' : 'collapsed';
   }
 }
