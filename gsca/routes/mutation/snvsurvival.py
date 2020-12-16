@@ -4,8 +4,9 @@ from flask_restful import Api, Resource, fields, marshal_with, reqparse
 from pathlib import Path, PurePath
 import subprocess
 import uuid
-from gsca.utils.checkplot import CheckPlot
+from gsca.utils.checkplot import CheckPlot, CheckUUIDPlot
 from gsca.utils.check_survivalPlot import CheckSurvivalPlot
+from gsca.utils.checktable import CheckTableGeneSet, CheckTableGSXA
 
 snvsurvival = Blueprint("snvsurvival", __name__)
 api = Api(snvsurvival)
@@ -76,17 +77,44 @@ model_snvgenesetsurvivaltable = {
 }
 
 
-class SnvGenesetSurvivalPlot(Resource):
+class GeneSetSNVAnalysis(Resource):
     def post(self):
         args = request.get_json()
-        checkplot = CheckPlot(args=args, purpose="snvsurvivalgeneset", rplot="snv_geneset_survival_profile.R")
+        checktable = CheckTableGSXA(
+            args=args,
+            purpose="SNVGeneSetTable",
+            ranalysis="snv_geneset.R",
+            precol="preanalysised",
+            gsxacol="preanalysised_snvgeneset",
+        )
+        res = checktable.check_run()
+        if res["run"]:
+            checktable.analysis()
+        table_uuidname = res["uuid"]
+        return {"uuidname": table_uuidname}
+
+
+api.add_resource(GeneSetSNVAnalysis, "/snvgeneset")
+
+
+class SnvGenesetSurvivalPlot(Resource):
+    def get(self, uuidname):
+        checkplot = CheckUUIDPlot(
+            gsxa_uuid=uuidname,
+            name_uuid="gsva_uuid",
+            purpose="snvsurvivalgenesetplot",
+            rplot="snv_geneset_survival_profile.R",
+            precol="preanalysised",
+            gsxacol="preanalysised_snvgeneset",
+        )
         res = checkplot.check_run()
         if res["run"]:
-            checkplot.plot(filepath=res["filepath"])
-        return {"snvsurvivalgenesetuuid": res["uuid"]}
+            checkplot.plot()
+
+        return {"snvsurvivalgenesetplotuuid": res["uuid"], "snvsurvivalgenesettableuuid": uuidname}
 
 
-api.add_resource(SnvGenesetSurvivalPlot, "/snvgenesetsurvivalplot")
+api.add_resource(SnvGenesetSurvivalPlot, "/snvgenesetsurvivalplot/<string:uuidname>")
 
 
 class SnvGenesetSurvivalTable(Resource):
