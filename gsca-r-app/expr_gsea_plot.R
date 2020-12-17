@@ -83,31 +83,66 @@ if (nrow(uuid_query) == 0) {
 
 
 # Plot --------------------------------------------------------------------
+
 gsea_score_test %>% 
-  dplyr::mutate(padj = -log10(padj)) %>% 
-  ggplot(aes(x = reorder(cancertype, NES), y = NES, fill = padj)) +
-  geom_bar(stat = "identity") +
+  dplyr::mutate(logpadj = -log10(padj)) %>%
+  dplyr::mutate(group = ifelse(padj<=0.05,"<0.05",">0.05"))-> for_plot
+for_plot %>%
+  dplyr::filter(!is.na(logpadj)) %>%
+  .$logpadj %>% range() -> min_max
+floor(min_max[1]) -> min
+ceiling(min_max[2]) -> max
+fillbreaks <- sort(unique(c(1.3,min,max)))
+fillname<-"-log10(padj)"
+CPCOLS <- c("#87d932", "white")
+fillmipoint <- 1.3
+for_plot %>% 
+  ggplot(aes(x = reorder(cancertype, NES), y = NES, fill = logpadj)) +
+  geom_bar(stat = "identity", color="grey") +
+  scale_fill_gradient(
+    name = fillname, # "Methylation diff (T - N)",
+    low = CPCOLS[2],
+    high = CPCOLS[1],
+    limits=c(min(fillbreaks),max(fillbreaks)),
+    breaks=fillbreaks
+  ) +
+  guides(fill=guide_colourbar(title.position="top",reverse=TRUE)) +
   coord_flip() +
-  theme_bw() +
   theme(
-    legend.position = "bottom",
+    panel.background = element_rect(colour = "black", fill = "white"),
+    panel.grid = element_line(colour = "grey", linetype = "dashed"),
+    panel.grid.major = element_line(
+      colour = "grey",
+      linetype = "dashed",
+      size = 0.2
+    ),
+    axis.text.y = element_text(size = 10,colour = "black"),
+    axis.text.x = element_text(size = 10,colour = "black"),
+    legend.text = element_text(size = 10),
+    axis.title = element_text(size=12),
+    legend.title = element_text(size = 12),
+    legend.key = element_rect(fill = "white", colour = "black"),
+    legend.key.size = unit(0.5, "cm"),
+    plot.title = element_text(size = 14),
+    strip.background =  element_rect(fill="white",color="black"),
+    strip.text = element_text(color="black",size = 12)
   ) +
   guides(
     fill = guide_colourbar(
-      title = "-log10(Padj)", 
+      title = fillname, 
       title.position = "top",
-      title.hjust = 0.5,
+      title.hjust = 0.5
     )
   )+
   labs(
     x = "Cancer type",
-    y = "NES",
+    y = "Normalized enrichment core (NES)",
     title = "Enrichment score in selected cancer types"
   ) ->
   gsea_plot
 
 # Save image --------------------------------------------------------------
-
-ggsave(filename = filepath, plot = gsea_plot, device = 'png', width = 5, height = 8)
+height <- 2 + (10-length(unique(for_plot$cancertype)))*0.2
+ggsave(filename = filepath, plot = gsea_plot, device = 'png', width = 5, height = height)
 pdf_name <- gsub("\\.png",".pdf", filepath)
-ggsave(filename = pdf_name, plot = gsea_plot, device = 'pdf', width = 5, height = 8)
+ggsave(filename = pdf_name, plot = gsea_plot, device = 'pdf', width = 5, height = height)

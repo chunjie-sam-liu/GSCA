@@ -48,14 +48,40 @@ fetched_data_clean_pattern <- fn_get_pattern(.x = fetched_data %>% dplyr::mutate
 cancer_rank <- fn_get_cancer_types_rank(.x = fetched_data_clean_pattern)
 gene_rank <- fn_get_gene_rank(.x = fetched_data_clean_pattern)
 
-for_plot <- fetched_data
+for_plot <- fetched_data %>%
+  dplyr::mutate(group = ifelse(logfdr>1.3,"<0.05",">0.05"))
 
 # Plot --------------------------------------------------------------------
-source(file.path(apppath,"gsca-r-app/utils/fn_bubble_plot.R"))
-CPCOLS <- c("#000080", "#F8F8FF", "#CD0000")
+source(file.path(apppath,"gsca-r-app/utils/fn_bubble_plot_immune.R"))
+for_plot %>%
+  dplyr::filter(!is.na(fc)) %>%
+  .$fc %>% range() -> min_max
+floor(min_max[1]) -> min
+ceiling(min_max[2]) -> max
+fillbreaks <- sort(unique(c(0,min,max)))
+title <- ""
+plot <- bubble_plot(data=for_plot, 
+                    cancer="cancertype", 
+                    gene="symbol", 
+                    xlab="Cancer type", 
+                    ylab="Symbol",
+                    facet_exp=NA,
+                    size="logfdr",
+                    fill="fc",
+                    fillmipoint =0,
+                    fillbreaks =fillbreaks,
+                    colorgroup="group",
+                    cancer_rank=cancer_rank$cancertype, 
+                    gene_rank=gene_rank$symbol, 
+                    sizename= "-Log10(FDR)", 
+                    colorvalue=c("black","grey"),
+                    colorbreaks=c("<0.05",">0.05"),
+                    colorname="FDR", 
+                    fillname="Methy. diff(T-N)", 
+                    title=title) +
+  guides(fill=guide_colourbar(title.position="top", reverse = TRUE))
 
-plot <- bubble_plot(data=for_plot, cancer="cancertype", gene="symbol", size="logfdr", color="fc", cancer_rank=cancer_rank$cancertype, gene_rank=gene_rank$symbol, sizename= "-Log10(FDR)", colorname="Methylation diff (T - N)", title="")
-
+# save --------------------------------------------------------------------
 ggsave(filename = filepath,plot = plot, device = 'png', width = size$width, height = size$height)
 pdf_name <- gsub("\\.png",".pdf",filepath)
 ggsave(filename = pdf_name, plot = plot, device = 'pdf', width = size$width, height = size$height)
