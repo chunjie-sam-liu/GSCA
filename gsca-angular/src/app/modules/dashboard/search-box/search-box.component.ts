@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import features from 'src/app/shared/constants/features';
 
 @Component({
   selector: 'app-search-box',
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./search-box.component.css'],
 })
 export class SearchBoxComponent implements OnInit {
+  public features = features;
   constructor() {}
 
   ngOnInit(): void {}
