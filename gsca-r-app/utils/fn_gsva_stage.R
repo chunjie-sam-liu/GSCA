@@ -32,7 +32,7 @@ fn_stage <- function(gsva,stage){
   }
   .combine %>%
     dplyr::group_by(stage) %>%
-    dplyr::mutate(mean_exp= mean(expr)) %>%
+    dplyr::mutate(mean_exp= quantile(expr,0.5)[[1]]) %>%
     dplyr::mutate(n=n()) %>%
     dplyr::select(mean_exp,n) %>%
     dplyr::ungroup() %>%

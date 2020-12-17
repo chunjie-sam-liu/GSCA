@@ -64,7 +64,7 @@ fetched_stage_data%>%
 
 combine %>%
   dplyr::group_by(cancertype,symbol,stage) %>%
-  dplyr::mutate(mean_exp= mean(expr)) %>%
+  dplyr::mutate(mean_exp= quantile(expr,0.5)[[1]]) %>%
   dplyr::select(mean_exp) %>%
   dplyr::ungroup() %>%
   unique() -> combine_mean

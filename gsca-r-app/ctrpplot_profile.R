@@ -72,7 +72,7 @@ gene_rank <- fn_get_gene_rank(.x = fetched_data_clean_pattern)
 
 source(file.path(apppath,"gsca-r-app/utils/fn_bubble_plot_immune.R"))
 for_plot$cor %>% range() -> min_max
-trunc(min_max[1]*10)/10 -> min
+floor(min_max[1]*10)/10 -> min
 ceiling(min_max[2]*10)/10 -> max
 fillbreaks <- sort(unique(c(0,min,max)))
 plot <- bubble_plot(data=for_plot, 
