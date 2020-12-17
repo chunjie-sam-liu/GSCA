@@ -6,13 +6,13 @@
     <p class="home">
       <span class="strong">GSCA</span>: <span class="strong">G</span>ene <span class="strong">S</span>et <span class="strong">C</span>ancer
       <span class="strong">A</span>nalysis is a web-based analysis platform for gene set cancer analysis. The alterations on DNA or RNA of
-      cancer related genes may be contribute to the cancer initiation, progress, diagnosis, prognosis, therapy. As the cancer genomics big
-      data available, it is very useful and urgent to provide a platform for gene set analysis in cancer.
+      cancer related genes could contribute to the cancer initiation, progress, diagnosis, prognosis, therapy. As the cancer genomics big
+      data purging, it is very useful and urgent to provide a platform for gene set analysis in cancer.
     </p>
     <p class="home">
-      In this GSCALite, we integrated cancer genomics data of 33 cancer types from TCGA , Drug response data from GDSC and CTRP as well as
-      normal tissue data from GTEx for gene set analysis in a one-in-all data analysis workflow. When the analysis finished, users can
-      download all the results and figures as an interactive HTML report.
+      In this <span class="strong">GSCA</span>, we integrated cancer genomics data of 33 cancer types from TCGA , Drug response data from
+      GDSC and CTRP as well as normal tissue data from GTEx for gene set analysis in a one-in-all data analysis workflow. When the analysis
+      finished, users can download all the results and figures as an interactive HTML report.
     </p>
   </mat-card-content>
 </mat-card>
@@ -22,8 +22,11 @@
     <mat-card-title>New Features </mat-card-title>
   </mat-card-header>
   <mat-card-content>
-    <ng-container *ngFor="let feature of features">
-      <p class="home">{{ feature.feature }}.</p>
-    </ng-container>
+    <mat-selection-list [multiple]="false">
+      <mat-list-option *ngFor="let feature of features">
+        <mat-icon mat-list-icon [color]="feature.color">{{ feature.type }}</mat-icon>
+        {{ feature.feature }}
+      </mat-list-option>
+    </mat-selection-list>
   </mat-card-content>
 </mat-card>
