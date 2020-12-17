@@ -98,19 +98,32 @@ dl {
   font-size: medium;
 }
 dt {
+  flex-basis: 40%;
+  text-align: right;
+  font-weight: bolder;
+  font-size: medium;
+}
+dd {
+  flex-basis: 5%;
+  flex-grow: 1;
+  margin: 0;
+}
+
+span.publication {
+  font-style: italic;
+}
+
+dt.dt {
   flex-basis: 20%;
   padding: 2px 10px;
   text-align: left;
   font-weight: bolder;
   font-size: medium;
 }
-dd {
+
+dd.dd {
   flex-basis: 200%;
   flex-grow: 1;
   margin: 0;
   padding: 2px 10px;
-}
-
-span.publication {
-  font-style: italic;
 }
