@@ -366,149 +366,201 @@
         <img src="assets + '/imgs/' + 'zm.png'" alt="immuneexprsingle" />
         <img src="assets + '/imgs/' + 'zm.png'" alt="immunesnvsingle" />
         <h2>Mutation module</h2>
+        <p>
+          In this module, users can easily explore the statistic information of mutation and their association with survival and mRNA
+          expression.
+        </p>
+        <ul>
+          <li>SNV (Single Nucleotide Mutation)</li>
+          <p>
+            SNV module presents the SNV frequency and variant types of the gene set in selected cancer types. The effects of single gene and
+            gene set SNV to survival.
+          </p>
+          <ul>
+            <li>SNV summary</li>
+            <p>
+              Give the SNV summary of each gene in specific cancers in mutiple forms, including table, heatmap, summary plot, oncoplot and
+              Titv plot.
+            </p>
+            <ul>
+              <li>By clicking gene symbol button in the table result, a Lollipop plot gives a gene mutation site, type and count.</li>
+              <img src="assets + '/imgs/' + 'zm.png'" alt="Lollipop" />
+              <li>The heatmap summarize the SNV frequency in cancer</li>
+              <img src="assets + '/imgs/' + 'zm.png'" alt="snvheatmap" />
+              <li>The summary plot gives the count and type of variants in sample, gene levels.</li>
+              <img src="assets + '/imgs/' + 'zm.png'" alt="snvsummary" />
+              <li>
+                The oncoplot, also called waterfall plot presents the waterfall plots, gives a mutation distribution of top 10 (when num of
+                gene set <10, show all) mutated genes in your gene set and a SNV classification of SNV types
+              </li>
+              <img src="assets + '/imgs/' + 'zm.png'" alt="snvoncoplot" />
+              <li>
+                The Titv plot classifes the mutations into Transitions(Ti) and transversions(Tv). DNA substitution mutations are of two
+                types.
+              </li>
+              <p>
+                Transitions are interchanges of two-ring purines (A<->G) or of one-ring pyrimidines (C<->T): they therefore involve bases of
+                similar shape. Transversions are interchanges of purine for pyrimidine bases, which therefore involve exchange of one-ring
+                and two-ring structures. Although there are twice as many possible transversions, because of the molecular mechanisms by
+                which they are generated, transition mutations are generated at higher frequency than transversions. As well, transitions
+                are less likely to result in amino acid substitutions (due to "wobble"), and are therefore more likely to persist as "silent
+                substitutions" in populations as single nucleotide polymorphisms (SNPs).
+              </p>
+              <img src="assets + '/imgs/' + 'zm.png'" alt="snvTitv" />
+            </ul>
+            <li>Single gene SNV and survival</li>
+            <p>
+              This function provide summary and single gene survival result between mutant and wide type. The color from blue to red
+              represent the hazard ratio, size represents statistical significance in bubble plot. Black outline border indicates Logrank P
+              < 0.05.
+            </p>
+            <img src="assets + '/imgs/' + 'zm.png'" alt="snvsurvival" />
+            <p>
+              By clicking the button “A2M” in the specific row of the result table, users can get the Kaplan-Meier survival curve between
+              A2M mutant and wide type in KIRC.
+            </p>
+            <img src="assets + '/imgs/' + 'zm.png'" alt="snvsurvivalsinglegene" />
+            <li>Gene set SNV and survival</li>
+            <p>
+              This function provide summary and single cancer result between gene set mutant and wide type. The color from blue to red
+              represent the hazard ratio, size represents statistical significance in bubble plot. Black outline border indicates Logrank P
+              < 0.05.
+            </p>
+            <img src="assets + '/imgs/' + 'zm.png'" alt="snvgenesetsurvival" />
+            <p>
+              By clicking button “KIRC” in the result table, user can get the Users can get the Kaplan-Meier survival curve between gene set
+              mutant and wide type in KIRC.
+            </p>
+            <img src="assets + '/imgs/' + 'zm.png'" alt="snvgenesetsurvivalsingle" />
+          </ul>
+          <li>CNV (Copy Number Variation)</li>
+          <p>
+            On CNV module, the statistics of hetero-zygous and homozygous CNV of each cancer type are displayed, and correlation between
+            gene expression and CNV of each gene in each cancer to help to analyze the gene expression significantly affected by CNV. In
+            addition, the association between CNV aplification, deletion with survival.
+          </p>
+          <ul>
+            <li>CNV summary</li>
+            <p>
+              Give the CNV summary of each gene in specific cancers in mutiple forms, including table, pie plot, bubble plot and oncoplot.
+            </p>
+            <ul>
+              <li>
+                By clicking gene symbol button in the table result, a onco gives the distribution of CNV type and ratiosite for a gene.
+              </li>
+              <img src="assets + '/imgs/' + 'zm.png'" alt="cnvsinglegene" />
+              <li>
+                CNV pie plot gives you a global profile that shows the constitute of Heterozygous/Homozygous CNV of each gene in each
+                cancer. A pie represents the proportion of different types of CNV of one gene in one cancer, and different color represent
+                different types of CNV.
+              </li>
+              <img src="assets + '/imgs/' + 'zm.png'" alt="cnvpie" />
+              <li>
+                Heterozygous CNV profile show users the percentage of heterozygous CNV, including amplification and deletion percentage of
+                heterozygous CNV about each gene in each cancer. The heterozygous CNV is generally happened so the plot will full of points,
+                but most of researchs such as cBioPortal mainly focus on homozygous CNV in the present.
+              </li>
+              <img src="assets + '/imgs/' + 'zm.png'" alt="cnvhete" />
+              <li>
+                Homozygous CNV profile show users the percentage of homozygous CNV, including amplification and deletion percentage of
+                homozygous CNV about each gene in each cancer. Most of researchs such as cBioPortal mainly focus on homozygous CNV in the
+                present.
+              </li>
+              <img src="assets + '/imgs/' + 'zm.png'" alt="cnvhomo" />
+            </ul>
+            <li>CNV and expression</li>
+            <p>
+              From this, users can get genes whose expression significantly correlate with CNV. Blue bubbles represent a negative
+              correlation, and red bubbles represent positive correlation, he deeper of color, the higher the correlation. The size of the
+              point represents statistic significance, the bigger of size, the more statistic significant.
+            </p>
+            <img src="assets + '/imgs/' + 'zm.png'" alt="cnvexpr" />
+            <p>
+              By clicking the button “MCM2” in the specific row of the result table, users can get the scatter plot of MCM2 expression and
+              CNV in KICH, with fitting line.
+            </p>
+            <img src="assets + '/imgs/' + 'zm.png'" alt="cnvexprsingle" />
+            <li>Single gene CNV and survival</li>
+            <p>
+              This function provides summary and single gene survival result between CNV and wide type. The color from blue to red and size
+              represent statistical significance in bubble plot. Black outline border indicates Logrank P < 0.05.
+            </p>
+            <img src="assets + '/imgs/' + 'zm.png'" alt="cnvsurvival" />
+            <p>
+              By clicking the button “A2M” in the specific row of the result table, users can get the Kaplan-Meier survival curve between
+              A2M CNV (homo amplification and homo deletion) and wide type.
+            </p>
+            <img src="assets + '/imgs/' + 'zm.png'" alt="cnvsurvivalsingle" />
+            <li>Gene set CNV and survival</li>
+            <p>This part estimate the difference between gene set CNV group (amplification, deletiona and wide type)</p>
+            <p>
+              The color from blue to red and size represent statistical significance in bubble plot. Black outline border indicates Logrank
+              P < 0.05.
+            </p>
+            <img src="assets + '/imgs/' + 'zm.png'" alt="cnvgenesetsurvival" />
+            <p>
+              By clicking the button “KIRP” in the specific row of the result table, users can get the Kaplan-Meier survival curve between
+              gene set CNV (homo amplification and homo deletion) and wide type.
+            </p>
+            <img src="assets + '/imgs/' + 'zm.png'" alt="cnvgenesetsurvivalsingle" />
+          </ul>
+          <li>Methylation</li>
+          <p>
+            Methylation module explores the differential methylation between tumor and paired normal, the correlation between methylation
+            with expression and the OS affected by methyla-tion level for selected cancer types.
+          </p>
+          <ul>
+            <li>Differential methylation</li>
+            <p>
+              Bubble plot show users genes' methylation change between tumor and normal samples in each cancers. Blue points represent a
+              methylation downregulation in tumors, red points represent a methylation upregulation in tumors, the deeper of color, the
+              higher the difference. And size of the point represents statistic significance, the bigger of size, the more significantly.
+            </p>
+            <img src="assets + '/imgs/' + 'zm.png'" alt="methydiff" />
+            <p>
+              Through clicking the buttons “A2M” or “KIRC” in the specific row of the result table, users can get the detailed methylation
+              distribution of A2M in KIRC or pan-cancer.
+            </p>
+            <img src="assets + '/imgs/' + 'zm.png'" alt="methydiffsinglegene" />
+            <img src="assets + '/imgs/' + 'zm.png'" alt="methydiffsinglecancer" />
+            <li>Methylation and expression</li>
+            <p>
+              Give users the correlation between methylation and mRNA gene expression. Blue points represent negative correlation, and red
+              represent positive correlation, the deeper of color, the higher the correlation. And size of the point represents statistic
+              significance, the bigger of size, the more significantly.
+            </p>
+            <img src="assets + '/imgs/' + 'zm.png'" alt="methyexpr" />
+            <p>
+              By clicking the button “RCAN1” in the specific row of the result table, users can get the scatter plot of RCAN1 methylation
+              and methylation in KICH, with fitting line.
+            </p>
+            <img src="assets + '/imgs/' + 'zm.png'" alt="methyexprsinglegene" />
+            <li>Methylation and survival</li>
+            <p>
+              This function provide summary and single gene survival result between high and low methylation. The color from blue to red
+              represent the hazard ratio, size represents statistical significance in bubble plot. Black outline border indicates Logrank P
+              < 0.05.
+            </p>
+            <img src="assets + '/imgs/' + 'zm.png'" alt="methysurvival" />
+            <p>
+              By clicking button “PCPT” in the result table, users can get the Kaplan-Meier survival curve between hyper- and
+              hypo-methylation in KIRC.
+            </p>
+            <img src="assets + '/imgs/' + 'zm.png'" alt="methysurvivalsinglegene" />
+          </ul>
+        </ul>
 
         <h2>Drug module</h2>
+        <p>In Drug module, users can easily explore the correlation between mRNA expression and durg IC50. Including two data source:</p>
         <ul>
-          <li>
-            <h3>TCGA data from NCI Genomic Data Commons</h3>
-            <h4>mRNA sequencing data</h4>
-            <ul>
-              <li>
-                Statistic
-                <ul>
-                  <li>33 cancer types</li>
-                  <li>10,995 samples</li>
-                </ul>
-              </li>
-              <li>
-                Data process
-                <ul>
-                  <li>14 cancers have over ten paired tumor and normal samples.</li>
-                  <li>Processed with RSEM normalized expression</li>
-                </ul>
-              </li>
-            </ul>
-            <h4>Clinical information</h4>
-            <ul>
-              <li>
-                Survival
-                <ul>
-                  <li>xx cancer types</li>
-                  <li>xx samples</li>
-                  <li>overall survival(OS) and progression free survival(PFS)</li>
-                </ul>
-              </li>
-              <li>
-                Stage
-                <ul>
-                  <li>xx cancer types</li>
-                  <li>xx samples</li>
-                  <li>including stage I, II, III, IV</li>
-                </ul>
-              </li>
-              <li>
-                Subtype
-                <ul>
-                  <li>xx cancer types</li>
-                  <li>xx samples</li>
-                  <li>including molecular subtypes or clustered subtypes (numbered)</li>
-                </ul>
-              </li>
-            </ul>
-            <h4>SNV data</h4>
-            <ul>
-              <li>
-                Statistic
-                <ul>
-                  <li>33 cancer types</li>
-                  <li>8,663 samples</li>
-                </ul>
-              </li>
-              <li>
-                Data process
-                <ul>
-                  <li>
-                    Mutant including 7 types of mutations: Missense_Mutation, Nonsense_Mutation, Frame_Shift_Ins, Splice_Site,
-                    Frame_Shift_Del, In_Frame_Del, In_Frame_Ins.
-                  </li>
-                  <li>Wide type(WT): others.</li>
-                </ul>
-              </li>
-            </ul>
-            <h4>CNV data</h4>
-            <ul>
-              <li>
-                Statistic
-                <ul>
-                  <li>33 cancer types</li>
-                  <li>11,495 samples</li>
-                </ul>
-              </li>
-              <li>
-                Data process
-                <ul>
-                  <li>GISTICS2.0</li>
-                  <li>Hete Amp: heterozygous amplification, CNV = 1</li>
-                  <li>Hete Del: heterozygous deletion, CNV = -1</li>
-                  <li>Homo Amp: homozygous amplification, CNV = 2</li>
-                  <li>Homo Del: homozygous deletion, CNV = -2</li>
-                </ul>
-              </li>
-            </ul>
-            <h4>Methylation data</h4>
-            <ul>
-              <li>
-                Statistic
-                <ul>
-                  <li>33 cancer types</li>
-                  <li>10,129 samples</li>
-                </ul>
-              </li>
-              <li>
-                Data process
-                <ul>
-                  <li>Calculation based on methylation beta value</li>
-                  <li>14 cancers have over ten paired tumor and normal samples</li>
-                </ul>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <h3>Drug data</h3>
-            <h4>Therapeutics Response Portal (CTRP)</h4>
-            <ul>
-              <li>481 small molecules IC50</li>
-              <li>1001 cell lines</li>
-              <li>18900 genes</li>
-            </ul>
-            <h4>Genomics of Drug Sensitivity in Cancer (GDSC)</h4>
-            <ul>
-              <li>265 small molecules IC50</li>
-              <li>860 cell lines</li>
-              <li>17419 genes</li>
-            </ul>
-          </li>
-          <li>
-            <h3>Immune infiltrates</h3>
-            <ul>
-              <li>
-                Statistic
-                <ul>
-                  <li>TCGA 10,995 samples</li>
-                  <li>33 cancer types</li>
-                  <li>25 immune cells</li>
-                </ul>
-              </li>
-              <li>
-                Data process
-                <ul>
-                  <li>Based on mRNA expression data, ImmuCellAI was performed to get immune cells infiltrates</li>
-                  <li>25 immune cells</li>
-                </ul>
-              </li>
-            </ul>
-          </li>
+          <li>GDSC</li>
+          <li>CTRP</li>
         </ul>
+        <p>
+          These results are present in bubble plot. The color from blue to red represent the correlation between mRNA expression and IC50.
+          The bubble size positively correlate with the FDR significance. Black outline border indicates FDR < 0.05.
+        </p>
+        <img src="assets + '/imgs/' + 'zm.png'" alt="gdscdrug" />
       </mat-card-content>
     </mat-card>
   </div>
