@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import modules from 'src/app/shared/constants/modules';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-search-box',
@@ -8,6 +9,7 @@ import modules from 'src/app/shared/constants/modules';
 })
 export class SearchBoxComponent implements OnInit {
   public modules = modules;
+  public assets = environment.assets;
   constructor() {}
 
   ngOnInit(): void {}

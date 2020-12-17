@@ -1,37 +1,42 @@
 export default [
   {
-    feature: 'mRNA: Differential expression and survival analysis',
-    type: 'update',
-    color: 'primary',
-  },
-  {
-    feature: 'SNV: Statistics, distribution, types and its survival significance',
-    type: 'update',
-    color: 'primary',
-  },
-  {
-    feature: 'CNV: Statistics of deletion/amplification of hetero/homozygous CNV',
-    type: 'update',
-    color: 'primary',
-  },
-  {
-    feature: 'Methylation: Methylation affects survival and expression',
-    type: 'update',
-    color: 'warn',
-  },
-  {
-    feature: 'Cancer pathway activity: The activity of 10 cancer related pathways',
-    type: 'update',
-    color: 'warn',
-  },
-  {
-    feature: 'miRNA network: Gene regulatory network by miRNAs',
+    feature: 'Immune: 24 immune cells correlate with gene expression, SNV, CNV and methylation ',
     type: 'fiber_new',
     color: 'warn',
   },
   {
-    feature: 'Drug analysis: Correlation of expression and drug sensitivity (IC50)',
+    feature: 'GSEA: expression of gene set enrichment analysis across pan-cancers.',
     type: 'fiber_new',
     color: 'warn',
+  },
+  {
+    feature: 'GSVA: differential gene set variable analysis and clinical correlations.',
+    type: 'fiber_new',
+    color: 'warn',
+  },
+  {
+    feature: 'Expression: differential expression and clinical correlations with individual figures.',
+    type: 'fiber_new',
+    color: 'warn',
+  },
+  {
+    feature: 'Drug sensitivity: update new drug data and correlate expression with drug sensitivity (IC50).',
+    type: 'update',
+    color: 'primary',
+  },
+  {
+    feature: 'SNV: update mutational distribution, lolipop plot and survival analysis.',
+    type: 'update',
+    color: 'primary',
+  },
+  {
+    feature: 'CNV: update sCNV deletion and amplifications and correlates with expressiona and survival.',
+    type: 'update',
+    color: 'primary',
+  },
+  {
+    feature: 'Methylation: update correlates with gene set expression and survival.',
+    type: 'update',
+    color: 'primary',
   },
 ];
