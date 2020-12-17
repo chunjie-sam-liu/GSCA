@@ -6,7 +6,7 @@ import subprocess
 import uuid
 from gsca.utils.checkplot import CheckPlot, CheckUUIDPlot
 from gsca.utils.check_survivalPlot import CheckSurvivalPlot
-from gsca.utils.checktable import CheckTableGeneSet, CheckTableGSXA
+from gsca.utils.checktable import CheckTableGSXA
 
 snvsurvival = Blueprint("snvsurvival", __name__)
 api = Api(snvsurvival)
