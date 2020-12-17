@@ -4,6 +4,7 @@
   </div>
 
   <div fxFlex class="not-float">
+    <!-- Introduction -->
     <mat-card appMaterialElevation defaultElevation="4" raisedElevation="4">
       <mat-card-header>
         <mat-card-title>Introduction</mat-card-title>
@@ -25,7 +26,7 @@
       </mat-card-content>
     </mat-card>
     <br />
-
+    <!-- Quick start -->
     <mat-card appMaterialElevation defaultElevation="4" raisedElevation="4">
       <mat-card-header>
         <mat-card-title>Quick start</mat-card-title>
@@ -52,39 +53,13 @@
       </mat-card-content>
     </mat-card>
     <br />
+    <!-- Updates  -->
     <mat-card appMaterialElevation defaultElevation="4" raisedElevation="4">
       <mat-card-header>
         <mat-card-title>Updates of GSCA compared with GSCALite</mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <p>GSCA retained all the functions in the GSCALite. Besides, in this version, more datasets and functions were added:</p>
-        <ol>
-          <li>
-            <p>
-              Click "Example" button to get example inputs. Or enter the official symbols of gene set with more than 2 genes and less than
-              50 in the “Input your interested gene set”.
-            </p>
-          </li>
-          <li>
-            <p>Select at least one cancer type in the "Select cancer types".</p>
-          </li>
-          <li>
-            <p>Select at least one analysis.</p>
-          </li>
-          <li>
-            <p>Click "Submit" button to get results of interest gene set.</p>
-          </li>
-        </ol>
-        <img mat-card-image class="zm" [src]="assets + '/imgs/' + 'zm.png'" alt="searchbox" />
-      </mat-card-content>
-    </mat-card>
-    <br />
-
-    <mat-card appMaterialElevation defaultElevation="4" raisedElevation="4">
-      <mat-card-header>
-        <mat-card-title>Quick start</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
+        <p>GSCA retained most of the functions in the GSCALite. Besides, in this version, more datasets and functions were added:</p>
         <ol>
           <li>
             <h3>Gene set estimation</h3>
@@ -120,12 +95,283 @@
       </mat-card-content>
     </mat-card>
     <br />
-
+    <!-- Data collection and process -->
     <mat-card appMaterialElevation defaultElevation="4" raisedElevation="4">
       <mat-card-header>
         <mat-card-title>Data collection and process</mat-card-title>
       </mat-card-header>
       <mat-card-content>
+        <ul>
+          <li>
+            <h3>TCGA data from NCI Genomic Data Commons</h3>
+            <h4>mRNA sequencing data</h4>
+            <ul>
+              <li>
+                Statistic
+                <ul>
+                  <li>33 cancer types</li>
+                  <li>10,995 samples</li>
+                </ul>
+              </li>
+              <li>
+                Data process
+                <ul>
+                  <li>14 cancers have over ten paired tumor and normal samples.</li>
+                  <li>Processed with RSEM normalized expression</li>
+                </ul>
+              </li>
+            </ul>
+            <h4>Clinical information</h4>
+            <ul>
+              <li>
+                Survival
+                <ul>
+                  <li>xx cancer types</li>
+                  <li>xx samples</li>
+                  <li>overall survival(OS) and progression free survival(PFS)</li>
+                </ul>
+              </li>
+              <li>
+                Stage
+                <ul>
+                  <li>xx cancer types</li>
+                  <li>xx samples</li>
+                  <li>including stage I, II, III, IV</li>
+                </ul>
+              </li>
+              <li>
+                Subtype
+                <ul>
+                  <li>xx cancer types</li>
+                  <li>xx samples</li>
+                  <li>including molecular subtypes or clustered subtypes (numbered)</li>
+                </ul>
+              </li>
+            </ul>
+            <h4>SNV data</h4>
+            <ul>
+              <li>
+                Statistic
+                <ul>
+                  <li>33 cancer types</li>
+                  <li>8,663 samples</li>
+                </ul>
+              </li>
+              <li>
+                Data process
+                <ul>
+                  <li>
+                    Mutant including 7 types of mutations: Missense_Mutation, Nonsense_Mutation, Frame_Shift_Ins, Splice_Site,
+                    Frame_Shift_Del, In_Frame_Del, In_Frame_Ins.
+                  </li>
+                  <li>Wide type(WT): others.</li>
+                </ul>
+              </li>
+            </ul>
+            <h4>CNV data</h4>
+            <ul>
+              <li>
+                Statistic
+                <ul>
+                  <li>33 cancer types</li>
+                  <li>11,495 samples</li>
+                </ul>
+              </li>
+              <li>
+                Data process
+                <ul>
+                  <li>GISTICS2.0</li>
+                  <li>Hete Amp: heterozygous amplification, CNV = 1</li>
+                  <li>Hete Del: heterozygous deletion, CNV = -1</li>
+                  <li>Homo Amp: homozygous amplification, CNV = 2</li>
+                  <li>Homo Del: homozygous deletion, CNV = -2</li>
+                </ul>
+              </li>
+            </ul>
+            <h4>Methylation data</h4>
+            <ul>
+              <li>
+                Statistic
+                <ul>
+                  <li>33 cancer types</li>
+                  <li>10,129 samples</li>
+                </ul>
+              </li>
+              <li>
+                Data process
+                <ul>
+                  <li>Calculation based on methylation beta value</li>
+                  <li>14 cancers have over ten paired tumor and normal samples</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <h3>Drug data</h3>
+            <h4>Therapeutics Response Portal (CTRP)</h4>
+            <ul>
+              <li>481 small molecules IC50</li>
+              <li>1001 cell lines</li>
+              <li>18900 genes</li>
+            </ul>
+            <h4>Genomics of Drug Sensitivity in Cancer (GDSC)</h4>
+            <ul>
+              <li>265 small molecules IC50</li>
+              <li>860 cell lines</li>
+              <li>17419 genes</li>
+            </ul>
+          </li>
+          <li>
+            <h3>Immune infiltrates</h3>
+            <ul>
+              <li>
+                Statistic
+                <ul>
+                  <li>TCGA 10,995 samples</li>
+                  <li>33 cancer types</li>
+                  <li>25 immune cells</li>
+                </ul>
+              </li>
+              <li>
+                Data process
+                <ul>
+                  <li>Based on mRNA expression data, ImmuCellAI was performed to get immune cells infiltrates</li>
+                  <li>25 immune cells</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </mat-card-content>
+    </mat-card>
+    <br />
+    <!-- Examples -->
+    <mat-card appMaterialElevation defaultElevation="4" raisedElevation="4">
+      <mat-card-header>
+        <mat-card-title>Try out example and Results interpretation</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>
+          By click "Example" button, GSCA will search gene set "A2M, ACE, ANGPT2, BPI, CD1B, CDR1, EGR2, EGR3, HBEGF, HERPUD1, MCM2, PCTP,
+          PODXL, PPY, PTGS2, RCAN1, SLC4A7, THBD" in cancer types "KICH, KIRC, KIRP, LUAD, LUSC". We will give some example results and
+          their interpretation.
+        </p>
+        <h2>Expression module</h2>
+        <p>
+          The expression module contains both single gene level and gene set level analysis. The gene set expression level is present by
+          GSVA score.
+        </p>
+        <ul>
+          <li>Single gene level</li>
+          <ul>
+            <li>Differential expression</li>
+            <p>
+              This part analyze the differential expression between tumor and adjacent normal samples. The bubble color from purple to red
+              represent the fold change between tumor vs normal. The size dot indicates the significance. The dot was filtered by the fold
+              change (FC>2) and significance (FDR < 0.05). Users can found that A2M is significantly downregulate in LUSC.
+            </p>
+            <img src="assets + '/imgs/' + 'zm.png'" alt="differentialExpression" />
+            <p>
+              Through clicking the buttons “A2M” or “LUSC” in the specific row of the result table, users can get the detailed expression
+              distribution of A2M in LUSC or pan-cancer.
+            </p>
+            <img src="assets + '/imgs/' + 'zm.png'" alt="differentialExpressionSingleGene" />
+            <img src="assets + '/imgs/' + 'zm.png'" alt="differentialExpressionSingleCancer" />
+            <li>GSEA enrichment</li>
+            <p>
+              Bar plot and enrichment plot give the enrichment score of gene set against all genes. This result gives the users the
+              distribution of gene set expression changes among all genes(backgroud). By clicking “LUSC” button in the result table, the
+              users can find that among the inputed gene set, most of them are downregulated in LUSC, distributed on the right blue side of
+              enrichment plot.
+            </p>
+            <img src="assets + '/imgs/' + 'zm.png'" alt="gseabar" />
+            <img src="assets + '/imgs/' + 'zm.png'" alt="gseasingle" />
+            <li>Stage and expression</li>
+            <p>
+              This part estimate the expression difference between TNM stages and the expression tendency from stage I to IV. The bubble
+              color from blue to red and the size represent the FDR significance. Black outline border indicates FDR < 0.05. Users can found
+              that PODXL is significantly different among stage in KIRC.
+            </p>
+            <img src="assets + '/imgs/' + 'zm.png'" alt="stageexprsummary" />
+            <p>
+              Through clicking the buttons “PODXL” in the specific row of the result table, users can get the detailed expression
+              distribution of PODXL in KIRC stages by box plot.
+            </p>
+            <img src="assets + '/imgs/' + 'zm.png'" alt="stagesingle" />
+            <p>Trend of gene expression from stage I to stage IV is present as heat map and trend plot.</p>
+            <img src="assets + '/imgs/' + 'zm.png'" alt="stagetrend" />
+            <li>Subtype and expression</li>
+            <p>
+              This part estimate the expression difference between subtypes. The color from white to red represent the FDR significance in
+              heat map. Users can found that CD1B is significantly different among subtypes in LUAD. Through clicking the buttons “CD1B” in
+              the specific row of the result table, users can get the detailed expression distribution of CD1B in LUAD subtypes by box plot.
+            </p>
+            <img src="assets + '/imgs/' + 'zm.png'" alt="subtypesummary" />
+            <img src="assets + '/imgs/' + 'zm.png'" alt="subtypesingle" />
+            <li>Survival and expression</li>
+            <p>
+              This part estimate the OS and PFS difference between high and low gene expression. The color from blue to red represent the
+              hazard ratio, size represents statistical significance in bubble plot. Black outline border indicates Logrank P < 0.05. Users
+              can found that SLC4A7 is significantly associate with KICH patients’ OS. Through clicking the buttons “SLC4A7” in the specific
+              row of the result table, users can get the Kaplan-Meier survival curve between high and low SLC4A7 expression in KICH.
+            </p>
+            <img src="assets + '/imgs/' + 'zm.png'" alt="survivalsummary" />
+            <img src="assets + '/imgs/' + 'zm.png'" alt="survivalsingle" />
+          </ul>
+          <li>Gene set level</li>
+          <ul>
+            <li>Differential GSVA score</li>
+            <p>
+              The boxplot compare the GSVA score of inputed gene set between tumor and normal samples. The users can fing that the overall
+              expression level of example gene set are significantly downregulated in tumor.
+            </p>
+            <img src="assets + '/imgs/' + 'zm.png'" alt="gsvaexpr" />
+            <li>Stage and GSVA score</li>
+            <p>
+              The boxplot compare the GSVA score of inputed gene set among TNM stages. The trend plot persents the trend of middle GSVA
+              score from stage I to stage IV. Users can find that the overall expression level of example gene set are trend to upregulate
+              in KICH, KIRP and LUSC, and trend to downregulate in KIRC and LUAD, but without statistical significance (Tend P > 0.05,
+              estimated by Mann-Kendall Trend Test).
+            </p>
+            <img src="assets + '/imgs/' + 'zm.png'" alt="gsvastagebox" />
+            <img src="assets + '/imgs/' + 'zm.png'" alt="gsvastagetrend" />
+            <li>Subtype and GSVA score</li>
+            <p>
+              The boxplot compare the GSVA score of inputed gene set among cancer subtypes. The users can find that the GSVA score
+              significantly upregulated in LUAD subtypes, from subtype 1 to 6.
+            </p>
+            <img src="assets + '/imgs/' + 'zm.png'" alt="gsvasubtype" />
+            <li>Survival and GSVA score</li>
+            <p>
+              The bubble plot shows the summary of HR and logrank p of GSVA score among cancers. Black outline border indicates Logrank P <
+              0.05. There are no significant difference between high and low GSVA score groups in each cancer survival. By clicking button
+              “KIRP” in result table, users can get the Kaplan-Meier survival curve.
+            </p>
+            <img src="assets + '/imgs/' + 'zm.png'" alt="gsvasurvivalsummary" />
+            <img src="assets + '/imgs/' + 'zm.png'" alt="gsvasurvivalsingle" />
+          </ul>
+        </ul>
+        <h2>Immune module</h2>
+        <p>In Immune module, users can easily explore the correlation between immune cells infiltrates and genomics features, including:</p>
+        <ul>
+          <li>mRNA expression</li>
+          <li>SNV</li>
+          <li>CNV</li>
+          <li>Methylation</li>
+        </ul>
+
+        <p>
+          In these modules, bubble plot presents the summary of the correlation for each cancer. The bubble color from blue to red represent
+          the correlation. Bubble size are correlate with FDR significancec. Black outline border indicates FDR < 0.05. By clicking gene
+          symbol buttons in tables, users can get the detailed result of single gene through scatter plot with fitting line (mRNA
+          expression, CNV and methylation), or boxplot (SNV).
+        </p>
+        <img src="assets + '/imgs/' + 'zm.png'" alt="immuneplot" />
+        <img src="assets + '/imgs/' + 'zm.png'" alt="immuneexprsingle" />
+        <img src="assets + '/imgs/' + 'zm.png'" alt="immunesnvsingle" />
+        <h2>Mutation module</h2>
+
+        <h2>Drug module</h2>
         <ul>
           <li>
             <h3>TCGA data from NCI Genomic Data Commons</h3>
