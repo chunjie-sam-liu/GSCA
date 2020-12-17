@@ -1,10 +1,10 @@
-<ng-container *ngFor="let feature of features">
+<ng-container *ngFor="let module of modules">
   <mat-card fxFlex appMaterialElevation defaultElevation="2" raisedElevation="15">
     <mat-card-header>
-      <mat-card-title>{{ feature.title }}</mat-card-title>
+      <mat-card-title>{{ module.title }}</mat-card-title>
     </mat-card-header>
-    <a [routerLink]="feature.name">
-      <mat-card-content><img [src]="'assets/imgs/' + feature.img" alt="" /> </mat-card-content>
+    <a [routerLink]="module.name">
+      <mat-card-content><img [src]="'assets/imgs/' + module.img" alt="" /> </mat-card-content>
     </a>
   </mat-card>
 </ng-container>

@@ -127,3 +127,14 @@ dd.dd {
   margin: 0;
   padding: 2px 10px;
 }
+
+span.strong {
+  color: #f2453d;
+  font-weight: bolder;
+  font-size: larger;
+}
+
+p.home {
+  font-size: large;
+  text-align: justify;
+}

@@ -1,26 +1,30 @@
 export default [
   {
-    name: 'expression',
-    title: 'Expression and clinical correlations',
-    img: 'logo.png',
-    description: 'Expression module',
+    feature: 'mRNA: Differential expression and survival analysis',
+    type: 'update',
   },
   {
-    name: 'immune',
-    title: 'Immune correlations',
-    img: 'logo.png',
-    description: 'Immune cell estimation and correlation',
+    feature: 'SNV: Statistics, distribution, types and its survival significance',
+    type: 'update',
   },
   {
-    name: 'mutation',
-    title: 'Mutations',
-    img: 'logo.png',
-    descritpion: 'SNV, CNV and methylation',
+    feature: 'CNV: Statistics of deletion/amplification of hetero/homozygous CNV',
+    type: 'update',
   },
   {
-    name: 'drug',
-    title: 'Drug sensitivity',
-    img: 'logo.png',
-    description: 'Small molecule correlations with gene expression',
+    feature: 'Methylation: Methylation affects survival and expression',
+    type: 'update',
+  },
+  {
+    feature: 'Cancer pathway activity: The activity of 10 cancer related pathways',
+    type: 'update',
+  },
+  {
+    feature: 'miRNA network: Gene regulatory network by miRNAs',
+    type: 'update',
+  },
+  {
+    feature: 'Drug analysis: Correlation of expression and drug sensitivity (IC50)',
+    type: 'update',
   },
 ];
