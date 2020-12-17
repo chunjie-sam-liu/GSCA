@@ -29,7 +29,6 @@ bubble_plot <- function(data, cancer, gene, size, fill, fillmipoint=0, fillbreak
                        name=colorname) +
     guides(color=guide_legend(title.position="top")) +
     theme(
-      legend.position = "bottom",
       panel.background = element_rect(colour = "black", fill = "white"),
       panel.grid = element_line(colour = "grey", linetype = "dashed"),
       panel.grid.major = element_line(
