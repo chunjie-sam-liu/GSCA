@@ -4,7 +4,7 @@
       <mat-card-title>{{ module.title }}</mat-card-title>
     </mat-card-header>
     <a [routerLink]="module.name">
-      <mat-card-content><img [src]="'assets/imgs/' + module.img" alt="" /> </mat-card-content>
+      <mat-card-content><img [src]="assets + '/imgs/' + module.img" alt="module.name" /> </mat-card-content>
     </a>
   </mat-card>
 </ng-container>
