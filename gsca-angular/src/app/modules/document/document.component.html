@@ -477,7 +477,7 @@
             <img src="assets + '/imgs/' + 'zm.png'" alt="cnvexprsingle" />
             <li>Single gene CNV and survival</li>
             <p>
-              This function provide summary and single gene survival result between CNV and wide type. The color from blue to red and size
+              This function provides summary and single gene survival result between CNV and wide type. The color from blue to red and size
               represent statistical significance in bubble plot. Black outline border indicates Logrank P < 0.05.
             </p>
             <img src="assets + '/imgs/' + 'zm.png'" alt="cnvsurvival" />
@@ -499,14 +499,50 @@
             </p>
             <img src="assets + '/imgs/' + 'zm.png'" alt="cnvgenesetsurvivalsingle" />
           </ul>
-          <li>
-            Methylation/li>
-            <ul>
-              <li>Differential methylation</li>
-              <li>Methylation and expression</li>
-              <li>Methylation and survival</li>
-            </ul>
-          </li>
+          <li>Methylation</li>
+          <p>
+            Methylation module explores the differential methylation between tumor and paired normal, the correlation between methylation
+            with expression and the OS affected by methyla-tion level for selected cancer types.
+          </p>
+          <ul>
+            <li>Differential methylation</li>
+            <p>
+              Bubble plot show users genes' methylation change between tumor and normal samples in each cancers. Blue points represent a
+              methylation downregulation in tumors, red points represent a methylation upregulation in tumors, the deeper of color, the
+              higher the difference. And size of the point represents statistic significance, the bigger of size, the more significantly.
+            </p>
+            <img src="assets + '/imgs/' + 'zm.png'" alt="methydiff" />
+            <p>
+              Through clicking the buttons “A2M” or “KIRC” in the specific row of the result table, users can get the detailed methylation
+              distribution of A2M in KIRC or pan-cancer.
+            </p>
+            <img src="assets + '/imgs/' + 'zm.png'" alt="methydiffsinglegene" />
+            <img src="assets + '/imgs/' + 'zm.png'" alt="methydiffsinglecancer" />
+            <li>Methylation and expression</li>
+            <p>
+              Give users the correlation between methylation and mRNA gene expression. Blue points represent negative correlation, and red
+              represent positive correlation, the deeper of color, the higher the correlation. And size of the point represents statistic
+              significance, the bigger of size, the more significantly.
+            </p>
+            <img src="assets + '/imgs/' + 'zm.png'" alt="methyexpr" />
+            <p>
+              By clicking the button “RCAN1” in the specific row of the result table, users can get the scatter plot of RCAN1 methylation
+              and methylation in KICH, with fitting line.
+            </p>
+            <img src="assets + '/imgs/' + 'zm.png'" alt="methyexprsinglegene" />
+            <li>Methylation and survival</li>
+            <p>
+              This function provide summary and single gene survival result between high and low methylation. The color from blue to red
+              represent the hazard ratio, size represents statistical significance in bubble plot. Black outline border indicates Logrank P
+              < 0.05.
+            </p>
+            <img src="assets + '/imgs/' + 'zm.png'" alt="methysurvival" />
+            <p>
+              By clicking button “PCPT” in the result table, users can get the Kaplan-Meier survival curve between hyper- and
+              hypo-methylation in KIRC.
+            </p>
+            <img src="assets + '/imgs/' + 'zm.png'" alt="methysurvivalsinglegene" />
+          </ul>
         </ul>
 
         <h2>Drug module</h2>
