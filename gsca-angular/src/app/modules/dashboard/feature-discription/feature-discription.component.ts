@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import features from 'src/app/shared/constants/features';
-import feature from 'src/app/shared/constants/features';
 
 @Component({
   selector: 'app-feature-discription',
