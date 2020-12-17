@@ -12,7 +12,7 @@ export class SidebarComponent implements OnInit {
 
   @HostListener('window:resize', ['$event'])
   getScreenSize(event?: any) {
-    this.isExpanded = window.innerWidth <= (screen.width * 4) / 5 || window.innerWidth <= 800 ? false : true;
+    this.isExpanded = window.innerWidth <= (screen.width * 1) / 2 || window.innerWidth <= 700 ? false : true;
   }
 
   constructor() {

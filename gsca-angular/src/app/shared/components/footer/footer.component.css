@@ -3,3 +3,12 @@ footer {
   margin: 20px 0px;
   text-align: center;
 }
+
+.revolvermaps {
+  display: inline-block;
+  width: 200px;
+}
+.cloudfront {
+  display: inline-block;
+  width: 200px;
+}
