@@ -22,7 +22,9 @@
           genomics changes, and their association with clinical outcome and immune infiltration in a higher resolution.
         </p>
         <h3>Abstract Summary</h3>
-        <img mat-card-image class="zm" [src]="assets + '/imgs/' + 'zm.png'" alt="Abstrat_img" />
+        <div fxLayout="row" fxLayoutAlign="center center">
+          <img class="zm" [src]="assets + '/imgs/doc_pic/' + 'zm.png'" alt="Abstrat_img" />
+        </div>
       </mat-card-content>
     </mat-card>
     <!-- Quick start -->
@@ -35,7 +37,7 @@
           <li>
             <p>
               Click "Example" button to get example inputs. Or enter the official symbols of gene set with more than 2 genes and less than
-              50 in the “Input your interested gene set”.
+              50 in the "Input your interested gene set".
             </p>
           </li>
           <li>
@@ -48,7 +50,9 @@
             <p>Click "Submit" button to get results of interest gene set.</p>
           </li>
         </ol>
-        <img mat-card-image class="zm" [src]="assets + '/imgs/' + 'zm.png'" alt="searchbox" />
+        <div fxLayout="row" fxLayoutAlign="center center">
+          <img class="zm" [src]="assets + '/imgs/doc_pic/' + 'zm.png'" alt="searchbox" />
+        </div>
       </mat-card-content>
     </mat-card>
     <!-- Updates  -->
@@ -89,7 +93,6 @@
             </p>
           </li>
         </ol>
-        <img mat-card-image class="zm" [src]="assets + '/imgs/' + 'zm.png'" alt="searchbox" />
       </mat-card-content>
     </mat-card>
     <!-- Data collection and process -->
@@ -266,53 +269,87 @@
               represent the fold change between tumor vs normal. The size dot indicates the significance. The dot was filtered by the fold
               change (FC>2) and significance (FDR < 0.05). Users can found that A2M is significantly downregulate in LUSC.
             </p>
-            <img src="assets + '/imgs/' + 'zm.png'" alt="differentialExpression" />
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'DEGplot.png'" alt="differentialExpression" />
+            </div>
+
             <p>
-              Through clicking the buttons “A2M” or “LUSC” in the specific row of the result table, users can get the detailed expression
+              Through clicking the buttons "A2M" or "LUSC" in the specific row of the result table, users can get the detailed expression
               distribution of A2M in LUSC or pan-cancer.
             </p>
-            <img src="assets + '/imgs/' + 'zm.png'" alt="differentialExpressionSingleGene" />
-            <img src="assets + '/imgs/' + 'zm.png'" alt="differentialExpressionSingleCancer" />
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'DEGsinglecancer.png'" alt="differentialExpressionSingleGene" />
+            </div>
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'DEGsinglegene.png'" alt="differentialExpressionSingleCancer" />
+            </div>
+
             <li>GSEA enrichment</li>
             <p>
               Bar plot and enrichment plot give the enrichment score of gene set against all genes. This result gives the users the
-              distribution of gene set expression changes among all genes(backgroud). By clicking “LUSC” button in the result table, the
+              distribution of gene set expression changes among all genes(backgroud). By clicking "LUSC" button in the result table, the
               users can find that among the inputed gene set, most of them are downregulated in LUSC, distributed on the right blue side of
               enrichment plot.
             </p>
-            <img src="assets + '/imgs/' + 'zm.png'" alt="gseabar" />
-            <img src="assets + '/imgs/' + 'zm.png'" alt="gseasingle" />
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'GSEA.png'" alt="gseabar" />
+            </div>
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'GSEA_single.png'" alt="gseasingle" />
+            </div>
+
             <li>Stage and expression</li>
             <p>
               This part estimate the expression difference between TNM stages and the expression tendency from stage I to IV. The bubble
               color from blue to red and the size represent the FDR significance. Black outline border indicates FDR < 0.05. Users can found
               that PODXL is significantly different among stage in KIRC.
             </p>
-            <img src="assets + '/imgs/' + 'zm.png'" alt="stageexprsummary" />
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'Exprstage.png'" alt="stageexprsummary" />
+            </div>
+
             <p>
-              Through clicking the buttons “PODXL” in the specific row of the result table, users can get the detailed expression
+              Through clicking the buttons "PODXL" in the specific row of the result table, users can get the detailed expression
               distribution of PODXL in KIRC stages by box plot.
             </p>
-            <img src="assets + '/imgs/' + 'zm.png'" alt="stagesingle" />
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'exprstagesingle.png'" alt="stagesingle" />
+            </div>
+
             <p>Trend of gene expression from stage I to stage IV is present as heat map and trend plot.</p>
-            <img src="assets + '/imgs/' + 'zm.png'" alt="stagetrend" />
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'exprstageheatmap.png'" alt="stageheatmap" />
+            </div>
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'exprstagetrend.png'" alt="stagetrend" />
+            </div>
+
             <li>Subtype and expression</li>
             <p>
               This part estimate the expression difference between subtypes. The color from white to red represent the FDR significance in
-              heat map. Users can found that CD1B is significantly different among subtypes in LUAD. Through clicking the buttons “CD1B” in
+              heat map. Users can found that CD1B is significantly different among subtypes in LUAD. Through clicking the buttons "CD1B" in
               the specific row of the result table, users can get the detailed expression distribution of CD1B in LUAD subtypes by box plot.
             </p>
-            <img src="assets + '/imgs/' + 'zm.png'" alt="subtypesummary" />
-            <img src="assets + '/imgs/' + 'zm.png'" alt="subtypesingle" />
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'Exprsubtype.png'" alt="subtypesummary" />
+            </div>
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'Exprsubtypesingle.png'" alt="subtypesingle" />
+            </div>
+
             <li>Survival and expression</li>
             <p>
               This part estimate the OS and PFS difference between high and low gene expression. The color from blue to red represent the
               hazard ratio, size represents statistical significance in bubble plot. Black outline border indicates Logrank P < 0.05. Users
-              can found that SLC4A7 is significantly associate with KICH patients’ OS. Through clicking the buttons “SLC4A7” in the specific
+              can found that SLC4A7 is significantly associate with KICH patients’ OS. Through clicking the buttons "SLC4A7" in the specific
               row of the result table, users can get the Kaplan-Meier survival curve between high and low SLC4A7 expression in KICH.
             </p>
-            <img src="assets + '/imgs/' + 'zm.png'" alt="survivalsummary" />
-            <img src="assets + '/imgs/' + 'zm.png'" alt="survivalsingle" />
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'exprsurvival.png'" alt="survivalsummary" />
+            </div>
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'exprsurvivalsinglegene.png'" alt="survivalsingle" />
+            </div>
           </ul>
           <li>Gene set level</li>
           <ul>
@@ -321,7 +358,10 @@
               The boxplot compare the GSVA score of inputed gene set between tumor and normal samples. The users can fing that the overall
               expression level of example gene set are significantly downregulated in tumor.
             </p>
-            <img src="assets + '/imgs/' + 'zm.png'" alt="gsvaexpr" />
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'GSVA_DE.png'" alt="gsvaexpr" />
+            </div>
+
             <li>Stage and GSVA score</li>
             <p>
               The boxplot compare the GSVA score of inputed gene set among TNM stages. The trend plot persents the trend of middle GSVA
@@ -329,22 +369,34 @@
               in KICH, KIRP and LUSC, and trend to downregulate in KIRC and LUAD, but without statistical significance (Tend P > 0.05,
               estimated by Mann-Kendall Trend Test).
             </p>
-            <img src="assets + '/imgs/' + 'zm.png'" alt="gsvastagebox" />
-            <img src="assets + '/imgs/' + 'zm.png'" alt="gsvastagetrend" />
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'GSVAstagebox.png'" alt="gsvastagebox" />
+            </div>
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'GSVAstagetrend.png'" alt="gsvastagetrend" />
+            </div>
+
             <li>Subtype and GSVA score</li>
             <p>
               The boxplot compare the GSVA score of inputed gene set among cancer subtypes. The users can find that the GSVA score
               significantly upregulated in LUAD subtypes, from subtype 1 to 6.
             </p>
-            <img src="assets + '/imgs/' + 'zm.png'" alt="gsvasubtype" />
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'GSVAsubtype.png'" alt="gsvasubtype" />
+            </div>
+
             <li>Survival and GSVA score</li>
             <p>
               The bubble plot shows the summary of HR and logrank p of GSVA score among cancers. Black outline border indicates Logrank P <
               0.05. There are no significant difference between high and low GSVA score groups in each cancer survival. By clicking button
-              “KIRP” in result table, users can get the Kaplan-Meier survival curve.
+              "KIRP" in result table, users can get the Kaplan-Meier survival curve.
             </p>
-            <img src="assets + '/imgs/' + 'zm.png'" alt="gsvasurvivalsummary" />
-            <img src="assets + '/imgs/' + 'zm.png'" alt="gsvasurvivalsingle" />
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'GSVAsurvival.png'" alt="gsvasurvivalsummary" />
+            </div>
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'GSVAsurvivalSingle.png'" alt="gsvasurvivalsingle" />
+            </div>
           </ul>
         </ul>
         <h2>Immune module</h2>
@@ -362,9 +414,16 @@
           symbol buttons in tables, users can get the detailed result of single gene through scatter plot with fitting line (mRNA
           expression, CNV and methylation), or boxplot (SNV).
         </p>
-        <img src="assets + '/imgs/' + 'zm.png'" alt="immuneplot" />
-        <img src="assets + '/imgs/' + 'zm.png'" alt="immuneexprsingle" />
-        <img src="assets + '/imgs/' + 'zm.png'" alt="immunesnvsingle" />
+        <div fxLayout="row" fxLayoutAlign="center center">
+          <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'ImmExpr.png'" alt="immuneplot" />
+        </div>
+        <div fxLayout="row" fxLayoutAlign="center center">
+          <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'ImmExprSingle.png'" alt="immuneexprsingle" />
+        </div>
+        <div fxLayout="row" fxLayoutAlign="center center">
+          <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'ImmSnvSingle.png'" alt="immunesnvsingle" />
+        </div>
+
         <h2>Mutation module</h2>
         <p>
           In this module, users can easily explore the statistic information of mutation and their association with survival and mRNA
@@ -384,16 +443,28 @@
             </p>
             <ul>
               <li>By clicking gene symbol button in the table result, a Lollipop plot gives a gene mutation site, type and count.</li>
-              <img src="assets + '/imgs/' + 'zm.png'" alt="Lollipop" />
+              <div fxLayout="row" fxLayoutAlign="center center">
+                <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'lollipop.png'" alt="Lollipop" />
+              </div>
+
               <li>The heatmap summarize the SNV frequency in cancer</li>
-              <img src="assets + '/imgs/' + 'zm.png'" alt="snvheatmap" />
+              <div fxLayout="row" fxLayoutAlign="center center">
+                <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'SNV.png'" alt="snvheatmap" />
+              </div>
+
               <li>The summary plot gives the count and type of variants in sample, gene levels.</li>
-              <img src="assets + '/imgs/' + 'zm.png'" alt="snvsummary" />
+              <div fxLayout="row" fxLayoutAlign="center center">
+                <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'SNVsumamry.png'" alt="snvsummary" />
+              </div>
+
               <li>
                 The oncoplot, also called waterfall plot presents the waterfall plots, gives a mutation distribution of top 10 (when num of
                 gene set <10, show all) mutated genes in your gene set and a SNV classification of SNV types
               </li>
-              <img src="assets + '/imgs/' + 'zm.png'" alt="snvoncoplot" />
+              <div fxLayout="row" fxLayoutAlign="center center">
+                <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'SNVoncoplot.png'" alt="snvoncoplot" />
+              </div>
+
               <li>
                 The Titv plot classifes the mutations into Transitions(Ti) and transversions(Tv). DNA substitution mutations are of two
                 types.
@@ -406,7 +477,9 @@
                 are less likely to result in amino acid substitutions (due to "wobble"), and are therefore more likely to persist as "silent
                 substitutions" in populations as single nucleotide polymorphisms (SNPs).
               </p>
-              <img src="assets + '/imgs/' + 'zm.png'" alt="snvTitv" />
+              <div fxLayout="row" fxLayoutAlign="center center">
+                <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'SNVtitv.png'" alt="snvTitv" />
+              </div>
             </ul>
             <li>Single gene SNV and survival</li>
             <p>
@@ -414,24 +487,35 @@
               represent the hazard ratio, size represents statistical significance in bubble plot. Black outline border indicates Logrank P
               < 0.05.
             </p>
-            <img src="assets + '/imgs/' + 'zm.png'" alt="snvsurvival" />
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'SnvSurvival.png'" alt="snvsurvival" />
+            </div>
+
             <p>
-              By clicking the button “A2M” in the specific row of the result table, users can get the Kaplan-Meier survival curve between
+              By clicking the button "A2M" in the specific row of the result table, users can get the Kaplan-Meier survival curve between
               A2M mutant and wide type in KIRC.
             </p>
-            <img src="assets + '/imgs/' + 'zm.png'" alt="snvsurvivalsinglegene" />
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'SnvSurvivalSingleGene.png'" alt="snvsurvivalsinglegene" />
+            </div>
+
             <li>Gene set SNV and survival</li>
             <p>
               This function provide summary and single cancer result between gene set mutant and wide type. The color from blue to red
               represent the hazard ratio, size represents statistical significance in bubble plot. Black outline border indicates Logrank P
               < 0.05.
             </p>
-            <img src="assets + '/imgs/' + 'zm.png'" alt="snvgenesetsurvival" />
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'SnvGenesetSurvival.png'" alt="snvgenesetsurvival" />
+            </div>
+
             <p>
-              By clicking button “KIRC” in the result table, user can get the Users can get the Kaplan-Meier survival curve between gene set
+              By clicking button "KIRC" in the result table, user can get the Users can get the Kaplan-Meier survival curve between gene set
               mutant and wide type in KIRC.
             </p>
-            <img src="assets + '/imgs/' + 'zm.png'" alt="snvgenesetsurvivalsingle" />
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'zm.png'" alt="snvgenesetsurvivalsingle" />
+            </div>
           </ul>
           <li>CNV (Copy Number Variation)</li>
           <p>
@@ -448,25 +532,36 @@
               <li>
                 By clicking gene symbol button in the table result, a onco gives the distribution of CNV type and ratiosite for a gene.
               </li>
-              <img src="assets + '/imgs/' + 'zm.png'" alt="cnvsinglegene" />
+              <div fxLayout="row" fxLayoutAlign="center center">
+                <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'CNVsingle.png'" alt="cnvsinglegene" />
+              </div>
+
               <li>
                 CNV pie plot gives you a global profile that shows the constitute of Heterozygous/Homozygous CNV of each gene in each
                 cancer. A pie represents the proportion of different types of CNV of one gene in one cancer, and different color represent
                 different types of CNV.
               </li>
-              <img src="assets + '/imgs/' + 'zm.png'" alt="cnvpie" />
+              <div fxLayout="row" fxLayoutAlign="center center">
+                <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'CNVpie.png'" alt="cnvpie" />
+              </div>
+
               <li>
                 Heterozygous CNV profile show users the percentage of heterozygous CNV, including amplification and deletion percentage of
                 heterozygous CNV about each gene in each cancer. The heterozygous CNV is generally happened so the plot will full of points,
                 but most of researchs such as cBioPortal mainly focus on homozygous CNV in the present.
               </li>
-              <img src="assets + '/imgs/' + 'zm.png'" alt="cnvhete" />
+              <div fxLayout="row" fxLayoutAlign="center center">
+                <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'CNVhetepoint.png'" alt="cnvhete" />
+              </div>
+
               <li>
                 Homozygous CNV profile show users the percentage of homozygous CNV, including amplification and deletion percentage of
                 homozygous CNV about each gene in each cancer. Most of researchs such as cBioPortal mainly focus on homozygous CNV in the
                 present.
               </li>
-              <img src="assets + '/imgs/' + 'zm.png'" alt="cnvhomo" />
+              <div fxLayout="row" fxLayoutAlign="center center">
+                <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'CNVhomopoint.png'" alt="cnvhomo" />
+              </div>
             </ul>
             <li>CNV and expression</li>
             <p>
@@ -474,35 +569,52 @@
               correlation, and red bubbles represent positive correlation, he deeper of color, the higher the correlation. The size of the
               point represents statistic significance, the bigger of size, the more statistic significant.
             </p>
-            <img src="assets + '/imgs/' + 'zm.png'" alt="cnvexpr" />
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'CNVexpression.png'" alt="cnvexpr" />
+            </div>
+
             <p>
-              By clicking the button “MCM2” in the specific row of the result table, users can get the scatter plot of MCM2 expression and
+              By clicking the button "MCM2" in the specific row of the result table, users can get the scatter plot of MCM2 expression and
               CNV in KICH, with fitting line.
             </p>
-            <img src="assets + '/imgs/' + 'zm.png'" alt="cnvexprsingle" />
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'CNVexpSingle.png'" alt="cnvexprsingle" />
+            </div>
+
             <li>Single gene CNV and survival</li>
             <p>
               This function provides summary and single gene survival result between CNV and wide type. The color from blue to red and size
               represent statistical significance in bubble plot. Black outline border indicates Logrank P < 0.05.
             </p>
-            <img src="assets + '/imgs/' + 'zm.png'" alt="cnvsurvival" />
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'CNVsurvival.png'" alt="cnvsurvival" />
+            </div>
+
             <p>
-              By clicking the button “A2M” in the specific row of the result table, users can get the Kaplan-Meier survival curve between
+              By clicking the button "A2M" in the specific row of the result table, users can get the Kaplan-Meier survival curve between
               A2M CNV (homo amplification and homo deletion) and wide type.
             </p>
-            <img src="assets + '/imgs/' + 'zm.png'" alt="cnvsurvivalsingle" />
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'CnvSurvivalSingleGene.png'" alt="cnvsurvivalsingle" />
+            </div>
+
             <li>Gene set CNV and survival</li>
             <p>This part estimate the difference between gene set CNV group (amplification, deletiona and wide type)</p>
             <p>
               The color from blue to red and size represent statistical significance in bubble plot. Black outline border indicates Logrank
               P < 0.05.
             </p>
-            <img src="assets + '/imgs/' + 'zm.png'" alt="cnvgenesetsurvival" />
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'zm.png'" alt="cnvgenesetsurvival" />
+            </div>
+
             <p>
-              By clicking the button “KIRP” in the specific row of the result table, users can get the Kaplan-Meier survival curve between
+              By clicking the button "KIRP" in the specific row of the result table, users can get the Kaplan-Meier survival curve between
               gene set CNV (homo amplification and homo deletion) and wide type.
             </p>
-            <img src="assets + '/imgs/' + 'zm.png'" alt="cnvgenesetsurvivalsingle" />
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'CnvGenesetSurvivalSingle.png'" alt="cnvgenesetsurvivalsingle" />
+            </div>
           </ul>
           <li>Methylation</li>
           <p>
@@ -516,37 +628,56 @@
               methylation downregulation in tumors, red points represent a methylation upregulation in tumors, the deeper of color, the
               higher the difference. And size of the point represents statistic significance, the bigger of size, the more significantly.
             </p>
-            <img src="assets + '/imgs/' + 'zm.png'" alt="methydiff" />
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'methy.png'" alt="methydiff" />
+            </div>
+
             <p>
-              Through clicking the buttons “A2M” or “KIRC” in the specific row of the result table, users can get the detailed methylation
+              Through clicking the buttons "A2M" or "KIRC" in the specific row of the result table, users can get the detailed methylation
               distribution of A2M in KIRC or pan-cancer.
             </p>
-            <img src="assets + '/imgs/' + 'zm.png'" alt="methydiffsinglegene" />
-            <img src="assets + '/imgs/' + 'zm.png'" alt="methydiffsinglecancer" />
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'methygene.png'" alt="methydiffsinglegene" />
+            </div>
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'methycancer.png'" alt="methydiffsinglecancer" />
+            </div>
+
             <li>Methylation and expression</li>
             <p>
               Give users the correlation between methylation and mRNA gene expression. Blue points represent negative correlation, and red
               represent positive correlation, the deeper of color, the higher the correlation. And size of the point represents statistic
               significance, the bigger of size, the more significantly.
             </p>
-            <img src="assets + '/imgs/' + 'zm.png'" alt="methyexpr" />
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'methyexpr.png'" alt="methyexpr" />
+            </div>
+
             <p>
-              By clicking the button “RCAN1” in the specific row of the result table, users can get the scatter plot of RCAN1 methylation
+              By clicking the button "RCAN1" in the specific row of the result table, users can get the scatter plot of RCAN1 methylation
               and methylation in KICH, with fitting line.
             </p>
-            <img src="assets + '/imgs/' + 'zm.png'" alt="methyexprsinglegene" />
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'methyexprsingle.png'" alt="methyexprsinglegene" />
+            </div>
+
             <li>Methylation and survival</li>
             <p>
               This function provide summary and single gene survival result between high and low methylation. The color from blue to red
               represent the hazard ratio, size represents statistical significance in bubble plot. Black outline border indicates Logrank P
               < 0.05.
             </p>
-            <img src="assets + '/imgs/' + 'zm.png'" alt="methysurvival" />
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'methysurvival.png'" alt="methysurvival" />
+            </div>
+
             <p>
-              By clicking button “PCPT” in the result table, users can get the Kaplan-Meier survival curve between hyper- and
+              By clicking button "PCPT" in the result table, users can get the Kaplan-Meier survival curve between hyper- and
               hypo-methylation in KIRC.
             </p>
-            <img src="assets + '/imgs/' + 'zm.png'" alt="methysurvivalsinglegene" />
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'methysurvivalsingle.png'" alt="methysurvivalsinglegene" />
+            </div>
           </ul>
         </ul>
 
@@ -560,7 +691,9 @@
           These results are present in bubble plot. The color from blue to red represent the correlation between mRNA expression and IC50.
           The bubble size positively correlate with the FDR significance. Black outline border indicates FDR < 0.05.
         </p>
-        <img src="assets + '/imgs/' + 'zm.png'" alt="gdscdrug" />
+        <div fxLayout="row" fxLayoutAlign="center center">
+          <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'gdscfrug.png'" alt="gdscdrug" />
+        </div>
       </mat-card-content>
     </mat-card>
   </div>
