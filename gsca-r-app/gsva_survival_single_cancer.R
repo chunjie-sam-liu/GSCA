@@ -117,7 +117,7 @@ color_list <- tibble::tibble(color=c( "#CD2626","#00B2EE"),
 title <- paste(search_surtype,"survival between","high and low GSVA score in",search_cancertype)
 combine_data_group %>%
   dplyr::filter(!is.na(group)) %>%
-  fn_survival(title,color_list,logrankp=fetched_expr_survival$logrankp) -> plot
+  fn_survival(title,color_list,logrankp=fetched_expr_survival$logrankp,ylab=paste(toupper(search_surtype),"(%)")) -> plot
 
 # Save --------------------------------------------------------------------
 ggsave(filename = filepath, plot = plot, device = 'png', width = 6, height = 4)

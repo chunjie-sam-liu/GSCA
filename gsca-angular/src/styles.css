@@ -40,12 +40,13 @@ body {
 
 h1.page-header {
   margin: 10px 0px;
-  border-bottom: 0.5px solid #6400b2;
+  border-bottom: 0.5px solid #cc51da;
   font-weight: bolder;
+  color: #a828b7;
 }
 h2.page-subheader {
   margin: 10px 0px;
-  border-bottom: 0.5px solid #b8c3f1;
+  border-bottom: 0.5px solid #db85e5;
   font-weight: bolder;
 }
 
@@ -89,7 +90,7 @@ a.download-button {
   z-index: 100;
 }
 button.expand-button {
-  background: #b8c3f1;
+  background: #db85e5;
 }
 
 dl {

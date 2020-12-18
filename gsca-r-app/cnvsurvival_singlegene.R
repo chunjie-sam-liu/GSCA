@@ -64,7 +64,7 @@ fetched_cnv_survival <- purrr::map(.x = paste(search_cancertypes,"_cnv_survival"
 title <- paste(toupper(survival_type),"survival of",search_genes, "CNV in",search_cancertypes)
 combine_data_group %>%
   dplyr::filter(!is.na(time)) %>%
-  fn_survival(title,cnv_group,logrankp=fetched_cnv_survival$log_rank_p) -> plot
+  fn_survival(title,cnv_group,logrankp=fetched_cnv_survival$log_rank_p,ylab=paste(toupper(survival_type),"(%)")) -> plot
 
 # Save --------------------------------------------------------------------
 ggsave(filename = filepath, plot = plot, device = 'png', width = 6, height = 4)

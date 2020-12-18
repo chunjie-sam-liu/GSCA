@@ -18,7 +18,7 @@ survival_group <- tibble::tibble(type=c("OS","PFS","os","pfs"),
 # function to draw survival plot ------------------------------------------
 
 library(survminer)
-fn_survival <- function(data,title,color,logrankp=NA){
+fn_survival <- function(data,title,color,logrankp=NA,ylab){
   if(is.na(logrankp)){
     data %>% 
       dplyr::filter(!is.na(time)) %>%
@@ -56,7 +56,7 @@ fn_survival <- function(data,title,color,logrankp=NA){
                         data = data,
                         surv.median.line = "hv",
                         title = paste(title), # change it when doing diff data
-                        ylab = 'Probability of survival',
+                        ylab = ylab,
                         xlab = 'Time (days)',
                         legend = "right",
                         # legend.title = "Methyla group:",
