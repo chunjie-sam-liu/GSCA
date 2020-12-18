@@ -35,9 +35,9 @@
       </mat-form-field>
     </div>
   </div>
-  <div fxLayout="row" fxLayout.lt-lg="column" fxLayoutWrap fxLayoutAlign="left">
+  <div fxLayout="row" fxLayout.lt-lg="column" fxLayoutGap="10px" fxLayoutWrap fxLayoutAlign="center">
     <ng-container>
-      <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
+      <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4" fxLayoutGap="10px">
         <h3>Single gene level analysis</h3>
         <p>This section presents the analysis based on single gene expression level.</p>
         <h4>Please select analysis:</h4>
@@ -54,7 +54,9 @@
           <dd><mat-checkbox [(ngModel)]="showList.showStage">Expression and stage</mat-checkbox></dd>
         </dl>
       </mat-card>
-      <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
+    </ng-container>
+    <ng-container>
+      <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4" fxLayoutGap="10px">
         <h3>GSEA</h3>
         <p>This section presents the analysis based on GSEA (gene set enrichment analysis).</p>
         <h4>Please select analysis:</h4>
@@ -62,7 +64,9 @@
           <dd><mat-checkbox [(ngModel)]="showList.showGSEA">GSEA</mat-checkbox></dd>
         </dl>
       </mat-card>
-      <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
+    </ng-container>
+    <ng-container>
+      <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4" fxLayoutGap="10px">
         <h3>Gene set level</h3>
         <p>This section presents the analyses based on GSVA (Gene Set Variation Analysis) score.</p>
         <h4>Please select analysis:</h4>

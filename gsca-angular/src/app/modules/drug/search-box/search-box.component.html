@@ -35,10 +35,20 @@
       </mat-form-field>
     </div> -->
   </div>
-  <div fxFlex>
-    <p>Select drug data source:</p>
-    <mat-checkbox [(ngModel)]="showList.showGDSC">GDSC</mat-checkbox>
-    <mat-checkbox [(ngModel)]="showList.showCTRP">CTRP</mat-checkbox>
+  <div fxLayout="row" fxLayout.lt-lg="column" fxLayoutGap="10px" fxLayoutWrap fxLayoutAlign="center">
+    <ng-container>
+      <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
+        <h4>Please select analysis:</h4>
+        <dl>
+          <dd><mat-checkbox [(ngModel)]="showList.showGDSC">GDSC drug sensitivity and expression correlation</mat-checkbox></dd>
+        </dl>
+        <dl>
+          <dd>
+            <mat-checkbox [(ngModel)]="showList.showCTRP">CTRP drug sensitivity and expression correlation</mat-checkbox>
+          </dd>
+        </dl>
+      </mat-card>
+    </ng-container>
   </div>
   <div fxFlex>
     <mat-hint>
