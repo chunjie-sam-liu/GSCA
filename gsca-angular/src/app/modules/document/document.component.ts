@@ -14,6 +14,7 @@ import { MatAccordion } from '@angular/material/expansion';
 })
 export class DocumentComponent implements OnInit, AfterViewInit {
   public assets = environment.assets;
+  public panelOpenState = false;
 
   // expanded
   panelOpenState = false;
