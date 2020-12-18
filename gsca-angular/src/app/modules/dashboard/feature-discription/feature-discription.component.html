@@ -3,20 +3,20 @@
     <mat-card-title>GSCA Introduction </mat-card-title>
   </mat-card-header>
   <mat-card-content>
-    <p class="home">
+    <p>
       <span class="strong">G</span>ene <span class="strong">S</span>et <span class="strong">C</span>ancer
       <span class="strong">A</span>nalysis (<span class="strong">GSCA</span>) is an integrated genomic and immunogenomic web-based platform
       for gene set cancer research.
     </p>
 
-    <p class="home">
+    <p>
       The alterations of DNA, RNA and immune microenvironment could contribute to the cancer initiation, progress, diagnosis, prognosis,
       therapy. In bio-big data era, individual causal gene signal could be masked by massive background noises. A set of genes or compiled
       gene set scores from multiple dimensional data across a large number patients per stage could represent a snap shot of the underlying
       cancer process.
     </p>
 
-    <p class="home">
+    <p>
       In this updated <span class="strong">GSCA</span>, we provide a series of services to perform gene set genomic (Expression, SNV, CNV
       and mythylation) and immunogenomic (24 immune cells) analyses. Besides, combining clinical information and small molecular drugs, user
       could mine candidate biomarkers and valuable small drugs for better experimental design and further clinical trials. GSCA integrates
@@ -36,7 +36,7 @@
     <mat-selection-list [multiple]="false">
       <mat-list-option *ngFor="let feature of features">
         <mat-icon mat-list-icon [color]="feature.color">{{ feature.type }}</mat-icon>
-        {{ feature.feature }}
+        <p>{{ feature.feature }}</p>
       </mat-list-option>
     </mat-selection-list>
   </mat-card-content>
