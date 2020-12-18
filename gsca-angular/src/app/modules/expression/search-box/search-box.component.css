@@ -19,3 +19,6 @@ mat-card {
 mat-checkbox {
   margin: 0 10px;
 }
+.mat-tab-group {
+  margin-bottom: 48px;
+}

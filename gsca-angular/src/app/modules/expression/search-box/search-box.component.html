@@ -35,54 +35,67 @@
       </mat-form-field>
     </div>
   </div>
-  <div fxLayout="row" fxLayout.lt-lg="column" fxLayoutWrap fxLayoutAlign="center">
-    <div fxFlex>
-      <dl>
-        <dt>GSEA:</dt>
-        <dd><mat-checkbox [(ngModel)]="showList.showGSEA">GSEA</mat-checkbox></dd>
-      </dl>
-      <dl>
-        <dt>Expression:</dt>
-        <dd><mat-checkbox [(ngModel)]="showList.showDEG">Differential expression</mat-checkbox></dd>
-      </dl>
-      <dl>
-        <dt>Expression clinical analysis:</dt>
-        <dd><mat-checkbox [(ngModel)]="showList.showSurvival">Survival</mat-checkbox></dd>
-      </dl>
-      <dl>
-        <dt></dt>
-        <dd><mat-checkbox [(ngModel)]="showList.showSubtype">Subtype</mat-checkbox></dd>
-      </dl>
-      <dl>
-        <dt></dt>
-        <dd><mat-checkbox [(ngModel)]="showList.showStage">Stage</mat-checkbox></dd>
-      </dl>
-    </div>
-
-    <div fxFlex>
-      <dl>
-        <dt>GSVA:</dt>
-        <dd>
-          <mat-checkbox [(ngModel)]="showList.showGSVA">GSVA</mat-checkbox>
-        </dd>
-      </dl>
-      <dl>
-        <dt>GSVA clinical analysis:</dt>
-        <dd><mat-checkbox [(ngModel)]="showList.showGSVASurvival">GSVA survival</mat-checkbox></dd>
-      </dl>
-      <dl>
-        <dt></dt>
-        <dd>
-          <mat-checkbox [(ngModel)]="showList.showGSVAStage">GSVA stage</mat-checkbox>
-        </dd>
-      </dl>
-      <dl>
-        <dt></dt>
-        <dd>
-          <mat-checkbox [(ngModel)]="showList.showGSVASubtype">GSVA subtype</mat-checkbox>
-        </dd>
-      </dl>
-    </div>
+  <div fxLayout="row" fxLayout.lt-lg="column" fxLayoutWrap fxLayoutAlign="left">
+    <mat-tab-group animationDuration="0ms">
+      <mat-tab label="Single gene level">
+        <p>This section presents the analyses based on single gene expression.</p>
+        <dl>
+          <dd><mat-checkbox [(ngModel)]="showList.showDEG">Differential expression</mat-checkbox></dd>
+        </dl>
+        <dl>
+          <dd><mat-checkbox [(ngModel)]="showList.showSurvival">Expression and survival</mat-checkbox></dd>
+        </dl>
+        <dl>
+          <dd><mat-checkbox [(ngModel)]="showList.showSubtype">Expression and subtype</mat-checkbox></dd>
+        </dl>
+        <dl>
+          <dd><mat-checkbox [(ngModel)]="showList.showStage">Expression and stage</mat-checkbox></dd>
+        </dl>
+      </mat-tab>
+      <mat-tab label="GSEA">
+        <p>This section presents the analysis based on GSEA (gene set enrichment analysis).</p>
+        <ul>
+          <li>
+            Gene Set Enrichment Analysis (<a href="http://www.gsea-msigdb.org/gsea/index.jsp" target="_blank">GSEA</a>) is a computational
+            method that determines whether an a priori defined set of genes shows statistically significant, concordant differences between
+            two biological states (e.g. phenotypes).
+          </li>
+        </ul>
+        <dl>
+          <dd><mat-checkbox [(ngModel)]="showList.showGSEA">GSEA</mat-checkbox></dd>
+        </dl>
+      </mat-tab>
+      <mat-tab label="Gene set level">
+        <p>This section presents the analyses based on GSVA (Gene Set Variation Analysis) score.</p>
+        <ul>
+          <li>
+            Gene Set Variation Analysis (<a href="https://pubmed.ncbi.nlm.nih.gov/23323831/" target="_blank">GSVA</a>) is a non-parametric,
+            unsupervised method which estimates the relative enrichment of a gene set of interest across a sample population. Hence, it
+            allows us to observe the variation in the activity of a set of genes, such us a pathway or a gene signature, corresponding to a
+            particular biological condition, within an entire gene expression set. It produces a value, termed enrichment score (ES), per
+            sample and gene set, which can be examined for associations with clinical features of interest.
+          </li>
+        </ul>
+        <dl>
+          <dd>
+            <mat-checkbox [(ngModel)]="showList.showGSVA">GSVA</mat-checkbox>
+          </dd>
+        </dl>
+        <dl>
+          <dd><mat-checkbox [(ngModel)]="showList.showGSVASurvival">GSVA and survival</mat-checkbox></dd>
+        </dl>
+        <dl>
+          <dd>
+            <mat-checkbox [(ngModel)]="showList.showGSVAStage">GSVA and stage</mat-checkbox>
+          </dd>
+        </dl>
+        <dl>
+          <dd>
+            <mat-checkbox [(ngModel)]="showList.showGSVASubtype">GSVA and subtype</mat-checkbox>
+          </dd>
+        </dl>
+      </mat-tab>
+    </mat-tab-group>
   </div>
   <div fxFlex>
     <mat-hint>
