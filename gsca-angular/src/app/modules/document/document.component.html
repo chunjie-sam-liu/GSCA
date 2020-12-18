@@ -1,3 +1,28 @@
+<mat-expansion-panel
+  [disabled]="false"
+  [expanded]="true"
+  [hideToggle]="true"
+  (opened)="beforePanelOpened(panelExp)"
+  (closed)="beforePanelClosed(panelExp)"
+  (afterCollapse)="afterPanelClosed($event)"
+  (afterExpand)="afterPanelOpened($event)"
+  *ngFor="let panel of accordionList"
+  #mapanel="matExpansionPanel"
+>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      <b>Title: {{ panel.title }}</b>
+    </mat-panel-title>
+    <mat-panel-description> Currently I am {{ panel.isExpanded ? 'open' : 'closed' }} </mat-panel-description>
+  </mat-expansion-panel-header>
+
+  <p>{{ panel.description }}</p>
+
+  <mat-action-row>
+    <button mat-button (click)="panel.close()">Click me</button>
+  </mat-action-row>
+</mat-expansion-panel>
+
 <div fxLayout="column" fxLayoutGap="10px" fxFill>
   <div fxFlex="none">
     <h1 class="page-header">Document</h1>
