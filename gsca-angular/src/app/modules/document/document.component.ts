@@ -12,6 +12,7 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class DocumentComponent implements OnInit, AfterViewInit {
   public assets = environment.assets;
+  public panelOpenState = false;
 
   public immunecells = new MatTableDataSource<ImmCellTableRecord>(immunecellstable);
   @ViewChild('paginatorImm') paginatorImm: MatPaginator;
