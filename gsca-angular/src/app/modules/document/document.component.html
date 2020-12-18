@@ -56,7 +56,7 @@
             </li>
             <p>
               This function allows users to estimate the association of genomic features (RNA sequencing expression, SNV, CNV and
-              methylation) with 25 immune cells infiltration, evaluated by
+              methylation) with 24 immune cells infiltration, evaluated by
               <a href="http://bioinfo.life.hust.edu.cn/ImmuCellAI/#!/" target="_blank">ImmuCellAI</a>.
             </p>
 
@@ -133,18 +133,31 @@
               <a href="https://www.cancer.gov/about-nci/organization/ccg/research/structural-genomics/tcga" target="_blank">TCGA</a> data
               from NCI Genomic Data Commons
             </h3>
+            <h4><span class="phighlight">Statistic</span> of samples in cancer types</h4>
+            <div>
+              <mat-form-field>
+                <input matInput placeholder="Search" (keyup)="applyFilter($event)" #inputCan />
+                <button mat-icon-button color="warn" matPrefix>
+                  <mat-icon style="font-weight: bolder">search</mat-icon>
+                </button>
+              </mat-form-field>
+              <table mat-table [dataSource]="cancerstat" multiTemplateDataRows matSort class="immunetable">
+                <ng-container matColumnDef="{{ column }}" *ngFor="let column of displayedColumnsCan; index as ind">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ displayedColumnsCanHeader[ind] }}</th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element[column] }}
+                  </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumnsCan"></tr>
+                <tr mat-row *matRowDef="let element; columns: displayedColumnsCan"></tr>
+              </table>
+              <mat-paginator #paginatorCan [pageSizeOptions]="[5, 10]" showFirstLastButtons class="immunetable"></mat-paginator>
+            </div>
             <h4>
               <span class="phighlight">mRNA sequencing</span>
               data
             </h4>
             <ul>
-              <li>
-                Statistic
-                <ul>
-                  <li>33 cancer types</li>
-                  <li>10,995 samples</li>
-                </ul>
-              </li>
               <li>
                 Data process
                 <ul>
@@ -158,37 +171,24 @@
               <li>
                 Survival
                 <ul>
-                  <li>xx cancer types</li>
-                  <li>xx samples</li>
-                  <li>overall survival(OS) and progression free survival(PFS)</li>
+                  <li>including overall survival(OS) and progression free survival(PFS)</li>
                 </ul>
               </li>
               <li>
                 Stage
                 <ul>
-                  <li>xx cancer types</li>
-                  <li>xx samples</li>
                   <li>including stage I, II, III, IV</li>
                 </ul>
               </li>
               <li>
                 Subtype
                 <ul>
-                  <li>xx cancer types</li>
-                  <li>xx samples</li>
                   <li>including molecular subtypes or clustered subtypes (numbered)</li>
                 </ul>
               </li>
             </ul>
             <h4><span class="phighlight">SNV</span> data</h4>
             <ul>
-              <li>
-                Statistic
-                <ul>
-                  <li>33 cancer types</li>
-                  <li>8,663 samples</li>
-                </ul>
-              </li>
               <li>
                 Data process
                 <ul>
@@ -206,13 +206,6 @@
             <h4><span class="phighlight">CNV</span> data</h4>
             <ul>
               <li>
-                Statistic
-                <ul>
-                  <li>33 cancer types</li>
-                  <li>11,495 samples</li>
-                </ul>
-              </li>
-              <li>
                 Data process
                 <ul>
                   <li>
@@ -227,13 +220,6 @@
             </ul>
             <h4><span class="phighlight">Methylation</span> data</h4>
             <ul>
-              <li>
-                Statistic
-                <ul>
-                  <li>33 cancer types</li>
-                  <li>10,129 samples</li>
-                </ul>
-              </li>
               <li>
                 Data process
                 <ul>
@@ -269,7 +255,7 @@
                     10,995 samples
                   </li>
                   <li>33 cancer types</li>
-                  <li>25 immune cells</li>
+                  <li>24 immune cells</li>
                   <div>
                     <mat-form-field>
                       <input matInput placeholder="Search" (keyup)="applyFilter($event)" #inputCell />
