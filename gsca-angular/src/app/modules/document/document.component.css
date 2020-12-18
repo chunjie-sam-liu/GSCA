@@ -53,3 +53,12 @@ li {
 img {
   width: 100%;
 }
+mat-panel-title {
+  color: #cd56da;
+}
+mat-icon {
+  float: right;
+  top: 10px;
+  right: 10px;
+  z-index: 100;
+}

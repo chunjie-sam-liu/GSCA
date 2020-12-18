@@ -1,28 +1,3 @@
-<mat-expansion-panel
-  [disabled]="false"
-  [expanded]="true"
-  [hideToggle]="true"
-  (opened)="beforePanelOpened(panelExp)"
-  (closed)="beforePanelClosed(panelExp)"
-  (afterCollapse)="afterPanelClosed($event)"
-  (afterExpand)="afterPanelOpened($event)"
-  *ngFor="let panel of accordionList"
-  #mapanel="matExpansionPanel"
->
-  <mat-expansion-panel-header>
-    <mat-panel-title>
-      <b>Title: {{ panel.title }}</b>
-    </mat-panel-title>
-    <mat-panel-description> Currently I am {{ panel.isExpanded ? 'open' : 'closed' }} </mat-panel-description>
-  </mat-expansion-panel-header>
-
-  <p>{{ panel.description }}</p>
-
-  <mat-action-row>
-    <button mat-button (click)="panel.close()">Click me</button>
-  </mat-action-row>
-</mat-expansion-panel>
-
 <div fxLayout="column" fxLayoutGap="10px" fxFill>
   <div fxFlex="none">
     <h1 class="page-header">Document</h1>
@@ -330,13 +305,15 @@
       <mat-card-header>
         <mat-card-title>Try out example and Results interpretation</mat-card-title>
       </mat-card-header>
-      <mat-card-content>
-        <p>
-          By click "Example" button, GSCA will search gene set "A2M, ACE, ANGPT2, BPI, CD1B, CDR1, EGR2, EGR3, HBEGF, HERPUD1, MCM2, PCTP,
-          PODXL, PPY, PTGS2, RCAN1, SLC4A7, THBD" in cancer types "KICH, KIRC, KIRP, LUAD, LUSC". We will give some example results and
-          their interpretation.
-        </p>
-        <h2>Expression module</h2>
+      <p>
+        By click "Example" button, GSCA will search gene set "A2M, ACE, ANGPT2, BPI, CD1B, CDR1, EGR2, EGR3, HBEGF, HERPUD1, MCM2, PCTP,
+        PODXL, PPY, PTGS2, RCAN1, SLC4A7, THBD" in cancer types "KICH, KIRC, KIRP, LUAD, LUSC". We will give some example results and their
+        interpretation.
+      </p>
+      <mat-expansion-panel hideToggle>
+        <mat-expansion-panel-header>
+          <mat-panel-title> Expression module </mat-panel-title>
+        </mat-expansion-panel-header>
         <p>
           The expression module contains both single gene level and gene set level analysis. The gene set expression level is present by
           GSVA score.
@@ -486,7 +463,13 @@
             </div>
           </ul>
         </ul>
-        <h2>Immune module</h2>
+      </mat-expansion-panel>
+      <br />
+      <mat-expansion-panel hideToggle [expanded]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>Immune module </mat-panel-title>
+          <mat-panel-description> Click to expand/collopase </mat-panel-description>
+        </mat-expansion-panel-header>
         <p>In Immune module, users can easily explore the correlation between immune cells infiltrates and genomics features, including:</p>
         <ul>
           <li>mRNA expression</li>
@@ -510,8 +493,13 @@
         <div fxLayout="row" fxLayoutAlign="center center">
           <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'ImmSnvSingle.png'" alt="immunesnvsingle" />
         </div>
-
-        <h2>Mutation module</h2>
+      </mat-expansion-panel>
+      <br />
+      <mat-expansion-panel hideToggle>
+        <mat-expansion-panel-header>
+          <mat-panel-title> Mutation module </mat-panel-title>
+          <mat-panel-description> This is a summary of the content </mat-panel-description>
+        </mat-expansion-panel-header>
         <p>
           In this module, users can easily explore the statistic information of mutation and their association with survival and mRNA
           expression.
@@ -772,8 +760,13 @@
             </div>
           </ul>
         </ul>
-
-        <h2>Drug module</h2>
+      </mat-expansion-panel>
+      <br />
+      <mat-expansion-panel hideToggle>
+        <mat-expansion-panel-header>
+          <mat-panel-title> Drug module </mat-panel-title>
+          <mat-panel-description> This is a summary of the content </mat-panel-description>
+        </mat-expansion-panel-header>
         <p>In Drug module, users can easily explore the correlation between mRNA expression and durg IC50. Including two data source:</p>
         <ul>
           <li><a href="http://www.cancerrxgene.org/" target="_blank">GDSC</a></li>
@@ -787,27 +780,8 @@
         <div fxLayout="row" fxLayoutAlign="center center">
           <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'gdscfrug.png'" alt="gdscdrug" />
         </div>
-      </mat-card-content>
+      </mat-expansion-panel>
     </mat-card>
-  </div>
-
-  <div>
-    <mat-accordion>
-      <mat-expansion-panel hideToggle>
-        <mat-expansion-panel-header>
-          <mat-panel-title> This is the expansion title </mat-panel-title>
-          <mat-panel-description> This is a summary of the content </mat-panel-description>
-        </mat-expansion-panel-header>
-        <p>This is the primary content of the panel.</p>
-      </mat-expansion-panel>
-      <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-        <mat-expansion-panel-header>
-          <mat-panel-title> Self aware panel </mat-panel-title>
-          <mat-panel-description> Currently I am {{ panelOpenState ? 'open' : 'closed' }} </mat-panel-description>
-        </mat-expansion-panel-header>
-        <p>I'm visible because I am open</p>
-      </mat-expansion-panel>
-    </mat-accordion>
   </div>
 
   <div fxFlex="none">
