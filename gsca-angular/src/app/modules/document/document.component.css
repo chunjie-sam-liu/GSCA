@@ -6,7 +6,7 @@
   margin-left: -17px;
   font-size: 20px;
   font-weight: bold;
-  color: #f44336;
+  color: #bb2ccb;
 }
 table {
   width: 80%;
@@ -36,4 +36,17 @@ img {
 
 .immunetable {
   width: 50%;
+}
+
+.phighlight {
+  color: rgb(192, 113, 212);
+  background-color: #edf6fb;
+  font-weight: bold;
+}
+
+h2 {
+  color: #cd56da;
+}
+li {
+  font-weight: bold;
 }
