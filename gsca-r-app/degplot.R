@@ -14,9 +14,9 @@ search_str <- args[1]
 filepath <- args[2]
 apppath <- args[3]
 
-#search_str = 'A2M#ACE#ANGPT2#BPI#CD1B#CDR1#EGR2#EGR3#HBEGF#HERPUD1#MCM2#PCTP#PODXL#PPY#PTGS2#RCAN1#SLC4A7#THBD@KICH_deg#KIRC_deg#KIRP_deg#LUAD_deg#LUSC_deg'
-#filepath = '/home/liucj/github/GSCA/gsca-r-plot/pngs/A2M#ACE#ANGPT2#BPI#CD1B#CDR1#EGR2#EGR3#HBEGF#HERPUD1#MCM2#PCTP#PODXL#PPY#PTGS2#RCAN1#SLC4A7#THBD@KICH_deg#KIRC_deg#KIRP_deg#LUAD_deg#LUSC_deg.png'
-#apppath <- '/home/liucj/github/GSCA'
+# search_str = 'A2M#ACE#PTGS2#RCAN1#SLC4A7#THBD@KICH_deg#KIRC_deg#KIRP_deg#LUAD_deg#LUSC_deg'
+# filepath = '/home/liucj/github/GSCA/gsca-r-plot/pngs/156d3e34-0500-40f5-b8ed-58d2512f3918.png'
+# apppath <- '/home/liucj/github/GSCA'
 
 
 search_str_split <- strsplit(x = search_str, split = '@')[[1]]
@@ -110,7 +110,10 @@ fetched_data_filter <- fn_filter_fc_pval(.x = fetched_data)
 
 # Plot --------------------------------------------------------------------
 CPCOLS <- c("#000080", "#F8F8FF", "#CD0000")
-bubble_plot <- fetched_data_filter %>%
+# CPCOLS <- c("#ffffff", RColorBrewer::brewer.pal(9, "Set1"))
+# CPCOLS <- c("#ffffff", ggsci::pal_lancet()(9))
+# CPCOLS %>% scales::show_col()
+fetched_data_filter %>%
   ggplot(aes(x = cancertype, y = symbol)) +
   geom_point(aes(size = fdr, col = log2(fc))) +
   scale_color_gradient2(
@@ -140,20 +143,31 @@ bubble_plot <- fetched_data_filter %>%
       linetype = "dashed",
       size = 0.2
     ),
-    axis.title = element_blank(),
+    plot.title = element_text(size = 18, hjust = 0.5),
+    axis.title = element_text(color = "black", size = 14),
     axis.ticks = element_line(color = "black"),
-    # axis.text.y = element_text(color = gene_rank$color),
-    axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, colour = "black"),
-    axis.text.y = element_text(colour = "black"),
+    axis.text.x = element_text(size = 12, angle = 90, hjust = 1, vjust = 0.5, colour = "black"),
+    axis.text.y = element_text(colour = "black", size = 12),
     legend.text = element_text(size = 12),
     legend.title = element_text(size = 14),
     legend.key = element_rect(fill = "white", colour = "black")
-  )
+  ) +
+  labs(
+    x = "Cancer type",
+    y = "Gene set",
+    title = "Gene set DEG in selected cancer types"
+  ) -> bubble_plot
 
 
 # Save --------------------------------------------------------------------
 
-ggsave(filename = filepath, plot = bubble_plot, device = 'png', width = size$width, height = size$height)
+width = 7 / 5 * length(search_cancertypes)
+height = 8 / 18 * length(search_genes)
+
+width <- max(c(7, width))
+height <- max(c(7, height))
+
+ggsave(filename = filepath, plot = bubble_plot, device = 'png', width = width, height = height)
 pdf_name <- gsub("\\.png",".pdf",filepath)
-ggsave(filename = pdf_name, plot = bubble_plot, device = 'pdf', width = size$width, height = size$height)
+ggsave(filename = pdf_name, plot = bubble_plot, device = 'pdf', width = width,  height = height)
 
