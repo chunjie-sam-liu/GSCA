@@ -3,106 +3,121 @@
     <h1 class="page-header">Document</h1>
   </div>
 
-  <div fxFlex fxLayout="column" fxLayoutGap="10px" class="not-float">
-    <!-- Introduction -->
-    <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
-      <mat-card-header>
-        <mat-card-title>Introduction</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <p>
-          GSCA (Gene Set Cancer Analysis) is an updated version of
-          <a href="http://bioinfo.life.hust.edu.cn/web/GSCALite/" target="_blank">GSCALite</a>, which is a web-based analysis platform for
-          gene set cancer analysis relate to mRNA expression, mutation, immune infiltrates and drug resistance. The platform mainly based on
-          <a href="https://www.cancer.gov/about-nci/organization/ccg/research/structural-genomics/tcga" target="_blank">TCGA</a> and
-          <a href="http://www.cancerrxgene.org/" target="_blank">GDSC</a> database. <br />
-          The gene set alteration on DNA or RNA are received more and more attentions in recent years, which may be important in cancer
-          initiation, progress, diagnosis, prognosis and therapy. As the cancer genomics big data available, it is very useful and urgent to
-          provide a platform for gene set analysis in cancer. <br />
-          By using GSCA, experimental biologists can easily explore the large
-          <a href="https://www.cancer.gov/about-nci/organization/ccg/research/structural-genomics/tcga" target="_blank">TCGA</a> and drug
-          response datasets, test hypotheses relate to genomics changes, and their association with clinical outcome and immune infiltration
-          in a higher resolution.
-        </p>
-        <h3>Abstract Summary</h3>
-        <div fxLayout="row" fxLayoutAlign="center center">
-          <img class="zm" [src]="assets + '/imgs/doc_pic/' + 'zm.png'" alt="Abstrat_img" />
-        </div>
-      </mat-card-content>
-    </mat-card>
-    <!-- Quick start -->
-    <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
-      <mat-card-header>
-        <mat-card-title>Quick start</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <ol>
-          <li>
+  <div fxLayout="row" fxLayout.lt-lg="column" fxLayoutGap="10px" fxLayoutWrap fxLayoutAlign="center" class="not-float">
+    <ng-container>
+      <!-- Introduction -->
+      <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
+        <mat-card-header>
+          <mat-card-title>Introduction</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>
+            GSCA (Gene Set Cancer Analysis) is an updated version of
+            <a href="http://bioinfo.life.hust.edu.cn/web/GSCALite/" target="_blank">GSCALite</a>, which is a web-based analysis platform for
+            gene set cancer analysis relate to mRNA expression, mutation, immune infiltrates and drug resistance. The platform mainly based
+            on <a href="https://www.cancer.gov/about-nci/organization/ccg/research/structural-genomics/tcga" target="_blank">TCGA</a> and
+            <a href="http://www.cancerrxgene.org/" target="_blank">GDSC</a> database. <br />
+            The gene set alteration on DNA or RNA are received more and more attentions in recent years, which may be important in cancer
+            initiation, progress, diagnosis, prognosis and therapy. As the cancer genomics big data available, it is very useful and urgent
+            to provide a platform for gene set analysis in cancer. <br />
+            By using GSCA, experimental biologists can easily explore the large
+            <a href="https://www.cancer.gov/about-nci/organization/ccg/research/structural-genomics/tcga" target="_blank">TCGA</a> and drug
+            response datasets, test hypotheses relate to genomics changes, and their association with clinical outcome and immune
+            infiltration in a higher resolution.
+          </p>
+          <h3>Abstract Summary</h3>
+          <div fxLayout="row" fxLayoutAlign="center center">
+            <img class="zm" [src]="assets + '/imgs/doc_pic/' + 'zm.png'" alt="Abstrat_img" />
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </ng-container>
+    <ng-container>
+      <!-- Updates  -->
+      <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
+        <mat-card-header>
+          <mat-card-title>Updates of GSCA compared with GSCALite</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>GSCA retained most of the functions in the GSCALite. Besides, in this version, more datasets and functions were added:</p>
+          <ol>
+            <li>
+              <h3>Gene set estimation</h3>
+            </li>
             <p>
-              Click "Example" button to get example inputs. Or enter the official symbols of gene set with more than 2 genes and less than
-              50 in the "Input your interested gene set".
+              This function allows users to estimate the overall estimation of the gene set in the aspect of mRNA expression, SNV and CNV
+              levels. This make it possible to carry out calculation in the gene set level instead of one gene. For instance, GSVA analysis
+              was performed to estimate the overall expression level of gene set for each
+              <a href="https://www.cancer.gov/about-nci/organization/ccg/research/structural-genomics/tcga" target="_blank">TCGA</a> sample.
             </p>
-          </li>
-          <li>
-            <p>Select at least one cancer type in the "Select cancer types".</p>
-          </li>
-          <li>
-            <p>Select at least one analysis.</p>
-          </li>
-          <li>
-            <p>Click "Submit" button to get results of interest gene set.</p>
-          </li>
-        </ol>
+
+            <li>
+              <h3>Association with immune infiltrates</h3>
+            </li>
+            <p>
+              This function allows users to estimate the association of genomic features (RNA sequencing expression, SNV, CNV and
+              methylation) with 25 immune cells infiltration, evaluated by
+              <a href="http://bioinfo.life.hust.edu.cn/ImmuCellAI/#!/" target="_blank">ImmuCellAI</a>.
+            </p>
+
+            <li>
+              <h3>Detailed single gene result</h3>
+            </li>
+            <p>
+              This function provides results of single gene for batch calculation, which avoid fussy input options when the users have
+              plenty of candidate genes.
+            </p>
+
+            <li>
+              <h3>Cancer <a href="https://www.cancer.gov/about-cancer/diagnosis-staging/staging" target="_blank">TNM Stage</a></h3>
+            </li>
+            <p>
+              This function allows the comparison of gene expression between TNM stages. A trend analysis was utilized to get the trend of
+              expression as the disease progresses.
+            </p>
+          </ol>
+        </mat-card-content>
+      </mat-card>
+    </ng-container>
+  </div>
+  <div fxLayout="row" fxLayout.lt-lg="column" fxLayoutGap="0px" fxLayoutWrap fxLayoutAlign="center" class="not-float">
+    <!-- Quick start -->
+    <ng-container>
+      <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
+        <mat-card-header>
+          <mat-card-title>Quick start</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <ol>
+            <li>
+              <p>
+                Click "Example" button to get example inputs. Or enter the official symbols of gene set with more than 2 genes and less than
+                50 in the "Input your interested gene set".
+              </p>
+            </li>
+            <li>
+              <p>Select at least one cancer type in the "Select cancer types".</p>
+            </li>
+            <li>
+              <p>Select at least one analysis.</p>
+            </li>
+            <li>
+              <p>Click "Submit" button to get results of interest gene set.</p>
+            </li>
+          </ol>
+        </mat-card-content>
+      </mat-card>
+    </ng-container>
+
+    <ng-container>
+      <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
         <div fxLayout="row" fxLayoutAlign="center center">
-          <img class="zm" [src]="assets + '/imgs/doc_pic/' + 'search.png'" alt="searchbox" />
+          <img width="50%" [src]="assets + '/imgs/doc_pic/' + 'search.png'" alt="searchbox" />
         </div>
-      </mat-card-content>
-    </mat-card>
-    <!-- Updates  -->
-    <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
-      <mat-card-header>
-        <mat-card-title>Updates of GSCA compared with GSCALite</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <p>GSCA retained most of the functions in the GSCALite. Besides, in this version, more datasets and functions were added:</p>
-        <ol>
-          <li>
-            <h3>Gene set estimation</h3>
-          </li>
-          <p>
-            This function allows users to estimate the overall estimation of the gene set in the aspect of mRNA expression, SNV and CNV
-            levels. This make it possible to carry out calculation in the gene set level instead of one gene. For instance, GSVA analysis
-            was performed to estimate the overall expression level of gene set for each
-            <a href="https://www.cancer.gov/about-nci/organization/ccg/research/structural-genomics/tcga" target="_blank">TCGA</a> sample.
-          </p>
-
-          <li>
-            <h3>Association with immune infiltrates</h3>
-          </li>
-          <p>
-            This function allows users to estimate the association of genomic features (RNA sequencing expression, SNV, CNV and methylation)
-            with 25 immune cells infiltration, evaluated by
-            <a href="http://bioinfo.life.hust.edu.cn/ImmuCellAI/#!/" target="_blank">ImmuCellAI</a>.
-          </p>
-
-          <li>
-            <h3>Detailed single gene result</h3>
-          </li>
-          <p>
-            This function provides results of single gene for batch calculation, which avoid fussy input options when the users have plenty
-            of candidate genes.
-          </p>
-
-          <li>
-            <h3>Cancer <a href="https://www.cancer.gov/about-cancer/diagnosis-staging/staging" target="_blank">TNM Stage</a></h3>
-          </li>
-          <p>
-            This function allows the comparison of gene expression between TNM stages. A trend analysis was utilized to get the trend of
-            expression as the disease progresses.
-          </p>
-        </ol>
-      </mat-card-content>
-    </mat-card>
+      </mat-card>
+    </ng-container>
+  </div>
+  <div fxLayout="row" fxLayout.lt-lg="column" fxLayoutGap="10px" fxLayoutWrap fxLayoutAlign="center" class="not-float">
     <!-- Data collection and process -->
     <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
       <mat-card-header>

@@ -35,7 +35,7 @@ img {
 }
 
 .immunetable {
-  width: 50%;
+  width: 100%;
 }
 
 .phighlight {
@@ -49,4 +49,7 @@ h2 {
 }
 li {
   font-weight: bold;
+}
+img {
+  width: 100%;
 }
