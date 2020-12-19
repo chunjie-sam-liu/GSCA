@@ -46,7 +46,7 @@ export class ImmuneCnvGsvaComponent implements OnInit, OnChanges, AfterViewInit 
   showImmCnvCorSingleGeneImage = false;
   immCnvCorSingleGenePdfURL: string;
 
-  dataSourceImmCnvCorUUID: any;
+  dataSourceImmCnvCorUUID: string;
 
   constructor(private immuneApiService: ImmuneApiService) {}
 
@@ -105,19 +105,6 @@ export class ImmuneCnvGsvaComponent implements OnInit, OnChanges, AfterViewInit 
         },
         (err) => {
           this.showImmCnvCorImage = false;
-          this.showImmCnvCorTable = false;
-        }
-      );
-      this.showImmCnvCorTable = true;
-      this.immuneApiService.getImmCnvCorTable(postTerm).subscribe(
-        (res) => {
-          this.dataSourceImmCnvCorLoading = false;
-          this.dataSourceImmCnvCor = new MatTableDataSource(res);
-          this.dataSourceImmCnvCor.paginator = this.paginatorImmCnvCor;
-          this.dataSourceImmCnvCor.sort = this.sortImmCnvCor;
-        },
-        (err) => {
-          this.dataSourceImmCnvCorLoading = false;
           this.showImmCnvCorTable = false;
         }
       );
