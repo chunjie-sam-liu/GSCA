@@ -50,7 +50,7 @@ plot_ready %>%
   .$per %>% range() -> min_max 
 min(min_max) -> min
 max(min_max) -> max
-title <- "Heterozygous CNV in each cancer"
+title <- "Homozygous CNV in each cancer"
 
 plot <- fn_cnv_bubble(data=plot_ready, aesx = "cancertype",aesy="symbol",size="per",color="color",xlab="Cancer type",ylab="Symbol",sizename="CNV (%)",colorname="SCNA type",labels=c("Deletion","Amplification"),wrap="~ effect", min = min, max = max, title=title)
 
