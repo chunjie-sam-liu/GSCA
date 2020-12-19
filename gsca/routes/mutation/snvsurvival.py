@@ -153,6 +153,6 @@ class SnvGenesetSurvivalSingleCancer(Resource):
 
 
 api.add_resource(
-    SnvGenesetSurvivalSingleCancer, "/snvgenesetsurvivalsinglecancer<string:uuidname>/<string:cancertype>/<string:surType>"
+    SnvGenesetSurvivalSingleCancer, "/snvgenesetsurvivalsinglecancer/<string:uuidname>/<string:cancertype>/<string:surType>"
 )
 

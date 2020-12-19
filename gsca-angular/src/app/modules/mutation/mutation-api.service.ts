@@ -63,7 +63,7 @@ export class MutationApiService extends BaseHttpService {
     return this.getData('mutation/snvsurvival/snvgenesetsurvivalplot/' + uuidname);
   }
   public getSnvGenesetSurvivalSingleCancer(uuidname: string, cancertype: string, surType: string): Observable<any> {
-    return this.getData('mutation/snvsurvival/snvgenesetsurvivalsinglecancer' + uuidname + '/' + cancertype + '/' + surType);
+    return this.getData('mutation/snvsurvival/snvgenesetsurvivalsinglecancer/' + uuidname + '/' + cancertype + '/' + surType);
   }
   public getMethyDeTable(postTerm: ExprSearch): Observable<any> {
     return this.postData('mutation/methylation/methylationdetable', postTerm);
@@ -128,8 +128,8 @@ export class MutationApiService extends BaseHttpService {
   public getGeneSetCNVAnalysis(postTerm: ExprSearch): Observable<any> {
     return this.postData('mutation/cnvsurvival/cnvgeneset', postTerm);
   }
-  public getCnvGenesetSurvivalPlot(postTerm: ExprSearch): Observable<any> {
-    return this.postData('mutation/cnvsurvival/cnvgenesetsurvivalplot', postTerm);
+  public getCnvGenesetSurvivalPlot(uuidname: string): Observable<any> {
+    return this.getData('mutation/cnvsurvival/cnvgenesetsurvivalplot/' + uuidname);
   }
   public getCnvGenesetSurvivalTable(postTerm: ExprSearch): Observable<any> {
     return this.postData('mutation/cnvsurvival/cnvgenesetsurvivaltable', postTerm);
@@ -138,6 +138,6 @@ export class MutationApiService extends BaseHttpService {
     return this.postData('mutation/cnvsurvival/cnvsurvivalsinglegeneplot', postTerm);
   }
   public getCnvGenesetSurvivalSingleCancer(uuidname: string, cancertype: string, surType: string): Observable<any> {
-    return this.postData('mutation/cnvsurvival/cnvgenesetsurvivalsinglecancer' + uuidname + '/' + cancertype + '/' + surType);
+    return this.getData('mutation/cnvsurvival/cnvgenesetsurvivalsinglecancer/' + uuidname + '/' + cancertype + '/' + surType);
   }
 }
