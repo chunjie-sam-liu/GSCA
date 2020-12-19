@@ -4,7 +4,9 @@
       <mat-card-title>{{ module.title }}</mat-card-title>
     </mat-card-header>
     <a [routerLink]="module.name">
-      <mat-card-content><img [src]="assets + '/imgs/' + module.img" alt="module.name" /> </mat-card-content>
+      <div fxLayout="row" fxLayoutAlign="center center">
+        <img mat-card-image class="img-home" [src]="assets + '/imgs/' + module.img" alt="module.name" />
+      </div>
     </a>
   </mat-card>
 </ng-container>
