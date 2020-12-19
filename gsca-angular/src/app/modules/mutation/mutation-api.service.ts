@@ -125,6 +125,9 @@ export class MutationApiService extends BaseHttpService {
   public getCnvSurvivalPlot(postTerm: ExprSearch): Observable<any> {
     return this.postData('mutation/cnvsurvival/cnvsurvivalplot', postTerm);
   }
+  public getGeneSetCNVAnalysis(postTerm: ExprSearch): Observable<any> {
+    return this.postData('mutation/cnvsurvival/cnvgeneset', postTerm);
+  }
   public getCnvGenesetSurvivalPlot(postTerm: ExprSearch): Observable<any> {
     return this.postData('mutation/cnvsurvival/cnvgenesetsurvivalplot', postTerm);
   }
@@ -134,7 +137,7 @@ export class MutationApiService extends BaseHttpService {
   public getCnvSurvivalSingleGene(postTerm: ExprSearch): Observable<any> {
     return this.postData('mutation/cnvsurvival/cnvsurvivalsinglegeneplot', postTerm);
   }
-  public getCnvGenesetSurvivalSingleCancer(postTerm: ExprSearch): Observable<any> {
-    return this.postData('mutation/cnvsurvival/cnvgenesetsurvivalsinglecancer', postTerm);
+  public getCnvGenesetSurvivalSingleCancer(uuidname: string, cancertype: string, surType: string): Observable<any> {
+    return this.postData('mutation/cnvsurvival/cnvgenesetsurvivalsinglecancer' + uuidname + '/' + cancertype + '/' + surType);
   }
 }

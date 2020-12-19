@@ -80,13 +80,40 @@
 
     <ng-container *ngIf="showList.showContent && showList.showCnv; else empty">
       <div fxFlex="grow">
-        <app-cnv [searchTerm]="searchTerm"></app-cnv>
+        <app-cnv
+          fxLayout="row"
+          fxLayout.lt-lg="column"
+          fxLayoutGap="10px"
+          fxLayoutWrap
+          fxLayoutAlign="center"
+          [searchTerm]="searchTerm"
+        ></app-cnv>
       </div>
     </ng-container>
 
     <ng-container *ngIf="showList.showContent && showList.showCnvSurvival; else empty">
       <div fxFlex="grow">
-        <app-cnv-survival [searchTerm]="searchTerm"></app-cnv-survival>
+        <app-cnv-survival
+          fxLayout="row"
+          fxLayout.lt-lg="column"
+          fxLayoutGap="10px"
+          fxLayoutWrap
+          fxLayoutAlign="center"
+          [searchTerm]="searchTerm"
+        ></app-cnv-survival>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="showList.showContent && showList.showCnvSurvival; else empty">
+      <div fxFlex="grow">
+        <app-cnv-geneset-survival
+          fxLayout="row"
+          fxLayout.lt-lg="column"
+          fxLayoutGap="10px"
+          fxLayoutWrap
+          fxLayoutAlign="center"
+          [searchTerm]="searchTerm"
+        ></app-cnv-geneset-survival>
       </div>
     </ng-container>
 
