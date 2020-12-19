@@ -80,7 +80,7 @@ heat_plot <- bubble_plot(data=for_plot,
                          fillname="Hazard ratio", 
                          colorvalue=c("black","grey"), 
                          colorbreaks=c("<0.05",">0.05"),
-                         colorname="Logrank P",
+                         colorname="Logrank P value",
                          title=title)
 
 

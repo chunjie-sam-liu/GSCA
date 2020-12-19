@@ -185,7 +185,7 @@ trendplot <- trend_plot(data = for_plot_trend,
                         color_list = CPCOLS_trend,
                         fillbreaks=fillbreaks_trend,
                         color_lables=c("Down","Equal","Up"),
-                        title="",
+                        title="GSVA score tendency in cancer type stages",
                         xlab="Stages",
                         ylab="Symbol") +
   facet_wrap(.~cancertype,scales = "free_y", nrow = 1)

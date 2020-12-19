@@ -78,7 +78,7 @@ heat_plot <- bubble_plot(data=for_plot,
                          fillname="-Log(10) P", 
                          colorvalue=c("black","grey"), 
                          colorbreaks=c("<0.05",">0.05"),
-                         colorname="Logrank P",
+                         colorname="Logrank P value",
                          title="")
 # Save --------------------------------------------------------------------
 ggsave(filename = filepath, plot = heat_plot, device = 'png', width = size$width, height = size$height)

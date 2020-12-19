@@ -138,7 +138,7 @@ heat_plot <- bubble_plot(data=for_plot,
                          fillname="Hazard ratio", 
                          colorvalue=c("black","grey"), 
                          colorbreaks=c("<0.05",">0.05"),
-                         colorname="Logrank P",
+                         colorname="Logrank P value",
                          title=title)
 # Save --------------------------------------------------------------------
 ggsave(filename = filepath, plot = heat_plot, device = 'png', width = 4, height = size$height)

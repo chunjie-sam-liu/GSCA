@@ -8,6 +8,7 @@ box_plot_single_gene_multi_cancers <- function(data,aesx,aesy,color,color_name,f
     geom_jitter(alpha=0.5,size=0.5,width = 0.2) +
     facet_wrap(facets = as.formula(facets),strip.position = "bottom",nrow=1) +
     scale_color_manual(name = color_name, labels = color_labels, values = color_values) +
+    labs(title = title, x = xlab, y = ylab) +
     theme(
       panel.background = element_rect(colour = NA, fill = NA),
       panel.grid = element_line(colour = "grey", linetype = "dashed"),
@@ -16,7 +17,7 @@ box_plot_single_gene_multi_cancers <- function(data,aesx,aesy,color,color_name,f
         linetype = "dashed",
         size = 0.2
       ),
-      plot.title = element_text(size=18, hjust = 0.5),
+      plot.title = element_text(size=14, hjust = 0.5),
       axis.title = element_text(size = 14, color = "black"),
       axis.ticks = element_line(color = "black"),
       axis.text.x = element_blank(),
@@ -28,8 +29,7 @@ box_plot_single_gene_multi_cancers <- function(data,aesx,aesy,color,color_name,f
       legend.text = element_text(size = 12),
       legend.title = element_text(size = 14),
       legend.key = element_rect(fill = "white")
-    ) +
-    labs(title = title, x = xlab, y = ylab) -> p
+    )  -> p
   return(p)
 }
 
@@ -45,7 +45,8 @@ box_plot_single_gene_single_cancer <- function(data,aesx,aesy,color,color_name,c
     ggplot(aes_string(x = aesx, y = aesy, color = color)) +
     geom_boxplot(outlier.colour = NA) +
     geom_jitter(alpha=0.5,size=0.5,width = 0.2) +
-    scale_color_manual(name = color_name, labels = color_labels, values = color_values) +
+    scale_color_manual(name = color_name, labels = color_labels, values = color_values)+
+    labs(title = title, x = xlab, y = ylab)  +
     theme(
       panel.background = element_rect(colour = "black", fill = "white"),
       panel.grid = element_line(colour = "grey", linetype = "dashed"),
@@ -63,8 +64,7 @@ box_plot_single_gene_single_cancer <- function(data,aesx,aesy,color,color_name,c
       legend.text = element_text(size = 12),
       legend.title = element_text(size = 14),
       legend.key = element_rect(fill = "white")
-    ) +
-    labs(title = title, x = xlab, y = ylab) -> p
+    ) -> p
   return(p)
 }
 

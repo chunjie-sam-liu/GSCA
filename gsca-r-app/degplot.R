@@ -155,7 +155,7 @@ fetched_data_filter %>%
   labs(
     x = "Cancer types",
     y = "Gene symbols",
-    title = "Gene set DEG in selected cancer types"
+    title = "Gene set DEGs in selected cancer types"
   ) -> bubble_plot
 
 

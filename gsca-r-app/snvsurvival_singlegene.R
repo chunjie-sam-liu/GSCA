@@ -104,7 +104,7 @@ color_list <- tibble::tibble(color=c( "#CD2626","#00B2EE"),
                              group=sort(unique(combine_data_group$group)))
 combine_data_group %>%
   dplyr::filter(!is.na(time)) %>%
-  fn_survival(title,color_list,logrankp=fetched_snvsurvival_data$log_rank_p,ylab=paste(survival_type,"(%)")) -> plot
+  fn_survival(title,color_list,logrankp=fetched_snvsurvival_data$log_rank_p,ylab=paste(survival_type,"probability")) -> plot
 
 # Save --------------------------------------------------------------------
 ggsave(filename = filepath, plot = plot, device = 'png', width = 6, height = 4)
