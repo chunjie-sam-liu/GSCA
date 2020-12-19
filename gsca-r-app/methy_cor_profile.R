@@ -56,7 +56,7 @@ for_plot %>%
 floor(min_max[1]) -> min
 ceiling(min_max[2]) -> max
 fillbreaks <- sort(unique(c(0,min,max)))
-title <- ""
+title <- "Correlation between methylation and\nmRNA expression"
 heat_plot <- bubble_plot(data=for_plot, 
                     cancer="cancertype", 
                     gene="symbol", 

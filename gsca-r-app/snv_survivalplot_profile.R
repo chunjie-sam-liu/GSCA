@@ -60,7 +60,7 @@ min(HR_value) %>% trunc() -> min
 max(HR_value) %>% ceiling() -> max
 fillbreaks <- sort(unique(c(1,seq(min,max,length.out = 3))))
 
-title <- ""
+title <- "Survival difference between mutant and wT"
 
 heat_plot <- bubble_plot(data=for_plot, 
                          cancer="cancertype", 

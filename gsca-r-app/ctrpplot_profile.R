@@ -93,7 +93,7 @@ plot <- bubble_plot(data=for_plot,
                     colorbreaks=c("<0.05",">0.05"),
                     colorname="FDR", 
                     fillname="Correlation", 
-                    title="")
+                    title="Correlation between CTRP drug sensitivity and mRNA expression")
 
 # Save --------------------------------------------------------------------
 ggsave(filename = filepath, plot = plot, device = 'png', width = size$width, height = size$height+2)

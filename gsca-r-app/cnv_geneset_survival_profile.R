@@ -52,7 +52,7 @@ geneset_survival %>%
   dplyr::mutate(logp=ifelse(logrankp==0,10,-log10(logrankp))) %>%
   dplyr::mutate(logp=ifelse(logp>10,10,logp)) -> for_plot
 CPCOLS <- c("blue", "white", "red")
-title <- ""
+title <- "Gene set CNV and survival"
 
 heat_plot <- fn_survival_summary_plot_onlyP(data = for_plot,
                                             aesx = "sur_type", 

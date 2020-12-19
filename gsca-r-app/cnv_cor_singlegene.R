@@ -46,7 +46,7 @@ fetched_cnv_cor <- purrr::map(.x = paste(search_cancertypes,"_cnv_cor_expr",sep=
 
 # plot --------------------------------------------------------------------
 source(file.path(apppath,"gsca-r-app/utils/fn_point_line.R"))
-title <-  glue::glue('Spearman correlation between {search_genes} CNV and mRNA \nexpression in {search_cancertypes}')
+title <-  glue::glue('Spearman correlation between {search_genes} CNV and \nmRNA expression in {search_cancertypes}')
 plot <- fn_point_fit(data=combine_data,aesx="expr",aesy="cnv",title=title,xlab="Expression log2(RSEM)",ylab="CNV",label=paste("Cor. =",round(fetched_cnv_cor$spm,2),"\nFDR =",format(fetched_cnv_cor$fdr,scientific = T, digits = 2)))
 
 # Save --------------------------------------------------------------------

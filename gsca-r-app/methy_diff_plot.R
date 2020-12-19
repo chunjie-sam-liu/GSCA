@@ -59,7 +59,7 @@ for_plot %>%
 floor(min_max[1]) -> min
 ceiling(min_max[2]) -> max
 fillbreaks <- sort(unique(c(0,min,max)))
-title <- ""
+title <- "Methylation difference in each cancer"
 plot <- bubble_plot(data=for_plot, 
                     cancer="cancertype", 
                     gene="symbol", 

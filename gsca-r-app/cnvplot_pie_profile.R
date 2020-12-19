@@ -59,7 +59,8 @@ fetched_data %>%
 plot <- fn_pie_plot(data=pie_plot_ready, aesy= "per",fill="type",facet_grid= "symbol ~ cancertype",
                     fill_limits=c("a_hete", "a_homo", "d_hete", "d_homo", "other"),
                     fill_label=c("Hete. Amp.", "Homo. Amp.", "Hete. Del.", "Homo. Del.", "None"),
-                    fill_value=c("brown1", "brown4", "aquamarine3", "aquamarine4", "grey"))
+                    fill_value=c("brown1", "brown4", "aquamarine3", "aquamarine4", "grey"),
+                    title = "CNV percentage in each cancer")
 
 # Save --------------------------------------------------------------------
 ggsave(filename = filepath, plot = plot, device = 'png', width = size$width, height = size$height)
