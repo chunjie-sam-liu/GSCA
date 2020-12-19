@@ -13,6 +13,9 @@ export class ImmuneComponent implements OnInit, AfterViewInit {
     showImmSnv: false,
     showImmCnv: false,
     showImmMethy: false,
+    showImmExprGsva: false,
+    showImmSnvGsva: false,
+    showImmCnvGsva: false,
     showContent: false,
   };
   constructor() {}
