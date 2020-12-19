@@ -127,7 +127,7 @@ p <- bubble_plot(data=for_plot_bubble,
                           colorvalue=c("black","grey"), 
                           colorbreaks=c("<0.05",">0.05"),
                           colorname="FDR",
-                          title="")
+                          title="Subtype difference between high and\nlow gene expression")
 
 # Save --------------------------------------------------------------------
 ggsave(filename = filepath, plot = p, device = 'png', width = size$width, height = size$height)

@@ -31,7 +31,6 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatExpansionModule } from '@angular/material/expansion';
-
 const MaterialComponents = [
   FlexLayoutModule,
   PlatformModule,

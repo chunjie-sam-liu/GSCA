@@ -1,6 +1,6 @@
 library(ggplot2)
 
-fn_pie_plot <- function(data,aesy,fill,facet_grid,fill_limits,fill_label,fill_value){
+fn_pie_plot <- function(data,aesy,fill,facet_grid,fill_limits,fill_label,fill_value,title){
   data %>%
     ggplot(aes_string(x = factor(1), y = aesy, fill = fill)) +
     geom_bar(stat = "identity", position = "stack", color = NA) +
@@ -12,6 +12,7 @@ fn_pie_plot <- function(data,aesy,fill,facet_grid,fill_limits,fill_label,fill_va
       label = fill_label, #c("Hete. Amp.", "Homo. Amp.", "Hete. Del.", "Homo. Del.", "None"),
       values = fill_value #c("brown1", "brown4", "aquamarine3", "aquamarine4", "grey")
     ) +
+    labs(title = title) +
     theme(
       axis.text = element_blank(),
       axis.title = element_blank(),

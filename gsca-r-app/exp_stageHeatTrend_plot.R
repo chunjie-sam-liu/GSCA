@@ -130,7 +130,7 @@ heat_plot <- gradient_heatmap(data = for_plot_trend,
                               yrank=trend_symbol_rank$symbol,
                               xlab="Stages",
                               ylab="Symbol",
-                              title="")
+                              title="Expression tendency in stages (heatmap)")
 
 # Save --------------------------------------------------------------------
 ggsave(filename = filepath_stageheat, plot = heat_plot, device = 'png', width = size$width, height = size$height)
@@ -162,7 +162,7 @@ trendplot <- trend_plot(data = for_plot_trend,
                         color_list = CPCOLS_trend,
                         fillbreaks=fillbreaks_trend,
                         color_lables=c("Down","Equal","Up"),
-                        title="",
+                        title="Expression tendency in stages (trend plot)",
                         xlab="Stages",
                         ylab="Symbol")
 

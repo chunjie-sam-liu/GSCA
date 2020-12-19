@@ -1,9 +1,10 @@
-fn_cnv_bubble <- function(data,aesx,aesy,size,color,xlab,ylab,sizename,min=0,max=100,colorname,labels,wrap){
+fn_cnv_bubble <- function(data,aesx,aesy,size,color,xlab,ylab,title,sizename,min=0,max=100,colorname,labels,wrap){
   data %>%
     ggplot(aes_string(y = aesy, x = aesx)) +
     geom_point(aes_string(size = size, color = color)) +
     xlab(xlab) +
     ylab(ylab) +
+    labs(title = title) +
     scale_size_continuous(
       name = sizename,
       breaks = trunc(seq(ceiling(min), floor(max), length.out = 3)),

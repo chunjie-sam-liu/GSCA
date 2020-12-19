@@ -1,7 +1,7 @@
 export default [
   {
     name: 'expression',
-    title: 'Expression and clinical correlations',
+    title: 'Expression and clinical outcomes',
     img: 'expression.png',
     description: 'Expression module',
   },

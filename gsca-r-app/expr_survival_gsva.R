@@ -119,7 +119,7 @@ for_plot %>%
 min(HR_value) %>% floor() -> min
 max(HR_value) %>% ceiling() -> max
 fillbreaks <- sort(unique(c(1,min,max,seq(min,max,length.out = 3))))
-title <- ""
+title <- "Survival between high and low GSVA score"
 
 heat_plot <- bubble_plot(data=for_plot, 
                          cancer="sur_type",
@@ -138,7 +138,7 @@ heat_plot <- bubble_plot(data=for_plot,
                          fillname="Hazard ratio", 
                          colorvalue=c("black","grey"), 
                          colorbreaks=c("<0.05",">0.05"),
-                         colorname="Logrank P",
+                         colorname="Logrank P value",
                          title=title)
 
 # pic size ----------------------------------------------------------------

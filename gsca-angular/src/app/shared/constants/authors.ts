@@ -11,7 +11,7 @@ export default [
   {
     name: 'Fei-Fei Hu',
     title: 'Ph.D., Lecturer',
-    email: 'hufeifei@wust.edu.cn',
+    email: 'hufeifei_huffy@foxmail.com',
     avatar: 'hufeifei.jpg',
     department1: 'Brain Science and Advanced Technology Institute',
     department2: 'College of Medicine',

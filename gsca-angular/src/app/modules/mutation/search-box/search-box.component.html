@@ -37,9 +37,9 @@
   </div>
 
   <div fxLayout="row" fxLayout.lt-lg="column" fxLayoutGap="10px" fxLayoutWrap fxLayoutAlign="center">
-    <mat-card fxFlex appearance="outline" raisedElevation="4">
+    <mat-card appMaterialElevation defaultElevation="4" raisedElevation="4" fxLayout="column" fxLayoutGap="10px">
       <h3>SNV (Single Nucleotide Variation)</h3>
-      <p>This section presents the SNV summary and their correlation between gene expression and survival.</p>
+      <p>This section presents the SNV summary and its correlation with survival.</p>
       <h4>Please select analysis:</h4>
       <dl>
         <dd>
@@ -57,9 +57,9 @@
         </dd>
       </dl>
     </mat-card>
-    <mat-card fxFlex appearance="outline" raisedElevation="4">
-      <h3>CNV(Copy Number Variation)</h3>
-      <p>This section presents the CNV summary and their correlation between gene expression and survival.</p>
+    <mat-card appMaterialElevation defaultElevation="4" raisedElevation="4" fxLayout="column" fxLayoutGap="10px">
+      <h3>CNV (Copy Number Variation)</h3>
+      <p>This section presents the CNV summary and its correlation with gene expression and survival.</p>
       <h4>Please select analysis:</h4>
       <dl>
         <dd>
@@ -76,10 +76,15 @@
           <mat-checkbox [(ngModel)]="showList.showCnvSurvival">CNV and survival</mat-checkbox>
         </dd>
       </dl>
+      <dl>
+        <dd>
+          <mat-checkbox [(ngModel)]="showList.showCnvGenesetSurvival">Gene set CNV and survival</mat-checkbox>
+        </dd>
+      </dl>
     </mat-card>
-    <mat-card fxFlex appearance="outline" raisedElevation="4">
+    <mat-card appMaterialElevation defaultElevation="4" raisedElevation="4" fxLayout="column" fxLayoutGap="10px">
       <h3>Methylation</h3>
-      <p>This section presents the CNV summary and their correlation between gene expression and survival.</p>
+      <p>This section presents the methylation and its correlation with gene expression and survival.</p>
       <h4>Please select analysis:</h4>
       <dl>
         <dd>

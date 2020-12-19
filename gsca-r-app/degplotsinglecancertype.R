@@ -74,7 +74,7 @@ plot <- box_plot_single_gene_single_cancer(
 
 # Save image --------------------------------------------------------------
 width = 6
-height = 5
+height = 4
 ggsave(filename = filepath, plot = plot, device = "png", width = width, height = height)
 pdf_name <- gsub("\\.png", ".pdf", filepath)
 ggsave(filename = pdf_name, plot = plot, device = "pdf", width = width * 1.2, height = height * 1.2)

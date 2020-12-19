@@ -165,7 +165,7 @@ bubbleplot <- bubble_plot(data=for_plot_bubble,
                          colorvalue=c("black","grey"), 
                          colorbreaks=c("<0.05",">0.05"),
                          colorname="FDR",
-                         title="")
+                         title="Stage difference between high and\nlow gene expression")
 
 # Save --------------------------------------------------------------------
 ggsave(filename = filepath_stagepoint, plot = bubbleplot, device = 'png', width = size$width, height = size$height)

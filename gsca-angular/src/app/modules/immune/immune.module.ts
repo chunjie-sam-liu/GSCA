@@ -9,9 +9,10 @@ import { ImmuneExprComponent } from './immune-expr/immune-expr.component';
 import { ImmuneCnvComponent } from './immune-cnv/immune-cnv.component';
 import { ImmuneSnvComponent } from './immune-snv/immune-snv.component';
 import { ImmuneMethyComponent } from './immune-methy/immune-methy.component';
+import { ImmuneCnvGsvaComponent } from './immune-cnv-gsva/immune-cnv-gsva.component';
 
 @NgModule({
-  declarations: [ImmuneComponent, SearchBoxComponent, ImmuneExprComponent, ImmuneCnvComponent, ImmuneSnvComponent, ImmuneMethyComponent],
+  declarations: [ImmuneComponent, SearchBoxComponent, ImmuneExprComponent, ImmuneCnvComponent, ImmuneSnvComponent, ImmuneMethyComponent, ImmuneCnvGsvaComponent],
   imports: [CommonModule, ImmuneRoutingModule, SharedModule],
 })
 export class ImmuneModule {}
