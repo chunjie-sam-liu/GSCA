@@ -16,19 +16,30 @@
             <a href="http://bioinfo.life.hust.edu.cn/web/GSCALite/" target="_blank">GSCALite</a>, which is a web-based analysis platform for
             gene set cancer analysis relate to mRNA expression, mutation, immune infiltrates and drug resistance. The platform mainly based
             on <a href="https://www.cancer.gov/about-nci/organization/ccg/research/structural-genomics/tcga" target="_blank">TCGA</a> and
-            <a href="http://www.cancerrxgene.org/" target="_blank">GDSC</a> database. <br />
+            <a href="http://www.cancerrxgene.org/" target="_blank">GDSC</a> database.
+          </p>
+          <p>
             The gene set alteration on DNA or RNA are received more and more attentions in recent years, which may be important in cancer
             initiation, progress, diagnosis, prognosis and therapy. As the cancer genomics big data available, it is very useful and urgent
             to provide a platform for gene set analysis in cancer. <br />
+          </p>
+          <p>
+            In this updated GSCA, we provide a series of services to perform gene set genomic (Expression, SNV, CNV and methylation) and
+            immunogenomic (24 immune cells) analyses. Besides, combining clinical information and small molecular drugs, user could mine
+            candidate biomarkers and valuable small drugs for better experimental design and further clinical trials. GSCA integrates over
+            ten thousand genomic data in 33 cancer types from TCGA and over 750 small molecule drugs from GDSC and CTRP. Immunogenomic
+            analysis was performed through our ImmuCellAI with 24 immunes cells.
+          </p>
+          <p>
             By using GSCA, experimental biologists can easily explore the large
             <a href="https://www.cancer.gov/about-nci/organization/ccg/research/structural-genomics/tcga" target="_blank">TCGA</a> and drug
             response datasets, test hypotheses relate to genomics changes, and their association with clinical outcome and immune
             infiltration in a higher resolution.
           </p>
-          <h3>Abstract Summary</h3>
+          <!--  <h3>Abstract Summary</h3>
           <div fxLayout="row" fxLayoutAlign="center center">
             <img class="zm" [src]="assets + '/imgs/doc_pic/' + 'zm.png'" alt="Abstrat_img" />
-          </div>
+          </div> -->
         </mat-card-content>
       </mat-card>
     </ng-container>
@@ -81,43 +92,37 @@
     </ng-container>
   </div>
   <!-- Quick start -->
-  <div fxLayout="row" fxLayout.lt-lg="column" fxLayoutGap="0px" fxLayoutWrap fxLayoutAlign="center" class="container">
+  <div fxLayout="row" fxLayout.lt-lg="column" fxLayoutGap="10px" fxLayoutWrap fxLayoutAlign="center" class="not-float">
     <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
       <mat-card-header>
         <mat-card-title>Quick start</mat-card-title>
       </mat-card-header>
-      <div class="row">
-        <div class="col">
-          <ng-container>
-            <mat-card-content>
-              <ol>
-                <li>
-                  <p>
-                    Click "Example" button to get example inputs. Or enter the official symbols of gene set with more than 2 genes and less
-                    than 50 in the "Input your interested gene set".
-                  </p>
-                </li>
-                <li>
-                  <p>Select at least one cancer type in the "Select cancer types".</p>
-                </li>
-                <li>
-                  <p>Select at least one analysis.</p>
-                </li>
-                <li>
-                  <p>Click "Submit" button to get results of interest gene set.</p>
-                </li>
-              </ol>
-            </mat-card-content>
-          </ng-container>
+      <ng-container>
+        <mat-card-content>
+          <ol>
+            <li>
+              <p>
+                Click "Example" button to get example inputs. Or enter the official symbols of gene set with more than 2 genes and less than
+                50 in the "Input your interested gene set".
+              </p>
+            </li>
+            <li>
+              <p>Select at least one cancer type in the "Select cancer types".</p>
+            </li>
+            <li>
+              <p>Select at least one analysis.</p>
+            </li>
+            <li>
+              <p>Click "Submit" button to get results of interest gene set.</p>
+            </li>
+          </ol>
+        </mat-card-content>
+      </ng-container>
+      <ng-container>
+        <div fxLayout="row" fxLayoutAlign="center center">
+          <img width="50%" [src]="assets + '/imgs/doc_pic/' + 'search.png'" alt="searchbox" />
         </div>
-        <div class="col">
-          <ng-container>
-            <div fxLayout="row" fxLayoutAlign="center center">
-              <img width="50%" [src]="assets + '/imgs/doc_pic/' + 'search.png'" alt="searchbox" />
-            </div>
-          </ng-container>
-        </div>
-      </div>
+      </ng-container>
     </mat-card>
   </div>
   <div fxLayout="row" fxLayout.lt-lg="column" fxLayoutGap="10px" fxLayoutWrap fxLayoutAlign="center" class="not-float">
@@ -133,7 +138,7 @@
               <a href="https://www.cancer.gov/about-nci/organization/ccg/research/structural-genomics/tcga" target="_blank">TCGA</a> data
               from NCI Genomic Data Commons
             </h3>
-            <h4><span class="phighlight">Statistic</span> of samples in cancer types</h4>
+            <h4><span class="phighlight">Statistics</span> of samples in cancer types</h4>
             <div>
               <mat-form-field>
                 <input matInput placeholder="Search" (keyup)="applyFilter($event)" #inputCan />
@@ -292,7 +297,7 @@
     <!-- Examples -->
     <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
       <mat-card-header>
-        <mat-card-title>Try out example and Results interpretation</mat-card-title>
+        <mat-card-title>Try out example and results interpretation</mat-card-title>
       </mat-card-header>
       <p>
         By click "Example" button, GSCA will search gene set "A2M, ACE, ANGPT2, BPI, CD1B, CDR1, EGR2, EGR3, HBEGF, HERPUD1, MCM2, PCTP,
@@ -302,7 +307,9 @@
       <mat-expansion-panel hideToggle>
         <mat-expansion-panel-header>
           <mat-panel-title> Expression module </mat-panel-title>
+          <mat-panel-description> Click to expand/collopase </mat-panel-description>
         </mat-expansion-panel-header>
+
         <p>
           The expression module contains both single gene level and gene set level analysis. The gene set expression level is present by
           GSVA score.
@@ -494,7 +501,7 @@
           expression.
         </p>
         <ul>
-          <li>SNV (Single Nucleotide Mutation)</li>
+          <li>SNV (Single Nucleotide Variation)</li>
           <p>
             SNV module presents the SNV frequency and variant types of the gene set in selected cancer types. The effects of single gene and
             gene set SNV to survival.
@@ -507,16 +514,19 @@
             </p>
             <ul>
               <li>By clicking gene symbol button in the table result, a Lollipop plot gives a gene mutation site, type and count.</li>
+              <br />
               <div fxLayout="row" fxLayoutAlign="center center">
                 <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'lollipop.png'" alt="Lollipop" />
               </div>
 
               <li>The heatmap summarize the SNV frequency in cancer</li>
+              <br />
               <div fxLayout="row" fxLayoutAlign="center center">
                 <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'SNV.png'" alt="snvheatmap" />
               </div>
 
               <li>The summary plot gives the count and type of variants in sample, gene levels.</li>
+              <br />
               <div fxLayout="row" fxLayoutAlign="center center">
                 <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'SNVsumamry.png'" alt="snvsummary" />
               </div>
@@ -525,6 +535,7 @@
                 The oncoplot, also called waterfall plot presents the waterfall plots, gives a mutation distribution of top 10 (when num of
                 gene set <10, show all) mutated genes in your gene set and a SNV classification of SNV types
               </li>
+              <br />
               <div fxLayout="row" fxLayoutAlign="center center">
                 <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'SNVoncoplot.png'" alt="snvoncoplot" />
               </div>
@@ -578,7 +589,7 @@
               <span class="phighlight">Kaplan-Meier survival curve</span> between gene set mutant and wide type in KIRC.
             </p>
             <div fxLayout="row" fxLayoutAlign="center center">
-              <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'zm.png'" alt="snvgenesetsurvivalsingle" />
+              <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'SnvGenesetSurvivalSingle.png'" alt="snvgenesetsurvivalsingle" />
             </div>
           </ul>
           <li>CNV (Copy Number Variation)</li>
@@ -595,8 +606,9 @@
             </p>
             <ul>
               <li>
-                By clicking gene symbol button in the table result, a onco gives the distribution of CNV type and ratiosite for a gene.
+                By clicking gene symbol button in the table result, a oncoplot gives the distribution of CNV type and ratiosite for a gene.
               </li>
+              <br />
               <div fxLayout="row" fxLayoutAlign="center center">
                 <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'CNVsingle.png'" alt="cnvsinglegene" />
               </div>
@@ -606,25 +618,33 @@
                 cancer. A pie represents the proportion of different types of CNV of one gene in one cancer, and different color represent
                 different types of CNV.
               </li>
+              <br />
               <div fxLayout="row" fxLayoutAlign="center center">
                 <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'CNVpie.png'" alt="cnvpie" />
               </div>
 
               <li>
                 Heterozygous CNV profile show users the percentage of heterozygous CNV, including amplification and deletion percentage of
-                heterozygous CNV about each gene in each cancer. The heterozygous CNV is generally happened so the plot will full of points,
-                but most of researchs such as <a href="http://www.cbioportal.org/" target="_blank">cBioPortal</a> mainly focus on homozygous
-                CNV in the present.
+                heterozygous CNV about each gene in each cancer.
               </li>
+              <p>
+                The heterozygous CNV is generally happened so the plot will full of points, but most of researchs such as
+                <a href="http://www.cbioportal.org/" target="_blank">cBioPortal</a> mainly focus on homozygous CNV in the present.
+              </p>
+
               <div fxLayout="row" fxLayoutAlign="center center">
                 <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'CNVhetepoint.png'" alt="cnvhete" />
               </div>
 
               <li>
                 Homozygous CNV profile show users the percentage of homozygous CNV, including amplification and deletion percentage of
-                homozygous CNV about each gene in each cancer. Most of researchs such as
-                <a href="http://www.cbioportal.org/" target="_blank">cBioPortal</a> mainly focus on homozygous CNV in the present.
+                homozygous CNV about each gene in each cancer.
               </li>
+              <p>
+                Most of researchs such as
+                <a href="http://www.cbioportal.org/" target="_blank">cBioPortal</a> mainly focus on homozygous CNV in the present.
+              </p>
+
               <div fxLayout="row" fxLayoutAlign="center center">
                 <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'CNVhomopoint.png'" alt="cnvhomo" />
               </div>
@@ -673,7 +693,7 @@
               outline border indicates Logrank P < 0.05.
             </p>
             <div fxLayout="row" fxLayoutAlign="center center">
-              <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'zm.png'" alt="cnvgenesetsurvival" />
+              <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'CNVGenesetSurvival.png'" alt="cnvgenesetsurvival" />
             </div>
 
             <p>

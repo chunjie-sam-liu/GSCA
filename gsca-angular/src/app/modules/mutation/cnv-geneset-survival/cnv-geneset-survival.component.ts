@@ -29,15 +29,8 @@ export class CnvGenesetSurvivalComponent implements OnInit, OnChanges, AfterView
   cnvGenesetSurvivalTableLoading = true;
   @ViewChild('paginatorCnvGenesetSurvival') paginatorCnvGenesetSurvival: MatPaginator;
   @ViewChild(MatSort) sortCnvGenesetSurvival: MatSort;
-  displayedColumnsCnvGenesetSurvival = ['cancertype', 'sur_type', 'hr', 'cox_p', 'logrankp', 'higher_risk_of_death'];
-  displayedColumnsCnvGenesetSurvivalHeader = [
-    'Cancer type',
-    'Survival type',
-    'Hazard Ratio',
-    'Cox P value',
-    'Logrank P value',
-    'Higher risk of death',
-  ];
+  displayedColumnsCnvGenesetSurvival = ['cancertype', 'sur_type', 'logrankp'];
+  displayedColumnsCnvGenesetSurvivalHeader = ['Cancer type', 'Survival type', 'Logrank P value'];
   expandedElement: CnvGenesetSurvivalTableRecord;
   expandedColumn: string;
 

@@ -25,11 +25,7 @@
               </button>
             </ng-template>
             <ng-template #plain>
-              {{
-                column === 'higher_risk_of_death' || column === 'cancertype' || column === 'sur_type'
-                  ? element[column]
-                  : (element[column] | number: '1.2-2')
-              }}
+              {{ column === 'cancertype' || column === 'sur_type' ? element[column] : (element[column] | number: '1.2-2') }}
             </ng-template>
           </td>
         </ng-container>
