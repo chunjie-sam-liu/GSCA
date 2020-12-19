@@ -60,7 +60,8 @@ fn_reorg <- function(.x) {
 fetched_data <- fn_fetch_data(.uuid = tableuuid)
 
 fetched_data$snvgeneset[[1]] %>% 
-  tibble::as_tibble() ->  gsva_score
+  tibble::as_tibble() %>%
+  dplyr::filter(cancertype == search_cancertypes) ->  gsva_score
 
 # fetch survival data -----------------------------------------------------
 

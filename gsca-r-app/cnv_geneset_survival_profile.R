@@ -72,7 +72,7 @@ fetched_data %>%
 # calculation -------------------------------------------------------------
 
 combine_data_group %>%
-  dplyr::filter(combine = purrr::map(combine,.f=function(.x){
+  dplyr::mutate(combine = purrr::map(combine,.f=function(.x){
     .x %>%
       dplyr::filter(group!="Excluded")
   })) %>%

@@ -69,7 +69,7 @@ combine_data %>%
 title <- paste(surtype,"survival between",search_genes, "high and low mRNA \nexpression in",search_cancertypes)
 combine_data_group %>%
   dplyr::filter(!is.na(group)) %>%
-  fn_survival(title,color_list,logrankp=fetched_expr_survival$logrankp,ylab=paste(toupper(survival_type),"probability")) -> plot
+  fn_survival(title,color_list,logrankp=fetched_expr_survival$logrankp,ylab=paste(toupper(surtype),"probability")) -> plot
 
 # Save --------------------------------------------------------------------
 ggsave(filename = filepath, plot = plot, device = 'png', width = 6, height = 4)

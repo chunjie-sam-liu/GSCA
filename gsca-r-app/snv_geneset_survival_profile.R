@@ -119,7 +119,7 @@ for_plot %>%
 min(HR_value) %>% trunc() -> min
 max(HR_value) %>% ceiling() -> max
 fillbreaks <- sort(unique(c(1,min,max,seq(min,max,length.out = 3))))
-title <- ""
+title <- "Survival difference between geneset\nmutant and WT."
 
 heat_plot <- bubble_plot(data=for_plot, 
                          cancer="sur_type", 
@@ -141,6 +141,6 @@ heat_plot <- bubble_plot(data=for_plot,
                          colorname="Logrank P value",
                          title=title)
 # Save --------------------------------------------------------------------
-ggsave(filename = filepath, plot = heat_plot, device = 'png', width = 4, height = size$height)
+ggsave(filename = filepath, plot = heat_plot, device = 'png', width = 4, height = size$height-1)
 pdf_name <- gsub("\\.png",".pdf",filepath)
-ggsave(filename = pdf_name, plot = heat_plot, device = 'pdf', width = 4, height = size$height)
+ggsave(filename = pdf_name, plot = heat_plot, device = 'pdf', width = 4, height = size$height-1)

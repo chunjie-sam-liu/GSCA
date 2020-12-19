@@ -61,7 +61,7 @@ combine_data%>%
   dplyr::ungroup() %>%
   dplyr::mutate(group_n = paste(group,", n=",n,sep="")) -> for_plot
 
-title <- paste(search_genes, "mRNA expression in stages of",search_cancertypes, sep=" ")
+title <- paste(search_genes, "mRNA expression\nin stages of",search_cancertypes, sep=" ")
 color <- c("#1B9E77", "#D95F02", "#7570B3", "#E7298A", "#66A61E", "#E6AB02", "#A6761D", "#666666")
 len_stage <- length(unique(for_plot$group_n))
 
@@ -73,6 +73,6 @@ color_list <- for_plot %>%
 
 plot <- box_plot_single_gene_single_cancer(data = for_plot,aesx = "group",aesy="expr",color = "group_n",color_name = "Satges",color_labels =  color_list$group_n,color_values = color_list$color,title = title,xlab = 'Stages', ylab = 'Expression log2(RSEM)',xangle = 0)
 # Save --------------------------------------------------------------------
-ggsave(filename = filepath, plot = plot, device = 'png', width = 5, height = 3)
+ggsave(filename = filepath, plot = plot, device = 'png', width = 6, height = 3)
 pdf_name <- gsub("\\.png",".pdf",filepath)
-ggsave(filename = pdf_name, plot = plot, device = 'pdf', width = 5, height = 3)
+ggsave(filename = pdf_name, plot = plot, device = 'pdf', width = 6, height = 3)
