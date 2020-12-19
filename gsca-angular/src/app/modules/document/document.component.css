@@ -55,6 +55,10 @@ img {
 }
 mat-panel-title {
   color: #cd56da;
+  font-weight: bolder;
+}
+mat-panel-description {
+  text-align: right;
 }
 mat-icon {
   float: right;
