@@ -176,6 +176,7 @@ export class GsvaSurvivalComponent implements OnInit, OnChanges, AfterViewInit {
                 },
                 (e) => {
                   this.showGSVASurvivalSingleCancerImage = false;
+                  this.GSVASurvivalSingleCancerImageLoading = false;
                 }
               );
             },
