@@ -1,6 +1,6 @@
 # GSCA
 
-[**GSCA**](http://bioinfo.life.hust.edu.cn/GSCA) is an integrated genomic and immunogenomic web-based platform for gene set cancer research. It is an update of our previous webserver [GSCALite](http://bioinfo.life.hust.edu.cn/web/GSCALite/)
+[**GSCA**](http://bioinfo.life.hust.edu.cn/GSCA) is an integrated genomic and immunogenomic web-based platform for gene set cancer research. It is an update of our previous webserver [GSCALite](http://bioinfo.life.hust.edu.cn/web/GSCALite/) - [Git Repo](https://github.com/chunjie-sam-liu/GSCALite).
 
 # Intro
 
