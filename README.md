@@ -1,5 +1,8 @@
 # GSCA
 
+[![Paper link](https://img.shields.io/badge/Published%20in-Bioinformatics-12688.svg)](https://academic.oup.com/bioinformatics/advance-article/doi/10.1093/bioinformatics/bty411/5001392)
+[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](https://github.com/Gchunjie-sam-liu/GSCA)
+
 [**GSCA**](http://bioinfo.life.hust.edu.cn/GSCA) is an integrated genomic and immunogenomic web-based platform for gene set cancer research. It is an update of our previous webserver [GSCALite](http://bioinfo.life.hust.edu.cn/web/GSCALite/) - [Git Repo](https://github.com/chunjie-sam-liu/GSCALite).
 
 # Intro
