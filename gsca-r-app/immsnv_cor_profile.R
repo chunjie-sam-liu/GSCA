@@ -61,9 +61,10 @@ source(file.path(apppath,"gsca-r-app/utils/fn_bubble_plot_immune.R"))
 for_plot %>%
   dplyr::filter(!is.na(logfc)) %>%
   .$logfc %>% range() -> min_max
-trunc(min_max[1]) -> min
-trunc(min_max[2]) -> max
+floor(min_max[1]) -> min
+ceiling(min_max[2]) -> max
 fillbreaks <- sort(unique(c(0,min,max)))
+title <- glue::glue("Difference of immune infiltrates between\nmutant and wide type in ",{search_cancertypes})
 plot <- bubble_plot(data=for_plot, 
                     cancer="cell_type", 
                     gene="symbol", 
@@ -82,9 +83,9 @@ plot <- bubble_plot(data=for_plot,
                     colorbreaks=c("<0.05",">0.05"),
                     colorname="FDR", 
                     fillname="Log2(FC)", 
-                    title="")
+                    title=title)
 
 # Save --------------------------------------------------------------------
-ggsave(filename = filepath, plot = plot, device = 'png', width = size$width, height = size$height+2)
+ggsave(filename = filepath, plot = plot, device = 'png', width = size$width+2, height = size$height)
 pdf_name <- gsub("\\.png",".pdf",filepath)
-ggsave(filename = pdf_name, plot = plot, device = 'pdf', width = size$width, height = size$height+2)
+ggsave(filename = pdf_name, plot = plot, device = 'pdf', width = size$width+2, height = size$height)

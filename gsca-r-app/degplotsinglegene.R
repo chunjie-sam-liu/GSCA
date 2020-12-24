@@ -55,11 +55,23 @@ fetched_data <- purrr::map(.x = search_cancertypes, .f = fn_fetch_mongo) %>%
 # Plot --------------------------------------------------------------------
 source(file.path(apppath,"gsca-r-app/utils/fn_boxplot_single_gene_in_cancer.R"))
 CPCOLS <- c("#000080", "#F8F8FF", "#CD0000")
-plot <- box_plot_single_gene_multi_cancers(data = fetched_data,aesx = "type",aesy="expr",facets=".~cancertype",color = "type",color_name = "Type",color_labels = c("Tumor", "Normal"),color_values = c(CPCOLS[3], CPCOLS[1]),title = glue::glue('{search_genes} expression across TCGA cancer types'),xlab = '', ylab = 'Expression log2(RSEM)')
+plot <- box_plot_single_gene_multi_cancers(
+  data = fetched_data,
+  aesx = "type",
+  aesy="expr",
+  facets=".~cancertype",
+  color = "type",
+  color_name = "Group",
+  color_labels = c("Tumor", "Normal"),
+  color_values = c(CPCOLS[3], CPCOLS[1]),
+  title = glue::glue('{search_genes} expression across TCGA cancer types'),
+  xlab = 'Cancer types', 
+  ylab = 'Expression log2(RSEM)'
+)
 
 
 # Save image --------------------------------------------------------------
 
-ggsave(filename = filepath, plot = plot, device = 'png', width = 15, height = 5)
+ggsave(filename = filepath, plot = plot, device = 'png', width = 18, height = 5)
 pdf_name <- gsub("\\.png",".pdf",filepath)
-ggsave(filename = pdf_name, plot = plot, device = 'pdf', width = 15, height = 5)
+ggsave(filename = pdf_name, plot = plot, device = 'pdf', width = 20, height = 5)

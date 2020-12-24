@@ -16,6 +16,32 @@ mat-hint {
 mat-card {
   padding-bottom: 25px;
 }
+mat-card-checkbox {
+  padding-bottom: 25px;
+  color: rgb(179, 158, 185);
+}
 mat-checkbox {
   margin: 0 10px;
+}
+h3 {
+  margin-bottom: 5px;
+  margin-top: 5px;
+  color: rgb(170, 114, 185);
+}
+h4 {
+  font-weight: 500;
+  line-height: 1.1;
+  margin-bottom: 5px;
+  margin-top: 10px;
+  color: rgb(179, 158, 185);
+}
+p {
+  color: grey;
+  font-size: small;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+mat-card-title {
+  margin-bottom: 5px;
+  color: rgb(170, 114, 185);
 }

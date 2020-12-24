@@ -35,7 +35,7 @@ export class MethySurvivalComponent implements OnInit, OnChanges, AfterViewInit 
     'Gene symbol',
     'Hazard Ratio',
     'Cox P value',
-    'Log rank P value',
+    'Logrank P value',
     'Higher risk of death',
   ];
   expandedElement: MethySurvivalTableRecord;

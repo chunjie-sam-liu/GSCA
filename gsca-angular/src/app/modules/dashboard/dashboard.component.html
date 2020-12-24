@@ -1,11 +1,22 @@
 <div fxLayout="column" fxFill>
   <div fxFlex fxLayout="row" fxLayoutAlign="center center" class="not-float">
     <div fxLayout="column" fxLayoutGap="10px">
-      <div fxFlex="grow" fxLayout="row">
-        this is dashboard
+      <div fxFlex="grow">
+        <app-feature-discription
+          fxLayout="row"
+          fxLayout.lt-lg="column"
+          fxLayoutGap="10px"
+          fxLayoutWrap
+          fxLayoutAlign="center"
+        ></app-feature-discription>
       </div>
-      <div fxFlex="grow" fxLayout="row">
-        this is dashboard
+
+      <div fxFlex="grow">
+        <app-search-box fxLayout="row" fxLayout.lt-lg="column" fxLayoutGap="10px" fxLayoutWrap fxLayoutAlign="center"></app-search-box>
+      </div>
+
+      <div fxFlex="grow">
+        <app-citation fxLayout="row" fxLayout.lt-lg="column" fxLayoutGap="10px" fxLayoutWrap fxLayoutAlign="center"></app-citation>
       </div>
     </div>
   </div>

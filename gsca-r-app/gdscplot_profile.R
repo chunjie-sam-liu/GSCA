@@ -38,7 +38,7 @@ fetched_data %>%
   tidyr::nest() %>%
   dplyr::mutate(remain = purrr::map(data,.f=function(.x){
     .x %>%
-      dplyr::filter(fdr<=0.05 && abs(cor) >= 0.2) -> fdr_sig
+      dplyr::filter(fdr<=0.05 && abs(cor) >= 0.1) -> fdr_sig
     if(nrow(fdr_sig)>0){
       "yes"
     }else{
@@ -72,9 +72,9 @@ gene_rank <- fn_get_gene_rank(.x = fetched_data_clean_pattern)
 
 source(file.path(apppath,"gsca-r-app/utils/fn_bubble_plot_immune.R"))
 for_plot$cor %>% range() -> min_max
-trunc(min_max[1]*10)/10 -> min
+floor(min_max[1]*10)/10 -> min
 ceiling(min_max[2]*10)/10 -> max
-fillbreaks <- sort(unique(c(0,seq(min,max,by = 0.5))))
+fillbreaks <- sort(unique(c(0,min,max)))
 plot <- bubble_plot(data=for_plot, 
                     cancer="drug", 
                     gene="symbol", 
@@ -93,7 +93,7 @@ plot <- bubble_plot(data=for_plot,
                     colorbreaks=c("<0.05",">0.05"),
                     colorname="FDR", 
                     fillname="Correlation", 
-                    title="")
+                    title="Correlation between GDSC drug sensitivity and mRNA expression")
 
 # Save --------------------------------------------------------------------
 ggsave(filename = filepath, plot = plot, device = 'png', width = size$width, height = size$height+2)

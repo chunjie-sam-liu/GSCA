@@ -100,7 +100,7 @@ fn_heatmap <- function( data, cancer, gene, fill, label, cancer_rank, gene_rank)
       keywidth = 0.6,
       keyheight = 0.8
     )) +
-    labs(x = "", y = "") -> p
+    labs(x = "", y = "", title = "SNV percentage heatmap") -> p
   return(p)
 }
 # Query data --------------------------------------------------------------

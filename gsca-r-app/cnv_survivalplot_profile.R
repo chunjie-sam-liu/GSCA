@@ -59,7 +59,7 @@ for_plot %>%
   .$logp -> logp_value
 min(logp_value) %>% trunc() -> min
 max(logp_value) %>% ceiling() -> max
-fillbreaks <- sort(unique(c(1.3,seq(min,max,length.out = 3))))
+fillbreaks <- sort(unique(c(1.3,min,max,seq(min,max,length.out = 3))))
 
 heat_plot <- bubble_plot(data=for_plot, 
                          cancer="cancertype", 
@@ -78,8 +78,8 @@ heat_plot <- bubble_plot(data=for_plot,
                          fillname="-Log(10) P", 
                          colorvalue=c("black","grey"), 
                          colorbreaks=c("<0.05",">0.05"),
-                         colorname="Logrank P",
-                         title="")
+                         colorname="Logrank P value",
+                         title="Survival difference between CNV groups")
 # Save --------------------------------------------------------------------
 ggsave(filename = filepath, plot = heat_plot, device = 'png', width = size$width, height = size$height)
 pdf_name <- gsub("\\.png",".pdf",filepath)

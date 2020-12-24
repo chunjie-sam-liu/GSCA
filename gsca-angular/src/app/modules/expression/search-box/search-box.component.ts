@@ -33,7 +33,7 @@ export class SearchBoxComponent implements OnInit {
       this.showList[v] = false;
     });
     this.showList.showDEG = true;
-    this.showList.showSurvival = true;
+    this.showList.showGSEA = true;
   }
 
   public submit(str: string): void {

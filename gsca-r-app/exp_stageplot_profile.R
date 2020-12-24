@@ -13,10 +13,10 @@ library(dplyr)
 args <- commandArgs(TRUE)
 
 search_str <- args[1]
-filepath <- args[2]
+filepath_stagepoint <- args[2]
 apppath <- args[3]
 
-# search_str = "A2M#ACE#ANGPT2#BPI#CD1B#CDR1#EGR2#EGR3#HBEGF#HERPUD1#MCM2#PCTP#PODXL#PPY#PTGS2#RCAN1#SLC4A7#THBD@KICH_expr_stage#KIRC_expr_stage#KIRP_expr_stage#LUAD_expr_stage#LUSC_expr_stage"
+# search_str = "A2M#ACE#ANGPT2#BPI#CD1B#CDR1#EGR2#EGR3#HBEGF#HERPUD1#MCM2#PCTP#PODXL#PPY#PTGS2#RCAN1#SLC4A7#THBD@ESCA_expr_stage#HNSC_expr_stage#KICH_expr_stage#KIRC_expr_stage#KIRP_expr_stage#LUAD_expr_stage#LUSC_expr_stage"
 # filepath = "/home/huff/github/GSCA/gsca-r-plot/pngs/1c16fb64-8ef4-4789-a87a-589d140c5bbe.png"
 # apppath = '/home/huff/github/GSCA'
 
@@ -43,7 +43,7 @@ fn_fetch_mongo <- function(.x) {
   .coll <- mongolite::mongo(collection = .x, url = gsca_conf)
   .coll$find(
     query = fn_query_str(search_genes),
-    fields = '{"symbol": true, "pval": true, "fdr": true, "_id": false}'
+    fields = '{"symbol": true, "pval": true, "fdr": true,"Stage I (mean/n)": true,"Stage II (mean/n)": true,"Stage III (mean/n)": true,"Stage IV (mean/n)": true, "_id": false}'
   ) %>%
     dplyr::mutate(cancertype = gsub(pattern = '_expr_stage', replacement = '', x = .x))
 }
@@ -117,44 +117,57 @@ gene_rank <- fn_get_gene_rank(.x = fetched_data_clean_pattern)
 
 for_plot <- fn_pval_label(fetched_data) %>%
   dplyr::mutate(logFDR = -log10(fdr)) %>%
-  dplyr::mutate(logFDR = ifelse(logFDR>10,10,logFDR))
+  dplyr::mutate(logFDR = ifelse(logFDR>10,10,logFDR)) %>%
+  dplyr::mutate(group = ifelse(fdr>0.05,">0.05","<0.05")) %>%
+  tidyr::gather(-symbol,-pval,-fdr,-cancertype,-group,-p_label,-logFDR,key="stage",value="mean") 
 
-# Plot --------------------------------------------------------------------
-CPCOLS <- c("#000080", "#F8F8FF", "#CD0000")
+list(for_plot$mean) %>%
+  purrr::pmap(.f=function(.x){strsplit(x = .x, split = '/')[[1]][1]}) %>% unlist() %>% as.numeric() -> mean_exp
+
+list(for_plot$stage) %>%
+  purrr::pmap(.f=function(.x){gsub(pattern = " \\(mean\\/n\\)", replacement = "",gsub(pattern = "Stage ", replacement = "",.x)[[1]])}) %>% unlist()  -> stages
+
+stage_number <- tibble::tibble(stage=c("I","II","III","IV"),
+                               rank=c(1,2,3,4))
+
 for_plot %>%
-  ggplot(aes(x = cancertype, y = symbol)) +
-  geom_tile(aes(fill = logFDR),height=0.9,width=0.9,size=0.5,color="grey") +
-  geom_text(aes(label=p_label)) +
-  scale_y_discrete(limit = gene_rank$symbol) +
-  scale_x_discrete(limit = cancer_rank$cancer_types) +
-  scale_fill_gradient2(
-    low = "white",
-    high = "tomato",
-    na.value = "white",
-    breaks = seq(0, 10, length.out = 6),
-    name = "-log10(FDR)"
-  ) +
-  theme(
-    panel.background = element_rect(colour = "black", fill = "white"),
-    panel.grid = element_line(colour = "grey", linetype = "dashed"),
-    panel.grid.major = element_line(
-      colour = "grey",
-      linetype = "dashed",
-      size = 0.2
-    ),
-    axis.title = element_blank(),
-    axis.ticks = element_line(color = "black"),
-    # axis.text.y = element_text(color = gene_rank$color),
-    axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, colour = "black"),
-    axis.text.y = element_text(colour = "black"),
-    
-    legend.text = element_text(size = 12),
-    legend.title = element_text(size = 14),
-    legend.key = element_rect(fill = "white", colour = "black")
-  ) -> p
+  dplyr::mutate(log2mean_exp = log2(mean_exp+0.01), mean_exp=mean_exp)%>%
+  dplyr::mutate(stage = stages) %>%
+  dplyr::inner_join(stage_number,by="stage") -> for_plot
 
+# bubble_plot --------------------------------------------------------------------
+source(file.path(apppath,"gsca-r-app/utils/fn_bubble_plot_immune.R"))
+for_plot %>%
+  dplyr::select(-log2mean_exp,-mean_exp,-mean,-stage) %>%
+  unique() -> for_plot_bubble
+for_plot_bubble %>%
+  dplyr::filter(!is.na(logFDR)) %>%
+  .$logFDR -> logp_value
+min(logp_value) %>% floor() -> min
+max(logp_value) %>% ceiling() -> max
+fillbreaks <- sort(unique(c(1.3,min,max,seq(min,max,length.out = 3))))
+
+bubbleplot <- bubble_plot(data=for_plot_bubble, 
+                         cancer="cancertype", 
+                         gene="symbol", 
+                         xlab="Cancer types", 
+                         ylab="Symbol", 
+                         facet_exp = NA,
+                         size="logFDR", 
+                         fill="logFDR", 
+                         fillmipoint =1.3,
+                         fillbreaks =fillbreaks,
+                         colorgroup="group",
+                         cancer_rank=cancer_rank$cancertype, 
+                         gene_rank=gene_rank$symbol, 
+                         sizename= "-Log(10) FDR", 
+                         fillname="-Log(10) FDR", 
+                         colorvalue=c("black","grey"), 
+                         colorbreaks=c("<0.05",">0.05"),
+                         colorname="FDR",
+                         title="Stage difference between high and\nlow gene expression")
 
 # Save --------------------------------------------------------------------
-ggsave(filename = filepath, plot = p, device = 'png', width = size$width, height = size$height)
-pdf_name <- gsub("\\.png",".pdf",filepath)
-ggsave(filename = pdf_name, plot = p, device = 'pdf', width = size$width, height = size$height)
+ggsave(filename = filepath_stagepoint, plot = bubbleplot, device = 'png', width = size$width, height = size$height)
+filepath_stagepoint_pdf_name <- gsub("\\.png",".pdf",filepath_stagepoint)
+ggsave(filename = filepath_stagepoint_pdf_name, plot = bubbleplot, device = 'pdf', width = size$width, height = size$height)

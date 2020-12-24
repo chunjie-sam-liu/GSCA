@@ -29,7 +29,7 @@ export class MethylationComponent implements OnInit, OnChanges, AfterViewInit {
   @ViewChild('paginatorMethy') paginatorMethy: MatPaginator;
   @ViewChild(MatSort) sortMethy: MatSort;
   displayedColumnsMethy = ['cancertype', 'symbol', 'gene_tag', 'fc', 'trend', 'pval', 'logfdr'];
-  displayedColumnsMethyHeader = ['Cancer type', 'Gene symbol', 'Tag', 'Methylation(Tumor-Normal)', 'Trend', 'P value', 'FDR'];
+  displayedColumnsMethyHeader = ['Cancer type', 'Gene symbol', 'Tag', 'Methylation (Tumor-Normal)', 'Trend', 'P value', 'FDR'];
   expandedElement: MethyTableRecord;
   expandedColumn: string;
 

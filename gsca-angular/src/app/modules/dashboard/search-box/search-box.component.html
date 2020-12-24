@@ -1,0 +1,12 @@
+<ng-container *ngFor="let module of modules">
+  <mat-card fxFlex appMaterialElevation defaultElevation="2" raisedElevation="15">
+    <mat-card-header>
+      <mat-card-title>{{ module.title }}</mat-card-title>
+    </mat-card-header>
+    <a [routerLink]="module.name">
+      <div fxLayout="row" fxLayoutAlign="center center">
+        <img mat-card-image class="img-home" [src]="assets + '/imgs/' + module.img" alt="module.name" />
+      </div>
+    </a>
+  </mat-card>
+</ng-container>

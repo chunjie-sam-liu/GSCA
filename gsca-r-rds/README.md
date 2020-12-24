@@ -1,1 +1,0 @@
-# Lolipop plot

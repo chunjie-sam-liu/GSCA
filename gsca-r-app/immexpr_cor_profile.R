@@ -57,9 +57,11 @@ gene_rank <- fn_get_gene_rank(.x = fetched_data_clean_pattern)
 
 source(file.path(apppath,"gsca-r-app/utils/fn_bubble_plot_immune.R"))
 for_plot$cor %>% range() -> min_max
-trunc(min_max[1]*10)/10 -> min
+floor(min_max[1]*10)/10 -> min
 ceiling(min_max[2]*10)/10 -> max
-fillbreaks <- sort(unique(c(0,seq(min,max,by = 0.5))))
+fillbreaks <- sort(unique(c(0,min,max)))
+title <- glue::glue("Correlation between expression and immune\ninfiltrates in ",{search_cancertypes})
+
 plot <- bubble_plot(data=for_plot, 
                     cancer="cell_type", 
                     gene="symbol", 
@@ -78,9 +80,9 @@ plot <- bubble_plot(data=for_plot,
                     colorbreaks=c("<0.05",">0.05"),
                     colorname="FDR", 
                     fillname="Correlation", 
-                    title="")
+                    title=title)
 
 # Save --------------------------------------------------------------------
-ggsave(filename = filepath, plot = plot, device = 'png', width = size$width, height = size$height+2)
+ggsave(filename = filepath, plot = plot, device = 'png', width = size$width+2, height = size$height)
 pdf_name <- gsub("\\.png",".pdf",filepath)
-ggsave(filename = pdf_name, plot = plot, device = 'pdf', width = size$width, height = size$height+2)
+ggsave(filename = pdf_name, plot = plot, device = 'pdf', width = size$width+2, height = size$height)

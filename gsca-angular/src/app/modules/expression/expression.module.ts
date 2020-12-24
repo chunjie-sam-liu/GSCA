@@ -10,6 +10,10 @@ import { SurvivalComponent } from './survival/survival.component';
 import { SubtypeComponent } from './subtype/subtype.component';
 import { StageComponent } from './stage/stage.component';
 import { GeneSetComponent } from './gene-set/gene-set.component';
+import { GseaComponent } from './gsea/gsea.component';
+import { GsvaSurvivalComponent } from './gsva-survival/gsva-survival.component';
+import { GsvaStageComponent } from './gsva-stage/gsva-stage.component';
+import { GsvaSubtypeComponent } from './gsva-subtype/gsva-subtype.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +24,10 @@ import { GeneSetComponent } from './gene-set/gene-set.component';
     SubtypeComponent,
     StageComponent,
     GeneSetComponent,
+    GseaComponent,
+    GsvaSurvivalComponent,
+    GsvaStageComponent,
+    GsvaSubtypeComponent,
   ],
   imports: [CommonModule, ExpressionRoutingModule, SharedModule],
 })

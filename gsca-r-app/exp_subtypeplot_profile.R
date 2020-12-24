@@ -96,43 +96,38 @@ gene_rank <- fn_get_gene_rank(.x = fetched_data_clean_pattern)
 
 for_plot <- fetched_data %>%
   dplyr::mutate(logFDR = -log10(fdr)) %>%
-  dplyr::mutate(logFDR = ifelse(logFDR>10,10,logFDR))
+  dplyr::mutate(logFDR = ifelse(logFDR>10,10,logFDR)) %>%
+  dplyr::mutate(group=ifelse(fdr>0.05,">0.05","<0.05"))
 
-# Plot --------------------------------------------------------------------
-CPCOLS <- c("#000080", "#F8F8FF", "#CD0000")
-for_plot %>%
-  ggplot(aes(x = cancertype, y = symbol)) +
-  geom_tile(aes(fill = logFDR),height=0.9,width=0.9,size=0.5,color="grey") +
-  scale_y_discrete(limit = gene_rank$symbol) +
-  scale_x_discrete(limit = cancer_rank$cancer_types) +
-  scale_fill_gradient2(
-    low = "lightskyblue",
-    mid = "white",
-    high = "tomato",
-    midpoint = 1.3,
-    na.value = "white",
-    breaks = seq(0, 10, length.out = 6),
-    name = "-log10(FDR)"
-  ) +
-  theme(
-    panel.background = element_rect(colour = "black", fill = "white"),
-    panel.grid = element_line(colour = "grey", linetype = "dashed"),
-    panel.grid.major = element_line(
-      colour = "grey",
-      linetype = "dashed",
-      size = 0.2
-    ),
-    axis.title = element_blank(),
-    axis.ticks = element_line(color = "black"),
-    # axis.text.y = element_text(color = gene_rank$color),
-    axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, colour = "black"),
-    axis.text.y = element_text(colour = "black"),
+# bubble_plot --------------------------------------------------------------------
+source(file.path(apppath,"gsca-r-app/utils/fn_bubble_plot_immune.R"))
+for_plot -> for_plot_bubble
+for_plot_bubble %>%
+  dplyr::filter(!is.na(logFDR)) %>%
+  .$logFDR -> logp_value
+min(logp_value) %>% floor() -> min
+max(logp_value) %>% ceiling() -> max
+fillbreaks <- sort(unique(c(1.3,round(c(min,max,seq(min,max,length.out = 3))))))
 
-    legend.text = element_text(size = 12),
-    legend.title = element_text(size = 14),
-    legend.key = element_rect(fill = "white", colour = "black")
-  ) -> p
-
+p <- bubble_plot(data=for_plot_bubble, 
+                          cancer="cancertype", 
+                          gene="symbol", 
+                          xlab="Cancer types", 
+                          ylab="Symbol", 
+                          facet_exp = NA,
+                          size="logFDR", 
+                          fill="logFDR", 
+                          fillmipoint =1.3,
+                          fillbreaks =fillbreaks,
+                          colorgroup="group",
+                          cancer_rank=cancer_rank$cancertype, 
+                          gene_rank=gene_rank$symbol, 
+                          sizename= "-Log(10) FDR", 
+                          fillname="-Log(10) FDR", 
+                          colorvalue=c("black","grey"), 
+                          colorbreaks=c("<0.05",">0.05"),
+                          colorname="FDR",
+                          title="Subtype difference between high and\nlow gene expression")
 
 # Save --------------------------------------------------------------------
 ggsave(filename = filepath, plot = p, device = 'png', width = size$width, height = size$height)

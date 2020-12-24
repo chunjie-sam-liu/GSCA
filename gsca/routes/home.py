@@ -10,7 +10,6 @@ api = Api(home)
 
 class TestGSCA(Resource):
     def get(self, gene_name):
-        print("cj")
         expr = mongo.db.expr.find({"gene": gene_name})
         return expr
 

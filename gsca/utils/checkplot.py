@@ -58,7 +58,7 @@ class CheckPlot(AppPaths):
     def plot(self, filepath):
         rargs = "#".join(self.args["validSymbol"]) + "@" + "#".join(self.args["validColl"])
         cmd = [self.rcommand, str(self.rscriptpath / self.rplot), rargs, str(filepath), str(self.apppath)]
-        print("\n\n ", "\n\n  ".join(cmd), "\n\n")
+        print("\n\n ", " \\\n ".join(cmd), "\n\n")
         subprocess.check_output(cmd, universal_newlines=True)
 
 
@@ -113,7 +113,7 @@ class CheckMultiplePlot(AppPaths):
     def plot(self, filepath, rplot):
         rargs = "#".join(self.args["validSymbol"]) + "@" + "#".join(self.args["validColl"])
         cmd = [self.rcommand, str(self.rscriptpath / rplot), rargs, str(filepath), str(self.apppath)]
-        print("\n\n ", "\n\n  ".join(cmd), "\n\n")
+        print("\n\n ", " \\\n ".join(cmd), "\n\n")
         subprocess.check_output(cmd, universal_newlines=True)
 
 
@@ -162,7 +162,7 @@ class CheckParallelPlot(AppPaths):
     def plot(self, filepaths):
         rargs = "#".join(self.args["validSymbol"]) + "@" + "#".join(self.args["validColl"])
         cmd = [self.rcommand, str(self.rscriptpath / self.rplot), rargs] + filepaths + [str(self.apppath)]
-        print("\n\n ", "\n\n  ".join(cmd), "\n\n")
+        print("\n\n ", " \\\n ".join(cmd), "\n\n")
         subprocess.check_output(cmd, universal_newlines=True)
 
 
@@ -253,5 +253,197 @@ class CheckTablePlot(AppPaths):
             uuidname,
             self.tablecol,
         ]
-        print("\n\n ", "\n\n  ".join(cmd), "\n\n")
+        print("\n\n ", " \\\n ".join(cmd), "\n\n")
 
+
+class CheckUUIDPlot(AppPaths):
+    def __init__(self, gsxa_uuid, name_uuid, purpose, rplot, precol, gsxacol):
+        self.gsxa_uuid = gsxa_uuid
+        self.name_uuid = name_uuid
+        self.purpose = purpose
+        self.rplot = rplot
+
+        self.precol = precol
+        self.gsxacol = gsxacol
+
+        self.uuid = str(uuid.uuid4())
+        self.filename = self.uuid + ".png"
+        self.filepath = self.resource_pngs / self.filename
+
+    def check_run(self):
+        run = True
+        preanalysised = mongo.db[self.precol].find_one(
+            {self.name_uuid: self.gsxa_uuid, "purpose": self.purpose}, {"_id": 0, "uuid": 1},
+        )
+
+        if preanalysised:
+            self.uuid = preanalysised["uuid"]
+            self.filename = self.uuid + ".png"
+            self.filepath = self.resource_pngs / self.filename
+            run = False if self.filepath.exists() else True
+        else:
+            mongo.db[self.precol].insert_one({self.name_uuid: self.gsxa_uuid, "purpose": self.purpose, "uuid": self.uuid})
+
+        return {"run": run, "uuid": self.uuid}
+
+    def plot(self):
+
+        cmd = [
+            self.rcommand,
+            str(self.rscriptpath / self.rplot),
+            self.gsxa_uuid,
+            self.gsxacol,
+            str(self.filepath),
+            str(self.apppath),
+        ]
+        print("\n\n ", " \\\n ".join(cmd), "\n\n")
+        subprocess.check_output(cmd, universal_newlines=True)
+
+
+class CheckParalleUUIDPlot(AppPaths):
+    """
+    For multiple uuids and one Rplot script.
+    And the Rscript save multiple uuid plot files.
+    This should be used for share mongo query data to avoid repeat access mongo.
+    """
+
+    def __init__(self, gsxa_uuid, name_uuid, purposes, rplot, precol, gsxacol):
+        self.gsxa_uuid = gsxa_uuid
+        self.name_uuid = name_uuid
+        self.purposes = purposes
+        self.rplot = rplot
+
+        self.precol = precol
+        self.gsxacol = gsxacol
+
+        self.uuids = [str(uuid.uuid4()) for _ in range(len(self.purposes))]
+
+    def check_run(self):
+        run = True
+        res = {purpose: self._check_mongo(purpose, uuid) for purpose, uuid in zip(self.purposes, self.uuids)}
+        return res
+
+    def _check_mongo(self, purpose, uuid):
+        preanalysised = mongo.db[self.precol].find_one(
+            {self.name_uuid: self.gsxa_uuid, "purpose": purpose}, {"_id": 0, "uuid": 1},
+        )
+
+        if preanalysised:
+            uuid = preanalysised["uuid"]
+            filename = uuid + ".png"
+            filepath = self.resource_pngs / filename
+            run = False if filepath.exists() else True
+        else:
+            filename = uuid + ".png"
+            filepath = self.resource_pngs / filename
+            mongo.db[self.precol].insert_one({self.name_uuid: self.gsxa_uuid, "purpose": purpose, "uuid": uuid})
+            run = False
+
+        return {"run": run, "filepath": filepath, "uuid": uuid}
+
+    def plot(self, filepaths):
+        cmd1 = [self.rcommand, str(self.rscriptpath / self.rplot), self.gsxa_uuid, self.gsxacol]
+        cmd = cmd1 + filepaths + [str(self.apppath)]
+        print("\n\n ", " \\\n ".join(cmd), "\n\n")
+        subprocess.check_output(cmd, universal_newlines=True)
+
+
+class CheckGSEAPlotSingleCancerType(AppPaths):
+    def __init__(self, gsxa_uuid, name_uuid, cancertype, purpose, rplot, precol, gsxacol):
+        self.gsxa_uuid = gsxa_uuid
+        self.name_uuid = name_uuid
+        self.cancertype = cancertype
+        self.purpose = purpose
+        self.rplot = rplot
+
+        self.precol = precol
+        self.gsxacol = gsxacol
+
+        self.uuid = str(uuid.uuid4())
+        self.filename = self.uuid + ".png"
+        self.filepath = self.resource_pngs / self.filename
+
+    def check_run(self):
+        run = True
+        preanalysised = mongo.db[self.precol].find_one(
+            {self.name_uuid: self.gsxa_uuid, "purpose": self.purpose, "cancertype": self.cancertype}, {"_id": 0, "uuid": 1},
+        )
+        if preanalysised:
+            self.uuid = preanalysised["uuid"]
+            self.filename = self.uuid + ".png"
+            self.filepath = self.resource_pngs / self.filename
+            run = False if self.filepath.exists() else True
+        else:
+            mongo.db[self.precol].insert_one(
+                {self.name_uuid: self.gsxa_uuid, "purpose": self.purpose, "cancertype": self.cancertype, "uuid": self.uuid}
+            )
+
+        return {"run": run, "uuid": self.uuid}
+
+    def plot(self):
+        cmd = [
+            self.rcommand,
+            str(self.rscriptpath / self.rplot),
+            self.gsxa_uuid,
+            self.gsxacol,
+            self.cancertype,
+            str(self.filepath),
+            str(self.apppath),
+        ]
+        print("\n\n ", " \\\n ".join(cmd), "\n\n")
+        subprocess.check_output(cmd, universal_newlines=True)
+
+
+class CheckGSVASurvivalSingleCancerType(AppPaths):
+    def __init__(self, gsxa_uuid, name_uuid, cancertype, surType, purpose, rplot, precol, gsxacol):
+        self.gsxa_uuid = gsxa_uuid
+        self.name_uuid = name_uuid
+        self.cancertype = cancertype
+        self.surType = surType
+        self.purpose = purpose
+        self.rplot = rplot
+
+        self.precol = precol
+        self.gsxacol = gsxacol
+
+        self.uuid = str(uuid.uuid4())
+        self.filename = self.uuid + ".png"
+        self.filepath = self.resource_pngs / self.filename
+
+    def check_run(self):
+        run = True
+        preanalysised = mongo.db[self.precol].find_one(
+            {self.name_uuid: self.gsxa_uuid, "purpose": self.purpose, "cancertype": self.cancertype, "surType": self.surType},
+            {"_id": 0, "uuid": 1},
+        )
+        if preanalysised:
+            self.uuid = preanalysised["uuid"]
+            self.filename = self.uuid + ".png"
+            self.filepath = self.resource_pngs / self.filename
+            run = False if self.filepath.exists() else True
+        else:
+            mongo.db[self.precol].insert_one(
+                {
+                    self.name_uuid: self.gsxa_uuid,
+                    "purpose": self.purpose,
+                    "cancertype": self.cancertype,
+                    "surType": self.surType,
+                    "uuid": self.uuid,
+                }
+            )
+
+        return {"run": run, "uuid": self.uuid}
+
+    def plot(self):
+        cmd = [
+            self.rcommand,
+            str(self.rscriptpath / self.rplot),
+            self.gsxa_uuid,
+            self.gsxacol,
+            self.cancertype,
+            self.surType,
+            str(self.filepath),
+            str(self.apppath),
+        ]
+        print("\n\n ", " \\\n ".join(cmd), "\n\n")
+        subprocess.check_output(cmd, universal_newlines=True)

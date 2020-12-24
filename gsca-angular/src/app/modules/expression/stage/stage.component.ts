@@ -50,12 +50,23 @@ export class StageComponent implements OnInit, OnChanges, AfterViewChecked {
   showStageImage = true;
   stageImagePdfURL: string;
 
+  // stage heat image
+  stageHeatImageLoading = true;
+  stageHeatImage: any;
+  showStageHeatImage = true;
+  stageHeatImagePdfURL: string;
+
+  // stage trend image
+  stageTrendImageLoading = true;
+  stageTrendImage: any;
+  showStageTrendImage = true;
+  stageTrendImagePdfURL: string;
+
   // single gene
   stageSingleGeneImage: any;
   stageSingleGeneImageLoading = true;
   showStageSingleGeneImage = false;
   stageSingleGenePdfURL: string;
-
   constructor(private expressionApiService: ExpressionApiService) {}
 
   ngOnInit(): void {}
@@ -65,12 +76,17 @@ export class StageComponent implements OnInit, OnChanges, AfterViewChecked {
     // Add '${implements OnChanges}' to the class.
     this.stageImageLoading = true;
     this.stageTableLoading = true;
-
+    this.stageHeatImageLoading = true;
+    this.stageTrendImageLoading = true;
     const postTerm = this._validCollection(this.searchTerm);
 
     if (!postTerm.validColl.length) {
       this.stageImageLoading = false;
       this.stageTableLoading = false;
+      this.stageHeatImageLoading = false;
+      this.stageTrendImageLoading = false;
+      this.showStageHeatImage = false;
+      this.showStageTrendImage = false;
       this.showStageImage = false;
       this.showStageTable = false;
     } else {
@@ -89,8 +105,9 @@ export class StageComponent implements OnInit, OnChanges, AfterViewChecked {
       );
       this.expressionApiService.getStagePlot(postTerm).subscribe(
         (res) => {
-          this.stageImagePdfURL = this.expressionApiService.getResourcePlotURL(res.stageplotuuid, 'pdf');
-          this.expressionApiService.getResourcePlotBlob(res.stageplotuuid, 'png').subscribe(
+          // stage point
+          this.stageImagePdfURL = this.expressionApiService.getResourcePlotURL(res.stagePointuuid, 'pdf');
+          this.expressionApiService.getResourcePlotBlob(res.stagePointuuid, 'png').subscribe(
             (r) => {
               this.showStageImage = true;
               this.stageImageLoading = false;
@@ -103,7 +120,38 @@ export class StageComponent implements OnInit, OnChanges, AfterViewChecked {
         },
         (err) => {
           this.showStageImage = false;
-          this.stageImageLoading = false;
+        }
+      );
+      this.expressionApiService.getStageHeatTrendPlot(postTerm).subscribe(
+        (res) => {
+          // stage heatmap
+          this.stageHeatImagePdfURL = this.expressionApiService.getResourcePlotURL(res.stageHeatuuid, 'pdf');
+          this.expressionApiService.getResourcePlotBlob(res.stageHeatuuid, 'png').subscribe(
+            (r) => {
+              this.showStageHeatImage = true;
+              this.stageHeatImageLoading = false;
+              this._createImageFromBlob(r, 'stageHeatImage');
+            },
+            (e) => {
+              this.showStageHeatImage = false;
+            }
+          );
+          // stage trend
+          this.stageTrendImagePdfURL = this.expressionApiService.getResourcePlotURL(res.stageTrenduuid, 'pdf');
+          this.expressionApiService.getResourcePlotBlob(res.stageTrenduuid, 'png').subscribe(
+            (r) => {
+              this.showStageTrendImage = true;
+              this.stageTrendImageLoading = false;
+              this._createImageFromBlob(r, 'stageTrendImage');
+            },
+            (e) => {
+              this.showStageTrendImage = false;
+            }
+          );
+        },
+        (err) => {
+          this.showStageHeatImage = false;
+          this.showStageTrendImage = false;
         }
       );
     }
@@ -122,6 +170,12 @@ export class StageComponent implements OnInit, OnChanges, AfterViewChecked {
         switch (present) {
           case 'stageImage':
             this.stageImage = reader.result;
+            break;
+          case 'stageHeatImage':
+            this.stageHeatImage = reader.result;
+            break;
+          case 'stageTrendImage':
+            this.stageTrendImage = reader.result;
             break;
           case 'stageSingleGeneImage':
             this.stageSingleGeneImage = reader.result;

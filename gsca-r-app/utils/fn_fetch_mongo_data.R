@@ -5,7 +5,7 @@ library(magrittr)
 
 gsca_conf <- readr::read_lines(file = file.path(apppath, 'gsca-r-app/gsca.conf'))
 
-fn_query_str <- function(.key,.keyindex) {
+fn_query_str_utils <- function(.key,.keyindex) {
   .xx <- paste0(.key, collapse = '","')
   glue::glue('{"<.keyindex>": {"$in": ["<.xx>"]}}', .open = '<', .close = '>')
 }
@@ -16,7 +16,7 @@ fn_fetch_mongo_all_expr_single_cancer <- function(.cancer_types,.key,.keyindex) 
   exp_coll <- paste(.cancer_types,"all_expr",sep = "_")
   .coll_exp <- mongolite::mongo(collection = exp_coll, url = gsca_conf)
   .coll_exp$find(
-    query = fn_query_str(.key,.keyindex),
+    query = fn_query_str_utils(.key,.keyindex),
     fields = '{"symbol": true, "sample_name": true, "type": true,"expr": true, "_id": false}'
   ) %>%
     dplyr::mutate(cancer_types = .cancer_types) %>%
@@ -31,7 +31,7 @@ fn_fetch_mongo_all_survival <- function(.data, .key, .keyindex) {
   coll <- .data
   .coll <- mongolite::mongo(collection = coll, url = gsca_conf)
   .coll$find(
-    query = fn_query_str(.key,.keyindex),
+    query = fn_query_str_utils(.key,.keyindex),
     fields = '{"cancer_types": true, "sample_name": true, "os_days": true,"os_status": true, "pfs_days": true,"pfs_status": true,"_id": false}'
   ) %>%
     tidyr::unnest(cols = c(cancer_types, sample_name, os_days, os_status, pfs_days, pfs_status)) 
@@ -44,7 +44,7 @@ fn_fetch_mongo_all_subtype <- function(.data, .key, .keyindex) {
   coll <- .data
   .coll <- mongolite::mongo(collection = coll, url = gsca_conf)
   .coll$find(
-    query = fn_query_str(.key,.keyindex),
+    query = fn_query_str_utils(.key,.keyindex),
     fields = '{"cancer_types": true, "sample_name": true, "subtype": true,"_id": false}'
   ) %>%
     tidyr::unnest(cols = c(cancer_types, sample_name, subtype)) 
@@ -57,7 +57,7 @@ fn_fetch_mongo_all_stage <- function(.data, .key, .keyindex) {
   coll <- .data
   .coll <- mongolite::mongo(collection = coll, url = gsca_conf)
   .coll$find(
-    query = fn_query_str(.key,.keyindex),
+    query = fn_query_str_utils(.key,.keyindex),
     fields = '{"cancer_types": true, "sample_name": true, "stage": true,"_id": false}'
   ) %>%
     tidyr::unnest(cols = c(cancer_types, sample_name, stage)) 
@@ -68,7 +68,7 @@ fn_fetch_mongo_snv_count <- function(.data, .key, .keyindex) {
   coll <- .data
   .coll <- mongolite::mongo(collection = coll, url = gsca_conf)
   .coll$find(
-    query = fn_query_str(.key,.keyindex),
+    query = fn_query_str_utils(.key,.keyindex),
     fields = '{"EffectiveMut": true, "_id": false}'
   ) %>%
     tidyr::unnest(cols = c(EffectiveMut)) 
@@ -80,7 +80,7 @@ fn_fetch_mongo_snv_maf <-  function(.data, .key, .keyindex) {
   coll <- .data
   .coll <- mongolite::mongo(collection = coll, url = gsca_conf)
   .coll$find(
-    query = fn_query_str(.key,.keyindex),
+    query = fn_query_str_utils(.key,.keyindex),
     fields = '{"_id": false}'
   ) %>%
     tidyr::unnest() 
@@ -91,7 +91,7 @@ fn_fetch_mongo_snv_maf <-  function(.data, .key, .keyindex) {
 fn_fetch_mongo <- function(.x,pattern,fields,.key,.keyindex) {
   .coll <- mongolite::mongo(collection = .x, url = gsca_conf)
   .coll$find(
-    query = fn_query_str(.key,.keyindex),
+    query = fn_query_str_utils(.key,.keyindex),
     fields =fields #'{"symbol": true, "fc": true,"trend": true,"gene_tag": true,"logfdr": true, "_id": false}'
   ) %>%
     dplyr::mutate(cancertype = gsub(pattern = pattern, replacement = '', x = .x)) %>%

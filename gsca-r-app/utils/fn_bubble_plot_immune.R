@@ -20,6 +20,7 @@ bubble_plot <- function(data, cancer, gene, size, fill, fillmipoint=0, fillbreak
       mid = CPCOLS[2],
       high = CPCOLS[1],
       midpoint = fillmipoint,
+      limits=c(min(fillbreaks),max(fillbreaks)),
       breaks=fillbreaks
     ) +
     guides(fill=guide_colourbar(title.position="top",reverse=TRUE)) +
@@ -28,7 +29,6 @@ bubble_plot <- function(data, cancer, gene, size, fill, fillmipoint=0, fillbreak
                        name=colorname) +
     guides(color=guide_legend(title.position="top")) +
     theme(
-      legend.position = "bottom",
       panel.background = element_rect(colour = "black", fill = "white"),
       panel.grid = element_line(colour = "grey", linetype = "dashed"),
       panel.grid.major = element_line(
@@ -43,7 +43,7 @@ bubble_plot <- function(data, cancer, gene, size, fill, fillmipoint=0, fillbreak
       legend.title = element_text(size = 12),
       legend.key = element_rect(fill = "white", colour = "black"),
       legend.key.size = unit(0.5, "cm"),
-      plot.title = element_text(size = 20),
+      plot.title = element_text(size = 14),
       strip.background =  element_rect(fill="white",color="black"),
       strip.text = element_text(color="black",size = 12)
     ) -> p

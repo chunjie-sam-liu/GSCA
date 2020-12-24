@@ -11,6 +11,7 @@ model_survivaltable = {
     "entrez": fields.Integer(attribute="entrez"),
     "symbol": fields.String(attribute="symbol"),
     "hr_categorical(H/L)": fields.Float(attribute="hr_categorical(H/L)"),
+    "coxp_categorical": fields.Float(attribute="coxp_categorical"),
     "logrankp": fields.Float(attribute="logrankp"),
     "higher_risk_of_death": fields.String(attribute="higher_risk_of_death"),
     "cancertype": fields.String(attribute="cancertype"),
@@ -52,7 +53,6 @@ api.add_resource(SurvivalPlot, "/survivalplot")
 class SurvivalSingleGenePlot(Resource):
     def post(self):
         args = request.get_json()
-        print(args)
         checkplot = CheckSurvivalPlot(args=args, purpose="survivalsinglegene", rplot="survivalplotsinglegene.R")
         res = checkplot.check_run()
         if res["run"]:

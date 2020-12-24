@@ -129,6 +129,7 @@ export class SnvComponent implements OnInit, OnChanges, AfterViewInit {
       this.mutationApiService.getSnvSummary(postTerm).subscribe(
         (res) => {
           // summary plot
+          this.snvSummaryPdfURL = this.mutationApiService.getResourcePlotURL(res.snvSummaryImageuuid, 'pdf');
           this.mutationApiService.getResourcePlotBlob(res.snvSummaryImageuuid).subscribe(
             (r) => {
               this.showSnvSummaryImage = true;
@@ -141,6 +142,7 @@ export class SnvComponent implements OnInit, OnChanges, AfterViewInit {
             }
           );
           // oncoplot
+          this.snvOncoplotPdfURL = this.mutationApiService.getResourcePlotURL(res.snvOncoplotImageuuid, 'pdf');
           this.mutationApiService.getResourcePlotBlob(res.snvOncoplotImageuuid).subscribe(
             (r) => {
               this.showSnvOncoplotImage = true;
@@ -152,6 +154,7 @@ export class SnvComponent implements OnInit, OnChanges, AfterViewInit {
             }
           );
           // titv plot
+          this.snvTitvPdfURL = this.mutationApiService.getResourcePlotURL(res.snvTitv, 'pdf');
           this.mutationApiService.getResourcePlotBlob(res.snvTitvImageuuid).subscribe(
             (r) => {
               this.showSnvTitvImage = true;

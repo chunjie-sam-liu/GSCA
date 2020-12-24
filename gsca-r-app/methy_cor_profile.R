@@ -45,14 +45,38 @@ fetched_data_clean_pattern <- fn_get_pattern(
   selections =c("cancertype","symbol"))
 cancer_rank <- fn_get_cancer_types_rank(.x = fetched_data_clean_pattern)
 gene_rank <- fn_get_gene_rank(.x = fetched_data_clean_pattern)
-for_plot <- fn_pval_label(.x = fetched_data %>% dplyr::rename(value=fdr)) 
+for_plot <- fn_pval_label(.x = fetched_data %>% dplyr::rename(value=fdr))  %>%
+  dplyr::mutate(group = ifelse(value<=0.05,"<0.05",">0.05"))
 
 # Plot --------------------------------------------------------------------
-source(file.path(apppath,"gsca-r-app/utils/fn_bubble_plot.R"))
-CPCOLS <- c("#000080", "#F8F8FF", "#CD0000")
-
-heat_plot <- bubble_plot(data=for_plot, cancer="cancertype", gene="symbol", size="logfdr", color="spm", cancer_rank=c(cancer_rank$cancertype), gene_rank=c(gene_rank$symbol), sizename= "-Log10(FDR)", colorname="Spearman correlation", title="")
-
+source(file.path(apppath,"gsca-r-app/utils/fn_bubble_plot_immune.R"))
+for_plot %>%
+  dplyr::filter(!is.na(spm)) %>%
+  .$spm %>% range() -> min_max
+floor(min_max[1]) -> min
+ceiling(min_max[2]) -> max
+fillbreaks <- sort(unique(c(0,min,max)))
+title <- "Correlation between methylation and\nmRNA expression"
+heat_plot <- bubble_plot(data=for_plot, 
+                    cancer="cancertype", 
+                    gene="symbol", 
+                    xlab="Cancer type", 
+                    ylab="Symbol",
+                    facet_exp=NA,
+                    size="logfdr",
+                    fill="spm",
+                    fillmipoint =0,
+                    fillbreaks =fillbreaks,
+                    colorgroup="group",
+                    cancer_rank=cancer_rank$cancertype, 
+                    gene_rank=gene_rank$symbol, 
+                    sizename= "-Log10(FDR)", 
+                    colorvalue=c("black","grey"),
+                    colorbreaks=c("<0.05",">0.05"),
+                    colorname="FDR", 
+                    fillname="Spearman cor.", 
+                    title=title) +
+  guides(fill=guide_colourbar(title.position="top", reverse = F))
 
 # Save --------------------------------------------------------------------
 ggsave(filename = filepath, plot = heat_plot, device = 'png', width = size$width, height = size$height)

@@ -1,12 +1,796 @@
 <div fxLayout="column" fxLayoutGap="10px" fxFill>
   <div fxFlex="none">
-    <h1 class="page-header">
-      Document
-    </h1>
+    <h1 class="page-header">Document</h1>
   </div>
 
-  <div fxFlex class="not-float">
-    docs
+  <div fxLayout="row" fxLayout.lt-lg="column" fxLayoutGap="10px" fxLayoutWrap fxLayoutAlign="center" class="not-float">
+    <ng-container>
+      <!-- Introduction -->
+      <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
+        <mat-card-header>
+          <mat-card-title>Introduction</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>
+            GSCA (Gene Set Cancer Analysis) is an updated version of
+            <a href="http://bioinfo.life.hust.edu.cn/web/GSCALite/" target="_blank">GSCALite</a>, which is a web-based analysis platform for
+            gene set cancer analysis relate to mRNA expression, mutation, immune infiltrates and drug resistance. The platform mainly based
+            on <a href="https://www.cancer.gov/about-nci/organization/ccg/research/structural-genomics/tcga" target="_blank">TCGA</a> and
+            <a href="http://www.cancerrxgene.org/" target="_blank">GDSC</a> database.
+          </p>
+          <p>
+            The gene set alteration on DNA or RNA are received more and more attentions in recent years, which may be important in cancer
+            initiation, progress, diagnosis, prognosis and therapy. As the cancer genomics big data available, it is very useful and urgent
+            to provide a platform for gene set analysis in cancer. <br />
+          </p>
+          <p>
+            In this updated GSCA, we provide a series of services to perform gene set genomic (Expression, SNV, CNV and methylation) and
+            immunogenomic (24 immune cells) analyses. Besides, combining clinical information and small molecular drugs, user could mine
+            candidate biomarkers and valuable small drugs for better experimental design and further clinical trials. GSCA integrates over
+            ten thousand genomic data in 33 cancer types from TCGA and over 750 small molecule drugs from GDSC and CTRP. Immunogenomic
+            analysis was performed through our ImmuCellAI with 24 immunes cells.
+          </p>
+          <p>
+            By using GSCA, experimental biologists can easily explore the large
+            <a href="https://www.cancer.gov/about-nci/organization/ccg/research/structural-genomics/tcga" target="_blank">TCGA</a> and drug
+            response datasets, test hypotheses relate to genomics changes, and their association with clinical outcome and immune
+            infiltration in a higher resolution.
+          </p>
+          <!--  <h3>Abstract Summary</h3>
+          <div fxLayout="row" fxLayoutAlign="center center">
+            <img class="zm" [src]="assets + '/imgs/doc_pic/' + 'zm.png'" alt="Abstrat_img" />
+          </div> -->
+        </mat-card-content>
+      </mat-card>
+    </ng-container>
+    <ng-container>
+      <!-- Updates  -->
+      <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
+        <mat-card-header>
+          <mat-card-title>Updates of GSCA compared with GSCALite</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>GSCA retained most of the functions in the GSCALite. Besides, in this version, more datasets and functions were added:</p>
+          <ol>
+            <li>
+              <h3>Gene set estimation</h3>
+            </li>
+            <p>
+              This function allows users to estimate the overall estimation of the gene set in the aspect of mRNA expression, SNV and CNV
+              levels. This make it possible to carry out calculation in the gene set level instead of one gene. For instance, GSVA analysis
+              was performed to estimate the overall expression level of gene set for each
+              <a href="https://www.cancer.gov/about-nci/organization/ccg/research/structural-genomics/tcga" target="_blank">TCGA</a> sample.
+            </p>
+
+            <li>
+              <h3>Association with immune infiltrates</h3>
+            </li>
+            <p>
+              This function allows users to estimate the association of genomic features (RNA sequencing expression, SNV, CNV and
+              methylation) with 24 immune cells infiltration, evaluated by
+              <a href="http://bioinfo.life.hust.edu.cn/ImmuCellAI/#!/" target="_blank">ImmuCellAI</a>.
+            </p>
+
+            <li>
+              <h3>Detailed single gene result</h3>
+            </li>
+            <p>
+              This function provides results of single gene for batch calculation, which avoid fussy input options when the users have
+              plenty of candidate genes.
+            </p>
+
+            <li>
+              <h3>Cancer <a href="https://www.cancer.gov/about-cancer/diagnosis-staging/staging" target="_blank">TNM Stage</a></h3>
+            </li>
+            <p>
+              This function allows the comparison of gene expression between TNM stages. A trend analysis was utilized to get the trend of
+              expression as the disease progresses.
+            </p>
+          </ol>
+        </mat-card-content>
+      </mat-card>
+    </ng-container>
+  </div>
+  <!-- Quick start -->
+  <div fxLayout="row" fxLayout.lt-lg="column" fxLayoutGap="10px" fxLayoutWrap fxLayoutAlign="center" class="not-float">
+    <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
+      <mat-card-header>
+        <mat-card-title>Quick start</mat-card-title>
+      </mat-card-header>
+      <ng-container>
+        <mat-card-content>
+          <ol>
+            <li>
+              <p>
+                Click "Example" button to get example inputs. Or enter the official symbols of gene set with more than 2 genes and less than
+                50 in the "Input your interested gene set".
+              </p>
+            </li>
+            <li>
+              <p>Select at least one cancer type in the "Select cancer types".</p>
+            </li>
+            <li>
+              <p>Select at least one analysis.</p>
+            </li>
+            <li>
+              <p>Click "Submit" button to get results of interest gene set.</p>
+            </li>
+          </ol>
+        </mat-card-content>
+      </ng-container>
+      <ng-container>
+        <div fxLayout="row" fxLayoutAlign="center center">
+          <img width="50%" [src]="assets + '/imgs/doc_pic/' + 'search.png'" alt="searchbox" />
+        </div>
+      </ng-container>
+    </mat-card>
+  </div>
+  <div fxLayout="row" fxLayout.lt-lg="column" fxLayoutGap="10px" fxLayoutWrap fxLayoutAlign="center" class="not-float">
+    <!-- Data collection and process -->
+    <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
+      <mat-card-header>
+        <mat-card-title>Data collection and process</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <ul>
+          <li>
+            <h3>
+              <a href="https://www.cancer.gov/about-nci/organization/ccg/research/structural-genomics/tcga" target="_blank">TCGA</a> data
+              from NCI Genomic Data Commons
+            </h3>
+            <h4><span class="phighlight">Statistics</span> of samples in cancer types</h4>
+            <div>
+              <mat-form-field>
+                <input matInput placeholder="Search" (keyup)="applyFilter($event)" #inputCan />
+                <button mat-icon-button color="warn" matPrefix>
+                  <mat-icon style="font-weight: bolder">search</mat-icon>
+                </button>
+              </mat-form-field>
+              <table mat-table [dataSource]="cancerstat" multiTemplateDataRows matSort class="immunetable">
+                <ng-container matColumnDef="{{ column }}" *ngFor="let column of displayedColumnsCan; index as ind">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ displayedColumnsCanHeader[ind] }}</th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element[column] }}
+                  </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumnsCan"></tr>
+                <tr mat-row *matRowDef="let element; columns: displayedColumnsCan"></tr>
+              </table>
+              <mat-paginator #paginatorCan [pageSizeOptions]="[5, 10]" showFirstLastButtons class="immunetable"></mat-paginator>
+            </div>
+            <h4>
+              <span class="phighlight">mRNA sequencing</span>
+              data
+            </h4>
+            <ul>
+              <li>
+                Data process
+                <ul>
+                  <li>14 cancers have over ten paired tumor and normal samples.</li>
+                  <li>Processed with RSEM normalized expression</li>
+                </ul>
+              </li>
+            </ul>
+            <h4><span class="phighlight">Clinical</span> information</h4>
+            <ul>
+              <li>
+                Survival
+                <ul>
+                  <li>including overall survival(OS) and progression free survival(PFS)</li>
+                </ul>
+              </li>
+              <li>
+                Stage
+                <ul>
+                  <li>including stage I, II, III, IV</li>
+                </ul>
+              </li>
+              <li>
+                Subtype
+                <ul>
+                  <li>including molecular subtypes or clustered subtypes (numbered)</li>
+                </ul>
+              </li>
+            </ul>
+            <h4><span class="phighlight">SNV</span> data</h4>
+            <ul>
+              <li>
+                Data process
+                <ul>
+                  <li>
+                    Mutant including 7 types of mutations:
+                    <span class="phighlight"
+                      >Missense_Mutation, Nonsense_Mutation, Frame_Shift_Ins, Splice_Site, Frame_Shift_Del, In_Frame_Del,
+                      In_Frame_Ins.</span
+                    >
+                  </li>
+                  <li>Wide type(WT): others.</li>
+                </ul>
+              </li>
+            </ul>
+            <h4><span class="phighlight">CNV</span> data</h4>
+            <ul>
+              <li>
+                Data process
+                <ul>
+                  <li>
+                    <a href="https://genomebiology.biomedcentral.com/articles/10.1186/gb-2011-12-4-r41" target="_blank">GISTICS2.0</a>
+                  </li>
+                  <li>Hete Amp: heterozygous amplification, CNV = 1</li>
+                  <li>Hete Del: heterozygous deletion, CNV = -1</li>
+                  <li>Homo Amp: homozygous amplification, CNV = 2</li>
+                  <li>Homo Del: homozygous deletion, CNV = -2</li>
+                </ul>
+              </li>
+            </ul>
+            <h4><span class="phighlight">Methylation</span> data</h4>
+            <ul>
+              <li>
+                Data process
+                <ul>
+                  <li>Calculation based on methylation beta value</li>
+                  <li>14 cancers have over ten paired tumor and normal samples</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <h3>Drug data</h3>
+            <h4>(<a href="https://portals.broadinstitute.org/ctrp/" target="_blank">Therapeutics Response Portal CTRP</a>)</h4>
+            <ul>
+              <li>481 small molecules IC50</li>
+              <li>1001 cell lines</li>
+              <li>18900 genes</li>
+            </ul>
+            <h4>(<a href="http://www.cancerrxgene.org/" target="_blank">Genomics of Drug Sensitivity in Cancer GDSC</a>)</h4>
+            <ul>
+              <li>265 small molecules IC50 (the half maximal inhibitory concentration)</li>
+              <li>860 cell lines</li>
+              <li>17419 genes</li>
+            </ul>
+          </li>
+          <li>
+            <h3>Immune infiltrates</h3>
+            <ul>
+              <li>
+                Statistic
+                <ul>
+                  <li>
+                    <a href="https://www.cancer.gov/about-nci/organization/ccg/research/structural-genomics/tcga" target="_blank">TCGA</a>
+                    10,995 samples
+                  </li>
+                  <li>33 cancer types</li>
+                  <li>24 immune cells</li>
+                  <div>
+                    <mat-form-field>
+                      <input matInput placeholder="Search" (keyup)="applyFilter($event)" #inputCell />
+                      <button mat-icon-button color="warn" matPrefix>
+                        <mat-icon style="font-weight: bolder">search</mat-icon>
+                      </button>
+                    </mat-form-field>
+                    <table mat-table [dataSource]="immunecells" multiTemplateDataRows matSort class="immunetable">
+                      <ng-container matColumnDef="{{ column }}" *ngFor="let column of displayedColumnsImmuneCells; index as ind">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ displayedColumnsImmuneCellsHeader[ind] }}</th>
+                        <td mat-cell *matCellDef="let element">
+                          {{ element[column] }}
+                        </td>
+                      </ng-container>
+                      <tr mat-header-row *matHeaderRowDef="displayedColumnsImmuneCells"></tr>
+                      <tr mat-row *matRowDef="let element; columns: displayedColumnsImmuneCells"></tr>
+                    </table>
+                    <mat-paginator #paginatorImm [pageSizeOptions]="[5, 10]" showFirstLastButtons class="immunetable"></mat-paginator>
+                  </div>
+                </ul>
+              </li>
+              <li>
+                Data process
+                <ul>
+                  <li>Based on mRNA expression data</li>
+                  <li><a href="http://bioinfo.life.hust.edu.cn/ImmuCellAI/#!/" target="_blank">ImmuCellAI</a> was performed</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </mat-card-content>
+    </mat-card>
+    <!-- Examples -->
+    <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
+      <mat-card-header>
+        <mat-card-title>Try out example and results interpretation</mat-card-title>
+      </mat-card-header>
+      <p>
+        By click "Example" button, GSCA will search gene set "A2M, ACE, ANGPT2, BPI, CD1B, CDR1, EGR2, EGR3, HBEGF, HERPUD1, MCM2, PCTP,
+        PODXL, PPY, PTGS2, RCAN1, SLC4A7, THBD" in cancer types "KICH, KIRC, KIRP, LUAD, LUSC". We will give some example results and their
+        interpretation.
+      </p>
+      <mat-expansion-panel hideToggle>
+        <mat-expansion-panel-header>
+          <mat-panel-title> Expression module </mat-panel-title>
+          <mat-panel-description> Click to expand/collopase </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <p>
+          The expression module contains both single gene level and gene set level analysis. The gene set expression level is present by
+          GSVA score.
+        </p>
+        <ul>
+          <li>Single gene level</li>
+          <ul>
+            <li>Differential expression</li>
+            <p>
+              This part analyze the differential expression between tumor and adjacent normal samples. The bubble color from purple to red
+              represent the fold change between tumor vs normal. The size dot indicates the significance. The dot was filtered by the fold
+              change (FC>2) and significance (FDR < 0.05). Users can found that A2M is significantly downregulate in LUSC.
+            </p>
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'DEGplot.png'" alt="differentialExpression" />
+            </div>
+
+            <p>
+              Through clicking the buttons "A2M" or "LUSC" in the specific row of the result table, users can get the detailed expression
+              distribution of A2M in LUSC or pan-cancer.
+            </p>
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'DEGsinglecancer.png'" alt="differentialExpressionSingleGene" />
+            </div>
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'DEGsinglegene.png'" alt="differentialExpressionSingleCancer" />
+            </div>
+
+            <li>GSEA enrichment</li>
+            <p>
+              <span class="phighlight">Bar plot</span> and <span class="phighlight">enrichment plot</span> give the enrichment score of gene
+              set against all genes. This result gives the users the distribution of gene set expression changes among all genes(backgroud).
+              By clicking "LUSC" button in the result table, the users can find that among the inputed gene set, most of them are
+              downregulated in LUSC, distributed on the right blue side of <span class="phighlight">enrichment plot</span>.
+            </p>
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'GSEA.png'" alt="gseabar" />
+            </div>
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'GSEA_single.png'" alt="gseasingle" />
+            </div>
+
+            <li>Stage and expression</li>
+            <p>
+              This part estimate the expression difference between TNM stages and the expression tendency from stage I to IV. The bubble
+              color from blue to red and the size represent the FDR significance. Black outline border indicates FDR < 0.05. Users can found
+              that PODXL is significantly different among stage in KIRC.
+            </p>
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'Exprstage.png'" alt="stageexprsummary" />
+            </div>
+
+            <p>
+              Through clicking the buttons "PODXL" in the specific row of the result table, users can get the detailed expression
+              distribution of PODXL in KIRC stages by <span class="phighlight">box plot</span>.
+            </p>
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'exprstagesingle.png'" alt="stagesingle" />
+            </div>
+
+            <p>
+              Trend of gene expression from stage I to stage IV is present as <span class="phighlight">heat map</span>and
+              <span class="phighlight">trend plot</span>.
+            </p>
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'exprstageheatmap.png'" alt="stageheatmap" />
+            </div>
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'exprstagetrend.png'" alt="stagetrend" />
+            </div>
+
+            <li>Subtype and expression</li>
+            <p>
+              This part estimate the expression difference between subtypes. The color from white to red represent the FDR significance in
+              heat map. Users can found that CD1B is significantly different among subtypes in LUAD. Through clicking the buttons "CD1B" in
+              the specific row of the result table, users can get the detailed expression distribution of CD1B in LUAD subtypes by
+              <span class="phighlight">box plot</span>.
+            </p>
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'Exprsubtype.png'" alt="subtypesummary" />
+            </div>
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'Exprsubtypesingle.png'" alt="subtypesingle" />
+            </div>
+
+            <li>Survival and expression</li>
+            <p>
+              This part estimate the OS and PFS difference between high and low gene expression. The color from blue to red represent the
+              hazard ratio, size represents statistical significance in <span class="phighlight">bubble plot</span>. Black outline border
+              indicates Logrank P < 0.05. Users can found that SLC4A7 is significantly associate with KICH patients’ OS. Through clicking
+              the buttons "SLC4A7" in the specific row of the result table, users can get the
+              <span class="phighlight">Kaplan-Meier survival curve</span> between high and low SLC4A7 expression in KICH.
+            </p>
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'exprsurvival.png'" alt="survivalsummary" />
+            </div>
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'exprsurvivalsinglegene.png'" alt="survivalsingle" />
+            </div>
+          </ul>
+          <li>Gene set level</li>
+          <ul>
+            <li>Differential GSVA score</li>
+            <p>
+              The <span class="phighlight">boxplot</span>compare the GSVA score of inputed gene set between tumor and normal samples. The
+              users can fing that the overall expression level of example gene set are significantly downregulated in tumor.
+            </p>
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'GSVA_DE.png'" alt="gsvaexpr" />
+            </div>
+
+            <li>Stage and GSVA score</li>
+            <p>
+              The <span class="phighlight">boxplot</span>compare the GSVA score of inputed gene set among TNM stages. The
+              <span class="phighlight">trend plot</span> persents the trend of middle GSVA score from stage I to stage IV. Users can find
+              that the overall expression level of example gene set are trend to upregulate in KICH, KIRP and LUSC, and trend to
+              downregulate in KIRC and LUAD, but without statistical significance (Tend P > 0.05, estimated by Mann-Kendall Trend Test).
+            </p>
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'GSVAstagebox.png'" alt="gsvastagebox" />
+            </div>
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'GSVAstagetrend.png'" alt="gsvastagetrend" />
+            </div>
+
+            <li>Subtype and GSVA score</li>
+            <p>
+              The <span class="phighlight">boxplot</span>compare the GSVA score of inputed gene set among cancer subtypes. The users can
+              find that the GSVA score significantly upregulated in LUAD subtypes, from subtype 1 to 6.
+            </p>
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'GSVAsubtype.png'" alt="gsvasubtype" />
+            </div>
+
+            <li>Survival and GSVA score</li>
+            <p>
+              The <span class="phighlight">bubble plot</span> shows the summary of HR and logrank p of GSVA score among cancers. Black
+              outline border indicates Logrank P < 0.05. There are no significant difference between high and low GSVA score groups in each
+              cancer survival. By clicking button "KIRP" in result table, users can get the
+              <span class="phighlight">Kaplan-Meier survival curve</span>.
+            </p>
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'GSVAsurvival.png'" alt="gsvasurvivalsummary" />
+            </div>
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'GSVAsurvivalSingle.png'" alt="gsvasurvivalsingle" />
+            </div>
+          </ul>
+        </ul>
+      </mat-expansion-panel>
+      <br />
+      <mat-expansion-panel hideToggle [expanded]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>Immune module </mat-panel-title>
+          <mat-panel-description> Click to expand/collopase </mat-panel-description>
+        </mat-expansion-panel-header>
+        <p>In Immune module, users can easily explore the correlation between immune cells infiltrates and genomics features, including:</p>
+        <ul>
+          <li>mRNA expression</li>
+          <li>SNV</li>
+          <li>CNV</li>
+          <li>Methylation</li>
+        </ul>
+
+        <p>
+          In these modules, <span class="phighlight">bubble plot</span> presents the summary of the correlation for each cancer. The bubble
+          color from blue to red represent the correlation. Bubble size are correlate with FDR significancec. Black outline border indicates
+          FDR < 0.05. By clicking gene symbol buttons in tables, users can get the detailed result of single gene through scatter plot with
+          fitting line (mRNA expression, CNV and methylation), or <span class="phighlight">boxplot</span>(SNV).
+        </p>
+        <div fxLayout="row" fxLayoutAlign="center center">
+          <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'ImmExpr.png'" alt="immuneplot" />
+        </div>
+        <div fxLayout="row" fxLayoutAlign="center center">
+          <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'ImmExprSingle.png'" alt="immuneexprsingle" />
+        </div>
+        <div fxLayout="row" fxLayoutAlign="center center">
+          <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'ImmSnvSingle.png'" alt="immunesnvsingle" />
+        </div>
+      </mat-expansion-panel>
+      <br />
+      <mat-expansion-panel hideToggle>
+        <mat-expansion-panel-header>
+          <mat-panel-title> Mutation module </mat-panel-title>
+          <mat-panel-description>Click to expand/collopase</mat-panel-description>
+        </mat-expansion-panel-header>
+        <p>
+          In this module, users can easily explore the statistic information of mutation and their association with survival and mRNA
+          expression.
+        </p>
+        <ul>
+          <li>SNV (Single Nucleotide Variation)</li>
+          <p>
+            SNV module presents the SNV frequency and variant types of the gene set in selected cancer types. The effects of single gene and
+            gene set SNV to survival.
+          </p>
+          <ul>
+            <li>SNV summary</li>
+            <p>
+              Give the SNV summary of each gene in specific cancers in mutiple forms, including table, heatmap, summary plot,
+              <span class="phighlight">oncoplot</span>and <span class="phighlight">Titv plot</span>.
+            </p>
+            <ul>
+              <li>By clicking gene symbol button in the table result, a Lollipop plot gives a gene mutation site, type and count.</li>
+              <br />
+              <div fxLayout="row" fxLayoutAlign="center center">
+                <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'lollipop.png'" alt="Lollipop" />
+              </div>
+
+              <li>The heatmap summarize the SNV frequency in cancer</li>
+              <br />
+              <div fxLayout="row" fxLayoutAlign="center center">
+                <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'SNV.png'" alt="snvheatmap" />
+              </div>
+
+              <li>The summary plot gives the count and type of variants in sample, gene levels.</li>
+              <br />
+              <div fxLayout="row" fxLayoutAlign="center center">
+                <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'SNVsumamry.png'" alt="snvsummary" />
+              </div>
+
+              <li>
+                The oncoplot, also called waterfall plot presents the waterfall plots, gives a mutation distribution of top 10 (when num of
+                gene set <10, show all) mutated genes in your gene set and a SNV classification of SNV types
+              </li>
+              <br />
+              <div fxLayout="row" fxLayoutAlign="center center">
+                <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'SNVoncoplot.png'" alt="snvoncoplot" />
+              </div>
+
+              <li>
+                The <span class="phighlight">Titv plot</span> classifes the mutations into Transitions(Ti) and transversions(Tv). DNA
+                substitution mutations are of two types.
+              </li>
+              <p>
+                Transitions are interchanges of two-ring purines (A<->G) or of one-ring pyrimidines (C<->T): they therefore involve bases of
+                similar shape. Transversions are interchanges of purine for pyrimidine bases, which therefore involve exchange of one-ring
+                and two-ring structures. Although there are twice as many possible transversions, because of the molecular mechanisms by
+                which they are generated, transition mutations are generated at higher frequency than transversions. As well, transitions
+                are less likely to result in amino acid substitutions (due to "wobble"), and are therefore more likely to persist as "silent
+                substitutions" in populations as single nucleotide polymorphisms (SNPs).
+              </p>
+              <div fxLayout="row" fxLayoutAlign="center center">
+                <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'SNVtitv.png'" alt="snvTitv" />
+              </div>
+            </ul>
+            <li>Single gene SNV and survival</li>
+            <p>
+              This function provide summary and single gene survival result between mutant and wide type. The color from blue to red
+              represent the hazard ratio, size represents statistical significance in <span class="phighlight">bubble plot</span>. Black
+              outline border indicates Logrank P < 0.05.
+            </p>
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'SnvSurvival.png'" alt="snvsurvival" />
+            </div>
+
+            <p>
+              By clicking the button "A2M" in the specific row of the result table, users can get the
+              <span class="phighlight">Kaplan-Meier survival curve</span> between A2M mutant and wide type in KIRC.
+            </p>
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'SnvSurvivalSingleGene.png'" alt="snvsurvivalsinglegene" />
+            </div>
+
+            <li>Gene set SNV and survival</li>
+            <p>
+              This function provide summary and single cancer result between gene set mutant and wide type. The color from blue to red
+              represent the hazard ratio, size represents statistical significance in <span class="phighlight">bubble plot</span>. Black
+              outline border indicates Logrank P < 0.05.
+            </p>
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'SnvGenesetSurvival.png'" alt="snvgenesetsurvival" />
+            </div>
+
+            <p>
+              By clicking button "KIRC" in the result table, user can get the Users can get the
+              <span class="phighlight">Kaplan-Meier survival curve</span> between gene set mutant and wide type in KIRC.
+            </p>
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'SnvGenesetSurvivalSingle.png'" alt="snvgenesetsurvivalsingle" />
+            </div>
+          </ul>
+          <li>CNV (Copy Number Variation)</li>
+          <p>
+            On CNV module, the statistics of hetero-zygous and homozygous CNV of each cancer type are displayed, and correlation between
+            gene expression and CNV of each gene in each cancer to help to analyze the gene expression significantly affected by CNV. In
+            addition, the association between CNV aplification, deletion with survival.
+          </p>
+          <ul>
+            <li>CNV summary</li>
+            <p>
+              Give the CNV summary of each gene in specific cancers in mutiple forms, including table, pie plot,
+              <span class="phighlight">bubble plot</span> and oncoplot.
+            </p>
+            <ul>
+              <li>
+                By clicking gene symbol button in the table result, a oncoplot gives the distribution of CNV type and ratiosite for a gene.
+              </li>
+              <br />
+              <div fxLayout="row" fxLayoutAlign="center center">
+                <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'CNVsingle.png'" alt="cnvsinglegene" />
+              </div>
+
+              <li>
+                CNV pie plot gives you a global profile that shows the constitute of Heterozygous/Homozygous CNV of each gene in each
+                cancer. A pie represents the proportion of different types of CNV of one gene in one cancer, and different color represent
+                different types of CNV.
+              </li>
+              <br />
+              <div fxLayout="row" fxLayoutAlign="center center">
+                <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'CNVpie.png'" alt="cnvpie" />
+              </div>
+
+              <li>
+                Heterozygous CNV profile show users the percentage of heterozygous CNV, including amplification and deletion percentage of
+                heterozygous CNV about each gene in each cancer.
+              </li>
+              <p>
+                The heterozygous CNV is generally happened so the plot will full of points, but most of researchs such as
+                <a href="http://www.cbioportal.org/" target="_blank">cBioPortal</a> mainly focus on homozygous CNV in the present.
+              </p>
+
+              <div fxLayout="row" fxLayoutAlign="center center">
+                <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'CNVhetepoint.png'" alt="cnvhete" />
+              </div>
+
+              <li>
+                Homozygous CNV profile show users the percentage of homozygous CNV, including amplification and deletion percentage of
+                homozygous CNV about each gene in each cancer.
+              </li>
+              <p>
+                Most of researchs such as
+                <a href="http://www.cbioportal.org/" target="_blank">cBioPortal</a> mainly focus on homozygous CNV in the present.
+              </p>
+
+              <div fxLayout="row" fxLayoutAlign="center center">
+                <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'CNVhomopoint.png'" alt="cnvhomo" />
+              </div>
+            </ul>
+            <li>CNV and expression</li>
+            <p>
+              From this, users can get genes whose expression significantly correlate with CNV. Blue bubbles represent a negative
+              correlation, and red bubbles represent positive correlation, he deeper of color, the higher the correlation. The size of the
+              point represents statistic significance, the bigger of size, the more statistic significant.
+            </p>
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'CNVexpression.png'" alt="cnvexpr" />
+            </div>
+
+            <p>
+              By clicking the button "MCM2" in the specific row of the result table, users can get the scatter plot of MCM2 expression and
+              CNV in KICH, with fitting line.
+            </p>
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'CNVexpSingle.png'" alt="cnvexprsingle" />
+            </div>
+
+            <li>Single gene CNV and survival</li>
+            <p>
+              This function provides summary and single gene survival result between CNV and wide type. The color from blue to red and size
+              represent statistical significance in <span class="phighlight">bubble plot</span>. Black outline border indicates Logrank P <
+              0.05.
+            </p>
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'CNVsurvival.png'" alt="cnvsurvival" />
+            </div>
+
+            <p>
+              By clicking the button "A2M" in the specific row of the result table, users can get the
+              <span class="phighlight">Kaplan-Meier survival curve</span> between A2M CNV (homo amplification and homo deletion) and wide
+              type.
+            </p>
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'CnvSurvivalSingleGene.png'" alt="cnvsurvivalsingle" />
+            </div>
+
+            <li>Gene set CNV and survival</li>
+            <p>This part estimate the difference between gene set CNV group (amplification, deletiona and wide type)</p>
+            <p>
+              The color from blue to red and size represent statistical significance in <span class="phighlight">bubble plot</span>. Black
+              outline border indicates Logrank P < 0.05.
+            </p>
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'CNVGenesetSurvival.png'" alt="cnvgenesetsurvival" />
+            </div>
+
+            <p>
+              By clicking the button "KIRP" in the specific row of the result table, users can get the
+              <span class="phighlight">Kaplan-Meier survival curve</span> between gene set CNV (homo amplification and homo deletion) and
+              wide type.
+            </p>
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'CnvGenesetSurvivalSingle.png'" alt="cnvgenesetsurvivalsingle" />
+            </div>
+          </ul>
+          <li>Methylation</li>
+          <p>
+            Methylation module explores the differential methylation between tumor and paired normal, the correlation between methylation
+            with expression and the OS affected by methyla-tion level for selected cancer types.
+          </p>
+          <ul>
+            <li>Differential methylation</li>
+            <p>
+              Bubble plot show users genes' methylation change between tumor and normal samples in each cancers. Blue points represent a
+              methylation downregulation in tumors, red points represent a methylation upregulation in tumors, the deeper of color, the
+              higher the difference. And size of the point represents statistic significance, the bigger of size, the more significantly.
+            </p>
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'methy.png'" alt="methydiff" />
+            </div>
+
+            <p>
+              Through clicking the buttons "A2M" or "KIRC" in the specific row of the result table, users can get the detailed methylation
+              distribution of A2M in KIRC or pan-cancer.
+            </p>
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'methygene.png'" alt="methydiffsinglegene" />
+            </div>
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'methycancer.png'" alt="methydiffsinglecancer" />
+            </div>
+
+            <li>Methylation and expression</li>
+            <p>
+              Give users the correlation between methylation and mRNA gene expression. Blue points represent negative correlation, and red
+              represent positive correlation, the deeper of color, the higher the correlation. And size of the point represents statistic
+              significance, the bigger of size, the more significantly.
+            </p>
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'methyexpr.png'" alt="methyexpr" />
+            </div>
+
+            <p>
+              By clicking the button "RCAN1" in the specific row of the result table, users can get the scatter plot of RCAN1 methylation
+              and methylation in KICH, with fitting line.
+            </p>
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'methyexprsingle.png'" alt="methyexprsinglegene" />
+            </div>
+
+            <li>Methylation and survival</li>
+            <p>
+              This function provide summary and single gene survival result between high and low methylation. The color from blue to red
+              represent the hazard ratio, size represents statistical significance in <span class="phighlight">bubble plot</span>. Black
+              outline border indicates Logrank P < 0.05.
+            </p>
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'methysurvival.png'" alt="methysurvival" />
+            </div>
+
+            <p>
+              By clicking button "PCPT" in the result table, users can get the
+              <span class="phighlight">Kaplan-Meier survival curve</span> between hyper- and hypo-methylation in KIRC.
+            </p>
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'methysurvivalsingle.png'" alt="methysurvivalsinglegene" />
+            </div>
+          </ul>
+        </ul>
+      </mat-expansion-panel>
+      <br />
+      <mat-expansion-panel hideToggle>
+        <mat-expansion-panel-header>
+          <mat-panel-title> Drug module </mat-panel-title>
+          <mat-panel-description>Click to expand/collopase</mat-panel-description>
+        </mat-expansion-panel-header>
+        <p>In Drug module, users can easily explore the correlation between mRNA expression and durg IC50. Including two data source:</p>
+        <ul>
+          <li><a href="http://www.cancerrxgene.org/" target="_blank">GDSC</a></li>
+          <li><a href="https://portals.broadinstitute.org/ctrp/" target="_blank">CTRP</a></li>
+        </ul>
+        <p>
+          These results are present in <span class="phighlight">bubble plot</span>. The color from blue to red represent the correlation
+          between mRNA expression and IC50. The bubble size positively correlate with the FDR significance. Black outline border indicates
+          FDR < 0.05.
+        </p>
+        <div fxLayout="row" fxLayoutAlign="center center">
+          <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'gdscfrug.png'" alt="gdscdrug" />
+        </div>
+      </mat-expansion-panel>
+    </mat-card>
   </div>
 
   <div fxFlex="none">

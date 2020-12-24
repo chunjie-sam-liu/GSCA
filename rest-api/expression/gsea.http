@@ -1,0 +1,13 @@
+POST http://localhost:5000/api/expression/gsea/gseaanalysis
+content-type: application/json
+
+{"validSymbol":["A2M","ACE","ANGPT2","BPI","CD1B","CDR1","EGR2","EGR3","HBEGF","HERPUD1","PCTP","PODXL","PPY","PTGS2","RCAN1","SLC4A7","THBD"],"cancerTypeSelected":["KICH","KIRC","KIRP","LUAD","LUSC"],"validColl":["KICH_deg","KIRC_deg","KIRP_deg","LUAD_deg","LUSC_deg"]}
+
+
+###
+GET http://localhost:5000/api/expression/gsea/exprgseaplot/cf7c811d-3626-4a28-b050-57cd6521e9b2
+
+
+###
+# single cancer type
+GET http://localhost:5000/api/expression/gsea/single/cancertype/3dfee429-973b-4222-bb2b-ba8522b68540/LUSC

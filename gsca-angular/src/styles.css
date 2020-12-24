@@ -40,12 +40,13 @@ body {
 
 h1.page-header {
   margin: 10px 0px;
-  border-bottom: 0.5px solid #6400b2;
+  border-bottom: 0.5px solid #cc51da;
   font-weight: bolder;
+  color: #a828b7;
 }
 h2.page-subheader {
   margin: 10px 0px;
-  border-bottom: 0.5px solid #b8c3f1;
+  border-bottom: 0.5px solid #db85e5;
   font-weight: bolder;
 }
 
@@ -87,4 +88,54 @@ a.download-button {
   top: 10px;
   right: 10px;
   z-index: 100;
+}
+button.expand-button {
+  background: #e2a9e9;
+}
+
+dl {
+  display: flex;
+  flex-flow: row wrap;
+  font-size: medium;
+}
+dt {
+  flex-basis: 40%;
+  text-align: right;
+  font-weight: bolder;
+  font-size: medium;
+}
+dd {
+  flex-basis: 5%;
+  flex-grow: 1;
+  margin: 0;
+}
+
+span.publication {
+  font-style: italic;
+}
+
+dt.dt {
+  flex-basis: 20%;
+  padding: 2px 10px;
+  text-align: left;
+  font-weight: bolder;
+  font-size: medium;
+}
+
+dd.dd {
+  flex-basis: 200%;
+  flex-grow: 1;
+  margin: 0;
+  padding: 2px 10px;
+}
+
+span.strong {
+  color: #4154b3;
+  font-weight: bolder;
+  font-size: larger;
+}
+
+p.home {
+  font-size: large;
+  text-align: justify;
 }

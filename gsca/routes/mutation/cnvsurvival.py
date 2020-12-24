@@ -4,8 +4,9 @@ from flask_restful import Api, Resource, fields, marshal_with, reqparse
 from pathlib import Path, PurePath
 import subprocess
 import uuid
-from gsca.utils.checkplot import CheckPlot
+from gsca.utils.checkplot import CheckPlot, CheckUUIDPlot, CheckGSVASurvivalSingleCancerType
 from gsca.utils.check_survivalPlot import CheckSurvivalPlot
+from gsca.utils.checktable import CheckTableGSXA
 
 cnvsurvival = Blueprint("cnvsurvival", __name__)
 api = Api(cnvsurvival)
@@ -70,17 +71,44 @@ model_cnvgenesetsurvivaltable = {
 }
 
 
-class CnvGenesetSurvivalPlot(Resource):
+class GeneSetCNVAnalysis(Resource):
     def post(self):
         args = request.get_json()
-        checkplot = CheckPlot(args=args, purpose="cnvsurvivalgeneset", rplot="cnv_geneset_survival_profile.R")
+        checktable = CheckTableGSXA(
+            args=args,
+            purpose="CNVGeneSetTable",
+            ranalysis="cnv_geneset.R",
+            precol="preanalysised",
+            gsxacol="preanalysised_cnvgeneset",
+        )
+        res = checktable.check_run()
+        if res["run"]:
+            checktable.analysis()
+        table_uuidname = res["uuid"]
+        return {"uuidname": table_uuidname}
+
+
+api.add_resource(GeneSetCNVAnalysis, "/cnvgeneset")
+
+
+class CnvGenesetSurvivalPlot(Resource):
+    def get(self, uuidname):
+        checkplot = CheckUUIDPlot(
+            gsxa_uuid=uuidname,
+            name_uuid="gsva_uuid",
+            purpose="cnvsurvivalgenesetplot",
+            rplot="cnv_geneset_survival_profile.R",
+            precol="preanalysised",
+            gsxacol="preanalysised_cnvgeneset",
+        )
         res = checkplot.check_run()
         if res["run"]:
-            checkplot.plot(filepath=res["filepath"])
-        return {"cnvsurvivalgenesetuuid": res["uuid"]}
+            checkplot.plot()
+
+        return {"cnvsurvivalgenesetplotuuid": res["uuid"], "cnvsurvivalgenesettableuuid": uuidname}
 
 
-api.add_resource(CnvGenesetSurvivalPlot, "/cnvgenesetsurvivalplot")
+api.add_resource(CnvGenesetSurvivalPlot, "/cnvgenesetsurvivalplot/<string:uuidname>")
 
 
 class CnvGenesetSurvivalTable(Resource):
@@ -93,7 +121,6 @@ class CnvGenesetSurvivalTable(Resource):
         }
         output = {"_id": 0, "res": 1}
         res = mongo.db.cnv_geneset_survival.find_one(condition, output)
-        print(res)
         return res["res"]
 
 
@@ -101,16 +128,25 @@ api.add_resource(CnvGenesetSurvivalTable, "/cnvgenesetsurvivaltable")
 
 
 class CnvGenesetSurvivalSingleCancer(Resource):
-    def post(self):
-        args = request.get_json()
-        checkplot = CheckSurvivalPlot(
-            args=args, purpose="cnvgenesetsurvivalsinglecancer", rplot="cnv_geneset_survival_singlecancer.R"
+    def get(self, uuidname, cancertype, surType):
+        checkplot = CheckGSVASurvivalSingleCancerType(
+            gsxa_uuid=uuidname,
+            cancertype=cancertype,
+            surType=surType,
+            name_uuid="cnvgenesetsurvivalsinglecancer_uuid",
+            purpose="cnvgenesetsurvivalsinglecancer",
+            rplot="cnv_geneset_survival_singlecancer.R",
+            precol="preanalysised",
+            gsxacol="preanalysised_cnvgeneset",
         )
         res = checkplot.check_run()
         if res["run"]:
-            checkplot.plot(filepath=res["filepath"])
+            checkplot.plot()
+
         return {"cnvgenesetsurvivalsinglecanceruuid": res["uuid"]}
 
 
-api.add_resource(CnvGenesetSurvivalSingleCancer, "/cnvgenesetsurvivalsinglecancer")
+api.add_resource(
+    CnvGenesetSurvivalSingleCancer, "/cnvgenesetsurvivalsinglecancer/<string:uuidname>/<string:cancertype>/<string:surType>"
+)
 

@@ -40,14 +40,14 @@ fetched_methy_data <- purrr::map(.x = paste(search_cancertypes,"_all_methy",sep=
 fetched_methy_data %>%
   dplyr::inner_join(fetched_expr_data,by=c("sample_name")) -> combine_data
 
-fields <- '{"symbol": true, "spm": true,"fdr": true,"fdr": true,"_id": false}'
+fields <- '{"symbol": true, "spm": true,"fdr": true,"_id": false}'
 fetched_methy_cor <- purrr::map(.x = paste(search_cancertypes,"_methy_cor_expr",sep=""), .f = fn_fetch_mongo, pattern="_methy_cor_expr",fields = fields,.key=search_genes,.keyindex="symbol") %>%
   dplyr::bind_rows()
 
 # plot --------------------------------------------------------------------
 source(file.path(apppath,"gsca-r-app/utils/fn_point_line.R"))
 title <-  glue::glue('Spearman correlation between {search_genes} methylation and mRNA \nexpression in {search_cancertypes}')
-plot <- fn_point_fit(data=combine_data,aesx="expr",aesy="methy",title=title,xlab="Expression log2(RSEM)",ylab="Methylation (Beta value)",label=paste("Cor. =",round(fetched_methy_cor$spm,2)))
+plot <- fn_point_fit(data=combine_data,aesx="expr",aesy="methy",title=title,xlab="Expression log2(RSEM)",ylab="Methylation (Beta value)",label=paste("Cor. =",round(fetched_methy_cor$spm,2),"\nFDR =",format(fetched_methy_cor$fdr,scientific = T, digits = 2)))
 
 # Save --------------------------------------------------------------------
 ggsave(filename = filepath, plot = plot, device = 'png', width = 6, height = 4)

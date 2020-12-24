@@ -1,11 +1,11 @@
 <ng-container *ngIf="showDEGTable">
   <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
     <mat-card-header>
-      <mat-card-title>DEGs between tumor and normal in the specific cancers</mat-card-title>
+      <mat-card-title>DEGs between tumor and normal in the selected cancers</mat-card-title>
     </mat-card-header>
     <ng-container *ngIf="!dataSourceDegLoading; else loading"></ng-container>
     <mat-form-field>
-      <input matInput placeholder="Input target gene" (keyup)="applyFilter($event)" #inputDeg />
+      <input matInput placeholder="Search" (keyup)="applyFilter($event)" #inputDeg />
       <button mat-icon-button color="warn" matPrefix>
         <mat-icon style="font-weight: bolder">search</mat-icon>
       </button>
@@ -16,7 +16,7 @@
         <td mat-cell *matCellDef="let element">
           <ng-container *ngIf="column === 'cancertype' || column === 'symbol'; then btn; else plain"></ng-container>
           <ng-template #btn>
-            <button mat-raised-button (click)="expandDetail(element, column)">
+            <button mat-raised-button class="expand-button" (click)="expandDetail(element, column)">
               {{ element[column] }}
             </button>
           </ng-template>
@@ -78,7 +78,7 @@
 <ng-container *ngIf="showDEGImage">
   <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
     <mat-card-header>
-      <mat-card-title>DEGs between tumor and normal in the specific cancers</mat-card-title>
+      <mat-card-title>DEGs between tumor and normal in the selected cancers</mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <ng-container *ngIf="!degImageLoading; else loading">

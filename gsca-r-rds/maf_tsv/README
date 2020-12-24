@@ -1,0 +1,3 @@
+tsv format, for snv count calculation;
+symbol translated;
+sample intersect with /home/huff/data/GSCA/sample_info.rds.gz;

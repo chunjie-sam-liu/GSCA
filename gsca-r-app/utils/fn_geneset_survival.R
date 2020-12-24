@@ -23,7 +23,7 @@ fn_cox_logp <- function(.d){
         1 - pchisq(survival::survdiff(survival::Surv(time, status) ~ group, data = .d, na.action = na.exclude)$chisq, df = len_group - 1),
         error = function(e) {1}
       )
-      
+
       coxp <- tryCatch(
         broom::tidy(survival::coxph(survival::Surv(time, status) ~ group, data = .d, na.action = na.exclude)),
         error = function(e) {1}
@@ -35,19 +35,19 @@ fn_cox_logp <- function(.d){
         cox_p <- 1
         hr <- 1
       }
-      
+
       if(!is.na(hr)){
         if(hr>1){
-          higher_risk_of_death <- "Mutated"
+          higher_risk_of_death <- "Mutant"
         }else if (hr<1){
-          higher_risk_of_death <- "Non-mutated"
+          higher_risk_of_death <- "WT"
         }else {
           higher_risk_of_death <- NA
         }
       } else {
         higher_risk_of_death <- NA
       }
-      
+
     } else {
       kmp<-1
       cox_p<-1
@@ -61,10 +61,10 @@ fn_cox_logp <- function(.d){
 }
 
 fn_survival <- function(.data,sur_type){
-  
+
   survival_group %>%
     dplyr::filter(type==sur_type) -> sur_type_do
-  
+
   .data %>%
     dplyr::select(sample_name,group,time=sur_type_do$time,status=sur_type_do$status) %>%
     fn_cox_logp()
@@ -74,18 +74,17 @@ fn_survival_res <- function(.cancer_types,.combine){
   # os survival ----
   fn_survival(.combine,sur_type="os") %>%
     dplyr::mutate(sur_type="os")-> os
-  
+
   # pfs survival -----
   if (length(grep("pfs",colnames(.combine)))>0) {
     fn_survival(.combine,sur_type="pfs") %>%
       dplyr::mutate(sur_type="pfs")-> pfs
-    
+
     os %>%
       rbind(pfs) -> tmp
   } else {
-    print(.cancer_types,"with no pfs data")
     os -> tmp
   }
-  
+
   tmp
 }

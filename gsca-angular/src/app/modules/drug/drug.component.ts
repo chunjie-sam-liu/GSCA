@@ -10,7 +10,7 @@ export class DrugComponent implements OnInit, AfterViewInit {
   searchTerm: ExprSearch;
   showList = {
     showGDSC: false,
-    // showCTRP: false,
+    showCTRP: false,
     showContent: false,
   };
   constructor() {}

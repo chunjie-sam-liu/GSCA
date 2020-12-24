@@ -45,9 +45,16 @@ fetched_data %>%
 
 source(file.path(apppath,"gsca-r-app/utils/fn_cnv_bubble.R"))
 
-plot <- fn_cnv_bubble(data=plot_ready, aesx = "cancertype",aesy="symbol",size="per",color="color",xlab="Cancer type",ylab="Symbol",sizename="CNV (%)",colorname="SCNA type",labels=c("Deletion","Amplification"),wrap="~ effect")
+plot_ready %>% 
+  dplyr::filter(!is.na(per)) %>%
+  .$per %>% range() -> min_max 
+min(min_max) -> min
+max(min_max) -> max
+title <- "Homozygous CNV in each cancer"
+
+plot <- fn_cnv_bubble(data=plot_ready, aesx = "cancertype",aesy="symbol",size="per",color="color",xlab="Cancer type",ylab="Symbol",sizename="CNV (%)",colorname="SCNA type",labels=c("Deletion","Amplification"),wrap="~ effect", min = min, max = max, title=title)
 
 # Save --------------------------------------------------------------------
-ggsave(filename = filepath, plot = plot, device = 'png', width = size$width, height = size$height)
+ggsave(filename = filepath, plot = plot, device = 'png', width = size$width+2, height = size$height)
 pdf_name <- gsub("\\.png",".pdf",filepath)
-ggsave(filename = pdf_name, plot = plot, device = 'pdf', width = size$width, height = size$height)
+ggsave(filename = pdf_name, plot = plot, device = 'pdf', width = size$width+2, height = size$height)

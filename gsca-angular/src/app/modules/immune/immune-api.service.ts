@@ -17,6 +17,10 @@ export class ImmuneApiService extends BaseHttpService {
   public getResourcePlotURL(uuidname: string, plotType = 'pdf'): string {
     return this.generateRoute('resource/responseplot/' + uuidname + '.' + plotType);
   }
+  public getResourceTable(coll: string, uuidname: string): Observable<any> {
+    return this.getData('resource/responsetable/' + coll + '/' + uuidname);
+  }
+
   // immune cnv
   public getImmCnvCorTable(postTerm: ExprSearch): Observable<any> {
     return this.postData('immune/immunecnv/immcnvcortable', postTerm);
@@ -27,7 +31,16 @@ export class ImmuneApiService extends BaseHttpService {
   public getImmCnvCorSingleGene(postTerm: ExprSearch): Observable<any> {
     return this.postData('immune/immunecnv/immcnvcorsinglegene', postTerm);
   }
-
+  // immune and gene set cnv
+  public getGeneSetCNVAnalysis(postTerm: ExprSearch): Observable<any> {
+    return this.postData('mutation/cnvsurvival/cnvgeneset', postTerm);
+  }
+  public getCnvImmGenesetCorPlot(uuidname: string): Observable<any> {
+    return this.getData('immune/immcnvgenesetcorplot/' + uuidname);
+  }
+  public getImmCnvGenesetCorSingleGene(uuidname: string, cancertype: string, surType: string): Observable<any> {
+    return this.getData('immune/immcnvgenesetcorsinglegeneplot/' + uuidname + '/' + cancertype + '/' + surType);
+  }
   // immune expression
   public getImmExprCorTable(postTerm: ExprSearch): Observable<any> {
     return this.postData('immune/immuneexpr/immexprcortable', postTerm);

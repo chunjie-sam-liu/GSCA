@@ -5,8 +5,8 @@
     </mat-card-header>
     <ng-container *ngIf="!dataSourceCtrpLoading; else loading"></ng-container>
     <mat-form-field>
-      <input matInput placeholder="Input target gene" (keyup)="applyFilter($event)" #inputCtrp />
-      <button mat-icon-button color="warn" matPrefix><mat-icon style="font-weight: bolder">search</mat-icon>i</button>
+      <input matInput placeholder="Search" (keyup)="applyFilter($event)" #inputCtrp />
+      <button mat-icon-button color="warn" matPrefix><mat-icon style="font-weight: bolder">search</mat-icon></button>
     </mat-form-field>
     <table mat-table [dataSource]="dataSourceCtrp" multiTemplateDataRows matSort>
       <ng-container matColumnDef="{{ column }}" *ngFor="let column of displayedColumnsCtrp; index as ind">
@@ -14,9 +14,10 @@
         <td mat-cell *matCellDef="let element">
           <ng-container *ngIf="column === 'symbol'; then btn; else plain"></ng-container>
           <ng-template #btn>
-            <button mat-raised-button (click)="expandDetail(element, column)">
+            <!-- <button mat-raised-button class="expand-button" (click)="expandDetail(element, column)">
               {{ element[column] }}
-            </button>
+            </button> -->
+            {{ element[column] }}
           </ng-template>
           <ng-template #plain>
             {{ column === 'drug' ? element[column] : (element[column] | number: '1.2-2') }}
@@ -24,7 +25,7 @@
         </td>
       </ng-container>
 
-      <ng-container matColumnDef="expandedDetail">
+      <!-- <ng-container matColumnDef="expandedDetail">
         <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumnsCtrp.length">
           <div class="example-element-detail" [@detailExpand]="triggerDetail(element)">
             <ng-container *ngIf="ctrpSingleGeneImageLoading; then loading"> </ng-container>
@@ -44,16 +45,17 @@
             </ng-container>
           </div>
         </td>
-      </ng-container>
+      </ng-container> -->
 
       <tr mat-header-row *matHeaderRowDef="displayedColumnsCtrp"></tr>
-      <tr
+      <!-- <tr
         mat-row
         *matRowDef="let element; columns: displayedColumnsCtrp"
         class="example-element-row"
         [class.example-expanded-row]="expandedElement === element"
-      ></tr>
-      <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+      ></tr> -->
+      <!-- <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr> -->
+      <tr mat-row *matRowDef="let element; columns: displayedColumnsCtrp"></tr>
     </table>
     <mat-paginator #paginatorCtrp [pageSizeOptions]="[10, 20]" showFirstLastButtons></mat-paginator>
   </mat-card>
