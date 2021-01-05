@@ -54,10 +54,14 @@ export class GdscComponent implements OnInit, OnChanges, AfterViewInit {
     this.dataSourceGdscLoading = true;
     this.gdscImageLoading = true;
 
-    const postTerm = this._validCollection(this.searchTerm);
+    // const postTerm = this._validCollection(this.searchTerm);
     // const postTerm = this.searchTerm;
+    const postTerm = {
+      validSymbol: this.searchTerm.validSymbol,
+      validColl: collectionList.gdsc_cor_expr.collnames,
+    };
 
-    if (!postTerm.validColl.length) {
+    if (!postTerm.validColl) {
       this.dataSourceGdscLoading = false;
       this.gdscImageLoading = false;
       this.showGDSCTable = false;
@@ -123,7 +127,7 @@ export class GdscComponent implements OnInit, OnChanges, AfterViewInit {
     }
   }
 
-  private _validCollection(st: ExprSearch): any {
+  /*   private _validCollection(st: ExprSearch): any {
     st.validColl = st.cancerTypeSelected
       .map((val) => {
         return collectionList.gdsc_cor_expr.collnames[collectionList.gdsc_cor_expr.cancertypes.indexOf(val)];
@@ -131,7 +135,7 @@ export class GdscComponent implements OnInit, OnChanges, AfterViewInit {
       .filter(Boolean);
 
     return st;
-  }
+  } */
 
   public applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;

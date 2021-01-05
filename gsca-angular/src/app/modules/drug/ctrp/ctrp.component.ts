@@ -54,10 +54,13 @@ export class CtrpComponent implements OnInit, OnChanges, AfterViewInit {
     this.dataSourceCtrpLoading = true;
     this.ctrpImageLoading = true;
 
-    const postTerm = this._validCollection(this.searchTerm);
-    // const postTerm = this.searchTerm;
+    // const postTerm = this._validCollection(this.searchTerm);
+    const postTerm = {
+      validSymbol: this.searchTerm.validSymbol,
+      validColl: collectionList.ctrp_cor_expr.collnames,
+    };
 
-    if (!postTerm.validColl.length) {
+    if (!postTerm.validColl) {
       this.dataSourceCtrpLoading = false;
       this.ctrpImageLoading = false;
       this.showCTRPTable = false;
@@ -123,7 +126,7 @@ export class CtrpComponent implements OnInit, OnChanges, AfterViewInit {
     }
   }
 
-  private _validCollection(st: ExprSearch): any {
+  /* private _validCollection(st: ExprSearch): any {
     st.validColl = st.cancerTypeSelected
       .map((val) => {
         return collectionList.ctrp_cor_expr.collnames[collectionList.ctrp_cor_expr.cancertypes.indexOf(val)];
@@ -131,7 +134,7 @@ export class CtrpComponent implements OnInit, OnChanges, AfterViewInit {
       .filter(Boolean);
 
     return st;
-  }
+  } */
 
   public applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
