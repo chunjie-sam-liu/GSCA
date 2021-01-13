@@ -7,6 +7,7 @@ import { DegTableRecord } from 'src/app/shared/model/degtablerecord';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-deg',
@@ -234,5 +235,12 @@ export class DegComponent implements OnInit, OnChanges, AfterViewInit {
 
   public triggerDetail(element: DegTableRecord): string {
     return element === this.expandedElement ? 'expanded' : 'collapsed';
+  }
+
+  public exportExcel() {
+    const workSheet = XLSX.utils.json_to_sheet(this.dataSourceDeg.data, { header: this.displayedColumnsDeg });
+    const workBook: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workBook, workSheet, 'SheetName');
+    XLSX.writeFile(workBook, 'exportedTable.xlsx');
   }
 }
