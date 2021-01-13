@@ -241,6 +241,6 @@ export class DegComponent implements OnInit, OnChanges, AfterViewInit {
     const workSheet = XLSX.utils.json_to_sheet(this.dataSourceDeg.data, { header: this.displayedColumnsDeg });
     const workBook: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workBook, workSheet, 'SheetName');
-    XLSX.writeFile(workBook, 'exportedTable.xlsx');
+    XLSX.writeFile(workBook, 'DifferentialExpressionTable.xlsx');
   }
 }
