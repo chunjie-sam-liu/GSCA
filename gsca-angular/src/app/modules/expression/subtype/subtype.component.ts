@@ -7,7 +7,7 @@ import { ExprSearch } from 'src/app/shared/model/exprsearch';
 import { SubtypeTableRecord } from 'src/app/shared/model/subtypetablerecord';
 import { ExpressionApiService } from '../expression-api.service';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-
+import * as XLSX from 'xlsx';
 @Component({
   selector: 'app-subtype',
   templateUrl: './subtype.component.html',
@@ -189,5 +189,11 @@ export class SubtypeComponent implements OnInit, OnChanges, AfterViewChecked {
 
   public triggerDetail(element: SubtypeTableRecord): string {
     return element === this.expandedElement ? 'expanded' : 'collapsed';
+  }
+  public exportExcel() {
+    const workSheet = XLSX.utils.json_to_sheet(this.subtypeTable.data, { header: this.displayedColumnsSubtype });
+    const workBook: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workBook, workSheet, 'SheetName');
+    XLSX.writeFile(workBook, 'ExpressionAndSubtypeTable.xlsx');
   }
 }
