@@ -22,3 +22,8 @@
 mat-card-content {
   text-align: center;
 }
+.export-container {
+  text-align: right;
+  margin-bottom: 20px;
+  background-color: rgb(123, 123, 166);
+}
