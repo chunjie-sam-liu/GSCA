@@ -6,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { GSVAStageTableRecord } from 'src/app/shared/model/gsvastagetablerecord';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import * as XLSX from 'xlsx';
 // import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
@@ -179,7 +180,12 @@ export class GsvaStageComponent implements OnInit, OnChanges, AfterViewInit {
       this.dataSourceGSVAStage.paginator.firstPage();
     }
   }
-
+  public exportExcel() {
+    const workSheet = XLSX.utils.json_to_sheet(this.dataSourceGSVAStage.data, { header: this.displayedColumnsGSVAStage });
+    const workBook: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workBook, workSheet, 'SheetName');
+    XLSX.writeFile(workBook, 'GsvaStageTable.xlsx');
+  }
   /* public expandDetail(element: GSVAStageTableRecord, column: string): void {
     this.expandedElement = this.expandedElement === element && this.expandedColumn === column ? null : element;
     this.expandedColumn = column;
