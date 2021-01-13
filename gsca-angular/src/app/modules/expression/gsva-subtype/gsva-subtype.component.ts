@@ -6,7 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { GSVASubtypeTableRecord } from 'src/app/shared/model/gsvasubtypetablerecord';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-
+import * as XLSX from 'xlsx';
 @Component({
   selector: 'app-gsva-subtype',
   templateUrl: './gsva-subtype.component.html',
@@ -146,5 +146,11 @@ export class GsvaSubtypeComponent implements OnInit, OnChanges, AfterViewInit {
     if (this.dataSourceGSVASubtype.paginator) {
       this.dataSourceGSVASubtype.paginator.firstPage();
     }
+  }
+  public exportExcel() {
+    const workSheet = XLSX.utils.json_to_sheet(this.dataSourceGSVASubtype.data, { header: this.displayedColumnsGSVASubtype });
+    const workBook: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workBook, workSheet, 'SheetName');
+    XLSX.writeFile(workBook, 'GsvaSubtypeTable.xlsx');
   }
 }
