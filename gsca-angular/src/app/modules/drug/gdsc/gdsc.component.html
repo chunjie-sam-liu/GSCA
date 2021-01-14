@@ -8,6 +8,7 @@
       <input matInput placeholder="Search" (keyup)="applyFilter($event)" #inputGdsc />
       <button mat-icon-button color="warn" matPrefix><mat-icon style="font-weight: bolder">search</mat-icon></button>
     </mat-form-field>
+    <button class="export-container" mat-raised-button color="primary" (click)="exportExcel()">Export Table</button>
     <table mat-table [dataSource]="dataSourceGdsc" multiTemplateDataRows matSort>
       <ng-container matColumnDef="{{ column }}" *ngFor="let column of displayedColumnsGdsc; index as ind">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ displayedColumnsGdscHeader[ind] }}</th>
