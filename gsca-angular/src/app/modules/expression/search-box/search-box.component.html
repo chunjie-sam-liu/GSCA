@@ -28,6 +28,12 @@
               (+{{ cancerTypeSelected.value.length - 1 }} {{ cancerTypeSelected.value?.length === 2 ? 'other' : 'others' }})
             </span>
           </mat-select-trigger>
+          <!-- <mat-form-field>
+            <input matInput placeholder="Search cancer types" (keyup)="applyFilterCancer($event)" #inputCancer />
+            <button mat-icon-button color="warn" matPrefix>
+              <mat-icon style="font-size: 25px">search</mat-icon>
+            </button>
+          </mat-form-field> -->
           <mat-option *ngFor="let cancerType of cancerTypeList" [value]="cancerType.shortname">
             ({{ cancerType.shortname }}) {{ cancerType.fullname }}
           </mat-option>
@@ -45,13 +51,13 @@
           <dd><mat-checkbox [(ngModel)]="showList.showDEG">Differential expression</mat-checkbox></dd>
         </dl>
         <dl>
-          <dd><mat-checkbox [(ngModel)]="showList.showSurvival">Expression and survival</mat-checkbox></dd>
+          <dd><mat-checkbox [(ngModel)]="showList.showSurvival">Expression & survival</mat-checkbox></dd>
         </dl>
         <dl>
-          <dd><mat-checkbox [(ngModel)]="showList.showSubtype">Expression and subtype</mat-checkbox></dd>
+          <dd><mat-checkbox [(ngModel)]="showList.showSubtype">Expression & subtype</mat-checkbox></dd>
         </dl>
         <dl>
-          <dd><mat-checkbox [(ngModel)]="showList.showStage">Expression and stage</mat-checkbox></dd>
+          <dd><mat-checkbox [(ngModel)]="showList.showStage">Expression & stage</mat-checkbox></dd>
         </dl>
       </mat-card>
     </ng-container>
@@ -67,7 +73,7 @@
     </ng-container>
     <ng-container>
       <mat-card appMaterialElevation defaultElevation="4" raisedElevation="4" fxLayout="column" fxLayoutGap="10px">
-        <h3>Gene set level</h3>
+        <h3>Gene set level analysis</h3>
         <p>This section presents the analyses based on GSVA (Gene Set Variation Analysis) score.</p>
         <h4>Please select analysis:</h4>
         <dl>
@@ -76,16 +82,16 @@
           </dd>
         </dl>
         <dl>
-          <dd><mat-checkbox [(ngModel)]="showList.showGSVASurvival">GSVA and survival</mat-checkbox></dd>
+          <dd><mat-checkbox [(ngModel)]="showList.showGSVASurvival">GSVA & survival</mat-checkbox></dd>
         </dl>
         <dl>
           <dd>
-            <mat-checkbox [(ngModel)]="showList.showGSVAStage">GSVA and stage</mat-checkbox>
+            <mat-checkbox [(ngModel)]="showList.showGSVASubtype">GSVA & subtype</mat-checkbox>
           </dd>
         </dl>
         <dl>
           <dd>
-            <mat-checkbox [(ngModel)]="showList.showGSVASubtype">GSVA and subtype</mat-checkbox>
+            <mat-checkbox [(ngModel)]="showList.showGSVAStage">GSVA & stage</mat-checkbox>
           </dd>
         </dl>
       </mat-card>
