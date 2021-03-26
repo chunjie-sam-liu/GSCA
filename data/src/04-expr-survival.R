@@ -28,8 +28,12 @@ gsca_conf <- readr::read_lines(file = file.path(rda_path,"src",'gsca.conf'))
 #   dplyr::rename(`hr_categorical(L/H)`=hr_categorical) %>%
 #   readr::write_rds(file.path("/home/huff/data/GSCA/expr/pan33_expr_survival.rds.gz"))
 
-expr_survival <- readr::read_rds(file = '/home/huff/data/GSCA/expr/pan33_expr_survival.rds.gz')
-
+# expr_survival <- readr::read_rds(file = '/home/huff/data/GSCA/expr/pan33_expr_survival.rds.gz')
+expr_survival <- readr::read_rds(file = '/home/huff/data/GSCA/expr/pan33_expr_survival_supplement.rds.gz') %>%
+  tidyr::unnest() %>%
+  tidyr::unnest()%>%
+  dplyr::mutate(`hr_categorical(H/L)`=1/hr_categorical) %>%
+  dplyr::rename(`hr_categorical(L/H)`=hr_categorical)
 # load(file = file.path(rda_path,"rda",'01-gene-symbols.rda'))
 # 
 # search_symbol <- search_symbol
@@ -46,7 +50,7 @@ fn_transform_df <- function(cancertype, data) {
   .coll_name <- glue::glue('{.y}_expr_survival')
   .coll_expr <- mongolite::mongo(collection = .coll_name, url = gsca_conf)
   # insert data
-  .coll_expr$drop()
+  # .coll_expr$drop()
   .coll_expr$insert(data = .d)
   .coll_expr$index(add = '{"symbol": 1}')
   message(glue::glue('Insert data for {.y} into {.coll_name}.'))

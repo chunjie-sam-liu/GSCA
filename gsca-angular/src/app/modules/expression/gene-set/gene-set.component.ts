@@ -6,7 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { GSVATableRecord } from 'src/app/shared/model/gsvatablerecord';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-
+import * as XLSX from 'xlsx';
 @Component({
   selector: 'app-gene-set',
   templateUrl: './gene-set.component.html',
@@ -125,5 +125,11 @@ export class GeneSetComponent implements OnInit, OnChanges, AfterViewInit {
     if (this.dataSourceGSVA.paginator) {
       this.dataSourceGSVA.paginator.firstPage();
     }
+  }
+  public exportExcel() {
+    const workSheet = XLSX.utils.json_to_sheet(this.dataSourceGSVA.data, { header: this.displayedColumnsGSVA });
+    const workBook: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workBook, workSheet, 'SheetName');
+    XLSX.writeFile(workBook, 'DifferentialGSVATable.xlsx');
   }
 }

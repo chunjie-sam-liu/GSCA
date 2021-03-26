@@ -7,7 +7,7 @@ import { ExprSearch } from 'src/app/shared/model/exprsearch';
 import { StageTableRecord } from 'src/app/shared/model/stagetablerecord';
 import { ExpressionApiService } from '../expression-api.service';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-
+import * as XLSX from 'xlsx';
 @Component({
   selector: 'app-stage',
   templateUrl: './stage.component.html',
@@ -250,5 +250,11 @@ export class StageComponent implements OnInit, OnChanges, AfterViewChecked {
 
   public triggerDetail(element: StageTableRecord): string {
     return element === this.expandedElement ? 'expanded' : 'collapsed';
+  }
+  public exportExcel() {
+    const workSheet = XLSX.utils.json_to_sheet(this.stageTable.data, { header: this.displayedColumnsStage });
+    const workBook: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workBook, workSheet, 'SheetName');
+    XLSX.writeFile(workBook, 'ExpressionAndStageTable.xlsx');
   }
 }

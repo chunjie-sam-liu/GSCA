@@ -11,7 +11,7 @@ cnv_symbol_search_symbol_final <- readr::read_rds(file = 'data/rda/cnv_symbol_se
 
 # Load cnv ----------------------------------------------------------------
 
-cnv <- readr::read_rds(file = '/home/liucj/shiny-data/GSCALite/TCGA/cnv/pancan34_cnv.rds.gz')
+cnv <- readr::read_rds(file = '/home/huff/data/GSCALite/TCGA/cnv/pancan34_cnv.rds.gz')
 
 
 # Function ----------------------------------------------------------------

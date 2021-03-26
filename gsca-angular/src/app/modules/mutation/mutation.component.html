@@ -6,7 +6,7 @@
 
   <div fxFlex fxLayout="column" fxLayoutGap="10px" class="not-float">
     <app-search-box fxFlex ($searchSelected)="showContent($event)" [showList]="showList"></app-search-box>
-    <mat-tab-group animationDuration="0ms">
+    <mat-tab-group *ngIf="showList.showContent" animationDuration="0ms">
       <ng-container *ngIf="showList.showContent && showList.showSnv; else empty">
         <mat-tab label="SNV summary">
           <div fxFlex="grow">

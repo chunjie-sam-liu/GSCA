@@ -7,6 +7,7 @@ import { MatSort } from '@angular/material/sort';
 import collectionlist from 'src/app/shared/constants/collectionlist';
 import { MutationApiService } from '../mutation-api.service';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-cnv',
@@ -257,5 +258,11 @@ export class CnvComponent implements OnInit, OnChanges, AfterViewInit {
 
   public triggerDetail(element: CnvTableRecord): string {
     return element === this.expandedElement ? 'expanded' : 'collapsed';
+  }
+  public exportExcel() {
+    const workSheet = XLSX.utils.json_to_sheet(this.dataSourceCnv.data, { header: this.displayedColumnsCnv });
+    const workBook: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workBook, workSheet, 'SheetName');
+    XLSX.writeFile(workBook, 'CnvSummaryTable.xlsx');
   }
 }

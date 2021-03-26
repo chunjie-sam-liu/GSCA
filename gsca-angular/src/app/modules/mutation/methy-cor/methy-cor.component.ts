@@ -7,6 +7,7 @@ import { MatSort } from '@angular/material/sort';
 import collectionlist from 'src/app/shared/constants/collectionlist';
 import { MutationApiService } from '../mutation-api.service';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-methy-cor',
@@ -183,5 +184,11 @@ export class MethyCorComponent implements OnInit, OnChanges, AfterViewInit {
   }
   public triggerDetail(element: MethyCorTableRecord): string {
     return element === this.expandedElement ? 'expanded' : 'collapsed';
+  }
+  public exportExcel() {
+    const workSheet = XLSX.utils.json_to_sheet(this.dataSourceMethyCor.data, { header: this.displayedColumnsMethyCor });
+    const workBook: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workBook, workSheet, 'SheetName');
+    XLSX.writeFile(workBook, 'ExpressionAndMethylationTable.xlsx');
   }
 }

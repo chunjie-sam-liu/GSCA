@@ -7,7 +7,7 @@ import { MatSort } from '@angular/material/sort';
 import collectionlist from 'src/app/shared/constants/collectionlist';
 import { ImmuneApiService } from '../immune-api.service';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-
+import * as XLSX from 'xlsx';
 @Component({
   selector: 'app-immune-cnv',
   templateUrl: './immune-cnv.component.html',
@@ -205,5 +205,11 @@ export class ImmuneCnvComponent implements OnInit, OnChanges, AfterViewInit {
   }
   public triggerDetail(element: ImmCorTableRecord): string {
     return element === this.expandedElement ? 'expanded' : 'collapsed';
+  }
+  public exportExcel() {
+    const workSheet = XLSX.utils.json_to_sheet(this.dataSourceImmCnvCor.data, { header: this.displayedColumnsImmCnvCor });
+    const workBook: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workBook, workSheet, 'SheetName');
+    XLSX.writeFile(workBook, 'ImmuneAndCnvTable.xlsx');
   }
 }

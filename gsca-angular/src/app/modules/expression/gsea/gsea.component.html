@@ -10,6 +10,8 @@
         <mat-icon style="font-weight: bolder">search</mat-icon>
       </button>
     </mat-form-field>
+    <button class="export-container" mat-raised-button color="primary" (click)="exportExcel()">Export Table</button>
+
     <table mat-table [dataSource]="dataSourceGSEA" multiTemplateDataRows>
       <ng-container matColumnDef="{{ column }}" *ngFor="let column of displayedColumnsGSEA; index as ind">
         <th mat-header-cell *matHeaderCellDef>{{ displayedColumnsGSEAHeader[ind] }}</th>
