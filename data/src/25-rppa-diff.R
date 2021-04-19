@@ -11,7 +11,7 @@ data_path <- "/home/huff/data/GSCA/rppa"
 gsca_conf <- readr::read_lines(file = file.path(rda_path,"src",'gsca.conf'))
 
 # Load data ----------------------------------------------------------------
-pan32_gene_AIN_sig_pval_class.siplification.IdTrans.rds.gz <- readr::read_rds(file.path(data_path,"pan32_gene_AIN_sig_pval_class.siplification.IdTrans.rds.gz"))
+pan32_gene_AIN_pval.IdTrans.rds.gz <- readr::read_rds(file.path(data_path,"pan32_gene_AIN_pval.IdTrans.rds.gz"))
 
 # Function ----------------------------------------------------------------
 
@@ -23,13 +23,15 @@ fn_list_data <- function(.x){
   )
 }
 
-fn_gene_tcga_all_cor_immune_methy <- function(cancer_types, data) {
-  .x <- data
+fn_gene_tcga_all_cor_immune_methy <- function(cancer_types, diff_pval) {
+  .x <- diff_pval
   .y <- cancer_types
   
   
   .x %>% 
     dplyr::mutate(entrez=as.numeric(entrez)) %>%
+    dplyr::mutate(class = ifelse(fdr <= 0.05 & diff > 0, "Activation", "None")) %>% 
+    dplyr::mutate(class = ifelse(fdr <= 0.05 & diff < 0, "Inhibition", class)) %>% 
     dplyr::select(entrez,symbol,pathway,diff,class) %>%
     dplyr::group_by(entrez,symbol) %>%
     tidyr::nest() %>%
@@ -52,7 +54,7 @@ fn_gene_tcga_all_cor_immune_methy <- function(cancer_types, data) {
 }
 # data --------------------------------------------------------------------
 system.time(
-  pan32_gene_AIN_sig_pval_class.siplification.IdTrans.rds.gz %>% 
+  pan32_gene_AIN_pval.IdTrans.rds.gz %>% 
     purrr::pmap(.f = fn_gene_tcga_all_cor_immune_methy) ->
     rppa_diff_mongo_data
 )
