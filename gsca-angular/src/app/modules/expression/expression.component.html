@@ -71,14 +71,14 @@
       <ng-container *ngIf="showList.showContent && showList.showPpar; else empty">
         <mat-tab label="Expression & Pathway activity">
           <div fxFlex="grow">
-            <app-subtype
+            <app-ppar
               fxLayout="row"
               fxLayout.lt-lg="column"
               fxLayoutGap="10px"
               fxLayoutWrap
               fxLayoutAlign="center"
               [searchTerm]="searchTerm"
-            ></app-subtype>
+            ></app-ppar>
           </div>
         </mat-tab>
       </ng-container>
