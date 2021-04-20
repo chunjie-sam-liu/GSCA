@@ -113,4 +113,15 @@ export class ExpressionApiService extends BaseHttpService {
   public getStageSingleGenePlot(postTerm: ExprSearch): Observable<any> {
     return this.postData('expression/stage/single/gene', postTerm);
   }
+
+  // RPPA
+  public getRPPATable(postTerm: ExprSearch): Observable<any> {
+    return this.postData('expression/rppa/rppatable', postTerm);
+  }
+  public getRPPAPlot(postTerm: ExprSearch): Observable<any> {
+    return this.postData('expression/rppa/rppaplot', postTerm);
+  }
+  public getRPPASingleGenePlot(postTerm: ExprSearch): Observable<any> {
+    return this.postData('expression/rppa/single/gene', postTerm);
+  }
 }
