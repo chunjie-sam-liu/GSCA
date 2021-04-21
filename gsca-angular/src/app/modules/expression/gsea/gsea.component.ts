@@ -7,7 +7,7 @@ import { GSEATableRecord } from 'src/app/shared/model/gseatablerecord';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-
+import * as XLSX from 'xlsx';
 @Component({
   selector: 'app-gsea',
   templateUrl: './gsea.component.html',
@@ -181,5 +181,11 @@ export class GseaComponent implements OnInit, OnChanges, AfterViewInit {
   }
   public triggerDetail(element: GSEATableRecord): string {
     return element === this.expandedElement ? 'expanded' : 'collapsed';
+  }
+  public exportExcel() {
+    const workSheet = XLSX.utils.json_to_sheet(this.dataSourceGSEA.data, { header: this.displayedColumnsGSEA });
+    const workBook: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workBook, workSheet, 'SheetName');
+    XLSX.writeFile(workBook, 'GseaTable.xlsx');
   }
 }

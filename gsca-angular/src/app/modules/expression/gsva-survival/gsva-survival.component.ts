@@ -7,7 +7,7 @@ import { GSVASurvivalTableRecord } from 'src/app/shared/model/gsvasurvivaltabler
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-
+import * as XLSX from 'xlsx';
 @Component({
   selector: 'app-gsva-survival',
   templateUrl: './gsva-survival.component.html',
@@ -194,5 +194,11 @@ export class GsvaSurvivalComponent implements OnInit, OnChanges, AfterViewInit {
 
   public triggerDetail(element: GSVASurvivalTableRecord): string {
     return element === this.expandedElement ? 'expanded' : 'collapsed';
+  }
+  public exportExcel() {
+    const workSheet = XLSX.utils.json_to_sheet(this.dataSourceGSVASurvival.data, { header: this.displayedColumnsGSVASurvival });
+    const workBook: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workBook, workSheet, 'SheetName');
+    XLSX.writeFile(workBook, 'GsvaSurvivalTable.xlsx');
   }
 }

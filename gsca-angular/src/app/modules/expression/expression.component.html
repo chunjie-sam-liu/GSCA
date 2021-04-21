@@ -52,6 +52,7 @@
           </div>
         </mat-tab>
       </ng-container>
+
       <ng-container *ngIf="showList.showContent && showList.showSubtype; else empty">
         <mat-tab label="Expression & Subtype">
           <div fxFlex="grow">
@@ -67,7 +68,22 @@
         </mat-tab>
       </ng-container>
 
-      <ng-container *ngIf="showList.showContent && showList.showGSEA">
+      <ng-container *ngIf="showList.showContent && showList.showPpar; else empty">
+        <mat-tab label="Expression & Pathway activity">
+          <div fxFlex="grow">
+            <app-ppar
+              fxLayout="row"
+              fxLayout.lt-lg="column"
+              fxLayoutGap="10px"
+              fxLayoutWrap
+              fxLayoutAlign="center"
+              [searchTerm]="searchTerm"
+            ></app-ppar>
+          </div>
+        </mat-tab>
+      </ng-container>
+
+      <ng-container *ngIf="showList.showContent && showList.showGSEA; else empty">
         <mat-tab label="GSEA">
           <div fxFlex="grow">
             <app-gsea
@@ -142,6 +158,22 @@
               [searchTerm]="searchTerm"
             >
             </app-gsva-subtype>
+          </div>
+        </mat-tab>
+      </ng-container>
+
+      <ng-container *ngIf="showList.showContent && showList.showGSVARPPA; else empty">
+        <mat-tab label="GSVA & pathway activity">
+          <div fxFlex="grow">
+            <app-gsva-rppa
+              fxLayout="row"
+              fxLayout.lt-lg="column"
+              fxLayoutGap="10px"
+              fxLayoutWrap
+              fxLayoutAlign="center"
+              [searchTerm]="searchTerm"
+            >
+            </app-gsva-rppa>
           </div>
         </mat-tab>
       </ng-container>

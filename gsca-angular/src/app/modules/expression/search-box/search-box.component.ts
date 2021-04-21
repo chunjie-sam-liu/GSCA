@@ -86,4 +86,8 @@ export class SearchBoxComponent implements OnInit {
       })
       .filter(Boolean);
   }
+  /*  public applyFilterCancer(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.cancerTypeList.filter = filterValue.trim().toLowerCase();
+  } */
 }

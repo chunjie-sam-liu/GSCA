@@ -14,12 +14,14 @@ export class ExpressionComponent implements OnInit, AfterViewInit {
     showSurvival: false,
     showSubtype: false,
     showStage: false,
+    showPpar: false,
     showGSVA: false,
     showGSEA: false,
     showGSVASurvival: false,
     showGSVAStage: false,
     showGSVASubtype: false,
     showContent: false,
+    showGSVARPPA: false,
   };
 
   constructor() {}

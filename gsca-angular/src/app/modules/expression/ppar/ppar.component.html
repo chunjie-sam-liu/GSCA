@@ -1,0 +1,89 @@
+<div fxLayout="column" fxLayoutGap="10px">
+  <div fxLayout="row" fxLayout.lt-lg="column" fxLayoutGap="10px" fxLayoutWrap fxLayoutAlign="center">
+    <ng-container *ngIf="showRPPATable">
+      <mat-card fxFlex fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
+        <mat-card-header>
+          <mat-card-title>Test the difference of pathway activity between high and low mRNA expression</mat-card-title>
+        </mat-card-header>
+
+        <ng-container *ngIf="!RPPATableLoading; else loading"></ng-container>
+        <mat-form-field>
+          <input matInput placeholder="Search" (keyup)="applyFilter($event)" #inputRPPA />
+          <button mat-icon-button color="warn" matPrefix>
+            <mat-icon style="font-size: 25px">search</mat-icon>
+          </button>
+        </mat-form-field>
+        <button class="export-container" mat-raised-button color="primary" (click)="exportExcel()">Export Table</button>
+
+        <table mat-table [dataSource]="RPPATable" multiTemplateDataRows matSort>
+          <ng-container matColumnDef="{{ column }}" *ngFor="let column of displayedColumnsRPPA; index as ind">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ displayedColumnsRPPAHeader[ind] }}</th>
+            <td mat-cell *matCellDef="let element">
+              <ng-container *ngIf="column === 'symbol'; then btn; else plain"></ng-container>
+              <ng-template #btn>
+                <button mat-raised-button class="expand-button" (click)="expandDetail(element, column)">
+                  {{ element[column] }}
+                </button>
+              </ng-template>
+              <ng-template #plain>
+                {{ column === 'fdr' || column === 'pval' ? (element[column] | number: '1.2-2') : element[column] }}
+              </ng-template>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="expandedDetail">
+            <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumnsRPPA.length">
+              <div class="example-element-detail" [@detailExpand]="triggerDetail(element)">
+                <ng-container *ngIf="RPPASingleGeneImageLoading; then loading"> </ng-container>
+                <ng-container>
+                  <a
+                    [href]="RPPASingleGenePdfURL"
+                    target="_blank"
+                    mat-button
+                    mat-mini-fab
+                    color="warn"
+                    arial-label="download"
+                    class="download-button"
+                  >
+                    <mat-icon>cloud_download</mat-icon>
+                  </a>
+                  <img [src]="RPPASingleGeneImage" *ngIf="showRPPASingleGeneImage" loading="lazy" />
+                </ng-container>
+              </div>
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumnsRPPA"></tr>
+          <tr
+            mat-row
+            *matRowDef="let element; columns: displayedColumnsRPPA"
+            class="example-element-row"
+            [class.example-expanded-row]="expandedElement === element"
+          ></tr>
+          <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+        </table>
+        <mat-paginator #paginatorRPPA [pageSizeOptions]="[10, 20]" showFirstLastButtons></mat-paginator>
+      </mat-card>
+    </ng-container>
+
+    <ng-container *ngIf="showRPPAImage">
+      <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
+        <mat-card-header>
+          <mat-card-title>Percentage of effects of gene mRNA expression on pathway activity in selected cancer types</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <ng-container *ngIf="!RPPAImageLoading; else loading">
+            <a [href]="RPPAImagePdfURL" target="_blank" mat-button mat-mini-fab color="warn" arial-label="download" class="download-button">
+              <mat-icon>cloud_download</mat-icon>
+            </a>
+            <img [src]="RPPAImage" alt="RPPAplot" loading="lazy" />
+          </ng-container>
+        </mat-card-content>
+      </mat-card>
+    </ng-container>
+  </div>
+
+  <ng-template #loading>
+    <mat-progress-bar mode="query" color="warn"></mat-progress-bar>
+  </ng-template>
+  <ng-template #empty></ng-template>
+</div>

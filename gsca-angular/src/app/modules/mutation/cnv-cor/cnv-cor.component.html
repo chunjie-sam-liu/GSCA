@@ -12,6 +12,7 @@
         <mat-icon style="font-size: 25px">search</mat-icon>
       </button>
     </mat-form-field>
+    <button class="export-container" mat-raised-button color="primary" (click)="exportExcel()">Export Table</button>
 
     <table mat-table [dataSource]="dataSourceCnvCor" multiTemplateDataRows matSort>
       <ng-container matColumnDef="{{ column }}" *ngFor="let column of displayedColumnsCnvCor; index as ind">

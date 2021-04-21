@@ -1,0 +1,19 @@
+### rppa table
+POST http://localhost:5000/api/expression/rppa/rppatable HTTP/1.1
+content-type: application/json
+
+{"validSymbol":["A2M","ACE","ANGPT2","BPI","CD1B","CDR1","EGR2","EGR3","HBEGF","HERPUD1","MCM2","PCTP","PODXL","PPY","PTGS2","RCAN1","SLC4A7","THBD"],"cancerTypeSelected":["KICH","KIRC","KIRP","LUAD","LUSC"],"validColl":["KIRC_rppa_diff","LUAD_rppa_diff","LUSC_rppa_diff"]}
+
+### rppa plot
+
+POST http://localhost:5000/api/expression/rppa/rppaplot HTTP/1.1
+content-type: application/json
+
+{"validSymbol":["A2M","ACE","ANGPT2","BPI","CD1B","CDR1","EGR2","EGR3","HBEGF","HERPUD1","MCM2","PCTP","PODXL","PPY","PTGS2","RCAN1","SLC4A7","THBD"],"cancerTypeSelected":["KICH","KIRC","KIRP","LUAD","LUSC"],"validColl":["KIRC_rppa_diff","LUAD_rppa_diff","LUSC_rppa_diff"]}
+
+### rppa single gene plot
+
+POST http://localhost:5000/api/expression/rppa/single/gene HTTP/1.1
+content-type: application/json
+
+{"validSymbol":["A2M"],"cancerTypeSelected":["KICH","KIRC","KIRP","LUAD","LUSC"],"validColl":["KIRC_rppa_diff"]}
