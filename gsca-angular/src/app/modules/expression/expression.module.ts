@@ -15,6 +15,7 @@ import { GsvaSurvivalComponent } from './gsva-survival/gsva-survival.component';
 import { GsvaStageComponent } from './gsva-stage/gsva-stage.component';
 import { GsvaSubtypeComponent } from './gsva-subtype/gsva-subtype.component';
 import { PparComponent } from './ppar/ppar.component';
+import { GsvaRppaComponent } from './gsva-rppa/gsva-rppa.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { PparComponent } from './ppar/ppar.component';
     GsvaStageComponent,
     GsvaSubtypeComponent,
     PparComponent,
+    GsvaRppaComponent,
   ],
   imports: [CommonModule, ExpressionRoutingModule, SharedModule],
 })
