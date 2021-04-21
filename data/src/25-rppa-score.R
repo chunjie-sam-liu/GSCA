@@ -1,4 +1,4 @@
-############### rppa percentage mongo ###################
+############### rppa diff mongo ###################
 
 # Library -----------------------------------------------------------------
 
@@ -6,57 +6,55 @@ library(magrittr)
 
 # data path---------------------------------------------------------------
 rda_path <- "/home/huff/github/GSCA/data/"
-data_path <- "/home/huff/data/GSCA/rppa"
+data_path <- "/home/huff/data/GSCALite/TCGA/rppa"
 
 gsca_conf <- readr::read_lines(file = file.path(rda_path,"src",'gsca.conf'))
 
 # Load data ----------------------------------------------------------------
-pan32_gene_activate.inhibit_pathway_percent.IdTrans.rds.gz <- readr::read_rds(file.path(data_path,"pan32_gene_activate.inhibit_pathway_percent.IdTrans.rds.gz"))
+rppa_score <- readr::read_rds(file.path(data_path,"pancan32-rppa-score.rds.gz"))
 
 # Function ----------------------------------------------------------------
 
 fn_list_data <- function(.x){
   tibble::tibble(
+    barcode = list(.x$barcode),
     pathway = list(.x$pathway),
-    activated = list(.x$a),
-    inhibited = list(.x$i),
-    not_significant = list(.x$n)
+    score = list(.x$score)
   )
 }
 
-fn_gene_tcga_all_cor_immune_methy <- function(cancer_types, data) {
+fn_gene_tcga_all_cor_immune_methy <- function(class, data) {
   .x <- data
-  .y <- cancer_types
+  .y <- class
   
   
   .x %>% 
-    tidyr::nest(-symbol,-entrez) %>%
+    tidyr::nest(-cancer_types) %>%
     dplyr::mutate(data=purrr::map(data,.f=fn_list_data)) %>%
-    tidyr::unnest() %>%
-    dplyr::ungroup() -> .dd
+    tidyr::unnest()-> .dd
+  
   
   # insert to collection
-  .coll_name <- glue::glue('{.y}_rppa_percent')
+  .coll_name <- glue::glue('{.y}_rppa_score')
   .coll <-  mongolite::mongo(collection = .coll_name, url = gsca_conf)
   
   .coll$drop()
   .coll$insert(data = .dd)
-  .coll$index(add = '{"symbol": 1}')
+  .coll$index(add = '{"cancer_types": 1}')
   
-  message(glue::glue('Save all {.y} all rppa percent into mongo'))
+  message(glue::glue('Save all {.y} all rppa score into mongo'))
   
   .dd
 }
 # data --------------------------------------------------------------------
 system.time(
-  pan32_gene_activate.inhibit_pathway_percent.IdTrans.rds.gz %>% 
-    dplyr::mutate(cancer_types="all") %>%
+  rppa_score %>% 
     tidyr::unnest() %>%
-    dplyr::mutate(entrez=as.numeric(entrez)) %>%
-    tidyr::nest(-cancer_types) %>%
+    dplyr::mutate(class="all") %>%
+    tidyr::nest(-class) %>%
     purrr::pmap(.f = fn_gene_tcga_all_cor_immune_methy) ->
-    rppa_percent_mongo_data
+    rppa_score_mongo_data
 )
 # Save image --------------------------------------------------------------
 
-save.image(file = file.path(rda_path,'rda/26-rppa-percent.rda'))
+save.image(file = file.path(rda_path,'rda/25-rppa-diff.rda'))
