@@ -161,6 +161,22 @@
           </div>
         </mat-tab>
       </ng-container>
+
+      <ng-container *ngIf="showList.showContent && showList.showGSVARPPA; else empty">
+        <mat-tab label="GSVA & pathway activity">
+          <div fxFlex="grow">
+            <app-gsva-rppa
+              fxLayout="row"
+              fxLayout.lt-lg="column"
+              fxLayoutGap="10px"
+              fxLayoutWrap
+              fxLayoutAlign="center"
+              [searchTerm]="searchTerm"
+            >
+            </app-gsva-rppa>
+          </div>
+        </mat-tab>
+      </ng-container>
     </mat-tab-group>
 
     <ng-template #loading>
