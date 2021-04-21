@@ -56,7 +56,7 @@ fetched_expr_data %>%
 combine_data %>%
   dplyr::mutate(group=ifelse(expr>quantile(expr,0.5),"Higher expr.","Lower expr.")) -> for_plot
 
-title <- paste("Activity of",search_pathway,"pathway between high and low\n",search_genes,"expression groups of",search_cancertypes, sep=" ")
+title <- paste("Activity of",search_pathway,"pathway between\nhigh and low",search_genes,"expression groups in",search_cancertypes, sep=" ")
 color <- c("#1B9E77", "#D95F02", "#7570B3", "#E7298A", "#66A61E", "#E6AB02", "#A6761D", "#666666")
 len_stage <- length(unique(for_plot$group))
 
