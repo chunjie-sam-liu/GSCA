@@ -155,6 +155,7 @@ export class PparComponent implements OnInit, OnChanges, AfterViewChecked {
           validSymbol: [this.expandedElement.symbol],
           cancerTypeSelected: [this.expandedElement.cancertype],
           validColl: [collectionlist.rppa_diff.collnames[collectionlist.rppa_diff.cancertypes.indexOf(this.expandedElement.cancertype)]],
+          surType: [this.expandedElement.pathway],
         };
 
         this.expressionApiService.getRPPASingleGenePlot(postTerm).subscribe(
