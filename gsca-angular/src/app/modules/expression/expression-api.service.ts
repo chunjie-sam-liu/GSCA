@@ -124,4 +124,12 @@ export class ExpressionApiService extends BaseHttpService {
   public getRPPASingleGenePlot(postTerm: ExprSearch): Observable<any> {
     return this.postData('expression/rppa/single/gene', postTerm);
   }
+
+  // GSVA RPPA
+  public getRPPAGSVAPlot(uuidname: string): Observable<any> {
+    return this.getData('expression/gsva/rppagsva/' + uuidname);
+  }
+  public getGSVARPPASingleCancerImage(uuidname: string, cancertype: string, surType: string): Observable<any> {
+    return this.getData('expression/gsva/rppa/singlecancer/' + uuidname + '/' + cancertype + '/' + surType);
+  }
 }
