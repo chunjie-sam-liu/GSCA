@@ -19,7 +19,8 @@ fn_list_data <- function(.x){
   tibble::tibble(
     pathway = list(.x$pathway),
     diff = list(.x$diff),
-    class = list(.x$class)
+    class = list(.x$class),
+    fdr = list(.x$fdr)
   )
 }
 
@@ -32,12 +33,7 @@ fn_gene_tcga_all_cor_immune_methy <- function(cancer_types, diff_pval) {
     dplyr::mutate(entrez=as.numeric(entrez)) %>%
     dplyr::mutate(class = ifelse(fdr <= 0.05 & diff > 0, "Activation", "None")) %>% 
     dplyr::mutate(class = ifelse(fdr <= 0.05 & diff < 0, "Inhibition", class)) %>% 
-    dplyr::select(entrez,symbol,pathway,diff,class) %>%
-    dplyr::group_by(entrez,symbol) %>%
-    tidyr::nest() %>%
-    dplyr::mutate(data=purrr::map(data,.f=fn_list_data)) %>%
-    tidyr::unnest() %>%
-    dplyr::ungroup() -> .dd
+    dplyr::select(entrez,symbol,pathway,fdr,diff,class) -> .dd
   
   
   # insert to collection
