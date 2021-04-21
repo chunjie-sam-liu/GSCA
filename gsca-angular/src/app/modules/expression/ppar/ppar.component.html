@@ -26,7 +26,7 @@
                 </button>
               </ng-template>
               <ng-template #plain>
-                {{ column === 'fdr' || column === 'pval' ? (element[column] | number: '1.2-2') : element[column] }}
+                {{ column === 'fdr' || column === 'diff' ? (element[column] | number: '1.2-2') : element[column] }}
               </ng-template>
             </td>
           </ng-container>

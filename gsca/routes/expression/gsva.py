@@ -160,3 +160,47 @@ class ExprSubtypeGSVAPlot(Resource):
 
 
 api.add_resource(ExprSubtypeGSVAPlot, "/subtype/<string:uuidname>")
+
+""" GSVA rppa"""
+
+
+class RPPAGSVAPlot(Resource):
+    def get(self, uuidname):
+        checkplot = CheckUUIDPlot(
+            gsxa_uuid=uuidname,
+            name_uuid="gsva_uuid",
+            purpose="rppagsva",
+            rplot="rppa_gsva.R",
+            precol="preanalysised",
+            gsxacol="preanalysised_gsva",
+        )
+        res = checkplot.check_run()
+        if res["run"]:
+            checkplot.plot()
+
+        return {"rppagsvaplotuuid": res["uuid"], "rppagsvatableuuid": uuidname}
+
+
+api.add_resource(RPPAGSVAPlot, "/rppagsva/<string:uuidname>")
+
+
+class GSVARPPASingleCancerImage(Resource):
+    def get(self, uuidname, cancertype, surType):
+        checkplot = CheckGSVASurvivalSingleCancerType(
+            gsxa_uuid=uuidname,
+            cancertype=cancertype,
+            surType=surType,
+            name_uuid="gsvarppasinglecancer_uuid",
+            purpose="gsvarppasinglecancer",
+            rplot="gsva_rppa_single_cancer.R",
+            precol="preanalysised",
+            gsxacol="preanalysised_gsva",
+        )
+        res = checkplot.check_run()
+        if res["run"]:
+            checkplot.plot()
+
+        return {"gsvarppasinglecanceruuid": res["uuid"]}
+
+
+api.add_resource(GSVARPPASingleCancerImage, "/rppa/singlecancer/<string:uuidname>/<string:cancertype>/<string:surType>")
