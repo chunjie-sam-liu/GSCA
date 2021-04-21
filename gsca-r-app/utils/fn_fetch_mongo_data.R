@@ -62,6 +62,7 @@ fn_fetch_mongo_all_stage <- function(.data, .key, .keyindex) {
   ) %>%
     tidyr::unnest(cols = c(cancer_types, sample_name, stage)) 
 }
+
 # function to fetch snv_count ------------------------------------------
 
 fn_fetch_mongo_snv_count <- function(.data, .key, .keyindex) {
@@ -74,7 +75,15 @@ fn_fetch_mongo_snv_count <- function(.data, .key, .keyindex) {
     tidyr::unnest(cols = c(EffectiveMut)) 
 }
 
-# function to fetch snv_maf ------------------------------------------
+fn_fetch_mongo_all_rppascore <- function(.data, .key, .keyindex) {
+  coll <- .data
+  .coll <- mongolite::mongo(collection = coll, url = gsca_conf)
+  .coll$find(
+    query = fn_query_str_utils(.key,.keyindex),
+    fields = '{"cancer_types": true, "barcode": true, "pathway": true,"score": true,"_id": false}'
+  ) %>%
+    tidyr::unnest(cols = c(cancer_types, barcode, pathway,score)) 
+}# function to fetch snv_maf ------------------------------------------
 
 fn_fetch_mongo_snv_maf <-  function(.data, .key, .keyindex) {
   coll <- .data
