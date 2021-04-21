@@ -31,6 +31,7 @@ fn_gene_tcga_all_cor_immune_methy <- function(cancer_types, diff_pval) {
   
   .x %>% 
     dplyr::mutate(entrez=as.numeric(entrez)) %>%
+    dplyr::filter(!is.na(diff)) %>%
     dplyr::mutate(class = ifelse(fdr <= 0.05 & diff > 0, "Activation", "None")) %>% 
     dplyr::mutate(class = ifelse(fdr <= 0.05 & diff < 0, "Inhibition", class)) %>% 
     dplyr::select(entrez,symbol,pathway,fdr,diff,class) -> .dd
