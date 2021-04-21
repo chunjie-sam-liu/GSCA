@@ -80,8 +80,8 @@ export class PparComponent implements OnInit, OnChanges, AfterViewChecked {
       this.expressionApiService.getRPPAPlot(postTerm).subscribe(
         (res) => {
           // RPPA point
-          this.RPPAImagePdfURL = this.expressionApiService.getResourcePlotURL(res.RPPAPointuuid, 'pdf');
-          this.expressionApiService.getResourcePlotBlob(res.RPPAPointuuid, 'png').subscribe(
+          this.RPPAImagePdfURL = this.expressionApiService.getResourcePlotURL(res.rppaPointuuid, 'pdf');
+          this.expressionApiService.getResourcePlotBlob(res.rppaPointuuid, 'png').subscribe(
             (r) => {
               this.showRPPAImage = true;
               this.RPPAImageLoading = false;
@@ -160,8 +160,8 @@ export class PparComponent implements OnInit, OnChanges, AfterViewChecked {
 
         this.expressionApiService.getRPPASingleGenePlot(postTerm).subscribe(
           (res) => {
-            this.RPPASingleGenePdfURL = this.expressionApiService.getResourcePlotURL(res.RPPAsinglegeneuuid, 'pdf');
-            this.expressionApiService.getResourcePlotBlob(res.RPPAsinglegeneuuid, 'png').subscribe(
+            this.RPPASingleGenePdfURL = this.expressionApiService.getResourcePlotURL(res.rppasinglegeneuuid, 'pdf');
+            this.expressionApiService.getResourcePlotBlob(res.rppasinglegeneuuid, 'png').subscribe(
               (r) => {
                 this._createImageFromBlob(r, 'RPPASingleGeneImage');
                 this.RPPASingleGeneImageLoading = false;
