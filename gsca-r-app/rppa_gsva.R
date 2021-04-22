@@ -167,7 +167,7 @@ gsva_score_rppa_test_res.label %>%
 # pic size ----------------------------------------------------------------
 
 source(file.path(apppath, "gsca-r-app/utils/fn_figure_height.R"))
-size_height <- 4+length(unique(gsva_score_rppa_test_res.label$cancertype))*0.2
+size_height <- 3+length(unique(gsva_score_rppa_test_res.label$cancertype))*0.2
 
 
 ggsave(filename = filepath, plot = plot, device = 'png', width = 6, height =  size_height)
