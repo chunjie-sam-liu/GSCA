@@ -27,8 +27,3 @@ mat-card-content {
   margin-bottom: 20px;
   background-color: rgb(123, 123, 166);
 }
-mat-panel-title {
-  color: #9d77a5;
-  font-weight: bolder;
-  font-size: medium;
-}

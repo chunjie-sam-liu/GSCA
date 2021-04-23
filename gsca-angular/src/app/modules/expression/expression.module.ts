@@ -26,6 +26,7 @@ import { DocPparComponent } from './ppar/doc-ppar/doc-ppar.component';
 import { DocStageComponent } from './stage/doc-stage/doc-stage.component';
 import { DocSubtypeComponent } from './subtype/doc-subtype/doc-subtype.component';
 import { DocSurvivalComponent } from './survival/doc-survival/doc-survival.component';
+import { DocGsvaRppaComponent } from './gsva-rppa/doc-gsva-rppa/doc-gsva-rppa.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,6 @@ import { DocSurvivalComponent } from './survival/doc-survival/doc-survival.compo
     DocComponent,
     DocGeneSetComponent,
     DocSeaComponent,
-    DocGsvaRppaComponent,
     DocGsvaStageComponent,
     DocGsvaSubtypeComponent,
     DocGsvaSurvivalComponent,
@@ -53,6 +53,7 @@ import { DocSurvivalComponent } from './survival/doc-survival/doc-survival.compo
     DocStageComponent,
     DocSubtypeComponent,
     DocSurvivalComponent,
+    DocGsvaRppaComponent,
   ],
   imports: [CommonModule, ExpressionRoutingModule, SharedModule],
 })
