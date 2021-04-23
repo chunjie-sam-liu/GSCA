@@ -1,4 +1,13 @@
-<div fxLayout="column" fxLayoutGap="10px">
+<div fxLayout="column" fxLayoutGap="10px" fxFill>
+  <mat-card fxFlex appMaterialElevation defaultElevation="0" raisedElevation="0">
+    <mat-expansion-panel hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title> Click here for the detailed description of methods and results </mat-panel-title>
+        <mat-panel-description></mat-panel-description>
+      </mat-expansion-panel-header>
+      <p>documents works!</p>
+    </mat-expansion-panel>
+  </mat-card>
   <div fxLayout="row" fxLayout.lt-lg="column" fxLayoutGap="10px" fxLayoutWrap fxLayoutAlign="center">
     <ng-container *ngIf="showSnvSurvivalTable">
       <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
