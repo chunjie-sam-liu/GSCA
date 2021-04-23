@@ -16,6 +16,16 @@ import { GsvaStageComponent } from './gsva-stage/gsva-stage.component';
 import { GsvaSubtypeComponent } from './gsva-subtype/gsva-subtype.component';
 import { PparComponent } from './ppar/ppar.component';
 import { GsvaRppaComponent } from './gsva-rppa/gsva-rppa.component';
+import { DocComponent } from './deg/doc/doc.component';
+import { DocGeneSetComponent } from './gene-set/doc-gene-set/doc-gene-set.component';
+import { DocSeaComponent } from './gsea/doc-sea/doc-sea.component';
+import { DocGsvaStageComponent } from './gsva-stage/doc-gsva-stage/doc-gsva-stage.component';
+import { DocGsvaSubtypeComponent } from './gsva-subtype/doc-gsva-subtype/doc-gsva-subtype.component';
+import { DocGsvaSurvivalComponent } from './gsva-survival/doc-gsva-survival/doc-gsva-survival.component';
+import { DocPparComponent } from './ppar/doc-ppar/doc-ppar.component';
+import { DocStageComponent } from './stage/doc-stage/doc-stage.component';
+import { DocSubtypeComponent } from './subtype/doc-subtype/doc-subtype.component';
+import { DocSurvivalComponent } from './survival/doc-survival/doc-survival.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +42,17 @@ import { GsvaRppaComponent } from './gsva-rppa/gsva-rppa.component';
     GsvaSubtypeComponent,
     PparComponent,
     GsvaRppaComponent,
+    DocComponent,
+    DocGeneSetComponent,
+    DocSeaComponent,
+    DocGsvaRppaComponent,
+    DocGsvaStageComponent,
+    DocGsvaSubtypeComponent,
+    DocGsvaSurvivalComponent,
+    DocPparComponent,
+    DocStageComponent,
+    DocSubtypeComponent,
+    DocSurvivalComponent,
   ],
   imports: [CommonModule, ExpressionRoutingModule, SharedModule],
 })
