@@ -7,9 +7,11 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { GdscComponent } from './gdsc/gdsc.component';
 import { SearchBoxComponent } from './search-box/search-box.component';
 import { CtrpComponent } from './ctrp/ctrp.component';
+import { DocCtrpComponent } from './ctrp/doc-ctrp/doc-ctrp.component';
+import { DocGdscComponent } from './gdsc/doc-gdsc/doc-gdsc.component';
 
 @NgModule({
-  declarations: [DrugComponent, GdscComponent, SearchBoxComponent, CtrpComponent],
+  declarations: [DrugComponent, GdscComponent, SearchBoxComponent, CtrpComponent, DocCtrpComponent, DocGdscComponent],
   imports: [CommonModule, DrugRoutingModule, SharedModule],
 })
 export class DrugModule {}
