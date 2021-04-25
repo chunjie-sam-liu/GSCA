@@ -2,8 +2,32 @@
   <mat-expansion-panel hideToggle>
     <mat-expansion-panel-header>
       <mat-panel-title> Click here for the detailed description of methods and results </mat-panel-title>
-      <mat-panel-description></mat-panel-description>
+      <mat-panel-description>Differential GSVA</mat-panel-description>
     </mat-expansion-panel-header>
-    <p>documents works!</p>
+    <ul>
+      <li>Methods</li>
+      <p>
+        For GSVA (Gene Set Enrichment Analysis) analysis, GSCA estimates variation of gene set activity (represents as GSVA score) over a
+        specific cancer’s sample population in an unsupervised manner. This module provides differential gene set activity analysis between
+        tumor and normal. The GSVA score was calculated through R package
+        <a href="https://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-14-7" target="_blank">GSVA</a>
+      </p>
+      <li>Interpretation</li>
+      <p>GSCA provides two forms of results, including table and figure.</p>
+      <ul>
+        <li>The result table:</li>
+        <p>Presents detailed information about Cancer type, Tumor GSVA, Normal GSVA,Fold change and P value.</p>
+        <p>Tumor GSVA: GSVA score in tumor samples.</p>
+        <p>Normal GSVA: GSVA score in normal samples.</p>
+        <p>Fold change: Log2 fold change of GSVA score in tumor samples compared with normal samples.</p>
+        <p>P value: Estimate the statistical significance by Student T test.</p>
+
+        <li>GSCA provides result figures including:</li>
+        <ul>
+          <li>Box plot:</li>
+          <p>Compares the GSVA score of inputed gene set between tumor and normal samples.</p>
+        </ul>
+      </ul>
+    </ul>
   </mat-expansion-panel>
 </mat-card>

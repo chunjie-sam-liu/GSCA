@@ -4,6 +4,28 @@
       <mat-panel-title> Click here for the detailed description of methods and results </mat-panel-title>
       <mat-panel-description></mat-panel-description>
     </mat-expansion-panel-header>
-    <p>documents works!</p>
+    <ul>
+      <li>Methods</li>
+      <p>
+        The GSVA and subtype analysis is used to find subtype relevant gene set expression. For this function, GSCA used 11 cancer types
+        (HNSC, LUSC, COAD, STAD, LUAD, GBM, BRCA, UCEC, KIRC, READ, BLCA) clinical data from tumor samples. GSVA score and clinical subtype
+        data were merged by sample barcode. The number of subgroup of subtype must have at least 5 samples. The method used in this analysis
+        depends on the number of subgroup in subtype with Student T test (n of subtype groups == 2) and ANOVA test (n of subtype groups >
+        2).
+      </p>
+      <li>Interpretation</li>
+      <p>GSCA provides two forms of results, including table and figure.</p>
+      <ul>
+        <li>The result table:</li>
+        <p>Presents detailed information about Cancer type, P value and GSVA score in each subtype (Subtype1(mean/n)).</p>
+        <p>P value: the statistical significance estimated by Student T test (subtype groups == 2) and ANOVA test (subtype groups > 2).</p>
+        <p>Subtype(mean/n)) presents the subtype names, mean GSVA score and number of samples.</p>
+        <li>GSCA provides result figures including:</li>
+        <ul>
+          <li>Box plot:</li>
+          <p>Compares the GSVA score between subtypes of specific cancer.</p>
+        </ul>
+      </ul>
+    </ul>
   </mat-expansion-panel>
 </mat-card>

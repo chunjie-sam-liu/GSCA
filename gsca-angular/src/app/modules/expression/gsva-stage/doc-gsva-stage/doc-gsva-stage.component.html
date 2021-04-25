@@ -4,6 +4,37 @@
       <mat-panel-title> Click here for the detailed description of methods and results </mat-panel-title>
       <mat-panel-description></mat-panel-description>
     </mat-expansion-panel-header>
-    <p>documents works!</p>
+    <ul>
+      <li>Methods</li>
+      <p>
+        For GSVA and stage analysis, GSCA used 26 cancer types (HNSC, LUSC, COAD, STAD, LUAD, BRCA, UCEC, KIRC, READ, BLCA, CESC, THCA,
+        TGCT, LIHC, PAAD, CRC, CHOL, ACC, UVM, SKCM, MESO, DLBC, UCS, KICH, KIRP, ESCA) clinical data from tumor samples. Merging GSVA score
+        and clinical stage data by sample barcode. The number of subgroup of stage must have at least 5 samples. The method used in this
+        analysis depends on the number of subgroup in stage with Wilcoxon test (n of stage groups == 2) and ANOVA test (n of stage groups >
+        2).
+      </p>
+      <li>Interpretation</li>
+      <p>GSCA provides two forms of results, including table and figure.</p>
+      <ul>
+        <li>The result table:</li>
+        <p>
+          Presents detailed information about Cancer type, Gene symbol, Stage type, Stage I (mean/n), Stage II (mean/n), Stage III (mean/n),
+          Stage IV (mean/n), P value and FDR. The stage I including stage IA, IB and IC et al, stage II, III and IV are grouped in a similar
+          way. Stage type including pathologic stage and clinical stage.
+        </p>
+        <li>GSCA provides result figures including:</li>
+        <ul>
+          <li>Box plot:</li>
+          <p>Provides GSVA score between stages in specific cancer.</p>
+          <li>Heat map:</li>
+          <p>Presents the log2 RSEM expression of each gene in each stage.</p>
+          <li>Trend plot:</li>
+          <p>
+            Presents the trend of gene expression from stage I to stage IV. Trend line color from blue to red represents the downregulate to
+            upregulate tendency.
+          </p>
+        </ul>
+      </ul>
+    </ul>
   </mat-expansion-panel>
 </mat-card>
