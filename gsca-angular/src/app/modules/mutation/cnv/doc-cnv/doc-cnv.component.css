@@ -1,0 +1,28 @@
+mat-panel-title {
+  color: black;
+  font-weight: bolder;
+  font-size: medium;
+}
+mat-card-content {
+  text-align: center;
+}
+mat-expansion-panel-header {
+  background-color: thistle;
+}
+mat-expansion-panel {
+  background-color: rgb(236, 228, 236);
+}
+li {
+  font-weight: bold;
+  font-size: large;
+}
+p {
+  text-align: justify;
+  font-size: medium;
+}
+a {
+  color: cornflowerblue;
+}
+mat-panel-description {
+  font-size: large;
+}
