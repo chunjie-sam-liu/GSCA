@@ -6,31 +6,39 @@
     </mat-expansion-panel-header>
     <ul>
       <li>Methods</li>
-      <p></p>
-
-      <p></p>
-
-      <p></p>
-
-      <p></p>
-
-      <p></p>
-
+      <p>
+        The Immune infiltrates & Methylation module is used to estimate the association between gene methylation and immune cells’
+        infiltrates through Spearman correlation analysis. The infiltrates of 24 immune cells were evaluated through
+        <a href="http://bioinfo.life.hust.edu.cn/ImmuCellAI/#!/" target="_blank">ImmuCellAI.</a>
+      </p>
       <li>Interpretation</li>
       <p>GSCA provides two forms of results, including table and figure.</p>
 
       <ul>
         <li>The result table:</li>
-        <p></p>
-        <p></p>
+        <p>Presents detailed information about Cancer type, Gene symbol, Cell type, Correlation and FDR.</p>
+        <p>
+          Cell type: the immune cell type, including Dendritic cell, B cell and et al, please find the detailed information of 24 immune
+          cells on
+          <a href="http://bioinfo.life.hust.edu.cn/GSCA/#/document">document</a>
+        </p>
+        <p>Correlation: the Spearman correlation coefficient between specific gene methylation and specific immune cell’s infiltrate.</p>
+        <p>FDR: the false discovery rate.</p>
 
         <li>GSCA provides result figures including:</li>
         <ul>
-          <li>Heat map:</li>
-          <p></p>
+          <li>Bubble plot:</li>
+          <p>
+            By clicking the cancer type button, GSCA will give you a bubble plot presents the summary of the correlation between inputted
+            genes’ methylation and 24 immune cell types infiltrates in selected cancer. Bubble size are correlate with FDR significance.
+            Black outline border indicates FDR < 0.05.
+          </p>
 
-          <li>Box plot:</li>
-          <p></p>
+          <li>Scatter plot:</li>
+          <p>
+            By clicking gene symbol buttons in tables, users can get the detailed result of single gene’s methylation correlated with
+            specific immune cell infiltrate through scatter plot, with fitting line.
+          </p>
         </ul>
       </ul>
     </ul>

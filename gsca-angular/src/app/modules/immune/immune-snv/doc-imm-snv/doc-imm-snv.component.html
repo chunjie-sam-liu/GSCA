@@ -6,31 +6,38 @@
     </mat-expansion-panel-header>
     <ul>
       <li>Methods</li>
-      <p></p>
-
-      <p></p>
-
-      <p></p>
-
-      <p></p>
-
-      <p></p>
+      <p>
+        The Immune infiltrates & SNV module estimates the difference of immune cells’ infiltrates between mutated and WT groups through
+        Wilcoxon test. The infiltrates of 24 immune cells were evaluated through
+        <a href="http://bioinfo.life.hust.edu.cn/ImmuCellAI/#!/" target="_blank">ImmuCellAI.</a>
+      </p>
 
       <li>Interpretation</li>
       <p>GSCA provides two forms of results, including table and figure.</p>
 
       <ul>
         <li>The result table:</li>
-        <p></p>
-        <p></p>
-
+        <p>Presents detailed information about Cancer type, Gene symbol, Cell type, Log2(FC) and FDR.</p>
+        <p>
+          Cell type: the immune cell type, including Dendritic cell, B cell and et al, please find the detailed information of 24 immune
+          cells on <a href="http://bioinfo.life.hust.edu.cn/GSCA/#/document">document</a>
+        </p>
+        <p>Log2(FC): Log2 fold change of specific immune cell’s infiltratethe in Mutated group compared with that in WT group.</p>
+        <p>FDR: the false discovery rate.</p>
         <li>GSCA provides result figures including:</li>
         <ul>
-          <li>Heat map:</li>
-          <p></p>
+          <li>Bubble plot:</li>
+          <p>
+            By clicking the cancer type button, GSCA will give you a bubble plot presents the summary of the association between inputted
+            genes’ SNV and 24 immune cell types infiltrates in selected cancer. Bubble size are correlate with FDR significance. Black
+            outline border indicates FDR < 0.05.
+          </p>
 
           <li>Box plot:</li>
-          <p></p>
+          <p>
+            By clicking gene symbol buttons in tables, users can get the detailed result of specific immune cell infiltrate level between
+            groups through box plot.
+          </p>
         </ul>
       </ul>
     </ul>
