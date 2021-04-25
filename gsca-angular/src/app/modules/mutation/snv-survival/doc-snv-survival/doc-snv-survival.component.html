@@ -5,32 +5,40 @@
       <mat-panel-description></mat-panel-description>
     </mat-expansion-panel-header>
     <ul>
+      <p>SNV & survival module provides summary of single gene survival result between mutant and wide type.</p>
       <li>Methods</li>
-      <p></p>
-
-      <p></p>
-
-      <p></p>
-
-      <p></p>
-
-      <p></p>
+      <p>
+        For SNV & survival module, GSCA used 33 cancer types clinical data from tumor samples, some uncensored data was left out. Merging
+        SNV data and clinical survival data by sample barcode, tumor samples were divided into WT and Mutant (effective mutation) groups. R
+        package survival was used to fit survival time and survival status within two groups. Cox Proportional-Hazards model and logrank
+        tests were performed for every gene in each cancer.
+      </p>
 
       <li>Interpretation</li>
       <p>GSCA provides two forms of results, including table and figure.</p>
 
       <ul>
         <li>The result table:</li>
-        <p></p>
+        <p>
+          Presents detailed information about Cancer type, Gene symbol, Survival type, Hazard Ratio, Cox P value, Logrank P value, Higher
+          risk of death. Survival type including OS and PFS. Column ‘Higher risk of death’ indicates the group with higher risk of death.
+        </p>
         <p></p>
 
         <li>GSCA provides result figures including:</li>
         <ul>
-          <li>Heat map:</li>
-          <p></p>
+          <li>Kaplan-Meier curves:</li>
+          <p>
+            By clicking buttons in table result, GSCA draws Kaplan-Meier curves between WT and Mutant (effective mutation) groups of
+            specific gene in specific cancer.
+          </p>
 
-          <li>Box plot:</li>
-          <p></p>
+          <li>Bubble plot:</li>
+          <p>
+            Presents the Hazard ratio and logrank p value though bubble color and size. The column is the gene set symbol and row is the
+            selected cancer types. The bubble color from blue to red represents the hazard ratio from low to high, bubble size is positively
+            correlate with the Logrank P value significance. Black outline border indicates Logrank P value < 0.05.
+          </p>
         </ul>
       </ul>
     </ul>

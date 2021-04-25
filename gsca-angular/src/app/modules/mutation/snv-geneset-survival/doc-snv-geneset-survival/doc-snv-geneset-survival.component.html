@@ -5,32 +5,40 @@
       <mat-panel-description></mat-panel-description>
     </mat-expansion-panel-header>
     <ul>
+      <p>Geneset SNV & survival module provides summary of survival result between gene set mutant and wide type.</p>
       <li>Methods</li>
-      <p></p>
-
-      <p></p>
-
-      <p></p>
-
-      <p></p>
-
-      <p></p>
+      <p>
+        For Geneset SNV & survival module, GSCA used 33 cancer types clinical data from tumor samples, some uncensored data was left out.
+        Merging SNV data and clinical survival data by sample barcode, tumor samples were divided into WT and Mutant (effective mutation)
+        groups. Only when a sample has at least one gene (within inputted gene set) with effective mutation would be classified into mutant
+        group. R package survival was used to fit survival time and survival status within two groups. Cox Proportional-Hazards model and
+        logrank tests were performed for every gene in each cancer.
+      </p>
 
       <li>Interpretation</li>
       <p>GSCA provides two forms of results, including table and figure.</p>
 
       <ul>
         <li>The result table:</li>
-        <p></p>
-        <p></p>
+        <p>
+          Presents detailed information about Cancer type, Survival type, Hazard Ratio, Cox P value, Logrank P value, Higher risk of death.
+          Survival type including OS and PFS. Column ‘Higher risk of death’ indicates the group with higher risk of death.
+        </p>
 
         <li>GSCA provides result figures including:</li>
         <ul>
-          <li>Heat map:</li>
-          <p></p>
+          <li>Kaplan-Meier curves:</li>
+          <p>
+            By clicking buttons in table, GSCA draws Kaplan-Meier curves between WT and Mutant (effective mutation) groups of specific gene
+            in specific cancer.
+          </p>
 
-          <li>Box plot:</li>
-          <p></p>
+          <li>Bubble plot:</li>
+          <p>
+            Presents the Hazard ratio and logrank p value through bubble color and size. The the column is selected cancer types and the row
+            is survival type (OS and PFS). The bubble color from blue to red represents the hazard ratio from low to high, bubble size is
+            positively correlate with the Logrank P value significance. Black outline border indicates Logrank P value < 0.05.
+          </p>
         </ul>
       </ul>
     </ul>

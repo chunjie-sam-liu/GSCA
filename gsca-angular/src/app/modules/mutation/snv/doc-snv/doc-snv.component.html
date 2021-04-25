@@ -6,31 +6,62 @@
     </mat-expansion-panel-header>
     <ul>
       <li>Methods</li>
-      <p></p>
-
-      <p></p>
-
-      <p></p>
-
-      <p></p>
-
-      <p></p>
+      <p>The SNV summary module presents the summary of inputted genes’ SNV in selected cancer types.</p>
 
       <li>Interpretation</li>
       <p>GSCA provides two forms of results, including table and figure.</p>
 
       <ul>
         <li>The result table:</li>
-        <p></p>
-        <p></p>
+        <p>
+          Presents detailed information about Cancer type, Gene symbol, Effective mutation, Non-effective mutation, Total sample size and
+          Percentage.
+        </p>
+        <p>
+          Effective mutation: the number of samples have at least one effective mutation site. The effective mutations including
+          Missense_Mutation, Nonsense_Mutation, Frame_Shift_Ins, Splice_Site, Frame_Shift_Del, In_Frame_Del and In_Frame_Ins.
+        </p>
+        <p>
+          Effective mutation: the number of samples have at least one effective mutation site. The effective mutations including
+          Missense_Mutation, Nonsense_Mutation, Frame_Shift_Ins, Splice_Site, Frame_Shift_Del, In_Frame_Del and In_Frame_Ins.
+        </p>
+        <p>
+          Non-effective mutation: the number of samples only have non-effective mutation site. The non-effective mutations including Silent,
+          Intron, IGR, 3'UTR, 5'UTR, 3'Flank, and 5'Flank.
+        </p>
+        <p>Total sample size: the number of samples with SNV mutation data.</p>
+        <p>Percentage: the percentage of samples with effective mutations.</p>
 
         <li>GSCA provides result figures including:</li>
         <ul>
-          <li>Heat map:</li>
-          <p></p>
+          <li>Lollipop plot:</li>
+          <p>
+            By clicking the gene symbol button, GSCA will give you a lollipop plot presents the mutation site, type and count of a specific
+            gene.
+          </p>
 
-          <li>Box plot:</li>
-          <p></p>
+          <li>Percentage heatmap:</li>
+          <p>Summarize the frequency of effective mutations in selected caner types.</p>
+
+          <li>Summary plot:</li>
+          <p>Summarizes the count and type of variants in sample and gene levels.</p>
+
+          <li>Oncoplot:</li>
+          <p>
+            Also called waterfall plot, presents the mutation distribution of top 10 (when num of gene set <10, show all) mutated genes in
+            your gene set. Also provides the classification of SNV types.
+          </p>
+
+          <li>Titv plot:</li>
+          <p>
+            Classifies the mutations into Transitions(Ti) and transversions(Tv). Transitions are interchanges of two-ring purines (A<->G) or
+            of one-ring pyrimidines (C<->T): they therefore involve bases of similar shape. Transversions are interchanges of purine for
+            pyrimidine bases, which therefore involve exchange of one-ring and two-ring structures. Although there are twice as many
+            possible transversions, because of the molecular mechanisms by which they are generated, transition mutations are generated at
+            higher frequency than transversions. As well, transitions are less likely to result in amino acid substitutions (due to
+            "wobble"), and are therefore more likely to persist as "silent substitutions" in populations as single nucleotide polymorphisms
+            (SNPs).
+          </p>
         </ul>
       </ul>
     </ul>
