@@ -13,6 +13,7 @@ model_degtable = {
     "normal": fields.Float(attribute="normal"),
     "tumor": fields.Float(attribute="tumor"),
     "fc": fields.Float(attribute="fc"),
+    "pval": fields.Float(attribute="pval"),
     "fdr": fields.Float(attribute="fdr"),
     "n_normal": fields.Float(attribute="n_normal"),
     "n_tumor": fields.Float(attribute="n_tumor"),
