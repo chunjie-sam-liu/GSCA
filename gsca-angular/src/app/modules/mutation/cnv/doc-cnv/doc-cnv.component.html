@@ -1,0 +1,53 @@
+<mat-card fxFlex appMaterialElevation defaultElevation="0" raisedElevation="0">
+  <mat-expansion-panel hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title> Click here for the detailed description of methods and results </mat-panel-title>
+      <mat-panel-description></mat-panel-description>
+    </mat-expansion-panel-header>
+    <ul>
+      <li>Methods</li>
+      <p>The CNV summary module presents the summary of inputted genes’ CNV in selected cancer types.</p>
+
+      <li>Interpretation</li>
+      <p>GSCA provides two forms of results, including table and figure.</p>
+
+      <ul>
+        <li>The result table:</li>
+        <p>
+          presents detailed information about Cancer type, Gene symbol, Total amp.(%), Total dele.(%), Hete amp.(%), Hete dele.(%), Homo
+          amp.(%) and Homo dele.(%).
+        </p>
+        <p>Total amp.(%): the percentage of samples with copy number amplification, including heterozygous and homozygous amplification.</p>
+        <p>Total dele.(%): the percentage of samples with copy number deletion, including heterozygous and homozygous deletion.</p>
+        <p>Hete amp.(%): the percentage of samples with copy number heterozygous amplification.</p>
+        <p>Hete dele.(%): the percentage of samples with copy number heterozygous deletion.</p>
+        <p>Homo amp.(%): the percentage of samples with copy number homozygous amplification.</p>
+        <p>Homo dele.(%): the percentage of samples with copy number homozygous deletion.</p>
+        <li>GSCA provides result figures including:</li>
+        <ul>
+          <li>Oncoplot:</li>
+          <p>By clicking the gene symbol button in the table result, an oncoplot presents the CNV type distribution of a specific gene.</p>
+
+          <li>CNV pie plot:</li>
+          <p>
+            Gives you a global profile that shows the constitute of Heterozygous/Homozygous CNV of each gene in each cancer. A pie
+            represents the proportion of different types of CNV of one gene in one cancer, different color represents different CNV type.
+          </p>
+
+          <li>Heterozygous CNV plot:</li>
+          <p>
+            Using bubbles to represent the percentage of heterozygous CNV, including amplification and deletion percentage of heterozygous
+            CNV about each gene in each cancer. The bubble size is positively correlate with percentage, the bubble color bule represents
+            deletion, red represents amplification. The heterozygous CNV is generally happened, so the plot will full of points.
+          </p>
+
+          <li>Homozygous CNV plot:</li>
+          <p>
+            Similar to Heterozygous CNV plot, but including amplification and deletion percentage of homozygous CNV about each gene in each
+            cancer. Most of researchs including cBioPortal mainly focus on homozygous CNV at present.
+          </p>
+        </ul>
+      </ul>
+    </ul>
+  </mat-expansion-panel>
+</mat-card>

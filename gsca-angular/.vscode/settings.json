@@ -74,5 +74,6 @@
     "titleBar.inactiveForeground": "#e7e7e799"
   },
   "peacock.remoteColor": "#215732",
-  "peacock.color": "#215732"
+  "peacock.color": "#215732",
+  "workbench.colorTheme": "Default Light+"
 }

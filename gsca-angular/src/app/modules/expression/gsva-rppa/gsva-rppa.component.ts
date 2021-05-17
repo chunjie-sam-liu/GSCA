@@ -30,8 +30,8 @@ export class GsvaRppaComponent implements OnInit, OnChanges, AfterViewInit {
   showGSVARPPATable = true;
   @ViewChild('paginatorGSVARPPA') paginatorGSVARPPA: MatPaginator;
   @ViewChild(MatSort) sortGSVARPPA: MatSort;
-  displayedColumnsGSVARPPA = ['cancertype', 'pathway', 'pval', 'fdr', 'class'];
-  displayedColumnsGSVARPPAHeader = ['Cancer type', 'Pathway', 'P value', 'FDR', 'Potential effects of gene mRNA on pathway activity'];
+  displayedColumnsGSVARPPA = ['cancertype', 'pathway', 'estimate', 'p_value', 'fdr'];
+  displayedColumnsGSVARPPAHeader = ['Cancer type', 'Pathway', 'Spearman cor.', 'P value', 'FDR'];
   expandedElement: GSVARPPATableRecord;
   expandedColumn: string;
 
@@ -69,7 +69,7 @@ export class GsvaRppaComponent implements OnInit, OnChanges, AfterViewInit {
           this.expressionApiService.getRPPAGSVAPlot(res.uuidname).subscribe(
             (exprgsvauuids) => {
               this.showGSVARPPATable = true;
-              this.expressionApiService.getResourceTable('preanalysised_gsva_RPPA', exprgsvauuids.rppagsvaplotuuid).subscribe(
+              this.expressionApiService.getResourceTable('preanalysised_gsva_rppa', exprgsvauuids.rppagsvatableuuid).subscribe(
                 (r) => {
                   this.dataSourceGSVARPPALoading = false;
                   this.dataSourceGSVARPPA = new MatTableDataSource(r);
@@ -156,13 +156,13 @@ export class GsvaRppaComponent implements OnInit, OnChanges, AfterViewInit {
     if (this.expandedElement) {
       this.GSVARPPASingleCancerImageLoading = true;
       this.showGSVARPPASingleCancerImage = false;
-      if (this.expandedColumn === 'cancertype') {
+      if (this.expandedColumn === 'pathway') {
         this.expressionApiService
           .getGSVARPPASingleCancerImage(this.gsvaRPPAResourceUUID, this.expandedElement.cancertype, this.expandedElement.pathway)
           .subscribe(
             (res) => {
-              this.GSVARPPASingleCancerPdfURL = this.expressionApiService.getResourcePlotURL(res.gsvaRPPAsinglecanceruuid, 'pdf');
-              this.expressionApiService.getResourcePlotBlob(res.gsvaRPPAsinglecanceruuid, 'png').subscribe(
+              this.GSVARPPASingleCancerPdfURL = this.expressionApiService.getResourcePlotURL(res.gsvarppasinglecanceruuid, 'pdf');
+              this.expressionApiService.getResourcePlotBlob(res.gsvarppasinglecanceruuid, 'png').subscribe(
                 (r) => {
                   this.showGSVARPPASingleCancerImage = true;
                   this.GSVARPPASingleCancerImageLoading = false;

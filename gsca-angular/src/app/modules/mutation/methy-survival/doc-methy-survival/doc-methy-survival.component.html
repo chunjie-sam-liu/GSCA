@@ -1,0 +1,45 @@
+<mat-card fxFlex appMaterialElevation defaultElevation="0" raisedElevation="0">
+  <mat-expansion-panel hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title> Click here for the detailed description of methods and results </mat-panel-title>
+      <mat-panel-description></mat-panel-description>
+    </mat-expansion-panel-header>
+    <ul>
+      <li>Methods</li>
+      <p>
+        For Methylation & survival module, GSCA used 33 cancer types clinical data from tumor samples, some uncensored data was left out.
+        Merging methylation data and clinical survival data by sample barcode, median value was used to divide tumor samples into high and
+        low methylation groups. Then, R package survival was used to fit survival time and survival status within two groups. Cox
+        Proportional-Hazards model was constructed to get the risk ratio of high methylation compared with low methylation. Logrank test was
+        performed to compare the overall survival difference between groups using an estimate of Logrank P value.
+      </p>
+
+      <li>Interpretation</li>
+      <p>GSCA provides two forms of results, including table and figure.</p>
+
+      <ul>
+        <li>The result table:</li>
+        <p>
+          Presents detailed information about Cancer type, Gene symbol, Hazard Ratio, Cox P value, Logrank P value, Higher risk of death.
+          This table showing the result of OS. Column ‘Higher risk of death’ indicates the group with higher risk of death.
+        </p>
+
+        <li>GSCA provides result figures including:</li>
+        <ul>
+          <li>Bubble plot:</li>
+          <p>
+            Presents the Hazard ratio and logrank p value through bubble color and size. The column is gene symbols and row is the selected
+            cancer types. The bubble color from blue to red represents the hazard ratio from low to high, bubble size is positively
+            correlate with the Logrank P value significance. Black outline border indicates Logrank P value < 0.05.
+          </p>
+
+          <li>Kaplan-Meier curves:</li>
+          <p>
+            By clicking buttons in table result, GSCA draws Kaplan-Meier curves between methylation groups of specific gene in specific
+            cancer.
+          </p>
+        </ul>
+      </ul>
+    </ul>
+  </mat-expansion-panel>
+</mat-card>

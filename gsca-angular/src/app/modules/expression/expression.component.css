@@ -4,3 +4,8 @@ p {
   margin-top: 5px;
   margin-bottom: 5px;
 }
+mat-panel-title {
+  color: #9d77a5;
+  font-weight: bolder;
+  font-size: medium;
+}

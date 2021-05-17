@@ -1,81 +1,85 @@
-<div fxLayout="column" fxLayoutGap="10px">
-  <div fxLayout="row" fxLayout.lt-lg="column" fxLayoutGap="10px" fxLayoutWrap fxLayoutAlign="center">
-    <ng-container *ngIf="showGSVASubtypeTable">
-      <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
-        <mat-card-header>
-          <mat-card-title>GSVA score among subtypes in the selected cancers</mat-card-title>
-        </mat-card-header>
-        <ng-container *ngIf="!dataSourceGSVASubtypeLoading; else loading"></ng-container>
-        <mat-form-field>
-          <input matInput placeholder="Search" (keyup)="applyFilter($event)" #inputGSVA />
-          <button mat-icon-button color="warn" matPrefix>
-            <mat-icon style="font-weight: bolder">search</mat-icon>
-          </button>
-        </mat-form-field>
-        <button class="export-container" mat-raised-button color="primary" (click)="exportExcel()">Export Table</button>
+<div fxLayout="column" fxLayoutGap="10px" fxFill>
+  <app-doc-gsva-subtype fxLayout="row" fxLayout.lt-lg="column" fxLayoutGap="10px" fxLayoutWrap fxLayoutAlign="center">
+  </app-doc-gsva-subtype>
+  <div fxLayout="column" fxLayoutGap="10px">
+    <div fxLayout="row" fxLayout.lt-lg="column" fxLayoutGap="10px" fxLayoutWrap fxLayoutAlign="center">
+      <ng-container *ngIf="showGSVASubtypeTable">
+        <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
+          <mat-card-header>
+            <mat-card-title>GSVA score among subtypes in the selected cancers</mat-card-title>
+          </mat-card-header>
+          <ng-container *ngIf="!dataSourceGSVASubtypeLoading; else loading"></ng-container>
+          <mat-form-field>
+            <input matInput placeholder="Search" (keyup)="applyFilter($event)" #inputGSVA />
+            <button mat-icon-button color="warn" matPrefix>
+              <mat-icon style="font-weight: bolder">search</mat-icon>
+            </button>
+          </mat-form-field>
+          <button class="export-container" mat-raised-button color="primary" (click)="exportExcel()">Export Table</button>
 
-        <table mat-table [dataSource]="dataSourceGSVASubtype" multiTemplateDataRows matSort>
-          <ng-container matColumnDef="{{ column }}" *ngFor="let column of displayedColumnsGSVASubtype; index as ind">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ displayedColumnsGSVASubtypeHeader[ind] }}</th>
-            <td mat-cell *matCellDef="let element">
-              <ng-container
-                *ngIf="
-                  column === 'cancertype' ||
-                    column === 'Subtype1' ||
-                    column === 'Subtype2' ||
-                    column === 'Subtype3' ||
-                    column === 'Subtype4' ||
-                    column === 'Subtype5' ||
-                    column === 'Subtype6';
-                  then btn;
-                  else plain
-                "
-              ></ng-container>
-              <ng-template #btn>
-                <!-- <button mat-raised-button class="expand-button" (click)="expandDetail(element, column)"> -->
-                {{ element[column] }}
-                <!-- </button> -->
-              </ng-template>
-              <ng-template #plain>
-                {{ element[column] | number: '1.2-2' }}
-              </ng-template>
-            </td>
-          </ng-container>
+          <table mat-table [dataSource]="dataSourceGSVASubtype" multiTemplateDataRows matSort>
+            <ng-container matColumnDef="{{ column }}" *ngFor="let column of displayedColumnsGSVASubtype; index as ind">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ displayedColumnsGSVASubtypeHeader[ind] }}</th>
+              <td mat-cell *matCellDef="let element">
+                <ng-container
+                  *ngIf="
+                    column === 'cancertype' ||
+                      column === 'Subtype1' ||
+                      column === 'Subtype2' ||
+                      column === 'Subtype3' ||
+                      column === 'Subtype4' ||
+                      column === 'Subtype5' ||
+                      column === 'Subtype6';
+                    then btn;
+                    else plain
+                  "
+                ></ng-container>
+                <ng-template #btn>
+                  <!-- <button mat-raised-button class="expand-button" (click)="expandDetail(element, column)"> -->
+                  {{ element[column] }}
+                  <!-- </button> -->
+                </ng-template>
+                <ng-template #plain>
+                  {{ element[column] | number: '1.2-2' }}
+                </ng-template>
+              </td>
+            </ng-container>
 
-          <tr mat-header-row *matHeaderRowDef="displayedColumnsGSVASubtype"></tr>
-          <tr mat-row *matRowDef="let element; columns: displayedColumnsGSVASubtype"></tr>
-        </table>
-        <mat-paginator #paginatorGSVASubtype [pageSizeOptions]="[10, 20]" showFirstLastButtons></mat-paginator>
-      </mat-card>
-    </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumnsGSVASubtype"></tr>
+            <tr mat-row *matRowDef="let element; columns: displayedColumnsGSVASubtype"></tr>
+          </table>
+          <mat-paginator #paginatorGSVASubtype [pageSizeOptions]="[10, 20]" showFirstLastButtons></mat-paginator>
+        </mat-card>
+      </ng-container>
+    </div>
+    <div fxLayout="row" fxLayout.lt-lg="column" fxLayoutGap="10px" fxLayoutWrap fxLayoutAlign="center">
+      <ng-container *ngIf="showGSVASubtypeImage">
+        <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
+          <mat-card-header>
+            <mat-card-title>GSVA score among subtypes in the selected cancers</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <ng-container *ngIf="!GSVASubtypeImageLoading; else loading">
+              <a
+                mat-button
+                mat-mini-fab
+                color="warn"
+                arial-label="download"
+                [href]="GSVASubtypePdfURL"
+                target="_blank"
+                class="download-button"
+              >
+                <mat-icon>cloud_download</mat-icon>
+              </a>
+              <img [src]="GSVASubtypeImage" alt="GSVASubtypeImage" loading="lazy" />
+            </ng-container>
+          </mat-card-content>
+        </mat-card>
+      </ng-container>
+    </div>
   </div>
-  <div fxLayout="row" fxLayout.lt-lg="column" fxLayoutGap="10px" fxLayoutWrap fxLayoutAlign="center">
-    <ng-container *ngIf="showGSVASubtypeImage">
-      <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
-        <mat-card-header>
-          <mat-card-title>GSVA score among subtypes in the selected cancers</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-          <ng-container *ngIf="!GSVASubtypeImageLoading; else loading">
-            <a
-              mat-button
-              mat-mini-fab
-              color="warn"
-              arial-label="download"
-              [href]="GSVASubtypePdfURL"
-              target="_blank"
-              class="download-button"
-            >
-              <mat-icon>cloud_download</mat-icon>
-            </a>
-            <img [src]="GSVASubtypeImage" alt="GSVASubtypeImage" loading="lazy" />
-          </ng-container>
-        </mat-card-content>
-      </mat-card>
-    </ng-container>
-  </div>
+  <ng-template #loading>
+    <mat-progress-bar mode="query" color="warn"></mat-progress-bar>
+  </ng-template>
+  <ng-template #empty></ng-template>
 </div>
-<ng-template #loading>
-  <mat-progress-bar mode="query" color="warn"></mat-progress-bar>
-</ng-template>
-<ng-template #empty></ng-template>

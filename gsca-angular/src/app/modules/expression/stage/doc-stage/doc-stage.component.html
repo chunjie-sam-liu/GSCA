@@ -1,0 +1,52 @@
+<mat-card fxFlex appMaterialElevation defaultElevation="0" raisedElevation="0">
+  <mat-expansion-panel hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title> Click here for the detailed description of methods and results </mat-panel-title>
+      <mat-panel-description></mat-panel-description>
+    </mat-expansion-panel-header>
+    <ul>
+      <li>Methods</li>
+      <p>
+        For expression and stage analysis, GSCA used 26 cancer types (HNSC, LUSC, COAD, STAD, LUAD, BRCA, UCEC, KIRC, READ, BLCA, CESC,
+        THCA, TGCT, LIHC, PAAD, CRC, CHOL, ACC, UVM, SKCM, MESO, DLBC, UCS, KICH, KIRP, ESCA) clinical data from tumor samples. Merging mRNA
+        expression and clinical stage data by sample barcode. The number of subgroup of stage must have at least 5 samples. The method used
+        in this analysis depends on the number of subgroup in subtype with Wilcoxon test (n of stage groups == 2) and ANOVA test (n of stage
+        groups > 2).
+      </p>
+
+      <li>Interpretation</li>
+      <p>GSCA provides two forms of results, including table and figure.</p>
+
+      <ul>
+        <li>The result table:</li>
+        <p>
+          Presents detailed information about Cancer type, Gene symbol, Stage type, Stage I (mean expr./n), Stage II (mean expr./n), Stage
+          III (mean expr./n), Stage IV (mean expr./n), P value and FDR. The stage I including stage IA, IB and IC et al, stage II, III and
+          IV are grouped in a similar way. Stage type including pathologic stage and clinical stage.
+        </p>
+
+        <li>GSCA provides result figures including:</li>
+        <ul>
+          <li>Bubble plot:</li>
+          <p>
+            Presents the FDR though bubble color and size. The row is the gene set symbol and column is the selected cancer types. The
+            bubble color from blue to red represents the significance of FDR, bubble size is positively correlate with the significance.
+            Black outline border indicates FDR < 0.05.
+          </p>
+
+          <li>Heat map:</li>
+          <p>Presents the log2 RSEM expression of each gene in each stage.</p>
+
+          <li>Trend plot:</li>
+          <p>
+            Presents the trend of gene expression from stage I to stage IV. Trend line color from blue to red represents the downregulate to
+            upregulate tendency.
+          </p>
+
+          <li>Box plot:</li>
+          <p>By clicking buttons in table result, GSCA draws boxplot between stages of specific gene in specific cancer.</p>
+        </ul>
+      </ul>
+    </ul>
+  </mat-expansion-panel>
+</mat-card>
