@@ -144,7 +144,7 @@ color_list <- for_plot %>%
 source(file.path(apppath, "gsca-r-app/utils/fn_figure_height.R"))
 size_width <- 4+length(unique(for_plot$cancertype))*0.5
 
-box_plot <- box_plot_single_gene_multi_cancers(data = for_plot,aesx = "stage",aesy="gsva",facets=".~cancertype",color = "stage",color_name = "Satges",color_labels = color_list$stage,color_values = color_list$color,title = "GSVA score in selected cancer types stages", xlab = 'Stages', ylab = 'GSVA score')
+box_plot <- box_plot_single_gene_multi_cancers(data = for_plot,aesx = "stage",aesy="gsva",facets=".~cancertype",color = "stage",color_name = "Satges",color_labels = color_list$stage,color_values = color_list$color,title = "GSVA score in stages of selected cancer types", xlab = 'Stages', ylab = 'GSVA score')
 
 
 ggsave(filename = filepath_box, plot = box_plot, device = 'png', width = size_width, height =  4)
@@ -185,7 +185,7 @@ trendplot <- trend_plot(data = for_plot_trend,
                         color_list = CPCOLS_trend,
                         fillbreaks=fillbreaks_trend,
                         color_lables=c("Down","Equal","Up"),
-                        title="GSVA score tendency in cancer type stages",
+                        title="Tendency of GSVA score among stages",
                         xlab="Stages",
                         ylab="Symbol") +
   facet_wrap(.~cancertype,scales = "free_y", nrow = 1)
