@@ -119,7 +119,7 @@ for_plot %>%
 min(HR_value) %>% floor() -> min
 max(HR_value) %>% ceiling() -> max
 fillbreaks <- sort(unique(c(1,min,max,seq(min,max,length.out = 3))))
-title <- "Survival between high and low GSVA score"
+title <- "Survival between high and low GSVA score group"
 
 heat_plot <- bubble_plot(data=for_plot, 
                          cancer="sur_type",
