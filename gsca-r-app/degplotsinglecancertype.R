@@ -57,6 +57,13 @@ fetched_data <- purrr::map(.x = search_colls, .f = fn_fetch_mongo) %>%
 # Plot --------------------------------------------------------------------
 CPCOLS <- c("#000080", "#F8F8FF", "#CD0000")
 source(file.path(apppath, "gsca-r-app/utils/fn_boxplot_single_gene_in_cancer.R"))
+
+combn_matrix <- combn(sort(unique(for_plot$type)),2)
+comp_list <- list()
+for(i in 1:ncol(combn_matrix)){
+  comp_list[[i]] <- combn_matrix[,i]
+}
+
 plot <- box_plot_single_gene_single_cancer(
   data = fetched_data,
   aesx = "type", 
@@ -68,7 +75,7 @@ plot <- box_plot_single_gene_single_cancer(
   title = glue::glue("{search_genes} expression in {search_cancertypes} (tumor vs. normal)"),
   xlab = "Group",
   ylab = "Expression log2(RSEM)", 
-  xangle = 0
+  xangle = 0,comp_list=comp_list
 )
 
 

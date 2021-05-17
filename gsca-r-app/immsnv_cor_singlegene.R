@@ -70,7 +70,12 @@ CPCOLS <- c("#000080", "#F8F8FF", "#CD0000")
 source(file.path(apppath,"gsca-r-app/utils/fn_boxplot_single_gene_in_cancer.R"))
 
 color_labels <- for_plot$group_n %>% unique() %>% sort()
-plot <- box_plot_single_gene_single_cancer(data = for_plot,aesx = "group",aesy="TIL",color = "group_n",color_name = "Group",color_labels =  color_labels,color_values = c(CPCOLS[3], CPCOLS[1]),title = glue::glue('{celltype} infiltrates between {search_genes}\nmutatants and WT in {search_cancertypes}'),xlab = 'Groups', ylab = 'Immune infiltrates score\n(ImmuCellAI)',xangle = 0)
+combn_matrix <- combn(sort(unique(for_plot$group)),2)
+comp_list <- list()
+for(i in 1:ncol(combn_matrix)){
+  comp_list[[i]] <- combn_matrix[,i]
+}
+plot <- box_plot_single_gene_single_cancer(data = for_plot,aesx = "group",aesy="TIL",color = "group_n",color_name = "Group",color_labels =  color_labels,color_values = c(CPCOLS[3], CPCOLS[1]),title = glue::glue('{celltype} infiltrates between {search_genes}\nmutatants and WT in {search_cancertypes}'),xlab = 'Groups', ylab = 'Immune infiltrates score\n(ImmuCellAI)',xangle = 0,comp_list=comp_list)
 
 # Save image --------------------------------------------------------------
 

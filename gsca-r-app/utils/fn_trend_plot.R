@@ -1,7 +1,7 @@
 trend_plot <- function(data,aesx,aesy,linecolor,linetype,xlabels,facetgrid="symbol~cancertype",colorname,color_list,fillbreaks,color_lables,title,xlab,ylab){
   data %>%
     ggplot(aes_string(x=aesx,y=aesy)) +
-    geom_line(aes_string(color=linecolor,linetype=linetype),size=2) +
+    geom_line(aes_string(color=linecolor),size=1) +
     facet_grid( as.formula(facetgrid),scales = "free_y") +
     scale_x_continuous(labels= xlabels) +
     labs(title = title) +
