@@ -30,8 +30,8 @@ export class DegComponent implements OnInit, OnChanges, AfterViewInit {
   showDEGTable = true;
   @ViewChild('paginatorDeg') paginatorDeg: MatPaginator;
   @ViewChild(MatSort) sortDeg: MatSort;
-  displayedColumnsDeg = ['cancertype', 'symbol', 'tumor', 'normal', 'fc', 'fdr', 'n_tumor'];
-  displayedColumnsDegHeader = ['Cancer type', 'Gene symbol', 'Expr. tumor', 'Expr. normal', 'Fold change', 'FDR', '# samples'];
+  displayedColumnsDeg = ['cancertype', 'symbol', 'tumor', 'normal', 'fc', 'pval', 'fdr', 'n_tumor'];
+  displayedColumnsDegHeader = ['Cancer type', 'Gene symbol', 'Expr. tumor', 'Expr. normal', 'Fold change', 'P value' ,'FDR', '# samples'];
   expandedElement: DegTableRecord;
   expandedColumn: string;
 

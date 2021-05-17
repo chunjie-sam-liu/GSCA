@@ -6,6 +6,7 @@ export interface DegTableRecord {
   normal: number;
   tumor: number;
   fc: number;
+  pval: number;
   fdr: number;
   n_normal: number;
   n_tumor: number;
