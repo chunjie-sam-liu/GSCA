@@ -115,7 +115,7 @@ fn_gseaplot <- function(es, pos) {
     theme(
       plot.title = element_text(size = 18, hjust = 0.5)
     ) +
-    labs(x = NULL, y = "Enrichment score", title = glue::glue("{cancertype} gene set enrichment plot")) ->
+    labs(x = NULL, y = "Enrichment score", title = glue::glue("Enrichment plot of inputted gene set in {cancertype}")) ->
     pup
   
   pos %>% dplyr::mutate(ymin = 0, ymax = 1) -> pos
