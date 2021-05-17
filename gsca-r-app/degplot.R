@@ -14,9 +14,9 @@ search_str <- args[1]
 filepath <- args[2]
 apppath <- args[3]
 
-# search_str = 'A2M#ACE#PTGS2#RCAN1#SLC4A7#THBD@KICH_deg#KIRC_deg#KIRP_deg#LUAD_deg#LUSC_deg'
+# search_str = 'ALKBH1@BLCA_deg#BRCA_deg#KICH_deg#KIRC_deg#KIRP_deg#LIHC_deg'
 # filepath = '/home/liucj/github/GSCA/gsca-r-plot/pngs/156d3e34-0500-40f5-b8ed-58d2512f3918.png'
-# apppath <- '/home/liucj/github/GSCA'
+# apppath <- '/home/huff/github/GSCA'
 
 
 search_str_split <- strsplit(x = search_str, split = '@')[[1]]
@@ -98,7 +98,8 @@ fn_get_gene_rank <- function(.x) {
 }
 
 # Query data --------------------------------------------------------------
-fetched_data <- purrr::map(.x = search_cancertypes, .f = fn_fetch_mongo) %>% dplyr::bind_rows()
+fetched_data <- purrr::map(.x = search_cancertypes, .f = fn_fetch_mongo) %>% dplyr::bind_rows()%>%
+  dplyr::mutate(group=ifelse(fdr>0.05,">0.05","<0.05"))
 
 # Sort --------------------------------------------------------------------
 
@@ -106,33 +107,38 @@ fetched_data_clean_pattern <- fn_get_pattern(.x = fetched_data)
 cancer_rank <- fn_get_cancer_types_rank(.x = fetched_data_clean_pattern)
 gene_rank <- fn_get_gene_rank(.x = fetched_data_clean_pattern)
 
-fetched_data_filter <- fn_filter_fc_pval(.x = fetched_data)
+# fetched_data_filter <- fn_filter_fc_pval(.x = fetched_data)
 
 # Plot --------------------------------------------------------------------
 CPCOLS <- c("#000080", "#F8F8FF", "#CD0000")
 # CPCOLS <- c("#ffffff", RColorBrewer::brewer.pal(9, "Set1"))
 # CPCOLS <- c("#ffffff", ggsci::pal_lancet()(9))
 # CPCOLS %>% scales::show_col()
-fetched_data_filter %>%
+fetched_data$fc %>% log2() %>% range() -> fc_range
+
+min(fc_range) %>% floor() -> fc_min
+max(fc_range) %>% ceiling() -> cc
+fillbreaks <- sort(unique(c(0,round(c(fc_min,fc_max,seq(fc_min,fc_max,length.out = 3))))))
+
+fetched_data %>%
   ggplot(aes(x = cancertype, y = symbol)) +
-  geom_point(aes(size = fdr, col = log2(fc))) +
-  scale_color_gradient2(
+  geom_point(aes(size = -log2(fdr), fill = log2(fc), colour=group), shape = 21,stroke = 1) +
+  scale_fill_gradient2(
     low = CPCOLS[1],
     mid = CPCOLS[2],
     high = CPCOLS[3],
     midpoint = 0,
     na.value = "white",
-    breaks = seq(-3, 3, length.out = 5),
-    labels = c("<= -3", "-1.5", "0", "1.5", ">= 3"),
-    name = "log2 FC"
+    limits=c(min(fillbreaks),max(fillbreaks)),
+    breaks =fillbreaks,
+    name = "log2(FC)"
   ) +
   scale_size_continuous(
-    limit = c(-log10(0.05), 15),
-    range = c(1, 6),
-    breaks = c(-log10(0.05), 5, 10, 15),
-    labels = c("0.05", latex2exp::TeX("$10^{-5}$"), latex2exp::TeX("$10^{-10}$"), latex2exp::TeX("$< 10^{-15}$")),
-    name = "FDR"
+    guide=FALSE
   ) +
+  scale_color_manual(values = c("black","grey"),
+                     breaks = c("<0.05",">0.05"),
+                     name="FDR")+
   scale_y_discrete(limit = gene_rank$symbol) +
   scale_x_discrete(limit = cancer_rank$cancer_types) +
   theme(
