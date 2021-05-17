@@ -4,7 +4,7 @@
 library(magrittr)
 
 # Load data ---------------------------------------------------------------
-rda_path <- "/home/huff/github/GSCA/data"
+rda_path <- "/home/huff/github/GSCA.guolab/data"
 
 pancan14_expr <- readr::read_rds(file = '/home/huff/data/GSCA/expr/pancan14_expr_fc_pval.IdTrans.rds.gz')
 load(file = file.path(rda_path,"rda",'01-gene-symbols.rda'))
@@ -19,13 +19,15 @@ fn_transform_df <- function(cancer_types, data) {
   .x <- data
   .y <- cancer_types
   message(glue::glue('Handling DEG for {.y}'))
+  p.adjust(.x$p.value,method = "fdr") -> .fdr
   .x %>% 
     dplyr::rename(
       tumor = Tumor,
       normal = Normal,
       pval = p.value
     ) %>% 
-    dplyr::mutate(entrez = as.numeric(entrez)) ->
+    dplyr::mutate(entrez = as.numeric(entrez)) %>%
+    dplyr::mutate(fdr=.fdr)->
     .d
   
   # collection
