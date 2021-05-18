@@ -117,7 +117,7 @@ CPCOLS <- c("#000080", "#F8F8FF", "#CD0000")
 fetched_data$fc %>% log2() %>% range() -> fc_range
 
 min(fc_range) %>% floor() -> fc_min
-max(fc_range) %>% ceiling() -> cc
+max(fc_range) %>% ceiling() -> fc_max
 fillbreaks <- sort(unique(c(0,round(c(fc_min,fc_max,seq(fc_min,fc_max,length.out = 3))))))
 
 fetched_data %>%
