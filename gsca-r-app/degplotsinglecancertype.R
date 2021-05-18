@@ -58,7 +58,7 @@ fetched_data <- purrr::map(.x = search_colls, .f = fn_fetch_mongo) %>%
 CPCOLS <- c("#000080", "#F8F8FF", "#CD0000")
 source(file.path(apppath, "gsca-r-app/utils/fn_boxplot_single_gene_in_cancer.R"))
 
-combn_matrix <- combn(sort(unique(for_plot$type)),2)
+combn_matrix <- combn(sort(unique(fetched_data$type)),2)
 comp_list <- list()
 for(i in 1:ncol(combn_matrix)){
   comp_list[[i]] <- combn_matrix[,i]
