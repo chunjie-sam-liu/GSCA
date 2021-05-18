@@ -4,7 +4,7 @@
     <ng-container *ngIf="showRPPATable">
       <mat-card fxFlex fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
         <mat-card-header>
-          <mat-card-title>Test the difference of pathway activity between high and low mRNA expression</mat-card-title>
+          <mat-card-title>Table: test the difference of pathway activity between high and low mRNA expression</mat-card-title>
         </mat-card-header>
 
         <ng-container *ngIf="!RPPATableLoading; else loading"></ng-container>
@@ -69,7 +69,7 @@
     <ng-container *ngIf="showRPPAImage">
       <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
         <mat-card-header>
-          <mat-card-title>Percentage of effects of gene mRNA expression on pathway activity in selected cancer types</mat-card-title>
+          <mat-card-title>Summary figure: percentage of cancers in which specific gene's mRNA expression has pertential effect on pathway activity</mat-card-title>
         </mat-card-header>
         <mat-card-content>
           <ng-container *ngIf="!RPPAImageLoading; else loading">

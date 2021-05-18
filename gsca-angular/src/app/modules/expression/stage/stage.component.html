@@ -4,7 +4,7 @@
     <ng-container *ngIf="showStageTable">
       <mat-card fxFlex fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
         <mat-card-header>
-          <mat-card-title>Difference of mRNA expression between stages in the specific cancers</mat-card-title>
+          <mat-card-title>Table: difference of mRNA expression between stages in the specific cancers</mat-card-title>
         </mat-card-header>
 
         <ng-container *ngIf="!stageTableLoading; else loading"></ng-container>
@@ -70,7 +70,7 @@
     <ng-container *ngIf="showStageImage">
       <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
         <mat-card-header>
-          <mat-card-title>Difference of mRNA expression between stages in the specific cancers</mat-card-title>
+          <mat-card-title>Figure: summary the difference of gene mRNA expression between stages in the specific cancers</mat-card-title>
         </mat-card-header>
         <mat-card-content>
           <ng-container *ngIf="!stageImageLoading; else loading">
@@ -95,7 +95,7 @@
     <ng-container *ngIf="showStageHeatImage">
       <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
         <mat-card-header>
-          <mat-card-title>Heatmap of mRNA expression among stages in the specific cancers</mat-card-title>
+          <mat-card-title>Heatmap: summary of gene mRNA expression profile among stages in the specific cancers</mat-card-title>
         </mat-card-header>
         <mat-card-content>
           <ng-container *ngIf="!stageHeatImageLoading; else loading">
@@ -119,7 +119,7 @@
     <ng-container *ngIf="showStageTrendImage">
       <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
         <mat-card-header>
-          <mat-card-title>Trend of mRNA expression from early to late stage in the specific cancers</mat-card-title>
+          <mat-card-title>Trend plot: summary the trend of mRNA expression from early stage to late stage</mat-card-title>
         </mat-card-header>
         <mat-card-content>
           <ng-container *ngIf="!stageTrendImageLoading; else loading">

@@ -6,7 +6,7 @@
       <ng-container *ngIf="showGSVASubtypeTable">
         <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
           <mat-card-header>
-            <mat-card-title>GSVA score among subtypes in the selected cancers</mat-card-title>
+            <mat-card-title>Table: GSVA score among subtypes in the selected cancers</mat-card-title>
           </mat-card-header>
           <ng-container *ngIf="!dataSourceGSVASubtypeLoading; else loading"></ng-container>
           <mat-form-field>
@@ -56,7 +56,7 @@
       <ng-container *ngIf="showGSVASubtypeImage">
         <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
           <mat-card-header>
-            <mat-card-title>GSVA score among subtypes in the selected cancers</mat-card-title>
+            <mat-card-title>Box plot: GSVA score among subtypes in the selected cancers</mat-card-title>
           </mat-card-header>
           <mat-card-content>
             <ng-container *ngIf="!GSVASubtypeImageLoading; else loading">

@@ -4,7 +4,7 @@
     <ng-container *ngIf="showSurvivalTable">
       <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
         <mat-card-header>
-          <mat-card-title>Survival between high and low gene expression in selected cancer types</mat-card-title>
+          <mat-card-title>Table: survival difference between high and low gene expression groups</mat-card-title>
         </mat-card-header>
 
         <ng-container *ngIf="!dataSourceSurvivalLoading; else loading"></ng-container>
@@ -74,7 +74,7 @@
     <ng-container *ngIf="showSuvivalImage">
       <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
         <mat-card-header>
-          <mat-card-title>Survival between high and low gene expression in selected cancer types</mat-card-title>
+          <mat-card-title>Figure: summary the survival difference between high and low gene expression groups</mat-card-title>
         </mat-card-header>
         <mat-card-content>
           <ng-container *ngIf="!survivalImageLoading; else loading">
