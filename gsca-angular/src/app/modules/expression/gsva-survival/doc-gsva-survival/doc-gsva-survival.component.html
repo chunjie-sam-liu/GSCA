@@ -7,17 +7,16 @@
     <ul>
       <li>Methods</li>
       <p>
-        For GSVA and Survival analysis, GSCA estimates the association of the variation of gene set activity (represents as GSVA score) and
-        survival (includes OS and PFS). GSCA used 33 cancer types clinical data from tumor samples, some uncensored data was left out.
-        Merging GSVA score and clinical survival data by sample barcode, median GSVA score was used to divide tumor samples into high and
-        low GSVA groups. Then, we use R package survival to fit survival time and survival status of two groups. Cox Proportional-Hazards
-        model and logrank tests were performed in every cancer.
+        For GSVA and Survival analysis, GSCA estimates the association between GSVA score and
+        survival (includes OS and PFS). GSCA used clinical data of tumor samples from 33 cancer types. Uncensored data was left out.
+        GSVA score and clinical survival data were merged by sample barcode, median GSVA score was used to divide tumor samples into high and
+        low GSVA score groups. Then, R package <span class="phighlight">survival</span> was used to fit survival time and survival status of two groups. <span class="phighlight">Cox Proportional-Hazards</span> model and <span class="phighlight">logrank tests</span> were performed.
       </p>
       <p>
         GSVA score represents the variation of gene set activity over a specific cancer’s sample population in an unsupervised manner, whcih
         was calculated through R package
         <a href="https://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-14-7" target="_blank">GSVA.</a>
-        Briefly, the GSVA score represents the integrated level of the expression of gene set, which is positively correlate with gene expression. 
+        Briefly, <span class="phighlight">the GSVA score represents the integrated level of the expression of gene set, which is positively correlate with gene expression</span>. 
       </p>
       <li>Interpretation</li>
       <p>GSCA provides two forms of results, including table and figure.</p>
@@ -25,19 +24,19 @@
         <li>The result table:</li>
         <p>
           Presents detailed information about Cancer type, Gene symbol, Survival type, Hazard Ratio, Cox P value, Logrank P value, Higher
-          risk of death. Survival type including OS and PFS. Column ‘Higher risk of death’ indicates the group with higher risk of death.
-          When the median survival time of group A is lower than other group B, we think group A has higher risk of death. Of cource you can judge it according to other standards.
+          risk of death. Survival type including overall survival (OS) and progression free survival (PFS). Column ‘Higher risk of death’ indicates the group with higher risk of death.
+          When the <span class="phighlight">median survival time</span> in group A is lower than that in group B, we think group A has higher risk of death. Or you can judge it according to other standards.
         </p>
         <li>GSCA provides result figures including:</li>
         <ul>
           <li>Bubble plot:</li>
           <p>
-            Presents the Hazard ratio and logrank p value though bubble color and size. The row is the survival type and column is the
-            selected cancer types. The bubble color from blue to red represents the hazard ratio from low to high, bubble size is positively
-            correlate with the Logrank P value significance. Black outline border indicates Logrank P value < 0.05.
+            Presents the Hazard ratio and logrank p value though bubble color and size. The row is the survival type and the column is the
+            selected cancer types. The bubble color from blue to red represents the hazard ratio from low to high; the bubble size is positively
+            correlate with the Logrank P value significance. The black outline border of bubbles indicates Logrank P value < 0.05.
           </p>
           <li>Kaplan-Meier curves:</li>
-          <p>By clicking buttons in table result, GSCA draws Kaplan-Meier curves between high and low GSVA score in specific cancer.</p>
+          <p>By clicking buttons in table result, GSCA draws Kaplan-Meier curves to compare the survival between high and low GSVA score in the specific cancer.</p>
         </ul>
       </ul>
     </ul>
