@@ -8,7 +8,7 @@
       <li>Methods</li>
       <p>
         For GSEA (Gene Set Enrichment Analysis) analysis, GSCA gives the degree to which the inputted gene set is overrepresented at the top
-        or bottom of all genes ranked by gene expression fold change between tumor and normal. We performed GSEA calculation based on R
+        or bottom of all genes ranked by <span class="phighlight">gene expression fold change</span> between tumor and normal. We performed GSEA calculation based on R
         package fgsea. Please find detailed information about GSEA
         <a href="https://www.gsea-msigdb.org/gsea/doc/GSEAUserGuideFrame.html?Interpreting_GSEA" target="_blank">here</a>.
       </p>
@@ -21,14 +21,16 @@
           <li>ES</li>
           <p>
             Enrichment score, which reflects the degree to which a gene set is overrepresented at the top (ES>0) or bottom (ES<0) of a ranked list of
-            genes. In GSCA, the ranked list of genes include all genes ranked by fold changes. A positive ES indicates gene set
-            enrichment at the top of the ranked list (up-regulated); a negative ES indicates gene set enrichment at the bottom of the ranked list (down-regulated).
+            genes. In GSCA, the
+            <span class="phighlight">list of genes include all genes ranked by fold changes.</span>
+            A <span class="phighlight">positive</span> ES indicates gene set
+            enrichment at the <span class="phighlight">top</span> of the ranked list (<span class="phighlight">up-regulated</span>); a <span class="phighlight">negative</span> ES indicates gene set enrichment at the <span class="phighlight">bottom</span> of the ranked list (<span class="phighlight">down-regulated</span>).
           </p>
           <li>NES</li>
           <p>
             Normalized enrichment score, is the primary statistic for examining gene set enrichment results. By normalizing the enrichment
-            score, GSEA accounts for differences in gene set size and in correlations between gene sets and the expression dataset;
-            therefore, the NES can be used to compare analysis results across gene sets.
+            score, GSEA accounts for differences in <span class="phighlight">gene set size</span> and in <span class="phighlight">correlations between gene sets and the expression dataset</span>;
+            therefore, the NES can be used to <span class="phighlight">compare analysis results across gene sets</span>.
           </p>
           <li>P adj.</li>
           <p>Adjusted P value or FDR (false discovery rate).</p>
@@ -44,15 +46,17 @@
           <p>
             By clicking buttons in table result, provides a graphical view of the enrichment score for a gene set. The top portion of the
             plot shows the running ES for the gene set as the analysis walks down the ranked list. The score at the peak of the plot (the
-            score furthest from 0.0) is the ES for the gene set. Gene sets with a distinct peak at the beginning (such as the one shown
-            here) or end of the ranked list are generally the most interesting.
+            score <span class="phighlight">furthest from 0.0</span>) is the ES for the gene set. Gene sets with a distinct peak at the <span class="phighlight">beginning</span> or <span class="phighlight">end</span> of the ranked list are generally <span class="phighlight">the most interesting</span>.
           </p>
           <p>1. The middle portion of the plot shows where the members of the gene set appear in the ranked list of genes.</p>
           <p>
-            2. The leading edge subset of a gene set is the subset of members that contribute most to the ES. For a positive ES (such as the
-            one shown here), the leading edge subset is the set of members that appear in the ranked list prior to the peak score. For a
-            negative ES, it is the set of members that appear subsequent to the peak score.
+            2. The leading edge subset of a gene set is the subset of members that contribute most to the ES. For a positive ES, 
+            the leading edge subset is the set of members that appear in the ranked list prior to the peak score. For a
+            negative ES (such as the one shown here), it is the set of members that appear subsequent to the peak score.
           </p>
+          <div fxLayout="row" fxLayoutAlign="center center">
+            <img mat-card-image [src]="'/assets/imgs/doc_pic/' + 'GSEA_single.png'" alt="gseasingle" />
+          </div>
           <p>
             3. The bottom portion of the plot shows the value of the ranking metric as you move down the list of ranked genes. The ranking
             metric measures a gene’s correlation with a phenotype. The value of the ranking metric goes from positive to negative as you

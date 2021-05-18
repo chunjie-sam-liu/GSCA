@@ -6,7 +6,7 @@
       <ng-container *ngIf="showGSVATable">
         <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
           <mat-card-header>
-            <mat-card-title>GSVA score between tumor and normal in the selected cancers</mat-card-title>
+            <mat-card-title>Table: information of differential GSVA score between tumor and normal samples</mat-card-title>
           </mat-card-header>
           <ng-container *ngIf="!dataSourceGSVALoading; else loading"></ng-container>
           <mat-form-field>
@@ -41,7 +41,7 @@
       <ng-container *ngIf="showGSVAImage">
         <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
           <mat-card-header>
-            <mat-card-title>GSVA score between tumor and normal in the selected cancers</mat-card-title>
+            <mat-card-title>Box plot compare the GSVA score between tumor and normal samples</mat-card-title>
           </mat-card-header>
           <mat-card-content>
             <ng-container *ngIf="!GSVAImageLoading; else loading">

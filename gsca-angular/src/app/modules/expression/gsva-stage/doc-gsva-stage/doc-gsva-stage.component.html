@@ -7,17 +7,15 @@
     <ul>
       <li>Methods</li>
       <p>
-        For GSVA and stage analysis, GSCA used 26 cancer types (HNSC, LUSC, COAD, STAD, LUAD, BRCA, UCEC, KIRC, READ, BLCA, CESC, THCA,
-        TGCT, LIHC, PAAD, CRC, CHOL, ACC, UVM, SKCM, MESO, DLBC, UCS, KICH, KIRP, ESCA) clinical data from tumor samples. Merging GSVA score
-        and clinical stage data by sample barcode. The number of subgroup of stage must have at least 5 samples. The method used in this
-        analysis depends on the number of subgroup in stage with Wilcoxon test (n of stage groups == 2) and ANOVA test (n of stage groups >
-        2).
+        For GSVA and stage analysis, GSCA used clinical data of tumor samples from 26 cancer types (HNSC, LUSC, COAD, STAD, LUAD, BRCA, UCEC, KIRC, READ, BLCA, CESC, THCA,
+        TGCT, LIHC, PAAD, CRC, CHOL, ACC, UVM, SKCM, MESO, DLBC, UCS, KICH, KIRP, ESCA). GSVA score
+        and clinical stage data were merged by sample barcode. The stage subgroup must have at least 5 samples. GSCA compared the GSVA score among groups through <span class="phighlight">Wilcoxon test (number of stage groups == 2)</span> and <span class="phighlight">ANOVA test (number of stage groups > 2)</span>.
       </p>
       <p>
         GSVA score represents the variation of gene set activity over a specific cancer’s sample population in an unsupervised manner, whcih
         was calculated through R package
         <a href="https://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-14-7" target="_blank">GSVA.</a>
-        Briefly, the GSVA score represents the integrated level of the expression of gene set, which is positively correlate with gene expression. 
+        Briefly, <span class="phighlight">the GSVA score represents the integrated level of the expression of gene set, which is positively correlate with gene expression</span>. 
       </p>
       <li>Interpretation</li>
       <p>GSCA provides two forms of results, including table and figure.</p>
@@ -31,13 +29,13 @@
         <li>GSCA provides result figures including:</li>
         <ul>
           <li>Box plot:</li>
-          <p>Provides GSVA score between stages in specific cancer.</p>
+          <p>Provides GSVA score among stages.</p>
           <li>Heat map:</li>
-          <p>Presents the log2 RSEM expression of each gene in each stage.</p>
+          <p>Presents the profile of log2 RSEM expression of inputted genes in each stage.</p>
           <li>Trend plot:</li>
           <p>
-            Presents the trend of gene expression from stage I to stage IV. Trend line color from blue to red represents the downregulate to
-            upregulate tendency.
+            Presents the trend of gene expression from stage I to stage IV. Trend line color from blue to red represents the tendency from fall to
+            rise.
           </p>
         </ul>
       </ul>

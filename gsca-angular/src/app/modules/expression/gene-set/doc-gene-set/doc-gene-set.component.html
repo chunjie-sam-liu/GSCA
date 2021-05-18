@@ -9,8 +9,8 @@
       <p>
         For GSVA (Gene Set Enrichment Analysis) analysis, GSCA estimates variation of gene set activity (represents as GSVA score) over a
         specific cancer’s sample population in an unsupervised manner. This module provides differential gene set activity analysis between
-        tumor and normal. The GSVA score represents the integrated level of the expression of gene set, which is positively correlate with gene expression. 
-        Therefore, if the GSVA score in tumor group is higher than that in adjacent group, it can indicate that the overall expression of the gene set in the tumor group is higher. 
+        tumor and normal samples. The GSVA score represents the <span class="phighlight">integrated level of the expression</span> of gene set, which is positively correlate with the expression of gene set. 
+        Therefore, <span class="phighlight">if the GSVA score in tumor group is higher than that in adjacent group, it can indicate that the overall expression of the gene set in the tumor group is higher</span>. 
         The GSVA score was calculated through R package
         <a href="https://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-14-7" target="_blank">GSVA</a>
       </p>
@@ -19,10 +19,10 @@
       <ul>
         <li>The result table:</li>
         <p>Presents detailed information about Cancer type, Tumor GSVA, Normal GSVA,Fold change and P value.</p>
-        <p>Tumor GSVA: GSVA score in tumor samples.</p>
-        <p>Normal GSVA: GSVA score in normal samples.</p>
+        <p>Tumor GSVA: mean GSVA score in tumor samples.</p>
+        <p>Normal GSVA: mean GSVA score in normal samples.</p>
         <p>Fold change: Log2 fold change of GSVA score in tumor samples compared with normal samples.</p>
-        <p>P value: Estimate the statistical significance by Student T test.</p>
+        <p>P value: the statistical significance estimated by t test.</p>
 
         <li>GSCA provides result figures including:</li>
         <ul>
