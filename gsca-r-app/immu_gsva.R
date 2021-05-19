@@ -123,7 +123,7 @@ uuid_query <- post_gsva_coll$find(
 if (nrow(uuid_query) == 0) {
   post_gsva_coll$insert(data = insert_data)
   post_gsva_coll$index(add = '{"uuid": 1}')
-  message("insert data into preanalysised_gsva_rppa")
+  message("insert data into preanalysised_gsva_immu")
 }
 
 # Plot --------------------------------------------------------------------
