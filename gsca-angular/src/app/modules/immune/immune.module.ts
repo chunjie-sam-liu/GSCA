@@ -14,9 +14,10 @@ import { DocImmCnvComponent } from './immune-cnv/doc-imm-cnv/doc-imm-cnv.compone
 import { DocImmExprComponent } from './immune-expr/doc-imm-expr/doc-imm-expr.component';
 import { DocImmMethyComponent } from './immune-methy/doc-imm-methy/doc-imm-methy.component';
 import { DocImmSnvComponent } from './immune-snv/doc-imm-snv/doc-imm-snv.component';
+import { ImmuneGsvaComponent } from './immune-gsva/immune-gsva.component';
 
 @NgModule({
-  declarations: [ImmuneComponent, SearchBoxComponent, ImmuneExprComponent, ImmuneCnvComponent, ImmuneSnvComponent, ImmuneMethyComponent, ImmuneCnvGsvaComponent, DocImmCnvComponent, DocImmExprComponent, DocImmMethyComponent, DocImmSnvComponent],
+  declarations: [ImmuneComponent, SearchBoxComponent, ImmuneExprComponent, ImmuneCnvComponent, ImmuneSnvComponent, ImmuneMethyComponent, ImmuneCnvGsvaComponent, DocImmCnvComponent, DocImmExprComponent, DocImmMethyComponent, DocImmSnvComponent, ImmuneGsvaComponent],
   imports: [CommonModule, ImmuneRoutingModule, SharedModule],
 })
 export class ImmuneModule {}
