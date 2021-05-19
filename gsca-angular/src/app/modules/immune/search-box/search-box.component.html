@@ -64,28 +64,28 @@
       </mat-card>
     </ng-container>
 
-    <!-- <ng-container>
+    <ng-container>
       <mat-card appMaterialElevation defaultElevation="4" raisedElevation="4" fxLayout="column" fxLayoutGap="10px">
         <h3>Geneset level analysis</h3>
-        <p>This section presents the correlation between immune infiltrates with gene set expression, SNV, CNV.</p>
+        <p>This section presents the correlation between immune infiltrates with gene set expression score (GSVA score).</p>
         <h4>Please select analysis:</h4>
         <dl>
           <dd>
-            <mat-checkbox [(ngModel)]="showList.showImmExprGsva">GSVA score and immune infiltrates</mat-checkbox>
+            <mat-checkbox [(ngModel)]="showList.showImmExprGsva">GSVA score & immune infiltrates</mat-checkbox>
           </dd>
         </dl>
         <dl>
           <dd>
-            <mat-checkbox [(ngModel)]="showList.showImmSnvGsva">Geneset SNV and immune infiltrates</mat-checkbox>
+            <mat-checkbox [(ngModel)]="showList.showImmSnvGsva">Geneset SNV & immune infiltrates</mat-checkbox>
           </dd>
         </dl>
         <dl>
           <dd>
-            <mat-checkbox [(ngModel)]="showList.showImmCnvGsva">Geneset CNV and immune infiltrates</mat-checkbox>
+            <mat-checkbox [(ngModel)]="showList.showImmCnvGsva">Geneset CNV & immune infiltrates</mat-checkbox>
           </dd>
         </dl>
       </mat-card>
-    </ng-container> -->
+    </ng-container>
   </div>
   <div fxFlex>
     <mat-hint>

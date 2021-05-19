@@ -71,4 +71,14 @@ export class ImmuneApiService extends BaseHttpService {
   public getImmMethyCorSingleGene(postTerm: ExprSearch): Observable<any> {
     return this.postData('immune/immunemethy/immmethycorsinglegene', postTerm);
   }
+  // GSVA immune
+  public getGSVAAnalysis(postTerm: ExprSearch): Observable<any> {
+    return this.postData('expression/gsva/gsvaanalysis', postTerm);
+  }
+  public getImmuGSVAPlot(uuidname: string): Observable<any> {
+    return this.getData('immune/immuneexpr/immugsva/' + uuidname);
+  }
+  public getGSVAImmuSingleCellImage(uuidname: string, cancertype: string, surType: string): Observable<any> {
+    return this.getData('immune/immuneexpr/immugsva/singlecell/' + uuidname + '/' + cancertype + '/' + surType);
+  }
 }

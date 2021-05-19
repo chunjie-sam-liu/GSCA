@@ -32,6 +32,9 @@ export class SearchBoxComponent implements OnInit {
     this.showList.showImmSnv = true;
     this.showList.showImmCnv = false;
     this.showList.showImmMethy = false;
+    this.showList.showImmExprGsva = true;
+    this.showList.showImmSnvGsva = false;
+    this.showList.showImmCnvGsva = false;
     this.showList.showContent = false;
   }
 
