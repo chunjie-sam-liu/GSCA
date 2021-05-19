@@ -137,7 +137,7 @@ for_plot %>%
   labs(
     x = "Cancer type",
     y = "Normalized enrichment score (NES)",
-    title = "Enrichment score of inputted gene set in selected cancer types"
+    title = "Enrichment score of inputted gene set"
   ) ->
   gsea_plot
 
