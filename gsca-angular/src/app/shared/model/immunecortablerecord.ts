@@ -5,6 +5,7 @@ export interface ImmCorTableRecord {
   symbol: string;
   cell_type: string;
   cor: number;
+  p_value: number;
   fdr: number;
   cancertype: string;
 }

@@ -29,8 +29,8 @@ export class ImmuneExprComponent implements OnInit, OnChanges, AfterViewInit {
   showImmExprCorTable = true;
   @ViewChild('paginatorImmExprCor') paginatorImmExprCor: MatPaginator;
   @ViewChild(MatSort) sortImmExprCor: MatSort;
-  displayedColumnsImmExprCor = ['cancertype', 'symbol', 'cell_type', 'cor', 'fdr'];
-  displayedColumnsImmExprCorHeader = ['Cancer type', 'Gene symbol', 'Cell type', 'Correlation', 'FDR'];
+  displayedColumnsImmExprCor = ['cancertype', 'symbol', 'cell_type', 'cor','p_value', 'fdr'];
+  displayedColumnsImmExprCorHeader = ['Cancer type', 'Gene symbol', 'Cell type', 'P value','Correlation', 'FDR'];
   expandedElement: ImmCorTableRecord;
   expandedColumn: string;
 
