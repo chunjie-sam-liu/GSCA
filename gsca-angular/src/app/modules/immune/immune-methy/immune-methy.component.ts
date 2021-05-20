@@ -29,8 +29,8 @@ export class ImmuneMethyComponent implements OnInit, OnChanges, AfterViewInit {
   showImmMethyCorTable = true;
   @ViewChild('paginatorImmMethyCor') paginatorImmMethyCor: MatPaginator;
   @ViewChild(MatSort) sortImmMethyCor: MatSort;
-  displayedColumnsImmMethyCor = ['cancertype', 'symbol', 'cell_type', 'cor', 'fdr'];
-  displayedColumnsImmMethyCorHeader = ['Cancer type', 'Gene symbol', 'Cell type', 'Correlation', 'FDR'];
+  displayedColumnsImmMethyCor = ['cancertype', 'symbol', 'cell_type', 'cor','p_value', 'fdr'];
+  displayedColumnsImmMethyCorHeader = ['Cancer type', 'Gene symbol', 'Cell type','P value', 'Correlation', 'FDR'];
   expandedElement: ImmCorTableRecord;
   expandedColumn: string;
 

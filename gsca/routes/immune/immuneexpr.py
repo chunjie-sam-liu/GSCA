@@ -4,8 +4,14 @@ from flask_restful import Api, Resource, fields, marshal_with, reqparse
 from pathlib import Path
 import subprocess
 import uuid
-from gsca.utils.checkplot import CheckPlot
 from gsca.utils.check_survivalPlot import CheckSurvivalPlot
+from gsca.utils.checkplot import (
+    CheckPlot,
+    CheckUUIDPlot,
+    CheckGSVASurvivalSingleCancerType,
+    CheckGSEAPlotSingleCancerType,
+    CheckParalleUUIDPlot,
+)
 
 immuneexpr = Blueprint("immuneexpr", __name__)
 api = Api(immuneexpr)
@@ -65,3 +71,48 @@ class ImmExprCorSingleGene(Resource):
 
 
 api.add_resource(ImmExprCorSingleGene, "/immexprcorsinglegene")
+
+""" GSVA immune"""
+
+
+class ImmuGSVAPlot(Resource):
+    def get(self, uuidname):
+        checkplot = CheckUUIDPlot(
+            gsxa_uuid=uuidname,
+            name_uuid="immu_uuid",
+            purpose="immugsva",
+            rplot="immu_gsva.R",
+            precol="preanalysised",
+            gsxacol="preanalysised_gsva",
+        )
+        res = checkplot.check_run()
+        if res["run"]:
+            checkplot.plot()
+
+        return {"immugsvaplotuuid": res["uuid"], "immugsvatableuuid": uuidname}
+
+
+api.add_resource(ImmuGSVAPlot, "/immugsva/<string:uuidname>")
+
+
+class GSVAImmuSingleCellImage(Resource):
+    def get(self, uuidname, cancertype, surType):
+        checkplot = CheckGSVASurvivalSingleCancerType(
+            gsxa_uuid=uuidname,
+            cancertype=cancertype,
+            surType=surType,
+            name_uuid="gsvaimmusinglecell_uuid",
+            purpose="gsvaimmusinglecell",
+            rplot="gsva_immu_single_cell.R",
+            precol="preanalysised",
+            gsxacol="preanalysised_gsva",
+        )
+        res = checkplot.check_run()
+        if res["run"]:
+            checkplot.plot()
+
+        return {"gsvaimmusinglecelluuid": res["uuid"]}
+
+
+api.add_resource(GSVAImmuSingleCellImage, "/immugsva/singlecell/<string:uuidname>/<string:cancertype>/<string:surType>")
+
