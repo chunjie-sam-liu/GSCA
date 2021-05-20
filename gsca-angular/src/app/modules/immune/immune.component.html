@@ -82,7 +82,7 @@
       </ng-container>
     </mat-tab-group>
 
-    <!--  <ng-container *ngIf="showList.showContent && showList.showImmCnvGsva; else empty">
+     <ng-container *ngIf="showList.showContent && showList.showImmCnvGsva; else empty">
       <div fxFlex="grow">
         <app-immune-cnv-gsva
           fxLayout="row"
@@ -93,7 +93,7 @@
           [searchTerm]="searchTerm"
         ></app-immune-cnv-gsva>
       </div>
-    </ng-container> -->
+    </ng-container>
 
     <ng-template #loading>
       <mat-progress-bar mode="query" color="warn"></mat-progress-bar>
