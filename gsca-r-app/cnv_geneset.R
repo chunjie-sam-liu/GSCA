@@ -14,9 +14,9 @@ apppath <- args[2]
 tableuuid <- args[3]
 tablecol <- args[4]
 
-# search_str = 'A2M#ACE#ANGPT2#BPI#CD1B#CDR1#EGR2#EGR3#HBEGF#HERPUD1#MCM2#PCTP#PODXL#PPY#PTGS2#RCAN1#SLC4A7#THBD@KICH_all_expr_gene_set.rds.gz#KIRC_all_expr_gene_set.rds.gz#KIRP_all_expr_gene_set.rds.gz#LUAD_all_expr_gene_set.rds.gz#LUSC_all_expr_gene_set.rds.gz'
+# search_str = 'A2M#ACE#ANGPT2#BPI#CD1B#CDR1#EGR2#EGR3#HBEGF#HERPUD1#MCM2#PCTP#PODXL@KICH_all_expr_gene_set.rds.gz'
 # apppath <- '/home/huff/github/GSCA'
-# tableuuid <- 'e496623d-57e7-4cbb-a03c-57b7da877dd8'
+# tableuuid <- '6326efd0-2f45-4fd1-8dff-8b32d64f5739'
 # tablecol <- 'preanalysised_cnvgeneset'
 
 search_str_split <- strsplit(x = search_str, split = '@')[[1]]
@@ -45,13 +45,6 @@ fields <- '{"symbol": true, "barcode": true,"sample_name": true,"type": true,"cn
 fetched_cnv_data <- purrr::map(.x = paste(search_cancertypes,"_cnv_threshold",sep=""), .f = fn_fetch_mongo, pattern="_cnv_threshold",fields = fields,.key=search_genes,.keyindex="symbol") %>%
   dplyr::bind_rows() %>%
   dplyr::filter(type == "tumor")
-
-fields <- '{"_id": false}'
-fetched_cnv_samples <- purrr::map(.x = "all_samples_with_cnv", .f = fn_fetch_mongo, pattern="_samples_with_cnv",fields = fields,.key=search_cancertypes,.keyindex="cancer_types") %>%
-  dplyr::bind_rows()%>%
-  dplyr::filter(substr(barcode,14,14)==0) %>%
-  dplyr::select(-cancertype) %>%
-  dplyr::rename(cancertype=cancer_types)
 
 # mutation group --------------------------------------------------------
 
