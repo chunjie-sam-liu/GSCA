@@ -16,3 +16,13 @@ POST http://localhost:5000/api/immune/immunecnv/immcnvcorsinglegene HTTP/1.1
 content-type: application/json
 
 {"validSymbol":["A2M"],"cancerTypeSelected":["KICH","KIRC","KIRP","LUAD","LUSC"],"validColl":["KICH_immune_cor_cnv"],"surType":["Bcell"]}
+
+
+### immune genesetcnv
+POST http://localhost:5000/api/mutation/cnvsurvival/cnvgeneset HTTP/1.1
+content-type: application/json
+
+{"validSymbol":["A2M","ACE","ANGPT2","BPI","CD1B","CDR1","EGR2","EGR3","HBEGF","HERPUD1","MCM2","PCTP","PODXL"],"cancerTypeSelected":["KICH","KIRC","KIRP","LUAD","LUSC"],"validColl":["KICH_immune_cor_cnv"]}
+
+###
+GET http://localhost:5000/api/localhost:5000/api/immune/immunecnv/immcnvgenesetcorplot/e496623d-57e7-4cbb-a03c-57b7da877dd8
