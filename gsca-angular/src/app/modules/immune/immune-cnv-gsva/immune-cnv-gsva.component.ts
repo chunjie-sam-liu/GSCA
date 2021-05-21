@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { ExprSearch } from 'src/app/shared/model/exprsearch';
-import { ImmCorTableRecord } from 'src/app/shared/model/immunecortablerecord';
+import { ImmGenesetDiffTableRecord } from 'src/app/shared/model/immunegenesetcnv';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import collectionlist from 'src/app/shared/constants/collectionlist';
@@ -25,13 +25,13 @@ export class ImmuneCnvGsvaComponent implements OnInit, OnChanges, AfterViewInit 
 
   // immCnv cor table data source
   dataSourceImmGenesetCnvCorLoading = true;
-  dataSourceImmGenesetCnvCor: MatTableDataSource<ImmCorTableRecord>;
+  dataSourceImmGenesetCnvCor: MatTableDataSource<ImmGenesetDiffTableRecord>;
   showImmGenesetCnvCorTable = true;
   @ViewChild('paginatorImmCnvCor') paginatorImmCnvCor: MatPaginator;
   @ViewChild(MatSort) sortImmCnvCor: MatSort;
-  displayedColumnsImmGenesetCnvCor = ['cancertype', 'symbol', 'cell_type', 'cor', 'fdr'];
-  displayedColumnsImmGenesetCnvCorHeader = ['Cancer type', 'Gene symbol', 'Cell type', 'Correlation', 'FDR'];
-  expandedElement: ImmCorTableRecord;
+  displayedColumnsImmGenesetCnvCor = ['cancertype', 'celltype', 'p_value', 'fdr',"method_short"];
+  displayedColumnsImmGenesetCnvCorHeader = ['Cancer type', 'Immune cell type', 'P value', 'FDR', "Method"];
+  expandedElement: ImmGenesetDiffTableRecord;
   expandedColumn: string;
 
   // immCnv cor plot
@@ -71,7 +71,7 @@ export class ImmuneCnvGsvaComponent implements OnInit, OnChanges, AfterViewInit 
             (cnvgenesetres) => {
               this.showImmGenesetCnvCorTable = true;
               this.immuneApiService
-                .getResourceTable('preanalysised_cnvgeneset_immune', cnvgenesetres.cnvimmunegenesetcortableuuid)
+                .getResourceTable('preanalysised_cnvgeneset_immu', cnvgenesetres.cnvimmunegenesetcortableuuid)
                 .subscribe(
                   (r) => {
                     this.dataSourceImmGenesetCnvCorLoading = false;
@@ -154,7 +154,7 @@ export class ImmuneCnvGsvaComponent implements OnInit, OnChanges, AfterViewInit 
     }
   }
 
-  public expandDetail(element: ImmCorTableRecord, column: string): void {
+  public expandDetail(element: ImmGenesetDiffTableRecord, column: string): void {
     this.expandedElement = this.expandedElement === element && this.expandedColumn === column ? null : element;
     this.expandedColumn = column;
 
@@ -163,7 +163,7 @@ export class ImmuneCnvGsvaComponent implements OnInit, OnChanges, AfterViewInit 
       this.showImmGenesetCnvCorSingleGeneImage = false;
       if (this.expandedColumn === 'cancertype') {
         this.immuneApiService
-          .getImmCnvGenesetCorSingleGene(this.dataSourceImmGenesetCnvCorUUID, this.expandedElement.cancertype, this.expandedElement.cell_type)
+          .getImmCnvGenesetCorSingleGene(this.dataSourceImmGenesetCnvCorUUID, this.expandedElement.cancertype, this.expandedElement.celltype)
           .subscribe(
             (res) => {
               this.immGenesetCnvCorSingleGenePdfURL = this.immuneApiService.getResourcePlotURL(res.immgenesetcnvcorsinglegeneuuid, 'pdf');
@@ -222,7 +222,7 @@ export class ImmuneCnvGsvaComponent implements OnInit, OnChanges, AfterViewInit 
       this.showImmGenesetCnvCorSingleGeneImage = false;
     }
   }
-  public triggerDetail(element: ImmCorTableRecord): string {
+  public triggerDetail(element: ImmGenesetDiffTableRecord): string {
     return element === this.expandedElement ? 'expanded' : 'collapsed';
   }
 }

@@ -80,20 +80,21 @@
           </div>
         </mat-tab>
       </ng-container>
+      <ng-container *ngIf="showList.showContent && showList.showImmCnvGsva; else empty">
+        <mat-tab label="Immune & Gene set CNV">
+          <div fxFlex="grow">
+            <app-immune-cnv-gsva
+              fxLayout="row"
+              fxLayout.lt-lg="column"
+              fxLayoutGap="10px"
+              fxLayoutWrap
+              fxLayoutAlign="center"
+              [searchTerm]="searchTerm"
+            ></app-immune-cnv-gsva>
+          </div>
+        </mat-tab>
+      </ng-container>
     </mat-tab-group>
-
-     <ng-container *ngIf="showList.showContent && showList.showImmCnvGsva; else empty">
-      <div fxFlex="grow">
-        <app-immune-cnv-gsva
-          fxLayout="row"
-          fxLayout.lt-lg="column"
-          fxLayoutGap="10px"
-          fxLayoutWrap
-          fxLayoutAlign="center"
-          [searchTerm]="searchTerm"
-        ></app-immune-cnv-gsva>
-      </div>
-    </ng-container>
 
     <ng-template #loading>
       <mat-progress-bar mode="query" color="warn"></mat-progress-bar>
