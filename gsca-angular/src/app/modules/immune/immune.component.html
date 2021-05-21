@@ -94,6 +94,20 @@
           </div>
         </mat-tab>
       </ng-container>
+      <ng-container *ngIf="showList.showContent && showList.showImmSnvGsva; else empty">
+        <mat-tab label="Immune & Gene set SNV">
+          <div fxFlex="grow">
+            <app-immune-snv-geneset
+              fxLayout="row"
+              fxLayout.lt-lg="column"
+              fxLayoutGap="10px"
+              fxLayoutWrap
+              fxLayoutAlign="center"
+              [searchTerm]="searchTerm"
+            ></app-immune-snv-geneset>
+          </div>
+        </mat-tab>
+      </ng-container>
     </mat-tab-group>
 
     <ng-template #loading>

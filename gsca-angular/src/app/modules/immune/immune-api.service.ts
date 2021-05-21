@@ -41,6 +41,16 @@ export class ImmuneApiService extends BaseHttpService {
   public getImmCnvGenesetCorSingleGene(uuidname: string, cancertype: string, surType: string): Observable<any> {
     return this.getData('immune/immunecnv/immcnvgenesetcorsinglegeneplot/' + uuidname + '/' + cancertype + '/' + surType);
   }
+  // immune and gene set cnv
+  public getGeneSetSNVAnalysis(postTerm: ExprSearch): Observable<any> {
+    return this.postData('mutation/snvsurvival/snvgeneset', postTerm);
+  }
+  public getSnvImmGenesetCorPlot(uuidname: string): Observable<any> {
+    return this.getData('immune/immunesnv/immsnvgenesetcorplot/' + uuidname);
+  }
+  public getImmSnvGenesetCorSingleGene(uuidname: string, cancertype: string, surType: string): Observable<any> {
+    return this.getData('immune/immunesnv/immsnvgenesetcorsinglegeneplot/' + uuidname + '/' + cancertype + '/' + surType);
+  }
   // immune expression
   public getImmExprCorTable(postTerm: ExprSearch): Observable<any> {
     return this.postData('immune/immuneexpr/immexprcortable', postTerm);

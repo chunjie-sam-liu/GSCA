@@ -1,0 +1,29 @@
+.example-detail-row {
+    height: 0;
+  }
+  
+  .example-element-row:not(.example-expanded-row):hover {
+    background: whitesmoke;
+  }
+  
+  .example-element-row:not(.example-expanded-row):active {
+    background: #efefef;
+  }
+  
+  .example-element-row td {
+    border-bottom-width: 0;
+  }
+  
+  .example-element-detail {
+    overflow: auto;
+    justify-content: center;
+  }
+  
+  mat-card-content {
+    text-align: center;
+  }
+  .export-container {
+    text-align: right;
+    margin-bottom: 20px;
+    background-color: rgb(123, 123, 166);
+  }
