@@ -12,7 +12,7 @@
         <mat-icon style="font-size: 25px">search</mat-icon>
       </button>
     </mat-form-field>
-
+    <button class="export-container" mat-raised-button color="primary" (click)="exportExcel()">Export Table</button>
     <table mat-table [dataSource]="dataSourceImmGenesetCnvCor" multiTemplateDataRows matSort>
       <ng-container matColumnDef="{{ column }}" *ngFor="let column of displayedColumnsImmGenesetCnvCor; index as ind">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ displayedColumnsImmGenesetCnvCorHeader[ind] }}</th>
@@ -59,7 +59,7 @@
       ></tr>
       <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
     </table>
-    <mat-paginator #paginatorImmGenesetCnvCor [pageSizeOptions]="[10, 20]" showFirstLastButtons></mat-paginator>
+    <mat-paginator #paginatorImmCnvCor [pageSizeOptions]="[10, 20]" showFirstLastButtons></mat-paginator>
   </mat-card>
   <ng-container *ngIf="showImmGenesetCnvCorImage">
     <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
