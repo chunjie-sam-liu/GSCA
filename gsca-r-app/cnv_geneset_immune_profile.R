@@ -102,7 +102,8 @@ suppressWarnings(
     dplyr::select(cancertype,res) %>%
     tidyr::unnest()  -> gsva_score_rppa_test_res
 )
-
+gsva_score_rppa_test_res %>%
+  dplyr::mutate(method_short=strsplit(method,split = " ")[[1]][1]) -> gsva_score_rppa_test_res
 
 
 # Insert table ------------------------------------------------------------
