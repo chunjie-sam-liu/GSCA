@@ -184,39 +184,6 @@ export class ImmuneCnvGsvaComponent implements OnInit, OnChanges, AfterViewInit 
             }
           );
       }
-      if (this.expandedColumn === 'cancertype') {
-        const postTerm = {
-          validSymbol: this.searchTerm.validSymbol,
-          cancerTypeSelected: [this.expandedElement.cancertype],
-          validColl: [
-            collectionlist.immune_cor_cnv.collnames[collectionlist.immune_cor_cnv.cancertypes.indexOf(this.expandedElement.cancertype)],
-          ],
-        };
-        this.immuneApiService.getImmCnvCorPlot(postTerm).subscribe(
-          (res) => {
-            this.immGenesetCnvCorPdfURL = this.immuneApiService.getResourcePlotURL(res.immcnvcorplotuuid, 'pdf');
-            this.immuneApiService.getResourcePlotBlob(res.immcnvcorplotuuid, 'png').subscribe(
-              (r) => {
-                this.showImmGenesetCnvCorImage = true;
-                this.immGenesetCnvCorImageLoading = false;
-                this.immGenesetCnvCorSingleGeneImageLoading = false;
-                this.showImmGenesetCnvCorSingleGeneImage = false;
-                this._createImageFromBlob(r, 'immCnvCorImage');
-              },
-              (e) => {
-                this.showImmGenesetCnvCorSingleGeneImage = false;
-                this.immGenesetCnvCorSingleGeneImageLoading = false;
-              }
-            );
-          },
-          (err) => {
-            this.immGenesetCnvCorImageLoading = false;
-            this.showImmGenesetCnvCorImage = false;
-            this.immGenesetCnvCorSingleGeneImageLoading = false;
-            this.showImmGenesetCnvCorSingleGeneImage = false;
-          }
-        );
-      }
     } else {
       this.immGenesetCnvCorSingleGeneImageLoading = false;
       this.showImmGenesetCnvCorSingleGeneImage = false;

@@ -103,7 +103,7 @@ class ImmCnvGenesetCorSingleGene(Resource):
         if res["run"]:
             checkplot.plot()
 
-        return {"cnvgenesetimmunesinglecanceruuid": res["uuid"]}
+        return {"immgenesetcnvcorsinglegeneuuid": res["uuid"]}
 
 
 api.add_resource(
