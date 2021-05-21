@@ -96,11 +96,13 @@ fn_gsva_immu_cor <- function(genesetcnv,data){
 }
 
 # calculation -------------------------------------------------------------
+suppressWarnings(
+  combine_data %>%
+    dplyr::mutate(res = purrr::map2(data,ImmuneCellAI,fn_gsva_immu_cor)) %>%
+    dplyr::select(cancertype,res) %>%
+    tidyr::unnest()  -> gsva_score_rppa_test_res
+)
 
-combine_data %>%
-  dplyr::mutate(res = purrr::map2(data,ImmuneCellAI,fn_gsva_immu_cor)) %>%
-  dplyr::select(cancertype,res) %>%
-  tidyr::unnest()  -> gsva_score_rppa_test_res
 
 
 # Insert table ------------------------------------------------------------
@@ -161,43 +163,6 @@ min(cor_range) %>% floor() -> cor_min
 max(cor_range) %>% ceiling() -> cor_max
 fillbreaks <- sort(unique(c(1.3,round(c(cor_min,cor_max,seq(cor_min,cor_max,length.out = 5))))))
 
-gsva_score_rppa_test_res.label %>%
-  ggplot(aes(x=celltype,y=cancertype)) +
-  geom_tile(aes(fill=logFDR),color="white") +
-  geom_text(aes(label=label)) +
-  scale_x_discrete(limit=c("InfiltrationScore",cellrank$celltype)) +
-  scale_y_discrete(limit=cancerrank$cancertype) +
-  scale_fill_gradient2(
-    name = "-log10(FDR)", # "Methylation diff (T - N)",
-    high = "red",
-    mid = "white",
-    low = "blue",
-    midpoint = 1.3,
-    limits=c(min(fillbreaks),max(fillbreaks)),
-    breaks =fillbreaks
-  ) +
-  theme(
-    axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1),
-    axis.text = element_text(colour = "black",size = 10),
-    axis.title = element_text(size = 13),
-    # legend.key.size = unit(0.25, "cm"),
-    legend.position = "bottom",
-    plot.margin = rep(unit(0, "null"), 4),
-    axis.ticks.length = unit(0, "cm"),
-    # legend.text = element_text(size = 5),
-    # axis.title.x = element_text(size = 6),
-    # axis.title.y = element_text(size = 6),
-    # legend.title = element_text(size = 6),
-    panel.background = element_rect(fill = "white", color = NA),
-    panel.grid = element_line(colour = "grey", linetype = "dashed"),
-    panel.grid.major = element_line(
-      colour = "grey",
-      linetype = "dashed",
-      size = 0.2
-    )
-  ) +
-  ylab("Cancer types") +
-  xlab("Immune cell types") -> plot
 
 gsva_score_rppa_test_res.label %>%
   dplyr::filter(!is.na(fdr)) %>%
@@ -207,7 +172,7 @@ gsva_score_rppa_test_res.label %>%
   geom_point(aes(color=celltypecor)) +
   facet_wrap(.~cancertype, nrow=ceiling(length(unique(gsva_score_rppa_test_res.label$cancertype))/5)) +
   ggrepel::geom_text_repel(aes(label=celltype,color=celltypecor)) +
-  scale_color_manual(values = c("#d0021b","black","#366a70"),
+  scale_color_manual(values = c("black","#d0021b","#366a70"),
                      name="Significance") +
   theme(
     axis.text = element_text(colour = "black",size = 10),
