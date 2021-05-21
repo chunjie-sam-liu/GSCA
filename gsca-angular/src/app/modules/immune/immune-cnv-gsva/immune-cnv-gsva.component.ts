@@ -24,29 +24,29 @@ export class ImmuneCnvGsvaComponent implements OnInit, OnChanges, AfterViewInit 
   @Input() searchTerm: ExprSearch;
 
   // immCnv cor table data source
-  dataSourceImmCnvCorLoading = true;
-  dataSourceImmCnvCor: MatTableDataSource<ImmCorTableRecord>;
-  showImmCnvCorTable = true;
+  dataSourceImmGenesetCnvCorLoading = true;
+  dataSourceImmGenesetCnvCor: MatTableDataSource<ImmCorTableRecord>;
+  showImmGenesetCnvCorTable = true;
   @ViewChild('paginatorImmCnvCor') paginatorImmCnvCor: MatPaginator;
   @ViewChild(MatSort) sortImmCnvCor: MatSort;
-  displayedColumnsImmCnvCor = ['cancertype', 'symbol', 'cell_type', 'cor', 'fdr'];
-  displayedColumnsImmCnvCorHeader = ['Cancer type', 'Gene symbol', 'Cell type', 'Correlation', 'FDR'];
+  displayedColumnsImmGenesetCnvCor = ['cancertype', 'symbol', 'cell_type', 'cor', 'fdr'];
+  displayedColumnsImmGenesetCnvCorHeader = ['Cancer type', 'Gene symbol', 'Cell type', 'Correlation', 'FDR'];
   expandedElement: ImmCorTableRecord;
   expandedColumn: string;
 
   // immCnv cor plot
-  immCnvCorImageLoading = true;
-  immCnvCorImage: any;
-  showImmCnvCorImage = true;
-  immCnvCorPdfURL: string;
+  immGenesetCnvCorImageLoading = true;
+  immGenesetCnvCorImage: any;
+  showImmGenesetCnvCorImage = true;
+  immGenesetCnvCorPdfURL: string;
 
   // single gene cor
-  immCnvCorSingleGeneImage: any;
-  immCnvCorSingleGeneImageLoading = true;
-  showImmCnvCorSingleGeneImage = false;
-  immCnvCorSingleGenePdfURL: string;
+  immGenesetCnvCorSingleGeneImage: any;
+  immGenesetCnvCorSingleGeneImageLoading = true;
+  showImmGenesetCnvCorSingleGeneImage = false;
+  immGenesetCnvCorSingleGenePdfURL: string;
 
-  dataSourceImmCnvCorUUID: string;
+  dataSourceImmGenesetCnvCorUUID: string;
 
   constructor(private immuneApiService: ImmuneApiService) {}
 
@@ -54,58 +54,58 @@ export class ImmuneCnvGsvaComponent implements OnInit, OnChanges, AfterViewInit 
   ngOnChanges(changes: SimpleChanges): void {
     // Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
     // Add '${implements OnChanges}' to the class.
-    this.dataSourceImmCnvCorLoading = true;
+    this.dataSourceImmGenesetCnvCorLoading = true;
 
     const postTerm = this._validCollection(this.searchTerm);
 
     if (!postTerm.validColl.length) {
-      this.dataSourceImmCnvCorLoading = false;
-      this.showImmCnvCorTable = false;
-      this.immCnvCorImageLoading = false;
-      this.showImmCnvCorImage = false;
+      this.dataSourceImmGenesetCnvCorLoading = false;
+      this.showImmGenesetCnvCorTable = false;
+      this.immGenesetCnvCorImageLoading = false;
+      this.showImmGenesetCnvCorImage = false;
     } else {
       this.immuneApiService.getGeneSetCNVAnalysis(postTerm).subscribe(
         (res) => {
-          this.dataSourceImmCnvCorUUID = res.uuidname;
+          this.dataSourceImmGenesetCnvCorUUID = res.uuidname;
           this.immuneApiService.getCnvImmGenesetCorPlot(res.uuidname).subscribe(
             (cnvgenesetres) => {
-              this.showImmCnvCorTable = true;
+              this.showImmGenesetCnvCorTable = true;
               this.immuneApiService
                 .getResourceTable('preanalysised_cnvgeneset_immune', cnvgenesetres.cnvimmunegenesetcortableuuid)
                 .subscribe(
                   (r) => {
-                    this.dataSourceImmCnvCorLoading = false;
-                    this.dataSourceImmCnvCor = new MatTableDataSource(r);
-                    this.dataSourceImmCnvCor.paginator = this.paginatorImmCnvCor;
-                    this.dataSourceImmCnvCor.sort = this.sortImmCnvCor;
+                    this.dataSourceImmGenesetCnvCorLoading = false;
+                    this.dataSourceImmGenesetCnvCor = new MatTableDataSource(r);
+                    this.dataSourceImmGenesetCnvCor.paginator = this.paginatorImmCnvCor;
+                    this.dataSourceImmGenesetCnvCor.sort = this.sortImmCnvCor;
                   },
                   (e) => {
-                    this.showImmCnvCorTable = false;
+                    this.showImmGenesetCnvCorTable = false;
                   }
                 );
-              this.immCnvCorPdfURL = this.immuneApiService.getResourcePlotURL(cnvgenesetres.cnvimmunegenesetcorplotuuid, 'pdf');
+              this.immGenesetCnvCorPdfURL = this.immuneApiService.getResourcePlotURL(cnvgenesetres.cnvimmunegenesetcorplotuuid, 'pdf');
               this.immuneApiService.getResourcePlotBlob(cnvgenesetres.cnvimmunegenesetcorplotuuid, 'png').subscribe(
                 (r) => {
-                  this.showImmCnvCorImage = true;
-                  this.immCnvCorImageLoading = false;
-                  this._createImageFromBlob(r, 'immCnvCorImage');
+                  this.showImmGenesetCnvCorImage = true;
+                  this.immGenesetCnvCorImageLoading = false;
+                  this._createImageFromBlob(r, 'immGenesetCnvCorImage');
                 },
                 (e) => {
-                  this.showImmCnvCorImage = false;
+                  this.showImmGenesetCnvCorImage = false;
                 }
               );
             },
             (e) => {
-              this.showImmCnvCorImage = false;
-              this.showImmCnvCorTable = false;
-              this.dataSourceImmCnvCorLoading = false;
-              this.immCnvCorImageLoading = false;
+              this.showImmGenesetCnvCorImage = false;
+              this.showImmGenesetCnvCorTable = false;
+              this.dataSourceImmGenesetCnvCorLoading = false;
+              this.immGenesetCnvCorImageLoading = false;
             }
           );
         },
         (err) => {
-          this.showImmCnvCorImage = false;
-          this.showImmCnvCorTable = false;
+          this.showImmGenesetCnvCorImage = false;
+          this.showImmGenesetCnvCorTable = false;
         }
       );
     }
@@ -122,11 +122,11 @@ export class ImmuneCnvGsvaComponent implements OnInit, OnChanges, AfterViewInit 
       'load',
       () => {
         switch (present) {
-          case 'immCnvCorImage':
-            this.immCnvCorImage = reader.result;
+          case 'immGenesetCnvCorImage':
+            this.immGenesetCnvCorImage = reader.result;
             break;
-          case 'immCnvCorSingleGeneImage':
-            this.immCnvCorSingleGeneImage = reader.result;
+          case 'immGenesetCnvCorSingleGeneImage':
+            this.immGenesetCnvCorSingleGeneImage = reader.result;
             break;
         }
       },
@@ -147,10 +147,10 @@ export class ImmuneCnvGsvaComponent implements OnInit, OnChanges, AfterViewInit 
   }
   public applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSourceImmCnvCor.filter = filterValue.trim().toLowerCase();
+    this.dataSourceImmGenesetCnvCor.filter = filterValue.trim().toLowerCase();
 
-    if (this.dataSourceImmCnvCor.paginator) {
-      this.dataSourceImmCnvCor.paginator.firstPage();
+    if (this.dataSourceImmGenesetCnvCor.paginator) {
+      this.dataSourceImmGenesetCnvCor.paginator.firstPage();
     }
   }
 
@@ -159,28 +159,28 @@ export class ImmuneCnvGsvaComponent implements OnInit, OnChanges, AfterViewInit 
     this.expandedColumn = column;
 
     if (this.expandedElement) {
-      this.immCnvCorSingleGeneImageLoading = true;
-      this.showImmCnvCorSingleGeneImage = false;
+      this.immGenesetCnvCorSingleGeneImageLoading = true;
+      this.showImmGenesetCnvCorSingleGeneImage = false;
       if (this.expandedColumn === 'cancertype') {
         this.immuneApiService
-          .getImmCnvGenesetCorSingleGene(this.dataSourceImmCnvCorUUID, this.expandedElement.cancertype, this.expandedElement.cell_type)
+          .getImmCnvGenesetCorSingleGene(this.dataSourceImmGenesetCnvCorUUID, this.expandedElement.cancertype, this.expandedElement.cell_type)
           .subscribe(
             (res) => {
-              this.immCnvCorSingleGenePdfURL = this.immuneApiService.getResourcePlotURL(res.immcnvcorsinglegeneuuid, 'pdf');
-              this.immuneApiService.getResourcePlotBlob(res.immcnvcorsinglegeneuuid, 'png').subscribe(
+              this.immGenesetCnvCorSingleGenePdfURL = this.immuneApiService.getResourcePlotURL(res.immgenesetcnvcorsinglegeneuuid, 'pdf');
+              this.immuneApiService.getResourcePlotBlob(res.immgenesetcnvcorsinglegeneuuid, 'png').subscribe(
                 (r) => {
-                  this._createImageFromBlob(r, 'immCnvCorSingleGeneImage');
-                  this.immCnvCorSingleGeneImageLoading = false;
-                  this.showImmCnvCorSingleGeneImage = true;
+                  this._createImageFromBlob(r, 'immGenesetCnvCorSingleGeneImage');
+                  this.immGenesetCnvCorSingleGeneImageLoading = false;
+                  this.showImmGenesetCnvCorSingleGeneImage = true;
                 },
                 (e) => {
-                  this.showImmCnvCorSingleGeneImage = false;
+                  this.showImmGenesetCnvCorSingleGeneImage = false;
                 }
               );
             },
             (err) => {
-              this.immCnvCorSingleGeneImageLoading = false;
-              this.showImmCnvCorSingleGeneImage = false;
+              this.immGenesetCnvCorSingleGeneImageLoading = false;
+              this.showImmGenesetCnvCorSingleGeneImage = false;
             }
           );
       }
@@ -194,32 +194,32 @@ export class ImmuneCnvGsvaComponent implements OnInit, OnChanges, AfterViewInit 
         };
         this.immuneApiService.getImmCnvCorPlot(postTerm).subscribe(
           (res) => {
-            this.immCnvCorPdfURL = this.immuneApiService.getResourcePlotURL(res.immcnvcorplotuuid, 'pdf');
+            this.immGenesetCnvCorPdfURL = this.immuneApiService.getResourcePlotURL(res.immcnvcorplotuuid, 'pdf');
             this.immuneApiService.getResourcePlotBlob(res.immcnvcorplotuuid, 'png').subscribe(
               (r) => {
-                this.showImmCnvCorImage = true;
-                this.immCnvCorImageLoading = false;
-                this.immCnvCorSingleGeneImageLoading = false;
-                this.showImmCnvCorSingleGeneImage = false;
+                this.showImmGenesetCnvCorImage = true;
+                this.immGenesetCnvCorImageLoading = false;
+                this.immGenesetCnvCorSingleGeneImageLoading = false;
+                this.showImmGenesetCnvCorSingleGeneImage = false;
                 this._createImageFromBlob(r, 'immCnvCorImage');
               },
               (e) => {
-                this.showImmCnvCorSingleGeneImage = false;
-                this.immCnvCorSingleGeneImageLoading = false;
+                this.showImmGenesetCnvCorSingleGeneImage = false;
+                this.immGenesetCnvCorSingleGeneImageLoading = false;
               }
             );
           },
           (err) => {
-            this.immCnvCorImageLoading = false;
-            this.showImmCnvCorImage = false;
-            this.immCnvCorSingleGeneImageLoading = false;
-            this.showImmCnvCorSingleGeneImage = false;
+            this.immGenesetCnvCorImageLoading = false;
+            this.showImmGenesetCnvCorImage = false;
+            this.immGenesetCnvCorSingleGeneImageLoading = false;
+            this.showImmGenesetCnvCorSingleGeneImage = false;
           }
         );
       }
     } else {
-      this.immCnvCorSingleGeneImageLoading = false;
-      this.showImmCnvCorSingleGeneImage = false;
+      this.immGenesetCnvCorSingleGeneImageLoading = false;
+      this.showImmGenesetCnvCorSingleGeneImage = false;
     }
   }
   public triggerDetail(element: ImmCorTableRecord): string {

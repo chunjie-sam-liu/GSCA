@@ -36,10 +36,10 @@ export class ImmuneApiService extends BaseHttpService {
     return this.postData('mutation/cnvsurvival/cnvgeneset', postTerm);
   }
   public getCnvImmGenesetCorPlot(uuidname: string): Observable<any> {
-    return this.getData('immune/immcnvgenesetcorplot/' + uuidname);
+    return this.getData('immune/immunecnv/immcnvgenesetcorplot/' + uuidname);
   }
   public getImmCnvGenesetCorSingleGene(uuidname: string, cancertype: string, surType: string): Observable<any> {
-    return this.getData('immune/immcnvgenesetcorsinglegeneplot/' + uuidname + '/' + cancertype + '/' + surType);
+    return this.getData('immune/immunecnv/immcnvgenesetcorsinglegeneplot/' + uuidname + '/' + cancertype + '/' + surType);
   }
   // immune expression
   public getImmExprCorTable(postTerm: ExprSearch): Observable<any> {
