@@ -168,10 +168,11 @@ gsva_score_rppa_test_res.label %>%
   dplyr::filter(!is.na(fdr)) %>%
   dplyr::mutate(celltypecor=ifelse(p.value<0.05,"p<0.05","Not significant")) %>%
   dplyr::mutate(celltypecor=ifelse(fdr<0.05,"fdr<0.05",celltypecor)) %>%
+  dplyr::mutate(labelcor=ifelse(celltypecor=="Not significant",NA,celltypecor)) %>%
   ggplot(aes(x=-log10(p.value),y=-log10(fdr))) +
   geom_point(aes(color=celltypecor)) +
   facet_wrap(.~cancertype, nrow=ceiling(length(unique(gsva_score_rppa_test_res.label$cancertype))/5)) +
-  ggrepel::geom_text_repel(aes(label=celltype,color=celltypecor)) +
+  ggrepel::geom_text_repel(aes(label=celltype,color=labelcor)) +
   scale_color_manual(values = c("black","#d0021b","#366a70"),
                      name="Significance") +
   theme(
