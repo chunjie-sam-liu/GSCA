@@ -163,7 +163,7 @@ export class ImmuneSnvGenesetComponent implements OnInit, OnChanges, AfterViewIn
     if (this.expandedElement) {
       this.immGenesetSnvCorSingleGeneImageLoading = true;
       this.showImmGenesetSnvCorSingleGeneImage = false;
-      if (this.expandedColumn === 'cancertype') {
+      if (this.expandedColumn === 'celltype') {
         this.immuneApiService
           .getImmSnvGenesetCorSingleGene(this.dataSourceImmGenesetSnvCorUUID, this.expandedElement.cancertype, this.expandedElement.celltype)
           .subscribe(
