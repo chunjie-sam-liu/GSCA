@@ -7,9 +7,12 @@
     <ul>
       <li>Methods</li>
       <p>
-        GSCA provides differential methylation analysis based on methylation level of 14 TCGA cancer types (THCA, KIRP, BLCA, LIHC, HNSC,
-        BRCA, LUAD, PRAD, ESCA, KICH, LUSC, KIRC, STAD, COAD) have over ten paired tumor and normal samples. The fold change is calculated
-        by mean(Tumor) / mean(Normal), p-value was estimated by t-test and was further adjusted by FDR.
+        Illumina HumanMethylation 450k level 3 data were downloaded from TCGA database. In total, 14 cancer types (THCA, KIRP, BLCA, LIHC, HNSC,
+        BRCA, LUAD, PRAD, ESCA, KICH, LUSC, KIRC, STAD, COAD), which have more than 10 paired tumor and adjacent non-tumor samples, were selected and processed into this analysis.
+      </p>
+      <p>Generally, there are multiple methylation sites in the region of one gene. Therefore, there are multiple tags store the methylation level of each site. Before differential methylation analysis, we performed correlation analysis to filter the site most negatively correlate with gene expression. </p>
+      <p>
+        The fold change is calculated by mean(Tumor) / mean(Normal), p-value was estimated by t-test and was further adjusted by FDR.
       </p>
 
       <li>Interpretation</li>
@@ -18,10 +21,9 @@
       <ul>
         <li>The result table:</li>
         <p>
-          Presents detailed information about Cancer type, Gene symbol, methylation tag, methylation difference, Trend of changes, P value
-          and FDR.
+          Presents detailed information about Cancer type, Gene symbol, Tag, Methylation(Tumor-Normal), Trend, P value and FDR.
         </p>
-        <p></p>
+        <p>Tag: </p>
 
         <li>GSCA provides result figures including:</li>
         <ul>

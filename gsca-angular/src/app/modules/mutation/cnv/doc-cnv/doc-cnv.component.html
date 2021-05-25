@@ -7,6 +7,20 @@
     <ul>
       <li>Methods</li>
       <p>The CNV summary module presents the summary of inputted genes’ CNV in selected cancer types.</p>
+      <p>
+        CNV data of 11495 samples were downloaded from TCGA database, and were processed through <a href="https://genomebiology.biomedcentral.com/articles/10.1186/gb-2011-12-4-r41">GISTICS2.0</a>, which attempts to identify significantly altered regions of amplification or deletion across sets of patients. 
+      </p>
+      <p class="phighlight">According to the GISTIC result, These levels are derived from GISTIC, and indicate the copy-number level per gene:</p>
+      <ul>
+        <li class="lilight">-2 or Deep Deletion indicates a deep loss, possibly a homozygous deletion</li>
+        <li class="lilight">-1 or Shallow Deletion indicates a shallow loss, possibly a heterozygous deletion
+        </li>
+        <li class="lilight">0 is diploid</li>
+        <li class="lilight">1 or Gain indicates a low-level gain (a few additional copies copies, often broad), possibly a heterozygous amplification</li>
+        <li class="lilight">2 or Amplification indicate a high-level amplification (more copies, often focal), possibly a homozygous amplification</li>
+      </ul>
+        
+      <p>GSCA summarizes the above four types of CNV in inputted genes in selected cancer types.</p>
 
       <li>Interpretation</li>
       <p>GSCA provides two forms of results, including table and figure.</p>
@@ -14,8 +28,7 @@
       <ul>
         <li>The result table:</li>
         <p>
-          presents detailed information about Cancer type, Gene symbol, Total amp.(%), Total dele.(%), Hete amp.(%), Hete dele.(%), Homo
-          amp.(%) and Homo dele.(%).
+          presents detailed information about Cancer type, Gene symbol, Total amp.(%), Total dele.(%), Hete amp.(%), Hete dele.(%), Homo amp.(%) and Homo dele.(%).
         </p>
         <p>Total amp.(%): the percentage of samples with copy number amplification, including heterozygous and homozygous amplification.</p>
         <p>Total dele.(%): the percentage of samples with copy number deletion, including heterozygous and homozygous deletion.</p>

@@ -6,9 +6,12 @@
     </mat-expansion-panel-header>
     <ul>
       <li>Methods</li>
+      <p>The RSEM normalized mRNA expression data and CNV data were downloaded from TCGA database.</p>
       <p>
-        The mRNA expression data and CNV data were merged by TCGA barcode. Spearman correlation analysis was performed to get the
-        correlation between gene mRNA expression and CNV levels. P-value was adjusted by FDR. This method has been employed in
+        The mRNA expression data and CNV data were merged by TCGA barcode. Spearman correlation analysis was performed to get the correlation between gene mRNA expression and CNV. P-value was adjusted by FDR.
+      </p>
+      <p>
+        This method has been employed in
         <a href="https://genome.cshlp.org/content/21/12/2004.full">A. Schlattl et al, 2011</a> to relate copy-number to transcriptome
         sequencing data.
       </p>
@@ -18,7 +21,7 @@
 
       <ul>
         <li>The result table:</li>
-        <p>Presents detailed information about Cancer type, Gene symbol, Spearman correlation and FDR</p>
+        <p>Presents detailed information about Cancer type, Gene symbol, Spearman correlation and FDR.</p>
         <p>Spearman correlation indicates the correlation coeeficient.</p>
         <p>FDR indicates the adjusted P value using FDR method.</p>
 
@@ -26,15 +29,14 @@
         <ul>
           <li>Scatter plot:</li>
           <p>
-            By clicking the gene symbol buttons in the result table, a scatter plot will show you the detailed relationship between mRNA
-            expression and CNV, with fitted line.
+            By clicking the gene symbol buttons in the result table, a scatter plot will show you the detailed relationship between mRNA expression and CNV, with fitted line.
           </p>
 
           <li>Bubble plot:</li>
           <p>
             Bubble plot represents the profile between inputted genes’ mRNA expression and CNV level. Blue bubbles represent negative
-            correlations, red bubbles represent positive correlations, the deeper of color, the higher the correlation. Bubble size is
-            positively correlate with the FDR significance. Black outline border indicates FDR < 0.05.
+            correlations, red bubbles represent positive correlations, the deeper of the color, the higher of the correlation. Bubble size is
+            positively correlated with the FDR significance. Black outline border indicates FDR < 0.05.
           </p>
         </ul>
       </ul>

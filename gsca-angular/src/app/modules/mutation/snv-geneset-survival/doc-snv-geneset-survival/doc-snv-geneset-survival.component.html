@@ -5,14 +5,16 @@
       <mat-panel-description></mat-panel-description>
     </mat-expansion-panel-header>
     <ul>
-      <p>Geneset SNV & survival module provides summary of survival result between gene set mutant and wide type.</p>
+      <p>Geneset SNV & survival module provides summary of the result of survival difference between gene set mutant and wide type.</p>
       <li>Methods</li>
       <p>
         For Geneset SNV & survival module, GSCA used 33 cancer types clinical data from tumor samples, some uncensored data was left out.
-        Merging SNV data and clinical survival data by sample barcode, tumor samples were divided into WT and Mutant (effective mutation)
-        groups. Only when a sample has at least one gene (within inputted gene set) with effective mutation would be classified into mutant
-        group. R package survival was used to fit survival time and survival status within two groups. Cox Proportional-Hazards model and
-        logrank tests were performed for every gene in each cancer.
+        Merging SNV data and clinical survival data by sample barcode.
+      </p>
+      <p>
+        The gene set SNV represents the <span class="phighlight">integrated SNV status</span> of inputted gene set for each sample. A sample is classified into Mutant group only when at least one gene in the input gene set is mutated in the sample. If all genes in inputted gene set have no SNV in a sample, this sample is classified into WT group.
+      </p>
+      <p>R package survival was used to fit survival time and survival status two groups. Cox Proportional-Hazards model and logrank tests were performed to test the survival difference between groups.
       </p>
 
       <li>Interpretation</li>
@@ -22,16 +24,18 @@
         <li>The result table:</li>
         <p>
           Presents detailed information about Cancer type, Survival type, Hazard Ratio, Cox P value, Logrank P value, Higher risk of death.
-          Survival type including OS and PFS. Column ‘Higher risk of death’ indicates the group with higher risk of death.
-          When the median survival time of group A is lower than other group B, we think group A has higher risk of death. Of cource you can judge it according to other standards.
         </p>
-
+        <p>
+          Survival type including OS and PFS. 
+        </p>
+        <p>
+          Higher risk of death indicates the group with higher risk of death. When the median survival time of Mutant group is lower than WT group, we think Mutant group has higher risk of death. Of cource you can judge it according to other standards.
+        </p>
         <li>GSCA provides result figures including:</li>
         <ul>
           <li>Kaplan-Meier curves:</li>
           <p>
-            By clicking buttons in table, GSCA draws Kaplan-Meier curves between WT and Mutant (effective mutation) groups of specific gene
-            in specific cancer.
+            By clicking buttons in table, GSCA draws Kaplan-Meier curves between WT and Mutant (effective mutation) groups of specific gene in specific cancer.
           </p>
 
           <li>Bubble plot:</li>

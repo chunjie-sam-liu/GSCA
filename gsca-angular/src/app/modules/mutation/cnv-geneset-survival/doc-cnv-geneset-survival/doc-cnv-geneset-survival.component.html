@@ -8,11 +8,10 @@
       <p>Geneset CNV & survival module provides summary of survival between gene set CNV and wide type.</p>
       <li>Methods</li>
       <p>
-        For Geneset CNV & survival module, GSCA used 33 cancer types clinical data from tumor samples, some uncensored data was left out.
-        Merging CNV data and clinical survival data by sample barcode, tumor samples were divided into WT, Amp. and Dele. groups. Only when
-        inputted gene set have consistent CNV (both amplification or deletion or without CNV) in a sample, this sample would be classified
-        into one group. R package survival was used to fit survival time and survival status within two groups. Logrank tests were performed
-        to test the difference between groups.
+        The gene set CNV represents the <span class="phighlight">integrated CNV status</span> of inputted gene set for each sample. A sample is classified into Amp. or Dele. group only when at least one gene in the input gene set is consistently amplified or deleted in this sample. If all genes in inputted gene set have no CNV in a sample, this sample is classified into WT group. When genes have inconsistent CNV status, for example, gene A was amplificated in sample 1, gene B was deleted in sample 1, then sample 1 will be classified in Excluded group, which will not be considered in this analysis. 
+      </p>
+      <p>
+        CNV data and clinical survival data were merged by sample barcode. R package survival was used to fit survival time and survival status within gene set CNV groups. Logrank test was performed to test the survival difference between groups.
       </p>
 
       <li>Interpretation</li>
@@ -31,7 +30,7 @@
           <p>
             Represents the Hazard ratio and logrank p value through bubble color and size. The the column is selected cancer types and the
             row is survival type (OS and PFS). The bubble color from blue to red represents the hazard ratio from low to high, bubble size
-            is positively correlate with the Logrank P value significance. Black outline border indicates Logrank P value < 0.05.
+            is positively correlate with the significance of Logrank P value. Black outline border indicates Logrank P value < 0.05.
           </p>
         </ul>
       </ul>

@@ -7,11 +7,16 @@
     <ul>
       <li>Methods</li>
       <p>
-        For Methylation & survival module, GSCA used 33 cancer types clinical data from tumor samples, some uncensored data was left out.
-        Merging methylation data and clinical survival data by sample barcode, median value was used to divide tumor samples into high and
-        low methylation groups. Then, R package survival was used to fit survival time and survival status within two groups. Cox
-        Proportional-Hazards model was constructed to get the risk ratio of high methylation compared with low methylation. Logrank test was
-        performed to compare the overall survival difference between groups using an estimate of Logrank P value.
+        Illumina HumanMethylation 450k level 3 data were downloaded from TCGA database. Generally, there are multiple methylation sites in the region of one gene. Therefore, there are multiple tags store the methylation level of each site. Before survival analysis, we performed correlation analysis to filter the site most correlate with gene expression. </p>
+      <p>
+        The overall survival data of 33 cancer types were donwloaded from TCGA database, some uncensored data was left out.
+        Methylation data and clinical survival data were merged by sample barcode, median methylation level was used to divide tumor samples into high and
+        low methylation groups. 
+      </p>
+      <p>
+        R package survival was used to fit survival time and survival status within two groups. Cox
+        Proportional-Hazards model was constructed to get the risk ratio (Hazard ratio) of high methylation group compared with low methylation group. A logrank test was
+        performed to test whether the survival difference between the groups is statistically significant.
       </p>
 
       <li>Interpretation</li>
@@ -21,8 +26,11 @@
         <li>The result table:</li>
         <p>
           Presents detailed information about Cancer type, Gene symbol, Hazard Ratio, Cox P value, Logrank P value, Higher risk of death.
-          This table showing the result of OS. Column ‘Higher risk of death’ indicates the group with higher risk of death.
-          When the median survival time of group A is lower than other group B, we think group A has higher risk of death. Of cource you can judge it according to other standards.
+          This table showing the result of OS.
+        </p>
+        <p>
+          Higher risk of death indicates the group with higher risk of death.
+          When the Hazard ratio of high methylation group compared with low methylation group is greather than 1, we think high methylation group (Hypermethylation) has higher risk of death, else low methylation group (Hypomethylation) has higher risk of death. Of cource you can judge it according to other standards.
         </p>
 
         <li>GSCA provides result figures including:</li>

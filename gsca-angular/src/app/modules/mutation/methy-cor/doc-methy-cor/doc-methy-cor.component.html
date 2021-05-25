@@ -6,6 +6,7 @@
     </mat-expansion-panel-header>
     <ul>
       <li>Methods</li>
+      <p>The RSEM normalized mRNA expression data and Illumina Methylation 450k level 3 data were downloaded from TCGA database.</p>
       <p>
         The mRNA expression data and methylation data were merged by TCGA barcode. Spearman correlation analysis was performed to get the
         correlation between gene mRNA expression and methylation levels. P-value was adjusted by FDR.
@@ -17,21 +18,17 @@
       <ul>
         <li>The result table:</li>
         <p>Presents detailed information about Cancer type, Gene symbol, Spearman correlation and FDR.</p>
-        <p></p>
 
         <li>GSCA provides result figures including:</li>
         <ul>
           <li>Scatter plot:</li>
           <p>
-            By clicking the gene symbol buttons in the result table, a scatter plot will show you the detailed relationship between mRNA
-            expression and methylation, with fitted line.
+            By clicking the gene symbol buttons in the result table, a scatter plot will show you the detailed relationship between mRNA expression and methylation, with fitted line.
           </p>
 
           <li>Bubble plot:</li>
           <p>
-            Represents the profile between inputted genes’ mRNA expression and methylation level. Blue bubbles represent negative
-            correlations, red bubbles represent positive correlations, the deeper of color, the higher the correlation. Bubble size is
-            positively correlate with the FDR significance. Black outline border indicates FDR < 0.05.
+            Represents the profile between inputted genes’ mRNA expression and methylation level. Blue bubbles represent negative correlations, red bubbles represent positive correlations, the deeper of the color, the higher of the correlation. The bubble size is positively correlated with FDR. Black outline border indicates FDR < 0.05.
           </p>
         </ul>
       </ul>

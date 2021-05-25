@@ -8,15 +8,18 @@
       <p>CNV & survival module provides summary of survival differences between CNV and wide type of each gene.</p>
       <li>Methods</li>
       <p>
-        For CNV & survival module, GSCA used 33 cancer types clinical data from tumor samples, some uncensored data was left out. Merging
-        CNV data and clinical survival data by sample barcode, and samples were further divided into WT, Amp. and Dele. groups. R package
-        survival was used to fit survival time and survival status within groups. Logrank tests were performed to test the difference
+        CNV data of 11495 samples were downloaded from TCGA database, and were processed through <a href="https://genomebiology.biomedcentral.com/articles/10.1186/gb-2011-12-4-r41">GISTICS2.0</a>.
+      </p>
+      
+      <p>
+        CNV data and clinical survival data were merged by sample barcode. The samples were divided into WT, Amp. and Dele. groups. R package
+        survival was used to fit survival time and survival status within groups. Logrank tests were performed to test the survival difference 
         between groups.
       </p>
 
       <li>Interpretation</li>
       <p>GSCA provides two forms of results, including table and figure.</p>
-
+      <p>Note that in some cases, samples with survival data are not cover samples with CNV data, therefore, the CNV groups may little different from CNV summary modules. </p>
       <ul>
         <li>The result table:</li>
         <p>
@@ -32,8 +35,8 @@
           <li>Bubble plot:</li>
           <p>
             Presents the Hazard ratio and logrank p value though bubble color and size. The column is the gene set symbol and row is the
-            selected cancer types. The bubble color from blue to red represents the Logrank P value significance from low to high, bubble
-            size is positively correlate with the Logrank P value significance. Black outline border indicates Logrank P value < 0.05.
+            selected cancer types. The bubble color from blue to red represents the significance of Logrank P value from low to high, bubble
+            size is positively correlated with the significance of Logrank P value. Black outline border indicates Logrank P value < 0.05.
           </p>
         </ul>
       </ul>
