@@ -5,7 +5,7 @@
       <ng-container *ngIf="showCnvTable">
         <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
           <mat-card-header>
-            <mat-card-title>CNV of inputed genes in the specific cancers</mat-card-title>
+            <mat-card-title>Table: summary of CNV of inputed genes in the selected cancers</mat-card-title>
           </mat-card-header>
 
           <ng-container *ngIf="!dataSourceCnvLoading; else loading"></ng-container>
@@ -71,7 +71,7 @@
       <ng-container *ngIf="showCnvPieImage">
         <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
           <mat-card-header>
-            <mat-card-title>CNV of inputed genes in the specific cancers</mat-card-title>
+            <mat-card-title>Pie plot: summary of CNV of inputed genes in the c cancer types</mat-card-title>
           </mat-card-header>
           <mat-card-content>
             <ng-container *ngIf="!cnvPieImageLoading; else loading">
@@ -88,7 +88,7 @@
       <ng-container *ngIf="showCnvHetePointImage">
         <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
           <mat-card-header>
-            <mat-card-title>Heterozygous CNV of inputed genes in the specific cancers</mat-card-title>
+            <mat-card-title>Plot: profile of heterozygous CNV of inputed genes in the selected cancers</mat-card-title>
           </mat-card-header>
           <mat-card-content>
             <ng-container *ngIf="!cnvHetePointImageLoading; else loading">
@@ -112,7 +112,7 @@
       <ng-container *ngIf="showCnvHomoPointImage">
         <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
           <mat-card-header>
-            <mat-card-title>Homozygous CNV of inputed genes in the specific cancers</mat-card-title>
+            <mat-card-title>Plot: profile of homozygous CNV of inputed genes in the selected cancers</mat-card-title>
           </mat-card-header>
           <mat-card-content>
             <ng-container *ngIf="!cnvHomoPointImageLoading; else loading">

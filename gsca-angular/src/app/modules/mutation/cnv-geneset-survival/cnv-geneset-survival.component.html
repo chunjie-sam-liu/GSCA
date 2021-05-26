@@ -4,7 +4,7 @@
     <ng-container *ngIf="showCnvGenesetSurvivalTable">
       <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
         <mat-card-header>
-          <mat-card-title>Survival of gene set CNV and wide type in the specific cancers</mat-card-title>
+          <mat-card-title>Table: detailed information of survival difference between gene set CNV and wide type in the selected cancers</mat-card-title>
         </mat-card-header>
 
         <ng-container *ngIf="!cnvGenesetSurvivalTableLoading; else loading"></ng-container>
@@ -69,7 +69,7 @@
     <ng-container *ngIf="showCnvGenesetSurvivalImage">
       <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
         <mat-card-header>
-          <mat-card-title>Survival between gene set CNV in the specific cancers</mat-card-title>
+          <mat-card-title>Plot: profile of survival between gene set CNV groups in the selected cancers</mat-card-title>
         </mat-card-header>
         <mat-card-content>
           <ng-container *ngIf="!cnvGenesetSurvivalImageLoading; else loading">

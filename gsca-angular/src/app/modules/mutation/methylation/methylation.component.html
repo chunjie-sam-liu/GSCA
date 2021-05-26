@@ -4,7 +4,7 @@
     <ng-container *ngIf="showMethyTable">
       <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
         <mat-card-header>
-          <mat-card-title>Methyaltion difference between tumor and normal of inputed genes in the specific cancers</mat-card-title>
+          <mat-card-title>Table: methyaltion difference between tumor and normal samples of inputed genes in the selected cancers</mat-card-title>
         </mat-card-header>
 
         <ng-container *ngIf="!dataSourceMethyLoading; else loading"></ng-container>
@@ -83,7 +83,7 @@
     <ng-container *ngIf="showMethyImage">
       <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
         <mat-card-header>
-          <mat-card-title>Methyaltion difference between tumor and normal of inputed genes in the specific cancers</mat-card-title>
+          <mat-card-title>Plot: summarize the methyaltion difference between tumor and normal samples of inputted genes in the selected cancers</mat-card-title>
         </mat-card-header>
         <mat-card-content>
           <ng-container *ngIf="!methyImageLoading; else loading">

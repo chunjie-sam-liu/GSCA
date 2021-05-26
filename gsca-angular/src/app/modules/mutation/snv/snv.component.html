@@ -4,7 +4,7 @@
     <ng-container *ngIf="showSnvTable">
       <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
         <mat-card-header>
-          <mat-card-title>SNV of inputed genes in the specific cancers</mat-card-title>
+          <mat-card-title>Table: summarize the SNV of the inputed genes in the selected cancers</mat-card-title>
         </mat-card-header>
 
         <ng-container *ngIf="!dataSourceSnvLoading; else loading"></ng-container>
@@ -69,7 +69,7 @@
     <ng-container *ngIf="showSnvImage">
       <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
         <mat-card-header>
-          <mat-card-title>SNV of inputed gene set in the specific cancers</mat-card-title>
+          <mat-card-title>Plot: profile of SNV of the inputed gene set in the selected cancers</mat-card-title>
         </mat-card-header>
         <mat-card-content>
           <ng-container *ngIf="!snvImageLoading; else loading">
@@ -87,7 +87,7 @@
     <ng-container *ngIf="showSnvSummaryImage">
       <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
         <mat-card-header>
-          <mat-card-title>Summary of the SNV of inputed gene set in the specific cancers</mat-card-title>
+          <mat-card-title>Plot: summary of the SNV classes of inputed gene set in the selected cancers</mat-card-title>
         </mat-card-header>
         <mat-card-content>
           <ng-container *ngIf="!snvSummaryImageLoading; else loading">
@@ -111,7 +111,7 @@
     <ng-container *ngIf="showSnvOncoplotImage">
       <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
         <mat-card-header>
-          <mat-card-title>Oncoplot of the SNV of inputed gene set in the specific cancers(Top 10).</mat-card-title>
+          <mat-card-title>Oncoplot: the situation of the SNV of top 10 mutated genes among inputed gene set in the specific cancers.</mat-card-title>
         </mat-card-header>
         <mat-card-content>
           <ng-container *ngIf="!snvOncoplotImageLoading; else loading">
