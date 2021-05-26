@@ -22,8 +22,10 @@ methy_diff <- readr::read_rds(file.path(data_path,"pan14_allgene_methy_diff.IdTr
 
 fn_methy_diff_mongo <-function(cancer_types,methy){
   .y <- cancer_types 
+  .fdr <- p.adjust(methy$p_val,method = "fdr")
   .x <- methy %>%
-    dplyr::rename(fc=diff,gene_tag=gene,trend=direction,pval=p_val,logfdr=fdr)
+    dplyr::rename(fc=diff,gene_tag=gene,trend=direction,pval=p_val) %>%
+    dplyr::mutate(fdr=.fdr)
   
   # insert to collection
   .coll_name <- glue::glue('{.y}_methy_diff')
