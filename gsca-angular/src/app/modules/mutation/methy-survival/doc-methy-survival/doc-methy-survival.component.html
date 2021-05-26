@@ -5,17 +5,18 @@
       <mat-panel-description></mat-panel-description>
     </mat-expansion-panel-header>
     <ul>
+      <p>Methylation & survival module provides survival analysis for high and low methylation groups.</p>
       <li>Methods</li>
       <p>
-        Illumina HumanMethylation 450k level 3 data were downloaded from TCGA database. Generally, there are multiple methylation sites in the region of one gene. Therefore, there are multiple tags store the methylation level of each site. Before survival analysis, we performed correlation analysis to filter the site most correlate with gene expression. </p>
+        Illumina HumanMethylation 450k level 3 data were downloaded from TCGA database. Generally, there are multiple methylation sites in the region of one gene. Therefore, there are multiple tags store the methylation level of each site. Before survival analysis, we performed correlation analysis to filter <span class="phighlight">the site most negatively correlate</span> with gene expression into this analysis. </p>
       <p>
         The overall survival data of 33 cancer types were donwloaded from TCGA database, some uncensored data was left out.
         Methylation data and clinical survival data were merged by sample barcode, median methylation level was used to divide tumor samples into high and
         low methylation groups. 
       </p>
       <p>
-        R package survival was used to fit survival time and survival status within two groups. Cox
-        Proportional-Hazards model was constructed to get the risk ratio (Hazard ratio) of high methylation group compared with low methylation group. A logrank test was
+        <span class="phighlight">R package survival</span> was used to fit survival time and survival status within two groups. <span class="phighlight">Cox
+        Proportional-Hazards</span> model was constructed to get the risk ratio (Hazard ratio) of high methylation group compared with low methylation group. A <span class="phighlight">logrank test</span> was
         performed to test whether the survival difference between the groups is statistically significant.
       </p>
 
@@ -30,7 +31,7 @@
         </p>
         <p>
           Higher risk of death indicates the group with higher risk of death.
-          When the Hazard ratio of high methylation group compared with low methylation group is greather than 1, we think high methylation group (Hypermethylation) has higher risk of death, else low methylation group (Hypomethylation) has higher risk of death. Of cource you can judge it according to other standards.
+          When the <span class="phighlight">Hazard ratio</span> of high methylation group compared with low methylation group is <span class="phighlight">greather than 1</span>, we think high methylation group (Hypermethylation) has higher risk of death, else low methylation group (Hypomethylation) has higher risk of death. Of cource you can judge it according to other standards.
         </p>
 
         <li>GSCA provides result figures including:</li>
@@ -38,14 +39,13 @@
           <li>Bubble plot:</li>
           <p>
             Presents the Hazard ratio and logrank p value through bubble color and size. The column is gene symbols and row is the selected
-            cancer types. The bubble color from blue to red represents the hazard ratio from low to high, bubble size is positively
+            cancer types. The bubble color from blue to red represents the hazard ratio from low to high, the bubble size is positively
             correlate with the Logrank P value significance. Black outline border indicates Logrank P value < 0.05.
           </p>
 
           <li>Kaplan-Meier curves:</li>
           <p>
-            By clicking buttons in table result, GSCA draws Kaplan-Meier curves between methylation groups of specific gene in specific
-            cancer.
+            By clicking buttons in table result, GSCA draws Kaplan-Meier curves between methylation groups of specific gene in specific cancer.
           </p>
         </ul>
       </ul>

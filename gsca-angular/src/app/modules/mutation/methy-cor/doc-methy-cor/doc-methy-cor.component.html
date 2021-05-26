@@ -5,10 +5,11 @@
       <mat-panel-description></mat-panel-description>
     </mat-expansion-panel-header>
     <ul>
+      <p>Methylation & expression module provides correlation analysis between methylation levels and mRNA expression levels.</p>
       <li>Methods</li>
-      <p>The RSEM normalized mRNA expression data and Illumina Methylation 450k level 3 data were downloaded from TCGA database.</p>
+      <p>The RSEM normalized mRNA expression data and Illumina Methylation 450k level 3 data were downloaded from TCGA database. Generally, there are multiple methylation sites in the region of one gene. Therefore, there are multiple tags store the methylation level of each site. We performed correlation analysis to filter the site most negatively correlate with gene expression into this module. </p>
       <p>
-        The mRNA expression data and methylation data were merged by TCGA barcode. Spearman correlation analysis was performed to get the
+        The mRNA expression data and methylation data were merged by TCGA barcode. <span class="phighlight">Spearman correlation analysis</span> was performed to get the
         correlation between gene mRNA expression and methylation levels. P-value was adjusted by FDR.
       </p>
 
@@ -28,7 +29,7 @@
 
           <li>Bubble plot:</li>
           <p>
-            Represents the profile between inputted genes’ mRNA expression and methylation level. Blue bubbles represent negative correlations, red bubbles represent positive correlations, the deeper of the color, the higher of the correlation. The bubble size is positively correlated with FDR. Black outline border indicates FDR < 0.05.
+            Represents the profile between inputted genes’ mRNA expression and methylation level. The blue bubbles represent negative correlations, the red bubbles represent positive correlations, the deeper of the color, the higher of the correlation. The bubble size is positively correlated with the significance of FDR. Black outline border indicates FDR < 0.05.
           </p>
         </ul>
       </ul>

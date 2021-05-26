@@ -5,10 +5,11 @@
       <mat-panel-description></mat-panel-description>
     </mat-expansion-panel-header>
     <ul>
+      <p>This module analyze the relationship between CNV and mRNA expression through correlation analysis.</p>
       <li>Methods</li>
-      <p>The RSEM normalized mRNA expression data and CNV data were downloaded from TCGA database.</p>
+      <p>The RSEM normalized mRNA expression data and CNV data were downloaded from TCGA database. The mRNA expression data and CNV raw data were merged by TCGA barcode. </p>
       <p>
-        The mRNA expression data and CNV data were merged by TCGA barcode. Spearman correlation analysis was performed to get the correlation between gene mRNA expression and CNV. P-value was adjusted by FDR.
+        <span class="phighlight">Spearman correlation</span> analysis was performed to get the correlation between gene mRNA expression and CNV. P-value was adjusted by FDR.
       </p>
       <p>
         This method has been employed in

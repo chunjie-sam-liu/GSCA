@@ -7,13 +7,12 @@
     <ul>
       <p>SNV & survival module provides survival analysis for gene SNV.</p>
       <li>Methods</li>
+      <p>The SNV data and clinical survival data were collected from TCGA database. SNV data and clinical survival data were merged by sample barcode.</p>
       <p>
-        For SNV & survival module, GSCA used 33 cancer types clinical data from tumor samples, some uncensored data was left out. Merging
-        SNV data and clinical survival data by sample barcode.
+        Tumor samples were divided into Mutant group when the specific gene is mutated (<span class="phighlight">effective mutants</span>) in these samples.
       </p>
       <p>
-        Tumor samples were divided into WT and Mutant (effective mutation) groups. R
-        package survival was used to fit survival time and survival status within groups. Cox Proportional-Hazards model and logrank tests were performed to test the survival difference between WT and Mutant groups.
+        <span class="phighlight">R package survival </span>was used to fit survival time and survival status within groups. <span class="phighlight">Cox Proportional-Hazards model and logrank tests</span> were performed to test the survival difference between WT and Mutant groups.
       </p>
       <li>Interpretation</li>
       <p>GSCA provides two forms of results, including table and figure.</p>
@@ -28,8 +27,7 @@
           Survival type including OS and PFS. 
         </p>
         <p>
-          Higher risk of death indicates the group with higher risk of death.
-          When the median survival time of Mutant group is lower than other WT group, we think Mutant group has higher risk of death. Of cource you can judge it according to other standards.
+          Higher risk of death indicates the group with higher risk of death. When the <span class="phighlight">Hazard ratio</span> of Mutant group compared with low WT group is <span class="phighlight">greather than 1</span>, we think Mutant group has higher risk of death, else WT group has higher risk of death. Or you can judge it according to other standards, such as <span class="phighlight">median survival time</span>.
         </p>
         <li>GSCA provides result figures including:</li>
         <ul>

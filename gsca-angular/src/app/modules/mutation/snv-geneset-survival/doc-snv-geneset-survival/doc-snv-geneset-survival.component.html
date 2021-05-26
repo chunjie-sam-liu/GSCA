@@ -7,14 +7,12 @@
     <ul>
       <p>Geneset SNV & survival module provides summary of the result of survival difference between gene set mutant and wide type.</p>
       <li>Methods</li>
+      <p>The SNV data and clinical survival data were collected from TCGA database. SNV data and clinical survival data were merged by sample barcode.</p>
       <p>
-        For Geneset SNV & survival module, GSCA used 33 cancer types clinical data from tumor samples, some uncensored data was left out.
-        Merging SNV data and clinical survival data by sample barcode.
+        The gene set SNV represents the <span class="phighlight">integrated SNV status</span> of inputted gene set for each sample. A sample is classified into Mutant group only when at least one gene in the input gene set is mutated in the sample. If all genes in inputted gene set have no SNV in a sample, this sample is classified into WT group. Only samples have <span class="phighlight">effective mutants</span> are included in Mutant group.
       </p>
       <p>
-        The gene set SNV represents the <span class="phighlight">integrated SNV status</span> of inputted gene set for each sample. A sample is classified into Mutant group only when at least one gene in the input gene set is mutated in the sample. If all genes in inputted gene set have no SNV in a sample, this sample is classified into WT group.
-      </p>
-      <p>R package survival was used to fit survival time and survival status two groups. Cox Proportional-Hazards model and logrank tests were performed to test the survival difference between groups.
+        <span class="phighlight">R package survival</span> was used to fit survival time and survival status two groups. <span class="phighlight">Cox Proportional-Hazards model and logrank tests</span> were performed to test the survival difference between groups.
       </p>
 
       <li>Interpretation</li>
@@ -28,8 +26,9 @@
         <p>
           Survival type including OS and PFS. 
         </p>
+        <p>Hazard Ratio: the risk of death of Mutant group compared with WT group.</p>
         <p>
-          Higher risk of death indicates the group with higher risk of death. When the median survival time of Mutant group is lower than WT group, we think Mutant group has higher risk of death. Of cource you can judge it according to other standards.
+          Higher risk of death indicates the group with higher risk of death. When the <span class="phighlight">Hazard ratio</span> of Mutant group compared with low WT group is <span class="phighlight">greather than 1</span>, we think Mutant group has higher risk of death, else WT group has higher risk of death. Or you can judge it according to other standards, such as <span class="phighlight">median survival time</span>.
         </p>
         <li>GSCA provides result figures including:</li>
         <ul>
@@ -40,8 +39,7 @@
 
           <li>Bubble plot:</li>
           <p>
-            Presents the Hazard ratio and logrank p value through bubble color and size. The the column is selected cancer types and the row
-            is survival type (OS and PFS). The bubble color from blue to red represents the hazard ratio from low to high, bubble size is
+            Presents the Hazard ratio and logrank p value through bubble color and size. The column is selected cancer types and the row is survival type (OS and PFS). The bubble color from blue to red represents the hazard ratio from low to high, bubble size is
             positively correlate with the Logrank P value significance. Black outline border indicates Logrank P value < 0.05.
           </p>
         </ul>

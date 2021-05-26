@@ -26,3 +26,10 @@ a {
 mat-panel-description {
   font-size: large;
 }
+.phighlight {
+  color: rgb(230, 20, 20);
+  background-color: #f8f8f8;
+}
+img {
+  width: 600px;
+}
