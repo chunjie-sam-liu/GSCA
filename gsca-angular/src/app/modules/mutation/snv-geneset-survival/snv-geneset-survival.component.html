@@ -1,10 +1,19 @@
 <div fxLayout="column" fxLayoutGap="10px" fxFill>
-  <app-doc-snv-geneset-survival fxLayout="row" fxLayout.lt-lg="column" fxLayoutGap="10px" fxLayoutWrap fxLayoutAlign="center"></app-doc-snv-geneset-survival>
+  <app-doc-snv-geneset-survival
+    fxLayout="row"
+    fxLayout.lt-lg="column"
+    fxLayoutGap="10px"
+    fxLayoutWrap
+    fxLayoutAlign="center"
+  ></app-doc-snv-geneset-survival>
   <div fxLayout="row" fxLayout.lt-lg="column" fxLayoutGap="10px" fxLayoutWrap fxLayoutAlign="center">
     <ng-container *ngIf="showSnvGenesetSurvivalTable">
       <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
         <mat-card-header>
-          <mat-card-title>Table: detailed information of survival difference between gene set mutant (effective) and wide type in the selected cancers</mat-card-title>
+          <mat-card-title
+            >Table: detailed information of survival difference between gene set mutant (effective) and wide type in the selected
+            cancers</mat-card-title
+          >
         </mat-card-header>
 
         <ng-container *ngIf="!snvGenesetSurvivalTableLoading; else loading"></ng-container>
@@ -28,8 +37,12 @@
               </ng-template>
               <ng-template #plain>
                 {{
-                  column === 'higher_risk_of_death' || column === 'cancertype' || column === 'sur_type'
+                  column === 'higher_risk_of_death' || column === 'sur_type'
                     ? element[column]
+                    : column !== 'cox_p' && column !== 'logrankp'
+                    ? (element[column] | number: '1.2-2')
+                    : element[column] < 0.01
+                    ? element[column].toExponential(2)
                     : (element[column] | number: '1.2-2')
                 }}
               </ng-template>
@@ -73,7 +86,10 @@
     <ng-container *ngIf="showSnvGenesetSurvivalImage">
       <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
         <mat-card-header>
-          <mat-card-title>Plot: summarize the survival difference between gene set mutant (effective) and wide type in the selected cancers</mat-card-title>
+          <mat-card-title
+            >Plot: summarize the survival difference between gene set mutant (effective) and wide type in the selected
+            cancers</mat-card-title
+          >
         </mat-card-header>
         <mat-card-content>
           <ng-container *ngIf="!snvGenesetSurvivalImageLoading; else loading">

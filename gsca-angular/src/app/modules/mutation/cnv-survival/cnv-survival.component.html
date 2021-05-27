@@ -1,11 +1,19 @@
 <div fxLayout="column" fxLayoutGap="10px" fxFill>
-  <app-doc-cnv-survival fxLayout="row" fxLayout.lt-lg="column" fxLayoutGap="10px" fxLayoutWrap fxLayoutAlign="center"></app-doc-cnv-survival>
+  <app-doc-cnv-survival
+    fxLayout="row"
+    fxLayout.lt-lg="column"
+    fxLayoutGap="10px"
+    fxLayoutWrap
+    fxLayoutAlign="center"
+  ></app-doc-cnv-survival>
   <div fxLayout="column" fxLayoutGap="10px">
     <div fxLayout="row" fxLayout.lt-lg="column" fxLayoutGap="10px" fxLayoutWrap fxLayoutAlign="center">
       <ng-container *ngIf="showCnvSurvivalTable">
         <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
           <mat-card-header>
-            <mat-card-title>Table: detailed information of survival difference between CNV and wide type in the selected cancers</mat-card-title>
+            <mat-card-title
+              >Table: detailed information of survival difference between CNV and wide type in the selected cancers</mat-card-title
+            >
           </mat-card-header>
 
           <ng-container *ngIf="!dataSourceCnvSurvivalLoading; else loading"></ng-container>
@@ -32,6 +40,8 @@
                   {{
                     column === 'worse_group' || column === 'cancertype' || column === 'sur_type' || column === 'higher_risk_of_death'
                       ? element[column]
+                      : element[column] < 0.01
+                      ? element[column].toExponential(2)
                       : (element[column] | number: '1.2-2')
                   }}
                 </ng-template>

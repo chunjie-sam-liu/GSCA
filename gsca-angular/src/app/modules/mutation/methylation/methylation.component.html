@@ -4,7 +4,9 @@
     <ng-container *ngIf="showMethyTable">
       <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
         <mat-card-header>
-          <mat-card-title>Table: methyaltion difference between tumor and normal samples of inputed genes in the selected cancers</mat-card-title>
+          <mat-card-title
+            >Table: methyaltion difference between tumor and normal samples of inputed genes in the selected cancers</mat-card-title
+          >
         </mat-card-header>
 
         <ng-container *ngIf="!dataSourceMethyLoading; else loading"></ng-container>
@@ -27,7 +29,15 @@
                 </button>
               </ng-template>
               <ng-template #plain>
-                {{ column === 'gene_tag' || column === 'trend' ? element[column] : (element[column] | number: '1.2-2') }}
+                {{
+                  column === 'gene_tag' || column === 'trend'
+                    ? element[column]
+                    : column !== 'p_value' && column !== 'fdr'
+                    ? (element[column] | number: '1.2-2')
+                    : element[column] < 0.01
+                    ? element[column].toExponential(2)
+                    : (element[column] | number: '1.2-2')
+                }}
               </ng-template>
             </td>
           </ng-container>
@@ -83,7 +93,10 @@
     <ng-container *ngIf="showMethyImage">
       <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
         <mat-card-header>
-          <mat-card-title>Plot: summarize the methyaltion difference between tumor and normal samples of inputted genes in the selected cancers</mat-card-title>
+          <mat-card-title
+            >Plot: summarize the methyaltion difference between tumor and normal samples of inputted genes in the selected
+            cancers</mat-card-title
+          >
         </mat-card-header>
         <mat-card-content>
           <ng-container *ngIf="!methyImageLoading; else loading">

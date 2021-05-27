@@ -25,7 +25,15 @@
                 {{ element[column] }}
               </ng-template>
               <ng-template #plain>
-                {{ column === 'drug' ? element[column] : (element[column] | number: '1.2-2') }}
+                {{
+                  column === 'drug'
+                    ? element[column]
+                    : column !== 'fdr'
+                    ? (element[column] | number: '1.2-2')
+                    : element[column] < 0.01
+                    ? element[column].toExponential(2)
+                    : (element[column] | number: '1.2-2')
+                }}
               </ng-template>
             </td>
           </ng-container>
