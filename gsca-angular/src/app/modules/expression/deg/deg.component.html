@@ -5,7 +5,7 @@
     <ng-container *ngIf="showDEGTable">
       <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
         <mat-card-header>
-          <mat-card-title>Table: information of DEGs between tumor and normal samples</mat-card-title>
+          <mat-card-title>Table of DEGs between tumor and normal samples</mat-card-title>
         </mat-card-header>
         <ng-container *ngIf="!dataSourceDegLoading; else loading"></ng-container>
 
@@ -29,7 +29,15 @@
                 </button>
               </ng-template>
               <ng-template #plain>
-                {{ column === 'n_tumor' ? (element[column] | number) : (element[column] | number: '1.2-2') }}
+                {{
+                  column === 'n_tumor'
+                    ? (element[column] | number)
+                    : column !== 'pval' && column !== 'fdr'
+                    ? (element[column] | number: '1.2-2')
+                    : element[column] < 0.01
+                    ? element[column].toExponential(2)
+                    : (element[column] | number: '1.2-2')
+                }}
               </ng-template>
             </td>
           </ng-container>

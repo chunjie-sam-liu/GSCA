@@ -31,6 +31,10 @@
                 {{
                   column === 'higher_risk_of_death' || column === 'cancertype' || column === 'sur_type'
                     ? element[column]
+                    : column !== 'logrankp' && column !== 'coxp_categorical'
+                    ? (element[column] | number: '1.2-2')
+                    : element[column] < 0.01
+                    ? element[column].toExponential(2)
                     : (element[column] | number: '1.2-2')
                 }}
               </ng-template>

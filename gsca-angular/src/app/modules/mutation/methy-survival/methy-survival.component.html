@@ -1,5 +1,11 @@
 <div fxLayout="column" fxLayoutGap="10px" fxFill>
-  <app-doc-methy-survival fxLayout="row" fxLayout.lt-lg="column" fxLayoutGap="10px" fxLayoutWrap fxLayoutAlign="center"></app-doc-methy-survival>
+  <app-doc-methy-survival
+    fxLayout="row"
+    fxLayout.lt-lg="column"
+    fxLayoutGap="10px"
+    fxLayoutWrap
+    fxLayoutAlign="center"
+  ></app-doc-methy-survival>
   <div fxLayout="row" fxLayout.lt-lg="column" fxLayoutGap="10px" fxLayoutWrap fxLayoutAlign="center">
     <ng-container *ngIf="showMethySurvivalTable">
       <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
@@ -27,7 +33,15 @@
                 </button>
               </ng-template>
               <ng-template #plain>
-                {{ column === 'cancertype' || column === 'higher_risk_of_death' ? element[column] : (element[column] | number: '1.2-2') }}
+                {{
+                  column === 'cancertype' || column === 'higher_risk_of_death'
+                    ? element[column]
+                    : column !== 'cox_p' && column !== 'log_rank_p'
+                    ? (element[column] | number: '1.2-2')
+                    : element[column] < 0.01
+                    ? element[column].toExponential(2)
+                    : (element[column] | number: '1.2-2')
+                }}
               </ng-template>
             </td>
           </ng-container>

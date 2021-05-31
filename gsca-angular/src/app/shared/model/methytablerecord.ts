@@ -7,6 +7,6 @@ export interface MethyTableRecord {
   gene_tag: string;
   trend: string;
   pval: number;
-  logfdr: number;
+  fdr: number;
   cancertype: string;
 }

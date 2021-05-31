@@ -17,7 +17,7 @@ model_methydetable = {
     "gene_tag": fields.String(attribute="gene_tag"),
     "trend": fields.String(attribute="trend"),
     "pval": fields.Float(attribute="pval"),
-    "logfdr": fields.Float(attribute="logfdr"),
+    "fdr": fields.Float(attribute="fdr"),
 }
 
 
@@ -32,7 +32,6 @@ class MethyDeTable(Resource):
             mcur = mongo.db[collname].find(condition, output)
             for m in mcur:
                 m["cancertype"] = collname.rstrip("_methy_diff")
-                m["logfdr"] = 10 ** -m["logfdr"]
                 res.append(m)
         return res
 

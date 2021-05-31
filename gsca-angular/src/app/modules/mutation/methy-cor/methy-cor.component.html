@@ -4,7 +4,9 @@
     <ng-container *ngIf="showMethyCorTable">
       <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
         <mat-card-header>
-          <mat-card-title>Table: correlations between methylation and mRNA expression of inputted genes in the selected cancers</mat-card-title>
+          <mat-card-title
+            >Table: correlations between methylation and mRNA expression of inputted genes in the selected cancers</mat-card-title
+          >
         </mat-card-header>
 
         <ng-container *ngIf="!dataSourceMethyCorLoading; else loading"></ng-container>
@@ -28,7 +30,15 @@
                 </button>
               </ng-template>
               <ng-template #plain>
-                {{ column === 'cancertype' || column === 'higher_risk_of_death' ? element[column] : (element[column] | number: '1.2-2') }}
+                {{
+                  column === 'cancertype'
+                    ? element[column]
+                    : column !== 'fdr'
+                    ? (element[column] | number: '1.2-2')
+                    : element[column] < 0.01
+                    ? element[column].toExponential(2)
+                    : (element[column] | number: '1.2-2')
+                }}
               </ng-template>
             </td>
           </ng-container>
@@ -70,7 +80,9 @@
     <ng-container *ngIf="showMethyCorImage">
       <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
         <mat-card-header>
-          <mat-card-title>Plot: profile of correlations between methylation and mRNA expression of inputted genes in the specific cancers</mat-card-title>
+          <mat-card-title
+            >Plot: profile of correlations between methylation and mRNA expression of inputted genes in the specific cancers</mat-card-title
+          >
         </mat-card-header>
         <mat-card-content>
           <ng-container *ngIf="!methyCorImageLoading; else loading">

@@ -33,7 +33,13 @@
                   <!-- </button> -->
                 </ng-template>
                 <ng-template #plain>
-                  {{ element[column] | number: '1.2-2' }}
+                  {{
+                    column !== 'diff_p' && column !== 'trend_p'
+                      ? (element[column] | number: '1.2-2')
+                      : element[column] < 0.01
+                      ? element[column].toExponential(2)
+                      : (element[column] | number: '1.2-2')
+                  }}
                 </ng-template>
               </td>
             </ng-container>

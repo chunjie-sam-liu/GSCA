@@ -27,7 +27,15 @@
                 </button>
               </ng-template>
               <ng-template #plain>
-                {{ column === 'cell_type' ? element[column] : (element[column] | number: '1.2-2') }}
+                {{
+                  column === 'cell_type'
+                    ? element[column]
+                    : column !== 'p_value' && column !== 'fdr'
+                    ? (element[column] | number: '1.2-2')
+                    : element[column] < 0.01
+                    ? element[column].toExponential(2)
+                    : (element[column] | number: '1.2-2')
+                }}
               </ng-template>
             </td>
           </ng-container>

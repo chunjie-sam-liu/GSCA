@@ -27,7 +27,15 @@
                 </button>
               </ng-template>
               <ng-template #plain>
-                {{ column === 'sur_type' || column === 'higher_risk_of_death' ? element[column] : (element[column] | number: '1.2-2') }}
+                {{
+                  column === 'sur_type' || column === 'higher_risk_of_death'
+                    ? element[column]
+                    : column !== 'logrankp'
+                    ? (element[column] | number: '1.2-2')
+                    : element[column] < 0.01
+                    ? element[column].toExponential(2)
+                    : (element[column] | number: '1.2-2')
+                }}
               </ng-template>
             </td>
           </ng-container>
