@@ -33,7 +33,7 @@ box_plot_single_gene_multi_cancers <- function(data,aesx,aesy,color,color_name,f
   return(p)
 }
 
-box_plot_single_gene_single_cancer <- function(data,aesx,aesy,color,color_name,color_labels,color_values,title,xlab,ylab,xangle,comp_list){
+box_plot_single_gene_single_cancer <- function(data,aesx,aesy,color,color_name,color_labels,color_values,title,xlab,ylab,xangle,comp_list,ylimitfold){
   if(xangle==0){
     hjust=0.5
     vjust=0.5
@@ -44,12 +44,11 @@ box_plot_single_gene_single_cancer <- function(data,aesx,aesy,color,color_name,c
   data %>%
     dplyr::select(aesy) %>%
     max() ->.max
-  print(.max)
   data %>%
     ggplot(aes_string(x = aesx, y = aesy, color = color)) +
     geom_boxplot(outlier.colour = NA) +
     geom_jitter(alpha=0.5,size=0.5,width = 0.2) +
-    scale_y_continuous(limits = c(0,.max+0.1*.max)) +
+    scale_y_continuous(limits = c(0,.max+ylimitfold*.max)) +
     scale_color_manual(name = color_name, labels = color_labels, values = color_values)+
     labs(title = title, x = xlab, y = ylab)  +
     ggpubr::stat_compare_means(comparisons = comp_list, method = "wilcox.test",label = "p.signif") +
