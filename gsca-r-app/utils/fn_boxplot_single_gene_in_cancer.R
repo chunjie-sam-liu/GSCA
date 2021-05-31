@@ -33,7 +33,7 @@ box_plot_single_gene_multi_cancers <- function(data,aesx,aesy,color,color_name,f
   return(p)
 }
 
-box_plot_single_gene_single_cancer <- function(data,aesx,aesy,color,color_name,color_labels,color_values,title,xlab,ylab,xangle,comp_list,ylimitfold){
+box_plot_single_gene_single_cancer <- function(data,aesx,aesy,color,color_name,color_labels,color_values,title,xlab,ylab,xangle,comp_list,ylimitfold=0.1){
   if(xangle==0){
     hjust=0.5
     vjust=0.5
