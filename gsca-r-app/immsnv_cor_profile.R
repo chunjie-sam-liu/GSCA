@@ -66,7 +66,7 @@ for_plot %>%
 floor(min_max[1]) -> min
 ceiling(min_max[2]) -> max
 fillbreaks <- sort(unique(c(0,min,max)))
-title <- glue::glue("Difference of immune infiltrates between\nmutant and wide type in ",{search_cancertypes})
+title <- glue::glue("Difference of immune infiltrates between mutant and wide type in ",{search_cancertypes})
 plot <- bubble_plot(data=for_plot, 
                     cancer="cell_type", 
                     gene="symbol", 

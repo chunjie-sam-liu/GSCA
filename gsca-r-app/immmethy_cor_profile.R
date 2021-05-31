@@ -62,7 +62,7 @@ for_plot$cor %>% range() -> min_max
 floor(min_max[1]*10)/10 -> min
 ceiling(min_max[2]*10)/10 -> max
 fillbreaks <- sort(unique(c(0,min,max)))
-title <- glue::glue("Correlation between gene methylation\nand immune infiltrates in ",{search_cancertypes})
+title <- glue::glue("Correlation between gene methylation and immune infiltrates in ",{search_cancertypes})
 
 plot <- bubble_plot(data=for_plot, 
                     cancer="cell_type", 

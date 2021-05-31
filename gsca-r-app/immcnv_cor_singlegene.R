@@ -57,7 +57,7 @@ source(file.path(apppath,"gsca-r-app/utils/fn_point_line.R"))
 title <-  glue::glue('Spearman correlation between {search_genes} cnv and {celltype} \ninfiltrate in {search_cancertypes}')
 plot <- fn_point_fit(data=for_plot,aesx="TIL",aesy="cnv",
                      title=title,xlab=glue::glue('{celltype} infiltrate score (ImmuCellAI)'),ylab="CNV",
-                     label=paste("Cor. =",round(fetched_cnvcor_data$cor,2),"\nFDR =", round(fetched_cnvcor_data$fdr,2)))
+                     label=paste("Cor. =",signif(fetched_cnvcor_data$cor,2),"\nFDR =", signif(fetched_cnvcor_data$fdr,2)))
 
 # Save --------------------------------------------------------------------
 ggsave(filename = filepath, plot = plot, device = 'png', width = 6, height = 4)

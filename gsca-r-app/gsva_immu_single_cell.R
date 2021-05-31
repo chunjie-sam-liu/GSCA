@@ -21,7 +21,7 @@ apppath <- args[6]
 # tableuuid <- "ba16c786-93ca-421e-a426-7a361f4c3e7a"
 # tablecol <- "preanalysised_gsva"
 # search_cancertype <- "KICH"
-# search_surtype <- "CD4_naive"
+# search_surtype <- "DC"
 # filepath <- "/home/huff/github/GSCA/gsca-r-plot/pngs/e1c5a5b9-5320-48d7-aeb8-5a5afd29c426.png"
 # apppath <- "/home/huff/github/GSCA"
 
@@ -95,8 +95,8 @@ title <-  glue::glue('Spearman correlation between GSVA score and infiltrate of\
 plot <- fn_point_fit(data=combine_data,aesx="TIL",aesy="gsva",
                      title=title,xlab=glue::glue('Infiltrate of {search_surtype}'),ylab="GSVA score",
                      label=paste("Cor. =",round(fetched_gsvaimmucor_data$estimate,2),
-                                 "\nP value = ",format(round(fetched_gsvaimmucor_data$p_value*1000)/1000, scientific = TRUE),
-                                 "\nFDR =", format(round(fetched_gsvaimmucor_data$fdr*1000)/1000,scientific = TRUE)))
+                                 "\nP value = ",format(signif(fetched_gsvaimmucor_data$p_value*1000)/1000, scientific = TRUE),
+                                 "\nFDR =", format(signif(fetched_gsvaimmucor_data$fdr*1000)/1000,scientific = TRUE)))
 # Save --------------------------------------------------------------------
 ggsave(filename = filepath, plot = plot, device = 'png', width = 6, height = 4)
 pdf_name <- gsub("\\.png",".pdf",filepath)
