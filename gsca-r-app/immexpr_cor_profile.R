@@ -51,7 +51,7 @@ fetched_data_clean_pattern <- fn_get_pattern_celltype(.x = for_plot %>%
                                                       p_cutoff=0.05,
                                                       selections = c("cell_type","symbol"))
 celltype_rank <- fn_get_cell_types_rank(.x = fetched_data_clean_pattern %>%
-                                          dplyr::filter(cell_type!="InfiltrationScore"))
+                                          dplyr::select(-InfiltrationScore))
 celltype_rank<-c("InfiltrationScore",celltype_rank$cell_type)
 gene_rank <- fn_get_gene_rank(.x = fetched_data_clean_pattern)
 
