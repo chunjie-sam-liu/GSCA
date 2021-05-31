@@ -26,5 +26,5 @@ export default [
   { Immuneabbreviation: 'Central_memory', fullname: 'Central memory T cell' },
   { Immuneabbreviation: 'Effector_memory', fullname: 'Effector memory T cell' },
   { Immuneabbreviation: 'MAIT', fullname: 'Mucosal associated invariant T cell' },
-  { Immuneabbreviation: 'InfiltrationScore', fullname: 'Infiltration Score' },
+  { Immuneabbreviation: 'InfiltrationScore', fullname: 'Overall infiltration score of 24 immune cells' },
 ];
