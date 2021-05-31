@@ -22,6 +22,8 @@ export class ExpressionComponent implements OnInit, AfterViewInit {
     showGSVASubtype: false,
     showContent: false,
     showGSVARPPA: false,
+    showPathwayEnrichment: false,
+    showGSVAScore: false,
   };
 
   constructor() {}
