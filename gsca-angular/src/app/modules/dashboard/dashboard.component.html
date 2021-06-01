@@ -21,22 +21,24 @@
 
       <mat-card fxFlex appMaterialElevation defaultElevation="2" raisedElevation="15">
         <mat-card-header>
-          <mat-card-title>Work Flow </mat-card-title>
+          <mat-card-title>Workflow </mat-card-title>
         </mat-card-header>
-        <br />
-        <div fxFlex="grow" fxLayoutAlign="center center">
-          <img mat-card-image [src]="assets + '/imgs/' + 'Figure1.png'" alt="workflow" />
-        </div>
+        <mat-card-content>
+          <div fxFlex="row" fxLayoutAlign="center center">
+            <img mat-card-image class="img-home" [src]="assets + '/imgs/' + 'Figure1.png'" alt="workflow" />
+          </div>
+        </mat-card-content>
       </mat-card>
 
       <mat-card fxFlex appMaterialElevation defaultElevation="2" raisedElevation="15">
         <mat-card-header>
           <mat-card-title>Modules </mat-card-title>
         </mat-card-header>
-        <br />
-        <div fxFlex="grow" fxLayoutAlign="center center">
-          <img mat-card-image [src]="assets + '/imgs/' + 'figure2.png'" alt="modules" />
-        </div>
+        <mat-card-content>
+          <div fxFlex="row" fxLayoutAlign="center center">
+            <img mat-card-image class="img-home" [src]="assets + '/imgs/' + 'figure2.png'" alt="modules" />
+          </div>
+        </mat-card-content>
       </mat-card>
     </div>
   </div>
