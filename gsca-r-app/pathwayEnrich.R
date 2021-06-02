@@ -14,7 +14,7 @@ apppath <- args[2]
 tableuuid <- args[3]
 tablecol <- args[4]
 
-# search_str = 'A2M#ACE#ANGPT2#BPI#CD1B#CDR1#EGR2#EGR3#HBEGF#HERPUD1#MCM2#PCTP#PODXL#PPY#PTGS2#RCAN1#SLC4A7#THBD@KICH_deg#KIRC_deg#KIRP_deg#LUAD_deg#LUSC_deg'
+# search_str = 'A2M#ACE#ANGPT2#BPI#CD1B#CDR1#EGR2#EGR3#HBEGF#HERPUD1#MCM2#PCTP#PODXL#PPY#PTGS2#RCAN1#SLC4A7#THBD@KICH_all_expr_gene_set.rds.gz#KIRC_all_expr_gene_set.rds.gz#KIRP_all_expr_gene_set.rds.gz#LUAD_all_expr_gene_set.rds.gz#LUSC_all_expr_gene_set.rds.gz'
 # apppath <- '/home/liucj/github/GSCA'
 # tableuuid <- '3dfee429-973b-4222-bb2b-ba8522b68540'
 # tablecol <- 'preanalysised_enrichment'
@@ -35,28 +35,23 @@ pre_gsea_coll <- mongolite::mongo(collection = tablecol, url = gsca_conf)
 source(file.path(apppath, "gsca-r-app/utils/fn_fetch_mongo_data.R"))
 
 fields <- '{"symbol": true, "fc": true,"entrez": true,"_id": false}'
-fetched_data <- purrr::map(.x = search_colls, .f = fn_fetch_mongo_all, pattern="_deg",fields = fields) %>%
-  dplyr::bind_rows() %>%
-  dplyr::group_by(cancertype) %>%
-  tidyr::nest() %>%
-  dplyr::ungroup()
+fetched_data <- purrr::map(.x = paste(search_cancertypes[1],"deg",sep="_"), .f = fn_fetch_mongo_all, pattern="_deg",fields = fields) %>%
+  dplyr::bind_rows() 
+
 
 
 # kegg --------------------------------------------------------------------
 
-fetched_data$data[[1]] %>%
+fetched_data %>%
   dplyr::filter(symbol %in% search_genes) %>%
   .$entrez -> search_genes_entrez
-fetched_data$data[[1]] %>%
-  dplyr::filter(symbol %in% search_genes) %>%
-  .$fc -> search_genes_fc
-names(search_genes_fc) <- search_genes_entrez
 enrichKEGG(gene = names(search_genes_fc),
            organism = 'hsa',
            pvalueCutoff = 0.05) -> enKegg
 enKegg@result %>%
   dplyr::as.tbl() %>%
-  dplyr::filter(qvalue <0.05) -> enKegg.res.q005
+  dplyr::filter(qvalue <0.05) %>%
+  dplyr::mutate(Method = "KEGG")-> enKegg.res.q005
 
 # go ----------------------------------------------------------------------
 egoBP <- enrichGO(gene = search_genes_entrez,
@@ -67,7 +62,8 @@ egoBP <- enrichGO(gene = search_genes_entrez,
                 pvalueCutoff  = 1)
 egoBP@result %>%
   dplyr::as.tbl() %>%
-  dplyr::filter(qvalue <0.05) -> egoBP.res.q005
+  dplyr::filter(qvalue <0.05) %>%
+  dplyr::mutate(Method = "GO:BP") -> egoBP.res.q005
 
 egoCC <- enrichGO(gene = search_genes_entrez,
                   keyType = "ENTREZID",
@@ -77,7 +73,8 @@ egoCC <- enrichGO(gene = search_genes_entrez,
                   pvalueCutoff  = 1)
 egoCC@result %>%
   dplyr::as.tbl() %>%
-  dplyr::filter(qvalue <0.05) -> egoCC.res.q005
+  dplyr::filter(qvalue <0.05) %>%
+  dplyr::mutate(Method = "GO:CC") -> egoCC.res.q005
 
 egoMF <- enrichGO(gene = search_genes_entrez,
                   keyType = "ENTREZID",
@@ -87,12 +84,14 @@ egoMF <- enrichGO(gene = search_genes_entrez,
                   pvalueCutoff  = 1)
 egoMF@result %>%
   dplyr::as.tbl() %>%
-  dplyr::filter(qvalue <0.05) -> egoMF.res.q005
+  dplyr::filter(qvalue <0.05) %>%
+  dplyr::mutate(Method = "GO:MF") -> egoMF.res.q005
 
 
 rbind(egoBP.res.q005,egoCC.res.q005) %>%
   rbind(egoMF.res.q005) %>%
-  rbind(enKegg.res.q005) -> enrichALL
+  rbind(enKegg.res.q005) %>%
+  dplyr::rename("fdr"="p.adjust") -> enrichALL
 
 # Update mongo ------------------------------------------------------------
 
