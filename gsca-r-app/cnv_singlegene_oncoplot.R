@@ -16,7 +16,7 @@ search_str <- args[1]
 filepath <- args[2]
 apppath <- args[3]
 
-# search_str <- 'EGR3@LUAD_cnv_threshold'
+# search_str <- 'MED30@SKCM_cnv_threshold'
 # apppath='/home/huff/github/GSCA'
 # filepath <- "/home/huff/github/GSCA/gsca-r-plot/pngs/3d2e17d3-91b9-40ff-bf8f-d9dd70692a26.png"
 
@@ -39,7 +39,7 @@ color_list <- tibble::tibble(color=c("brown4","aquamarine4","brown1","aquamarine
                              type=c("Homo. Amp.", "Homo. Del.", "Hete. Amp.", "Hete. Del.", "None"),
                              value=c(2,-2,1,-1,0))
 fetched_data %>%
-  dplyr::filter(type=="tumor") %>%
+  dplyr::filter(substr(barcode,14,14)=="0") %>%
   dplyr::mutate(cnv=as.factor(cnv)) -> plot_ready
 
 fetched_data %>%
