@@ -25,7 +25,7 @@ apppath <- args[4]
 
 gsca_conf <- readr::read_lines(file = file.path(apppath, 'gsca-r-app/gsca.conf'))
 pre_gsea_coll <- mongolite::mongo(collection = tablecol, url = gsca_conf)
-post_gsea_coll <- mongolite::mongo(collection = glue::glue("{tablecol}_expr"), url = gsca_conf)
+
 # Function ----------------------------------------------------------------
 fn_query_str <- function(.x) {
   .xx <- paste0(.x, collapse = '","')
@@ -61,55 +61,33 @@ gene_set <- fetched_data$gene_set[[1]]
 
 fetched_data$enrichment[[1]] %>%
   tibble::as_tibble() %>%
-  tidyr::gather(key = "cancertype", value = "gsea") %>% 
-  dplyr::mutate(gsea = purrr::map(.x = gsea, .f = fn_reorg)) %>% 
-  tidyr::unnest(cols = gsea) %>% 
-  dplyr::arrange(NES) ->
-  gsea_score_test
-
-# Insert table ------------------------------------------------------------
-insert_data <- list(uuid = tableuuid, res_table = gsea_score_test)
-# post_gsva_coll$drop()
-uuid_query <- post_gsea_coll$find(
-  query = fn_query_str(.x = tableuuid),
-  fields = '{"uuid": true, "_id": false}'
-)
-
-if (nrow(uuid_query) == 0) {
-  post_gsea_coll$insert(data = insert_data)
-  post_gsea_coll$index(add = '{"uuid": 1}')
-  message("insert data into preanalysised_gsea")
-}
-
+  dplyr::arrange(fdr) -> enrichRes
 
 # Plot --------------------------------------------------------------------
 
-gsea_score_test %>% 
-  dplyr::mutate(logpadj = -log10(padj)) %>%
-  dplyr::mutate(group = ifelse(padj<=0.05,"<0.05",">0.05"))-> for_plot
+enrichRes %>% 
+  dplyr::group_by(Method) %>%
+  tidyr::nest() %>%
+  dplyr::mutate(filter = purrr::map(data,.f=function(.x){
+    .x %>%
+      head(10)
+  })) %>%
+  dplyr::select(-data) %>%
+  tidyr::unnest() -> for_plot
 for_plot %>%
-  dplyr::filter(!is.na(logpadj)) %>%
-  .$logpadj %>% range() -> min_max
-floor(min_max[1]) -> min
-ceiling(min_max[2]) -> max
-fillbreaks <- sort(unique(c(1.3,min,max)))
-fillname<-"-log10(p.adj.)"
-# CPCOLS <- c("#ffffff", RColorBrewer::brewer.pal(9, "Set1"))
-CPCOLS <- c("#000080", "#F8F8FF", "#CD0000")
-#CPCOLS %>% scales::show_col()
+  dplyr::arrange(Count) %>%
+  .$Description -> yrank
+for_plot <- within(for_plot,Description<-factor(Description,levels=yrank))
 
-fillmipoint <- 1.3
 for_plot %>% 
-  ggplot(aes(x = reorder(cancertype, NES), y = NES, fill = logpadj)) +
-  geom_bar(stat = "identity") +
-  scale_fill_gradient(
-    name = fillname, 
-    low = CPCOLS[2],
-    high = CPCOLS[3],
-    limits=c(min(fillbreaks),max(fillbreaks)),
-    breaks=fillbreaks
+  ggplot(aes(x = Count, y = Description)) +
+  geom_point(aes(size=Count, color = fdr)) +
+  scale_color_gradient(
+    name = "FDR", 
+    low = "#a91627",
+    high = "#fadadd"
   ) +
-  coord_flip() +
+  facet_grid(Method~., scales = "free", space = "free")+
   theme(
     panel.background = element_rect(colour = "black", fill = "white"),
     panel.grid = element_line(colour = "grey", linetype = "dashed"),
@@ -127,24 +105,16 @@ for_plot %>%
     legend.key = element_rect(fill = "white", colour = "black"),
     legend.key.size = unit(0.5, "cm"),
   ) +
-  guides(
-    fill = guide_colourbar(
-      title = fillname, 
-      title.position = "top",
-      title.hjust = 0.5
-    )
-  )+
   labs(
-    x = "Cancer type",
-    y = "Normalized enrichment score (NES)",
-    title = "Enrichment score of inputted gene set"
+    y = "Pathway",
+    title = "Pathway enrichment of inputted gene set(Top 10 terms for each database)"
   ) ->
-  gsea_plot
+  plot
 
 # Save image --------------------------------------------------------------
 width = 7
-height = length(unique(for_plot$cancertype)) * 0.8
+height = nrow(for_plot) * 0.6
 
-ggsave(filename = filepath, plot = gsea_plot, device = 'png', width = width, height = height)
+ggsave(filename = filepath, plot = plot, device = 'png', width = width, height = height)
 pdf_name <- gsub("\\.png",".pdf", filepath)
-ggsave(filename = pdf_name, plot = gsea_plot, device = 'pdf', width = width * 2, height = height * 2)
+ggsave(filename = pdf_name, plot = plot, device = 'pdf', width = width * 2, height = height * 2)

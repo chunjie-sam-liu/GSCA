@@ -14,7 +14,7 @@ tableuuid <- args[3]
 tablecol <- args[4]
 
 # search_str = 'A2M#ACE#ANGPT2#BPI#CD1B#CDR1#EGR2#EGR3#HBEGF#HERPUD1#MCM2#PCTP#PODXL#PPY#PTGS2#RCAN1#SLC4A7#THBD@KICH_all_expr_gene_set.rds.gz#KIRC_all_expr_gene_set.rds.gz#KIRP_all_expr_gene_set.rds.gz#LUAD_all_expr_gene_set.rds.gz#LUSC_all_expr_gene_set.rds.gz'
-# apppath <- '/home/liucj/github/GSCA'
+# apppath <- '/home/huff/github/GSCA'
 # tableuuid <- '3dfee429-973b-4222-bb2b-ba8522b68540'
 # tablecol <- 'preanalysised_enrichment'
 
@@ -90,7 +90,8 @@ rbind(egoBP.res.q005,egoCC.res.q005) %>%
   rbind(enKegg.res.q005) %>%
   dplyr::rename("fdr"="p.adjust") %>%
   dplyr::mutate(Hits = purrr::map(geneID,.f=function(.x){
-    hits <- strsplit("285/1960/18","/")[[1]]
+    .x <- as.character(.x)
+    hits <- strsplit(.x,"/")[[1]]
     fetched_data %>%
       dplyr::filter(entrez %in% hits) %>%
       .$symbol -> hits.symbol
