@@ -107,3 +107,9 @@ fn_fetch_mongo <- function(.x,pattern,fields,.key,.keyindex) {
     tidyr::unnest() 
 }
 
+fn_fetch_mongo_all <- function(.x,pattern,fields) {
+  .coll <- mongolite::mongo(collection = .x, url = gsca_conf)
+  .coll$find(fields =fields) %>%
+    dplyr::mutate(cancertype = gsub(pattern = pattern, replacement = '', x = .x)) %>%
+    tidyr::unnest() 
+}
