@@ -14,7 +14,7 @@ search_str <- args[1]
 filepath <- args[2]
 apppath <- args[3]
 
-# search_str <-'A2M@KIRC_cnv_threshold@OS'
+# search_str <-'MED30@LAML_cnv_threshold@OS'
 # apppath <- '/home/huff/github/GSCA'
 search_str_split <- strsplit(x = search_str, split = '@')[[1]]
 search_genes <- strsplit(x = search_str_split[1], split = '#')[[1]]
@@ -41,7 +41,7 @@ fetched_survival_data <- fn_fetch_mongo_all_survival(.data="all_survival",.keyin
 fields <- '{"symbol": true, "barcode": true,"sample_name": true,"type": true,"cnv": true,"_id": false}'
 fetched_cnv_data <- purrr::map(.x = paste(search_cancertypes,"_cnv_threshold",sep=""), .f = fn_fetch_mongo, pattern="_cnv_threshold",fields = fields,.key=search_genes,.keyindex="symbol") %>%
   dplyr::bind_rows() %>%
-  dplyr::filter(type == "tumor")
+  dplyr::filter(substr(barcode,14,14)=="0")
 
 # mutation group --------------------------------------------------------
 
