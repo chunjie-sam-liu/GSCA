@@ -3,7 +3,6 @@
 library(magrittr)
 library(doParallel)
 library(clusterProfiler)
-library(enrichplot)
 # Arguments ---------------------------------------------------------------
 
 
@@ -31,6 +30,10 @@ search_cancertypes <- list(strsplit(x = search_str_split[[2]], split = '#')[[1]]
 gsca_conf <- readr::read_lines(file = file.path(apppath, 'gsca-r-app/gsca.conf'))
 pre_gsea_coll <- mongolite::mongo(collection = tablecol, url = gsca_conf)
 
+fn_query_str <- function(.x) {
+  .xx <- paste0(.x, collapse = '","')
+  glue::glue('{"uuid": "<.xx>"}', .open = '<', .close = '>')
+}
 # fetch data --------------------------------------------------------------
 source(file.path(apppath, "gsca-r-app/utils/fn_fetch_mongo_data.R"))
 
@@ -45,7 +48,7 @@ fetched_data <- purrr::map(.x = paste(search_cancertypes[1],"deg",sep="_"), .f =
 fetched_data %>%
   dplyr::filter(symbol %in% search_genes) %>%
   .$entrez -> search_genes_entrez
-enrichKEGG(gene = names(search_genes_fc),
+enrichKEGG(gene = search_genes_entrez,
            organism = 'hsa',
            pvalueCutoff = 0.05) -> enKegg
 enKegg@result %>%
@@ -55,8 +58,6 @@ enKegg@result %>%
 
 # go ----------------------------------------------------------------------
 egoBP <- enrichGO(gene = search_genes_entrez,
-                keyType = "ENTREZID",
-                OrgDb         = org.Hs.eg.db,
                 ont           = "BP",
                 pAdjustMethod = "BH",
                 pvalueCutoff  = 1)
@@ -66,8 +67,6 @@ egoBP@result %>%
   dplyr::mutate(Method = "GO:BP") -> egoBP.res.q005
 
 egoCC <- enrichGO(gene = search_genes_entrez,
-                  keyType = "ENTREZID",
-                  OrgDb         = org.Hs.eg.db,
                   ont           = "CC",
                   pAdjustMethod = "BH",
                   pvalueCutoff  = 1)
@@ -77,8 +76,6 @@ egoCC@result %>%
   dplyr::mutate(Method = "GO:CC") -> egoCC.res.q005
 
 egoMF <- enrichGO(gene = search_genes_entrez,
-                  keyType = "ENTREZID",
-                  OrgDb         = org.Hs.eg.db,
                   ont           = "MF",
                   pAdjustMethod = "BH",
                   pvalueCutoff  = 1)
@@ -91,7 +88,15 @@ egoMF@result %>%
 rbind(egoBP.res.q005,egoCC.res.q005) %>%
   rbind(egoMF.res.q005) %>%
   rbind(enKegg.res.q005) %>%
-  dplyr::rename("fdr"="p.adjust") -> enrichALL
+  dplyr::rename("fdr"="p.adjust") %>%
+  dplyr::mutate(Hits = purrr::map(geneID,.f=function(.x){
+    hits <- strsplit("285/1960/18","/")[[1]]
+    fetched_data %>%
+      dplyr::filter(entrez %in% hits) %>%
+      .$symbol -> hits.symbol
+    paste0(hits.symbol,collapse="/")
+  })) %>%
+  tidyr::unnest()-> enrichALL
 
 # Update mongo ------------------------------------------------------------
 
