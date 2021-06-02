@@ -132,4 +132,15 @@ export class ExpressionApiService extends BaseHttpService {
   public getGSVARPPASingleCancerImage(uuidname: string, cancertype: string, surType: string): Observable<any> {
     return this.getData('expression/gsva/rppa/singlecancer/' + uuidname + '/' + cancertype + '/' + surType);
   }
+
+  // pathway enrichment
+  public getPaenAnalysis(postTerm: ExprSearch): Observable<any> {
+    return this.postData('expression/paen/paenanalysis', postTerm);
+  }
+  public getExprPaenPlot(uuidname: string): Observable<any> {
+    return this.getData('expression/paen/paenplot/' + uuidname);
+  }
+  public getPaenTable(coll: string, uuidname: string): Observable<any> {
+    return this.getData('expression/paen/' + coll + '/' + uuidname);
+  }
 }

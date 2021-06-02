@@ -98,6 +98,21 @@
         </mat-tab>
       </ng-container>
 
+      <ng-container *ngIf="showList.showContent && showList.showPathwayEnrichment; else empty">
+        <mat-tab label="Pathway enrichment">
+          <div fxFlex="grow">
+            <app-pathway-enrichment
+              fxLayout="row"
+              fxLayout.lt-lg="column"
+              fxLayoutGap="10px"
+              fxLayoutWrap
+              fxLayoutAlign="center"
+              [searchTerm]="searchTerm"
+            ></app-pathway-enrichment>
+          </div>
+        </mat-tab>
+      </ng-container>
+
       <ng-container *ngIf="showList.showContent && showList.showGSVA; else empty">
         <mat-tab label="Differential GSVA">
           <div fxFlex="grow">
