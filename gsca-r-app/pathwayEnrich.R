@@ -53,7 +53,7 @@ enrichKEGG(gene = search_genes_entrez,
            pvalueCutoff = 0.05) -> enKegg
 enKegg@result %>%
   dplyr::as.tbl() %>%
-  dplyr::filter(qvalue <0.05) %>%
+  dplyr::filter(fdr <0.05) %>%
   dplyr::mutate(Method = "KEGG")-> enKegg.res.q005
 
 # go ----------------------------------------------------------------------
@@ -63,7 +63,7 @@ egoBP <- enrichGO(gene = search_genes_entrez,
                 pvalueCutoff  = 1)
 egoBP@result %>%
   dplyr::as.tbl() %>%
-  dplyr::filter(qvalue <0.05) %>%
+  dplyr::filter(fdr <0.05) %>%
   dplyr::mutate(Method = "GO:BP") -> egoBP.res.q005
 
 egoCC <- enrichGO(gene = search_genes_entrez,
@@ -72,7 +72,7 @@ egoCC <- enrichGO(gene = search_genes_entrez,
                   pvalueCutoff  = 1)
 egoCC@result %>%
   dplyr::as.tbl() %>%
-  dplyr::filter(qvalue <0.05) %>%
+  dplyr::filter(fdr <0.05) %>%
   dplyr::mutate(Method = "GO:CC") -> egoCC.res.q005
 
 egoMF <- enrichGO(gene = search_genes_entrez,
@@ -81,7 +81,7 @@ egoMF <- enrichGO(gene = search_genes_entrez,
                   pvalueCutoff  = 1)
 egoMF@result %>%
   dplyr::as.tbl() %>%
-  dplyr::filter(qvalue <0.05) %>%
+  dplyr::filter(fdr <0.05) %>%
   dplyr::mutate(Method = "GO:MF") -> egoMF.res.q005
 
 

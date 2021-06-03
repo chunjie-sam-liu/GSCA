@@ -30,6 +30,7 @@ import { DocGsvaRppaComponent } from './gsva-rppa/doc-gsva-rppa/doc-gsva-rppa.co
 import { PathwayEnrichmentComponent } from './pathway-enrichment/pathway-enrichment.component';
 import { GsvascoreComponent } from './gsvascore/gsvascore.component';
 import { DocGsvascoreComponent } from './gsvascore/doc-gsvascore/doc-gsvascore.component';
+import { DocPaenComponent } from './pathway-enrichment/doc-paen/doc-paen.component';
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import { DocGsvascoreComponent } from './gsvascore/doc-gsvascore/doc-gsvascore.c
     PathwayEnrichmentComponent,
     GsvascoreComponent,
     DocGsvascoreComponent,
+    DocPaenComponent,
   ],
   imports: [CommonModule, ExpressionRoutingModule, SharedModule],
 })
