@@ -4,7 +4,7 @@
     <ng-container *ngIf="showPaenTable">
       <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
         <mat-card-header>
-          <mat-card-title>Table: Paen score of gene set in the selected cancers</mat-card-title>
+          <mat-card-title>Table: pathway enrichment of inputted gene set</mat-card-title>
         </mat-card-header>
         <ng-container *ngIf="!dataSourcePaenLoading; else loading"></ng-container>
         <mat-form-field>
@@ -15,9 +15,9 @@
         </mat-form-field>
         <button class="export-container" mat-raised-button color="primary" (click)="exportExcel()">Export Table</button>
 
-        <table mat-table [dataSource]="dataSourcePaen" multiTemplateDataRows>
+        <table mat-table [dataSource]="dataSourcePaen" multiTemplateDataRows matSort>
           <ng-container matColumnDef="{{ column }}" *ngFor="let column of displayedColumnsPaen; index as ind">
-            <th mat-header-cell *matHeaderCellDef>{{ displayedColumnsPaenHeader[ind] }}</th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ displayedColumnsPaenHeader[ind] }}</th>
             <td mat-cell *matCellDef="let element">
               <ng-container
                 *ngIf="
@@ -66,6 +66,7 @@
           </ng-container> -->
 
           <tr mat-header-row *matHeaderRowDef="displayedColumnsPaen"></tr>
+          <tr mat-row *matRowDef="let element; columns: displayedColumnsPaen"></tr>
           <!-- <tr
             mat-row
             *matRowDef="let element; columns: displayedColumnsPaen"
@@ -81,7 +82,7 @@
     <ng-container *ngIf="showPaenImage">
       <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
         <mat-card-header>
-          <mat-card-title>Summary figure: enrichment score of gene set in the selected cancers</mat-card-title>
+          <mat-card-title>Figure: pathway enrichment of gene set (Top 10 of each source)</mat-card-title>
         </mat-card-header>
         <mat-card-content>
           <ng-container *ngIf="!PaenImageLoading; else loading">

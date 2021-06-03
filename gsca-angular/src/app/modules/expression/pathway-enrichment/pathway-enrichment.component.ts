@@ -13,13 +13,6 @@ import * as XLSX from 'xlsx';
   selector: 'app-pathway-enrichment',
   templateUrl: './pathway-enrichment.component.html',
   styleUrls: ['./pathway-enrichment.component.css'],
-  animations: [
-    trigger('detailExpand', [
-      state('collapsed', style({ height: '0px', minHeight: '0' })),
-      state('expanded', style({ height: '*' })),
-      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
-    ]),
-  ],
 })
 export class PathwayEnrichmentComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() searchTerm: ExprSearch;
@@ -29,8 +22,18 @@ export class PathwayEnrichmentComponent implements OnInit, OnChanges, AfterViewI
   showPaenTable = true;
   @ViewChild('paginatorPaen') paginatorPaen: MatPaginator;
   @ViewChild(MatSort) sortPaen: MatSort;
-  displayedColumnsPaen = ['Method', 'ID', 'Description', 'GeneRatio', 'pvalue', 'fdr', 'qvalue', 'Hits'];
-  displayedColumnsPaenHeader = ['Method', 'ID', 'Description', 'n of Hits/Input', 'P value', 'FDR', 'Q value', 'Hits'];
+  displayedColumnsPaen = ['Method', 'ID', 'Description', 'GeneRatio', 'BgRatio', 'pvalue', 'fdr', 'qvalue', 'Hits'];
+  displayedColumnsPaenHeader = [
+    'Method',
+    'Pathway ID',
+    'Description',
+    'n of Hits/Input',
+    'n of term/background',
+    'P value',
+    'FDR',
+    'Q value',
+    'Hits',
+  ];
   expandedElement: PaenTableRecord;
   expandedColumn: string;
 
