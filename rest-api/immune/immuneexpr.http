@@ -16,3 +16,16 @@ POST http://localhost:5000/api/immune/immuneexpr/immexprcorsinglegene HTTP/1.1
 content-type: application/json
 
 {"validSymbol":["A2M"],"cancerTypeSelected":["KICH","KIRC","KIRP","LUAD","LUSC"],"validColl":["KICH_immune_cor_expr"],"surType":["Bcell"]}
+
+###
+GET http://localhost:5000/api/resource/responseplot/8c1fa256-b4c9-45cf-b92e-5098557be25e.png
+
+
+###
+POST http://localhost:5000/api/immune/immuneexpr/immexprcorplot HTTP/1.1
+content-type: application/json
+
+{"validSymbol":["A2M","ACE","ANGPT2","BPI","CD1B","CDR1","EGR2","EGR3","HBEGF","HERPUD1","MCM2","PCTP","PODXL","PPY","PTGS2","RCAN1","SLC4A7","THBD"],"cancerTypeSelected":["KICH"],"validColl":["KICH_immune_cor_expr"]}
+
+###
+GET http://localhost:5000/api/resource/responseplot/8c1fa256-b4c9-45cf-b92e-5098557be25e.png

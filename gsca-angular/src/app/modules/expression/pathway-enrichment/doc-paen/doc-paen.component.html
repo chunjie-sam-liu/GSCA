@@ -1,0 +1,30 @@
+<mat-card fxFlex appMaterialElevation defaultElevation="0" raisedElevation="0">
+  <mat-expansion-panel hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title> Click here for the detailed description of methods and results </mat-panel-title>
+      <mat-panel-description>Pathway enrichment</mat-panel-description>
+    </mat-expansion-panel-header>
+    <ul>
+      <p>This module provides the KEGG/GO pathway enrichment for inputted gene set.</p>
+
+      <li>Methods</li>
+      <p>
+        KEGG and GO pathway enrichment was performed by R package <span class="phighlight">clusterProfiler version 2.4.3</span>. The P value
+        was adjusted to get FDR (Benjamini & Hochberg) and Q value. Only terms with FDR < 0.05 were remained.
+      </p>
+      <p>GO pathway enrichment including the cellular component(CC), molecular function(MF) and biological process(BP).</p>
+      <p><span class="phighlight">Note: the pathway enrichment result has nothing to do with the cancer types selected.</span></p>
+      <li>Interpretation</li>
+      <p>GSCA provides two forms of results, including table and figure.</p>
+      <ul>
+        <li>The result table:</li>
+        <p>Presents detailed information about the information of enriched pathways, P value, FDR and Q value.</p>
+        <li>The result figure:</li>
+        <p>
+          Presents the top 10 pathways significantly enriched in each data source, including GO and KEGG database. If there are less than 10
+          pathways in a data source, show all.
+        </p>
+      </ul>
+    </ul>
+  </mat-expansion-panel>
+</mat-card>

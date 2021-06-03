@@ -43,7 +43,7 @@ source(file.path(apppath,"gsca-r-app/utils/common_used_summary_plot_functions.R"
 
 fetched_data %>%
   dplyr::mutate(group = ifelse(logfdr>1.3,"<0.05",">0.05")) -> for_plot
-fetched_data_clean_pattern <- fn_get_pattern_celltype(.x = for_plot %>% 
+fetched_data_clean_pattern <- fn_get_pattern_celltype(.x = for_plot %>%
                                                         dplyr::mutate(value=fdr) %>%
                                                         dplyr::mutate(trend=ifelse(cor>0,"Pos","Neg")),
                                                       trend1="Pos",
@@ -64,10 +64,10 @@ ceiling(min_max[2]*10)/10 -> max
 fillbreaks <- sort(unique(c(0,min,max)))
 title <- glue::glue("Correlation between expression and immune infiltrates in ",{search_cancertypes})
 
-plot <- bubble_plot(data=for_plot, 
-                    cancer="cell_type", 
-                    gene="symbol", 
-                    xlab="Cell type", 
+plot <- bubble_plot(data=for_plot,
+                    cancer="cell_type",
+                    gene="symbol",
+                    xlab="Cell type",
                     ylab="Symbol",
                     facet_exp=NA,
                     size="logfdr",
@@ -75,16 +75,16 @@ plot <- bubble_plot(data=for_plot,
                     fillmipoint =0,
                     fillbreaks =fillbreaks,
                     colorgroup="group",
-                    cancer_rank=celltype_rank, 
-                    gene_rank=gene_rank$symbol, 
-                    sizename= "-Log10(FDR)", 
+                    cancer_rank=celltype_rank,
+                    gene_rank=gene_rank$symbol,
+                    sizename= "-Log10(FDR)",
                     colorvalue=c("black","grey"),
                     colorbreaks=c("<0.05",">0.05"),
-                    colorname="FDR", 
-                    fillname="Correlation", 
+                    colorname="FDR",
+                    fillname="Correlation",
                     title=title)
 
 # Save --------------------------------------------------------------------
-ggsave(filename = filepath, plot = plot, device = 'png', width = size$width+2, height = size$height)
+ggsave(filename = filepath, plot = plot, device = 'png', width = size$width+3, height = size$height +1)
 pdf_name <- gsub("\\.png",".pdf",filepath)
-ggsave(filename = pdf_name, plot = plot, device = 'pdf', width = size$width+2, height = size$height)
+ggsave(filename = pdf_name, plot = plot, device = 'pdf', width = size$width+3, height = size$height+1)
