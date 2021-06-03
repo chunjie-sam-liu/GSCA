@@ -74,7 +74,7 @@ export class GsvascoreComponent implements OnInit {
   private _validCollection(st: ExprSearch): any {
     st.validColl = st.cancerTypeSelected
       .map((val) => {
-        return collectionList.deg.collnames[collectionList.deg.cancertypes.indexOf(val)];
+        return collectionList.all_expr.collnames[collectionList.all_expr.cancertypes.indexOf(val)];
       })
       .filter(Boolean);
     return st;
