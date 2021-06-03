@@ -27,6 +27,28 @@ class GSVAAnalysis(Resource):
 
 api.add_resource(GSVAAnalysis, "/gsvaanalysis")
 
+"""GSVA score download"""
+
+
+class GSVATableTransform(Resource):
+    def get(self, uuidname):
+        checkplot = CheckUUIDPlot(
+            gsxa_uuid=uuidname,
+            name_uuid="gsva_uuid",
+            purpose="exprgsvaplot",
+            rplot="gsva_transform.R",
+            precol="preanalysised",
+            gsxacol="preanalysised_gsva",
+        )
+        res = checkplot.check_run()
+        if res["run"]:
+            checkplot.plot()
+
+        return {"transformgsvatableuuid": uuidname}
+
+
+api.add_resource(GSVATableTransform, "/gsvatrans/<string:uuidname>")
+
 
 class ExprGSVAPlot(Resource):
     def get(self, uuidname):
