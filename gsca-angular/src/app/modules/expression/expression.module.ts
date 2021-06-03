@@ -28,6 +28,7 @@ import { DocSubtypeComponent } from './subtype/doc-subtype/doc-subtype.component
 import { DocSurvivalComponent } from './survival/doc-survival/doc-survival.component';
 import { DocGsvaRppaComponent } from './gsva-rppa/doc-gsva-rppa/doc-gsva-rppa.component';
 import { PathwayEnrichmentComponent } from './pathway-enrichment/pathway-enrichment.component';
+import { GsvascoreComponent } from './gsvascore/gsvascore.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import { PathwayEnrichmentComponent } from './pathway-enrichment/pathway-enrichm
     DocSurvivalComponent,
     DocGsvaRppaComponent,
     PathwayEnrichmentComponent,
+    GsvascoreComponent,
   ],
   imports: [CommonModule, ExpressionRoutingModule, SharedModule],
 })

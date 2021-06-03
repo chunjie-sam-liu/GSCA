@@ -45,6 +45,12 @@ export class ExpressionApiService extends BaseHttpService {
   public getExprGSVAPlot(uuidname: string): Observable<any> {
     return this.getData('expression/gsva/exprgsvaplot/' + uuidname);
   }
+  public getGSVATable(coll: string, uuidname: string): Observable<any> {
+    return this.getData('expression/gsva/' + coll + '/' + uuidname);
+  }
+  public getGSVATableTransform(uuidname: string): Observable<any> {
+    return this.getData('expression/gsva/gsvatrans/' + uuidname);
+  }
   // GSVA survival
   public getExprSurvivalGSVAPlot(uuidname: string): Observable<any> {
     return this.getData('expression/gsva/exprsurvivalgsva/' + uuidname);

@@ -113,6 +113,21 @@
         </mat-tab>
       </ng-container>
 
+      <ng-container *ngIf="showList.showContent && showList.showGSVAScore; else empty">
+        <mat-tab label="GSVA enrichment score">
+          <div fxFlex="grow">
+            <app-gsvascore
+              fxLayout="row"
+              fxLayout.lt-lg="column"
+              fxLayoutGap="10px"
+              fxLayoutWrap
+              fxLayoutAlign="center"
+              [searchTerm]="searchTerm"
+            ></app-gsvascore>
+          </div>
+        </mat-tab>
+      </ng-container>
+
       <ng-container *ngIf="showList.showContent && showList.showGSVA; else empty">
         <mat-tab label="Differential GSVA">
           <div fxFlex="grow">
