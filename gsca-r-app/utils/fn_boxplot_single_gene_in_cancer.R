@@ -51,7 +51,7 @@ box_plot_single_gene_single_cancer <- function(data,aesx,aesy,color,color_name,c
     scale_y_continuous(limits = c(0,.max+ylimitfold*.max)) +
     scale_color_manual(name = color_name, labels = color_labels, values = color_values)+
     labs(title = title, x = xlab, y = ylab)  +
-    ggpubr::stat_compare_means(comparisons = comp_list, method = "wilcox.test",label = "p.signif") +
+    ggpubr::stat_compare_means(comparisons = comp_list, method = "wilcox.test",label = "p.signif", hide.ns=TRUE) +
     theme(
       panel.background = element_rect(colour = "black", fill = "white"),
       panel.grid = element_line(colour = "grey", linetype = "dashed"),
