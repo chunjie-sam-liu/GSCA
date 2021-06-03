@@ -46,7 +46,7 @@ box_plot_single_gene_single_cancer <- function(data,aesx,aesy,color,color_name,c
     max() ->.max
   label.y <- c()
   for (i in 1:length(comp_list)) {
-    .tmp <- .max*0.07*i+.max
+    .tmp <- .max*0.25*i+.max
     label.y <- c(label.y,.tmp)
   }
   
