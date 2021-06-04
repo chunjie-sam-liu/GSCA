@@ -16,7 +16,7 @@ search_str <- args[1]
 filepath_stagepoint <- args[2]
 apppath <- args[3]
 
-# search_str = "A2M#ACE#ANGPT2#BPI#CD1B#CDR1#EGR2#EGR3#HBEGF#HERPUD1#MCM2#PCTP#PODXL#PPY#PTGS2#RCAN1#SLC4A7#THBD@ESCA_rppa_diff#HNSC_rppa_diff#KICH_rppa_diff#KIRC_rppa_diff#KIRP_rppa_diff#LUAD_rppa_diff#LUSC_rppa_diff"
+# search_str = "TP53@LUSC_rppa_diff"
 # filepath = "/home/huff/github/GSCA/gsca-r-plot/pngs/1c16fb64-8ef4-4789-a87a-589d140c5bbe.png"
 # apppath = '/home/huff/github/GSCA'
 
@@ -52,61 +52,82 @@ N_cancers <- length(search_cancertypes)
 rppa_class %>%
   dplyr::group_by(symbol,pathway,class) %>%
   dplyr::mutate(n=dplyr::n()) %>%
-  dplyr::select(symbol,pathway,class,n) %>%
+  dplyr::mutate(per=round(100*n/N_cancers)) %>%
+  dplyr::select(symbol,pathway,class,per) %>%
   unique() %>%
   dplyr::ungroup() %>%
   dplyr::filter(!is.na(class)) %>%
-  dplyr::filter(!is.na(n)) %>%
-  tidyr::spread(key = "class",value="n") %>%
-  dplyr::mutate(Activation=ifelse(is.na(Activation),0,round(100*Activation/N_cancers))) %>%
-  dplyr::mutate(Inhibition=ifelse(is.na(Inhibition),0,round(100*Inhibition/N_cancers))) %>%
-  dplyr::mutate(None=100-Activation-Inhibition) %>%
-  dplyr::filter(Activation+Inhibition>=5)-> rppa_percent
+  dplyr::filter(!is.na(per)) %>%
+  tidyr::spread(key = "class",value="per") -> rppa_percent
+
+colnames(rppa_percent)[3:5] %in% c("Activation", "None", "Inhibition") -> colname_match
+c("Activation", "None", "Inhibition")[grep("FALSE",colname_match)] -> false.match
+if(length(false.match)>0){
+  rppa_percent %>%
+    dplyr::mutate(false.match=NA) %>%
+    tidyr::gather(-symbol,-pathway,key="class",value = "value") %>%
+    dplyr::mutate(class=ifelse(class=="false.match",false.match,class)) %>%
+    dplyr::mutate(value=ifelse(is.na(value),0,value)) %>%
+    tidyr::spread(key = "class",value="value") -> rppa_percent.match
+}
+rppa_percent.match %>%
+  dplyr::filter(Activation+Inhibition>=5) -> rppa_percent.filter
   
-rppa_percent %>%
+rppa_percent.filter %>%
   tidyr::gather(-symbol,-pathway,key=class,value="per") %>%
   dplyr::mutate(per=ifelse(class=="Inhibition",-per,per)) %>%
   dplyr::mutate(pathway = paste(pathway,substring(class,1,1),sep="_")) %>%
   dplyr::filter(class!="None") -> rppa_per_ready
 
 # bubble_plot --------------------------------------------------------------------
-rppa_per_ready %>%
-  ggplot(aes(x = pathway, y = symbol)) +
-  xlab("Pathway") + ylab("Symbol") +
-  guides(fill = guide_colorbar("Percent")) +
-  geom_tile(aes(fill = per), col = "white") +
-  geom_text(
-    label = ceiling(rppa_per_ready$per)
-    # size = 1
-  ) +
-  scale_fill_gradient2(
-    high = "red",
-    mid = "white",
-    low = "blue"
-  ) +
-  theme(
-    axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1),
-    axis.text = element_text(colour = "black",size = 10),
-    axis.title = element_text(size = 13),
-    # legend.key.size = unit(0.25, "cm"),
-    legend.position = "bottom",
-    plot.margin = rep(unit(0, "null"), 4),
-    axis.ticks.length = unit(0, "cm"),
-    # legend.text = element_text(size = 5),
-    # axis.title.x = element_text(size = 6),
-    # axis.title.y = element_text(size = 6),
-    # legend.title = element_text(size = 6),
-    panel.background = element_rect(fill = "white", color = NA),
-    panel.grid = element_line(colour = "grey", linetype = "dashed"),
-    panel.grid.major = element_line(
-      colour = "grey",
-      linetype = "dashed",
-      size = 0.2
-    )
-  ) +
-  xlab("Pathway (A:Activate; I:Inhibit)") -> percent_plot
+source(file.path(apppath, "gsca-r-app/utils/fn_NA_notice_fig.R"))
+if(nrow(rppa_per_ready)>0){
+  rppa_per_ready %>%
+    ggplot(aes(x = pathway, y = symbol)) +
+    xlab("Pathway") + ylab("Symbol") +
+    guides(fill = guide_colorbar("Percent")) +
+    geom_tile(aes(fill = per), col = "white") +
+    geom_text(
+      label = ceiling(rppa_per_ready$per)
+      # size = 1
+    ) +
+    scale_fill_gradient2(
+      high = "red",
+      mid = "white",
+      low = "blue"
+    ) +
+    theme(
+      axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1),
+      axis.text = element_text(colour = "black",size = 10),
+      axis.title = element_text(size = 13),
+      # legend.key.size = unit(0.25, "cm"),
+      legend.position = "bottom",
+      plot.margin = rep(unit(0, "null"), 4),
+      axis.ticks.length = unit(0, "cm"),
+      # legend.text = element_text(size = 5),
+      # axis.title.x = element_text(size = 6),
+      # axis.title.y = element_text(size = 6),
+      # legend.title = element_text(size = 6),
+      panel.background = element_rect(fill = "white", color = NA),
+      panel.grid = element_line(colour = "grey", linetype = "dashed"),
+      panel.grid.major = element_line(
+        colour = "grey",
+        linetype = "dashed",
+        size = 0.2
+      )
+    ) +
+    xlab("Pathway (A:Activate; I:Inhibit)") -> percent_plot
+  # Save --------------------------------------------------------------------
+  ggsave(filename = filepath_stagepoint, plot = percent_plot, device = 'png', width = size$width, height = size$height)
+  filepath_stagepoint_pdf_name <- gsub("\\.png",".pdf",filepath_stagepoint)
+  ggsave(filename = filepath_stagepoint_pdf_name, plot = percent_plot, device = 'pdf', width = size$width, height = size$height)
+} else {
+  fn_NA_notice_fig("Caution: no significant results.") -> percent_plot
+  # Save --------------------------------------------------------------------
+  ggsave(filename = filepath_stagepoint, plot = percent_plot, device = 'png', width = size$width, height = 4)
+  filepath_stagepoint_pdf_name <- gsub("\\.png",".pdf",filepath_stagepoint)
+  ggsave(filename = filepath_stagepoint_pdf_name, plot = percent_plot, device = 'pdf', width = size$width, height = 4)
+}
 
-# Save --------------------------------------------------------------------
-ggsave(filename = filepath_stagepoint, plot = percent_plot, device = 'png', width = size$width, height = size$height)
-filepath_stagepoint_pdf_name <- gsub("\\.png",".pdf",filepath_stagepoint)
-ggsave(filename = filepath_stagepoint_pdf_name, plot = percent_plot, device = 'pdf', width = size$width, height = size$height)
+
+

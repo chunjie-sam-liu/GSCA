@@ -1,25 +1,25 @@
 export default [
   {
     name: 'expression',
-    title: 'Expression and clinical outcomes',
+    title: 'Expression',
     img: 'expression.png',
     description: 'Expression module',
   },
   {
     name: 'immune',
-    title: 'Immune correlations',
+    title: 'Immune',
     img: 'immune.png',
     description: 'Immune cell estimation and correlation',
   },
   {
     name: 'mutation',
-    title: 'Mutations',
+    title: 'Mutation',
     img: 'mutation.png',
     descritpion: 'SNV, CNV and methylation',
   },
   {
     name: 'drug',
-    title: 'Drug sensitivity',
+    title: 'Drug',
     img: 'drug.png',
     description: 'Small molecule correlations with gene expression',
   },

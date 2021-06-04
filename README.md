@@ -22,3 +22,6 @@
 - SNV: update mutational distribution, lolipop plot and survival analysis.
 - CNV: update sCNV deletion and amplifications and correlates with expressiona and survival.
 - Methylation: update correlates with gene set expression and survival.
+
+# The main features
+![figure2](gsca-angular/src/assets/imgs/figure2.png)
