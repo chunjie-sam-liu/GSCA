@@ -202,8 +202,8 @@ gsva_score_rppa_test_res.label %>%
       size = 0.2
     )
   ) +
-  ylab("Cancer types") +
-  xlab("Immune cell types") -> plot
+  ylab("Cancer type") +
+  xlab("Immune cell type") -> plot
 
 # pic size ----------------------------------------------------------------
 

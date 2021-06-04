@@ -43,7 +43,7 @@ for(i in 1:ncol(combn_matrix)){
   comp_list[[i]] <- combn_matrix[,i]
 }
 
-plot <- box_plot_single_gene_single_cancer(data = fetched_data,aesx = "type",aesy="methy",color = "type",color_name = "Types",color_labels =  c("Normal", "Tumor"),color_values = c(CPCOLS[1], CPCOLS[3]),title = glue::glue('{search_genes} methylation in {search_cancertypes}'),xlab = 'Types', ylab = 'Methylation (Beta value)',xangle = 0,comp_list=comp_list)
+plot <- box_plot_single_gene_single_cancer(data = fetched_data,aesx = "type",aesy="methy",color = "type",color_name = "Types",color_labels =  c("Normal", "Tumor"),color_values = c(CPCOLS[1], CPCOLS[3]),title = glue::glue('{search_genes} methylation in {search_cancertypes}'),xlab = 'Type', ylab = 'Methylation (Beta value)',xangle = 0,comp_list=comp_list)
 
 ggsave(filename = filepath, plot = plot, device = 'png', width = 5, height = 3)
 

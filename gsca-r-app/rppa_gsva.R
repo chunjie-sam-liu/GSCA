@@ -161,8 +161,8 @@ gsva_score_rppa_test_res.label %>%
       size = 0.2
     )
   ) +
-  ylab("Cancer types") +
-  xlab("Cancer related pathways") -> plot
+  ylab("Cancer type") +
+  xlab("Cancer related pathway") -> plot
 
 # pic size ----------------------------------------------------------------
 

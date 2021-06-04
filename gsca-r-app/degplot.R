@@ -159,8 +159,8 @@ fetched_data %>%
     legend.key = element_rect(fill = "white", colour = "black")
   ) +
   labs(
-    x = "Cancer types",
-    y = "Gene symbols",
+    x = "Cancer type",
+    y = "Gene symbol",
     title = "DEGs in the selected cancer types"
   ) -> bubble_plot
 

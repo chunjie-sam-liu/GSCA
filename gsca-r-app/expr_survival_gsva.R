@@ -124,7 +124,7 @@ title <- "Survival between high and low GSVA score group"
 heat_plot <- bubble_plot(data=for_plot, 
                          cancer="sur_type",
                          gene="cancertype", 
-                         ylab="Cancer types", 
+                         ylab="Cancer type", 
                          xlab="", 
                          facet_exp = NA,
                          size="logp", 

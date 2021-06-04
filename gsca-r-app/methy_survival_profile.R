@@ -66,7 +66,7 @@ title <- "Survival difference between high and low\nmethylation in each cancer"
 heat_plot <- bubble_plot(data=for_plot, 
                          cancer="cancertype", 
                          gene="symbol", 
-                         xlab="Cancer types", 
+                         xlab="Cancer type", 
                          ylab="Symbol", 
                          facet_exp = NA,
                          size="logp", 

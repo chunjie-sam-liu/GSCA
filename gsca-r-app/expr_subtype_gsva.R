@@ -135,7 +135,7 @@ color_list <- for_plot %>%
 source(file.path(apppath, "gsca-r-app/utils/fn_figure_height.R"))
 size_width <- 4+length(unique(for_plot$cancertype))*0.5
 
-box_plot <- box_plot_single_gene_multi_cancers(data = for_plot,aesx = "subtype",aesy="gsva",facets=".~cancertype",color = "cancertype",color_name = "",color_labels = color_list$cancertype,color_values = color_list$color,title = "GSVA score in subtypes of selected cancer types", xlab = 'Subtypes', ylab = 'GSVA score') +
+box_plot <- box_plot_single_gene_multi_cancers(data = for_plot,aesx = "subtype",aesy="gsva",facets=".~cancertype",color = "cancertype",color_name = "",color_labels = color_list$cancertype,color_values = color_list$color,title = "GSVA score in subtypes of selected cancer types", xlab = 'Subtype', ylab = 'GSVA score') +
   facet_grid(".~cancertype",scales = "free_x",space = "free") +
   theme(axis.text.x = element_text(colour = "black",size=10, angle = 45, hjust = 1, vjust = 1)) 
 

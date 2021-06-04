@@ -65,7 +65,7 @@ title <- "Survival difference between mutant and wT"
 heat_plot <- bubble_plot(data=for_plot, 
                          cancer="cancertype", 
                          gene="symbol", 
-                         xlab="Cancer types", 
+                         xlab="Cancer type", 
                          ylab="Symbol", 
                          facet_exp = ".~sur_type",
                          size="logp", 
