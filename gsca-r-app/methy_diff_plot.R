@@ -29,7 +29,7 @@ size <- fn_height_width(search_genes,search_colls)
 # fetch data --------------------------------------------------------------
 
 source(file.path(apppath, "gsca-r-app/utils/fn_fetch_mongo_data.R"))
-fields <- '{"symbol": true, "fc": true,"trend": true,"gene_tag": true,"logfdr": true, "_id": false}'
+fields <- '{"symbol": true, "fc": true,"trend": true,"gene_tag": true,"fdr": true, "_id": false}'
 fetched_data <- purrr::map(.x = search_colls, .f = fn_fetch_mongo, pattern="_methy_diff",fields = fields,.key=search_genes,.keyindex="symbol") %>%
   dplyr::bind_rows()
 fetched_data %>%
@@ -40,7 +40,7 @@ fetched_data %>%
 # Sort ----------------------------------------------------------------
 source(file.path(apppath,"gsca-r-app/utils/common_used_summary_plot_functions.R"))
 
-fetched_data_clean_pattern <- fn_get_pattern(.x = fetched_data %>% dplyr::mutate(value=10^(-logfdr)),
+fetched_data_clean_pattern <- fn_get_pattern(.x = fetched_data %>% dplyr::mutate(value=10^(-log10(fdr))),
                                              trend1="Up",
                                              trend2="Down",
                                              p_cutoff=1.3,
@@ -49,7 +49,8 @@ cancer_rank <- fn_get_cancer_types_rank(.x = fetched_data_clean_pattern)
 gene_rank <- fn_get_gene_rank(.x = fetched_data_clean_pattern)
 
 for_plot <- fetched_data %>%
-  dplyr::mutate(group = ifelse(logfdr>1.3,"<0.05",">0.05"))
+  dplyr::mutate(group = ifelse(fdr<=0.05,"<=0.05",">0.05")) %>%
+  dplyr::mutate(logfdr=-log10(fdr))
 
 # Plot --------------------------------------------------------------------
 source(file.path(apppath,"gsca-r-app/utils/fn_bubble_plot_immune.R"))
@@ -75,7 +76,7 @@ plot <- bubble_plot(data=for_plot,
                     gene_rank=gene_rank$symbol, 
                     sizename= "-Log10(FDR)", 
                     colorvalue=c("black","grey"),
-                    colorbreaks=c("<0.05",">0.05"),
+                    colorbreaks=c("<=0.05",">0.05"),
                     colorname="FDR", 
                     fillname="Methy. diff(T-N)", 
                     title=title) +

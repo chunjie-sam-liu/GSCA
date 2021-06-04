@@ -168,6 +168,6 @@ bubbleplot <- bubble_plot(data=for_plot_bubble,
                          title="Expression difference between stages")
 
 # Save --------------------------------------------------------------------
-ggsave(filename = filepath_stagepoint, plot = bubbleplot, device = 'png', width = size$width, height = size$height)
+ggsave(filename = filepath_stagepoint, plot = bubbleplot, device = 'png', width = size$width, height = size$height+1)
 filepath_stagepoint_pdf_name <- gsub("\\.png",".pdf",filepath_stagepoint)
-ggsave(filename = filepath_stagepoint_pdf_name, plot = bubbleplot, device = 'pdf', width = size$width, height = size$height)
+ggsave(filename = filepath_stagepoint_pdf_name, plot = bubbleplot, device = 'pdf', width = size$width, height = size$height+1)
