@@ -4,7 +4,7 @@
     <ng-container *ngIf="showSubtypeTable">
       <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
         <mat-card-header>
-          <mat-card-title>Table: difference of gene expression between subtypes</mat-card-title>
+          <mat-card-title>Table provides the difference of gene expression between subtypes</mat-card-title>
         </mat-card-header>
 
         <ng-container *ngIf="!subtypeTableLoading; else loading"></ng-container>
@@ -75,7 +75,7 @@
     <ng-container *ngIf="showSubtypeImage">
       <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
         <mat-card-header>
-          <mat-card-title>Figure: summary the associations between subtypes and gene expression</mat-card-title>
+          <mat-card-title>Figure summarizes the associations between subtypes and gene expression</mat-card-title>
         </mat-card-header>
         <mat-card-content>
           <ng-container *ngIf="!subtypeImageLoading; else loading">

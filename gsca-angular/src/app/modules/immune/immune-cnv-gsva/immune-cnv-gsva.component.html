@@ -10,7 +10,10 @@
     <ng-container *ngIf="showImmGenesetCnvCorTable">
       <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
         <mat-card-header>
-          <mat-card-title>Table: difference of immune infiltrates between gene set CNV groups in the specific cancers</mat-card-title>
+          <mat-card-title
+            >Table presents the detailed information of the difference of immune infiltrates between gene set CNV groups in the specific
+            cancers</mat-card-title
+          >
         </mat-card-header>
 
         <ng-container *ngIf="!dataSourceImmGenesetCnvCorLoading; else loading"></ng-container>
@@ -80,7 +83,7 @@
     <ng-container *ngIf="showImmGenesetCnvCorImage">
       <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
         <mat-card-header>
-          <mat-card-title>Difference of immune infiltrates between geneset CNV groups</mat-card-title>
+          <mat-card-title>Figure summarizes the difference of immune infiltrates between geneset CNV groups</mat-card-title>
         </mat-card-header>
         <mat-card-content>
           <ng-container *ngIf="!immGenesetCnvCorImageLoading; else loading">

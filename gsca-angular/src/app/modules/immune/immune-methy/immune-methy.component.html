@@ -4,7 +4,9 @@
     <ng-container *ngIf="showImmMethyCorTable">
       <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
         <mat-card-header>
-          <mat-card-title>Correlation between gene methylation and immune infiltrates in the specific cancers</mat-card-title>
+          <mat-card-title
+            >Table presents the correlation between gene methylation and immune infiltrates in the specific cancers</mat-card-title
+          >
         </mat-card-header>
 
         <ng-container *ngIf="!dataSourceImmMethyCorLoading; else loading"></ng-container>

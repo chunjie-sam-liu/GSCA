@@ -4,7 +4,7 @@
     <ng-container *ngIf="showPaenTable">
       <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
         <mat-card-header>
-          <mat-card-title>Table: pathway enrichment of inputted gene set</mat-card-title>
+          <mat-card-title>Table of pathway enrichment of inputted gene set</mat-card-title>
         </mat-card-header>
         <ng-container *ngIf="!dataSourcePaenLoading; else loading"></ng-container>
         <mat-form-field>
@@ -82,7 +82,7 @@
     <ng-container *ngIf="showPaenImage">
       <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
         <mat-card-header>
-          <mat-card-title>Figure: pathway enrichment of gene set (Top 10 of each source)</mat-card-title>
+          <mat-card-title>Figure of pathway enrichment of gene set (Top 10 of each source)</mat-card-title>
         </mat-card-header>
         <mat-card-content>
           <ng-container *ngIf="!PaenImageLoading; else loading">

@@ -4,7 +4,10 @@
     <ng-container *ngIf="showCnvCorTable">
       <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
         <mat-card-header>
-          <mat-card-title>Table: correlations between CNV and mRNA expression of inputted genes in the selected cancers</mat-card-title>
+          <mat-card-title
+            >Table provides the detailed information about the correlations between CNV and mRNA expression of inputted genes in the
+            selected cancers</mat-card-title
+          >
         </mat-card-header>
 
         <ng-container *ngIf="!dataSourceCnvCorLoading; else loading"></ng-container>
@@ -78,7 +81,7 @@
     <ng-container *ngIf="showCnvCorImage">
       <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
         <mat-card-header>
-          <mat-card-title>Plot: summarize the correlations between CNV and mRNA expression in the selected cancers</mat-card-title>
+          <mat-card-title>Figure summarizes the correlations between CNV and mRNA expression in the selected cancers</mat-card-title>
         </mat-card-header>
         <mat-card-content>
           <ng-container *ngIf="!cnvCorImageLoading; else loading">

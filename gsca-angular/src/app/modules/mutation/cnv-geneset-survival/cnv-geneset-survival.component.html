@@ -11,7 +11,8 @@
       <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
         <mat-card-header>
           <mat-card-title
-            >Table: detailed information of survival difference between gene set CNV and wide type in the selected cancers</mat-card-title
+            >Table provides the detailed information of survival difference between gene set CNV and wide type in the selected
+            cancers</mat-card-title
           >
         </mat-card-header>
 
@@ -83,7 +84,7 @@
     <ng-container *ngIf="showCnvGenesetSurvivalImage">
       <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
         <mat-card-header>
-          <mat-card-title>Plot: profile of survival between gene set CNV groups in the selected cancers</mat-card-title>
+          <mat-card-title>Figure summarizes the profile of survival between gene set CNV groups in the selected cancers</mat-card-title>
         </mat-card-header>
         <mat-card-content>
           <ng-container *ngIf="!cnvGenesetSurvivalImageLoading; else loading">
