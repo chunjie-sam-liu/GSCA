@@ -88,11 +88,12 @@ gsva_score %>%
 # plot --------------------------------------------------------------------
 
 source(file.path(apppath,"gsca-r-app/utils/fn_point_line.R"))
+source(file.path(apppath,"gsca-r-app/utils/fn_p_format.R"))
 
 title <-  glue::glue('Spearman correlation between GSVA score and {search_surtype} \npathway activity in {search_cancertype}')
 plot <- fn_point_fit(data=combine_data,aesx="score",aesy="gsva",
                      title=title,xlab=glue::glue('{search_surtype} pathway activity'),ylab="GSVA score",
-                     label=paste("Cor. =",round(fetched_gsvarppacor_data$estimate,2),"\nFDR =", round(fetched_gsvarppacor_data$fdr,2)))
+                     label=paste("Cor. =",round(fetched_gsvarppacor_data$estimate,2),"\nFDR =", fn_format(fetched_gsvarppacor_data$fdr)))
 
 # Save --------------------------------------------------------------------
 ggsave(filename = filepath, plot = plot, device = 'png', width = 6, height = 4)

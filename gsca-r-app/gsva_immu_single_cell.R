@@ -90,13 +90,14 @@ gsva_score %>%
 # plot --------------------------------------------------------------------
 
 source(file.path(apppath,"gsca-r-app/utils/fn_point_line.R"))
+source(file.path(apppath,"gsca-r-app/utils/fn_p_format.R"))
 
 title <-  glue::glue('Spearman correlation between GSVA score and infiltrate of\n{search_surtype} cell in {search_cancertype}')
 plot <- fn_point_fit(data=combine_data,aesx="TIL",aesy="gsva",
                      title=title,xlab=glue::glue('Infiltrate of {search_surtype}'),ylab="GSVA score",
                      label=paste("Cor. =",round(fetched_gsvaimmucor_data$estimate,2),
-                                 "\nP value = ",format(signif(fetched_gsvaimmucor_data$p_value*1000)/1000, scientific = TRUE),
-                                 "\nFDR =", format(signif(fetched_gsvaimmucor_data$fdr*1000)/1000,scientific = TRUE)))
+                                 "\nP value = ",fn_format(fetched_gsvaimmucor_data$p_value),
+                                 "\nFDR =", fn_format(fetched_gsvaimmucor_data$fdr)))
 # Save --------------------------------------------------------------------
 ggsave(filename = filepath, plot = plot, device = 'png', width = 6, height = 4)
 pdf_name <- gsub("\\.png",".pdf",filepath)

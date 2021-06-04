@@ -52,11 +52,12 @@ fetched_immune %>%
 # plot --------------------------------------------------------------------
 
 source(file.path(apppath,"gsca-r-app/utils/fn_point_line.R"))
+source(file.path(apppath,"gsca-r-app/utils/fn_p_format.R"))
 
 title <-  glue::glue('Spearman correlation between {search_genes} methylation and {celltype} \ninfiltrate in {search_cancertypes}')
 plot <- fn_point_fit(data=for_plot,aesx="TIL",aesy="methy",
                      title=title,xlab=glue::glue('{celltype} infiltrate score (ImmuCellAI)'),ylab="Methylation (Beta value)",
-                     label=paste("Cor. =",round(fetched_methycor_data$cor,2),"\nFDR =", round(fetched_methycor_data$fdr,2)))
+                     label=paste("Cor. =",round(fetched_methycor_data$cor,2),"\nFDR =", fn_format(fetched_methycor_data$fdr)))
 
 # Save --------------------------------------------------------------------
 ggsave(filename = filepath, plot = plot, device = 'png', width = 6, height = 4)
