@@ -130,6 +130,6 @@ p <- bubble_plot(data=for_plot_bubble,
                           title="Subtype difference between high and\nlow gene expression")
 
 # Save --------------------------------------------------------------------
-ggsave(filename = filepath, plot = p, device = 'png', width = size$width, height = size$height)
+ggsave(filename = filepath, plot = p, device = 'png', width = size$width, height = size$height+2)
 pdf_name <- gsub("\\.png",".pdf",filepath)
-ggsave(filename = pdf_name, plot = p, device = 'pdf', width = size$width, height = size$height)
+ggsave(filename = pdf_name, plot = p, device = 'pdf', width = size$width, height = size$height+2)

@@ -84,6 +84,6 @@ plot <- bubble_plot(data=for_plot,
                     title=title)
 
 # Save --------------------------------------------------------------------
-ggsave(filename = filepath, plot = plot, device = 'png', width = size$width+2, height = size$height)
+ggsave(filename = filepath, plot = plot, device = 'png', width = size$width+2, height = size$height+2)
 pdf_name <- gsub("\\.png",".pdf",filepath)
-ggsave(filename = pdf_name, plot = plot, device = 'pdf', width = size$width+2, height = size$height)
+ggsave(filename = pdf_name, plot = plot, device = 'pdf', width = size$width+2, height = size$height+2)
