@@ -96,7 +96,7 @@ color_list <- combine_data %>%
   dplyr::arrange(rank) %>%
   dplyr::mutate(color=color[1:len_stage])
 
-plot <- box_plot_single_gene_single_cancer(data = combine_data,aesx = "group",aesy="TIL",color = "group_n",color_name = "Gene set CNV",color_labels =  color_labels,color_values =color_list$color,title = glue::glue('{search_surtype} infiltrates between\ngene set CNV groups in {search_cancertype}'),xlab = 'Groups', ylab = 'Immune infiltrates score\n(ImmuCellAI)',xangle = 0,comp_list=comp_list,ylimitfold=0.3)
+plot <- box_plot_single_gene_single_cancer(data = combine_data,aesx = "group",aesy="TIL",color = "group_n",color_name = "Gene set CNV",color_labels =  color_labels,color_values =color_list$color,title = glue::glue('{search_surtype} infiltrates between\ngene set CNV groups in {search_cancertype}'),xlab = 'Groups', ylab = 'Immune infiltrates score\n(ImmuCellAI)',xangle = 0,comp_list=comp_list,ylimitfold=0.1)
 
 # Save --------------------------------------------------------------------
 ggsave(filename = filepath, plot = plot, device = 'png', width = 6, height = 4)
