@@ -40,7 +40,7 @@
     <mat-card appMaterialElevation defaultElevation="4" raisedElevation="4" fxLayout="column" fxLayoutGap="10px">
       <h3>SNV (Single Nucleotide Variation)</h3>
       <p>This section presents the SNV summary and its correlation with survival.</p>
-      <h4>Please select analysis:</h4>
+      <h4>Please select analysis type(s):</h4>
       <dl>
         <dd>
           <mat-checkbox [(ngModel)]="showList.showSnv">SNV summary</mat-checkbox>
@@ -60,7 +60,7 @@
     <mat-card appMaterialElevation defaultElevation="4" raisedElevation="4" fxLayout="column" fxLayoutGap="10px">
       <h3>CNV (Copy Number Variation)</h3>
       <p>This section presents the CNV summary and its correlation with gene expression and survival.</p>
-      <h4>Please select analysis:</h4>
+      <h4>Please select analysis type(s):</h4>
       <dl>
         <dd>
           <mat-checkbox [(ngModel)]="showList.showCnv">CNV summary</mat-checkbox>
@@ -85,7 +85,7 @@
     <mat-card appMaterialElevation defaultElevation="4" raisedElevation="4" fxLayout="column" fxLayoutGap="10px">
       <h3>Methylation</h3>
       <p>This section presents the methylation and its correlation with gene expression and survival.</p>
-      <h4>Please select analysis:</h4>
+      <h4>Please select analysis type(s):</h4>
       <dl>
         <dd>
           <mat-checkbox [(ngModel)]="showList.showMethylation">Differential methylation</mat-checkbox>
