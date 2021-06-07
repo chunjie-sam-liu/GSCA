@@ -61,7 +61,7 @@ fn_query_str <- function(.x) {
 
 # judge --------------------------------------------------------------------
 
-if(length(search_genes)>1){
+# if(length(search_genes)>1){
   # Load data ---------------------------------------------------------------
   
   fn_parallel_start(n_cores = length(search_cancertypes))
@@ -71,9 +71,9 @@ if(length(search_genes)>1){
   fn_parallel_stop()
   
   names(gsva_score) <- gsub(pattern = "_all_expr_gene_set.rds.gz", replacement = "", x = search_cancertypes)
-}else{
-  gsva_score <- tibble::tibble()
-}
+# }else{
+#   gsva_score <- tibble::tibble()
+# }
 
 
 # Update mongo ------------------------------------------------------------
