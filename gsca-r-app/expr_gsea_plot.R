@@ -16,10 +16,10 @@ filepath <- args[3]
 apppath <- args[4]
 
 
-# tableuuid <- 'cf7c811d-3626-4a28-b050-57cd6521e9b2'
+# tableuuid <- 'a53ef2cd-f4ec-42be-b103-475408c46edc'
 # tablecol <- 'preanalysised_gsea'
 # filepath <- "/home/liucj/github/GSCA/gsca-r-plot/pngs/217c27f6-c12a-413d-8625-b9748fc1ff65.png"
-# apppath <- '/home/liucj/github/GSCA'
+# apppath <- '/home/huff/github/GSCA'
 
 # Mongo -------------------------------------------------------------------
 
@@ -144,7 +144,11 @@ for_plot %>%
 # Save image --------------------------------------------------------------
 width = 7
 height = length(unique(for_plot$cancertype)) * 0.8
-
+if(height<4){
+  height<-4
+}else{
+  height<-height
+}
 ggsave(filename = filepath, plot = gsea_plot, device = 'png', width = width, height = height)
 pdf_name <- gsub("\\.png",".pdf", filepath)
-ggsave(filename = pdf_name, plot = gsea_plot, device = 'pdf', width = width * 2, height = height * 2)
+ggsave(filename = pdf_name, plot = gsea_plot, device = 'pdf', width = width + 2, height = height + 2)
