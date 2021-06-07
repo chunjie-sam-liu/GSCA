@@ -137,7 +137,7 @@ if(nrow(fetched_data)>0){
   
 }else{
   source(file.path(apppath, "gsca-r-app/utils/fn_NA_notice_fig.R"))
-  fn_NA_notice_fig("Caution: no significant result for your search.\nSubtype analysis only applicable to HNSC, LUSC, COAD, STAD, LUAD, GBM, BRCA, UCEC, KIRC, READ, BLCA cancer.\nOR input more genes could be help.") -> p
+  fn_NA_notice_fig("Caution: \nno significant result for your search.\nSubtype analysis only applicable to \nHNSC, LUSC, COAD, STAD, LUAD, GBM, \nBRCA, UCEC, KIRC, READ, BLCA cancer.\nOR input more genes could be help.") -> p
   # Save --------------------------------------------------------------------
   ggsave(filename = filepath, plot = p, device = 'png', width = size$width, height = 4)
   pdf_name <- gsub("\\.png",".pdf",filepath)
