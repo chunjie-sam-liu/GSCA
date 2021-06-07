@@ -48,56 +48,62 @@ fetched_data <- purrr::map(.x = paste(search_cancertypes[1],"deg",sep="_"), .f =
 fetched_data %>%
   dplyr::filter(symbol %in% search_genes) %>%
   .$entrez -> search_genes_entrez
-enrichKEGG(gene = search_genes_entrez,
-           organism = 'hsa',
-           pvalueCutoff = 0.05) -> enKegg
-enKegg@result %>%
-  dplyr::as.tbl() %>%
-  dplyr::filter(fdr <0.05) %>%
-  dplyr::mutate(Method = "KEGG")-> enKegg.res.q005
 
-# go ----------------------------------------------------------------------
-egoBP <- enrichGO(gene = search_genes_entrez,
-                ont           = "BP",
-                pAdjustMethod = "BH",
-                pvalueCutoff  = 1)
-egoBP@result %>%
-  dplyr::as.tbl() %>%
-  dplyr::filter(fdr <0.05) %>%
-  dplyr::mutate(Method = "GO:BP") -> egoBP.res.q005
+if(length(search_genes_entrez)>=10){
+  enrichKEGG(gene = search_genes_entrez,
+             organism = 'hsa',
+             pvalueCutoff = 0.05) -> enKegg
+  enKegg@result %>%
+    dplyr::as.tbl() %>%
+    dplyr::filter(p.adjust <0.05) %>%
+    dplyr::mutate(Method = "KEGG")-> enKegg.res.q005
+  
+  # go ----------------------------------------------------------------------
+  egoBP <- enrichGO(gene = search_genes_entrez,
+                    ont           = "BP",
+                    pAdjustMethod = "BH",
+                    pvalueCutoff  = 1)
+  egoBP@result %>%
+    dplyr::as.tbl() %>%
+    dplyr::filter(p.adjust <0.05) %>%
+    dplyr::mutate(Method = "GO:BP") -> egoBP.res.q005
+  
+  egoCC <- enrichGO(gene = search_genes_entrez,
+                    ont           = "CC",
+                    pAdjustMethod = "BH",
+                    pvalueCutoff  = 1)
+  egoCC@result %>%
+    dplyr::as.tbl() %>%
+    dplyr::filter(p.adjust <0.05) %>%
+    dplyr::mutate(Method = "GO:CC") -> egoCC.res.q005
+  
+  egoMF <- enrichGO(gene = search_genes_entrez,
+                    ont           = "MF",
+                    pAdjustMethod = "BH",
+                    pvalueCutoff  = 1)
+  egoMF@result %>%
+    dplyr::as.tbl() %>%
+    dplyr::filter(p.adjust <0.05) %>%
+    dplyr::mutate(Method = "GO:MF") -> egoMF.res.q005
+  
+  
+  rbind(egoBP.res.q005,egoCC.res.q005) %>%
+    rbind(egoMF.res.q005) %>%
+    rbind(enKegg.res.q005) %>%
+    dplyr::rename("fdr"="p.adjust") %>%
+    dplyr::mutate(Hits = purrr::map(geneID,.f=function(.x){
+      .x <- as.character(.x)
+      hits <- strsplit(.x,"/")[[1]]
+      fetched_data %>%
+        dplyr::filter(entrez %in% hits) %>%
+        .$symbol -> hits.symbol
+      paste0(hits.symbol,collapse="/")
+    })) %>%
+    tidyr::unnest()-> enrichALL
+} else {
+  tibble::tibble(ID=NA,Description=NA,GeneRatio=NA,BgRatio=NA,pvalue=NA, p.adjust=NA, qvalue=NA, geneID=NA,Count=NA, Method=NA)-> enrichALL
+}
 
-egoCC <- enrichGO(gene = search_genes_entrez,
-                  ont           = "CC",
-                  pAdjustMethod = "BH",
-                  pvalueCutoff  = 1)
-egoCC@result %>%
-  dplyr::as.tbl() %>%
-  dplyr::filter(fdr <0.05) %>%
-  dplyr::mutate(Method = "GO:CC") -> egoCC.res.q005
-
-egoMF <- enrichGO(gene = search_genes_entrez,
-                  ont           = "MF",
-                  pAdjustMethod = "BH",
-                  pvalueCutoff  = 1)
-egoMF@result %>%
-  dplyr::as.tbl() %>%
-  dplyr::filter(fdr <0.05) %>%
-  dplyr::mutate(Method = "GO:MF") -> egoMF.res.q005
-
-
-rbind(egoBP.res.q005,egoCC.res.q005) %>%
-  rbind(egoMF.res.q005) %>%
-  rbind(enKegg.res.q005) %>%
-  dplyr::rename("fdr"="p.adjust") %>%
-  dplyr::mutate(Hits = purrr::map(geneID,.f=function(.x){
-    .x <- as.character(.x)
-    hits <- strsplit(.x,"/")[[1]]
-    fetched_data %>%
-      dplyr::filter(entrez %in% hits) %>%
-      .$symbol -> hits.symbol
-    paste0(hits.symbol,collapse="/")
-  })) %>%
-  tidyr::unnest()-> enrichALL
 
 # Update mongo ------------------------------------------------------------
 
