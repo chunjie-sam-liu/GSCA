@@ -17,7 +17,7 @@ filepath_trend <- args[4]
 apppath <- args[5]
 
 
-# tableuuid <- 'ba16c786-93ca-421e-a426-7a361f4c3e7a'
+# tableuuid <- 'd187b588-5c6a-41f9-aec5-3de6d5057858'
 # tablecol <- 'preanalysised_gsva'
 # filepath <- "/home/huff/github/GSCA/gsca-r-plot/pngs/91fec0d9-74ce-4036-b1b6-b5fdd8afa1b0.png"
 # apppath <- '/home/huff/github/GSCA'
