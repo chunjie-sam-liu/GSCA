@@ -22,13 +22,13 @@ export class PathwayEnrichmentComponent implements OnInit, OnChanges, AfterViewI
   showPaenTable = true;
   @ViewChild('paginatorPaen') paginatorPaen: MatPaginator;
   @ViewChild(MatSort) sortPaen: MatSort;
-  displayedColumnsPaen = ['Method', 'ID', 'Description', 'GeneRatio', 'BgRatio', 'pvalue', 'fdr', 'qvalue', 'Hits'];
+  displayedColumnsPaen = ['Method', 'ID', 'Description', 'GeneRatio', 'pvalue', 'fdr', 'qvalue', 'Hits'];
   displayedColumnsPaenHeader = [
     'Method',
     'Pathway ID',
     'Description',
-    'n of Hits/Input',
-    'n of term/background',
+    'Hits/Input',
+    // 'n of term/background',
     'P value',
     'FDR',
     'Q value',
