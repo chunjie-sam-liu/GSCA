@@ -16,7 +16,7 @@ search_str <- args[1]
 filepath_stagepoint <- args[2]
 apppath <- args[3]
 
-# search_str = "TP53@LUSC_rppa_diff"
+# search_str = "TP53@ACC_rppa_diff"
 # filepath = "/home/huff/github/GSCA/gsca-r-plot/pngs/1c16fb64-8ef4-4789-a87a-589d140c5bbe.png"
 # apppath = '/home/huff/github/GSCA'
 
@@ -60,22 +60,30 @@ rppa_class %>%
   dplyr::filter(!is.na(per)) %>%
   tidyr::spread(key = "class",value="per") -> rppa_percent
 
-colnames(rppa_percent)[3:5] %in% c("Activation", "None", "Inhibition") -> colname_match
-c("Activation", "None", "Inhibition")[grep("FALSE",colname_match)] -> false.match
+false.match<-c()
+for (i in c("Activation", "None", "Inhibition")) {
+  colnames(rppa_percent)[3:5] %in% i -> .match
+  if(!.match){
+     c(false.match,i) -> false.match
+  }
+}
 if(length(false.match)>0){
-  rppa_percent %>%
-    dplyr::mutate(false.match=NA) %>%
-    tidyr::gather(-symbol,-pathway,key="class",value = "value") %>%
-    dplyr::mutate(class=ifelse(class=="false.match",false.match,class)) %>%
-    dplyr::mutate(value=ifelse(is.na(value),0,value)) %>%
-    tidyr::spread(key = "class",value="value") -> rppa_percent.match
+  for (x in false.match) {
+    rppa_percent %>%
+      dplyr::mutate(false.match=NA) %>%
+      tidyr::gather(-symbol,-pathway,key="class",value = "value") %>%
+      dplyr::mutate(class=ifelse(class=="false.match",x,class)) %>%
+      dplyr::mutate(value=ifelse(is.na(value),0,value)) %>%
+      tidyr::spread(key = "class",value="value") -> rppa_percent
+  }
+ 
 } else {
   rppa_percent %>%
     tidyr::gather(-symbol,-pathway,key="class",value = "value") %>%
     dplyr::mutate(value=ifelse(is.na(value),0,value)) %>%
-    tidyr::spread(key = "class",value="value") -> rppa_percent.match
+    tidyr::spread(key = "class",value="value") -> rppa_percent
 }
-rppa_percent.match %>%
+rppa_percent %>%
   dplyr::filter(Activation+Inhibition>=5) -> rppa_percent.filter
   
 rppa_percent.filter %>%
