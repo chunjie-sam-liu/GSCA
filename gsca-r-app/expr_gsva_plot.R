@@ -16,7 +16,7 @@ filepath <- args[3]
 apppath <- args[4]
 
 
-# tableuuid <- 'ba16c786-93ca-421e-a426-7a361f4c3e7a'
+# tableuuid <- '292dda97-0c17-479c-a41d-34d366e22918'
 # tablecol <- 'preanalysised_gsva'
 # filepath <- "/home/liucj/github/GSCA/gsca-r-plot/pngs/688682d4-977f-432b-8338-f0c28730cbcb.png"
 # apppath <- '/home/liucj/github/GSCA'
@@ -49,10 +49,19 @@ fn_reorg <- function(.x) {
 }
 
 fn_test <- function(.x) {
-  t.test(formula = gsva ~ type, data = .x) %>%
-    broom::tidy() %>%
-    dplyr::select(diff_gsva = estimate, tumor_gsva = estimate1, normal_gsva = estimate2, pval = p.value) %>%
-    dplyr::mutate(log2fc = log2(tumor_gsva/normal_gsva))
+  .x$type %>% table() %>%
+    as.data.frame() %>%
+    dplyr::as.tbl() %>%
+    dplyr::filter(Freq>=10) -> .sample_count
+  if(nrow(.sample_count)>1){
+    t.test(formula = gsva ~ type, data = .x) %>%
+      broom::tidy() %>%
+      dplyr::select(diff_gsva = estimate, tumor_gsva = estimate1, normal_gsva = estimate2, pval = p.value) %>%
+      dplyr::mutate(log2fc = log2(tumor_gsva/normal_gsva))
+  }else{
+    tibble::tibble()
+  }
+  
 }
 
 
