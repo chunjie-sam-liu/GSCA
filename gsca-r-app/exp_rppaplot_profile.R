@@ -69,6 +69,11 @@ if(length(false.match)>0){
     dplyr::mutate(class=ifelse(class=="false.match",false.match,class)) %>%
     dplyr::mutate(value=ifelse(is.na(value),0,value)) %>%
     tidyr::spread(key = "class",value="value") -> rppa_percent.match
+} else {
+  rppa_percent %>%
+    tidyr::gather(-symbol,-pathway,key="class",value = "value") %>%
+    dplyr::mutate(value=ifelse(is.na(value),0,value)) %>%
+    tidyr::spread(key = "class",value="value") -> rppa_percent.match
 }
 rppa_percent.match %>%
   dplyr::filter(Activation+Inhibition>=5) -> rppa_percent.filter
