@@ -21,7 +21,10 @@ fn_transform_df <- function(cancer_types, data) {
   .x %>% 
     dplyr::rename(
       pval = p.value
-    ) ->
+    ) %>%
+    dplyr::filter(symbol %in% search_symbol$symbol) %>%
+    dplyr::mutate(entrez = as.numeric(entrez_id)) %>%
+    dplyr::select(-entrez_id)->
     .d
   
   # collection
@@ -40,15 +43,6 @@ fn_transform_df <- function(cancer_types, data) {
 # Tidy data ---------------------------------------------------------------
 
 expr_subtype %>% 
-  dplyr::filter(symbol %in% search_symbol$symbol) %>% 
-  dplyr::mutate(entrez = as.numeric(entrez)) %>% 
-  dplyr::group_by(cancer_types) %>% 
-  tidyr::nest() %>% 
-  dplyr::ungroup() ->
-  expr_subtype_nest
-
-
-expr_subtype_nest %>% 
   purrr::pmap(.f = fn_transform_df) ->
   expr_subtype_nest_mongo_data
 
