@@ -59,6 +59,9 @@ export class GseaComponent implements OnInit, OnChanges, AfterViewInit {
       this.GSEAImageLoading = false;
       this.showGSEATable = false;
       this.showGSEAImage = false;
+      window.alert(
+        'The GSEA enrichment analysis is based on differential analysis, please select at least one cancer type which has at least ten tumor-normal paired samples. These cancer types including THCA, KIRP, BLCA, LIHC, HNSC, BRCA, LUAD, PRAD, ESCA, KICH, LUSC, KIRC, STAD and COAD.'
+      );
     } else {
       this.expressionApiService.getGSEAAnalysis(postTerm).subscribe(
         (res) => {
