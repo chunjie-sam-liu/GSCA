@@ -13,7 +13,7 @@ filepath_snvtitvplot <- args[4]
 apppath <- args[5]
 
 
-# search_str = "A2M@KICH_snv_count"
+# search_str = "A2M@KIRC_snv_count#KIRP_snv_count#HNSC_snv_count"
 # filepath= "/home/huff/github/GSCA/gsca-r-plot/pngs/7aa843d9-6287-468e-9d52-47c44ea1fe21.png"
 # apppath='/home/huff/github/GSCA'
 
@@ -58,6 +58,18 @@ if(nrow(fetched_snv_maf)>0){
     plotmafSummary(maf = maf_project, rmOutlier = TRUE, addStat = 'median', dashboard = TRUE, titvRaw = FALSE)
     dev.off()
     
+    # titv plot
+    maf.titv = titv(maf = maf_project, plot = FALSE, useSyn = TRUE)
+    
+    png(filename = filepath_snvtitvplot,height = 4,width = 6,units = "in",res=500)
+    plotTiTv(res = maf.titv)
+    dev.off()
+    
+    pdf_name_snvtitvplot <- gsub("\\.png",".pdf",filepath_snvtitvplot)
+    pdf(file = pdf_name_snvtitvplot,height = 4,width = 6)
+    plotTiTv(res = maf.titv)
+    dev.off()
+    
     if(length(unique(fetched_snv_maf.non_synonymous$entrez))>=2){
       # oncoplot
       png(filename = filepath_snvoncoplot,height = 4,width = 6,units = "in",res=500)
@@ -68,21 +80,9 @@ if(nrow(fetched_snv_maf)>0){
       pdf(file = pdf_name_snvoncoplot,height = 4,width = 6)
       oncoplot(maf = maf_project, top = 10)
       dev.off()
-      
-      # titv plot
-      maf.titv = titv(maf = maf_project, plot = FALSE, useSyn = TRUE)
-      
-      png(filename = filepath_snvtitvplot,height = 4,width = 6,units = "in",res=500)
-      plotTiTv(res = maf.titv)
-      dev.off()
-      
-      pdf_name_snvtitvplot <- gsub("\\.png",".pdf",filepath_snvtitvplot)
-      pdf(file = pdf_name_snvtitvplot,height = 4,width = 6)
-      plotTiTv(res = maf.titv)
-      dev.off()
     }else{
       source(file.path(apppath, "gsca-r-app/utils/fn_NA_notice_fig.R"))
-      fn_NA_notice_fig("Caution: \nthis analysis is avaliable when\nthere are at least two genes have\nnon-synonymous mutations in your search.") -> p
+      fn_NA_notice_fig("Caution: \nOncoplot requires at-least two genes for plottng.") -> p
       # Save --------------------------------------------------------------------
       ggsave(filename = filepath_snvoncoplot, plot = p, device = 'png', width = 6, height = 4)
       ggsave(filename = filepath_snvtitvplot, plot = p, device = 'png', width = 6, height = 4)
