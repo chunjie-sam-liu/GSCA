@@ -61,6 +61,9 @@ export class GsvaSubtypeComponent implements OnInit, OnChanges, AfterViewInit {
       this.GSVASubtypeImageLoading = false;
       this.showGSVASubtypeTable = false;
       this.showGSVASubtypeImage = false;
+      window.alert(
+        'The subtype analysis is based on cancer types which have subtype data, including BLCA, BRCA, COAD, GBM  HNSC, KIRC, LUAD, LUSC, READ, STAD and UCEC. Please select at least one of these cancer type to get the result of differential analysis.'
+      );
     } else {
       this.expressionApiService.getGSVAAnalysis(postTerm).subscribe(
         (res) => {
