@@ -101,7 +101,7 @@ source(file.path(apppath,"gsca-r-app/utils/fn_boxplot_single_gene_in_cancer.R"))
 gsva_score_nest %>% tidyr::unnest(cols = gsva) -> for_plot
 CPCOLS <- c("#000080", "#F8F8FF", "#CD0000")
 
-plot <- box_plot_single_gene_multi_cancers(data = for_plot,aesx = "type",aesy="gsva",facets=".~cancertype",color = "type",color_name = "Group",color_labels = c("Tumor", "Normal"),color_values = c(CPCOLS[3], CPCOLS[1]),title = "GSVA score in selected cancer types", xlab = 'Cancer types', ylab = 'GSVA score')
+plot <- box_plot_single_gene_multi_cancers(data = for_plot,aesx = "type",aesy="gsva",facets=".~cancertype",color = "type",color_name = "Group",color_labels = c("Tumor", "Normal"),color_values = c(CPCOLS[3], CPCOLS[1]),title = "GSVA score in selected cancer types", xlab = 'Cancer type', ylab = 'GSVA score')
 
 # Save image --------------------------------------------------------------
 width = 7 / 5 * length(unique(for_plot$cancertype))
