@@ -57,16 +57,24 @@ fn_query_str <- function(.x) {
   .xx <- paste0(.x, collapse = '","')
   glue::glue('{"uuid": "<.xx>"}', .open = '<', .close = '>')
 }
-# Load data ---------------------------------------------------------------
 
 
-fn_parallel_start(n_cores = length(search_cancertypes))
-gsva_score <- foreach(i = search_cancertypes, .packages = c('magrittr')) %dopar% {
-  fn_load_data(i)
+# judge --------------------------------------------------------------------
+
+if(length(search_genes)>1){
+  # Load data ---------------------------------------------------------------
+  
+  fn_parallel_start(n_cores = length(search_cancertypes))
+  gsva_score <- foreach(i = search_cancertypes, .packages = c('magrittr')) %dopar% {
+    fn_load_data(i)
+  }
+  fn_parallel_stop()
+  
+  names(gsva_score) <- gsub(pattern = "_all_expr_gene_set.rds.gz", replacement = "", x = search_cancertypes)
+}else{
+  gsva_score <- tibble::tibble()
 }
-fn_parallel_stop()
 
-names(gsva_score) <- gsub(pattern = "_all_expr_gene_set.rds.gz", replacement = "", x = search_cancertypes)
 
 # Update mongo ------------------------------------------------------------
 
