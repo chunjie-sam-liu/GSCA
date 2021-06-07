@@ -91,16 +91,16 @@ fetched_data <- purrr::map(.x = search_cancertypes, .f = fn_fetch_mongo) %>% dpl
 
 if(nrow(fetched_data)>0){
   # Sort --------------------------------------------------------------------
-  
+
   fetched_data_clean_pattern <- fn_get_pattern(.x = fetched_data)
   cancer_rank <- fn_get_cancer_types_rank(.x = fetched_data_clean_pattern)
   gene_rank <- fn_get_gene_rank(.x = fetched_data_clean_pattern)
-  
+
   for_plot <- fetched_data %>%
     dplyr::mutate(logFDR = -log10(fdr)) %>%
     dplyr::mutate(logFDR = ifelse(logFDR>10,10,logFDR)) %>%
     dplyr::mutate(group=ifelse(fdr>0.05,">0.05","<0.05"))
-  
+
   # bubble_plot --------------------------------------------------------------------
   source(file.path(apppath,"gsca-r-app/utils/fn_bubble_plot_immune.R"))
   for_plot -> for_plot_bubble
@@ -109,24 +109,24 @@ if(nrow(fetched_data)>0){
     .$logFDR -> logp_value
   min(logp_value) %>% floor() -> min
   max(logp_value) %>% ceiling() -> max
-  fillbreaks <- sort(unique(c(1.3,round(c(min,max,seq(min,max,length.out = 3))))))
-  
-  p <- bubble_plot(data=for_plot_bubble, 
-                   cancer="cancertype", 
-                   gene="symbol", 
-                   xlab="Cancer type", 
-                   ylab="Symbol", 
+  fillbreaks <- sort(unique(c(round(c(min,max,seq(min,max,length.out = 3))))))
+
+  p <- bubble_plot(data=for_plot_bubble,
+                   cancer="cancertype",
+                   gene="symbol",
+                   xlab="Cancer type",
+                   ylab="Symbol",
                    facet_exp = NA,
-                   size="logFDR", 
-                   fill="logFDR", 
+                   size="logFDR",
+                   fill="logFDR",
                    fillmipoint =1.3,
                    fillbreaks =fillbreaks,
                    colorgroup="group",
-                   cancer_rank=cancer_rank$cancertype, 
-                   gene_rank=gene_rank$symbol, 
-                   sizename= "-Log(10) FDR", 
-                   fillname="-Log(10) FDR", 
-                   colorvalue=c("black","grey"), 
+                   cancer_rank=cancer_rank$cancertype,
+                   gene_rank=gene_rank$symbol,
+                   sizename= "-Log(10) FDR",
+                   fillname="-Log(10) FDR",
+                   colorvalue=c("black","grey"),
                    colorbreaks=c("<0.05",">0.05"),
                    colorname="FDR",
                    title="Subtype difference between high and\nlow gene expression")
@@ -134,7 +134,7 @@ if(nrow(fetched_data)>0){
   ggsave(filename = filepath, plot = p, device = 'png', width = size$width, height = size$height+2)
   pdf_name <- gsub("\\.png",".pdf",filepath)
   ggsave(filename = pdf_name, plot = p, device = 'pdf', width = size$width, height = size$height+2)
-  
+
 }else{
   source(file.path(apppath, "gsca-r-app/utils/fn_NA_notice_fig.R"))
   fn_NA_notice_fig("Caution: \nno significant result for your search.\nSubtype analysis only applicable to \nHNSC, LUSC, COAD, STAD, LUAD, GBM, \nBRCA, UCEC, KIRC, READ, BLCA cancer.\nOR input more genes could be help.") -> p
