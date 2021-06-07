@@ -98,15 +98,29 @@ if(nrow(fetched_snv_maf)>0){
     ggsave(filename = filepath_snvsummary, plot = p, device = 'png', width = 6, height = 4)
     pdf_name <- gsub("\\.png",".pdf",filepath_snvsummary)
     ggsave(filename = pdf_name, plot = p, device = 'pdf', width = 6, height = 4)
+    
+    ggsave(filename = filepath_snvoncoplot, plot = p, device = 'png', width = 6, height = 4)
+    ggsave(filename = filepath_snvtitvplot, plot = p, device = 'png', width = 6, height = 4)
+    pdf_name_snvtitvplot <- gsub("\\.png",".pdf",filepath_snvtitvplot)
+    pdf_name_snvoncoplot <- gsub("\\.png",".pdf",filepath_snvoncoplot)
+    ggsave(filename = pdf_name_snvoncoplot, plot = p, device = 'pdf', width = 6, height = 4)
+    ggsave(filename = pdf_name_snvtitvplot, plot = p, device = 'pdf', width = 6, height = 4)
   }
   
 }else{
   source(file.path(apppath, "gsca-r-app/utils/fn_NA_notice_fig.R"))
-  fn_NA_notice_fig("Caution: \nNo non-synonymous mutations found\nin your search gene list.") -> p
+  fn_NA_notice_fig("Caution: \nNo mutations found\nin your search gene list.") -> p
   # Save --------------------------------------------------------------------
   ggsave(filename = filepath_snvsummary, plot = p, device = 'png', width = 6, height = 4)
   pdf_name <- gsub("\\.png",".pdf",filepath_snvsummary)
   ggsave(filename = pdf_name, plot = p, device = 'pdf', width = 6, height = 4)
+  
+  ggsave(filename = filepath_snvoncoplot, plot = p, device = 'png', width = 6, height = 4)
+  ggsave(filename = filepath_snvtitvplot, plot = p, device = 'png', width = 6, height = 4)
+  pdf_name_snvtitvplot <- gsub("\\.png",".pdf",filepath_snvtitvplot)
+  pdf_name_snvoncoplot <- gsub("\\.png",".pdf",filepath_snvoncoplot)
+  ggsave(filename = pdf_name_snvoncoplot, plot = p, device = 'pdf', width = 6, height = 4)
+  ggsave(filename = pdf_name_snvtitvplot, plot = p, device = 'pdf', width = 6, height = 4)
 }
 
 
