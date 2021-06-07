@@ -18,7 +18,9 @@ fn_transform_df <- function(cancer_types, data) {
   .x <- data
   .y <- cancer_types
   message(glue::glue('Handling DEG for {.y}'))
+  .fdr <- p.adjust(.x$p.value,method = "fdr")
   .x %>% 
+    dplyr::mutate(fdr=.fdr) %>%
     dplyr::rename(
       pval = p.value
     ) %>%

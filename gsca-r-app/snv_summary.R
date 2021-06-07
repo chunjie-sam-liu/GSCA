@@ -82,7 +82,7 @@ if(nrow(fetched_snv_maf)>0){
       dev.off()
     }else{
       source(file.path(apppath, "gsca-r-app/utils/fn_NA_notice_fig.R"))
-      fn_NA_notice_fig("Caution: \nOncoplot requires at-least two genes\n with non-synonymous mutations for plottng.") -> p
+      fn_NA_notice_fig("Caution: \nOncoplot requires at-least two genes with\n non-synonymous mutations for plotting.") -> p
       # Save --------------------------------------------------------------------
       ggsave(filename = filepath_snvoncoplot, plot = p, device = 'png', width = 6, height = 4)
       pdf_name_snvoncoplot <- gsub("\\.png",".pdf",filepath_snvoncoplot)
