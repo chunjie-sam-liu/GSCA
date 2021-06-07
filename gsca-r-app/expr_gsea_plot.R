@@ -144,8 +144,8 @@ for_plot %>%
 # Save image --------------------------------------------------------------
 width = 7
 height = length(unique(for_plot$cancertype)) * 0.8
-if(height<4){
-  height<-4
+if(height<3){
+  height<-3
 }else{
   height<-height
 }
