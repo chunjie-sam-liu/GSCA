@@ -16,7 +16,7 @@ search_str <- args[1]
 filepath_stagepoint <- args[2]
 apppath <- args[3]
 
-# search_str = "TP53@ACC_rppa_diff"
+# search_str = "TP53@LUSC_rppa_diff"
 # filepath = "/home/huff/github/GSCA/gsca-r-plot/pngs/1c16fb64-8ef4-4789-a87a-589d140c5bbe.png"
 # apppath = '/home/huff/github/GSCA'
 
@@ -62,7 +62,7 @@ rppa_class %>%
 
 false.match<-c()
 for (i in c("Activation", "None", "Inhibition")) {
-  colnames(rppa_percent)[3:5] %in% i -> .match
+  i %in% colnames(rppa_percent)[3:5] -> .match
   if(!.match){
      c(false.match,i) -> false.match
   }
