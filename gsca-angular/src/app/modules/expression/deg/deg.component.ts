@@ -31,7 +31,7 @@ export class DegComponent implements OnInit, OnChanges, AfterViewInit {
   @ViewChild('paginatorDeg') paginatorDeg: MatPaginator;
   @ViewChild(MatSort) sortDeg: MatSort;
   displayedColumnsDeg = ['cancertype', 'symbol', 'tumor', 'normal', 'fc', 'pval', 'fdr', 'n_tumor'];
-  displayedColumnsDegHeader = ['Cancer type', 'Gene symbol', 'Expr. tumor', 'Expr. normal', 'Fold change', 'P value' ,'FDR', '# samples'];
+  displayedColumnsDegHeader = ['Cancer type', 'Gene symbol', 'Expr. tumor', 'Expr. normal', 'Fold change', 'P value', 'FDR', '# samples'];
   expandedElement: DegTableRecord;
   expandedColumn: string;
 
@@ -68,6 +68,9 @@ export class DegComponent implements OnInit, OnChanges, AfterViewInit {
       this.degImageLoading = false;
       this.showDEGTable = false;
       this.showDEGImage = false;
+      window.alert(
+        'The differential expression analysis is based on cancer types which have at least ten tumor-normal paired samples, including THCA, KIRP, BLCA, LIHC, HNSC, BRCA, LUAD, PRAD, ESCA, KICH, LUSC, KIRC, STAD and COAD. Please select at least one of these cancer type to get the result of differential analysis.'
+      );
     } else {
       this.showDEGTable = true;
       this.expressionApiService.getDEGTable(postTerm).subscribe(

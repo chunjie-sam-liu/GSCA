@@ -65,7 +65,7 @@ plot <- box_plot_single_gene_multi_cancers(
   color_labels = c("Tumor", "Normal"),
   color_values = c(CPCOLS[3], CPCOLS[1]),
   title = glue::glue('{search_genes} expression across TCGA cancer types'),
-  xlab = 'Cancer types', 
+  xlab = 'Cancer type',
   ylab = 'Expression log2(RSEM)'
 )
 

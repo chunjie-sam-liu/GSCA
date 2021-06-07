@@ -63,6 +63,9 @@ export class SubtypeComponent implements OnInit, OnChanges, AfterViewChecked {
       this.subtypeTableLoading = false;
       this.showSubtypeImage = false;
       this.showSubtypeTable = false;
+      window.alert(
+        'The subtype analysis is based on cancer types which have subtype data, including BLCA, BRCA, COAD, GBM  HNSC, KIRC, LUAD, LUSC, READ, STAD and UCEC. Please select at least one of these cancer type to get the result of differential analysis.'
+      );
     } else {
       this.showSubtypeTable = true;
       this.expressionApiService.getSubtypeTable(postTerm).subscribe(
