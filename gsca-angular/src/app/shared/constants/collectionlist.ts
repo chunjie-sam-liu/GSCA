@@ -665,8 +665,10 @@ export default {
       'LUAD_expr_subtype',
       'LUSC_expr_subtype',
       'STAD_expr_subtype',
+      'GBM_expr_subtype',
+      'COAD_expr_subtype',
     ],
-    cancertypes: ['BLCA', 'BRCA', 'HNSC', 'KIRC', 'LUAD', 'LUSC', 'STAD'],
+    cancertypes: ['BLCA', 'BRCA', 'HNSC', 'KIRC', 'LUAD', 'LUSC', 'STAD', 'GBM', 'COAD'],
   },
   expr_survival: {
     collnames: [
