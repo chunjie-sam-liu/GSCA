@@ -17,7 +17,7 @@ search_str <- args[1]
 filepath <- args[2]
 apppath <- args[3]
 
-# search_str = 'A2M#ACE#ANGPT2#BPI#CD1B#CDR1#EGR2#EGR3#HBEGF#HERPUD1#MCM2#PCTP#PODXL#PPY#PTGS2#RCAN1#SLC4A7#THBD@KICH_snv_count#KIRC_snv_count#KIRP_snv_count#LUAD_snv_count#LUSC_snv_count'
+# search_str = 'MCM2@KIRC_snv_count'
 # filepath = '/home/huff/github/GSCA/gsca-r-plot/pngs/af3526dd-4f45-4e56-8f85-c1de4c8439e3.png'
 # apppath = '/home/huff/github/GSCA'
 
@@ -107,31 +107,39 @@ fn_heatmap <- function( data, cancer, gene, fill, label, cancer_rank, gene_rank)
 
 fetched_data <- purrr::map(.x = search_cancertypes, .f = fn_fetch_mongo) %>% dplyr::bind_rows() 
 
-
-# data process ------------------------------------------------------------
-
-fetched_data %>%
-  tidyr::drop_na() %>%
-  dplyr::mutate(x_label = paste(cancertype, " (n=", sample_size , ")", sep = "")) %>%
-  # dplyr::mutate(sm_count = ifelse(sm_count > 0, sm_count, NA)) %>%
-  dplyr::mutate(percentage = ifelse(is.na(percentage) , 0, percentage)) %>%
-  dplyr::mutate(percentage =percentage) -> snv_per_plot_ready
-snv_per_plot_ready %>%
-  dplyr::group_by(x_label) %>%
-  dplyr::summarise(s = sum(percentage)) %>%
-  dplyr::arrange(dplyr::desc(s)) -> snv_per_cancer_rank
-snv_per_plot_ready %>%
-  dplyr::group_by(symbol) %>%
-  dplyr::summarise(s = sum(percentage)) %>%
-  dplyr::arrange(s) -> snv_per_gene_rank
-
-# plot --------------------------------------------------------------------
-
-p <- fn_heatmap(data = snv_per_plot_ready,
-           cancer = "x_label", gene = "symbol", fill = "percentage", label = "EffectiveMut",
-           cancer_rank = snv_per_cancer_rank, gene_rank = snv_per_gene_rank)
-
-# Save --------------------------------------------------------------------
-ggsave(filename = filepath, plot = p, device = 'png', width = size$width, height = size$height)
-pdf_name <- gsub("\\.png",".pdf",filepath)
-ggsave(filename = pdf_name, plot = p, device = 'pdf', width = size$width, height = size$height)
+if(nrow(fetched_data)>0){
+  # data process ------------------------------------------------------------
+  
+  fetched_data %>%
+    tidyr::drop_na() %>%
+    dplyr::mutate(x_label = paste(cancertype, " (n=", sample_size , ")", sep = "")) %>%
+    # dplyr::mutate(sm_count = ifelse(sm_count > 0, sm_count, NA)) %>%
+    dplyr::mutate(percentage = ifelse(is.na(percentage) , 0, percentage)) %>%
+    dplyr::mutate(percentage =percentage) -> snv_per_plot_ready
+  snv_per_plot_ready %>%
+    dplyr::group_by(x_label) %>%
+    dplyr::summarise(s = sum(percentage)) %>%
+    dplyr::arrange(dplyr::desc(s)) -> snv_per_cancer_rank
+  snv_per_plot_ready %>%
+    dplyr::group_by(symbol) %>%
+    dplyr::summarise(s = sum(percentage)) %>%
+    dplyr::arrange(s) -> snv_per_gene_rank
+  
+  # plot --------------------------------------------------------------------
+  
+  p <- fn_heatmap(data = snv_per_plot_ready,
+                  cancer = "x_label", gene = "symbol", fill = "percentage", label = "EffectiveMut",
+                  cancer_rank = snv_per_cancer_rank, gene_rank = snv_per_gene_rank)
+  
+  # Save --------------------------------------------------------------------
+  ggsave(filename = filepath, plot = p, device = 'png', width = size$width, height = size$height)
+  pdf_name <- gsub("\\.png",".pdf",filepath)
+  ggsave(filename = pdf_name, plot = p, device = 'pdf', width = size$width, height = size$height)
+}else{
+  source(file.path(apppath, "gsca-r-app/utils/fn_NA_notice_fig.R"))
+  fn_NA_notice_fig("Caution: \nNo non-synonymous mutations\nfound in your search gene list.") -> p
+  # Save --------------------------------------------------------------------
+  ggsave(filename = filepath, plot = p, device = 'png', width = 6, height = 4)
+  pdf_name <- gsub("\\.png",".pdf",filepath)
+  ggsave(filename = pdf_name, plot = p, device = 'pdf', width = 6, height = 4)
+}
