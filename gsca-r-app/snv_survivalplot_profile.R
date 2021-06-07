@@ -89,7 +89,7 @@ if(nrow(fetched_data)>0){
   ggsave(filename = pdf_name, plot = heat_plot, device = 'pdf', width = size$width, height = size$height)
 }else{
   source(file.path(apppath, "gsca-r-app/utils/fn_NA_notice_fig.R"))
-  fn_NA_notice_fig("Caution: \nsurvival analysis is not applicable for your search.\nPlease check if there are no mutations\n found in your search gene list?") -> p
+  fn_NA_notice_fig("Caution: \nsurvival analysis is not applicable\nfor your search.\nPlease check if there are no mutations\n found in your search gene list?") -> p
   # Save --------------------------------------------------------------------
   ggsave(filename = filepath, plot = p, device = 'png', width = 6, height = 4)
   pdf_name <- gsub("\\.png",".pdf",filepath)

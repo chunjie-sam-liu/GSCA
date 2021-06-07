@@ -14,7 +14,7 @@ apppath <- args[2]
 tableuuid <- args[3]
 tablecol <- args[4]
 
-# search_str = 'A2M#ACE#ANGPT2#BPI#CD1B#CDR1#EGR2#EGR3#HBEGF#HERPUD1#MCM2#PCTP#PODXL#PPY#PTGS2#RCAN1#SLC4A7#THBD@KICH_all_expr_gene_set.rds.gz#KIRC_all_expr_gene_set.rds.gz#KIRP_all_expr_gene_set.rds.gz#LUAD_all_expr_gene_set.rds.gz#LUSC_all_expr_gene_set.rds.gz'
+# search_str = 'A2M#TP53@KICH_all_expr_gene_set.rds.gz'
 # apppath <- '/home/huff/github/GSCA'
 # tableuuid <- 'd6fe01ae-b1fe-4f9b-ac92-60210edca6bc'
 # tablecol <- 'preanalysised_snvgeneset'
@@ -49,39 +49,44 @@ fetched_snv_samples <- purrr::map(.x = "all_samples_with_snv", .f = fn_fetch_mon
   dplyr::rename(cancertype=cancer_types)
 
 # mutation group --------------------------------------------------------
+if(nrow(fetched_snv)>0){
+  fetched_snv %>%
+    dplyr::group_by(sample_name) %>%
+    tidyr::nest() %>%
+    dplyr::mutate(group = purrr::map(data,.f=function(.x){
+      .x %>%
+        dplyr::filter(Variant_Classification %in% effective_mut) -> .tmp
+      if(nrow(.tmp)>0){
+        "2Mutant"
+      }else{
+        "1WT"
+      }
+    })) %>%
+    tidyr::unnest() %>%
+    dplyr::select(-Variant_Classification) %>%
+    unique() %>%
+    dplyr::ungroup() -> fetched_snv.grouped
+  
+  fetched_snv.grouped %>%
+    dplyr::right_join(fetched_snv_samples, by=c("barcode","cancertype")) %>%
+    dplyr::mutate(sample_name = substr(barcode,1,12)) %>%
+    dplyr::mutate(group = ifelse(is.na(group),"1WT",group)) %>%
+    dplyr::group_by(cancertype) %>%
+    tidyr::nest() -> fetched_snv_data.bycancer
+  
+  
+  fetched_snv_data.bycancer %>%
+    dplyr::mutate(mutataion_group=purrr::map(data,fn_geneset_snv)) %>%
+    dplyr::select(-data) -> mutate_grouped
+  mutate_grouped %>%
+    tidyr::unnest() %>%
+    dplyr::ungroup()-> snvgeneset
+}else{
+  tibble::tibble(cancertyp=NA, barcode=NA,group=NA)-> snvgeneset
+}
 
-fetched_snv %>%
-  dplyr::group_by(sample_name) %>%
-  tidyr::nest() %>%
-  dplyr::mutate(group = purrr::map(data,.f=function(.x){
-    .x %>%
-      dplyr::filter(Variant_Classification %in% effective_mut) -> .tmp
-    if(nrow(.tmp)>0){
-      "2Mutant"
-    }else{
-      "1WT"
-    }
-  })) %>%
-  tidyr::unnest() %>%
-  dplyr::select(-Variant_Classification) %>%
-  unique() %>%
-  dplyr::ungroup() -> fetched_snv.grouped
-
-fetched_snv.grouped %>%
-  dplyr::right_join(fetched_snv_samples, by=c("barcode","cancertype")) %>%
-  dplyr::mutate(sample_name = substr(barcode,1,12)) %>%
-  dplyr::mutate(group = ifelse(is.na(group),"1WT",group)) %>%
-  dplyr::group_by(cancertype) %>%
-  tidyr::nest() -> fetched_snv_data.bycancer
-
-
-fetched_snv_data.bycancer %>%
-  dplyr::mutate(mutataion_group=purrr::map(data,fn_geneset_snv)) %>%
-  dplyr::select(-data) -> mutate_grouped
 # Update mongo ------------------------------------------------------------
-mutate_grouped %>%
-  tidyr::unnest() %>%
-  dplyr::ungroup()-> snvgeneset
+
 pre_gsva_coll <- mongolite::mongo(collection = tablecol, url = gsca_conf)
 
 insert_data <- list(uuid = tableuuid, snvgeneset = snvgeneset)
