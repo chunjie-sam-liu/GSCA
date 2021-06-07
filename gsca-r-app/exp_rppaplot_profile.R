@@ -33,7 +33,7 @@ gsca_conf <- readr::read_lines(file = file.path(apppath, 'gsca-r-app/gsca.conf')
 
 source(file.path(apppath, "gsca-r-app/utils/fn_figure_height.R"))
 size <- fn_height_width(search_genes,search_cancertypes)
-size$width <- 6 
+size$width <- 6
 # fetch data --------------------------------------------------------------
 
 source(file.path(apppath, "gsca-r-app/utils/fn_fetch_mongo_data.R"))
@@ -76,7 +76,7 @@ if(length(false.match)>0){
       dplyr::mutate(value=ifelse(is.na(value),0,value)) %>%
       tidyr::spread(key = "class",value="value") -> rppa_percent
   }
- 
+
 } else {
   rppa_percent %>%
     tidyr::gather(-symbol,-pathway,key="class",value = "value") %>%
@@ -85,7 +85,7 @@ if(length(false.match)>0){
 }
 rppa_percent %>%
   dplyr::filter(Activation+Inhibition>=5) -> rppa_percent.filter
-  
+
 rppa_percent.filter %>%
   tidyr::gather(-symbol,-pathway,key=class,value="per") %>%
   dplyr::mutate(per=ifelse(class=="Inhibition",-per,per)) %>%
@@ -129,7 +129,7 @@ if(nrow(rppa_per_ready)>0){
         size = 0.2
       )
     ) +
-    xlab("Pathway (A:Activate; I:Inhibit)") -> percent_plot
+    xlab("Pathway (A: Activate; I: Inhibit)") -> percent_plot
   # Save --------------------------------------------------------------------
   ggsave(filename = filepath_stagepoint, plot = percent_plot, device = 'png', width = size$width, height = size$height)
   filepath_stagepoint_pdf_name <- gsub("\\.png",".pdf",filepath_stagepoint)
