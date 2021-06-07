@@ -6,7 +6,7 @@ library(magrittr)
 # Load data ---------------------------------------------------------------
 rda_path <- "/home/huff/github/GSCA/data"
 
-expr_subtype <- readr::read_rds(file = '/home/huff/data/GSCA/expr/expr_subtype.IdTrans.rds.gz')
+expr_subtype <- readr::read_rds(file = '/home/huff/data/GSCA/expr/expr_subtype.NEW.IdTrans.rds.gz')
 load(file = file.path(rda_path,"rda",'01-gene-symbols.rda'))
 gsca_conf <- readr::read_lines(file = file.path(rda_path,"src",'gsca.conf'))
 
