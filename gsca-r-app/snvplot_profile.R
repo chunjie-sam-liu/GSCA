@@ -137,7 +137,7 @@ if(nrow(fetched_data)>0){
   ggsave(filename = pdf_name, plot = p, device = 'pdf', width = size$width, height = size$height)
 }else{
   source(file.path(apppath, "gsca-r-app/utils/fn_NA_notice_fig.R"))
-  fn_NA_notice_fig("Caution: \nNo non-synonymous mutations\nfound in your search gene list.") -> p
+  fn_NA_notice_fig("Caution: \nNo mutations found in your search gene list.") -> p
   # Save --------------------------------------------------------------------
   ggsave(filename = filepath, plot = p, device = 'png', width = 6, height = 4)
   pdf_name <- gsub("\\.png",".pdf",filepath)
