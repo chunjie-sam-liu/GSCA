@@ -135,7 +135,7 @@ if(nrow(rppa_per_ready)>0){
   filepath_stagepoint_pdf_name <- gsub("\\.png",".pdf",filepath_stagepoint)
   ggsave(filename = filepath_stagepoint_pdf_name, plot = percent_plot, device = 'pdf', width = size$width, height = size$height)
 } else {
-  fn_NA_notice_fig("Caution: no significant results.") -> percent_plot
+  fn_NA_notice_fig("Caution: no significant result for your search,\ninput more genes could help.") -> percent_plot
   # Save --------------------------------------------------------------------
   ggsave(filename = filepath_stagepoint, plot = percent_plot, device = 'png', width = size$width, height = 4)
   filepath_stagepoint_pdf_name <- gsub("\\.png",".pdf",filepath_stagepoint)
