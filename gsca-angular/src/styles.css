@@ -130,9 +130,9 @@ dd.dd {
 }
 
 span.strong {
-  color: #4154b3;
+  color: #df4b3a;
   font-weight: bolder;
-  font-size: larger;
+  /* font-size: larger; */
 }
 
 p.home {
