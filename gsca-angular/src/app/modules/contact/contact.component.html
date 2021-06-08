@@ -1,10 +1,9 @@
-<!--\\ Chunjie's code -->
 <div fxLayout="column" fxFill>
   <div fxFlex="none">
     <h1 class="page-header">Contact</h1>
   </div>
   <div fxFlex class="not-float">
-    <div fxLayout="row wrap" fxLayout.sm="column" fxLayoutGap="20px" fxFlexAlign="space-between center">
+    <div fxLayout="row wrap" fxLayout.sm="column" fxLayoutGap="10px" fxFlexAlign="space-between center">
       <ng-container *ngFor="let author of authors">
         <app-contact-card [author]="author"> </app-contact-card>
       </ng-container>
