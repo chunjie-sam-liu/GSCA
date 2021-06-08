@@ -15,7 +15,7 @@ fn_cox_logp <- function(.d){
     dplyr::mutate(n=dplyr::n()) %>%
     dplyr::select(group,n) %>%
     dplyr::ungroup() %>%
-    dplyr::filter(n>5) %>%
+    dplyr::filter(n>=2) %>%
     .$group %>% unique() %>% length() -> len_group
   if(!is.na(len_group)){
     if(len_group==2){
@@ -32,8 +32,8 @@ fn_cox_logp <- function(.d){
         cox_p <- coxp$p.value
         hr <- exp(coxp$estimate)
       } else {
-        cox_p <- 1
-        hr <- 1
+        cox_p <- NA
+        hr <- NA
       }
 
       if(!is.na(hr)){
@@ -49,14 +49,14 @@ fn_cox_logp <- function(.d){
       }
 
     } else {
-      kmp<-1
-      cox_p<-1
-      hr <- 1
+      kmp<-NA
+      cox_p<-NA
+      hr <- NA
       higher_risk_of_death <- NA
     }
     tibble::tibble(logrankp=kmp,cox_p=cox_p,hr=hr,higher_risk_of_death=higher_risk_of_death)
   } else {
-    tibble::tibble(logrankp=1,cox_p=1,hr=1,higher_risk_of_death=NA)
+    tibble::tibble(logrankp=NA,cox_p=NA,hr=NA,higher_risk_of_death=NA)
   }
 }
 
