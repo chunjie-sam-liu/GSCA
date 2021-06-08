@@ -39,4 +39,9 @@ export default [
     type: 'update',
     color: 'primary',
   },
+  {
+    feature: 'Pathway Enrichment: update GO and KEGG enrichment pathway.',
+    type: 'update',
+    color: 'primary',
+  },
 ];
