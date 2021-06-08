@@ -15,6 +15,6 @@ export default [
     avatar: 'hufeifei.jpg',
     department1: 'Brain Science and Advanced Technology Institute',
     department2: 'College of Medicine',
-    department3: 'Wuhan University of Science & Technology, Wuhan P.R. China',
+    department3: 'Wuhan University of Science & Technology, Wuhan 430065 P.R. China',
   },
 ];
