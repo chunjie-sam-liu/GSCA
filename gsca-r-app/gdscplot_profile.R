@@ -50,6 +50,23 @@ fetched_data %>%
   dplyr::filter(remain=="yes") %>%
   dplyr::mutate(group = ifelse(fdr<=0.05,"<0.05",">0.05"))-> for_plot
 
+for_plot %>%
+  dplyr::group_by(drug) %>%
+  tidyr::nest() %>%
+  dplyr::mutate(score = purrr::map(data,.f=function(.x){
+    .x %>%
+      dplyr::mutate(multiply = logfdr*abs(cor)) %>%
+      .$multiply %>% sum()
+  })) %>%
+  dplyr::select(-data) %>%
+  tidyr::unnest() %>%
+  dplyr::arrange(desc(score)) %>%
+  dplyr::ungroup() %>%
+  top_n(30) -> top_drugs
+
+for_plot %>%
+  dplyr::filter(drug %in% top_drugs$drug) -> for_plot
+
 # pic size ----------------------------------------------------------------
 
 source(file.path(apppath, "gsca-r-app/utils/fn_figure_height.R"))
