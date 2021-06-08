@@ -109,7 +109,7 @@ if(nrow(fetched_data)>0){
     .$logFDR -> logp_value
   min(logp_value) %>% floor() -> min
   max(logp_value) %>% ceiling() -> max
-  fillbreaks <- sort(unique(c(round(c(min,max,seq(min,max,length.out = 3))))))
+    fillbreaks <- sort(unique(c(1.3,round(c(min,max,seq(min,max,length.out = 4))))))
 
   p <- bubble_plot(data=for_plot_bubble,
                    cancer="cancertype",

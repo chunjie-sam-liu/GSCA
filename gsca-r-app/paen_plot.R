@@ -41,17 +41,17 @@ fn_fetch_data <- function(.uuid) {
 fn_reorg <- function(.x) {
   .x %>%
     tidyr::unnest(cols = c(symbol, log2fc)) %>%
-    tibble::deframe() %>% 
-    sort() -> 
+    tibble::deframe() %>%
+    sort() ->
     .xx
-  
+
   .fgseares <- fgsea::fgsea(list("Gene set" = gene_set), .xx)
-  
-  .fgseares %>% 
-    as.data.frame() %>% 
-    tibble::as_tibble() %>% 
+
+  .fgseares %>%
+    as.data.frame() %>%
+    tibble::as_tibble() %>%
     dplyr::select(-c(pathway, leadingEdge, size))
-  
+
 }
 
 # Process -----------------------------------------------------------------
@@ -66,7 +66,7 @@ if (ncol(enrichRes)>0) {
     tibble::as_tibble() %>%
     dplyr::arrange(fdr) -> enrichRes
   # Plot --------------------------------------------------------------------
-    enrichRes %>% 
+    enrichRes %>%
       dplyr::group_by(Method) %>%
       tidyr::nest() %>%
       dplyr::mutate(filter = purrr::map(data,.f=function(.x){
@@ -79,12 +79,12 @@ if (ncol(enrichRes)>0) {
       dplyr::arrange(Count) %>%
       .$Description -> yrank
     for_plot <- within(for_plot,Description<-factor(Description,levels=yrank))
-    
-    for_plot %>% 
+
+    for_plot %>%
       ggplot(aes(x = Count, y = Description)) +
       geom_point(aes(size=Count, color = fdr)) +
       scale_color_gradient(
-        name = "FDR", 
+        name = "FDR",
         low = "#a91627",
         high = "#fadadd"
       ) +
@@ -108,18 +108,18 @@ if (ncol(enrichRes)>0) {
       ) +
       labs(
         y = "Pathway",
-        title = "Pathway enrichment of inputted gene set(Top 10 terms for each database)"
+        title = "Enrichment result of inputs gene set\n(Top 10 terms for each source)"
       ) ->
       plot
-    
+
     # Save image --------------------------------------------------------------
     width = 7
     height = nrow(for_plot) * 0.6
-    
+
     ggsave(filename = filepath, plot = plot, device = 'png', width = 7, height = height)
     pdf_name <- gsub("\\.png",".pdf", filepath)
     ggsave(filename = pdf_name, plot = plot, device = 'pdf', width = 7+2, height = height+2)
-  
+
 }else{
     source(file.path(apppath, "gsca-r-app/utils/fn_NA_notice_fig.R"))
     fn_NA_notice_fig("Caution: \nthe size of the inputted gene set\nis too small to do pathway enrichment.\nInput at least 10 genes could be help.") -> p
