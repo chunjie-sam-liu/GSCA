@@ -55,7 +55,7 @@ for (file in filename) {
     dplyr::ungroup() 
   cancertype <- strsplit(file,split = "\\.")[[1]][1]
   .tmp <- fn_gene_tcga_all_cor_immune_expr(cancertype,data)
-  immune_expr <- rbind(data %>% dplyr::mutate(cancer_types=cancertype),immune_expr)
+  # immune_expr <- rbind(data %>% dplyr::mutate(cancer_types=cancertype),immune_expr)
 }
 immune_expr %>%
   readr::write_rds(file.path(data_path,"pan33_ImmuneCellAI_spearmancor_geneExp.rds.gz"),compress = "gz")
