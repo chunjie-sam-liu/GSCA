@@ -28,7 +28,6 @@ apppath <- args[4]
 # Mongo -------------------------------------------------------------------
 
 source(file.path(apppath, "gsca-r-app/utils/fn_fetch_mongo_data.R"))
-source(file.path(apppath, "gsca-r-app/utils/fn_geneset_survival_cnv.R"))
 pre_gsva_coll <- mongolite::mongo(collection = tablecol, url = gsca_conf)
 post_gsva_coll <- mongolite::mongo(collection = glue::glue("{tablecol}_survival"), url = gsca_conf)
 
@@ -70,6 +69,7 @@ fetched_data %>%
   dplyr::select(-data)-> combine_data_group
 
 # calculation -------------------------------------------------------------
+source(file.path(apppath, "gsca-r-app/utils/fn_geneset_survival_cnv.R"))
 
 combine_data_group %>%
   dplyr::mutate(combine = purrr::map(combine,.f=function(.x){

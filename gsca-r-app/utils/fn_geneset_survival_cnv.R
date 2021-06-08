@@ -24,11 +24,11 @@ fn_cox_logp <- function(.d){
         error = function(e) {1}
       )
     } else {
-      kmp<-1
+      kmp<-NA
     }
     tibble::tibble(logrankp=kmp)
   } else {
-    tibble::tibble(logrankp=1)
+    tibble::tibble(logrankp=NA)
   }
 }
 
