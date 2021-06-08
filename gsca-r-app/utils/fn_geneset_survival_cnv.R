@@ -15,7 +15,7 @@ fn_cox_logp <- function(.d){
     dplyr::mutate(n=dplyr::n()) %>%
     dplyr::select(group,n) %>%
     dplyr::ungroup() %>%
-    dplyr::filter(n>5) %>%
+    dplyr::filter(n>=2) %>%
     .$group %>% unique() %>% length() -> len_group
   if(!is.na(len_group)){
     if(len_group>=2){
@@ -24,11 +24,11 @@ fn_cox_logp <- function(.d){
         error = function(e) {1}
       )
     } else {
-      kmp<-1
+      kmp<-NA
     }
     tibble::tibble(logrankp=kmp)
   } else {
-    tibble::tibble(logrankp=1)
+    tibble::tibble(logrankp=NA)
   }
 }
 

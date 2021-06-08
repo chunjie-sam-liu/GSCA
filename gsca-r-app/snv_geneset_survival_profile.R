@@ -14,7 +14,7 @@ filepath <- args[3]
 apppath <- args[4]
 
 # tableuuid <- 'd6fe01ae-b1fe-4f9b-ac92-60210edca6bc'
-# tableuuid <-'0040e19d-b530-44aa-ac83-2ab22030d7ce'
+# tableuuid <-'079de210-2519-405b-b3ab-bc6d1e8d2395'
 # tablecol <- 'preanalysised_snvgeneset'
 # filepath <- "/home/liucj/github/GSCA/gsca-r-plot/pngs/688682d4-977f-432b-8338-f0c28730cbcb.png"
 # apppath <- '/home/huff/github/GSCA'
@@ -150,7 +150,7 @@ if(ncol(fetched_data)>0){
     ggsave(filename = pdf_name, plot = heat_plot, device = 'pdf', width = 4, height = size$height-1)
   }else{
     source(file.path(apppath, "gsca-r-app/utils/fn_NA_notice_fig.R"))
-    fn_NA_notice_fig("Caution: \nsurvival analysis is not applicable\nfor your search.\nPlease check if there are not enough mutations\n in your search gene list?") -> p
+    fn_NA_notice_fig("Caution: \nsurvival analysis is not applicable\nfor your search.\nPlease check if there are enough mutations\n in your search gene list?") -> p
     # Save --------------------------------------------------------------------
     ggsave(filename = filepath, plot = p, device = 'png', width = 6, height = 4)
     pdf_name <- gsub("\\.png",".pdf",filepath)

@@ -14,7 +14,7 @@ search_str <- args[1]
 filepath <- args[2]
 apppath <- args[3]
 
-# search_str <- 'A2M#ACE#ANGPT2#BPI#CD1B#CDR1#EGR2#EGR3#HBEGF#HERPUD1#MCM2#PCTP#PODXL#PPY#PTGS2#RCAN1#SLC4A7#THBD@all_ctrp_cor_expr'
+# search_str <- 'MED30@all_ctrp_cor_expr'
 # apppath='/home/huff/github/GSCA'
 # filepath <- "/home/huff/github/GSCA/gsca-r-plot/pngs/3d2e17d3-91b9-40ff-bf8f-d9dd70692a26.png"
 
@@ -49,6 +49,23 @@ fetched_data %>%
   dplyr::ungroup() %>%
   dplyr::filter(remain=="yes") %>%
   dplyr::mutate(group = ifelse(fdr<=0.05,"<0.05",">0.05"))-> for_plot
+
+for_plot %>%
+  dplyr::group_by(drug) %>%
+  tidyr::nest() %>%
+  dplyr::mutate(score = purrr::map(data,.f=function(.x){
+    .x %>%
+      dplyr::mutate(multiply = logfdr*abs(cor)) %>%
+      .$multiply %>% sum()
+  })) %>%
+  dplyr::select(-data) %>%
+  tidyr::unnest() %>%
+  dplyr::arrange(desc(score)) %>%
+  dplyr::ungroup() %>%
+  top_n(30) -> top_drugs
+
+for_plot %>%
+  dplyr::filter(drug %in% top_drugs$drug) -> for_plot
 
 # pic size ----------------------------------------------------------------
 
