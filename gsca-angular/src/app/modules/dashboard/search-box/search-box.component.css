@@ -2,3 +2,9 @@
   max-height: 600px;
   /* max-width: 600px; */
 }
+
+.mat-card-title {
+  display: inline;
+  font-size: 22px;
+  font-weight: bolder;
+}
