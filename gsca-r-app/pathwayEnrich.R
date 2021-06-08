@@ -39,7 +39,7 @@ source(file.path(apppath, "gsca-r-app/utils/fn_fetch_mongo_data.R"))
 
 fields <- '{"symbol": true, "fc": true,"entrez": true,"_id": false}'
 fetched_data <- purrr::map(.x = paste(search_cancertypes[1],"deg",sep="_"), .f = fn_fetch_mongo_all, pattern="_deg",fields = fields) %>%
-  dplyr::bind_rows() 
+  dplyr::bind_rows()
 
 
 
@@ -57,7 +57,7 @@ if(length(search_genes_entrez)>=10){
     dplyr::as.tbl() %>%
     dplyr::filter(p.adjust <0.05) %>%
     dplyr::mutate(Method = "KEGG")-> enKegg.res.q005
-  
+
   # go ----------------------------------------------------------------------
   egoBP <- enrichGO(gene = search_genes_entrez,
                     ont           = "BP",
@@ -66,8 +66,8 @@ if(length(search_genes_entrez)>=10){
   egoBP@result %>%
     dplyr::as.tbl() %>%
     dplyr::filter(p.adjust <0.05) %>%
-    dplyr::mutate(Method = "GO:BP") -> egoBP.res.q005
-  
+    dplyr::mutate(Method = "GO: BP") -> egoBP.res.q005
+
   egoCC <- enrichGO(gene = search_genes_entrez,
                     ont           = "CC",
                     pAdjustMethod = "BH",
@@ -75,8 +75,8 @@ if(length(search_genes_entrez)>=10){
   egoCC@result %>%
     dplyr::as.tbl() %>%
     dplyr::filter(p.adjust <0.05) %>%
-    dplyr::mutate(Method = "GO:CC") -> egoCC.res.q005
-  
+    dplyr::mutate(Method = "GO: CC") -> egoCC.res.q005
+
   egoMF <- enrichGO(gene = search_genes_entrez,
                     ont           = "MF",
                     pAdjustMethod = "BH",
@@ -84,9 +84,9 @@ if(length(search_genes_entrez)>=10){
   egoMF@result %>%
     dplyr::as.tbl() %>%
     dplyr::filter(p.adjust <0.05) %>%
-    dplyr::mutate(Method = "GO:MF") -> egoMF.res.q005
-  
-  
+    dplyr::mutate(Method = "GO: MF") -> egoMF.res.q005
+
+
   rbind(egoBP.res.q005,egoCC.res.q005) %>%
     rbind(egoMF.res.q005) %>%
     rbind(enKegg.res.q005) %>%
