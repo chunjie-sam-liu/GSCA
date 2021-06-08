@@ -7,13 +7,32 @@
     <ul>
       <p>Geneset SNV & survival module provides summary of the result of survival difference between gene set mutant and wide type.</p>
       <li>Methods</li>
-      <p>The SNV data and clinical survival data were collected from TCGA database. SNV data and clinical survival data were merged by sample barcode.</p>
       <p>
-        The gene set SNV represents the <span class="phighlight">integrated SNV status</span> of inputted gene set for each sample. A sample is classified into Mutant group only when at least one gene in the input gene set is mutated in the sample. If all genes in inputted gene set have no SNV in a sample, this sample is classified into WT group. Only samples have <span class="phighlight">effective mutants</span> are included in Mutant group.
+        The SNV data and clinical survival data were collected from TCGA database. SNV data and clinical survival data were merged by sample
+        barcode.
       </p>
       <p>
-        <span class="phighlight">R package survival</span> was used to fit survival time and survival status two groups. <span class="phighlight">Cox Proportional-Hazards model and logrank tests</span> were performed to test the survival difference between groups.
+        The gene set SNV represents the <span class="phighlight">integrated SNV status</span> of inputted gene set for each sample. A sample
+        is classified into Mutant group only when at least one gene in the input gene set is mutated in the sample. If all genes in inputted
+        gene set have no SNV in a sample, this sample is classified into WT group. Only samples have
+        <span class="phighlight">effective mutants</span> are included in Mutant group.
       </p>
+      <p>
+        <span class="phighlight">R package survival</span> was used to fit survival time and survival status two groups.
+        <span class="phighlight">Cox Proportional-Hazards model and logrank tests</span> were performed to test the survival difference
+        between groups.
+      </p>
+      <p>
+        Note that the users may <span class="phighlight">could not get the survival results (shown as --)</span> in sevaral cases,
+        including:
+      </p>
+      <ul>
+        <li class="lilight">1. The PFS data are not avaliable for some cancers, including TGCT, LAML, CHOL, UVM, and THYM.</li>
+        <li class="lilight">
+          2. The inputted gene set do not have enough mutation, which lead the number of groups (with at least 2 samples) that used for
+          survival comparing is not enough (two groups are needed).
+        </li>
+      </ul>
 
       <li>Interpretation</li>
       <p>GSCA provides two forms of results, including table and figure.</p>
@@ -23,23 +42,26 @@
         <p>
           Presents detailed information about Cancer type, Survival type, Hazard Ratio, Cox P value, Logrank P value, Higher risk of death.
         </p>
-        <p>
-          Survival type including OS and PFS. 
-        </p>
+        <p>Survival type including OS and PFS.</p>
         <p>Hazard Ratio: the risk of death of Mutant group compared with WT group.</p>
         <p>
-          Higher risk of death indicates the group with higher risk of death. When the <span class="phighlight">Hazard ratio</span> of Mutant group compared with low WT group is <span class="phighlight">greather than 1</span>, we think Mutant group has higher risk of death, else WT group has higher risk of death. Or you can judge it according to other standards, such as <span class="phighlight">median survival time</span>.
+          Higher risk of death indicates the group with higher risk of death. When the <span class="phighlight">Hazard ratio</span> of
+          Mutant group compared with low WT group is <span class="phighlight">greather than 1</span>, we think Mutant group has higher risk
+          of death, else WT group has higher risk of death. Or you can judge it according to other standards, such as
+          <span class="phighlight">median survival time</span>.
         </p>
         <li>GSCA provides result figures including:</li>
         <ul>
           <li>Kaplan-Meier curves:</li>
           <p>
-            By clicking buttons in table, GSCA draws Kaplan-Meier curves between WT and Mutant (effective mutation) groups of specific gene in specific cancer.
+            By clicking buttons in table, GSCA draws Kaplan-Meier curves between WT and Mutant (effective mutation) groups of specific gene
+            in specific cancer.
           </p>
 
           <li>Bubble plot:</li>
           <p>
-            Presents the Hazard ratio and logrank p value through bubble color and size. The column is selected cancer types and the row is survival type (OS and PFS). The bubble color from blue to red represents the hazard ratio from low to high, bubble size is
+            Presents the Hazard ratio and logrank p value through bubble color and size. The column is selected cancer types and the row is
+            survival type (OS and PFS). The bubble color from blue to red represents the hazard ratio from low to high, bubble size is
             positively correlate with the Logrank P value significance. Black outline border indicates Logrank P value < 0.05.
           </p>
         </ul>

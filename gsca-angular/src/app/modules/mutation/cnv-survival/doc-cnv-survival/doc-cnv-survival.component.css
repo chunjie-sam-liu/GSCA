@@ -16,6 +16,10 @@ li {
   font-weight: bold;
   font-size: large;
 }
+.lilight {
+  font-size: medium;
+  font-weight: normal;
+}
 p {
   text-align: justify;
   font-size: medium;
