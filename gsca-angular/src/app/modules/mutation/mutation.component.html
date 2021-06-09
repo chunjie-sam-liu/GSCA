@@ -38,7 +38,7 @@
       </ng-container>
 
       <ng-container *ngIf="showList.showContent && showList.showSnvGenesetSurvival; else empty">
-        <mat-tab label="Geneset SNV & Survival">
+        <mat-tab label="Gene set SNV & Survival">
           <div fxFlex="grow">
             <app-snv-geneset-survival
               fxLayout="row"
@@ -67,6 +67,21 @@
         </mat-tab>
       </ng-container>
 
+      <ng-container *ngIf="showList.showContent && showList.showCnvCor; else empty">
+        <mat-tab label="CNV & Expression">
+          <div fxFlex="grow">
+            <app-cnv-cor
+              fxLayout="row"
+              fxLayout.lt-lg="column"
+              fxLayoutGap="10px"
+              fxLayoutWrap
+              fxLayoutAlign="center"
+              [searchTerm]="searchTerm"
+            ></app-cnv-cor>
+          </div>
+        </mat-tab>
+      </ng-container>
+
       <ng-container *ngIf="showList.showContent && showList.showCnvSurvival; else empty">
         <mat-tab label="CNV & Survival">
           <div fxFlex="grow">
@@ -83,7 +98,7 @@
       </ng-container>
 
       <ng-container *ngIf="showList.showContent && showList.showCnvGenesetSurvival; else empty">
-        <mat-tab label="Geneset CNV & Survival">
+        <mat-tab label="Gene set CNV & Survival">
           <div fxFlex="grow">
             <app-cnv-geneset-survival
               fxLayout="row"
@@ -97,20 +112,6 @@
         </mat-tab>
       </ng-container>
 
-      <ng-container *ngIf="showList.showContent && showList.showCnvCor; else empty">
-        <mat-tab label="CNV & Expression">
-          <div fxFlex="grow">
-            <app-cnv-cor
-              fxLayout="row"
-              fxLayout.lt-lg="column"
-              fxLayoutGap="10px"
-              fxLayoutWrap
-              fxLayoutAlign="center"
-              [searchTerm]="searchTerm"
-            ></app-cnv-cor>
-          </div>
-        </mat-tab>
-      </ng-container>
       <ng-container *ngIf="showList.showContent && showList.showMethylation; else empty">
         <mat-tab label="Differential Methylation">
           <div fxFlex="grow">
