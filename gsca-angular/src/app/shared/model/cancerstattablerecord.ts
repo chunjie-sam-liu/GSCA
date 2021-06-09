@@ -2,11 +2,12 @@
 
 export interface CancerStatTableRecord {
   cancer_types: string;
-  expr: number;
-  survival: number;
-  stage: number;
-  immune: number;
-  cnv: number;
-  snv: number;
-  methy: number;
+  expr: string;
+  survival: string;
+  subtype: string;
+  stage: string;
+  immune: string;
+  cnv: string;
+  snv: string;
+  methy: string;
 }

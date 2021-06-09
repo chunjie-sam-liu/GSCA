@@ -35,8 +35,8 @@ export class DocumentComponent implements OnInit, AfterViewInit {
   @ViewChild('paginatorCan') paginatorCan: MatPaginator;
   @ViewChild(MatSort) sortCan: MatSort;
 
-  displayedColumnsCan = ['cancer_types', 'expr', 'survival', 'stage', 'immune', 'cnv', 'snv', 'methy'];
-  displayedColumnsCanHeader = ['Cancer types', 'mRNA expression', 'Survival', 'Stage', 'Immune', 'CNV', 'SNV', 'Methylation'];
+  displayedColumnsCan = ['cancer_types', 'expr', 'survival', 'stage', 'subtype', 'immune', 'cnv', 'snv', 'methy'];
+  displayedColumnsCanHeader = ['Cancer types', 'mRNA expression', 'Survival', 'Stage', 'Subtype', 'Immune', 'CNV', 'SNV', 'Methylation'];
 
   constructor() {}
 
