@@ -29,8 +29,8 @@ export class ImmuneSnvComponent implements OnInit, OnChanges, AfterViewInit {
   showImmSnvCorTable = true;
   @ViewChild('paginatorImmSnvCor') paginatorImmSnvCor: MatPaginator;
   @ViewChild(MatSort) sortImmSnvCor: MatSort;
-  displayedColumnsImmSnvCor = ['cancertype', 'symbol', 'cell_type', 'logfc','p_value', 'fdr'];
-  displayedColumnsImmSnvCorHeader = ['Cancer type', 'Gene symbol', 'Cell type', 'Log2(FC)','P value', 'FDR'];
+  displayedColumnsImmSnvCor = ['cancertype', 'symbol', 'cell_type', 'logfc', 'p_value', 'fdr'];
+  displayedColumnsImmSnvCorHeader = ['Cancer type', 'Gene symbol', 'Cell type', 'Log2(FC)', 'P value', 'FDR'];
   expandedElement: ImmCorTableRecord;
   expandedColumn: string;
 
