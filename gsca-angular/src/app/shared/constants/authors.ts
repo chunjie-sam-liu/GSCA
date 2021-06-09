@@ -18,15 +18,18 @@ export default [
     department3: 'Wuhan University of Science & Technology, Wuhan 430065 P.R. China',
   },
   // {
-  //   name: 'Qiong Zhang',
-  //   title: 'Ph.D., Postdoc',
-  //   email: 'zhangqiong@hust.edu.cn',
-  //   avatar: 'zhangq.png',
-  // },
-  // {
   //   name: 'Chun-Jie Liu',
   //   title: 'Ph.D., Postdoc',
   //   email: 'chunjie.sam.liu@gmail.com',
   //   avatar: 'liucj.png',
   // },
+  {
+    name: 'Gui-Yan Xie',
+    title: 'Ph.D., Candidate',
+    email: 'xieguiyan@hust.edu.cn',
+    avatar: 'xiegy.png',
+    department1: 'Department of Bioinformatics and Systems Biology',
+    department2: 'College of Life Science and Technology',
+    department3: 'Huazhong University of Science and Technology, Wuhan 430074 P.R. China',
+  },
 ];
