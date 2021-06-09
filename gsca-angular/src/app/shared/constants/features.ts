@@ -5,7 +5,8 @@ export default [
     color: 'warn',
   },
   {
-    feature: 'GSVA: exploring correlations between SNV/CNV/methylation and expression score compiled by GSVA of a gene set.',
+    feature:
+      'GSVA: exploring association between immune infiltrate/clinical/SNV/CNV/methylation and expression score compiled by GSVA of a gene set.',
     type: 'fiber_new',
     color: 'warn',
   },
@@ -15,30 +16,30 @@ export default [
     color: 'warn',
   },
   {
-    feature: 'Expression: differential expression and clinical outcomes correlation.',
+    feature: 'Expression: differential expression and association with clinical outcomes.',
     type: 'fiber_new',
     color: 'warn',
   },
-  {
+  /* {
     feature: 'Drug sensitivity: update new drugs and correlate expression with drug sensitivity (IC50).',
     type: 'update',
     color: 'primary',
-  },
+  }, */
   {
-    feature: 'SNV: update mutational distribution, lolipop plot and survival analysis.',
+    feature: 'SNV: update mutational distribution, lolipop plot, gene set SNV, and survival analysis.',
     type: 'update',
     color: 'primary',
   },
   {
-    feature: 'CNV: update sCNV deletion and amplifications and correlates with expression and survival.',
+    feature: 'CNV: update gene set CNV and correlates with expression and survival.',
     type: 'update',
     color: 'primary',
   },
-  {
-    feature: 'Methylation: update correlates with gene set expression and survival.',
+  /*   {
+    feature: 'Methylation: update correlats with gene set expression and survival.',
     type: 'update',
     color: 'primary',
-  },
+  }, */
   // {
   //   feature: 'Pathway Enrichment: update GO and KEGG enrichment pathway.',
   //   type: 'update',
