@@ -1,10 +1,12 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import immunecellstable from 'src/app/shared/constants/immunecells';
+import immunecellsigtable from 'src/app/shared/constants/immunecellsig';
 import cancerstat from 'src/app/shared/constants/cancerstatistical';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { ImmCellTableRecord } from 'src/app/shared/model/immcelltablerecord';
+import { ImmCellSigTableRecord } from 'src/app/shared/model/immcellsigtablerecord';
 import { CancerStatTableRecord } from 'src/app/shared/model/cancerstattablerecord';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatAccordion } from '@angular/material/expansion';
@@ -28,7 +30,15 @@ export class DocumentComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) sortImm: MatSort;
 
   displayedColumnsImmuneCells = ['Immuneabbreviation', 'fullname'];
-  displayedColumnsImmuneCellsHeader = ['Immune cells abbreviation', 'Immune cells fullname'];
+  displayedColumnsImmuneCellsHeader = ['Immune cell abbreviation', 'Immune cells fullname'];
+
+  // immune cells signature
+  public immunecellsignature = new MatTableDataSource<ImmCellSigTableRecord>(immunecellsigtable);
+  @ViewChild('paginatorImmSig') paginatorImmSig: MatPaginator;
+  @ViewChild(MatSort) sortImmSig: MatSort;
+
+  displayedColumnsImmuneCellsSig = ['celltype', 'MarkerGeneSets'];
+  displayedColumnsImmuneCellsHeaderSig = ['Immune cell abbreviation', 'Gene set signature of immune cell'];
 
   // cancer statistical
   public cancerstat = new MatTableDataSource<CancerStatTableRecord>(cancerstat);
@@ -45,16 +55,22 @@ export class DocumentComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     this.immunecells.paginator = this.paginatorImm;
     this.immunecells.sort = this.sortImm;
+    this.immunecellsignature.paginator = this.paginatorImmSig;
+    this.immunecellsignature.sort = this.sortImmSig;
     this.cancerstat.paginator = this.paginatorCan;
     this.cancerstat.sort = this.sortCan;
   }
   public applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.immunecells.filter = filterValue.trim().toLowerCase();
+
     this.cancerstat.filter = filterValue.trim().toLowerCase();
 
     if (this.immunecells.paginator) {
       this.immunecells.paginator.firstPage();
+    }
+    if (this.immunecellsignature.paginator) {
+      this.immunecellsignature.paginator.firstPage();
     }
     if (this.cancerstat.paginator) {
       this.cancerstat.paginator.firstPage();
