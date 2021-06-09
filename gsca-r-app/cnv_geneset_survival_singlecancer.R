@@ -91,11 +91,16 @@ cnv_group <- tibble::tibble(cnv=c(-2,-1,0,1,2),
                             group_detail=c("Homo. dele.","Hete. dele.","WT","Hete. amp.","Homo. amp."),
                             group=c("Dele.","Dele.","WT","Amp.","Amp."),
                             color=c( "#00B2EE","#00B2EE","gold4","#CD2626","#CD2626"))
+cnv_group %>%
+  dplyr::select(group,color) %>%
+  unique() -> cnv_group.color
+
+
 title <- paste(toupper(search_surtype),"survival of gene set", "CNV in",search_cancertypes)
 combine_data_group %>%
   dplyr::filter(!is.na(time)) %>%
   dplyr::filter(group !="Excluded") %>%
-  fn_survival(title,cnv_group,logrankp=fetched_cnv_survival$logrankp,ylab=paste(toupper(search_surtype),"probability")) -> plot
+  fn_survival(title,cnv_group.color,logrankp=fetched_cnv_survival$logrankp,ylab=paste(toupper(search_surtype),"probability")) -> plot
 
 # Save --------------------------------------------------------------------
 ggsave(filename = filepath, plot = plot, device = 'png', width = 6, height = 4)
