@@ -22,6 +22,9 @@ export default [
   //   title: 'Ph.D., Postdoc',
   //   email: 'chunjie.sam.liu@gmail.com',
   //   avatar: 'liucj.png',
+  //   department1: 'Department of Bioinformatics and Systems Biology',
+  //   department2: 'College of Life Science and Technology',
+  //   department3: 'Huazhong University of Science and Technology, Wuhan 430074 P.R. China',
   // },
   {
     name: 'Gui-Yan Xie',
