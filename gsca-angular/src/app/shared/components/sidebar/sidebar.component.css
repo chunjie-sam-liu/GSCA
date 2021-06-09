@@ -28,3 +28,6 @@ mat-nav-list mat-icon {
   font-size: 35px !important;
   padding: 10px !important;
 }
+.new-icon {
+  color: rgb(187, 143, 196);
+}
