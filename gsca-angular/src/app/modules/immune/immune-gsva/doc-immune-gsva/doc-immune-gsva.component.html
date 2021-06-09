@@ -1,48 +1,66 @@
 <mat-card fxFlex appMaterialElevation defaultElevation="0" raisedElevation="0">
-    <mat-expansion-panel hideToggle>
-      <mat-expansion-panel-header>
-        <mat-panel-title> Click here for the detailed description of methods and results </mat-panel-title>
-        <mat-panel-description>Immune infiltrates & GSVA score</mat-panel-description>
-      </mat-expansion-panel-header>
+  <mat-expansion-panel hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title> Click here for the detailed description of methods and results </mat-panel-title>
+      <mat-panel-description>Immune infiltrates & GSVA score</mat-panel-description>
+    </mat-expansion-panel-header>
+    <ul>
+      <li>Methods</li>
+      <p>
+        The Immune infiltrates & GSVA score module is used to estimate the association between immune cells’ infiltrates and gene set
+        expression level.
+      </p>
+      <p>
+        The infiltrates of 24 immune cells were evaluated through
+        <a href="http://bioinfo.life.hust.edu.cn/ImmuCellAI/#!/" target="_blank">ImmuCellAI</a>
+      </p>
+      <p>
+        The GSVA score represents the <span class="phighlight">integrated level of the expression</span> of gene set, which is positively
+        correlate with the expression of gene set. Therefore,
+        <span class="phighlight"
+          >if the GSVA score in tumor group is higher than that in adjacent group, it can indicate that the overall expression of the gene
+          set in the tumor group is higher</span
+        >. The GSVA score was calculated through R package
+        <a href="https://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-14-7" target="_blank">GSVA</a>
+      </p>
+      <p>
+        The association between immune cells’ infiltrates and gene set expression level was represented by correlation coefficient, which
+        was evaluated through Spearman correlation analysis. The P value was adjusted by FDR.
+      </p>
+      <p>
+        The estimates the abundance of 24 immune cell types were based on gene set signature (Document).
+        <span class="phighlight"
+          >Please avoid an overlap bettwen input genes and the signature used to estimate the immune cell infiltrate</span
+        >.
+      </p>
+      <li>Interpretation</li>
+      <p>This module provides two forms of results, including table and figure.</p>
       <ul>
-        <li>Methods</li>
+        <li>The result table:</li>
+        <p>Presents detailed information about Cancer type, Cell type, Spearman cor., P value and FDR.</p>
         <p>
-            The Immune infiltrates & GSVA score module is used to estimate the association between immune cells’ infiltrates and gene set expression level. 
-        </p>
-        <p>The infiltrates of 24 immune cells were evaluated through
-            <a href="http://bioinfo.life.hust.edu.cn/ImmuCellAI/#!/" target="_blank">ImmuCellAI</a>
-        </p>
-        <p>
-          The GSVA score represents the <span class="phighlight">integrated level of the expression</span> of gene set, which is positively correlate with the expression of gene set. 
-          Therefore, <span class="phighlight">if the GSVA score in tumor group is higher than that in adjacent group, it can indicate that the overall expression of the gene set in the tumor group is higher</span>. 
-          The GSVA score was calculated through R package
-          <a href="https://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-14-7" target="_blank">GSVA</a>
+          Cell type: the immune cell type, including Dendritic cell and B cell et al, please find the detailed information on
+          <a href="http://bioinfo.life.hust.edu.cn/GSCA/#/document">document</a>
         </p>
         <p>
-            The association between immune cells’ infiltrates and gene set expression level was represented by correlation coefficient, which was evaluated through Spearman correlation analysis. The P value was adjusted by FDR.
+          Spearman cor.: the Spearman correlation coefficient between the GSVA score of inputted gene set and the specific immune cell’s
+          infiltrate.
         </p>
-        <li>Interpretation</li>
-        <p>This module provides two forms of results, including table and figure.</p>
+        <p>FDR: the false discovery rate.</p>
+        <li>GSCA provides result figures including:</li>
         <ul>
-          <li>The result table:</li>
-          <p>Presents detailed information about Cancer type, Cell type, Spearman cor., P value and FDR.</p>
+          <li>Summary plot:</li>
           <p>
-            Cell type: the immune cell type, including Dendritic cell and B cell et al, please find the detailed information on
-            <a href="http://bioinfo.life.hust.edu.cn/GSCA/#/document">document</a>
+            Heatmap summarizes the significance of P value and FDR for the spearman correlation analysis between GSVA score of inputed gene
+            set and immune cells' infiltrates. *: P value < 0.05; #: FDR < 0.05
           </p>
+          <li>Scatter plot:</li>
           <p>
-            Spearman cor.: the Spearman correlation coefficient between the GSVA score of inputted gene set and the specific immune cell’s infiltrate.
+            By clicking Cell type buttons in tables, users can get the detailed result of GSVA score correlated with specific immune cell's
+            infiltrate through scatter plot, with fitting line.
           </p>
-          <p>FDR: the false discovery rate.</p>
-          <li>GSCA provides result figures including:</li>
-          <ul>
-            <li>Summary plot:</li>
-            <p>Heatmap summarizes the significance of P value and FDR for the spearman correlation analysis between GSVA score of inputed gene set and immune cells' infiltrates. *: P value < 0.05; #: FDR < 0.05</p>
-            <li>Scatter plot:</li>
-            <p>By clicking Cell type buttons in tables, users can get the detailed result of GSVA score correlated with specific immune cell's infiltrate through scatter plot, with fitting line.</p>
-          </ul>
         </ul>
       </ul>
-    </mat-expansion-panel>
-  </mat-card>
-  
+    </ul>
+  </mat-expansion-panel>
+</mat-card>
