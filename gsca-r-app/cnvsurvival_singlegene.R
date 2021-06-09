@@ -14,7 +14,7 @@ search_str <- args[1]
 filepath <- args[2]
 apppath <- args[3]
 
-# search_str <-'MED30@LAML_cnv_threshold@OS'
+# search_str <-'MED30@ACC_cnv_threshold@OS'
 # apppath <- '/home/huff/github/GSCA'
 search_str_split <- strsplit(x = search_str, split = '@')[[1]]
 search_genes <- strsplit(x = search_str_split[1], split = '#')[[1]]
@@ -27,6 +27,10 @@ cnv_group <- tibble::tibble(cnv=c(-2,-1,0,1,2),
                             group_detail=c("Homo. dele.","Hete. dele.","WT","Hete. amp.","Homo. amp."),
                             group=c("Dele.","Dele.","WT","Amp.","Amp."),
                             color=c( "#00B2EE","#00B2EE","gold4","#CD2626","#CD2626"))
+cnv_group %>%
+  dplyr::select(group,color) %>%
+  unique() -> cnv_group.color
+
 # Functions ----------------------------------------------------------------
 
 source(file.path(apppath, "gsca-r-app/utils/fn_fetch_mongo_data.R"))
@@ -64,7 +68,7 @@ fetched_cnv_survival <- purrr::map(.x = paste(search_cancertypes,"_cnv_survival"
 title <- paste(toupper(survival_type),"survival of",search_genes, "CNV in",search_cancertypes)
 combine_data_group %>%
   dplyr::filter(!is.na(time)) %>%
-  fn_survival(title,cnv_group,logrankp=fetched_cnv_survival$log_rank_p,ylab=paste(toupper(survival_type),"probability")) -> plot
+  fn_survival(title,cnv_group.color,logrankp=fetched_cnv_survival$log_rank_p,ylab=paste(toupper(survival_type),"probability")) -> plot
 
 # Save --------------------------------------------------------------------
 ggsave(filename = filepath, plot = plot, device = 'png', width = 6, height = 4)
