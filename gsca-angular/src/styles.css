@@ -139,3 +139,7 @@ p.home {
   font-size: large;
   text-align: justify;
 }
+
+.mat-toolbar.mat-primary {
+  background: #b886c6 !important;
+}
