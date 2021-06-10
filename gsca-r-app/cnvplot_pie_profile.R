@@ -63,6 +63,6 @@ plot <- fn_pie_plot(data=pie_plot_ready, aesy= "per",fill="type",facet_grid= "sy
                     title = "CNV percentage in each cancer")
 
 # Save --------------------------------------------------------------------
-ggsave(filename = filepath, plot = plot, device = 'png', width = size$width, height = size$height)
+ggsave(filename = filepath, plot = plot, device = 'png', width = size$width-3, height = size$height)
 pdf_name <- gsub("\\.png",".pdf",filepath)
-ggsave(filename = pdf_name, plot = plot, device = 'pdf', width = size$width, height = size$height)
+ggsave(filename = pdf_name, plot = plot, device = 'pdf', width = size$width-3, height = size$height)
