@@ -38,7 +38,6 @@ fn_transform_df <- function(cancer_types, data) {
 # Tidy data ---------------------------------------------------------------
 
 pan25_expr_with_stage.rds.gz %>% 
-  dplyr::rename(data=res) %>%
   purrr::pmap(.f = fn_transform_df)->
   expr_stage_nest_mongo_data
 
