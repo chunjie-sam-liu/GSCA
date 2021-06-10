@@ -20,7 +20,7 @@ break_point <- "median"
 color_list <- tibble::tibble(color=c( "#CD2626","#00B2EE"),
                              group=c("Higher expr.","Lower expr."))
 
-# search_str = 'A2M@KICH_expr_survival@OS'
+# search_str = 'A2M@BRCA_expr_survival@OS'
 # filepath = '/home/huff/github/GSCA/gsca-r-plot/pngs/9624753a-1aae-4288-b610-9c9337f960c6.png'
 # apppath <- '/home/huff/github/GSCA'
 
@@ -37,7 +37,11 @@ source(file.path(apppath, "gsca-r-app/utils/fn_survival.R"))
 
 # Query data --------------------------------------------------------------
 fetched_expr_data <- fn_fetch_mongo_all_expr_single_cancer(.cancer_types = search_cancertypes, .keyindex="symbol", .key=search_genes) %>%
-  dplyr::bind_rows()
+  dplyr::bind_rows() %>%
+  dplyr::group_by(sample_name,type) %>%
+  dplyr::mutate(expr = mean(expr)) %>%
+  dplyr::ungroup() %>%
+  unique()
 
 fetched_survival_data <- fn_fetch_mongo_all_survival(.data="all_survival",.keyindex="cancer_types", .key=search_cancertypes) %>%
   dplyr::bind_rows()
