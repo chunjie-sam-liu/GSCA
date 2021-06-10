@@ -34,7 +34,7 @@ fn_point_fit <- function(data,aesx,aesy,title,xlab,ylab,label){
   #   geom_boxplot( width = 0.1, fill = alpha("lightgray",0.1),outlier.colour = NA) +
   #   theme_transparent() -> ybp
   # xbp_grob <- ggplotGrob(xbp)
-  # ybp_grob <- ggplotGrob(ybp) 
+  # ybp_grob <- ggplotGrob(ybp)
   data %>%
     dplyr::select(all_of(aesx)) %>%
     range() -> xmin_max
@@ -43,13 +43,13 @@ fn_point_fit <- function(data,aesx,aesy,title,xlab,ylab,label){
     range() -> ymin_max
   xmin <- xmin_max[1]; xmax <- xmin_max[2]
   ymin <- ymin_max[1]; ymax <- ymin_max[2]
-  
-  yoffset <- (1/15)*ymax; xoffset <- (1/15)*xmax
+
+  yoffset <- (1/15)*ymax; xoffset <- (1/10)*xmax
   p +
     geom_label(x=xmax-xoffset,y=ymax-yoffset,label=label) -> p
-  # sp + 
-  #   annotation_custom(grob = xbp_grob, xmin = xmin, xmax = xmax, ymin =ymin, ymax = ymin+0.5*yoffset) + 
+  # sp +
+  #   annotation_custom(grob = xbp_grob, xmin = xmin, xmax = xmax, ymin =ymin, ymax = ymin+0.5*yoffset) +
   #   annotation_custom(grob = ybp_grob, xmin = xmin, xmax = xmin+0.5*xoffset, ymin = ymin, ymax = ymax) -> p
-   
+
   return(p)
 }
