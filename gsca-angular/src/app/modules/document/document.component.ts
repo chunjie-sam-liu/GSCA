@@ -10,6 +10,7 @@ import { ImmCellSigTableRecord } from 'src/app/shared/model/immcellsigtablerecor
 import { CancerStatTableRecord } from 'src/app/shared/model/cancerstattablerecord';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatAccordion } from '@angular/material/expansion';
+import citations from 'src/app/shared/constants/citations';
 
 @Component({
   selector: 'app-document',
@@ -18,6 +19,7 @@ import { MatAccordion } from '@angular/material/expansion';
 })
 export class DocumentComponent implements OnInit, AfterViewInit {
   public assets = environment.assets;
+  public citations = citations;
 
   // expanded
   panelOpenState = false;
