@@ -38,7 +38,11 @@ source(file.path(apppath, "gsca-r-app/utils/plot_theme.R"))
 source(file.path(apppath,"gsca-r-app/utils/fn_boxplot_single_gene_in_cancer.R"))
 # Query data --------------------------------------------------------------
 fetched_expr_data <- fn_fetch_mongo_all_expr_single_cancer(.cancer_types = search_cancertypes, .keyindex="symbol", .key=search_genes) %>%
-  dplyr::bind_rows()
+  dplyr::bind_rows()%>%
+  dplyr::group_by(sample_name,type) %>%
+  dplyr::mutate(expr = mean(expr)) %>%
+  dplyr::ungroup() %>%
+  unique()
 
 fetched_stage_data <- fn_fetch_mongo_all_stage(.data="all_stage",.keyindex="cancer_types", .key=search_cancertypes) %>%
   dplyr::bind_rows()
