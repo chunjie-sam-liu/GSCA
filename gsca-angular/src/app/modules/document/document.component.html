@@ -131,212 +131,15 @@
         <div fxLayout="row" fxLayoutAlign="center center">
           <img width="50%" [src]="assets + '/imgs/doc_pic/' + 'search.png'" alt="searchbox" />
         </div>
+        <!-- <div fxLayout="row" fxLayoutAlign="center center">
+          <img class="imgworkflow" [src]="assets + '/imgs/' + 'Figure1.png'" alt="workflow" />
+        </div> -->
       </ng-container>
     </mat-card>
   </div>
+
+  <!-- Examples -->
   <div fxLayout="row" fxLayout.lt-lg="column" fxLayoutGap="10px" fxLayoutWrap fxLayoutAlign="center" class="not-float">
-    <!-- Data collection and process -->
-    <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
-      <mat-card-header>
-        <mat-card-title>Data collection and process</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <div fxLayout="row" fxLayoutAlign="center center">
-          <p></p>
-          <p></p>
-          <img mat-card-image class="img-home" [src]="assets + '/imgs/' + 'Figure1.png'" alt="workflow" />
-        </div>
-        <div>
-          <ul>
-            <li>
-              <h3>
-                <a href="https://www.cancer.gov/about-nci/organization/ccg/research/structural-genomics/tcga" target="_blank">TCGA</a> data
-                from NCI Genomic Data Commons
-              </h3>
-              <h4><span class="phighlight">Statistics</span> of samples in cancer types</h4>
-              <div>
-                <mat-form-field>
-                  <input matInput placeholder="Search" (keyup)="applyFilter($event)" #inputCan />
-                  <button mat-icon-button color="warn" matPrefix>
-                    <mat-icon style="font-weight: bolder">search</mat-icon>
-                  </button>
-                </mat-form-field>
-                <table mat-table [dataSource]="cancerstat" multiTemplateDataRows matSort class="immunetable">
-                  <ng-container matColumnDef="{{ column }}" *ngFor="let column of displayedColumnsCan; index as ind">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ displayedColumnsCanHeader[ind] }}</th>
-                    <td mat-cell *matCellDef="let element">
-                      {{ element[column] }}
-                    </td>
-                  </ng-container>
-                  <tr mat-header-row *matHeaderRowDef="displayedColumnsCan"></tr>
-                  <tr mat-row *matRowDef="let element; columns: displayedColumnsCan"></tr>
-                </table>
-                <mat-paginator #paginatorCan [pageSizeOptions]="[15]" showFirstLastButtons class="immunetable"></mat-paginator>
-              </div>
-              <h4>
-                <span class="phighlight">mRNA sequencing</span>
-                data
-              </h4>
-              <ul>
-                <li>
-                  Data process
-                  <ul>
-                    <li>14 cancers have over ten paired tumor and normal samples.</li>
-                    <li>Processed with RSEM normalized expression</li>
-                  </ul>
-                </li>
-              </ul>
-              <h4><span class="phighlight">Clinical</span> information</h4>
-              <ul>
-                <li>
-                  Survival
-                  <ul>
-                    <li>including overall survival(OS) and progression free survival(PFS)</li>
-                  </ul>
-                </li>
-                <li>
-                  Stage
-                  <ul>
-                    <li>including stage I, II, III, IV</li>
-                  </ul>
-                </li>
-                <li>
-                  Subtype
-                  <ul>
-                    <li>including molecular subtypes or clustered subtypes (numbered)</li>
-                  </ul>
-                </li>
-              </ul>
-              <h4><span class="phighlight">SNV</span> data</h4>
-              <ul>
-                <li>
-                  Data process
-                  <ul>
-                    <li>
-                      Mutant including 7 types of mutations:
-                      <span class="phighlight"
-                        >Missense_Mutation, Nonsense_Mutation, Frame_Shift_Ins, Splice_Site, Frame_Shift_Del, In_Frame_Del,
-                        In_Frame_Ins.</span
-                      >
-                    </li>
-                    <li>Wide type(WT): others.</li>
-                  </ul>
-                </li>
-              </ul>
-              <h4><span class="phighlight">CNV</span> data</h4>
-              <ul>
-                <li>
-                  Data process
-                  <ul>
-                    <li>
-                      <a href="https://genomebiology.biomedcentral.com/articles/10.1186/gb-2011-12-4-r41" target="_blank">GISTICS2.0</a>
-                    </li>
-                    <li>Hete Amp: heterozygous amplification, CNV = 1</li>
-                    <li>Hete Del: heterozygous deletion, CNV = -1</li>
-                    <li>Homo Amp: homozygous amplification, CNV = 2</li>
-                    <li>Homo Del: homozygous deletion, CNV = -2</li>
-                  </ul>
-                </li>
-              </ul>
-              <h4><span class="phighlight">Methylation</span> data</h4>
-              <ul>
-                <li>
-                  Data process
-                  <ul>
-                    <li>Calculation based on methylation beta value</li>
-                    <li>14 cancers have over ten paired tumor and normal samples</li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <h3>Drug data</h3>
-              <h4>(<a href="https://portals.broadinstitute.org/ctrp/" target="_blank">Therapeutics Response Portal CTRP</a>)</h4>
-              <ul>
-                <li>481 small molecules IC50</li>
-                <li>1001 cell lines</li>
-                <li>18900 genes</li>
-              </ul>
-              <h4>(<a href="http://www.cancerrxgene.org/" target="_blank">Genomics of Drug Sensitivity in Cancer GDSC</a>)</h4>
-              <ul>
-                <li>265 small molecules IC50 (the half maximal inhibitory concentration)</li>
-                <li>860 cell lines</li>
-                <li>17419 genes</li>
-              </ul>
-            </li>
-            <li>
-              <h3>Immune infiltrates</h3>
-              <ul>
-                <li>
-                  Statistic
-                  <ul>
-                    <li>
-                      <a href="https://www.cancer.gov/about-nci/organization/ccg/research/structural-genomics/tcga" target="_blank">TCGA</a>
-                      10,995 samples
-                    </li>
-                    <li>33 cancer types</li>
-                    <li>24 immune cells</li>
-                  </ul>
-                  <div>
-                    <mat-form-field>
-                      <input matInput placeholder="Search" (keyup)="applyFilter($event)" #inputCell />
-                      <button mat-icon-button color="warn" matPrefix>
-                        <mat-icon style="font-weight: bolder">search</mat-icon>
-                      </button>
-                    </mat-form-field>
-                    <table mat-table [dataSource]="immunecells" multiTemplateDataRows matSort class="immunetable">
-                      <ng-container matColumnDef="{{ column }}" *ngFor="let column of displayedColumnsImmuneCells; index as ind">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ displayedColumnsImmuneCellsHeader[ind] }}</th>
-                        <td mat-cell *matCellDef="let element">
-                          {{ element[column] }}
-                        </td>
-                      </ng-container>
-                      <tr mat-header-row *matHeaderRowDef="displayedColumnsImmuneCells"></tr>
-                      <tr mat-row *matRowDef="let element; columns: displayedColumnsImmuneCells"></tr>
-                    </table>
-                    <mat-paginator #paginatorImm [pageSizeOptions]="[15]" showFirstLastButtons class="immunetable"></mat-paginator>
-                  </div>
-                </li>
-                <li>
-                  Data process
-                  <ul>
-                    <li>Based on mRNA expression data</li>
-                    <li>
-                      <a href="http://bioinfo.life.hust.edu.cn/ImmuCellAI/#!/" target="_blank">ImmuCellAI</a> was performed to get the
-                      infiltrates of immune cells in each TCGA sample.
-                    </li>
-                    <li>
-                      ImmuCellAI was performed to estimate the abundance of 24 immune cell types based on gene set signature. The gene set
-                      signature of each immune cell are shown as below:
-                    </li>
-                  </ul>
-                  <div>
-                    <mat-form-field>
-                      <input matInput placeholder="Search" (keyup)="applyFilter($event)" #inputCell />
-                      <button mat-icon-button color="warn" matPrefix>
-                        <mat-icon style="font-weight: bolder">search</mat-icon>
-                      </button>
-                    </mat-form-field>
-                    <table mat-table [dataSource]="immunecellsignature" multiTemplateDataRows matSort class="immunetable">
-                      <ng-container matColumnDef="{{ column }}" *ngFor="let column of displayedColumnsImmuneCellsSig; index as ind">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ displayedColumnsImmuneCellsHeaderSig[ind] }}</th>
-                        <td mat-cell *matCellDef="let element">
-                          {{ element[column] }}
-                        </td>
-                      </ng-container>
-                      <tr mat-header-row *matHeaderRowDef="displayedColumnsImmuneCellsSig"></tr>
-                      <tr mat-row *matRowDef="let element; columns: displayedColumnsImmuneCellsSig"></tr>
-                    </table>
-                    <mat-paginator #paginatorImmSig [pageSizeOptions]="[15]" showFirstLastButtons class="immunetable"></mat-paginator>
-                  </div>
-                </li>
-              </ul>
-            </li>
-          </ul>
-        </div>
-      </mat-card-content>
-    </mat-card>
-    <!-- Examples -->
     <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
       <mat-card-header>
         <mat-card-title>Try out example and results interpretation</mat-card-title>
@@ -921,6 +724,205 @@
           <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'gdscfrug.png'" alt="gdscdrug" />
         </div>
       </mat-expansion-panel>
+    </mat-card>
+  </div>
+
+  <!-- Data collection and process -->
+  <div fxLayout="row" fxLayout.lt-lg="column" fxLayoutGap="10px" fxLayoutWrap fxLayoutAlign="center" class="not-float">
+    <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
+      <mat-card-header>
+        <mat-card-title>Data collection and process</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div>
+          <ul>
+            <li>
+              <h3>
+                <a href="https://www.cancer.gov/about-nci/organization/ccg/research/structural-genomics/tcga" target="_blank">TCGA</a> data
+                from NCI Genomic Data Commons
+              </h3>
+              <h4><span class="phighlight">Statistics</span> of samples in cancer types</h4>
+              <div>
+                <mat-form-field>
+                  <input matInput placeholder="Search" (keyup)="applyFilter($event)" #inputCan />
+                  <button mat-icon-button color="warn" matPrefix>
+                    <mat-icon style="font-weight: bolder">search</mat-icon>
+                  </button>
+                </mat-form-field>
+                <table mat-table [dataSource]="cancerstat" multiTemplateDataRows matSort class="immunetable">
+                  <ng-container matColumnDef="{{ column }}" *ngFor="let column of displayedColumnsCan; index as ind">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ displayedColumnsCanHeader[ind] }}</th>
+                    <td mat-cell *matCellDef="let element">
+                      {{ element[column] }}
+                    </td>
+                  </ng-container>
+                  <tr mat-header-row *matHeaderRowDef="displayedColumnsCan"></tr>
+                  <tr mat-row *matRowDef="let element; columns: displayedColumnsCan"></tr>
+                </table>
+                <mat-paginator #paginatorCan [pageSizeOptions]="[10]" showFirstLastButtons class="immunetable"></mat-paginator>
+              </div>
+              <h4>
+                <span class="phighlight">mRNA sequencing</span>
+                data
+              </h4>
+              <ul>
+                <li>
+                  Data process
+                  <ul>
+                    <li>14 cancers have over ten paired tumor and normal samples.</li>
+                    <li>Processed with RSEM normalized expression</li>
+                  </ul>
+                </li>
+              </ul>
+              <h4><span class="phighlight">Clinical</span> information</h4>
+              <ul>
+                <li>
+                  Survival
+                  <ul>
+                    <li>including overall survival(OS) and progression free survival(PFS)</li>
+                  </ul>
+                </li>
+                <li>
+                  Stage
+                  <ul>
+                    <li>including stage I, II, III, IV</li>
+                  </ul>
+                </li>
+                <li>
+                  Subtype
+                  <ul>
+                    <li>including molecular subtypes or clustered subtypes (numbered)</li>
+                  </ul>
+                </li>
+              </ul>
+              <h4><span class="phighlight">SNV</span> data</h4>
+              <ul>
+                <li>
+                  Data process
+                  <ul>
+                    <li>
+                      Mutant including 7 types of mutations:
+                      <span class="phighlight"
+                        >Missense_Mutation, Nonsense_Mutation, Frame_Shift_Ins, Splice_Site, Frame_Shift_Del, In_Frame_Del,
+                        In_Frame_Ins.</span
+                      >
+                    </li>
+                    <li>Wide type(WT): others.</li>
+                  </ul>
+                </li>
+              </ul>
+              <h4><span class="phighlight">CNV</span> data</h4>
+              <ul>
+                <li>
+                  Data process
+                  <ul>
+                    <li>
+                      <a href="https://genomebiology.biomedcentral.com/articles/10.1186/gb-2011-12-4-r41" target="_blank">GISTICS2.0</a>
+                    </li>
+                    <li>Hete Amp: heterozygous amplification, CNV = 1</li>
+                    <li>Hete Del: heterozygous deletion, CNV = -1</li>
+                    <li>Homo Amp: homozygous amplification, CNV = 2</li>
+                    <li>Homo Del: homozygous deletion, CNV = -2</li>
+                  </ul>
+                </li>
+              </ul>
+              <h4><span class="phighlight">Methylation</span> data</h4>
+              <ul>
+                <li>
+                  Data process
+                  <ul>
+                    <li>Calculation based on methylation beta value</li>
+                    <li>14 cancers have over ten paired tumor and normal samples</li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <h3>Drug data</h3>
+              <h4>(<a href="https://portals.broadinstitute.org/ctrp/" target="_blank">Therapeutics Response Portal CTRP</a>)</h4>
+              <ul>
+                <li>481 small molecules IC50</li>
+                <li>1001 cell lines</li>
+                <li>18900 genes</li>
+              </ul>
+              <h4>(<a href="http://www.cancerrxgene.org/" target="_blank">Genomics of Drug Sensitivity in Cancer GDSC</a>)</h4>
+              <ul>
+                <li>265 small molecules IC50 (the half maximal inhibitory concentration)</li>
+                <li>860 cell lines</li>
+                <li>17419 genes</li>
+              </ul>
+            </li>
+            <li>
+              <h3>Immune infiltrates</h3>
+              <ul>
+                <li>
+                  Statistic
+                  <ul>
+                    <li>
+                      <a href="https://www.cancer.gov/about-nci/organization/ccg/research/structural-genomics/tcga" target="_blank">TCGA</a>
+                      10,995 samples
+                    </li>
+                    <li>33 cancer types</li>
+                    <li>24 immune cells</li>
+                  </ul>
+                  <div>
+                    <mat-form-field>
+                      <input matInput placeholder="Search" (keyup)="applyFilter($event)" #inputCell />
+                      <button mat-icon-button color="warn" matPrefix>
+                        <mat-icon style="font-weight: bolder">search</mat-icon>
+                      </button>
+                    </mat-form-field>
+                    <table mat-table [dataSource]="immunecells" multiTemplateDataRows matSort class="immunetable">
+                      <ng-container matColumnDef="{{ column }}" *ngFor="let column of displayedColumnsImmuneCells; index as ind">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ displayedColumnsImmuneCellsHeader[ind] }}</th>
+                        <td mat-cell *matCellDef="let element">
+                          {{ element[column] }}
+                        </td>
+                      </ng-container>
+                      <tr mat-header-row *matHeaderRowDef="displayedColumnsImmuneCells"></tr>
+                      <tr mat-row *matRowDef="let element; columns: displayedColumnsImmuneCells"></tr>
+                    </table>
+                    <mat-paginator #paginatorImm [pageSizeOptions]="[10]" showFirstLastButtons class="immunetable"></mat-paginator>
+                  </div>
+                </li>
+                <li>
+                  Data process
+                  <ul>
+                    <li>Based on mRNA expression data</li>
+                    <li>
+                      <a href="http://bioinfo.life.hust.edu.cn/ImmuCellAI/#!/" target="_blank">ImmuCellAI</a> was performed to get the
+                      infiltrates of immune cells in each TCGA sample.
+                    </li>
+                    <li>
+                      ImmuCellAI was performed to estimate the abundance of 24 immune cell types based on gene set signature. The gene set
+                      signature of each immune cell are shown as below:
+                    </li>
+                  </ul>
+                  <div>
+                    <mat-form-field>
+                      <input matInput placeholder="Search" (keyup)="applyFilter($event)" #inputCell />
+                      <button mat-icon-button color="warn" matPrefix>
+                        <mat-icon style="font-weight: bolder">search</mat-icon>
+                      </button>
+                    </mat-form-field>
+                    <table mat-table [dataSource]="immunecellsignature" multiTemplateDataRows matSort class="immunetable">
+                      <ng-container matColumnDef="{{ column }}" *ngFor="let column of displayedColumnsImmuneCellsSig; index as ind">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ displayedColumnsImmuneCellsHeaderSig[ind] }}</th>
+                        <td mat-cell *matCellDef="let element">
+                          {{ element[column] }}
+                        </td>
+                      </ng-container>
+                      <tr mat-header-row *matHeaderRowDef="displayedColumnsImmuneCellsSig"></tr>
+                      <tr mat-row *matRowDef="let element; columns: displayedColumnsImmuneCellsSig"></tr>
+                    </table>
+                    <mat-paginator #paginatorImmSig [pageSizeOptions]="[10]" showFirstLastButtons class="immunetable"></mat-paginator>
+                  </div>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </mat-card-content>
     </mat-card>
   </div>
 
