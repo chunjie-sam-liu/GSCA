@@ -18,7 +18,7 @@ filepath <- args[2]
 apppath <- args[3]
 
 
-# search_str="PTEN@BLCA_expr_stage"
+# search_str="PTEN@READ_expr_stage"
 # filepath='/home/huff/github/GSCA/gsca-r-plot/pngs/2f81a610-a51b-4c6d-816d-a35a2e1ecb26.png'
 # apppath='/home/huff/github/GSCA'
 
@@ -38,7 +38,11 @@ source(file.path(apppath, "gsca-r-app/utils/plot_theme.R"))
 source(file.path(apppath,"gsca-r-app/utils/fn_boxplot_single_gene_in_cancer.R"))
 # Query data --------------------------------------------------------------
 fetched_expr_data <- fn_fetch_mongo_all_expr_single_cancer(.cancer_types = search_cancertypes, .keyindex="symbol", .key=search_genes) %>%
-  dplyr::bind_rows()
+  dplyr::bind_rows()%>%
+  dplyr::group_by(sample_name,type) %>%
+  dplyr::mutate(expr = mean(expr)) %>%
+  dplyr::ungroup() %>%
+  unique()
 
 fetched_stage_data <- fn_fetch_mongo_all_stage(.data="all_stage",.keyindex="cancer_types", .key=search_cancertypes) %>%
   dplyr::bind_rows()
@@ -50,12 +54,19 @@ fetched_expr_data %>%
   dplyr::filter(!is.na(expr)) -> combine_data
 
 # draw survival plot ------------------------------------------------------
-stages_included <- tibble::tibble(stage=c("Stage I","Stage II","Stage III","Stage IV"),
-                                  rank=c(1,2,3,4))
+stages_included <- tibble::tibble(stage_sure=c("Stage I","Stage I","Stage I","Stage I",
+                                          "Stage II","Stage II","Stage II","Stage II",
+                                          "Stage III", "Stage III", "Stage III", "Stage III", "Stage III", "Stage III",
+                                          "Stage IV","Stage IV","Stage IV"),
+                                  stage=c("Stage I","Stage IA","Stage IB","Stage IC",
+                                          "Stage II","Stage IIA","Stage IIB","Stage IIC",
+                                          "Stage III","Stage IIIA","Stage IIIB","Stage IIIC","Stage IIIC1","Stage IIIC2",
+                                          "Stage IV","Stage IVA","Stage IVB"),
+                                  rank=c(1,1,1,1,2,2,2,2,3,3,3,3,3,3,4,4,4))
 combine_data%>%
   dplyr::mutate(expr=log2(expr+1))  %>%
   dplyr::inner_join(stages_included, by="stage") %>%
-  dplyr::rename(group=stage)%>%
+  dplyr::rename(group=stage_sure)%>%
   dplyr::group_by(group) %>%
   dplyr::mutate(n=n()) %>%
   dplyr::ungroup() %>%
