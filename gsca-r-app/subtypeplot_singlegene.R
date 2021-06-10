@@ -19,7 +19,7 @@ filepath <- args[2]
 apppath <- args[3]
 
 
-# search_str='MCM2@LUSC_expr_subtype'
+# search_str='MCM2@COAD_expr_subtype'
 # filepath='/home/huff/github/GSCA/gsca-r-plot/pngs/9d59a758-8321-4619-bd54-5d0bfeea7d47.png'
 # apppath='/home/huff/github/GSCA'
 
@@ -37,7 +37,7 @@ source(file.path(apppath,"gsca-r-app/utils/fn_boxplot_single_gene_in_cancer.R"))
 # Query data --------------------------------------------------------------
 fetched_expr_data <- fn_fetch_mongo_all_expr_single_cancer(.cancer_types = search_cancertypes, .keyindex="symbol", .key=search_genes) %>%
   dplyr::bind_rows() %>%
-  dplyr::group_by(sample_name) %>%
+  dplyr::group_by(sample_name,type) %>%
   dplyr::mutate(expr = mean(expr)) %>%
   dplyr::ungroup() %>%
   unique()
