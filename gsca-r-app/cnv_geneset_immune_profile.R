@@ -47,10 +47,13 @@ if(ncol(fetched_data)>0){
     tibble::as_tibble() %>% 
     tidyr::nest(-cancertype) -> gsva_score_nest
   
-  
-  fetched_immu_data <- readr::read_rds(file.path("/home/huff/data/GSCA/TIL","pan33_ImmuneCellAI.rds.gz")) %>%
-    dplyr::filter(cancer_types %in% gsva_score_nest$cancertype) %>%
-    dplyr::rename("cancertype"="cancer_types")
+  fields <- '{"_id": false}'
+  fetched_immu_data <- purrr::map(.x =paste(gsva_score_nest$cancertype,"all_immune",sep="_"), .f = fn_fetch_mongo_all, pattern="_all_immune",fields = fields) %>%
+    bind_rows() %>%
+    dplyr::group_by(cancertype) %>%
+    tidyr::nest() %>%
+    dplyr::ungroup() %>%
+    dplyr::rename("ImmuneCellAI"="data")
   
   # stage analysis -------------------------------------------------------
   gsva_score_nest %>%
@@ -63,8 +66,7 @@ if(ncol(fetched_data)>0){
     
     data %>%
       dplyr::filter(substr(aliquot,14,14)=="0") %>%
-      dplyr::select(-barcode) %>%
-      tidyr::gather(-sample_name,-aliquot,key="celltype",value="TIL") -> .combined_immu
+      dplyr::select(-barcode)  -> .combined_immu
     
     genesetcnv %>%
       dplyr::inner_join(.combined_immu,by="sample_name") -> .combined_gsva_rppa
@@ -72,7 +74,7 @@ if(ncol(fetched_data)>0){
     .combined_gsva_rppa %>%
       dplyr::filter(group != "Excluded") %>%
       dplyr::filter(!is.na(TIL)) %>%
-      dplyr::group_by(celltype) %>%
+      dplyr::group_by(cell_type) %>%
       tidyr::nest() -> .combined_gsva_rppa_nested
     
     .combined_gsva_rppa_nested %>%
