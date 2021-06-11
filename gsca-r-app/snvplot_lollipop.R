@@ -69,7 +69,7 @@ if(snv_count$EffectiveMut>0){
   dev.off()
 } else{
   source(file.path(apppath, "gsca-r-app/utils/fn_NA_notice_fig.R"))
-  fn_NA_notice_fig("Caution: \nNo avaliable for select gene.") -> p
+  fn_NA_notice_fig("Caution: \nNot avaliable for selected gene.") -> p
   # Save --------------------------------------------------------------------
   ggsave(filename = filepath, plot = p, device = 'png', width = 6, height = 4)
   pdf_name <- gsub("\\.png",".pdf",filepath)
