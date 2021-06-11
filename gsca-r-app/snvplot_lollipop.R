@@ -59,12 +59,12 @@ if(snv_count$EffectiveMut>0){
   # plot --------------------------------------------------------------------
   # height <- fn_height(nrow(fetched_snv_maf))
   height <- fn_height(snv_count$EffectiveMut)
-  png(filename = filepath,height = height,width = 10,units = "in",res=500)
+  png(filename = filepath,height = height+2,width = 10,units = "in",res=500)
   lollipopPlot(maf = pan_maf,gene = search_genes, showMutationRate = TRUE)
   dev.off()
   
   pdf_name <- gsub("\\.png",".pdf",filepath)
-  pdf(file = pdf_name,height = height,width = 10)
+  pdf(file = pdf_name,height = height+2,width = 10)
   lollipopPlot(maf = pan_maf,gene = search_genes, showMutationRate = TRUE)
   dev.off()
 } else{
