@@ -14,7 +14,7 @@ search_str <- args[1]
 filepath <- args[2]
 apppath <- args[3]
 
-# search_str <-'A2M@UCEC_snv_survival@OS'
+# search_str <-'KRAS@LUAD_snv_survival@PFS'
 # apppath <- '/home/huff/github/GSCA'
 search_str_split <- strsplit(x = search_str, split = '@')[[1]]
 search_genes <- strsplit(x = search_str_split[1], split = '#')[[1]]

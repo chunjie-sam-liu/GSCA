@@ -16,10 +16,10 @@ search_surtype <- args[4]
 filepath <- args[5]
 apppath <- args[6]
 
-# tableuuid <- "d6fe01ae-b1fe-4f9b-ac92-60210edca6bc"
+# tableuuid <- "4cd96df0-cc8f-4373-a7eb-c8160dc5e967"
 # tablecol <- "preanalysised_snvgeneset"
-# search_cancertype <- "KIRC"
-# search_surtype <- "OS"
+# search_cancertypes <- "LUAD"
+# search_surtype <- "os"
 # filepath <- "/home/huff/github/GSCA/gsca-r-plot/pngs/055e0f75-7bb9-4261-924f-185493594a4d.png"
 # apppath <- "/home/huff/github/GSCA"
 

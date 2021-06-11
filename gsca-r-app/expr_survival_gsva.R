@@ -16,7 +16,7 @@ filepath <- args[3]
 apppath <- args[4]
 
 
-# tableuuid <- 'ba16c786-93ca-421e-a426-7a361f4c3e7a'
+# tableuuid <- '28916a26-e6d7-451c-a2a2-2865d3ee3ef4'
 # tablecol <- 'preanalysised_gsva'
 # filepath <- "/home/liucj/github/GSCA/gsca-r-plot/pngs/688682d4-977f-432b-8338-f0c28730cbcb.png"
 # apppath <- '/home/huff/github/GSCA'

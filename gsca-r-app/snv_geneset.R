@@ -14,7 +14,7 @@ apppath <- args[2]
 tableuuid <- args[3]
 tablecol <- args[4]
 
-# search_str = 'A2M#TP53@KICH_all_expr_gene_set.rds.gz'
+# search_str = 'ACE@LUAD_all_expr_gene_set.rds.gz'
 # apppath <- '/home/huff/github/GSCA'
 # tableuuid <- 'd6fe01ae-b1fe-4f9b-ac92-60210edca6bc'
 # tablecol <- 'preanalysised_snvgeneset'
