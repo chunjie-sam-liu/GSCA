@@ -10,7 +10,7 @@ search_str <- args[1]
 filepath <- args[2]
 apppath <- args[3]
 
-# search_str="TP53@KICH_snv_count"
+# search_str="ANGPT2@KIRC_snv_count"
 # filepath='/home/huff/github/GSCA/gsca-r-plot/pngs/ed916e24-0de9-4350-8f8e-67c364a7ea67.png'
 # apppath='/home/huff/github/GSCA'
 
@@ -41,29 +41,38 @@ pan_maf <- readr::read_rds(file.path(data_path,filename))
 
 snv_count <- fn_fetch_mongo_snv_count(.data=search_colls,.keyindex="symbol", .key=search_genes)
 # pic size ----------------------------------------------------------------
-
-fn_height <- function(.g){
-  .lg <- length(.g)
-  if(.lg<=5){
-    .height <- 3
-  } else{
-    .height <- 3 + (.lg-5)*0.5
+if(snv_count$EffectiveMut>0){
+  fn_height <- function(.g){
+    .lg <- length(.g)
+    if(.lg<=5){
+      .height <- 3
+    } else{
+      .height <- 3 + (.lg-5)*0.5
+    }
+    if(.height>=15){
+      .height <- 15
+    } else {
+      .height <- .height
+    }
+    .height
   }
-  if(.height>=15){
-    .height <- 15
-  } else {
-    .height <- .height
-  }
-  .height
+  # plot --------------------------------------------------------------------
+  # height <- fn_height(nrow(fetched_snv_maf))
+  height <- fn_height(snv_count$EffectiveMut)
+  png(filename = filepath,height = height,width = 10,units = "in",res=500)
+  lollipopPlot(maf = pan_maf,gene = search_genes, showMutationRate = TRUE)
+  dev.off()
+  
+  pdf_name <- gsub("\\.png",".pdf",filepath)
+  pdf(file = pdf_name,height = height,width = 10)
+  lollipopPlot(maf = pan_maf,gene = search_genes, showMutationRate = TRUE)
+  dev.off()
+} else{
+  source(file.path(apppath, "gsca-r-app/utils/fn_NA_notice_fig.R"))
+  fn_NA_notice_fig("Caution: \nNo avaliable for select gene.") -> p
+  # Save --------------------------------------------------------------------
+  ggsave(filename = filepath, plot = p, device = 'png', width = 6, height = 4)
+  pdf_name <- gsub("\\.png",".pdf",filepath)
+  ggsave(filename = pdf_name, plot = p, device = 'pdf', width = 6, height = 4)
 }
-# plot --------------------------------------------------------------------
-# height <- fn_height(nrow(fetched_snv_maf))
-height <- fn_height(snv_count$EffectiveMut)
-png(filename = filepath,height = height,width = 10,units = "in",res=500)
-lollipopPlot(maf = pan_maf,gene = search_genes, showMutationRate = TRUE)
-dev.off()
 
-pdf_name <- gsub("\\.png",".pdf",filepath)
-pdf(file = pdf_name,height = height,width = 10)
-lollipopPlot(maf = pan_maf,gene = search_genes, showMutationRate = TRUE)
-dev.off()
