@@ -10,7 +10,7 @@ search_str <- args[1]
 filepath <- args[2]
 apppath <- args[3]
 
-# search_str="MCM2@KICH_snv_count"
+# search_str="TP53@KICH_snv_count"
 # filepath='/home/huff/github/GSCA/gsca-r-plot/pngs/ed916e24-0de9-4350-8f8e-67c364a7ea67.png'
 # apppath='/home/huff/github/GSCA'
 
@@ -59,11 +59,11 @@ fn_height <- function(.g){
 # plot --------------------------------------------------------------------
 # height <- fn_height(nrow(fetched_snv_maf))
 height <- fn_height(snv_count$EffectiveMut)
-png(filename = filepath,height = height,width = 4,units = "in",res=500)
+png(filename = filepath,height = height,width = 10,units = "in",res=500)
 lollipopPlot(maf = pan_maf,gene = search_genes, showMutationRate = TRUE)
 dev.off()
 
 pdf_name <- gsub("\\.png",".pdf",filepath)
-pdf(file = pdf_name,height = height,width = 4)
+pdf(file = pdf_name,height = height,width = 10)
 lollipopPlot(maf = pan_maf,gene = search_genes, showMutationRate = TRUE)
 dev.off()
