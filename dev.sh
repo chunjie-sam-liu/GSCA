@@ -12,6 +12,7 @@ git pull
 source venv/bin/activate
 pip install --upgrade pip
 pip install -r requirements.txt
+# R -f packages.R
 
 cd gsca-angular/
 npm install
