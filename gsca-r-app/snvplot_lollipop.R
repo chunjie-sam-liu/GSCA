@@ -59,17 +59,17 @@ if(snv_count$EffectiveMut>0){
   # plot --------------------------------------------------------------------
   # height <- fn_height(nrow(fetched_snv_maf))
   height <- fn_height(snv_count$EffectiveMut)
-  png(filename = filepath,height = height,width = 10,units = "in",res=500)
+  png(filename = filepath,height = height+2,width = 10,units = "in",res=500)
   lollipopPlot(maf = pan_maf,gene = search_genes, showMutationRate = TRUE)
   dev.off()
   
   pdf_name <- gsub("\\.png",".pdf",filepath)
-  pdf(file = pdf_name,height = height,width = 10)
+  pdf(file = pdf_name,height = height+2,width = 10)
   lollipopPlot(maf = pan_maf,gene = search_genes, showMutationRate = TRUE)
   dev.off()
 } else{
   source(file.path(apppath, "gsca-r-app/utils/fn_NA_notice_fig.R"))
-  fn_NA_notice_fig("Caution: \nNo avaliable for select gene.") -> p
+  fn_NA_notice_fig("Caution: \nNot avaliable for selected gene.") -> p
   # Save --------------------------------------------------------------------
   ggsave(filename = filepath, plot = p, device = 'png', width = 6, height = 4)
   pdf_name <- gsub("\\.png",".pdf",filepath)
