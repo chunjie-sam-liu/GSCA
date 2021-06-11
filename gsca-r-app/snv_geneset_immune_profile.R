@@ -53,7 +53,7 @@ if(ncol(fetched_data)>0){
   
   fields <- '{"_id": false}'
   fetched_immu_data <- purrr::map(.x =paste(gsva_score_nest$cancertype,"all_immune",sep="_"), .f = fn_fetch_mongo_all, pattern="_all_immune",fields = fields) %>%
-    bind_rows() %>%
+    dplyr::bind_rows() %>%
     dplyr::group_by(cancertype) %>%
     tidyr::nest() %>%
     dplyr::ungroup() %>%
