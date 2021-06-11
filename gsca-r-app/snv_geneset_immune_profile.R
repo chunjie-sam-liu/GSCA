@@ -105,7 +105,8 @@ if(ncol(fetched_data)>0){
     combine_data %>%
       dplyr::mutate(res = purrr::map2(data,ImmuneCellAI,fn_gsva_immu_cor)) %>%
       dplyr::select(cancertype,res) %>%
-      tidyr::unnest()  -> gsva_score_rppa_test_res
+      tidyr::unnest() %>%
+      dplyr::rename("celltype"="cell_type")  -> gsva_score_rppa_test_res
   )
   gsva_score_rppa_test_res %>%
     dplyr::mutate(method_short=strsplit(method,split = " ")[[1]][1]) -> gsva_score_rppa_test_res
@@ -148,8 +149,8 @@ if(ncol(fetched_data)>0){
     dplyr::arrange(cancerrank) -> cancerrank
   
   gsva_score_rppa_test_res.label %>%
-    dplyr::filter(celltype != "InfiltrationScore") %>%
-    dplyr::group_by(celltype) %>%
+    dplyr::filter(cell_type != "InfiltrationScore") %>%
+    dplyr::group_by(cell_type) %>%
     tidyr::nest() %>%
     dplyr::mutate(cellrank = purrr::map(data,.f=function(.x){
       .x %>%

@@ -23,15 +23,15 @@ import * as XLSX from 'xlsx';
 })
 export class ImmuneSnvGenesetComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() searchTerm: ExprSearch;
-  
+
   // immSnv cor table data source
   dataSourceImmGenesetSnvCorLoading = true;
   dataSourceImmGenesetSnvCor: MatTableDataSource<ImmGenesetDiffTableRecord>;
   showImmGenesetSnvCorTable = true;
   @ViewChild('paginatorImmSnvCor') paginatorImmSnvCor: MatPaginator;
   @ViewChild(MatSort) sortImmSnvCor: MatSort;
-  displayedColumnsImmGenesetSnvCor = ['cancertype', 'celltype', 'p_value', 'fdr',"method_short"];
-  displayedColumnsImmGenesetSnvCorHeader = ['Cancer type', 'Immune cell type', 'P value', 'FDR', "Method"];
+  displayedColumnsImmGenesetSnvCor = ['cancertype', 'celltype', 'p_value', 'fdr', 'method_short'];
+  displayedColumnsImmGenesetSnvCorHeader = ['Cancer type', 'cell type', 'P value', 'FDR', 'Method'];
   expandedElement: ImmGenesetDiffTableRecord;
   expandedColumn: string;
 
@@ -51,8 +51,7 @@ export class ImmuneSnvGenesetComponent implements OnInit, OnChanges, AfterViewIn
 
   constructor(private immuneApiService: ImmuneApiService) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
   ngOnChanges(changes: SimpleChanges): void {
     // Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
     // Add '${implements OnChanges}' to the class.
@@ -72,19 +71,17 @@ export class ImmuneSnvGenesetComponent implements OnInit, OnChanges, AfterViewIn
           this.immuneApiService.getSnvImmGenesetCorPlot(res.uuidname).subscribe(
             (snvgenesetres) => {
               this.showImmGenesetSnvCorTable = true;
-              this.immuneApiService
-                .getResourceTable('preanalysised_snvgeneset_immu', snvgenesetres.snvimmunegenesetcortableuuid)
-                .subscribe(
-                  (r) => {
-                    this.dataSourceImmGenesetSnvCorLoading = false;
-                    this.dataSourceImmGenesetSnvCor = new MatTableDataSource(r);
-                    this.dataSourceImmGenesetSnvCor.paginator = this.paginatorImmSnvCor;
-                    this.dataSourceImmGenesetSnvCor.sort = this.sortImmSnvCor;
-                  },
-                  (e) => {
-                    this.showImmGenesetSnvCorTable = false;
-                  }
-                );
+              this.immuneApiService.getResourceTable('preanalysised_snvgeneset_immu', snvgenesetres.snvimmunegenesetcortableuuid).subscribe(
+                (r) => {
+                  this.dataSourceImmGenesetSnvCorLoading = false;
+                  this.dataSourceImmGenesetSnvCor = new MatTableDataSource(r);
+                  this.dataSourceImmGenesetSnvCor.paginator = this.paginatorImmSnvCor;
+                  this.dataSourceImmGenesetSnvCor.sort = this.sortImmSnvCor;
+                },
+                (e) => {
+                  this.showImmGenesetSnvCorTable = false;
+                }
+              );
               this.immGenesetSnvCorPdfURL = this.immuneApiService.getResourcePlotURL(snvgenesetres.snvimmunegenesetcorplotuuid, 'pdf');
               this.immuneApiService.getResourcePlotBlob(snvgenesetres.snvimmunegenesetcorplotuuid, 'png').subscribe(
                 (r) => {
@@ -165,7 +162,11 @@ export class ImmuneSnvGenesetComponent implements OnInit, OnChanges, AfterViewIn
       this.showImmGenesetSnvCorSingleGeneImage = false;
       if (this.expandedColumn === 'celltype') {
         this.immuneApiService
-          .getImmSnvGenesetCorSingleGene(this.dataSourceImmGenesetSnvCorUUID, this.expandedElement.cancertype, this.expandedElement.celltype)
+          .getImmSnvGenesetCorSingleGene(
+            this.dataSourceImmGenesetSnvCorUUID,
+            this.expandedElement.cancertype,
+            this.expandedElement.celltype
+          )
           .subscribe(
             (res) => {
               this.immGenesetSnvCorSingleGenePdfURL = this.immuneApiService.getResourcePlotURL(res.immgenesetsnvcorsinglegeneuuid, 'pdf');
