@@ -61,10 +61,13 @@ fetched_data$gsva_score %>%
   dplyr::mutate(gsva = purrr::map(.x = gsva, .f = fn_reorg)) ->
   gsva_score_nest
 
+fields <- '{"_id": false}'
 
-fetched_immu_data <- readr::read_rds(file.path("/home/huff/data/GSCA/TIL","pan33_ImmuneCellAI.rds.gz")) %>%
-  dplyr::filter(cancer_types %in% gsva_score_nest$cancertype) %>%
-  dplyr::rename("cancertype"="cancer_types")
+fetched_immu_data <- purrr::map(.x =paste(gsva_score_nest$cancertype,"all_immune",sep="_"), .f = fn_fetch_mongo_all, pattern="_all_immune",fields = fields) %>%
+  bind_rows() %>%
+  dplyr::group_by(cancertype) %>%
+  tidyr::nest() %>%
+  dplyr::ungroup()
 
 # stage analysis -------------------------------------------------------
 gsva_score_nest %>%
@@ -77,8 +80,7 @@ fn_gsva_immu_cor <- function(gsva,data){
  
   data %>%
     dplyr::filter(substr(aliquot,14,14)=="0") %>%
-    dplyr::select(-barcode) %>%
-    tidyr::gather(-sample_name,-aliquot,key="celltype",value="TIL") -> .combined_immu
+    dplyr::select(-barcode) -> .combined_immu
   
   gsva %>%
     dplyr::filter(type  == "tumor") %>%
@@ -87,7 +89,7 @@ fn_gsva_immu_cor <- function(gsva,data){
   .combined_gsva_rppa %>%
     dplyr::filter(!is.na(gsva)) %>%
     dplyr::filter(!is.na(TIL)) %>%
-    dplyr::group_by(celltype) %>%
+    dplyr::group_by(cell_type) %>%
     tidyr::nest() -> .combined_gsva_rppa_nested
   
   .combined_gsva_rppa_nested %>%
@@ -107,7 +109,7 @@ fn_gsva_immu_cor <- function(gsva,data){
 # calculation -------------------------------------------------------------
 
 combine_data %>%
-  dplyr::mutate(res = purrr::map2(gsva,ImmuneCellAI,fn_gsva_immu_cor)) %>%
+  dplyr::mutate(res = purrr::map2(gsva,data,fn_gsva_immu_cor)) %>%
   dplyr::select(cancertype,res) %>%
   tidyr::unnest()  -> gsva_score_rppa_test_res
 
