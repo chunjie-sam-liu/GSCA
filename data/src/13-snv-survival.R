@@ -14,17 +14,17 @@ data_path <- "/home/huff/data/GSCA/snv"
 gsca_conf <- readr::read_lines(file = file.path(rda_path,"src",'gsca.conf'))
 
 # Load snv survival----------------------------------------------------------------
-file_list <- grep("*_survival.snv.rds.gz",dir(file.path(data_path,"cancer_snv_survival_v1")),value = TRUE)
-snv_survival <- tibble::tibble()
-for (file in file_list) {
-  .snv_survival <- readr::read_rds(file.path(data_path,"cancer_snv_survival_v1",file)) %>%
-    dplyr::mutate(cancer_types= strsplit(file,split = "_")[[1]][1]) 
-  if(nrow(snv_survival)<1){
-    snv_survival<-.snv_survival
-  } else {
-    rbind(snv_survival,.snv_survival) ->snv_survival
-  }
-}
+# file_list <- grep("*_survival.snv.rds.gz",dir(file.path(data_path,"cancer_snv_survival_v1")),value = TRUE)
+# snv_survival <- tibble::tibble()
+# for (file in file_list) {
+#   .snv_survival <- readr::read_rds(file.path(data_path,"cancer_snv_survival_v1",file)) %>%
+#     dplyr::mutate(cancer_types= strsplit(file,split = "_")[[1]][1]) 
+#   if(nrow(snv_survival)<1){
+#     snv_survival<-.snv_survival
+#   } else {
+#     rbind(snv_survival,.snv_survival) ->snv_survival
+#   }
+# }
 
 # Function ----------------------------------------------------------------
 
@@ -48,9 +48,12 @@ fn_snv_survival_mongo <-function(cancer_types,data){
 }
 
 # data --------------------------------------------------------------------
+snv_survival <- readr::read_rds(file.path(data_path,"pan33_snv_survival_NEW.rds.gz"))
 groups <- tibble::tibble(higher_risk_of_death=c("Mutated","Non-mutated"),
                higher_risk_of_death_rename = c("Mutant","WT"))
 snv_survival %>%
+  dplyr::ungroup() %>%
+  tidyr::unnest() %>%
   dplyr::filter(!is.na(higher_risk_of_death)) %>%
   dplyr::inner_join(groups, by="higher_risk_of_death") %>%
   dplyr::select(-higher_risk_of_death,higher_risk_of_death=higher_risk_of_death_rename) %>%
