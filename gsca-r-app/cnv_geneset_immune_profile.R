@@ -16,7 +16,7 @@ filepath <- args[3]
 apppath <- args[4]
 
 
-# tableuuid <- 'e496623d-57e7-4cbb-a03c-57b7da877dd8'
+# tableuuid <- 'e0a1b16f-eea4-4261-9e7f-4768f3281240'
 # tablecol <- 'preanalysised_cnvgeneset'
 # filepath <- "/home/huff/github/GSCA/gsca-r-plot/pngs/5b9339bf-b9a8-4fdb-8c7a-2fd535f841ee.png"
 # apppath <- '/home/huff/github/GSCA'
@@ -146,8 +146,8 @@ if(ncol(fetched_data)>0){
     dplyr::arrange(cancerrank) -> cancerrank
   
   gsva_score_rppa_test_res.label %>%
-    dplyr::filter(cell_type != "InfiltrationScore") %>%
-    dplyr::group_by(cell_type) %>%
+    dplyr::filter(celltype != "InfiltrationScore") %>%
+    dplyr::group_by(celltype) %>%
     tidyr::nest() %>%
     dplyr::mutate(cellrank = purrr::map(data,.f=function(.x){
       .x %>%

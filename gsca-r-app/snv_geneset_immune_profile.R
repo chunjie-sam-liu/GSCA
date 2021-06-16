@@ -17,7 +17,7 @@ apppath <- args[4]
 
 
 # tableuuid <- 'd6fe01ae-b1fe-4f9b-ac92-60210edca6bc'
-# tableuuid <- 'bfc3aeee-487b-472e-886d-25159ebf53b2'
+# tableuuid <- '97a3df0e-9fb1-45b1-ae05-84d0c7a9e68'
 
 # tablecol <- 'preanalysised_snvgeneset'
 # filepath <- "/home/huff/github/GSCA/gsca-r-plot/pngs/5b9339bf-b9a8-4fdb-8c7a-2fd535f841ee.png"
@@ -123,7 +123,7 @@ if(ncol(fetched_data)>0){
   if (nrow(uuid_query) == 0) {
     post_gsva_coll$insert(data = insert_data)
     post_gsva_coll$index(add = '{"uuid": 1}')
-    message("insert data into preanalysised_cnvgeneset_immu")
+    message("insert data into preanalysised_snvgeneset_immu")
   }
   
   # Plot --------------------------------------------------------------------
@@ -149,8 +149,8 @@ if(ncol(fetched_data)>0){
     dplyr::arrange(cancerrank) -> cancerrank
   
   gsva_score_rppa_test_res.label %>%
-    dplyr::filter(cell_type != "InfiltrationScore") %>%
-    dplyr::group_by(cell_type) %>%
+    dplyr::filter(celltype != "InfiltrationScore") %>%
+    dplyr::group_by(celltype) %>%
     tidyr::nest() %>%
     dplyr::mutate(cellrank = purrr::map(data,.f=function(.x){
       .x %>%
