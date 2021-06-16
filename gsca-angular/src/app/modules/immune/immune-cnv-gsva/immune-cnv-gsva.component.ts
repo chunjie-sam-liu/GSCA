@@ -30,8 +30,8 @@ export class ImmuneCnvGsvaComponent implements OnInit, OnChanges, AfterViewInit 
   showImmGenesetCnvCorTable = true;
   @ViewChild('paginatorImmCnvCor') paginatorImmCnvCor: MatPaginator;
   @ViewChild(MatSort) sortImmCnvCor: MatSort;
-  displayedColumnsImmGenesetCnvCor = ['cancertype', 'celltype', 'p_value', 'fdr',"method_short"];
-  displayedColumnsImmGenesetCnvCorHeader = ['Cancer type', 'Immune cell type', 'P value', 'FDR', "Method"];
+  displayedColumnsImmGenesetCnvCor = ['cancertype', 'celltype', 'p_value', 'fdr', 'method_short'];
+  displayedColumnsImmGenesetCnvCorHeader = ['Cancer type', 'Cell type', 'P value', 'FDR', 'Method'];
   expandedElement: ImmGenesetDiffTableRecord;
   expandedColumn: string;
 
@@ -71,19 +71,17 @@ export class ImmuneCnvGsvaComponent implements OnInit, OnChanges, AfterViewInit 
           this.immuneApiService.getCnvImmGenesetCorPlot(res.uuidname).subscribe(
             (cnvgenesetres) => {
               this.showImmGenesetCnvCorTable = true;
-              this.immuneApiService
-                .getResourceTable('preanalysised_cnvgeneset_immu', cnvgenesetres.cnvimmunegenesetcortableuuid)
-                .subscribe(
-                  (r) => {
-                    this.dataSourceImmGenesetCnvCorLoading = false;
-                    this.dataSourceImmGenesetCnvCor = new MatTableDataSource(r);
-                    this.dataSourceImmGenesetCnvCor.paginator = this.paginatorImmCnvCor;
-                    this.dataSourceImmGenesetCnvCor.sort = this.sortImmCnvCor;
-                  },
-                  (e) => {
-                    this.showImmGenesetCnvCorTable = false;
-                  }
-                );
+              this.immuneApiService.getResourceTable('preanalysised_cnvgeneset_immu', cnvgenesetres.cnvimmunegenesetcortableuuid).subscribe(
+                (r) => {
+                  this.dataSourceImmGenesetCnvCorLoading = false;
+                  this.dataSourceImmGenesetCnvCor = new MatTableDataSource(r);
+                  this.dataSourceImmGenesetCnvCor.paginator = this.paginatorImmCnvCor;
+                  this.dataSourceImmGenesetCnvCor.sort = this.sortImmCnvCor;
+                },
+                (e) => {
+                  this.showImmGenesetCnvCorTable = false;
+                }
+              );
               this.immGenesetCnvCorPdfURL = this.immuneApiService.getResourcePlotURL(cnvgenesetres.cnvimmunegenesetcorplotuuid, 'pdf');
               this.immuneApiService.getResourcePlotBlob(cnvgenesetres.cnvimmunegenesetcorplotuuid, 'png').subscribe(
                 (r) => {
@@ -164,7 +162,11 @@ export class ImmuneCnvGsvaComponent implements OnInit, OnChanges, AfterViewInit 
       this.showImmGenesetCnvCorSingleGeneImage = false;
       if (this.expandedColumn === 'celltype') {
         this.immuneApiService
-          .getImmCnvGenesetCorSingleGene(this.dataSourceImmGenesetCnvCorUUID, this.expandedElement.cancertype, this.expandedElement.celltype)
+          .getImmCnvGenesetCorSingleGene(
+            this.dataSourceImmGenesetCnvCorUUID,
+            this.expandedElement.cancertype,
+            this.expandedElement.celltype
+          )
           .subscribe(
             (res) => {
               this.immGenesetCnvCorSingleGenePdfURL = this.immuneApiService.getResourcePlotURL(res.immgenesetcnvcorsinglegeneuuid, 'pdf');

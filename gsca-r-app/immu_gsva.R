@@ -111,7 +111,8 @@ fn_gsva_immu_cor <- function(gsva,data){
 combine_data %>%
   dplyr::mutate(res = purrr::map2(gsva,data,fn_gsva_immu_cor)) %>%
   dplyr::select(cancertype,res) %>%
-  tidyr::unnest()  -> gsva_score_rppa_test_res
+  tidyr::unnest()  %>%
+  dplyr::rename("celltype"="cell_type")-> gsva_score_rppa_test_res
 
 
 # Insert table ------------------------------------------------------------

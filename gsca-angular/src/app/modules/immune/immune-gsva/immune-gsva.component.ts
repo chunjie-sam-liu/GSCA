@@ -48,10 +48,9 @@ export class ImmuneGsvaComponent implements OnInit, OnChanges, AfterViewInit {
   GSVAImmuSingleCellImageLoading = true;
   showGSVAImmuSingleCellImage = true;
 
-  constructor(private immuneApiService: ImmuneApiService) { }
+  constructor(private immuneApiService: ImmuneApiService) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
   ngOnChanges(changes: SimpleChanges): void {
     this.dataSourceGSVAImmuLoading = true;
     this.GSVAImmuImageLoading = true;
