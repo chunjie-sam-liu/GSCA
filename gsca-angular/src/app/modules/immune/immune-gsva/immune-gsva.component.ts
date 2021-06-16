@@ -157,7 +157,7 @@ export class ImmuneGsvaComponent implements OnInit, OnChanges, AfterViewInit {
       this.showGSVAImmuSingleCellImage = false;
       if (this.expandedColumn === 'celltype') {
         this.immuneApiService
-          .getGSVAImmuSingleCellImage(this.gsvaImmuResourceUUID, this.expandedElement.cancertype, this.expandedElement.celltype)
+          .getGSVAImmuSingleCellImage(this.gsvaImmuResourceUUID, this.expandedElement.cancertype, this.expandedElement.cell_type)
           .subscribe(
             (res) => {
               this.GSVAImmuSingleCellPdfURL = this.immuneApiService.getResourcePlotURL(res.gsvaimmusinglecelluuid, 'pdf');
