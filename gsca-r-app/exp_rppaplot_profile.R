@@ -109,7 +109,7 @@ if(nrow(rppa_per_ready)>0){
       mid = "white",
       low = "blue",
       breaks = seq(-100, 100, length.out = 5),
-      labels = c("100", "50", "0", "50", "100"),
+      labels = c("100", "50", "0", "50", "100")
     ) +
     theme(
       axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1),
