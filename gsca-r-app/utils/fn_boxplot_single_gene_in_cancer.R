@@ -33,7 +33,7 @@ box_plot_single_gene_multi_cancers <- function(data,aesx,aesy,color,color_name,f
   return(p)
 }
 
-box_plot_single_gene_single_cancer <- function(data,aesx,aesy,color,color_name,color_labels,color_values,title,xlab,ylab,xangle,comp_list,ylimitfold=0.1){
+box_plot_single_gene_single_cancer <- function(data,aesx,aesy,color,color_name,color_labels,color_values,title,xlab,ylab,xangle,comp_list,ylimitfold=0.1,method = "wilcox.test"){
   if(xangle==0){
     hjust=0.5
     vjust=0.5
@@ -57,7 +57,7 @@ box_plot_single_gene_single_cancer <- function(data,aesx,aesy,color,color_name,c
     scale_y_continuous(limits = c(0,max(label.y)+ylimitfold*.max)) +
     scale_color_manual(name = color_name, labels = color_labels, values = color_values)+
     labs(title = title, x = xlab, y = ylab)  +
-    ggpubr::stat_compare_means(comparisons = comp_list, method = "wilcox.test",label = "p.signif",label.y=label.y, vjust = 10) +
+    ggpubr::stat_compare_means(comparisons = comp_list, method = method,label = "p.signif",label.y=label.y, vjust = 10) +
     theme(
       panel.background = element_rect(colour = "black", fill = "white"),
       panel.grid = element_line(colour = "grey", linetype = "dashed"),

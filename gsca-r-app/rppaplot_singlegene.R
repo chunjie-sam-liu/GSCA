@@ -18,7 +18,7 @@ filepath <- args[2]
 apppath <- args[3]
 
 
-# search_str="A2M@KICH_rppa_diff@Apoptosis"
+# search_str="A2M@KICH_rppa_diff@CellCycle"
 # filepath='/home/huff/github/GSCA/gsca-r-plot/pngs/2f81a610-a51b-4c6d-816d-a35a2e1ecb26.png'
 # apppath='/home/huff/github/GSCA'
 
@@ -72,7 +72,7 @@ for(i in 1:ncol(combn_matrix)){
   comp_list[[i]] <- combn_matrix[,i]
 }
 
-plot <- box_plot_single_gene_single_cancer(data = for_plot,aesx = "group",aesy="score",color = "group",color_name = "Expr. group",color_labels =  color_list$group,color_values = color_list$color,title = title,xlab = 'Expr. group', ylab = 'Pathway activity\n score',xangle = 0,comp_list=comp_list)
+plot <- box_plot_single_gene_single_cancer(data = for_plot,aesx = "group",aesy="score",color = "group",color_name = "Expr. group",color_labels =  color_list$group,color_values = color_list$color,title = title,xlab = 'Expr. group', ylab = 'Pathway activity\n score',xangle = 0,comp_list=comp_list,method="t.test")
 
 # Save --------------------------------------------------------------------
 ggsave(filename = filepath, plot = plot, device = 'png', width = 6, height = 3)
