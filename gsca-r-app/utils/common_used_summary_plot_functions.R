@@ -17,6 +17,7 @@ fn_get_pattern <- function(.x,trend1,trend2,p_cutoff,selections) {
   .x %>%
     dplyr::mutate(pattern = purrr::map2_dbl(trend,value, fn_filter_pattern,trend1=trend1,trend2=trend2,p_cutoff=p_cutoff)) %>%
     dplyr::select(all_of(selections), pattern ) %>%
+    unique() %>%
     tidyr::spread(key = cancertype, value = pattern) %>%
     dplyr::mutate_if(.predicate = is.numeric, .funs = function(.) {ifelse(is.na(.), 0, .)})
 }
