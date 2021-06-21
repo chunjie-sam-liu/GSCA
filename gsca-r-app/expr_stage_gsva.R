@@ -17,7 +17,7 @@ filepath_trend <- args[4]
 apppath <- args[5]
 
 
-# tableuuid <- 'd187b588-5c6a-41f9-aec5-3de6d5057858'
+# tableuuid <- 'a4328776-90de-4a35-aa79-f256aa6ee014'
 # tablecol <- 'preanalysised_gsva'
 # filepath <- "/home/huff/github/GSCA/gsca-r-plot/pngs/91fec0d9-74ce-4036-b1b6-b5fdd8afa1b0.png"
 # apppath <- '/home/huff/github/GSCA'
@@ -97,6 +97,7 @@ gsva_score_stage_test_res %>%
               })) %>%
   tidyr::unnest(stage) %>%
   dplyr::select(-mean_exp,-n) %>%
+  unique() %>%
   tidyr::spread(key="stage",value="mean.n") -> gsva_score_stage
 
 # Insert table ------------------------------------------------------------
