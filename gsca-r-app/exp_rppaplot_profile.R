@@ -16,7 +16,7 @@ search_str <- args[1]
 filepath_stagepoint <- args[2]
 apppath <- args[3]
 
-# search_str = "TP53@LUSC_rppa_diff"
+# search_str = "A2M#ACE#ANGPT2#BPI#CD1B#CDR1#EGR2#EGR3#HBEGF#HERPUD1#MCM2#PCTP#PODXL#PPY#PTGS2#RCAN1#SLC4A7#THBD@LUSC_rppa_diff#LUAD_rppa_diff#ACC_rppa_diff#BRCA_rppa_diff"
 # filepath = "/home/huff/github/GSCA/gsca-r-plot/pngs/1c16fb64-8ef4-4789-a87a-589d140c5bbe.png"
 # apppath = '/home/huff/github/GSCA'
 
@@ -101,13 +101,15 @@ if(nrow(rppa_per_ready)>0){
     guides(fill = guide_colorbar("Percent")) +
     geom_tile(aes(fill = per), col = "white") +
     geom_text(
-      label = ceiling(rppa_per_ready$per)
+      label = abs(ceiling(rppa_per_ready$per))
       # size = 1
     ) +
     scale_fill_gradient2(
       high = "red",
       mid = "white",
-      low = "blue"
+      low = "blue",
+      breaks = seq(-100, 100, length.out = 5),
+      labels = c("100", "50", "0", "50", "100"),
     ) +
     theme(
       axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1),
