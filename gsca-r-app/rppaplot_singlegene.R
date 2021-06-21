@@ -18,7 +18,7 @@ filepath <- args[2]
 apppath <- args[3]
 
 
-# search_str="A2M@KICH_rppa_diff@CellCycle"
+# search_str="A2M@KICH_rppa_diff@RASMAPK"
 # filepath='/home/huff/github/GSCA/gsca-r-plot/pngs/2f81a610-a51b-4c6d-816d-a35a2e1ecb26.png'
 # apppath='/home/huff/github/GSCA'
 
@@ -46,6 +46,12 @@ fetched_rppa_data <- fn_fetch_mongo_all_rppascore(.data="all_rppa_score",.keyind
   dplyr::rename("sample_name"="barcode") %>%
   dplyr::filter(pathway == search_pathway)
 
+fields <- '{"symbol": true, "pathway": true,"fdr": true,"_id": false}'
+fetched_exprrppa_data <- purrr::map(.x = search_colls, .f = fn_fetch_mongo, pattern="_rppa_diff",fields = fields,.key=search_genes,.keyindex="symbol") %>%
+  dplyr::bind_rows() %>%
+  dplyr::filter(pathway  == search_pathway)
+
+
 fetched_expr_data %>%
   dplyr::filter(type=="tumor") %>%
   dplyr::inner_join(fetched_rppa_data,by=c("cancer_types", "sample_name"))%>%
@@ -72,7 +78,7 @@ for(i in 1:ncol(combn_matrix)){
   comp_list[[i]] <- combn_matrix[,i]
 }
 
-plot <- box_plot_single_gene_single_cancer(data = for_plot,aesx = "group",aesy="score",color = "group",color_name = "Expr. group",color_labels =  color_list$group,color_values = color_list$color,title = title,xlab = 'Expr. group', ylab = 'Pathway activity\n score',xangle = 0,comp_list=comp_list,method="t.test")
+plot <- box_plot_single_gene_single_cancer_nocompare(data = for_plot,aesx = "group",aesy="score",color = "group",color_name = "Expr. group",color_labels =  color_list$group,color_values = color_list$color,title = title,xlab = 'Expr. group', ylab = 'Pathway activity\n score',xangle = 0,fdr=fetched_exprrppa_data$fdr)
 
 # Save --------------------------------------------------------------------
 ggsave(filename = filepath, plot = plot, device = 'png', width = 6, height = 3)
