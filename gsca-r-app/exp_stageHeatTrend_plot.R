@@ -146,7 +146,11 @@ for_plot_trend %>%
 min(statistic_value) %>% floor() -> min_trend
 max(statistic_value) %>% ceiling() -> max_trend
 fillbreaks_trend <- sort(unique(c(0,min_trend,max_trend)))
-CPCOLS_trend <- c("#ee0e27", "grey", "#1678f3")
+tibble::tibble(fillbreaks=fillbreaks_trend) %>%
+  dplyr::mutate(color=ifelse(fillbreaks>0,"#ee0e27","#1678f3")) %>%
+  dplyr::mutate(color=ifelse(fillbreaks==0,"grey",color)) %>%
+  dplyr::mutate(colorlabel=ifelse(fillbreaks>0,"Up","Down")) %>%
+  dplyr::mutate(colorlabel=ifelse(fillbreaks==0,"Equal",colorlabel)) -> fillbreaks
 n_cancers <- for_plot_trend$cancertype %>% unique() %>% length()
 xlabels <- sort(unique(for_plot_trend$stage))
 names(xlabels) <- sort(unique(for_plot_trend$rank))
@@ -159,9 +163,9 @@ trendplot <- trend_plot(data = for_plot_trend,
                         linetype="`Trend P`",
                         xlabels=xlabels,
                         colorname="Trend",
-                        color_list = CPCOLS_trend,
-                        fillbreaks=fillbreaks_trend,
-                        color_lables=c("Down","Equal","Up"),
+                        color_list = fillbreaks$color,
+                        fillbreaks=fillbreaks$fillbreaks,
+                        color_lables=fillbreaks$colorlabel,
                         title="Expression tendency in stages (trend plot)",
                         xlab="Stages",
                         ylab="Symbol")

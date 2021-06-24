@@ -1,4 +1,5 @@
 trend_plot <- function(data,aesx,aesy,linecolor,linetype,xlabels,facetgrid="symbol~cancertype",colorname,color_list,fillbreaks,color_lables,title,xlab,ylab){
+  names(color_list)<-color_lables
   data %>%
     ggplot(aes_string(x=aesx,y=aesy)) +
     geom_line(aes_string(color=linecolor),size=1) +
@@ -10,9 +11,9 @@ trend_plot <- function(data,aesx,aesy,linecolor,linetype,xlabels,facetgrid="symb
     scale_color_gradient2(
       name = colorname, # "Methylation diff (T - N)",
       n.breaks=10,
-      low = color_list[3],
-      high = color_list[1],
-      mid =  color_list[2],
+      low = color_list["Down"],
+      high = color_list["Up"],
+      mid =  color_list["Equal"],
       midpoint = 0,
       limits=c(min(fillbreaks),max(fillbreaks)),
       breaks=fillbreaks,
