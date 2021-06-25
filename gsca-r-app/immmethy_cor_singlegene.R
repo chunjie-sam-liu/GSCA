@@ -15,7 +15,7 @@ search_str <- args[1]
 filepath <- args[2]
 apppath <- args[3]
 
-# search_str <- 'A2M@KICH_immune_cor_methy@Bcell'
+# search_str <- 'A2M@KICH_immune_cor_methy@Central_memory'
 # apppath='/home/huff/github/GSCA'
 # filepath <- "/home/huff/github/GSCA/gsca-r-plot/pngs/3d2e17d3-91b9-40ff-bf8f-d9dd70692a26.png"
 
@@ -29,7 +29,7 @@ celltype <- search_str_split[3]
 # fetch data --------------------------------------------------------------
 
 source(file.path(apppath, "gsca-r-app/utils/fn_fetch_mongo_data.R"))
-fields <- '{"symbol": true, "cell_type": true,"cor": true,"fdr":true,"_id": false}'
+fields <- '{"symbol": true, "cell_type": true,"cor": true,"fdr":true,"p_value":true,"_id": false}'
 fetched_methycor_data <- purrr::map(.x = search_colls, .f = fn_fetch_mongo, pattern="_immune_cor_methy",fields = fields,.key=search_genes,.keyindex="symbol") %>%
   dplyr::bind_rows() %>%
   dplyr::filter(cell_type %in% celltype)

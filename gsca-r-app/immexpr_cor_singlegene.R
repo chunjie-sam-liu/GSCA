@@ -29,7 +29,7 @@ celltype <- search_str_split[3]
 # fetch data --------------------------------------------------------------
 
 source(file.path(apppath, "gsca-r-app/utils/fn_fetch_mongo_data.R"))
-fields <- '{"symbol": true, "cell_type": true,"cor": true,"fdr":true,"_id": false}'
+fields <- '{"symbol": true, "cell_type": true,"cor": true,"fdr":true,"p_value":true,"_id": false}'
 fetched_exprcor_data <- purrr::map(.x = search_colls, .f = fn_fetch_mongo, pattern="_immune_cor_expr",fields = fields,.key=search_genes,.keyindex="symbol") %>%
   dplyr::bind_rows() %>%
   dplyr::filter(cell_type %in% celltype)
