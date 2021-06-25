@@ -324,6 +324,7 @@ class CheckParalleUUIDPlot(AppPaths):
         return res
 
     def _check_mongo(self, purpose, uuid):
+        run = True
         preanalysised = mongo.db[self.precol].find_one(
             {self.name_uuid: self.gsxa_uuid, "purpose": purpose}, {"_id": 0, "uuid": 1},
         )
@@ -337,7 +338,6 @@ class CheckParalleUUIDPlot(AppPaths):
             filename = uuid + ".png"
             filepath = self.resource_pngs / filename
             mongo.db[self.precol].insert_one({self.name_uuid: self.gsxa_uuid, "purpose": purpose, "uuid": uuid})
-            run = False
 
         return {"run": run, "filepath": filepath, "uuid": uuid}
 
