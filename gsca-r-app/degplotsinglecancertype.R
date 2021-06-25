@@ -14,7 +14,7 @@ search_str <- args[1]
 filepath <- args[2]
 apppath <- args[3]
 
-# search_str = 'CDR1@KICH_all_expr'
+# search_str = 'HERPUD1@KICH_all_expr'
 # filepath = '/home/liucj/github/GSCA/gsca-r-plot/pngs/48c070a7-5daf-423b-ac35-838d550b624e.png'
 # apppath <- '/home/huff/github/GSCA'
 
