@@ -15,7 +15,7 @@ search_surtype <- args[4]
 filepath <- args[5]
 apppath <- args[6]
 
-# tableuuid <- "ba16c786-93ca-421e-a426-7a361f4c3e7a"
+# tableuuid <- "a4328776-90de-4a35-aa79-f256aa6ee014"
 # tablecol <- "preanalysised_gsva"
 # search_cancertype <- "KICH"
 # search_surtype <- "Apoptosis"
@@ -75,7 +75,8 @@ fields <- '{"cancertype": true, "res_table": true,"_id": false}'
 fetched_gsvarppacor_data <- purrr::map(.x = "preanalysised_gsva_rppa", .f = fn_fetch_mongo, pattern="preanalysised_gsva_",fields = fields,.key=tableuuid,.keyindex="uuid") %>%
   dplyr::bind_rows() %>%
   dplyr::filter(pathway %in% search_surtype)%>%
-  dplyr::filter(cancertype == search_cancertype)
+  dplyr::filter(cancertype == search_cancertype) %>%
+  unique()
 # combine -----------------------------------------------------------------
 
 gsva_score %>%
