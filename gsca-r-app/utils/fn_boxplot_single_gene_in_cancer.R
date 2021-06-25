@@ -99,7 +99,7 @@ box_plot_single_gene_single_cancer_nocompare <- function(data,aesx,aesy,color,co
     scale_color_manual(name = color_name, labels = color_labels, values = color_values)+
     labs(title = title, x = xlab, y = ylab)  +
     annotate("text", 
-             x = 1, y = .max, # x and y coordinates of the text
+             x = 1, y = .max+0.05*.max, # x and y coordinates of the text
              label = paste("FDR =", format(signif(fdr,2), scientific = TRUE))) +
     #ggpubr::stat_compare_means(comparisons = comp_list, method = method,label = "p.signif",label.y=label.y, vjust = 10) +
     theme(
