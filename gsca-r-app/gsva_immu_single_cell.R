@@ -96,7 +96,7 @@ title <-  glue::glue('Spearman correlation between GSVA score and infiltrate of\
 plot <- fn_point_fit(data=combine_data,aesx="TIL",aesy="gsva",
                      title=title,xlab=glue::glue('Infiltrate of {search_surtype}'),ylab="GSVA score",
                      label=paste("Cor. =",round(fetched_gsvaimmucor_data$estimate,2),
-                                 "\nP value = ",fn_format(fetched_gsvaimmucor_data$p_value),
+                                 "\nP = ",fn_format(fetched_gsvaimmucor_data$p_value),
                                  "\nFDR =", fn_format(fetched_gsvaimmucor_data$fdr)))
 # Save --------------------------------------------------------------------
 ggsave(filename = filepath, plot = plot, device = 'png', width = 6, height = 4)

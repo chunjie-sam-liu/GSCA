@@ -58,7 +58,7 @@ source(file.path(apppath,"gsca-r-app/utils/fn_p_format.R"))
 title <-  glue::glue('Spearman correlation between {search_genes} expression and {celltype} \ninfiltrate in {search_cancertypes}')
 plot <- fn_point_fit(data=for_plot,aesx="TIL",aesy="expr",
                      title=title,xlab=glue::glue('{celltype} infiltrate score (ImmuCellAI)'),ylab="mRNA expression",
-                     label=paste("Cor. =",round(fetched_exprcor_data$cor,2),"\nFDR =", fn_format(fetched_exprcor_data$fdr)))
+                     label=paste("Cor. =",round(fetched_exprcor_data$cor,2),"\nFDR =", fn_format(fetched_exprcor_data$fdr),"\nP =", fn_format(fetched_exprcor_data$p_value)))
 
 # Save --------------------------------------------------------------------
 ggsave(filename = filepath, plot = plot, device = 'png', width = 6, height = 4)
