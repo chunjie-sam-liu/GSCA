@@ -32,7 +32,8 @@ source(file.path(apppath, "gsca-r-app/utils/fn_fetch_mongo_data.R"))
 fields <- '{"symbol": true, "cell_type": true,"cor": true,"fdr":true,"p_value":true,"_id": false}'
 fetched_methycor_data <- purrr::map(.x = search_colls, .f = fn_fetch_mongo, pattern="_immune_cor_methy",fields = fields,.key=search_genes,.keyindex="symbol") %>%
   dplyr::bind_rows() %>%
-  dplyr::filter(cell_type %in% celltype)
+  dplyr::filter(cell_type %in% celltype)%>%
+  unique()
 
 fields <- '{"symbol": true,"barcode": true,"sample_name":true, "type":true, "methy":true, "_id": false}'
 fetched_methy <- purrr::map(.x = paste(search_cancertypes,"_all_methy",sep=""), .f = fn_fetch_mongo, pattern="_all_methy",fields = fields,.key=search_genes,.keyindex="symbol") %>%
