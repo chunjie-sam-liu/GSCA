@@ -121,7 +121,7 @@ combine_data %>%
   dplyr::select(cancertype,combine) %>%
   tidyr::unnest(cols = c(combine))-> for_plot
 
-color <- c("#1B9E77", "#D95F02", "#7570B3", "#E7298A", "#66A61E", "#E6AB02", "#A6761D", "#666666")
+color <- c("#1B9E77", "#D95F02", "#7570B3", "#E7298A", "#66A61E", "#E6AB02", "#A6761D", "#666666", "#6b5783", "#617d87", "#f15b0b", "#618779")
 len_subtype <- length(unique(for_plot$cancertype))
 
 color_list <- for_plot %>%
