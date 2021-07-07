@@ -114,7 +114,7 @@ if(ncol(fetched_data)>0){
       dplyr::rename(value=logrankp) %>% fn_pval_label() %>%
       dplyr::mutate(group = ifelse(value>0.05,">0.05","<0.05")) %>%
       dplyr::mutate(logp = -log10(value))%>%
-      dplyr::mutate(log2hr = log2(hr))-> for_plot
+      dplyr::mutate(log2hr = signif(log2(hr),2))-> for_plot
     CPCOLS <- c("blue", "white", "red")
     color_color <-  c("tomato","lightskyblue")
     color_group<- c("Mutated","Non-mutated")
@@ -124,7 +124,8 @@ if(ncol(fetched_data)>0){
       .$log2hr -> big0
     if(length(big0)>0){
       big0 %>%
-        max() -> max
+        max() %>%
+      signif(2)-> max
     }else{
       0->max
     }
@@ -135,7 +136,8 @@ if(ncol(fetched_data)>0){
       .$log2hr -> little0
     if(length(little0)>0){
       little0 %>%
-      min() -> min
+      min() %>%
+      signif(2) -> min
     }else{
       0->min
     }
@@ -163,9 +165,9 @@ if(ncol(fetched_data)>0){
                              colorname="Logrank P value",
                              title=title)
     # Save --------------------------------------------------------------------
-    ggsave(filename = filepath, plot = heat_plot, device = 'png', width = 4, height = size$height-1)
+    ggsave(filename = filepath, plot = heat_plot, device = 'png', width = 4, height = size$height+1)
     pdf_name <- gsub("\\.png",".pdf",filepath)
-    ggsave(filename = pdf_name, plot = heat_plot, device = 'pdf', width = 4, height = size$height-1)
+    ggsave(filename = pdf_name, plot = heat_plot, device = 'pdf', width = 4, height = size$height+1)
   }else{
     source(file.path(apppath, "gsca-r-app/utils/fn_NA_notice_fig.R"))
     fn_NA_notice_fig("Caution: \nsurvival analysis is not applicable\nfor your search.\nPlease check if there are enough mutations\n in your search gene list?") -> p
