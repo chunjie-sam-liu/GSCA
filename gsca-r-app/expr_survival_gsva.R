@@ -76,7 +76,8 @@ source(file.path(apppath,"gsca-r-app/utils/fn_gsva_sruviva.R"))
 combine_data %>%
   dplyr::mutate(sur_res = purrr::map2(gsva,data,fn_survival)) %>%
   dplyr::select(cancertype,sur_res) %>%
-  tidyr::unnest() -> gsva_score_survival
+  tidyr::unnest() %>%
+  unique() -> gsva_score_survival
 
 # Insert table ------------------------------------------------------------
 insert_data <- list(uuid = tableuuid, res_table = gsva_score_survival)
@@ -115,13 +116,15 @@ color_color <-  c("tomato","lightskyblue")
 color_group<- c("Higher GSVA","Lower GSVA")
 for_plot %>%
   dplyr::filter(!is.na(HR)) %>%
+  dplyr::filter(HR<10) %>%
   .$HR -> HR_value
 min(HR_value) %>% floor() -> min
 max(HR_value) %>% ceiling() -> max
 fillbreaks <- sort(unique(c(1,min,max,seq(min,max,length.out = 3))))
 title <- "Survival between high and low GSVA score group"
 
-heat_plot <- bubble_plot(data=for_plot, 
+heat_plot <- bubble_plot(data=for_plot%>%
+                           dplyr::filter(HR<10), 
                          cancer="sur_type",
                          gene="cancertype", 
                          ylab="Cancer type", 
