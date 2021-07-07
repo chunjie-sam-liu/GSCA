@@ -113,16 +113,34 @@ if(ncol(fetched_data)>0){
       dplyr::mutate(sur_type=toupper(sur_type)) %>%
       dplyr::rename(value=logrankp) %>% fn_pval_label() %>%
       dplyr::mutate(group = ifelse(value>0.05,">0.05","<0.05")) %>%
-      dplyr::mutate(logp = -log10(value))-> for_plot
+      dplyr::mutate(logp = -log10(value))%>%
+      dplyr::mutate(log2hr = log2(hr))-> for_plot
     CPCOLS <- c("blue", "white", "red")
     color_color <-  c("tomato","lightskyblue")
     color_group<- c("Mutated","Non-mutated")
     for_plot %>%
       dplyr::filter(!is.na(hr)) %>%
-      .$hr -> HR_value
-    min(HR_value) %>% trunc() -> min
-    max(HR_value) %>% ceiling() -> max
-    fillbreaks <- sort(unique(c(1,min,max,seq(min,max,length.out = 3))))
+      dplyr::filter(log2hr>0) %>%
+      .$log2hr -> big0
+    if(length(big0)>0){
+      big0 %>%
+        max() -> max
+    }else{
+      0->max
+    }
+    
+    for_plot %>%
+      dplyr::filter(!is.na(hr)) %>%
+      dplyr::filter(log2hr<0) %>%
+      .$log2hr -> little0
+    if(length(little0)>0){
+      little0 %>%
+      min() -> min
+    }else{
+      0->min
+    }
+    
+    fillbreaks <- sort(unique(c(0,min,max,seq(min,max,length.out = 3))))
     title <- "Survival difference between geneset\nmutant and WT."
     
     heat_plot <- bubble_plot(data=for_plot, 
@@ -132,14 +150,14 @@ if(ncol(fetched_data)>0){
                              ylab="Cancer type", 
                              facet_exp = NA,
                              size="logp", 
-                             fill="hr", 
+                             fill="log2hr", 
                              fillmipoint =1,
                              fillbreaks =fillbreaks,
                              colorgroup="group",
                              cancer_rank=c("OS","PFS"), 
                              gene_rank=cancer_rank$cancertype, 
                              sizename= "-Log(P)", 
-                             fillname="-Log10(P)",  
+                             fillname="Log2(HR)",  
                              colorvalue=c("black","grey"), 
                              colorbreaks=c("<0.05",">0.05"),
                              colorname="Logrank P value",
