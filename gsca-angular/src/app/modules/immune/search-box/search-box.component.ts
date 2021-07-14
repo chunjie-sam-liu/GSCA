@@ -38,6 +38,13 @@ export class SearchBoxComponent implements OnInit {
     this.showList.showContent = false;
   }
 
+  public selectAllCancers(): void {
+    const allCancerTypes = this.cancerTypeList.map((v) => {
+      return v.shortname;
+    });
+    this.cancerTypeSelected.patchValue(allCancerTypes);
+  }
+
   public submit(str: string): void {
     this.inputString = this._getSearchSymbol(str).join(', ');
 
