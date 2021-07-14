@@ -1,47 +1,56 @@
 <mat-card fxFlex appMaterialElevation defaultElevation="0" raisedElevation="0">
-    <mat-expansion-panel hideToggle>
-      <mat-expansion-panel-header>
-        <mat-panel-title> Click here for the detailed description of methods and results </mat-panel-title>
-        <mat-panel-description>Immune infiltrates & Gene set SNV</mat-panel-description>
-      </mat-expansion-panel-header>
+  <mat-expansion-panel hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title> Click here for the detailed description of methods and results </mat-panel-title>
+      <mat-panel-description>Immune infiltration & Gene set SNV</mat-panel-description>
+    </mat-expansion-panel-header>
+    <ul>
+      <li>Methods</li>
+      <p>
+        The Immune infiltration & Gene set SNV module is used to estimate the association between immune cells’ infiltrates and gene set SNV
+        level.
+      </p>
+      <p>
+        The infiltrates of 24 immune cells were evaluated through
+        <a href="http://bioinfo.life.hust.edu.cn/ImmuCellAI/#!/" target="_blank">ImmuCellAI</a>
+      </p>
+      <p>
+        The gene set SNV represents the <span class="phighlight">integrated SNV status</span> of inputted gene set for each sample. A sample
+        is classified into Mutatant group only when at least one gene in the input gene set is mutated in the sample. If all genes in
+        inputted gene set have no SNV in a sample, this sample is classified into WT group.
+      </p>
+      <p>
+        The association between immune cells’ infiltrates and gene set SNV was evaluated by comparing the mean infiltrate between gene set
+        CNV groups through Wilcoxon test. The P value was adjusted by FDR.
+      </p>
+      <li>Interpretation</li>
+      <p>This module provides two forms of results, including table and figure.</p>
+      <p class="phighlight">
+        Note that input too much genes will make it difficult to interpretate the gene set SNV result. Genes with functional relationship
+        will be better for interpretation. It is worth noting that in some cases, a few genes (such as TP53) in a gene set may have much
+        higher frequency of SNV than most genes in a gene set, which could lead to misunderstanding in result interpretation.
+      </p>
       <ul>
-        <li>Methods</li>
+        <li>The result table:</li>
+        <p>Presents detailed information about Cancer type, Cell type, P value, FDR and Method.</p>
         <p>
-            The Immune infiltrates & Gene set SNV module is used to estimate the association between immune cells’ infiltrates and gene set SNV level. 
+          Cell type: the immune cell type, including Dendritic cell and B cell et al, please find the detailed information on
+          <a href="http://bioinfo.life.hust.edu.cn/GSCA/#/document">document</a>
         </p>
-        <p>The infiltrates of 24 immune cells were evaluated through
-            <a href="http://bioinfo.life.hust.edu.cn/ImmuCellAI/#!/" target="_blank">ImmuCellAI</a>
-        </p>
-        <p>
-          The gene set SNV represents the <span class="phighlight">integrated SNV status</span> of inputted gene set for each sample. A sample is classified into Mutatant group only when at least one gene in the input gene set is mutated in the sample. If all genes in inputted gene set have no SNV in a sample, this sample is classified into WT group.
-        </p>
-        <p>
-            The association between immune cells’ infiltrates and gene set SNV was evaluated by comparing the mean infiltrate between gene set CNV groups through Wilcoxon test. The P value was adjusted by FDR.
-        </p>
-        <li>Interpretation</li>
-        <p>This module provides two forms of results, including table and figure.</p>        
-        <p class="phighlight">Note that input too much genes will make it difficult to interpretate the gene set SNV result. Genes with functional relationship will be better for interpretation. It is worth noting that in some cases, a few genes (such as TP53) in a gene set may have much higher frequency of SNV than most genes in a gene set, which could lead to misunderstanding in result interpretation. </p>
+        <p>P value: the P value of Wilcoxon test or One way ANOVA test.</p>
+        <p>FDR: the false discovery rate.</p>
+        <p>Method: the mothod for the comparison of mean infiltrate between gene set SNV groups.</p>
+        <li>GSCA provides result figures including:</li>
         <ul>
-          <li>The result table:</li>
-          <p>Presents detailed information about Cancer type, Cell type, P value, FDR and Method.</p>
+          <li>Summary plot:</li>
           <p>
-            Cell type: the immune cell type, including Dendritic cell and B cell et al, please find the detailed information on
-            <a href="http://bioinfo.life.hust.edu.cn/GSCA/#/document">document</a>
+            The scatter plot summarizes the significance of P value and FDR for the comparison of of mean infiltrate between SNV groups.
+            Using color to indicate the P value significant (green) and FDR significant (red) results.
           </p>
-          <p>
-            P value: the P value of Wilcoxon test or One way ANOVA test.
-          </p>
-          <p>FDR: the false discovery rate.</p>
-          <p>Method: the mothod for the comparison of mean infiltrate between gene set SNV groups.</p>
-          <li>GSCA provides result figures including:</li>
-          <ul>
-            <li>Summary plot:</li>
-            <p>The scatter plot summarizes the significance of P value and FDR for the comparison of of mean infiltrate between SNV groups. Using color to indicate the P value significant (green) and FDR significant (red) results.</p>
-            <li>Box plot:</li>
-            <p>By clicking Cell type buttons in tables, users can get the distribution of immune infiltrate between SNV groups.</p>
-          </ul>
+          <li>Box plot:</li>
+          <p>By clicking Cell type buttons in tables, users can get the distribution of immune infiltrate between SNV groups.</p>
         </ul>
       </ul>
-    </mat-expansion-panel>
-  </mat-card>
-  
+    </ul>
+  </mat-expansion-panel>
+</mat-card>

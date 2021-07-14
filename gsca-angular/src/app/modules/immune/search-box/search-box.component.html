@@ -39,26 +39,26 @@
     <ng-container>
       <mat-card appMaterialElevation defaultElevation="4" raisedElevation="4" fxLayout="column" fxLayoutGap="10px">
         <h3>Single gene level analysis</h3>
-        <p>This section presents the correlation between immune infiltrates with single gene expression, SNV, CNV and methylation.</p>
+        <p>This section presents the correlation between immune infiltration with single gene expression, SNV, CNV and methylation.</p>
         <h4>Please select analysis type(s):</h4>
         <dl>
           <dd>
-            <mat-checkbox [(ngModel)]="showList.showImmExpr">Immune infiltrates & mRNA expression</mat-checkbox>
+            <mat-checkbox [(ngModel)]="showList.showImmExpr">Immune infiltration & mRNA expression</mat-checkbox>
           </dd>
         </dl>
         <dl>
           <dd>
-            <mat-checkbox [(ngModel)]="showList.showImmSnv">Immune infiltrates & SNV</mat-checkbox>
+            <mat-checkbox [(ngModel)]="showList.showImmSnv">Immune infiltration & SNV</mat-checkbox>
           </dd>
         </dl>
         <dl>
           <dd>
-            <mat-checkbox [(ngModel)]="showList.showImmCnv">Immune infiltrates & CNV</mat-checkbox>
+            <mat-checkbox [(ngModel)]="showList.showImmCnv">Immune infiltration & CNV</mat-checkbox>
           </dd>
         </dl>
         <dl>
           <dd>
-            <mat-checkbox [(ngModel)]="showList.showImmMethy">Immune infiltrates & Methylation</mat-checkbox>
+            <mat-checkbox [(ngModel)]="showList.showImmMethy">Immune infiltration & Methylation</mat-checkbox>
           </dd>
         </dl>
       </mat-card>
@@ -68,23 +68,23 @@
       <mat-card appMaterialElevation defaultElevation="4" raisedElevation="4" fxLayout="column" fxLayoutGap="10px">
         <h3>Geneset level analysis</h3>
         <p>
-          This section presents the correlation between immune infiltrates with gene set expression score (GSVA score), gene set CNV and
+          This section presents the correlation between immune infiltration with gene set expression score (GSVA score), gene set CNV and
           gene set SNV.
         </p>
         <h4>Please select analysis type(s):</h4>
         <dl>
           <dd>
-            <mat-checkbox [(ngModel)]="showList.showImmExprGsva">Immune infiltrates & GSVA score</mat-checkbox>
+            <mat-checkbox [(ngModel)]="showList.showImmExprGsva">Immune infiltration & GSVA score</mat-checkbox>
           </dd>
         </dl>
         <dl>
           <dd>
-            <mat-checkbox [(ngModel)]="showList.showImmSnvGsva">Immune infiltrates & Gene set SNV</mat-checkbox>
+            <mat-checkbox [(ngModel)]="showList.showImmSnvGsva">Immune infiltration & Gene set SNV</mat-checkbox>
           </dd>
         </dl>
         <dl>
           <dd>
-            <mat-checkbox [(ngModel)]="showList.showImmCnvGsva">Immune infiltrates & Gene set CNV</mat-checkbox>
+            <mat-checkbox [(ngModel)]="showList.showImmCnvGsva">Immune infiltration & Gene set CNV</mat-checkbox>
           </dd>
         </dl>
       </mat-card>
