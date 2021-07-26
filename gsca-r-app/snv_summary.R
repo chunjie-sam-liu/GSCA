@@ -45,7 +45,8 @@ if(nrow(fetched_snv_maf)>0){
     fetched_snv_maf.non_synonymous %>%
       dplyr::rename(Hugo_Symbol=symbol) ->fetched_snv_maf.non_synonymous
     fetched_snv_maf.non_synonymous %>%
-      dplyr::select(cancertype,Tumor_Sample_Barcode) -> clincial_info
+      dplyr::select(cancertype,Tumor_Sample_Barcode) %>%
+      dplyr::rename("Cancer_type"="cancertype")-> clincial_info
     maf_project <- read.maf(maf=fetched_snv_maf.non_synonymous,clinicalData=clincial_info)
     # draw plot ---------------------------------------------------------------
     # summary plot
@@ -75,7 +76,7 @@ if(nrow(fetched_snv_maf)>0){
       png(filename = filepath_snvoncoplot,height = 4,width = 6,units = "in",res=500)
       oncoplot(
         maf = maf_project, 
-        clinicalFeatures = "cancertype", sortByMutation = TRUE, sortByAnnotation = TRUE,
+        clinicalFeatures = "Cancer_type", sortByMutation = TRUE, sortByAnnotation = TRUE,
         top = 10
       )
       dev.off()
@@ -84,7 +85,7 @@ if(nrow(fetched_snv_maf)>0){
       pdf(file = pdf_name_snvoncoplot,height = 4,width = 6)
       oncoplot(
         maf = maf_project, 
-        clinicalFeatures = "cancertype", sortByMutation = TRUE, sortByAnnotation = TRUE,
+        clinicalFeatures = "Cancer_type", sortByMutation = TRUE, sortByAnnotation = TRUE,
         top = 10
       )
       dev.off()
