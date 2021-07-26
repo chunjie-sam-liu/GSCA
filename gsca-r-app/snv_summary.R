@@ -42,11 +42,11 @@ if(nrow(fetched_snv_maf)>0){
   fetched_snv_maf %>%
     dplyr::filter(Variant_Classification %in% effective_mut) -> fetched_snv_maf.non_synonymous
   if(nrow(fetched_snv_maf.non_synonymous)>0){
-    fetched_snv_maf %>%
-      dplyr::rename(Hugo_Symbol=symbol) ->fetched_snv_maf
-    fetched_snv_maf %>%
+    fetched_snv_maf.non_synonymous %>%
+      dplyr::rename(Hugo_Symbol=symbol) ->fetched_snv_maf.non_synonymous
+    fetched_snv_maf.non_synonymous %>%
       dplyr::select(cancertype,Tumor_Sample_Barcode) -> clincial_info
-    maf_project <- read.maf(maf=fetched_snv_maf,clinicalData=clincial_info)
+    maf_project <- read.maf(maf=fetched_snv_maf.non_synonymous,clinicalData=clincial_info)
     # draw plot ---------------------------------------------------------------
     # summary plot
     png(filename = filepath_snvsummary,height = 4,width = 6,units = "in",res=500)
@@ -73,12 +73,20 @@ if(nrow(fetched_snv_maf)>0){
     if(length(unique(fetched_snv_maf.non_synonymous$entrez))>=2){
       # oncoplot
       png(filename = filepath_snvoncoplot,height = 4,width = 6,units = "in",res=500)
-      oncoplot(maf = maf_project, top = 10)
+      oncoplot(
+        maf = maf_project, 
+        clinicalFeatures = "cancertype", sortByMutation = TRUE, sortByAnnotation = TRUE,
+        top = 10
+      )
       dev.off()
       
       pdf_name_snvoncoplot <- gsub("\\.png",".pdf",filepath_snvoncoplot)
       pdf(file = pdf_name_snvoncoplot,height = 4,width = 6)
-      oncoplot(maf = maf_project, top = 10)
+      oncoplot(
+        maf = maf_project, 
+        clinicalFeatures = "cancertype", sortByMutation = TRUE, sortByAnnotation = TRUE,
+        top = 10
+      )
       dev.off()
     }else{
       source(file.path(apppath, "gsca-r-app/utils/fn_NA_notice_fig.R"))
