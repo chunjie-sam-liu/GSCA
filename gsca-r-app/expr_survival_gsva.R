@@ -116,7 +116,7 @@ color_color <-  c("tomato","lightskyblue")
 color_group<- c("Higher GSVA","Lower GSVA")
 for_plot %>%
   dplyr::filter(!is.na(HR)) %>%
-  dplyr::filter(HR<10) %>%
+  dplyr::mutate(HR=ifelse(HR>=10,10,HR)) %>%
   .$HR -> HR_value
 min(HR_value) %>% floor() -> min
 max(HR_value) %>% ceiling() -> max
@@ -137,7 +137,7 @@ heat_plot <- bubble_plot(data=for_plot%>%
                          colorgroup="group",
                          gene_rank=cancer_rank$cancertype, 
                          cancer_rank=c("OS","PFS"), 
-                         sizename= "-Log(P)", 
+                         sizename= "-Log(Cox P)", 
                          fillname="Hazard ratio", 
                          colorvalue=c("black","grey"), 
                          colorbreaks=c("<0.05",">0.05"),
