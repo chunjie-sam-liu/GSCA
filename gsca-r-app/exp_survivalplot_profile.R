@@ -50,6 +50,7 @@ gene_rank <- fn_get_gene_rank(.x = fetched_data_clean_pattern)
 for_plot <- fetched_data %>%
   dplyr::mutate(group=ifelse(pval<=0.05,"<0.05",">0.05")) %>%
   dplyr::mutate(logp = -log10(pval)) %>%
+  dplyr::filter(!is.na(HR)) %>%
   dplyr::mutate(HR=ifelse(HR>=10,10,HR))
 
 # Plot --------------------------------------------------------------------
@@ -57,9 +58,7 @@ source(file.path(apppath,"gsca-r-app/utils/fn_bubble_plot_immune.R"))
 CPCOLS <- c("blue", "white", "red")
 color_color <-  c("tomato","lightskyblue")
 color_group<- c("Higher expr.","Lower expr.")
-for_plot %>%
-  dplyr::filter(!is.na(HR)) %>%
-  .$HR -> HR_value
+for_plot$HR -> HR_value
 min(HR_value) %>% floor() -> min
 max(HR_value) %>% ceiling() -> max
 fillbreaks <- sort(unique(c(1,min,max,seq(min,max,length.out = 3))))
