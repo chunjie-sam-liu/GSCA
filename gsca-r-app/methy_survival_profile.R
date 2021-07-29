@@ -38,14 +38,15 @@ fetched_data <- purrr::map(.x = search_colls, .f = fn_fetch_mongo, pattern="_met
 source(file.path(apppath,"gsca-r-app/utils/common_used_summary_plot_functions.R"))
 
 fetched_data_clean_pattern <- fn_get_pattern(
-  .x = fetched_data %>% dplyr::rename(value=log_rank_p,trend=higher_risk_of_death),
+  .x = fetched_data %>% dplyr::rename(value=cox_p,trend=higher_risk_of_death),
   trend1="Hypermethylation",
   trend2="Hypomethylation",
   p_cutoff=0.05,
   selections =c("cancertype","symbol"))
 cancer_rank <- fn_get_cancer_types_rank(.x = fetched_data_clean_pattern)
 gene_rank <- fn_get_gene_rank(.x = fetched_data_clean_pattern)
-for_plot <- fn_pval_label(.x = fetched_data %>% dplyr::rename(value=log_rank_p)) %>%
+for_plot <- fn_pval_label(.x = fetched_data %>% dplyr::rename(value=cox_p)) %>%
+  dplyr::filter(!is.na(HR)) %>%
   dplyr::mutate(HR = ifelse(HR>10,10,HR)) %>%
   dplyr::mutate(logp = -log10(value),
                 group = ifelse(value>0.05,">0.05","<0.05"))
@@ -56,7 +57,6 @@ CPCOLS <- c("blue", "white", "red")
 color_color <-  c("tomato","lightskyblue")
 color_group<- c("Hypermethylation","Hypomethylation")
 for_plot %>%
-  dplyr::filter(!is.na(HR)) %>%
   .$HR -> HR_value
 min(HR_value) %>% trunc() -> min
 max(HR_value) %>% ceiling() -> max
@@ -76,11 +76,11 @@ heat_plot <- bubble_plot(data=for_plot,
                          colorgroup="group",
                          cancer_rank=cancer_rank$cancertype, 
                          gene_rank=gene_rank$symbol, 
-                         sizename= "-Log(P)", 
+                         sizename= "-Log(Cox P)", 
                          fillname="Hazard ratio", 
                          colorvalue=c("black","grey"), 
                          colorbreaks=c("<0.05",">0.05"),
-                         colorname="Logrank P value",
+                         colorname="Cox P value",
                          title=title)
 
 
