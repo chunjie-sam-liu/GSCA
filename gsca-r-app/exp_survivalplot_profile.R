@@ -30,10 +30,10 @@ size <- fn_height_width(search_genes,search_cancertypes)
 # fetch data --------------------------------------------------------------
 
 source(file.path(apppath, "gsca-r-app/utils/fn_fetch_mongo_data.R"))
-fields <- '{"symbol": true, "logrankp": true, "higher_risk_of_death": true,"hr_categorical(H/L)": true,"sur_type": true, "_id": false}'
+fields <- '{"symbol": true, "coxp_categorical": true, "higher_risk_of_death": true,"hr_categorical(H/L)": true,"sur_type": true, "_id": false}'
 fetched_data <- purrr::map(.x = search_cancertypes, .f = fn_fetch_mongo, pattern="_expr_survival",fields = fields,.key=search_genes,.keyindex="symbol") %>%
   dplyr::bind_rows() %>%
-  dplyr::rename("HR"="hr_categorical(H/L)","pval"="logrankp")
+  dplyr::rename("HR"="hr_categorical(H/L)","pval"="coxp_categorical")
 
 
 # Sort -------------------------------------------------------------------
@@ -82,7 +82,7 @@ heat_plot <- bubble_plot(data=for_plot,
                     fillname="Hazard ratio", 
                     colorvalue=c("black","grey"), 
                     colorbreaks=c("<0.05",">0.05"),
-                    colorname="Logrank P value",
+                    colorname="Cox P value",
                     title=title)
 
 # Save --------------------------------------------------------------------
