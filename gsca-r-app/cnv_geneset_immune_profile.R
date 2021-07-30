@@ -223,13 +223,13 @@ if(ncol(fetched_data)>0){
   size_width <- 4+length(unique(gsva_score_rppa_test_res.label$cancertype))*0.5
   
   
-  ggsave(filename = filepath, plot = plot, device = 'png', width = size_width, height = 6)
+  ggsave(filename = filepath, plot = plot, device = 'png', width = size_width, height = 8)
   pdf_name <- gsub("\\.png",".pdf", filepath)
-  ggsave(filename = pdf_name, plot = plot, device = 'pdf', width = size_width, height = 6)
+  ggsave(filename = pdf_name, plot = plot, device = 'pdf', width = size_width, height = 8)
   
 }else{
   source(file.path(apppath, "gsca-r-app/utils/fn_NA_notice_fig.R"))
-  fn_NA_notice_fig("Caution: \n not applicable for your search.\nPlease check if there are no CNVs\n in your search?") -> p
+  fn_NA_notice_fig("Caution: \nnot applicable for your search.\nPlease check if there are no CNVs\n in your search?") -> p
   # Save --------------------------------------------------------------------
   ggsave(filename = filepath, plot = p, device = 'png', width = 6, height = 4)
   pdf_name <- gsub("\\.png",".pdf",filepath)
