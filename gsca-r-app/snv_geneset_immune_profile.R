@@ -187,13 +187,16 @@ if(ncol(fetched_data)>0){
   
   gsva_score_rppa_test_res.label %>%
     dplyr::filter(!is.na(p.value)) %>%
-    dplyr::mutate(celltypecor=ifelse(p.value<=0.05,"P value <= 0.05","P value > 0.05")) %>%
+    dplyr::mutate(celltypecor=ifelse(p.value<=0.05&fc>1,"Higher in Mutant","Not significant")) %>%
+    dplyr::mutate(celltypecor=ifelse(p.value<=0.05&fc<1,"Lower in Mutant",celltypecor)) %>%
     dplyr::mutate(labelcor=ifelse(celltypecor=="P value > 0.05",NA,celltypecor)) %>%
     ggplot(aes(x=log2(fc),y=-log10(p.value))) +
     geom_point(aes(color=celltypecor)) +
     facet_wrap(.~cancertype, nrow=ceiling(length(unique(gsva_score_rppa_test_res.label$cancertype))/5)) +
     ggrepel::geom_text_repel(aes(label=celltype,color=labelcor)) +
-    scale_color_manual(values = c("#d0021b","black","#366a70"),
+    scale_color_manual(values = c("Higher in Mutant"="#d0021b",
+                                  "Not significant"="black",
+                                  "Lower in Mutant"="green"),
                        name="Significance") +
     theme(
       axis.text = element_text(colour = "black",size = 10),
@@ -215,7 +218,9 @@ if(ncol(fetched_data)>0){
       )
     ) +
     ylab("-log10(P value)") +
-    xlab("log2 fold change(Mutant vs. WT)") -> plot
+    xlab("log2 fold change (Mutant vs. WT)") + 
+    geom_vline(xintercept = 0,col="grey",lwd=0.5) + 
+    geom_hline(yintercept = 1.3,col="grey",lwd=0.5) -> plot
   
   # pic size ----------------------------------------------------------------
   
