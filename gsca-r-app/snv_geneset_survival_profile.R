@@ -150,7 +150,7 @@ if(ncol(fetched_data)>0){
                              xlab="", 
                              ylab="Cancer type", 
                              facet_exp = NA,
-                             size="value", 
+                             size="logp", 
                              fill="hr", 
                              fillmipoint =1,
                              fillbreaks =fillbreaks,
