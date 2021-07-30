@@ -223,9 +223,9 @@ if(ncol(fetched_data)>0){
   size_width <- 4+length(unique(gsva_score_rppa_test_res.label$cancertype))*0.5
   
   
-  ggsave(filename = filepath, plot = plot, device = 'png', width = size_width, height =  8)
+  ggsave(filename = filepath, plot = plot, device = 'png', width = size_width, height = 6)
   pdf_name <- gsub("\\.png",".pdf", filepath)
-  ggsave(filename = pdf_name, plot = plot, device = 'pdf', width = size_width, height = 8)
+  ggsave(filename = pdf_name, plot = plot, device = 'pdf', width = size_width, height = 6)
   
 }else{
   source(file.path(apppath, "gsca-r-app/utils/fn_NA_notice_fig.R"))
