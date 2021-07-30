@@ -146,50 +146,12 @@ if(ncol(fetched_data)>0){
     dplyr::mutate(label=ifelse(p.value<=0.05 & fdr >0.05, "*",label)) %>%
     dplyr::mutate(label=ifelse(p.value>0.05 & fdr <=0.05, "#",label)) %>%
     dplyr::mutate(logFDR=-log10(fdr))-> gsva_score_rppa_test_res.label
-  
-  gsva_score_rppa_test_res.label %>%
-    dplyr::group_by(cancertype) %>%
-    tidyr::nest() %>%
-    dplyr::mutate(cancerrank = purrr::map(data,.f=function(.x){
-      .x %>%
-        dplyr::filter(!is.na(fdr)) %>%
-        dplyr::mutate(score = ifelse(p.value<=0.05,1,0)) %>%
-        dplyr::mutate(score = ifelse(fdr <=0.05,2,score)) %>%
-        .$score %>%
-        sum()
-    })) %>%
-    dplyr::select(-data) %>%
-    tidyr::unnest() %>%
-    dplyr::arrange(cancerrank) -> cancerrank
-  
-  gsva_score_rppa_test_res.label %>%
-    dplyr::filter(celltype != "InfiltrationScore") %>%
-    dplyr::group_by(celltype) %>%
-    tidyr::nest() %>%
-    dplyr::mutate(cellrank = purrr::map(data,.f=function(.x){
-      .x %>%
-        dplyr::filter(!is.na(fdr)) %>%
-        dplyr::mutate(score = ifelse(p.value<=0.05,1,0)) %>%
-        dplyr::mutate(score = ifelse(fdr <=0.05,2,score)) %>%
-        .$score %>%
-        sum()
-    })) %>%
-    dplyr::select(-data) %>%
-    tidyr::unnest() %>%
-    dplyr::arrange(cellrank) -> cellrank
-  
-  
-  gsva_score_rppa_test_res.label %>% dplyr::filter(!is.na(logFDR)) %>% .$logFDR %>% range() -> cor_range
-  min(cor_range) %>% floor() -> cor_min
-  max(cor_range) %>% ceiling() -> cor_max
-  fillbreaks <- sort(unique(c(1.3,round(c(cor_min,cor_max,seq(cor_min,cor_max,length.out = 5))))))
-  
-  
+   
   gsva_score_rppa_test_res.label %>%
     dplyr::filter(!is.na(p.value)) %>%
     dplyr::mutate(celltypecor=ifelse(p.value<=0.05&fc>1,"Higher in Mutant","Not significant")) %>%
     dplyr::mutate(celltypecor=ifelse(p.value<=0.05&fc<1,"Lower in Mutant",celltypecor)) %>%
-    dplyr::mutate(labelcor=ifelse(celltypecor=="P value > 0.05",NA,celltypecor)) %>%
+    dplyr::mutate(labelcor=ifelse(celltypecor=="Not significant",NA,celltypecor)) %>%
     ggplot(aes(x=log2(fc),y=-log10(p.value))) +
     geom_point(aes(color=celltypecor)) +
     facet_wrap(.~cancertype, nrow=ceiling(length(unique(gsva_score_rppa_test_res.label$cancertype))/5)) +
