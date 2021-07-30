@@ -188,7 +188,7 @@ if(ncol(fetched_data)>0){
     dplyr::mutate(labelcor=ifelse(celltypecor=="Not significant",NA,celltypecor)) %>%
     ggplot(aes(x=log2(fc),y=logP)) +
     geom_point(aes(color=celltypecor)) +
-    facet_grid(compare~cancertype) +
+    facet_grid(cancertype~compare, scale="free_y") +
     ggrepel::geom_text_repel(aes(label=celltype,color=labelcor)) +
     scale_color_manual(values = c("Higher in CNV"="#d0021b",
                                   "Not significant"="black",
@@ -223,9 +223,9 @@ if(ncol(fetched_data)>0){
   size_width <- 4+length(unique(gsva_score_rppa_test_res.label$cancertype))*0.5
   
   
-  ggsave(filename = filepath, plot = plot, device = 'png', width = size_width, height = 8)
+  ggsave(filename = filepath, plot = plot, device = 'png', width = 8, height = size_width)
   pdf_name <- gsub("\\.png",".pdf", filepath)
-  ggsave(filename = pdf_name, plot = plot, device = 'pdf', width = size_width, height = 8)
+  ggsave(filename = pdf_name, plot = plot, device = 'pdf', width = 8, height = size_width)
   
 }else{
   source(file.path(apppath, "gsca-r-app/utils/fn_NA_notice_fig.R"))
