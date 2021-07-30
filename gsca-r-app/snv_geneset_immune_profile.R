@@ -94,10 +94,24 @@ if(ncol(fetched_data)>0){
       tidyr::unnest() %>%
       dplyr::ungroup() -> .cor_res
     
+    .combined_gsva_rppa_nested %>%
+      dplyr::mutate(fc = purrr::map(data,.f=function(.x){
+        .x %>%
+          dplyr::group_by(group) %>%
+          dplyr::mutate(mean = mean(TIL)) %>%
+          dplyr::select(group, mean) %>%
+          unique() %>%
+          tidyr::spread(key="group", value = "mean") %>%
+          dplyr::mutate(fc = `2Mutant`/`1WT`)
+      })) %>%
+      dplyr::select(-data) %>%
+      dplyr::ungroup() %>%
+      tidyr::unnest() -> .fc
     .fdr <- p.adjust(.cor_res$p.value)
     
     .cor_res %>%
-      dplyr::mutate(fdr = .fdr)
+      dplyr::mutate(fdr = .fdr) %>%
+      dplyr::inner_join(.fc, by = "cell_type")
   }
   
   # calculation -------------------------------------------------------------
@@ -172,15 +186,14 @@ if(ncol(fetched_data)>0){
   
   
   gsva_score_rppa_test_res.label %>%
-    dplyr::filter(!is.na(fdr)) %>%
-    dplyr::mutate(celltypecor=ifelse(p.value<0.05,"p<0.05","Not significant")) %>%
-    dplyr::mutate(celltypecor=ifelse(fdr<0.05,"fdr<0.05",celltypecor)) %>%
-    dplyr::mutate(labelcor=ifelse(celltypecor=="Not significant",NA,celltypecor)) %>%
-    ggplot(aes(x=-log10(p.value),y=-log10(fdr))) +
+    dplyr::filter(!is.na(p.value)) %>%
+    dplyr::mutate(celltypecor=ifelse(p.value<=0.05,"P value <= 0.05","P value > 0.05")) %>%
+    dplyr::mutate(labelcor=ifelse(celltypecor=="P value > 0.05",NA,celltypecor)) %>%
+    ggplot(aes(x=log2(fc),y=-log10(p.value))) +
     geom_point(aes(color=celltypecor)) +
     facet_wrap(.~cancertype, nrow=ceiling(length(unique(gsva_score_rppa_test_res.label$cancertype))/5)) +
     ggrepel::geom_text_repel(aes(label=celltype,color=labelcor)) +
-    scale_color_manual(values = c("black","#d0021b","#366a70"),
+    scale_color_manual(values = c("#d0021b","black","#366a70"),
                        name="Significance") +
     theme(
       axis.text = element_text(colour = "black",size = 10),
@@ -201,8 +214,8 @@ if(ncol(fetched_data)>0){
         size = 0.2
       )
     ) +
-    ylab("-log10(FDR)") +
-    xlab("-log10(P value)") -> plot
+    ylab("-log10(P value)") +
+    xlab("log2 fold change(Mutant vs. WT)") -> plot
   
   # pic size ----------------------------------------------------------------
   

@@ -91,12 +91,59 @@ if(ncol(fetched_data)>0){
       tidyr::unnest() %>%
       dplyr::ungroup() -> .cor_res
     
+    
+    
     .fdr <- p.adjust(.cor_res$p.value)
     
     .cor_res %>%
       dplyr::mutate(fdr = .fdr)
   }
   
+  fn_gsva_immu_fc <- function(genesetcnv,data){
+    data %>%
+      dplyr::filter(substr(aliquot,14,14)=="0") %>%
+      dplyr::select(-barcode)  -> .combined_immu
+    
+    genesetcnv %>%
+      dplyr::inner_join(.combined_immu,by="sample_name") -> .combined_gsva_rppa
+    
+    .combined_gsva_rppa %>%
+      dplyr::filter(group != "Excluded") %>%
+      dplyr::filter(!is.na(TIL)) %>%
+      dplyr::group_by(cell_type) %>%
+      tidyr::nest() -> .combined_gsva_rppa_nested
+    .f_fc <- function(.y, .com){
+      if(length(unique(.y$group)) == 2){
+        
+        .y %>%
+          dplyr::filter(group=="WT") %>%
+          .$TIL %>%
+          mean -> .wt
+        .y %>%
+          dplyr::filter(group!="WT") %>%
+          .$TIL %>%
+          mean -> .mut
+        broom::tidy(wilcox.test(TIL~group,data=.y)) %>%
+          dplyr::mutate(fc = .mut/.wt, compare = .com)
+      }else{
+        tibble::tibble()
+      }
+    }
+    .combined_gsva_rppa_nested %>%
+      dplyr::mutate(cor = purrr::map(data,.f=function(.x){
+        .x %>%
+          dplyr::filter(group %in% c("WT","Dele.")) -> dele_WT
+        .x %>%
+          dplyr::filter(group %in% c("WT","Amp.")) -> amp_WT
+        
+        .f_fc(dele_WT,"Dele. vs. WT") %>%
+          rbind(.f_fc(amp_WT,"Amp. vs. WT"))
+      })) %>%
+      dplyr::select(-data) %>%
+      tidyr::unnest() %>%
+      dplyr::ungroup() -> .fc
+    .fc
+  }
   # calculation -------------------------------------------------------------
   suppressWarnings(
     combine_data %>%
@@ -108,7 +155,13 @@ if(ncol(fetched_data)>0){
   gsva_score_rppa_test_res %>%
     dplyr::mutate(method_short=strsplit(method,split = " ")[[1]][1]) -> gsva_score_rppa_test_res
   
-  
+  suppressWarnings(
+    combine_data %>%
+      dplyr::mutate(res = purrr::map2(data,ImmuneCellAI,fn_gsva_immu_fc)) %>%
+      dplyr::select(cancertype,res) %>%
+      tidyr::unnest()  %>%
+      dplyr::rename("celltype"="cell_type") -> gsva_score_rppa_test_fc
+  )
   # Insert table ------------------------------------------------------------
   insert_data <- list(uuid = tableuuid, res_table = gsva_score_rppa_test_res)
   #post_gsva_coll$drop()
@@ -124,60 +177,22 @@ if(ncol(fetched_data)>0){
   }
   
   # Plot --------------------------------------------------------------------
-  gsva_score_rppa_test_res %>%
-    dplyr::mutate(label=ifelse(p.value<=0.05 & fdr <=0.05, "*#","")) %>%
-    dplyr::mutate(label=ifelse(p.value<=0.05 & fdr >0.05, "*",label)) %>%
-    dplyr::mutate(label=ifelse(p.value>0.05 & fdr <=0.05, "#",label)) %>%
-    dplyr::mutate(logFDR=-log10(fdr))-> gsva_score_rppa_test_res.label
+  gsva_score_rppa_test_fc %>%
+    dplyr::mutate(label=ifelse(p.value<=0.05, "*","")) %>%
+    dplyr::mutate(logP=-log10(p.value))-> gsva_score_rppa_test_res.label
   
   gsva_score_rppa_test_res.label %>%
-    dplyr::group_by(cancertype) %>%
-    tidyr::nest() %>%
-    dplyr::mutate(cancerrank = purrr::map(data,.f=function(.x){
-      .x %>%
-        dplyr::filter(!is.na(fdr)) %>%
-        dplyr::mutate(score = ifelse(p.value<=0.05,1,0)) %>%
-        dplyr::mutate(score = ifelse(fdr <=0.05,2,score)) %>%
-        .$score %>%
-        sum()
-    })) %>%
-    dplyr::select(-data) %>%
-    tidyr::unnest() %>%
-    dplyr::arrange(cancerrank) -> cancerrank
-  
-  gsva_score_rppa_test_res.label %>%
-    dplyr::filter(celltype != "InfiltrationScore") %>%
-    dplyr::group_by(celltype) %>%
-    tidyr::nest() %>%
-    dplyr::mutate(cellrank = purrr::map(data,.f=function(.x){
-      .x %>%
-        dplyr::filter(!is.na(fdr)) %>%
-        dplyr::mutate(score = ifelse(p.value<=0.05,1,0)) %>%
-        dplyr::mutate(score = ifelse(fdr <=0.05,2,score)) %>%
-        .$score %>%
-        sum()
-    })) %>%
-    dplyr::select(-data) %>%
-    tidyr::unnest() %>%
-    dplyr::arrange(cellrank) -> cellrank
-  
-  
-  gsva_score_rppa_test_res.label %>% dplyr::filter(!is.na(logFDR)) %>% .$logFDR %>% range() -> cor_range
-  min(cor_range) %>% floor() -> cor_min
-  max(cor_range) %>% ceiling() -> cor_max
-  fillbreaks <- sort(unique(c(1.3,round(c(cor_min,cor_max,seq(cor_min,cor_max,length.out = 5))))))
-  
-  
-  gsva_score_rppa_test_res.label %>%
-    dplyr::filter(!is.na(fdr)) %>%
-    dplyr::mutate(celltypecor=ifelse(p.value<0.05,"p<0.05","Not significant")) %>%
-    dplyr::mutate(celltypecor=ifelse(fdr<0.05,"fdr<0.05",celltypecor)) %>%
+    dplyr::filter(!is.na(logP)) %>%
+    dplyr::mutate(celltypecor=ifelse(p.value<=0.05&fc>1,"Higher in CNV","Not significant")) %>%
+    dplyr::mutate(celltypecor=ifelse(p.value<=0.05&fc<1,"Lower in CNV",celltypecor)) %>%
     dplyr::mutate(labelcor=ifelse(celltypecor=="Not significant",NA,celltypecor)) %>%
-    ggplot(aes(x=-log10(p.value),y=-log10(fdr))) +
+    ggplot(aes(x=log2(fc),y=logP)) +
     geom_point(aes(color=celltypecor)) +
-    facet_wrap(.~cancertype, nrow=ceiling(length(unique(gsva_score_rppa_test_res.label$cancertype))/5)) +
+    facet_grid(compare~cancertype) +
     ggrepel::geom_text_repel(aes(label=celltype,color=labelcor)) +
-    scale_color_manual(values = c("black","#d0021b","#366a70"),
+    scale_color_manual(values = c("Higher in CNV"="#d0021b",
+                                  "Not significant"="black",
+                                  "Lower in CNV"="green"),
                        name="Significance") +
     theme(
       axis.text = element_text(colour = "black",size = 10),
@@ -198,18 +213,19 @@ if(ncol(fetched_data)>0){
         size = 0.2
       )
     ) +
-    ylab("-log10(FDR)") +
-    xlab("-log10(P value)") -> plot
-  
+    ylab("-log10 (P value)") +
+    xlab("log2 fold change (CNV vs. WT)") + 
+    geom_vline(xintercept = 0,col="grey",lwd=0.5) + 
+    geom_hline(yintercept = 1.3,col="grey",lwd=0.5) -> plot
   # pic size ----------------------------------------------------------------
   
   source(file.path(apppath, "gsca-r-app/utils/fn_figure_height.R"))
-  size_height <- ceiling(length(unique(gsva_score_rppa_test_res.label$cancertype))/5)*4
+  size_width <- 4+length(unique(gsva_score_rppa_test_res.label$cancertype))*0.5
   
   
-  ggsave(filename = filepath, plot = plot, device = 'png', width = 8, height =  size_height)
+  ggsave(filename = filepath, plot = plot, device = 'png', width = size_width, height =  8)
   pdf_name <- gsub("\\.png",".pdf", filepath)
-  ggsave(filename = pdf_name, plot = plot, device = 'pdf', width = 8, height = size_height)
+  ggsave(filename = pdf_name, plot = plot, device = 'pdf', width = size_width, height = 8)
   
 }else{
   source(file.path(apppath, "gsca-r-app/utils/fn_NA_notice_fig.R"))
