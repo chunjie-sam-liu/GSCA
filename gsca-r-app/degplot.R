@@ -58,9 +58,9 @@ fn_filter_fc_pval <- function(.x) {
 }
 
 fn_filter_pattern <- function(fc, fdr) {
-  if ((fc > 3 / 2) && (fdr < 0.05)) {
+  if ((fc > 3 / 2) && (fdr <= 0.05)) {
     return(1)
-  } else if ((fc < 2 / 3) && (fdr < 0.05)) {
+  } else if ((fc < 2 / 3) && (fdr <= 0.05)) {
     return(-1)
   } else {
     return(0)
@@ -99,7 +99,7 @@ fn_get_gene_rank <- function(.x) {
 
 # Query data --------------------------------------------------------------
 fetched_data <- purrr::map(.x = search_cancertypes, .f = fn_fetch_mongo) %>% dplyr::bind_rows()%>%
-  dplyr::mutate(group=ifelse(fdr>0.05,">0.05","<0.05"))
+  dplyr::mutate(group=ifelse(fdr>0.05,">0.05","<=0.05"))
 
 # Sort --------------------------------------------------------------------
 
@@ -137,7 +137,7 @@ fetched_data %>%
     guide=FALSE
   ) +
   scale_color_manual(values = c("black","grey"),
-                     breaks = c("<0.05",">0.05"),
+                     breaks = c("<=0.05",">0.05"),
                      name="FDR")+
   scale_y_discrete(limit = gene_rank$symbol) +
   scale_x_discrete(limit = cancer_rank$cancer_types) +

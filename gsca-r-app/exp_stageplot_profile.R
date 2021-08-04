@@ -118,7 +118,7 @@ gene_rank <- fn_get_gene_rank(.x = fetched_data_clean_pattern)
 for_plot <- fn_pval_label(fetched_data) %>%
   dplyr::mutate(logFDR = -log10(fdr)) %>%
   dplyr::mutate(logFDR = ifelse(logFDR>10,10,logFDR)) %>%
-  dplyr::mutate(group = ifelse(fdr>0.05,">0.05","<0.05")) %>%
+  dplyr::mutate(group = ifelse(fdr>0.05,">0.05","<=0.05")) %>%
   tidyr::gather(-symbol,-pval,-fdr,-cancertype,-group,-p_label,-logFDR,key="stage",value="mean") 
 
 list(for_plot$mean) %>%
@@ -163,7 +163,7 @@ bubbleplot <- bubble_plot(data=for_plot_bubble,
                          sizename= "-Log(10) FDR", 
                          fillname="-Log(10) FDR", 
                          colorvalue=c("black","grey"), 
-                         colorbreaks=c("<0.05",">0.05"),
+                         colorbreaks=c("<=0.05",">0.05"),
                          colorname="FDR",
                          title="Expression difference between stages")
 

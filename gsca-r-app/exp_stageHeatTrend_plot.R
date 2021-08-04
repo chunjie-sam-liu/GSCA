@@ -106,7 +106,7 @@ trend_res %>%
 
 for_plot %>%
   dplyr::inner_join(trend_res,by=c("symbol","cancertype")) %>%
-  dplyr::mutate(`Trend P` = ifelse(p.value>0.05,">0.05","<0.05")) -> for_plot_trend
+  dplyr::mutate(`Trend P` = ifelse(p.value>0.05,">0.05","<=0.05")) -> for_plot_trend
 
 for_plot_trend <- within(for_plot_trend,symbol<-factor(symbol,levels=unique(trend_symbol_rank$symbol)))
 for_plot_trend <- within(for_plot_trend,cancertype<-factor(cancertype,levels=unique(trend_cancertype_rank$cancertype)))

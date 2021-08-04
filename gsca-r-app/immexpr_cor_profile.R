@@ -42,7 +42,7 @@ fetched_data <- purrr::map(.x = search_colls, .f = fn_fetch_mongo, pattern="_imm
 source(file.path(apppath,"gsca-r-app/utils/common_used_summary_plot_functions.R"))
 
 fetched_data %>%
-  dplyr::mutate(group = ifelse(logfdr>1.3,"<0.05",">0.05")) -> for_plot
+  dplyr::mutate(group = ifelse(logfdr>=1.30103,"<=0.05",">0.05")) -> for_plot
 fetched_data_clean_pattern <- fn_get_pattern_celltype(.x = for_plot %>%
                                                         dplyr::mutate(value=fdr) %>%
                                                         dplyr::mutate(trend=ifelse(cor>0,"Pos","Neg")),
@@ -79,7 +79,7 @@ plot <- bubble_plot(data=for_plot,
                     gene_rank=gene_rank$symbol,
                     sizename= "-Log10(FDR)",
                     colorvalue=c("black","grey"),
-                    colorbreaks=c("<0.05",">0.05"),
+                    colorbreaks=c("<=0.05",">0.05"),
                     colorname="FDR",
                     fillname="Correlation",
                     title=title)

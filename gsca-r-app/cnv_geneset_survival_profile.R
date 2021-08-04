@@ -120,7 +120,7 @@ geneset_survival %>%
   dplyr::mutate(sur_type=toupper(sur_type)) %>%
   dplyr::mutate(logp=ifelse(logrankp==0,10,-log10(logrankp))) %>%
   dplyr::mutate(logp=ifelse(logp>10,10,logp)) %>%
-  dplyr::mutate(group = ifelse(logp>1.3,"<0.05",">0.05"))-> for_plot
+  dplyr::mutate(group = ifelse(logp>=1.30103,"<=0.05",">0.05"))-> for_plot
 CPCOLS <- c("blue", "white", "red")
 title <- "Gene set CNV and survival"
 for_plot %>%
@@ -145,7 +145,7 @@ heat_plot <- bubble_plot(data=for_plot,
                          sizename= "-Log(P)", 
                          fillname="-Log10(Logrank P)", 
                          colorvalue=c("black","grey"), 
-                         colorbreaks=c("<0.05",">0.05"),
+                         colorbreaks=c("<=0.05",">0.05"),
                          colorname="Logrank P value",
                          title=title)
 # Save --------------------------------------------------------------------

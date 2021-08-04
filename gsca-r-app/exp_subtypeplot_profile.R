@@ -99,7 +99,7 @@ if(nrow(fetched_data)>0){
   for_plot <- fetched_data %>%
     dplyr::mutate(logFDR = -log10(fdr)) %>%
     dplyr::mutate(logFDR = ifelse(logFDR>10,10,logFDR)) %>%
-    dplyr::mutate(group=ifelse(fdr>0.05,">0.05","<0.05"))
+    dplyr::mutate(group=ifelse(fdr>0.05,">0.05","<=0.05"))
 
   # bubble_plot --------------------------------------------------------------------
   source(file.path(apppath,"gsca-r-app/utils/fn_bubble_plot_immune.R"))
@@ -127,7 +127,7 @@ if(nrow(fetched_data)>0){
                    sizename= "-Log(10) FDR",
                    fillname="-Log(10) FDR",
                    colorvalue=c("black","grey"),
-                   colorbreaks=c("<0.05",">0.05"),
+                   colorbreaks=c("<=0.05",">0.05"),
                    colorname="FDR",
                    title="Subtype difference between high and\nlow gene expression")
   # Save --------------------------------------------------------------------

@@ -156,7 +156,7 @@ ggsave(filename = pdf_name, plot = box_plot, device = 'pdf', width = size_width,
 gsva_score_stage_test_res %>%
   dplyr::select(-diff_p, -diff_method,-trend_method) %>%
   dplyr::inner_join(stages_included,by="stage") %>%
-  dplyr::mutate(`Trend P`=ifelse(trend_p>0.05,">0.05","<0.05")) %>%
+  dplyr::mutate(`Trend P`=ifelse(trend_p>0.05,">0.05","<=0.05")) %>%
   dplyr::mutate(stage = purrr::map(stage,.f=function(.x){
     sub3 <- gsub(pattern = "Stage ",replacement = "",.x)
     return(sub3)

@@ -46,7 +46,7 @@ fetched_data_clean_pattern <- fn_get_pattern(
 cancer_rank <- fn_get_cancer_types_rank(.x = fetched_data_clean_pattern)
 gene_rank <- fn_get_gene_rank(.x = fetched_data_clean_pattern)
 for_plot <- fn_pval_label(.x = fetched_data %>% dplyr::rename(value=fdr))  %>%
-  dplyr::mutate(group = ifelse(value<=0.05,"<0.05",">0.05"))
+  dplyr::mutate(group = ifelse(value<=0.05,"<=0.05",">0.05"))
 
 # Plot --------------------------------------------------------------------
 source(file.path(apppath,"gsca-r-app/utils/fn_bubble_plot_immune.R"))
@@ -72,7 +72,7 @@ heat_plot <- bubble_plot(data=for_plot,
                          gene_rank=gene_rank$symbol, 
                          sizename= "-Log10(FDR)", 
                          colorvalue=c("black","grey"),
-                         colorbreaks=c("<0.05",">0.05"),
+                         colorbreaks=c("<=0.05",">0.05"),
                          colorname="FDR", 
                          fillname="Spearman cor.", 
                          title=title) +

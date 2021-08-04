@@ -86,7 +86,7 @@ if (nrow(uuid_query) == 0) {
 
 gsea_score_test %>% 
   dplyr::mutate(logpadj = -log10(padj)) %>%
-  dplyr::mutate(group = ifelse(padj<=0.05,"<0.05",">0.05"))-> for_plot
+  dplyr::mutate(group = ifelse(padj<=0.05,"<=0.05",">0.05"))-> for_plot
 for_plot %>%
   dplyr::filter(!is.na(logpadj)) %>%
   .$logpadj %>% range() -> min_max

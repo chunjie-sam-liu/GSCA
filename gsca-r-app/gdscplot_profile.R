@@ -48,7 +48,7 @@ fetched_data %>%
   tidyr::unnest() %>%
   dplyr::ungroup() %>%
   dplyr::filter(remain=="yes") %>%
-  dplyr::mutate(group = ifelse(fdr<=0.05,"<0.05",">0.05"))-> for_plot
+  dplyr::mutate(group = ifelse(fdr<=0.05,"<=0.05",">0.05"))-> for_plot
 
 for_plot %>%
   dplyr::group_by(drug) %>%
@@ -107,7 +107,7 @@ plot <- bubble_plot(data=for_plot,
                     gene_rank=gene_rank$symbol, 
                     sizename= "-Log10(FDR)", 
                     colorvalue=c("black","grey"),
-                    colorbreaks=c("<0.05",">0.05"),
+                    colorbreaks=c("<=0.05",">0.05"),
                     colorname="FDR", 
                     fillname="Correlation", 
                     title="Correlation between GDSC drug sensitivity and mRNA expression")

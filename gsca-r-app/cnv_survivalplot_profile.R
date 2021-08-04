@@ -49,7 +49,7 @@ for_plot <- fetched_data %>%
   dplyr::rename(value=log_rank_p) %>%
   dplyr::mutate(logp=ifelse(value==0,10,-log10(value))) %>%
   dplyr::mutate(logp=ifelse(logp>10,10,logp)) %>%
-  dplyr::mutate(group=ifelse(value>0.05,">0.05","<0.05"))
+  dplyr::mutate(group=ifelse(value>0.05,">0.05","<=0.05"))
 
 # Plot --------------------------------------------------------------------
 source(file.path(apppath,"gsca-r-app/utils/fn_bubble_plot_immune.R"))
@@ -77,7 +77,7 @@ heat_plot <- bubble_plot(data=for_plot,
                          sizename= "-Log(10) Logrank P", 
                          fillname="-Log(10) Logrank P", 
                          colorvalue=c("black","grey"), 
-                         colorbreaks=c("<0.05",">0.05"),
+                         colorbreaks=c("<=0.05",">0.05"),
                          colorname="Logrank P value",
                          title="Survival difference between CNV groups")
 # Save --------------------------------------------------------------------

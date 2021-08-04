@@ -49,7 +49,7 @@ for_plot <- fn_pval_label(.x = fetched_data %>% dplyr::rename(value=cox_p)) %>%
   dplyr::filter(!is.na(HR)) %>%
   dplyr::mutate(HR = ifelse(HR>10,10,HR)) %>%
   dplyr::mutate(logp = -log10(value),
-                group = ifelse(value>0.05,">0.05","<0.05"))
+                group = ifelse(value>0.05,">0.05","<=0.05"))
 
 # Plot --------------------------------------------------------------------
 source(file.path(apppath,"gsca-r-app/utils/fn_bubble_plot_immune.R"))
@@ -79,7 +79,7 @@ heat_plot <- bubble_plot(data=for_plot,
                          sizename= "-Log(Cox P)", 
                          fillname="Hazard ratio", 
                          colorvalue=c("black","grey"), 
-                         colorbreaks=c("<0.05",">0.05"),
+                         colorbreaks=c("<=0.05",">0.05"),
                          colorname="Cox P value",
                          title=title)
 

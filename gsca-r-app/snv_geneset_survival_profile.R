@@ -112,7 +112,7 @@ if(ncol(fetched_data)>0){
     geneset_survival %>%
       dplyr::mutate(sur_type=toupper(sur_type)) %>%
       dplyr::rename(value=cox_p) %>% fn_pval_label() %>%
-      dplyr::mutate(group = ifelse(value>0.05,">0.05","<0.05")) %>%
+      dplyr::mutate(group = ifelse(value>0.05,">0.05","<=0.05")) %>%
       dplyr::mutate(logp = -log10(value))%>%
       dplyr::filter(!is.na(hr)) %>%
       dplyr::mutate(hr=ifelse(hr>=10,10,hr)) -> for_plot
@@ -160,7 +160,7 @@ if(ncol(fetched_data)>0){
                              sizename= "-Log(Cox P)", 
                              fillname="Hazard ratio",  
                              colorvalue=c("black","grey"), 
-                             colorbreaks=c("<0.05",">0.05"),
+                             colorbreaks=c("<=0.05",">0.05"),
                              colorname="Cox P value",
                              title=title)
     # Save --------------------------------------------------------------------
