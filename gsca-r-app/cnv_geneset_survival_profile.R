@@ -14,6 +14,7 @@ filepath <- args[3]
 apppath <- args[4]
 
 # tableuuid <- 'e496623d-57e7-4cbb-a03c-57b7da877dd8'
+# tableuuid <- 'e9b6264b-d6e1-420e-8b50-b3251e3a2145'  # cellcycle 7 genes
 # tablecol <- 'preanalysised_cnvgeneset'
 # filepath <- "/home/liucj/github/GSCA/gsca-r-plot/pngs/688682d4-977f-432b-8338-f0c28730cbcb.png"
 # apppath <- '/home/huff/github/GSCA'

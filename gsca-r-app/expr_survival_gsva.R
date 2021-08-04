@@ -17,6 +17,7 @@ apppath <- args[4]
 
 
 # tableuuid <- 'a4328776-90de-4a35-aa79-f256aa6ee014'
+# tableuuid <- 'e81bdd54-d134-4970-8a52-e28dbe5bfd33' # cellcycle 7 genes
 # tablecol <- 'preanalysised_gsva'
 # filepath <- "/home/liucj/github/GSCA/gsca-r-plot/pngs/688682d4-977f-432b-8338-f0c28730cbcb.png"
 # apppath <- '/home/huff/github/GSCA'
@@ -97,13 +98,13 @@ if (nrow(uuid_query) == 0) {
 gsva_score_survival %>%
   dplyr::mutate(group=ifelse(logrankp>0.05,">0.05","<0.05")) %>%
   dplyr::rename(HR=hr_categorical) %>%
-  dplyr::mutate(logp = -log10(logrankp))-> for_plot
+  dplyr::mutate(logp = -log10(coxp_categorical))-> for_plot
 
 # Sort -------------------------------------------------------------------
 source(file.path(apppath,"gsca-r-app/utils/common_used_summary_plot_functions.R"))
 
 fetched_data_clean_pattern <- fn_get_pattern(
-  .x = for_plot %>% dplyr::rename(value=logrankp,trend=higher_risk_of_death) %>% dplyr::filter(sur_type=="OS"),
+  .x = for_plot %>% dplyr::rename(value=coxp_categorical,trend=higher_risk_of_death) %>% dplyr::filter(sur_type=="OS"),
   trend1="Higher GSVA",
   trend2="Lower GSVA",
   p_cutoff=0.05,
@@ -141,7 +142,7 @@ heat_plot <- bubble_plot(data=for_plot%>%
                          fillname="Hazard ratio", 
                          colorvalue=c("black","grey"), 
                          colorbreaks=c("<0.05",">0.05"),
-                         colorname="Logrank P value",
+                         colorname="Cox P value",
                          title=title)
 
 # pic size ----------------------------------------------------------------

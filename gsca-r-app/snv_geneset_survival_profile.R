@@ -13,7 +13,7 @@ tablecol <- args[2]
 filepath <- args[3]
 apppath <- args[4]
 
-# tableuuid <- '4cd96df0-cc8f-4373-a7eb-c8160dc5e967'
+# tableuuid <- '6886ee0d-e45b-4651-99d3-45af926e96ad' # cell-cycle-7
 # tableuuid <-'079de210-2519-405b-b3ab-bc6d1e8d2395'
 # tablecol <- 'preanalysised_snvgeneset'
 # filepath <- "/home/liucj/github/GSCA/gsca-r-plot/pngs/688682d4-977f-432b-8338-f0c28730cbcb.png"
