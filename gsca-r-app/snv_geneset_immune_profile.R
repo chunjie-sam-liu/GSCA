@@ -180,7 +180,7 @@ if(ncol(fetched_data)>0){
       )
     ) +
     ylab("-log10(P value)") +
-    xlab("log2 fold change (Mutant vs. WT)") + 
+    xlab("log2 fold change of immune cell abundance (Mutant vs. WT)") + 
     geom_vline(xintercept = 0,col="grey",lwd=0.5) + 
     geom_hline(yintercept = 1.3,col="grey",lwd=0.5) -> plot
   
