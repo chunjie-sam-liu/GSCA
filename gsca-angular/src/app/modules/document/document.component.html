@@ -172,7 +172,7 @@
                 <p>
                   This part analyze the differential expression between tumor and adjacent normal samples. The bubble color from purple to
                   red represent the fold change between tumor and normal samples. The size of dot correlates the significance of FDR. The
-                  dot was filtered by the fold change (FC>2) and statistical significance (FDR < 0.05). As the following, users can find
+                  dot was filtered by the fold change (FC>2) and statistical significance (FDR ≤ 0.05). As the following, users can find
                   that the A2M is significantly downregulated in LUSC.
                 </p>
                 <div fxLayout="row" fxLayoutAlign="center center">
@@ -216,7 +216,7 @@
                 <li>Stage and expression</li>
                 <p>
                   This module estimates the change of expression between TNM stages (from stage I to IV). The bubble color and the bubble
-                  size represent the FDR significance. Black outline border indicates FDR < 0.05. Users can found that PODXL is
+                  size represent the FDR significance. Black outline border indicates FDR ≤ 0.05. Users can found that PODXL is
                   significantly different among stage in KIRC.
                 </p>
                 <div fxLayout="row" fxLayoutAlign="center center">
@@ -264,7 +264,7 @@
                 <p>This module estimates the survival (OS and PFS ) difference between high and low gene expression groups.</p>
                 <p>
                   The color from blue to red represent the hazard ratio, size represents statistical significance in
-                  <span class="phighlight">bubble plot</span>. Black outline border indicates Logrank P < 0.05. Users can find that SLC4A7
+                  <span class="phighlight">bubble plot</span>. Black outline border indicates Logrank P ≤ 0.05. Users can find that SLC4A7
                   is significantly associated with KICH patients’ OS.
                 </p>
                 <div fxLayout="row" fxLayoutAlign="center center">
@@ -345,7 +345,7 @@
                 <li>Survival and GSVA score</li>
                 <p>
                   The <span class="phighlight">bubble plot</span> shows the summary of HR and logrank p of GSVA score among cancers. Black
-                  outline border indicates Logrank P < 0.05. There are no significant difference between high and low GSVA score groups in
+                  outline border indicates Logrank P ≤ 0.05. There are no significant difference between high and low GSVA score groups in
                   each cancer survival. By clicking button "KIRP" in result table, users can get the
                   <span class="phighlight">Kaplan-Meier survival curve</span>.
                 </p>
@@ -378,7 +378,7 @@
             <p>
               In modules provide single gene level analysis, <span class="phighlight">bubble plot</span> presents the summary of the
               correlation for each cancer. The bubble color from blue to red represent the correlation. Bubble size are correlate with FDR
-              significancec. Black outline border indicates FDR < 0.05. By clicking gene symbol buttons in tables, users can get the
+              significancec. Black outline border indicates FDR ≤ 0.05. By clicking gene symbol buttons in tables, users can get the
               detailed result of single gene through scatter plot with fitting line (mRNA expression, CNV and methylation), or
               <span class="phighlight">boxplot</span>(SNV).
             </p>
@@ -505,7 +505,7 @@
                 <p>
                   This function provide survival analysis between mutant and wide type. The color from blue to red represent the hazard
                   ratio, size represents statistical significance in <span class="phighlight">bubble plot</span>. Black outline border
-                  indicates Logrank P < 0.05. We can find that the expression of A2M is significantly associated with OS and PFS in KIRC.
+                  indicates Logrank P ≤ 0.05. We can find that the expression of A2M is significantly associated with OS and PFS in KIRC.
                 </p>
                 <div fxLayout="row" fxLayoutAlign="center center">
                   <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'SnvSurvival.png'" alt="snvsurvival" />
@@ -524,7 +524,7 @@
                 <p>
                   This function provide summary and single cancer result between gene set mutant and wide type. The color from blue to red
                   represent the hazard ratio, size represents statistical significance in <span class="phighlight">bubble plot</span>. Black
-                  outline border indicates Logrank P < 0.05.
+                  outline border indicates Logrank P ≤ 0.05.
                 </p>
                 <div fxLayout="row" fxLayoutAlign="center center">
                   <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'SnvGenesetSurvival.png'" alt="snvgenesetsurvival" />
@@ -616,7 +616,7 @@
                 <p>
                   This function provides summary and single gene survival result between CNV and wide type. The color from blue to red and
                   the bubble size represent the statistical significance in <span class="phighlight">bubble plot</span>. Black outline
-                  border indicates Logrank P < 0.05.
+                  border indicates Logrank P ≤ 0.05.
                 </p>
                 <div fxLayout="row" fxLayoutAlign="center center">
                   <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'CNVsurvival.png'" alt="cnvsurvival" />
@@ -635,7 +635,7 @@
                 <p>This part estimate the survival difference between gene set CNV groups (amplification, deletiona and wide type)</p>
                 <p>
                   The color from blue to red, and the bubble size represent the statistical significance in
-                  <span class="phighlight">bubble plot</span>. Black outline border indicates Logrank P < 0.05.
+                  <span class="phighlight">bubble plot</span>. Black outline border indicates Logrank P ≤ 0.05.
                 </p>
                 <div fxLayout="row" fxLayoutAlign="center center">
                   <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'CNVGenesetSurvival.png'" alt="cnvgenesetsurvival" />
@@ -702,7 +702,7 @@
                 <p>
                   This module provides summary and single gene survival result between high and low methylation. In
                   <span class="phighlight">bubble plot</span>, the color from blue to red correlates with the hazard ratio, the bubble size
-                  represents statistical significance. Black outline border indicates Logrank P < 0.05.
+                  represents statistical significance. Black outline border indicates Logrank P ≤ 0.05.
                 </p>
                 <div fxLayout="row" fxLayoutAlign="center center">
                   <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'methysurvival.png'" alt="methysurvival" />
@@ -735,7 +735,7 @@
             <p>
               These results are present in <span class="phighlight">bubble plot</span>. The color from blue to red represent the correlation
               between mRNA expression and IC50. The bubble size positively correlate with the FDR significance. Black outline border
-              indicates FDR < 0.05.
+              indicates FDR ≤ 0.05.
             </p>
             <div fxLayout="row" fxLayoutAlign="center center">
               <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'gdscfrug.png'" alt="gdscdrug" />

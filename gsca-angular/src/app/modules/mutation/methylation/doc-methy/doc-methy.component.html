@@ -8,33 +8,35 @@
       <p>Differential methylation module provides differential analysis of methylation between tumor and normal sample groups.</p>
       <li>Methods</li>
       <p>
-        Illumina HumanMethylation 450k level 3 data were downloaded from TCGA database. In total, <span class="phighlight">14 cancer types</span> (THCA, KIRP, BLCA, LIHC, HNSC,
-        BRCA, LUAD, PRAD, ESCA, KICH, LUSC, KIRC, STAD, COAD), which <span class="phighlight">have more than 10 paired tumor and adjacent non-tumor samples</span>, were selected and processed into this analysis.
+        Illumina HumanMethylation 450k level 3 data were downloaded from TCGA database. In total,
+        <span class="phighlight">14 cancer types</span> (THCA, KIRP, BLCA, LIHC, HNSC, BRCA, LUAD, PRAD, ESCA, KICH, LUSC, KIRC, STAD,
+        COAD), which <span class="phighlight">have more than 10 paired tumor and adjacent non-tumor samples</span>, were selected and
+        processed into this analysis.
       </p>
-      <p>Generally, there are multiple methylation sites in the region of one gene. Therefore, there are multiple tags store the methylation level of each site. Before differential methylation analysis, we performed correlation analysis to <span class="phighlight">filter the sites most negatively correlate with gene expression</span> into this analysis. </p>
       <p>
-        The p-value was estimated by <span class="phighlight">t-test</span> and was further adjusted by FDR.
+        Generally, there are multiple methylation sites in the region of one gene. Therefore, there are multiple tags store the methylation
+        level of each site. Before differential methylation analysis, we performed correlation analysis to
+        <span class="phighlight">filter the sites most negatively correlate with gene expression</span> into this analysis.
       </p>
+      <p>The p-value was estimated by <span class="phighlight">t-test</span> and was further adjusted by FDR.</p>
 
       <li>Interpretation</li>
       <p>GSCA provides two forms of results, including table and figure.</p>
 
       <ul>
         <li>The result table:</li>
-        <p>
-          Presents detailed information about Cancer type, Gene symbol, Tag, Methylation(Tumor-Normal), Trend, P value and FDR.
-        </p>
+        <p>Presents detailed information about Cancer type, Gene symbol, Tag, Methylation(Tumor-Normal), Trend, P value and FDR.</p>
         <p>Tag: the tag id of methylation site within the region of the specific gene.</p>
         <p>Methylation(Tumor-Normal): the mean methylation of tumor samples subtracts that of normal samples.</p>
-        <p>Trend: changes of methylation in tumor samples compared with normal samples. </p>
+        <p>Trend: changes of methylation in tumor samples compared with normal samples.</p>
 
         <li>GSCA provides result figures including:</li>
         <ul>
           <li>Bubble plot:</li>
           <p>
             Presents the fold change and FDR through bubble color and size. The row is the gene symbol and the column is the selected cancer
-            types. The bubble color from blue to red represent the methlation difference between tumor and normal. The size dot is positively
-            correlate with the FDR significance. The dot was filtered by FDR significance (FDR < 0.05).
+            types. The bubble color from blue to red represent the methlation difference between tumor and normal. The size dot is
+            positively correlate with the FDR significance. The dot was filtered by FDR significance (FDR ≤ 0.05).
           </p>
 
           <li>Box plot:</li>
