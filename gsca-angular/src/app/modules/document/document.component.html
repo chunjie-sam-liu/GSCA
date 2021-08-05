@@ -250,7 +250,7 @@
                   This module estimates the expression difference between subtypes. The color from white to red represent the FDR
                   significance in heat map. Users can find that CD1B is significantly differential expressed among subtypes in LUAD. Through
                   clicking the buttons "CD1B" in the specific row of the result table, users can get the detailed distribution of CD1B
-                  expression among subtypes of LUAD through
+                  expression among subtypes of LUSC through
                   <span class="phighlight">box plot</span>.
                 </p>
                 <div fxLayout="row" fxLayoutAlign="center center">
@@ -264,8 +264,8 @@
                 <p>This module estimates the survival (OS and PFS ) difference between high and low gene expression groups.</p>
                 <p>
                   The color from blue to red represent the hazard ratio, size represents statistical significance in
-                  <span class="phighlight">bubble plot</span>. Black outline border indicates Logrank P ≤ 0.05. Users can find that SLC4A7
-                  is significantly associated with KICH patients’ OS.
+                  <span class="phighlight">bubble plot</span>. Black outline border indicates Cox P ≤ 0.05. Users can find that SLC4A7 is
+                  significantly associated with KICH patients’ OS.
                 </p>
                 <div fxLayout="row" fxLayoutAlign="center center">
                   <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'exprsurvival.png'" alt="survivalsummary" />
@@ -344,9 +344,9 @@
 
                 <li>Survival and GSVA score</li>
                 <p>
-                  The <span class="phighlight">bubble plot</span> shows the summary of HR and Logrank p of GSVA score among cancers. Black
-                  outline border indicates Logrank P ≤ 0.05. There are no significant difference between high and low GSVA score groups in
-                  each cancer survival. By clicking button "KIRP" in result table, users can get the
+                  The <span class="phighlight">bubble plot</span> shows the summary of HR and Cox p of GSVA score among cancers. Black
+                  outline border indicates Cox P ≤ 0.05. There are no significant difference between high and low GSVA score groups in each
+                  cancer survival. By clicking button "KIRP" in result table, users can get the
                   <span class="phighlight">Kaplan-Meier survival curve</span>.
                 </p>
                 <div fxLayout="row" fxLayoutAlign="center center">
@@ -400,10 +400,10 @@
               <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'GSVAimmu.png'" alt="GSVAimmuneplot" />
             </div>
             <div fxLayout="row" fxLayoutAlign="center center">
-              <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'ImmuSnvGeneset.png'" alt="ImmuSnvGeneset" />
+              <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'ImmuCnvGeneset.png'" alt="ImmuCnvGeneset" />
             </div>
             <div fxLayout="row" fxLayoutAlign="center center">
-              <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'ImmuSnvGenesetSingle.png'" alt="ImmuSnvGenesetSingle.png" />
+              <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'ImmuCnvGenesetSingle.png'" alt="ImmuCnvGenesetSingle.png" />
             </div>
           </mat-expansion-panel>
         </div>
@@ -502,10 +502,11 @@
                   </div>
                 </ul>
                 <li>Single gene SNV and survival</li>
+                <p>Survival analysis only performed for groups with more than 5 samples. And at least 2 groups are needed.</p>
                 <p>
                   This function provide survival analysis between mutant and wide type. The color from blue to red represent the hazard
                   ratio, size represents statistical significance in <span class="phighlight">bubble plot</span>. Black outline border
-                  indicates Logrank P ≤ 0.05. We can find that the expression of A2M is significantly associated with OS and PFS in KIRC.
+                  indicates Cox P ≤ 0.05. Here, there are no significant results.
                 </p>
                 <div fxLayout="row" fxLayoutAlign="center center">
                   <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'SnvSurvival.png'" alt="snvsurvival" />
@@ -513,7 +514,7 @@
 
                 <p>
                   By clicking the button "A2M" in the specific row of the result table, users can get the
-                  <span class="phighlight">Kaplan-Meier survival curve</span> between A2M mutant and wide type in KIRC. Here is the OS
+                  <span class="phighlight">Kaplan-Meier survival curve</span> between A2M mutant and wide type in LUAD. Here is the PFS
                   result.
                 </p>
                 <div fxLayout="row" fxLayoutAlign="center center">
@@ -524,7 +525,7 @@
                 <p>
                   This function provide summary and single cancer result between gene set mutant and wide type. The color from blue to red
                   represent the hazard ratio, size represents statistical significance in <span class="phighlight">bubble plot</span>. Black
-                  outline border indicates Logrank P ≤ 0.05.
+                  outline border indicates Cox P ≤ 0.05.
                 </p>
                 <div fxLayout="row" fxLayoutAlign="center center">
                   <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'SnvGenesetSurvival.png'" alt="snvgenesetsurvival" />
@@ -702,7 +703,7 @@
                 <p>
                   This module provides summary and single gene survival result between high and low methylation. In
                   <span class="phighlight">bubble plot</span>, the color from blue to red correlates with the hazard ratio, the bubble size
-                  represents statistical significance. Black outline border indicates Logrank P ≤ 0.05.
+                  represents statistical significance. Black outline border indicates Cox P ≤ 0.05.
                 </p>
                 <div fxLayout="row" fxLayoutAlign="center center">
                   <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'methysurvival.png'" alt="methysurvival" />
