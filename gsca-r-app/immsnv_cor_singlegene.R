@@ -75,10 +75,10 @@ comp_list <- list()
 for(i in 1:ncol(combn_matrix)){
   comp_list[[i]] <- combn_matrix[,i]
 }
-plot <- box_plot_single_gene_single_cancer(data = for_plot,aesx = "group",aesy="TIL",color = "group_n",color_name = "Group",color_labels =  color_labels,color_values = c(CPCOLS[3], CPCOLS[1]),title = glue::glue('{celltype} infiltrates between {search_genes}\nmutatants and WT in {search_cancertypes}'),xlab = 'Group', ylab = glue::glue('Abundance of {celltype}\n(ImmuCellAI)'),xangle = 0,comp_list=comp_list)
+plot <- box_plot_single_gene_single_cancer(data = for_plot,aesx = "group",aesy="TIL",color = "group_n",color_name = "Group",color_labels =  color_labels,color_values = c(CPCOLS[3], CPCOLS[1]),title = glue::glue('{celltype} infiltrates between\n{search_genes} mutants and WT in {search_cancertypes}'),xlab = 'Group', ylab = glue::glue('Abundance of {celltype}\n(ImmuCellAI)'),xangle = 0,comp_list=comp_list)
 
 # Save image --------------------------------------------------------------
 
-ggsave(filename = filepath, plot = plot, device = 'png', width = 5, height = 3)
+ggsave(filename = filepath, plot = plot, device = 'png', width = 6, height = 4)
 pdf_name <- gsub("\\.png",".pdf",filepath)
-ggsave(filename = pdf_name, plot = plot, device = 'pdf', width = 5, height = 3)
+ggsave(filename = pdf_name, plot = plot, device = 'pdf', width = 6, height = 4)
