@@ -8,7 +8,12 @@
       <p>This module summarizes the profile of inputted genes’ SNV in selected cancer types.</p>
       <li>Methods</li>
       <p>The SNV data of 10234 samples from 33 cancer types were collected from TCGA database.</p>
-      <p><span class="phighlight">Seven types</span> of mutation were included in this analysis: Missense_Mutation, Nonsense_Mutation, Frame_Shift_Ins, Splice_Site, Frame_Shift_Del, In_Frame_Del, In_Frame_Ins. We call these types of mutation as <span class="phighlight">Effective mutation</span>. And the non-effective mutations including Silent, Intron, IGR, 3'UTR, 5'UTR, 3'Flank, and 5'Flank.</p>
+      <p>
+        <span class="phighlight">Seven types</span> of mutation were included in this analysis: Missense_Mutation, Nonsense_Mutation,
+        Frame_Shift_Ins, Splice_Site, Frame_Shift_Del, In_Frame_Del, In_Frame_Ins. We call these types of mutation as
+        <span class="phighlight">Effective mutation</span>. And the non-effective mutations including Silent, Intron, IGR, 3'UTR, 5'UTR,
+        3'Flank, and 5'Flank.
+      </p>
 
       <li>Interpretation</li>
       <p>GSCA provides two forms of results, including table and figure.</p>
@@ -18,12 +23,8 @@
           Presents detailed information about Cancer type, Gene symbol, Effective mutation, Non-effective mutation, Total sample size and
           Percentage.
         </p>
-        <p>
-          Effective mutation: the number of samples have at least one effective mutation site on the region of a specific gene. 
-        </p>
-        <p>
-          Non-effective mutation: the number of samples only have non-effective mutation site on the region of a specific gene. 
-        </p>
+        <p>Effective mutation: the number of samples have at least one effective mutation site on the region of a specific gene.</p>
+        <p>Non-effective mutation: the number of samples only have non-effective mutation site on the region of a specific gene.</p>
         <p>Total sample size: the number of samples with SNV mutation data.</p>
         <p>Percentage: the percentage of samples with effective mutations.</p>
 
@@ -40,11 +41,20 @@
 
           <li>Summary plot:</li>
           <p>Summarizes the count and type of variants in sample and gene levels.</p>
-          <p>Plot 1 (Variant Classification): the count of each type of effective mutation (Missense_Mutation, Nonsense_Mutation, Frame_Shift_Ins, Splice_Site, Frame_Shift_Del, In_Frame_Del, In_Frame_Ins) of inputted gene set in selected cancer types.</p>
+          <p>
+            Plot 1 (Variant Classification): the count of each type of effective mutation (Missense_Mutation, Nonsense_Mutation,
+            Frame_Shift_Ins, Splice_Site, Frame_Shift_Del, In_Frame_Del, In_Frame_Ins) of inputted gene set in selected cancer types.
+          </p>
           <p>Plot 2 (Variant Type): the count of SNP and DEL of inputted gene set in selected cancer types.</p>
           <p>Plot 3 (SNV class): the count of each SNV class of inputted gene set ins selected cancer types.</p>
-          <p>Plot 4 (Variants per sample): the count of variants in each sample. A bar indicates a sample, the color of bar correspond to the color of variant classification.</p>
-          <p>Plot 5 (Variant Classification summary): box plot shows the distribution of the count of each variant classification in the sample set of selected cancer types. The color of box correspond to the color of variant classification.</p>
+          <p>
+            Plot 4 (Variants per sample): the count of variants in each sample. A bar indicates a sample, the color of bar correspond to the
+            color of variant classification.
+          </p>
+          <p>
+            Plot 5 (Variant Classification summary): box plot shows the distribution of the count of each variant classification in the
+            sample set of selected cancer types. The color of box correspond to the color of variant classification.
+          </p>
           <p>Plot 6 (Top 10 mutated genes): the count and percentage of variants in top 10 mutated genes.</p>
 
           <li>Oncoplot:</li>
@@ -52,24 +62,38 @@
             Also called waterfall plot, presents the mutation distribution of top 10 (when num of gene set <10, show all) mutated genes from
             inputted gene set in sample set of selected cancers. Also provides the classification of SNV types.
           </p>
-          <p><span class="phighlight">Note that in this plot, only samples have at least one SNV are included. As the following plot showing that top 10 genes are altered in 214 samples, and there are 346 smaples have at least one SNV.</span></p>
+          <p>
+            <span class="phighlight"
+              >Note that in this plot, only samples have at least one SNV are included. As the following plot showing that top 10 genes are
+              altered in 214 samples, and there are 346 smaples have at least one SNV.</span
+            >
+          </p>
           <div fxLayout="row" fxLayoutAlign="center center">
             <img mat-card-image [src]="'/assets/imgs/doc_pic/' + 'SNVoncoplot.png'" alt="snvoncoplot" />
           </div>
 
           <li>Titv plot:</li>
           <p>
-            Classifies the mutations into Transitions(Ti) and transversions(Tv). <span class="phighlight">Transitions</span> are interchanges of two-ring purines (A<->G) or
-            of one-ring pyrimidines (C<->T): they therefore involve bases of similar shape. <span class="phighlight">Transversions</span> are interchanges of purine for
-            pyrimidine bases, which therefore involve exchange of one-ring and two-ring structures. Although there are twice as many
-            possible transversions, because of the molecular mechanisms by which they are generated, <span class="phighlight">transition mutations are generated at
-            higher frequency than transversions in whole gene</span>. As well, transitions are less likely to result in amino acid substitutions (due to
-            "wobble"), and are therefore more likely to persist as "silent substitutions" in populations as single nucleotide polymorphisms
-            (SNPs).
+            Classifies the mutations into Transitions(Ti) and transversions(Tv). <span class="phighlight">Transitions</span> are
+            interchanges of two-ring purines (A<->G) or of one-ring pyrimidines (C<->T): they therefore involve bases of similar shape.
+            <span class="phighlight">Transversions</span> are interchanges of purine for pyrimidine bases, which therefore involve exchange
+            of one-ring and two-ring structures. Although there are twice as many possible transversions, because of the molecular
+            mechanisms by which they are generated,
+            <span class="phighlight">transition mutations are generated at higher frequency than transversions in whole gene</span>. As
+            well, transitions are less likely to result in amino acid substitutions (due to "wobble"), and are therefore more likely to
+            persist as "silent substitutions" in populations as single nucleotide polymorphisms (SNPs).
           </p>
           <p>This plot shows the distribution of Ti and Tv of inputted gene set in the sample set of selected cancer types.</p>
-          <p>Plot 1(upper left) using box plot shows the distribution of SVN class of inputted gene set in the sample set of selected cancer types. Note that in most cases, one type of SNV class could not exist in more than half of samples. Therefore, the median value (thick black line) of box plot generally locate at 0, especially when the size of inputted gene set is small or when the frequency of SNV of gene set is low.</p>
-          <p>Plot 2(upper right) using box plot shows the distribution of Ti (A<->G and C<->T) and Tv (others) of inputted gene set in the sample set of selected cancer types. </p>
+          <p>
+            Plot 1(upper left) using box plot shows the distribution of SVN class of inputted gene set in the sample set of selected cancer
+            types. Note that in most cases, one type of SNV class could not exist in more than half of samples. Therefore, the median value
+            (thick black line) of box plot generally locate at 0, especially when the size of inputted gene set is small or when the
+            frequency of SNV of gene set is low.
+          </p>
+          <p>
+            Plot 2(upper right) using box plot shows the distribution of Ti (A<->G and C<->T) and Tv (others) of inputted gene set in the
+            sample set of selected cancer types.
+          </p>
           <p>Plot 3(blow) shows the frequency of SNV class os inputted gene set for each sample.</p>
         </ul>
       </ul>
