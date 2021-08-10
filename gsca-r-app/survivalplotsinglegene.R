@@ -70,7 +70,7 @@ combine_data %>%
   dplyr::mutate(group = ifelse(expr>quantile(expr,cutoff$cutoff),"Higher expr.","Lower expr.")) -> combine_data_group
 
 # draw survival plot ------------------------------------------------------
-title <- paste(surtype,"survival between",search_genes, "high and low mRNA \nexpression in",search_cancertypes)
+title <- paste(surtype,"of",search_genes, "expression in",search_cancertypes)
 combine_data_group %>%
   dplyr::filter(!is.na(group)) %>%
   fn_survival(title,color_list,logrankp=fetched_expr_survival$logrankp,ylab=paste(toupper(surtype),"probability")) -> plot

@@ -114,7 +114,7 @@ fetched_expr_survival <- purrr::map(.x = pre_ana_gsva_survival_col, .f = fn_fetc
 color_list <- tibble::tibble(color=c( "#CD2626","#00B2EE"),
                              group=c("Higher GSVA","Lower GSVA"))
 
-title <- paste(search_surtype,"survival between","high and low GSVA score in",search_cancertype)
+title <- paste(search_surtype,"survival","of GSVA score in",search_cancertype)
 combine_data_group %>%
   dplyr::filter(!is.na(group)) %>%
   fn_survival(title,color_list,logrankp=fetched_expr_survival$logrankp,ylab=paste(toupper(search_surtype),"probability")) -> plot

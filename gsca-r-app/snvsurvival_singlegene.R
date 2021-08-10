@@ -99,7 +99,7 @@ combine %>%
 
 
 # draw survival plot ------------------------------------------------------
-title <- paste(toupper(survival_type),"survival of",search_genes, "SNV in",search_cancertypes)
+title <- paste(toupper(survival_type),"of",search_genes, "SNV in",search_cancertypes)
 color_list <- tibble::tibble(color=c( "#CD2626","#00B2EE"),
                              group=sort(unique(combine_data_group$group)))
 combine_data_group %>%

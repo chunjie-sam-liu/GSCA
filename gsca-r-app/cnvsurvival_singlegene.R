@@ -65,7 +65,7 @@ fetched_cnv_survival <- purrr::map(.x = paste(search_cancertypes,"_cnv_survival"
   dplyr::filter(sur_type %in% toupper(survival_type))
 
 # draw survival plot ------------------------------------------------------
-title <- paste(toupper(survival_type),"survival of",search_genes, "CNV in",search_cancertypes)
+title <- paste(toupper(survival_type),"of",search_genes, "CNV in",search_cancertypes)
 combine_data_group %>%
   dplyr::filter(!is.na(time)) %>%
   fn_survival(title,cnv_group.color,logrankp=fetched_cnv_survival$log_rank_p,ylab=paste(toupper(survival_type),"probability")) -> plot

@@ -70,7 +70,7 @@ combine_data %>%
 
 
 # draw survival plot ------------------------------------------------------
-title <- paste(toupper(survival_type),"survival of",search_genes, "methylation in",search_cancertypes)
+title <- paste(toupper(survival_type),"of",search_genes, "methylation in",search_cancertypes)
 combine_data_group %>%
   dplyr::filter(!is.na(time), time > 0, !is.na(status)) %>%
   fn_survival(title,color_list,logrankp=fetched_methy_survival$log_rank_p,ylab=paste(toupper(survival_type),"probability")) -> plot

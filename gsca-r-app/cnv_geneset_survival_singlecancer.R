@@ -96,7 +96,7 @@ cnv_group %>%
   unique() -> cnv_group.color
 
 
-title <- paste(toupper(search_surtype),"survival of gene set", "CNV in",search_cancertypes)
+title <- paste(toupper(search_surtype),"of gene set", "CNV in",search_cancertypes)
 combine_data_group %>%
   dplyr::filter(!is.na(time)) %>%
   dplyr::filter(group !="Excluded") %>%
