@@ -118,6 +118,7 @@ system.time(
   clinical %>%
     dplyr::select(cancer_types,survival,n.y) %>%
     tidyr::unnest() %>%
+    dplyr::mutate(os_days = os_days/30, pfs_days=pfs_days/30) %>%
     dplyr::mutate(class="all") %>%
     tidyr::nest(-class) %>%
     purrr::pmap(.f = fn_survival) ->
