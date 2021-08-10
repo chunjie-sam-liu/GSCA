@@ -77,7 +77,7 @@ fn_survival <- function(data,title,color,logrankp=NA,ylab){
   )[[1]] +
     annotate("text", 
              x = x_lable, y = 0.2, # x and y coordinates of the text
-             label = paste("Logrank P value =", round(logrankp,2))) +
+             label = paste("Logrank P value =", signif(logrankp,2))) +
     scale_color_manual(
       values = color_paired$color,
       labels = color_paired$group_label
