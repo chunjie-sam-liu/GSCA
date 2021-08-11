@@ -49,64 +49,28 @@ fn_fetch_mongo <- function(.x) {
     dplyr::mutate(cancertype = gsub(pattern = '_deg', replacement = '', x = .x))
 }
 
-fn_filter_fc_pval <- function(.x) {
-  .x %>%
-    dplyr::filter(abs(log2(fc)) >= log2(3 / 2), fdr <= 0.05) %>%
-    dplyr::mutate(fdr = -log10(fdr)) %>%
-    dplyr::mutate(fdr = ifelse(fdr > 15, 15, fdr)) %>%
-    dplyr::mutate(fc = ifelse(fc < 1 / 8, 1 / 8, ifelse(fc > 8, 8, fc)))
-}
-
-fn_filter_pattern <- function(fc, fdr) {
-  if ((fc > 3 / 2) && (fdr <= 0.05)) {
-    return(1)
-  } else if ((fc < 2 / 3) && (fdr <= 0.05)) {
-    return(-1)
-  } else {
-    return(0)
-  }
-}
-
-fn_get_pattern <- function(.x) {
-  .x %>%
-    dplyr::mutate(expr_pattern = purrr::map2_dbl(fc, fdr, fn_filter_pattern)) %>%
-    dplyr::select(cancertype, symbol, expr_pattern) %>%
-    tidyr::spread(key = cancertype, value = expr_pattern) %>%
-    dplyr::mutate_if(.predicate = is.numeric, .funs = function(.) {ifelse(is.na(.), 0, .)})
-}
-
-fn_get_cancer_types_rank <- function(.x) {
-  .x %>%
-    dplyr::summarise_if(.predicate = is.numeric, dplyr::funs(sum(abs(.)))) %>%
-    tidyr::gather(key = cancertype, value = rank) %>%
-    dplyr::arrange(dplyr::desc(rank))
-}
-
-fn_get_gene_rank <- function(.x) {
-  .x %>%
-    dplyr::rowwise() %>%
-    dplyr::do(
-      symbol = .$symbol,
-      rank = unlist(.[-1], use.names = F) %>% sum(),
-      up = (unlist(.[-1], use.names = F) == 1) %>% sum(),
-      down = (unlist(.[-1], use.names = F) == -1) %>% sum()
-    ) %>%
-    dplyr::ungroup() %>%
-    tidyr::unnest(cols = c(symbol, rank, up, down)) %>%
-    dplyr::mutate(up_p = up / 14, down_p = down / 14, none = 1 - up_p - down_p) %>%
-    dplyr::arrange(rank)
-}
-
 # Query data --------------------------------------------------------------
 fetched_data <- purrr::map(.x = search_cancertypes, .f = fn_fetch_mongo) %>% dplyr::bind_rows()%>%
   dplyr::mutate(group=ifelse(fdr>0.05,">0.05","<=0.05"))
 
 # Sort --------------------------------------------------------------------
 
-fetched_data_clean_pattern <- fn_get_pattern(.x = fetched_data)
-cancer_rank <- fn_get_cancer_types_rank(.x = fetched_data_clean_pattern)
-gene_rank <- fn_get_gene_rank(.x = fetched_data_clean_pattern)
-
+fetched_data %>%
+  dplyr::mutate(rank = ifelse(fdr<=0.05,1,0)) %>%
+  dplyr::mutate(rank = rank * log2(fc)) %>%
+  dplyr::group_by(cancertype) %>%
+  dplyr::mutate(sum = sum(rank)) %>%
+  dplyr::select(cancertype,sum) %>%
+  unique() %>%
+  dplyr::arrange(sum) -> cancer_rank
+fetched_data %>%
+  dplyr::mutate(rank = ifelse(fdr<=0.05,1,0)) %>%
+  dplyr::mutate(rank = rank * log2(fc)) %>%
+  dplyr::group_by(symbol) %>%
+  dplyr::mutate(sum = sum(rank)) %>%
+  dplyr::select(symbol,sum) %>%
+  unique() %>%
+  dplyr::arrange(sum) -> gene_rank
 # fetched_data_filter <- fn_filter_fc_pval(.x = fetched_data)
 
 # Plot --------------------------------------------------------------------
@@ -140,7 +104,7 @@ fetched_data %>%
                      breaks = c("<=0.05",">0.05"),
                      name="FDR")+
   scale_y_discrete(limit = gene_rank$symbol) +
-  scale_x_discrete(limit = cancer_rank$cancer_types) +
+  scale_x_discrete(limit = cancer_rank$cancertype) +
   theme(
     panel.background = element_rect(colour = "black", fill = "white"),
     panel.grid = element_line(colour = "grey", linetype = "dashed"),
