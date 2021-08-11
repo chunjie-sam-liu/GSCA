@@ -46,7 +46,7 @@ fetched_data_clean_pattern <- fn_get_pattern(
   p_cutoff=0.05,
   selections =c("cancertype","symbol"))
 cancer_rank <- fn_get_cancer_types_rank_v2(.x = fetched_data_clean_pattern)
-gene_rank <- fn_get_gene_rank(.x = fetched_data_clean_pattern)
+gene_rank <- fn_get_gene_rank_v2(.x = fetched_data_clean_pattern)
 for_plot <- fetched_data %>%
   dplyr::mutate(group=ifelse(pval<=0.05,"<=0.05",">0.05")) %>%
   dplyr::mutate(logp = -log10(pval)) %>%

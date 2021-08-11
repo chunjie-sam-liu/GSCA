@@ -40,10 +40,10 @@ fetched_data %>%
 # Sort ----------------------------------------------------------------
 source(file.path(apppath,"gsca-r-app/utils/common_used_summary_plot_functions.R"))
 
-fetched_data_clean_pattern <- fn_get_pattern(.x = fetched_data %>% dplyr::mutate(value=10^(-log10(fdr))),
+fetched_data_clean_pattern <- fn_get_pattern(.x = fetched_data %>% dplyr::mutate(value=fdr),
                                              trend1="Up",
                                              trend2="Down",
-                                             p_cutoff=1.3,
+                                             p_cutoff=0.05,
                                              selections = c("cancertype","symbol"))
 cancer_rank <- fn_get_cancer_types_rank(.x = fetched_data_clean_pattern)
 gene_rank <- fn_get_gene_rank(.x = fetched_data_clean_pattern)

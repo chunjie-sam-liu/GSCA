@@ -45,7 +45,7 @@ if(nrow(fetched_data)>0){
     p_cutoff=0.05,
     selections =c("cancertype","symbol"))
   cancer_rank <- fn_get_cancer_types_rank(.x = fetched_data_clean_pattern)
-  gene_rank <- fn_get_gene_rank(.x = fetched_data_clean_pattern)
+  gene_rank <- fn_get_gene_rank_v2(.x = fetched_data_clean_pattern)
   for_plot <- fn_pval_label(.x = fetched_data %>% dplyr::rename(value=cox_p)) %>%
     dplyr::filter(!is.na(HR)) %>%
     dplyr::mutate(HR = ifelse(HR>10,10,HR)) %>%
