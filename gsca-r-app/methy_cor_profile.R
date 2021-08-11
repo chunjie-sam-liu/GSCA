@@ -37,14 +37,22 @@ fetched_data <- purrr::map(.x = search_colls, .f = fn_fetch_mongo, pattern="_met
 # Sort ----------------------------------------------------------------
 source(file.path(apppath,"gsca-r-app/utils/common_used_summary_plot_functions.R"))
 
-fetched_data_clean_pattern <- fn_get_pattern(
-  .x = fetched_data %>% dplyr::mutate(value=fdr,trend="trend",trend1="trend",trend1="trend"),
-  trend1="trend",
-  trend2="trend",
-  p_cutoff=0.05,
-  selections =c("cancertype","symbol"))
-cancer_rank <- fn_get_cancer_types_rank(.x = fetched_data_clean_pattern)
-gene_rank <- fn_get_gene_rank_v2(.x = fetched_data_clean_pattern)
+fetched_data %>%
+  dplyr::group_by(cancertype) %>%
+  dplyr::mutate(rank = spm*logfdr) %>%
+  dplyr::mutate(rank = sum(rank)) %>%
+  dplyr::select(cancertype,rank) %>%
+  unique() %>%
+  dplyr::arrange(rank) -> cancer_rank
+fetched_data %>%
+  dplyr::group_by(symbol) %>%
+  dplyr::mutate(rank = spm*logfdr) %>%
+  dplyr::mutate(rank = sum(rank)) %>%
+  dplyr::select(symbol,rank) %>%
+  unique() %>%
+  dplyr::arrange(rank) -> gene_rank
+  
+
 for_plot <- fn_pval_label(.x = fetched_data %>% dplyr::rename(value=fdr))  %>%
   dplyr::mutate(group = ifelse(value<=0.05,"<=0.05",">0.05"))
 
