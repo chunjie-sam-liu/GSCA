@@ -44,6 +44,23 @@ fetched_data %>%
   dplyr::mutate(color = plyr::revalue(type, replace = c("a_hete" = "brown4", "d_hete" = "aquamarine4"))) %>%
   dplyr::mutate(per=ifelse(per==0,NA,per*100)) -> plot_ready
 
+# rank
+plot_ready %>%
+  dplyr::mutate(per = ifelse(is.na(per),0,per)) %>%
+  dplyr::group_by(symbol) %>%
+  dplyr::mutate(rank = sum(abs(per))) %>%
+  dplyr::select(symbol,rank) %>%
+  unique() %>%
+  dplyr::arrange(rank) -> gene_rank
+
+plot_ready %>%
+  dplyr::mutate(per = ifelse(is.na(per),0,per)) %>%
+  dplyr::group_by(cancertype) %>%
+  dplyr::mutate(rank = sum(abs(per))) %>%
+  dplyr::select(cancertype,rank) %>%
+  unique() %>%
+  dplyr::arrange(desc(rank)) -> cancer_rank
+
 source(file.path(apppath,"gsca-r-app/utils/fn_cnv_bubble.R"))
 plot_ready %>% 
   dplyr::filter(!is.na(per)) %>%
@@ -51,7 +68,7 @@ plot_ready %>%
 min(min_max) -> min
 max(min_max) -> max
 title <- "Heterozygous CNV in each cancer"
-plot <- fn_cnv_bubble(data=plot_ready, aesx = "cancertype",aesy="symbol",size="per",color="color",xlab="Cancer type",ylab="Symbol",sizename="CNV (%)",colorname="SCNA type",labels=c("Deletion","Amplification"),wrap="~ effect", min = min, max = max, title=title)
+plot <- fn_cnv_bubble(data=plot_ready, aesx = "cancertype",aesy="symbol",size="per",color="color",xlab="Cancer type",ylab="Symbol",sizename="CNV (%)",colorname="SCNA type",labels=c("Deletion","Amplification"),wrap="~ effect", min = min, max = max, title=title, cancer_rank=cancer_rank$cancertype, gene_rank=gene_rank$symbol)
 
 # Save --------------------------------------------------------------------
 ggsave(filename = filepath, plot = plot, device = 'png', width = size$width+2, height = size$height)
