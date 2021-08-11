@@ -1,7 +1,9 @@
-fn_cnv_bubble <- function(data,aesx,aesy,size,color,xlab,ylab,title,sizename,min=0,max=100,colorname,labels,wrap){
+fn_cnv_bubble <- function(data,aesx,aesy,size,color,xlab,ylab,title,sizename,min=0,max=100,colorname,labels,wrap,cancer_rank, gene_rank){
   data %>%
     ggplot(aes_string(y = aesy, x = aesx)) +
     geom_point(aes_string(size = size, color = color)) +
+    scale_y_discrete(limit = gene_rank) +
+    scale_x_discrete(limit = cancer_rank) +
     xlab(xlab) +
     ylab(ylab) +
     labs(title = title) +
