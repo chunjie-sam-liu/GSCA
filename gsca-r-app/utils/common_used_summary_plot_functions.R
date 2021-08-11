@@ -60,6 +60,17 @@ fn_get_gene_rank <- function(.x) {
     dplyr::arrange(rank)
 }
 
+fn_get_gene_rank_v2 <- function(.x) {
+  .x %>%
+    tidyr::gather(-symbol,key="key",value="value") %>%
+    dplyr::group_by(symbol) %>%
+    dplyr::mutate(rank=sum(value)) %>%
+    dplyr::select(-key,-value) %>%
+    unique()%>%
+    dplyr::arrange(rank)
+}
+
+
 fn_pval_class <- function(.p){
   if(.p>0.05){
     ""
