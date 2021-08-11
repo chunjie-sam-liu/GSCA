@@ -40,8 +40,8 @@ if(nrow(fetched_data)>0){
   
   fetched_data_clean_pattern <- fn_get_pattern(
     .x = fetched_data %>% dplyr::rename(value=cox_p,trend=higher_risk_of_death) %>% dplyr::filter(sur_type=="OS"),
-    trend1="Mutated",
-    trend2="Non-mutated",
+    trend1="WT",
+    trend2="Mutant",
     p_cutoff=0.05,
     selections =c("cancertype","symbol"))
   cancer_rank <- fn_get_cancer_types_rank(.x = fetched_data_clean_pattern)
