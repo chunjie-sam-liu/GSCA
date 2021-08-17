@@ -166,6 +166,7 @@ export class MethySurvivalComponent implements OnInit, OnChanges, AfterViewInit 
           validColl: [
             collectionlist.methy_survival.collnames[collectionlist.methy_survival.cancertypes.indexOf(this.expandedElement.cancertype)],
           ],
+          surType: [this.expandedElement.sur_type],
         };
 
         this.mutationApiService.getMethySurvivalSingleGene(postTerm).subscribe(

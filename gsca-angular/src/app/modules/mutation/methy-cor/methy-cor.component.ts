@@ -30,8 +30,8 @@ export class MethyCorComponent implements OnInit, OnChanges, AfterViewInit {
   showMethyCorTable = true;
   @ViewChild('paginatorMethyCor') paginatorMethyCor: MatPaginator;
   @ViewChild(MatSort) sortMethyCor: MatSort;
-  displayedColumnsMethyCor = ['cancertype', 'symbol', 'spm', 'fdr'];
-  displayedColumnsMethyCorHeader = ['Cancer type', 'Gene symbol', 'Spearman correlation', 'FDR'];
+  displayedColumnsMethyCor = ['cancertype', 'symbol', 'gene', 'spm', 'fdr'];
+  displayedColumnsMethyCorHeader = ['Cancer type', 'Gene symbol', 'Tag', 'Spearman correlation', 'FDR'];
   expandedElement: MethyCorTableRecord;
   expandedColumn: string;
 

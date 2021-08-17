@@ -32,7 +32,7 @@
               </ng-template>
               <ng-template #plain>
                 {{
-                  column === 'cancertype'
+                  column === 'cancertype' || column === 'gene'
                     ? element[column]
                     : column !== 'fdr'
                     ? (element[column] | number: '1.2-2')
