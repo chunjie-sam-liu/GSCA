@@ -30,7 +30,7 @@ size <- fn_height_width(search_genes,search_cancertypes)
 # fetch data --------------------------------------------------------------
 
 source(file.path(apppath, "gsca-r-app/utils/fn_fetch_mongo_data.R"))
-fields <- '{"symbol": true, "log_rank_p": true,"cox_p": true,"higher_risk_of_death": true,"HR": true, "_id": false}'
+fields <- '{"symbol": true, "log_rank_p": true,"cox_p": true,"higher_risk_of_death": true,"HR": true,"sur_type": true,"_id": false}'
 fetched_data <- purrr::map(.x = search_colls, .f = fn_fetch_mongo, pattern="_methy_survival",fields = fields,.key=search_genes,.keyindex="symbol") %>%
   dplyr::bind_rows()
 
@@ -68,7 +68,7 @@ heat_plot <- bubble_plot(data=for_plot,
                          gene="symbol", 
                          xlab="Cancer type", 
                          ylab="Symbol", 
-                         facet_exp = NA,
+                         facet_exp = ".~sur_type",
                          size="logp", 
                          fill="HR", 
                          fillmipoint =1,
