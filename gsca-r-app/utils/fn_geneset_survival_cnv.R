@@ -3,7 +3,7 @@
 ####################################
 
 survival_group <- tibble::tibble(type=c("os","pfs"),
-                                 time=c("os_days","pfs_days"),
+                                 time=c("os_months","pfs_months"),
                                  status=c("os_status","pfs_status"))
 
 fn_cox_logp <- function(.d){
