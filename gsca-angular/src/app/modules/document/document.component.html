@@ -474,7 +474,7 @@
                   </li>
                   <p>
                     Also provides the classification of SNV types. Note that in this plot, only samples have at least one SNV are included.
-                    As the following plot showing that top 10 genes are altered in 213 samples, and there are 251 smaples have at least one
+                    As the following plot showing that top 10 genes are altered in 213 samples, and there are 251 samples have at least one
                     SNV in input gene set.
                   </p>
                   <br />
@@ -502,7 +502,7 @@
                   </div>
                 </ul>
                 <li>Single gene SNV and survival</li>
-                <p>Survival analysis only performed for groups with more than 5 samples. And at least 2 groups are needed.</p>
+                <p>Survival analysis was performed for groups with ≥ 2 samples. And at least 2 groups are needed.</p>
                 <p>
                   This function provide survival analysis between mutant and wide type. The color from blue to red represent the hazard
                   ratio, size represents statistical significance in <span class="phighlight">bubble plot</span>. Black outline border
@@ -617,7 +617,7 @@
                 <p>
                   This function provides summary and single gene survival result between CNV and wide type. The color from blue to red and
                   the bubble size represent the statistical significance in <span class="phighlight">bubble plot</span>. Black outline
-                  border indicates Logrank P ≤ 0.05. 
+                  border indicates Logrank P ≤ 0.05.
                 </p>
                 <div fxLayout="row" fxLayoutAlign="center center">
                   <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'CNVsurvival.png'" alt="cnvsurvival" />
@@ -636,7 +636,8 @@
                 <p>This part estimate the survival difference between gene set CNV groups (amplification, deletion and wide type)</p>
                 <p>
                   The color from blue to red, and the bubble size represent the statistical significance in
-                  <span class="phighlight">bubble plot</span>. Black outline border indicates Logrank P ≤ 0.05. Here, there are no significant results.
+                  <span class="phighlight">bubble plot</span>. Black outline border indicates Logrank P ≤ 0.05. Here, there are no
+                  significant results.
                 </p>
                 <div fxLayout="row" fxLayoutAlign="center center">
                   <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'CNVGenesetSurvival.png'" alt="cnvgenesetsurvival" />
