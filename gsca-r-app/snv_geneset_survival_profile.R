@@ -125,7 +125,7 @@ if(ncol(fetched_data)>0){
     if(length(big0)>0){
       big0 %>%
         max() %>%
-      signif(2)-> max
+        ceiling()-> max
     }else{
       1->max
     }
@@ -134,9 +134,7 @@ if(ncol(fetched_data)>0){
       dplyr::filter(hr<1) %>%
       .$hr -> little0
     if(length(little0)>0){
-      little0 %>%
-      min() %>%
-      signif(2) -> min
+      0 -> min
     }else{
       1->min
     }
