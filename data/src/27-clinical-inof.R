@@ -77,10 +77,12 @@ system.time(
 
 fn_list_survival <- function(.x){
   tibble::tibble(
-    sample_name = list(.x$barcode),
-    os_years = list(.x$os_years),
+    sample_name = list(.x$sample_name),
+    os_months = list(.x$os_months ),
+    os_days = list(.x$os_days),
     os_status = list(.x$os_status),
-    pfs_years = list(.x$pfs_years),
+    pfs_months = list(.x$pfs_months ),
+    pfs_days = list(.x$pfs_days),
     pfs_status = list(.x$pfs_status)
   )
 }
@@ -114,7 +116,7 @@ fn_survival <- function(class, data) {
 system.time(
   survival %>%
     tidyr::unnest() %>%
-    dplyr::mutate(os_years = os_days/30, pfs_years=pfs_days/30) %>%
+    dplyr::mutate(os_months = os_days/30, pfs_months =pfs_days/30) %>%
     dplyr::mutate(class="all") %>%
     tidyr::nest(-class) %>%
     purrr::pmap(.f = fn_survival) ->
