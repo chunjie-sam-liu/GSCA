@@ -78,13 +78,13 @@ fn_survival <- function(gsva,survival){
     dplyr::mutate(group=ifelse(gsva>quantile(gsva,0.5),"2Higher GSVA","1Lower GSVA")) -> .combine_group
   
   .combine_group %>%
-    dplyr::rename(time=os_days,status=os_status,expr=gsva) %>%
+    dplyr::rename(time=os_months,status=os_status,expr=gsva) %>%
     fn_cox_logp(highgroup="Higher GSVA",lowgroup="Lower GSVA") %>%
     dplyr::mutate(sur_type = "OS")-> os_res
   
   if (length(grep("pfs",colnames(survival)))>0) {
     .combine_group %>%
-      dplyr::rename(time=pfs_days,status=pfs_status,expr=gsva) %>%
+      dplyr::rename(time=pfs_months,status=pfs_status,expr=gsva) %>%
       fn_cox_logp(highgroup="Higher GSVA",lowgroup="Lower GSVA") %>%
       dplyr::mutate(sur_type = "PFS") -> pfs_res
     rbind(os_res,pfs_res) -> res
