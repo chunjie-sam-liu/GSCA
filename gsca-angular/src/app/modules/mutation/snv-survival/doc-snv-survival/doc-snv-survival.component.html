@@ -23,17 +23,6 @@
         <span class="phighlight">Cox Proportional-Hazards model and Logrank tests</span> were performed to test the survival difference
         between WT and Mutant groups.
       </p>
-      <p>
-        Note that the users may <span class="phighlight">could not get the survival results (shown as --)</span> in sevaral cases,
-        including:
-      </p>
-      <ul>
-        <li class="lilight">1. The PFS data are not avaliable for some cancers, including TGCT, LAML, CHOL, UVM, and THYM.</li>
-        <li class="lilight">
-          2. A gene does not have enough mutation, which lead the number of groups (with at least 2 samples) that used for survival
-          comparing is not enough (two groups are needed).
-        </li>
-      </ul>
 
       <li>Interpretation</li>
       <p>GSCA provides two forms of results, including table and figure.</p>
@@ -52,6 +41,15 @@
           <span class="phighlight">median survival time</span>. When "Not applicable" presents in column ‘Higher risk of death’, there is no
           hazard ratio result for judgement.
         </p>
+        <p>Note that the users may <span class="phighlight">get the "Not applicable"</span> in sevaral cases,including:</p>
+        <ul>
+          <li class="lilight">1. The PFS data are not avaliable for LAML.</li>
+          <li class="lilight">
+            2. A gene does not have enough mutation, which lead the number of groups (with at least 2 samples) that used for survival
+            comparing is not enough (two groups are needed).
+          </li>
+          <li class="lilight">3. HR equal to 1.</li>
+        </ul>
         <p># of Mutant and # of WT indicate the number of samples (have survival data) with and without SNV, respectively.</p>
         <li>GSCA provides result figures including:</li>
         <ul>
