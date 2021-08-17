@@ -158,12 +158,29 @@ fn_stage <- function(class, data) {
   
   .dd
 }
+
 # import --------------------------------------------------------------------
+stages_included <- tibble::tibble(stage=c("Stage I","Stage I","Stage I","Stage I","Stage I","Stage I","Stage I","Stage I",
+                                          "Stage II","Stage II","Stage II","Stage II","Stage II","Stage II","Stage II","Stage II",
+                                          "Stage III", "Stage III", "Stage III", "Stage III","Stage III","Stage III","Stage III",
+                                          "Stage IV","Stage IV","Stage IV","Stage IV","Stage IV","Stage IV",
+                                          "intermediate","poor","good"),
+                                  stage_raw=c("stage i","stage ia","stage ib","stage ia1","stage ia2","stage ib1","stage ib2","stage ic",
+                                              "stage ii","stage iia","stage iia1","stage iia2","stage iib","stage iic","iia","iib",
+                                              "stage iii","stage iiia","stage iiib","stage iiic","iii","stage iiic1","stage iiic2",
+                                              "stage iv","stage iva","stage ivb","stage ivc","iva","ivb",
+                                              "intermediate","poor","good"))
 system.time(
   stage %>%
     tidyr::unnest() %>%
     dplyr::rename("barcode"="sample_name") %>%
+    dplyr::filter(stage_type %in% c("clinical_stage","igcccg_stage" ,"masaoka_stage","pathologic_stage")) %>%
     dplyr::mutate(class="all") %>%
+    dplyr::filter(!is.na(stage)) %>%
+    dplyr::mutate(stage_raw=stage) %>%
+    dplyr::select(-stage) %>%
+    dplyr::inner_join(stages_included,by="stage_raw") %>%
+    dplyr::select(-stage_raw) %>%
     tidyr::nest(-class) %>%
     purrr::pmap(.f = fn_stage) ->
     stage_mongo_data

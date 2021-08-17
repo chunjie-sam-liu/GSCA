@@ -36,25 +36,21 @@ source(file.path(apppath, "gsca-r-app/utils/fn_fetch_mongo_data.R"))
 
 
 # Query data --------------------------------------------------------------
-stages_included <- c("0","I","II","III","IV")
-fields <- '{"cancer_types": true, "sample_name": true,"stage": true, "_id": false}'
+fields <- '{"cancer_types": true, "sample_name": true,"stage": true, "stage_type":true,"_id": false}'
 fetched_stage_data <- purrr::map(.x = "all_stage", .f = fn_fetch_mongo, pattern="_stage",fields = fields,.key=search_cancertypes,.keyindex="cancer_types") %>%
   dplyr::bind_rows() %>%
   dplyr::select(-cancertype) %>%
   dplyr::rename(cancertype=cancer_types) %>%
-  dplyr::mutate(stage = purrr::map(stage,.f=function(.x){
-    sub1 <- gsub(pattern = "[a-cA-C1-9]$",replacement = "",.x)
-    sub2 <- gsub(pattern = "[a-cA-C1-9]$",replacement = "",.x)
-    sub3 <- gsub(pattern = "Stage ",replacement = "",.x)
-    return(sub3)
+  dplyr::filter(stage_type=="pathologic_stage")%>%
+  dplyr::mutate(stage=purrr::map(stage,.f=function(.x){
+    strsplit(.x," ")[[1]][2]
   })) %>%
-  tidyr::unnest() %>%
-  dplyr::filter(stage %in% stages_included)
+  tidyr::unnest()
 
 fields <- '{"symbol": true, "barcode": true,"sample_name": true,"type": true,"expr": true,"_id": false}'
 fetched_expr_data <- purrr::map(.x = paste0(search_cancertypes,"_all_expr",sep=""), .f = fn_fetch_mongo, pattern="_all_expr",fields = fields,.key=search_genes,.keyindex="symbol") %>%
   dplyr::bind_rows() %>%
-  dplyr::filter(type=="tumor")
+  dplyr::filter(type=="tumor") 
 
 # combine -----------------------------------------------------------------
 fetched_stage_data%>%
@@ -63,7 +59,7 @@ fetched_stage_data%>%
 # mean exp ----------------------------------------------------------------
 
 combine %>%
-  dplyr::group_by(cancertype,symbol,stage) %>%
+  dplyr::group_by(cancertype,symbol,stage_type,stage) %>%
   dplyr::mutate(mean_exp= quantile(expr,0.5)[[1]]) %>%
   dplyr::select(mean_exp) %>%
   dplyr::ungroup() %>%
@@ -71,8 +67,8 @@ combine %>%
 
 # trend analysis --------------------------------------------------------------------
 
-stage_number <- tibble::tibble(stage=c("0","I","II","III","IV"),
-                               rank=c(0,1,2,3,4))
+stage_number <- tibble::tibble(stage=c("I","II","III","IV"),
+                               rank=c(1,2,3,4))
 
 combine_mean %>%
   dplyr::mutate(log2mean_exp = log2(mean_exp+1))%>%
@@ -81,7 +77,7 @@ combine_mean %>%
 source(file.path(apppath,"gsca-r-app/utils/trend_analysis.R"))
 
 for_plot %>%
-  dplyr::group_by(symbol,cancertype) %>%
+  dplyr::group_by(symbol,cancertype,stage_type) %>%
   tidyr::nest() %>%
   dplyr::mutate(trend_analysis = purrr::map(data,fn_trend_analysis)) %>%
   dplyr::select(-data) %>%
@@ -105,7 +101,7 @@ trend_res %>%
   unique() -> trend_cancertype_rank
 
 for_plot %>%
-  dplyr::inner_join(trend_res,by=c("symbol","cancertype")) %>%
+  dplyr::inner_join(trend_res,by=c("symbol","cancertype","stage_type")) %>%
   dplyr::mutate(`Trend P` = ifelse(p.value>0.05,">0.05","<=0.05")) -> for_plot_trend
 
 for_plot_trend <- within(for_plot_trend,symbol<-factor(symbol,levels=unique(trend_symbol_rank$symbol)))
@@ -130,7 +126,7 @@ heat_plot <- gradient_heatmap(data = for_plot_trend,
                               yrank=trend_symbol_rank$symbol,
                               xlab="Stages",
                               ylab="Symbol",
-                              title="Expression tendency in stages (heatmap)")
+                              title="Expression tendency in pathologic stages (heatmap)")
 
 # Save --------------------------------------------------------------------
 ggsave(filename = filepath_stageheat, plot = heat_plot, device = 'png', width = size$width, height = size$height)
@@ -166,7 +162,7 @@ trendplot <- trend_plot(data = for_plot_trend,
                         color_list = fillbreaks$color,
                         fillbreaks=fillbreaks$fillbreaks,
                         color_lables=fillbreaks$colorlabel,
-                        title="Expression tendency in stages (trend plot)",
+                        title="Expression tendency in pathologic stages (trend plot)",
                         xlab="Stages",
                         ylab="Symbol")
 
