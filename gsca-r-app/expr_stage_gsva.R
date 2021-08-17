@@ -17,7 +17,7 @@ filepath_trend <- args[4]
 apppath <- args[5]
 
 
-# tableuuid <- '52ca392d-4ca6-4deb-a4f0-1060689e2b99'
+# tableuuid <- 'a4328776-90de-4a35-aa79-f256aa6ee014'
 # tablecol <- 'preanalysised_gsva'
 # filepath <- "/home/huff/github/GSCA/gsca-r-plot/pngs/91fec0d9-74ce-4036-b1b6-b5fdd8afa1b0.png"
 # apppath <- '/home/huff/github/GSCA'
@@ -61,21 +61,14 @@ fetched_data$gsva_score %>%
   dplyr::mutate(gsva = purrr::map(.x = gsva, .f = fn_reorg)) ->
   gsva_score_nest
 
-stages_included <- tibble::tibble(stage=c("Stage I","Stage II","Stage III","Stage IV"),
-                                  rank=c(1,2,3,4))
-fields <- '{"cancer_types": true, "sample_name": true,"stage": true, "_id": false}'
+stages_included <- tibble::tibble(stage=c("Stage I","Stage II","Stage III","Stage IV","intermediate","poor","good"),
+                                  rank=c(1,2,3,4,2,3,1))
+fields <- '{"cancer_types": true, "sample_name": true,"stage": true, "stage_type": true,"_id": false}'
 fetched_stage_data <- purrr::map(.x = "all_stage", .f = fn_fetch_mongo, pattern="_stage",fields = fields,.key=gsva_score_nest$cancertype,.keyindex="cancer_types") %>%
   dplyr::bind_rows() %>%
   dplyr::select(-cancertype) %>%
   dplyr::rename(cancertype=cancer_types) %>%
-  dplyr::mutate(stage = purrr::map(stage,.f=function(.x){
-    sub1 <- gsub(pattern = "[a-cA-C1-9]$",replacement = "",.x)
-    sub2 <- gsub(pattern = "[a-cA-C1-9]$",replacement = "",.x)
-    return(sub2)
-  })) %>%
-  tidyr::unnest() %>%
-  dplyr::filter(stage %in% stages_included$stage) %>%
-  dplyr::group_by(cancertype) %>%
+  dplyr::group_by(cancertype, stage_type) %>%
   tidyr::nest()
 
 # stage analysis -------------------------------------------------------
@@ -86,7 +79,7 @@ gsva_score_nest %>%
 source(file.path(apppath,"gsca-r-app/utils/fn_gsva_stage.R"))
 combine_data %>%
   dplyr::mutate(sur_res = purrr::map2(gsva,data,fn_stage)) %>%
-  dplyr::select(cancertype,sur_res) %>%
+  dplyr::select(cancertype,sur_res,stage_type) %>%
   tidyr::unnest() %>%
   tidyr::unnest() -> gsva_score_stage_test_res
 
@@ -127,14 +120,14 @@ combine_data %>%
       dplyr::inner_join(.gsva_t,by="sample_name") %>%
       dplyr::distinct() 
   })) %>%
-  dplyr::select(cancertype,combine) %>%
-  tidyr::unnest(cols = c(combine)) %>%
-  dplyr::inner_join(stages_included,by="stage")-> for_plot
+  dplyr::select(cancertype,combine,stage_type) %>%
+  tidyr::unnest(cols = c(combine)) -> for_plot
 
 color <- c("#1B9E77", "#D95F02", "#7570B3", "#E7298A", "#66A61E", "#E6AB02", "#A6761D", "#666666")
 len_stage <- length(unique(for_plot$stage))
 
 color_list <- for_plot %>%
+  dplyr::inner_join(stages_included,by="stage") %>%
   dplyr::select(stage,rank) %>%
   unique() %>%
   dplyr::arrange(rank) %>%
@@ -145,12 +138,12 @@ color_list <- for_plot %>%
 source(file.path(apppath, "gsca-r-app/utils/fn_figure_height.R"))
 size_width <- 4+length(unique(for_plot$cancertype))*0.5
 
-box_plot <- box_plot_single_gene_multi_cancers(data = for_plot,aesx = "stage",aesy="gsva",facets=".~cancertype",color = "stage",color_name = "Satges",color_labels = color_list$stage,color_values = color_list$color,title = "GSVA score in stages of selected cancer types", xlab = 'Cancer type', ylab = 'GSVA score')
+box_plot <- box_plot_single_gene_multi_cancers_facetgrid(data = for_plot,aesx = "stage",aesy="gsva",facets="stage_type~cancertype",color = "stage",color_name = "Satges",color_labels = color_list$stage,color_values = color_list$color,title = "GSVA score in stages of selected cancer types", xlab = 'Cancer type', ylab = 'GSVA score')
 
 
-ggsave(filename = filepath_box, plot = box_plot, device = 'png', width = size_width, height =  4)
+ggsave(filename = filepath_box, plot = box_plot, device = 'png', width = size_width, height =  6)
 pdf_name <- gsub("\\.png",".pdf", filepath_box)
-ggsave(filename = pdf_name, plot = box_plot, device = 'pdf', width = size_width, height = 4)
+ggsave(filename = pdf_name, plot = box_plot, device = 'pdf', width = size_width, height = 6)
 
 # trend Plot --------------------------------------------------------------------
 gsva_score_stage_test_res %>%
@@ -184,7 +177,7 @@ trendplot <- trend_plot(data = for_plot_trend,
                         aesy="mean_exp",
                         linecolor="trend_score",
                         linetype="`Trend P`",
-                        facetgrid=".~cancertype",
+                        facetgrid="stage_type~cancertype",
                         xlabels=xlabels,
                         colorname="Trend",
                         color_list = fillbreaks$color,
@@ -192,8 +185,7 @@ trendplot <- trend_plot(data = for_plot_trend,
                         color_lables=fillbreaks$colorlabel,
                         title="Tendency of GSVA score among stages",
                         xlab="Stage",
-                        ylab="Symbol") +
-  facet_wrap(.~cancertype,scales = "free_y", nrow = 1)
+                        ylab="Symbol") 
 
 
 # Save image --------------------------------------------------------------

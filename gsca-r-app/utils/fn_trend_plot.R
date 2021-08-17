@@ -35,8 +35,7 @@ trend_plot <- function(data,aesx,aesy,linecolor,linetype,xlabels,facetgrid="symb
       plot.title = element_text(size = 14),
       strip.background =  element_blank(),
       strip.text = element_text(color="black",size = 12),
-      panel.spacing = unit(0.1, "lines"),
-      strip.text.y = element_text(angle = 0,hjust = 0,vjust = 0.5)
+      panel.spacing = unit(0.1, "lines")
     ) -> p
   return(p)
 }
