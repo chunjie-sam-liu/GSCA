@@ -58,9 +58,9 @@ fn_fetch_mongo_all_stage <- function(.data, .key, .keyindex) {
   .coll <- mongolite::mongo(collection = coll, url = gsca_conf)
   .coll$find(
     query = fn_query_str_utils(.key,.keyindex),
-    fields = '{"cancer_types": true, "sample_name": true, "stage": true,"_id": false}'
+    fields = '{"cancer_types": true, "sample_name": true, "stage": true,"stage_type":true,"_id": false}'
   ) %>%
-    tidyr::unnest(cols = c(cancer_types, sample_name, stage)) 
+    tidyr::unnest(cols = c(cancer_types, sample_name, stage_type,stage)) 
 }
 
 # function to fetch snv_count ------------------------------------------
