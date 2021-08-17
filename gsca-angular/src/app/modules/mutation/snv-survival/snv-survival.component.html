@@ -37,7 +37,11 @@
               </ng-template>
               <ng-template #plain>
                 {{
-                  column === 'worse_group' || column === 'cancertype' || column === 'sur_type' || column === 'higher_risk_of_death'
+                  column === 'cancertype' ||
+                  column === 'sur_type' ||
+                  column === 'higher_risk_of_death' ||
+                  column === 'Mutant' ||
+                  column === 'WT'
                     ? element[column]
                     : column !== 'cox_p' && column !== 'log_rank_p'
                     ? (element[column] | number: '1.2-2')

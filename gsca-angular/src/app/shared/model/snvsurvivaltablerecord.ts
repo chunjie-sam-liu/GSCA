@@ -3,9 +3,12 @@
 export interface SnvSurvivalTableRecord {
   entrez: number;
   symbol: string;
-  pval: number;
-  worse_group: string;
+  log_rank_p: number;
+  cox_p: number;
+  higher_risk_of_death: string;
   cancertype: string;
   hr: number;
   sur_type: string;
+  Mutant: number;
+  WT: number;
 }
