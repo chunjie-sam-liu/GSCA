@@ -9,23 +9,33 @@ library(magrittr)
 
 rda_path <- "/home/huff/github/GSCA/data/"
 data_path <- "/home/huff/data/GSCA/methy"
+mongo_dump_path <- "/home/huff/data/GSCA/mongo_dump"
 
 gsca_conf <- readr::read_lines(file = file.path(rda_path,"src",'gsca.conf'))
 
 
 # load methy data ---------------------------------------------------------
 
-methy_survival <- readr::read_rds(file.path(data_path,"pancan32_meth_survival.IdTrans.rds.gz"))
+methy_survival <- readr::read_rds(file.path(data_path,"pan33_methy_survival_NEW210812.rds.gz")) %>%
+  dplyr::mutate(data = purrr::map(data,.f=function(.x){
+    .x %>%
+      dplyr::mutate(tag = strsplit(as.character(gene),"_")[[1]][1], 
+                    sur_type=toupper(sur_type), 
+                    coxP=coxp_categorical,
+                    logRankP=logrankp,
+                    HR=1/hr_categorical
+                    ) %>%
+      dplyr::ungroup() %>%
+      dplyr::select(entrez, symbol,tag,logRankP,coxP,HR,sur_type,higher_risk_of_death)
+  }))
 
 
 # function ----------------------------------------------------------------
 
-fn_methy_survival_mongo <-function(cancer_types,methy){
+fn_methy_survival_mongo <-function(cancer_types,data){
   .y <- cancer_types 
-  .x <- methy %>%
-    dplyr::rename(higher_risk_of_death=Hyper_worse,cox_p=coxP,log_rank_p=logRankP) %>%
-    dplyr::mutate(higher_risk_of_death=ifelse(higher_risk_of_death=="High","Hypermethylation","Hypomethylation")) %>%
-    dplyr::mutate(HR = exp(estimate))
+  .x <- data %>%
+    dplyr::rename(cox_p=coxP,log_rank_p=logRankP)
   
   # insert to collection
   .coll_name <- glue::glue('{.y}_methy_survival')
@@ -34,6 +44,7 @@ fn_methy_survival_mongo <-function(cancer_types,methy){
   .coll$drop()
   .coll$insert(data=.x)
   .coll$index(add='{"symbol": 1}')
+  .coll$export(file(file.path(mongo_dump_path,"2021-08-15_ClinicalRenew_dump",paste(.coll_name,"dump.json",sep="-"))))
   
   message(glue::glue('Save all {.y} methy survival into mongo'))
   

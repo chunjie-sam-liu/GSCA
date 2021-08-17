@@ -13,7 +13,7 @@ filepath_snvtitvplot <- args[4]
 apppath <- args[5]
 
 
-# search_str = "A2M@KIRC_snv_count#KIRP_snv_count#HNSC_snv_count"
+# search_str = "A2M#ACE#ANGPT2#BPI#CD1B#CDR1#EGR2#EGR3#HBEGF#HERPUD1#MCM2#PCTP#PODXL#PPY#PTGS2#RCAN1#SLC4A7#THBD@KICH_snv_count#KIRC_snv_count#KIRP_snv_count#LUAD_snv_count#LUSC_snv_count"
 # filepath= "/home/huff/github/GSCA/gsca-r-plot/pngs/7aa843d9-6287-468e-9d52-47c44ea1fe21.png"
 # apppath='/home/huff/github/GSCA'
 

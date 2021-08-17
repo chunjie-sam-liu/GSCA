@@ -10,21 +10,25 @@ library(magrittr)
 
 rda_path <- "/home/huff/github/GSCA/data"
 data_path <- "/home/huff/data/GSCA/cnv"
+mongo_dump_path <- "/home/huff/data/GSCA/mongo_dump"
 
 gsca_conf <- readr::read_lines(file = file.path(rda_path,"src",'gsca.conf'))
 
 # Load cnv survival----------------------------------------------------------------
-file_list <- grep("*_survival.cnv.rds.gz",dir(file.path(data_path,"cancer_cnv_survival")),value = TRUE)
-cnv_survival <- tibble::tibble()
-for (file in file_list) {
-  .cnv_survival <- readr::read_rds(file.path(data_path,"cancer_cnv_survival",file)) %>%
-    dplyr::mutate(cancer_types= strsplit(file,split = "_")[[1]][1])
-  if(nrow(cnv_survival)<1){
-    cnv_survival<-.cnv_survival
-  } else {
-    rbind(cnv_survival,.cnv_survival) ->cnv_survival
-  }
-}
+#### Old
+# file_list <- grep("*_survival.cnv.rds.gz",dir(file.path(data_path,"cancer_cnv_survival_201201")),value = TRUE)
+# cnv_survival <- tibble::tibble()
+# for (file in file_list) {
+#   .cnv_survival <- readr::read_rds(file.path(data_path,"cancer_cnv_survival",file)) %>%
+#     dplyr::mutate(cancer_types= strsplit(file,split = "_")[[1]][1])
+#   if(nrow(cnv_survival)<1){
+#     cnv_survival<-.cnv_survival
+#   } else {
+#     rbind(cnv_survival,.cnv_survival) ->cnv_survival
+#   }
+# }
+### New
+cnv_survival <- readr::read_rds(file.path(data_path,"pan33_cnv_survival_NEW210813.rds.gz"))
 
 # Function ----------------------------------------------------------------
 
@@ -42,13 +46,17 @@ fn_cnv_survival_mongo <-function(cancer_types,data){
   .coll$drop()
   .coll$insert(data=.x)
   .coll$index(add='{"symbol": 1}')
+  .coll$export(file(file.path(mongo_dump_path,"2021-08-15_ClinicalRenew_dump",paste(.coll_name,"dump.json",sep="-"))))
   
   message(glue::glue('Save all {.y} cnv survival into mongo'))
 }
 
 # data --------------------------------------------------------------------
 cnv_survival %>%
-  tidyr::nest(-cancer_types) %>%
+  dplyr::mutate(data = purrr::map(data,.f=function(.x){
+    .x %>%
+      dplyr::select(-coxp)
+  })) %>%
   purrr::pmap(.f=fn_cnv_survival_mongo) -> cnv_survival_mongo_data
 
 # Save image --------------------------------------------------------------

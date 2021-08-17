@@ -10,6 +10,7 @@ library(magrittr)
 
 rda_path <- "/home/huff/github/GSCA/data"
 data_path <- "/home/huff/data/GSCA/snv"
+mongo_dump_path <- "/home/huff/data/GSCA/mongo_dump/2021-08-15_ClinicalRenew_dump"
 
 gsca_conf <- readr::read_lines(file = file.path(rda_path,"src",'gsca.conf'))
 
@@ -41,6 +42,7 @@ fn_snv_survival_mongo <-function(cancer_types,data){
   .coll$drop()
   .coll$insert(data=.x)
   .coll$index(add='{"symbol": 1}')
+  .coll$export(file(file.path(mongo_dump_path,paste(.coll_name,"dump.json",sep="-"))))
   
   message(glue::glue('Save all {.y} SNV survival into mongo'))
   
@@ -48,16 +50,18 @@ fn_snv_survival_mongo <-function(cancer_types,data){
 }
 
 # data --------------------------------------------------------------------
-snv_survival <- readr::read_rds(file.path(data_path,"pan33_snv_survival_NEW.rds.gz"))
-groups <- tibble::tibble(higher_risk_of_death=c("Mutated","Non-mutated"),
-               higher_risk_of_death_rename = c("Mutant","WT"))
+snv_survival <- readr::read_rds(file.path(data_path,"pan33_snv_survival_NEW_210813.rds.gz"))
+groups <- tibble::tibble(higher_risk_of_death=c("Mutated","Non-mutated","Not applicable"),
+               higher_risk_of_death_rename = c("Mutant","WT","Not applicable"))
 snv_survival %>%
   dplyr::ungroup() %>%
   tidyr::unnest() %>%
-  dplyr::filter(!is.na(higher_risk_of_death)) %>%
+  dplyr::mutate(higher_risk_of_death=ifelse(!is.na(higher_risk_of_death),higher_risk_of_death,"Not applicable")) %>%
+  # dplyr::mutate(higher_risk_of_death=ifelse(`2_mutated`<2 ,"Not applicable(# of mutant < 2)",higher_risk_of_death)) %>%
   dplyr::inner_join(groups, by="higher_risk_of_death") %>%
-  dplyr::select(-higher_risk_of_death,higher_risk_of_death=higher_risk_of_death_rename) %>%
-  tidyr::nest(data = c(Hugo_Symbol, entrez, logrankp, cox_p, hr, higher_risk_of_death,sur_type)) %>%
+  dplyr::select(-higher_risk_of_death,higher_risk_of_death=higher_risk_of_death_rename,WT=`1_nonmutated`,Mutant=`2_mutated`) %>%
+  tidyr::nest(data = c(Hugo_Symbol, entrez, logrankp, cox_p, hr, higher_risk_of_death,Mutant,WT,sur_type)) %>%
+  dplyr::arrange(cancer_types) %>%
   purrr::pmap(.f=fn_snv_survival_mongo) -> snv_survival_mongo_data
 
 # Save image --------------------------------------------------------------

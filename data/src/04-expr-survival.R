@@ -5,7 +5,7 @@ library(magrittr)
 
 # Load data ---------------------------------------------------------------
 rda_path <- "/home/huff/github/GSCA/data"
-
+mongo_dump_path <- "/home/huff/data/GSCA/mongo_dump/2021-08-15_ClinicalRenew_dump"
 
 gsca_conf <- readr::read_lines(file = file.path(rda_path,"src",'gsca.conf'))
 
@@ -29,15 +29,17 @@ gsca_conf <- readr::read_lines(file = file.path(rda_path,"src",'gsca.conf'))
 #   readr::write_rds(file.path("/home/huff/data/GSCA/expr/pan33_expr_survival.rds.gz"))
 
 # expr_survival <- readr::read_rds(file = '/home/huff/data/GSCA/expr/pan33_expr_survival.rds.gz')
-expr_survival <- readr::read_rds(file = '/home/huff/data/GSCA/expr/pan33_expr_survival_supplement.rds.gz') %>%
+expr_survival <- readr::read_rds(file = '/home/huff/data/GSCA/expr/pan33_expr_survival_NEW210812.rds.gz') %>%
   tidyr::unnest() %>%
-  tidyr::unnest()%>%
   dplyr::mutate(`hr_categorical(H/L)`=1/hr_categorical) %>%
   dplyr::rename(`hr_categorical(L/H)`=hr_categorical)
+
 # load(file = file.path(rda_path,"rda",'01-gene-symbols.rda'))
 # 
-# search_symbol <- search_symbol
-# 
+# search_symbol <- search_symbol %>%
+#   dplyr::mutate(entrez=as.character(entrez))
+
+
 # # # Function ----------------------------------------------------------------
 fn_transform_df <- function(cancertype, data) {
   .d <- data%>%
@@ -50,9 +52,10 @@ fn_transform_df <- function(cancertype, data) {
   .coll_name <- glue::glue('{.y}_expr_survival')
   .coll_expr <- mongolite::mongo(collection = .coll_name, url = gsca_conf)
   # insert data
-  # .coll_expr$drop()
+  .coll_expr$drop()
   .coll_expr$insert(data = .d)
   .coll_expr$index(add = '{"symbol": 1}')
+  .coll_expr$export(file(file.path(mongo_dump_path,paste(.coll_name,"dump.json",sep="-"))))
   message(glue::glue('Insert data for {.y} into {.coll_name}.'))
 
   .d
@@ -64,8 +67,8 @@ fn_transform_df <- function(cancertype, data) {
 expr_survival %>%
   dplyr::rename("cancertype"="cancer_types") %>%
   dplyr::mutate(sur_type=toupper(sur_type)) %>%
-  dplyr::filter(!is.na(logrankp)) %>%
-  dplyr::filter(logrankp!=1) %>%
+  dplyr::mutate(higher_risk_of_death =ifelse(is.na(higher_risk_of_death),"Not applicable",higher_risk_of_death)) %>%
+  dplyr::mutate(logrankp=ifelse(logrankp==1,NA,logrankp)) %>%
   dplyr::group_by(cancertype) %>%
   tidyr::nest() %>%
   dplyr::ungroup() ->
