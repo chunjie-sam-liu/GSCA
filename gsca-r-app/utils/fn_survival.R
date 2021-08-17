@@ -12,7 +12,7 @@ expr_group <- tibble::tibble(group=c("median","up_quantile","low_quantile"),
 # survival type -----------------------------------------------------------
 
 survival_group <- tibble::tibble(type=c("OS","PFS","os","pfs"),
-                                 time=c("os_days","pfs_days","os_days","pfs_days"),
+                                 time=c("os_months","pfs_months","os_months","pfs_months"),
                                  status=c("os_status","pfs_status","os_status","pfs_status"))
 
 # function to draw survival plot ------------------------------------------
@@ -28,7 +28,7 @@ fn_survival <- function(data,title,color,logrankp=NA,ylab){
       dplyr::mutate(n=dplyr::n()) %>%
       dplyr::select(group,n) %>%
       dplyr::ungroup() %>%
-      dplyr::filter(n>5) %>%
+      dplyr::filter(n>=2) %>%
       .$group %>% unique() %>% length() -> len_group
     if(!is.na(len_group)){
       logrankp <- tryCatch(
@@ -57,7 +57,7 @@ fn_survival <- function(data,title,color,logrankp=NA,ylab){
                         surv.median.line = "hv",
                         title = paste(title), # change it when doing diff data
                         ylab = ylab,
-                        xlab = 'Time (months)',
+                        xlab = 'Time (month)',
                         legend = "right",
                         # legend.title = "Methyla group:",
                         # ggtheme = theme_survminer(),
