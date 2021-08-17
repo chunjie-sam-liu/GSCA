@@ -17,10 +17,7 @@
         gene set have no SNV in a sample, this sample is classified into WT group. Only samples have
         <span class="phighlight">effective mutants</span> are included in Mutant group.
       </p>
-      <p>
-        Survival analysis only performed for groups with <span class="phighlight">more than 5 samples</span>. And at least 2 groups are
-        needed.
-      </p>
+      <p>Survival analysis only performed for groups with <span class="phighlight">>2 samples</span>. And at least 2 groups are needed.</p>
       <p>
         <span class="phighlight">R package survival</span> was used to fit survival time and survival status two groups.
         <span class="phighlight">Cox Proportional-Hazards model and Logrank tests</span> were performed to test the survival difference
@@ -33,8 +30,8 @@
       <ul>
         <li class="lilight">1. The PFS data are not avaliable for LAML.</li>
         <li class="lilight">
-          2. The inputted gene set do not have enough mutation, which lead the number of groups (with at least 2 samples) that used for
-          survival comparing is not enough (two groups are needed).
+          2. The inputted gene set do not have enough mutation, which lead the number of groups (have > 2 samples) that used for survival
+          comparing is not enough (two groups are needed).
         </li>
       </ul>
 
