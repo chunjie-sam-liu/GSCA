@@ -16,21 +16,18 @@ apppath <- args[3]
 # arguments need to be determined future ----------------------------------
 
 break_point <- "median"
-survival_type <- c("os")
-color_list <- tibble::tibble(color=c( "#CD2626","#00B2EE"),
-                             group=c("Hypermethylation","Hypomethylation"))
 
-# search_str <-'A2M@KICH_methy_survival'
+# search_str <-'A2M@KICH_methy_survival@OS'
 # apppath <- '/home/huff/github/GSCA'
 search_str_split <- strsplit(x = search_str, split = '@')[[1]]
 search_genes <- strsplit(x = search_str_split[1], split = '#')[[1]]
 search_colls <- strsplit(x = search_str_split[[2]], split = '#')[[1]]
 search_cancertypes <- strsplit(x = search_colls, split = '_')[[1]][1]
-# survival_type <- search_str_split[3] 
-survival_type <- "os"
+survival_type <- search_str_split[3]
+# survival_type <- "os"
 # arguments need to be determined future ----------------------------------
 color_list <- tibble::tibble(color=c( "#CD2626","#00B2EE"),
-                             group=c("Hypermethylation","Hypomethylation"))
+                             group=c("Higher meth.","Lower meth."))
 
 # Functions ----------------------------------------------------------------
 
@@ -51,9 +48,10 @@ fetched_methy_data %>%
   unique() %>%
   dplyr::inner_join(fetched_survival_data,by=c("sample_name")) -> combine_data
 
-fields <- '{"symbol": true, "log_rank_p": true,"_id": false}'
+fields <- '{"symbol": true, "log_rank_p": true,"sur_type": true,"_id": false}'
 fetched_methy_survival <- purrr::map(.x = paste(search_cancertypes,"_methy_survival",sep=""), .f = fn_fetch_mongo, pattern="_methy_cor_expr",fields = fields,.key=search_genes,.keyindex="symbol") %>%
-  dplyr::bind_rows()
+  dplyr::bind_rows()%>%
+  dplyr::filter(sur_type %in% survival_type)
 # grouped --------------------------------------------------------
 expr_group %>%
   dplyr::filter(group %in% break_point) -> cutoff
@@ -66,7 +64,7 @@ combine_data %>%
   dplyr::select(symbol,sample_name,methy,cancer_types,time=survival_type_to_draw$time,status=survival_type_to_draw$status) %>%
   dplyr::filter(!is.na(time)) %>%
   dplyr::filter(!is.na(status)) %>%
-  dplyr::mutate(group = ifelse(methy>quantile(methy,cutoff$cutoff),"Hypermethylation","Hypomethylation")) -> combine_data_group
+  dplyr::mutate(group = ifelse(methy>quantile(methy,cutoff$cutoff),"Higher meth.","Lower meth.")) -> combine_data_group
 
 
 # draw survival plot ------------------------------------------------------
