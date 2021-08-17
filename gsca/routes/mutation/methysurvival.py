@@ -4,6 +4,7 @@ from flask_restful import Api, Resource, fields, marshal_with, reqparse
 from pathlib import Path
 import subprocess
 import uuid
+from gsca.utils.check_survivalPlot import CheckSurvivalPlot
 from gsca.utils.checkplot import CheckPlot, CheckParallelPlot
 
 methysurvival = Blueprint("methysurvival", __name__)
@@ -56,7 +57,7 @@ api.add_resource(MethySurvivalPlot, "/methysurvivalplot")
 class MethySurvivalSingleGene(Resource):
     def post(self):
         args = request.get_json()
-        checkplot = CheckPlot(args=args, purpose="methysurvivalsinglegene", rplot="methy_survival_singlegene.R")
+        checkplot = CheckSurvivalPlot(args=args, purpose="methysurvivalsinglegene", rplot="methy_survival_singlegene.R")
         res = checkplot.check_run()
 
         if res["run"]:
