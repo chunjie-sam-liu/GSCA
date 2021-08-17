@@ -16,7 +16,7 @@ search_str <- args[1]
 filepath_stagepoint <- args[2]
 apppath <- args[3]
 
-# search_str = "A2M#ACE#ANGPT2#BPI#CD1B#CDR1#EGR2#EGR3#HBEGF#HERPUD1#MCM2#PCTP#PODXL#PPY#PTGS2#RCAN1#SLC4A7#THBD@ESCA_expr_stage#HNSC_expr_stage#KICH_expr_stage#KIRC_expr_stage#KIRP_expr_stage#LUAD_expr_stage#LUSC_expr_stage"
+# search_str = "A2M#ACE#ANGPT2#BPI#CD1B#CDR1#EGR2#EGR3#HBEGF#HERPUD1#MCM2#PCTP#PODXL#PPY#PTGS2#RCAN1#SLC4A7#THBD@ESCA_expr_stage#HNSC_expr_stage#KICH_expr_stage#KIRC_expr_stage#KIRP_expr_stage#LUAD_expr_stage#LUSC_expr_stage#TGCT_expr_stage"
 # filepath = "/home/huff/github/GSCA/gsca-r-plot/pngs/1c16fb64-8ef4-4789-a87a-589d140c5bbe.png"
 # apppath = '/home/huff/github/GSCA'
 
@@ -43,7 +43,7 @@ fn_fetch_mongo <- function(.x) {
   .coll <- mongolite::mongo(collection = .x, url = gsca_conf)
   .coll$find(
     query = fn_query_str(search_genes),
-    fields = '{"symbol": true, "pval": true, "fdr": true,"Stage I (mean/n)": true,"Stage II (mean/n)": true,"Stage III (mean/n)": true,"Stage IV (mean/n)": true, "_id": false}'
+    fields = '{"symbol": true, "pval": true, "fdr": true,"Stage I (mean/n)": true,"Stage II (mean/n)": true,"Stage III (mean/n)": true,"Stage IV (mean/n)": true, "stage_type":true,"_id": false}'
   ) %>%
     dplyr::mutate(cancertype = gsub(pattern = '_expr_stage', replacement = '', x = .x))
 }
@@ -61,7 +61,7 @@ fn_get_pattern <- function(.x) {
     dplyr::as.tbl() %>%
     dplyr::mutate(pattern = purrr::map(fdr, fn_filter_pattern)) %>%
     tidyr::unnest() %>%
-    dplyr::select(cancertype, symbol, pattern) %>%
+    dplyr::select(cancertype, symbol, pattern,stage_type) %>%
     tidyr::spread(key = cancertype, value = pattern) %>%
     dplyr::mutate_if(is.numeric, .funs = function(.) {ifelse(is.na(.), 0, .)})
 }
@@ -110,16 +110,26 @@ fetched_data <- purrr::map(.x = search_cancertypes, .f = fn_fetch_mongo) %>% dpl
   dplyr::filter(!is.na(pval))
 
 # Sort --------------------------------------------------------------------
-
-fetched_data_clean_pattern <- fn_get_pattern(.x = fetched_data)
-cancer_rank <- fn_get_cancer_types_rank(.x = fetched_data_clean_pattern)
-gene_rank <- fn_get_gene_rank(.x = fetched_data_clean_pattern)
+fetched_data %>%
+  dplyr::mutate(sig = ifelse(fdr<=0.05,1,0)) %>%
+  dplyr::group_by(symbol) %>%
+  dplyr::mutate(sum=sum(sig)) %>%
+  dplyr::select(sum) %>%
+  unique() %>%
+  dplyr::arrange(desc(sum)) -> gene_rank
+fetched_data %>%
+  dplyr::mutate(sig = ifelse(fdr<=0.05,1,0)) %>%
+  dplyr::group_by(cancertype) %>%
+  dplyr::mutate(sum=sum(sig)) %>%
+  dplyr::select(sum) %>%
+  unique() %>%
+  dplyr::arrange(desc(sum)) -> cancer_rank
 
 for_plot <- fn_pval_label(fetched_data) %>%
   dplyr::mutate(logFDR = -log10(fdr)) %>%
   dplyr::mutate(logFDR = ifelse(logFDR>10,10,logFDR)) %>%
   dplyr::mutate(group = ifelse(fdr>0.05,">0.05","<=0.05")) %>%
-  tidyr::gather(-symbol,-pval,-fdr,-cancertype,-group,-p_label,-logFDR,key="stage",value="mean") 
+  tidyr::gather(-symbol,-pval,-fdr,-cancertype,-group,-p_label,-logFDR,-stage_type,key="stage",value="mean") 
 
 list(for_plot$mean) %>%
   purrr::pmap(.f=function(.x){strsplit(x = .x, split = '/')[[1]][1]}) %>% unlist() %>% as.numeric() -> mean_exp
@@ -152,7 +162,7 @@ bubbleplot <- bubble_plot(data=for_plot_bubble,
                          gene="symbol", 
                          xlab="Cancer type", 
                          ylab="Symbol", 
-                         facet_exp = NA,
+                         facet_exp = "~stage_type",
                          size="logFDR", 
                          fill="logFDR", 
                          fillmipoint =1.3,
@@ -168,6 +178,7 @@ bubbleplot <- bubble_plot(data=for_plot_bubble,
                          title="Expression difference between stages")
 
 # Save --------------------------------------------------------------------
-ggsave(filename = filepath_stagepoint, plot = bubbleplot, device = 'png', width = size$width, height = size$height+1)
+for_plot_bubble$stage_type %>% unique() %>% length() -> n.stage_type
+ggsave(filename = filepath_stagepoint, plot = bubbleplot, device = 'png', width = size$width*n.stage_type, height = size$height+1)
 filepath_stagepoint_pdf_name <- gsub("\\.png",".pdf",filepath_stagepoint)
-ggsave(filename = filepath_stagepoint_pdf_name, plot = bubbleplot, device = 'pdf', width = size$width, height = size$height+1)
+ggsave(filename = filepath_stagepoint_pdf_name, plot = bubbleplot, device = 'pdf', width = size$width*n.stage_type, height = size$height+1)
