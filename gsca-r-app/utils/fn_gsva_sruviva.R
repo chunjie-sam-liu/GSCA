@@ -8,7 +8,7 @@ fn_cox_logp <- function(.d,highgroup,lowgroup){
     dplyr::mutate(n=dplyr::n()) %>%
     dplyr::select(group,n) %>%
     dplyr::ungroup() %>%
-    dplyr::filter(n>=1) %>%
+    dplyr::filter(n>2) %>%
     .$group %>% unique() %>% length() -> len_group
   if(len_group==2){
     kmp <- tryCatch(

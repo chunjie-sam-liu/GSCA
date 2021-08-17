@@ -28,7 +28,7 @@ fn_survival <- function(data,title,color,logrankp=NA,ylab){
       dplyr::mutate(n=dplyr::n()) %>%
       dplyr::select(group,n) %>%
       dplyr::ungroup() %>%
-      dplyr::filter(n>=2) %>%
+      dplyr::filter(n>2) %>%
       .$group %>% unique() %>% length() -> len_group
     if(!is.na(len_group)){
       logrankp <- tryCatch(

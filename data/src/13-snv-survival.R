@@ -60,6 +60,7 @@ snv_survival %>%
   # dplyr::mutate(higher_risk_of_death=ifelse(`2_mutated`<2 ,"Not applicable(# of mutant < 2)",higher_risk_of_death)) %>%
   dplyr::inner_join(groups, by="higher_risk_of_death") %>%
   dplyr::select(-higher_risk_of_death,higher_risk_of_death=higher_risk_of_death_rename,WT=`1_nonmutated`,Mutant=`2_mutated`) %>%
+  dplyr::filter(Mutant>2) %>%
   tidyr::nest(data = c(Hugo_Symbol, entrez, logrankp, cox_p, hr, higher_risk_of_death,Mutant,WT,sur_type)) %>%
   dplyr::arrange(cancer_types) %>%
   purrr::pmap(.f=fn_snv_survival_mongo) -> snv_survival_mongo_data
