@@ -30,13 +30,15 @@ export class MethySurvivalComponent implements OnInit, OnChanges, AfterViewInit 
   showMethySurvivalTable = true;
   @ViewChild('paginatorMethySurvival') paginatorMethySurvival: MatPaginator;
   @ViewChild(MatSort) sortMethySurvival: MatSort;
-  displayedColumnsMethySurvival = ['cancertype', 'symbol', 'HR', 'cox_p', 'log_rank_p', 'higher_risk_of_death'];
+  displayedColumnsMethySurvival = ['cancertype', 'symbol', 'tag', 'sur_type', 'log_rank_p', 'cox_p', 'HR', 'higher_risk_of_death'];
   displayedColumnsMethySurvivalHeader = [
     'Cancer type',
     'Gene symbol',
-    'Hazard Ratio',
-    'Cox P value',
+    'Tag',
+    'Survival type',
     'Logrank P value',
+    'Cox P value',
+    'Hazard Ratio',
     'Higher risk of death',
   ];
   expandedElement: MethySurvivalTableRecord;

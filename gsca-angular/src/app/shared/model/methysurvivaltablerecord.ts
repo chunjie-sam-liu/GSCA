@@ -8,4 +8,6 @@ export interface MethySurvivalTableRecord {
   HR: number;
   higher_risk_of_death: string;
   cancertype: string;
+  tag: string;
+  sur_type: string;
 }
