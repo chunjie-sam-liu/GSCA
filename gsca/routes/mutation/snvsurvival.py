@@ -20,6 +20,8 @@ model_snvsurvivaltable = {
     "log_rank_p": fields.Float(attribute="log_rank_p"),
     "higher_risk_of_death": fields.String(attribute="higher_risk_of_death"),
     "cancertype": fields.String(attribute="cancertype"),
+    "Mutant": fields.Integer(attribute="Mutant"),
+    "WT": fields.Integer(attribute="WT"),
 }
 
 

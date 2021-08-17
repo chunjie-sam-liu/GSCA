@@ -29,7 +29,7 @@ export class SnvSurvivalComponent implements OnInit, OnChanges, AfterViewInit {
   showSnvSurvivalTable = true;
   @ViewChild('paginatorSnvSurvival') paginatorSnvSurvival: MatPaginator;
   @ViewChild(MatSort) sortSnvSurvival: MatSort;
-  displayedColumnsSnvSurvival = ['cancertype', 'symbol', 'sur_type', 'hr', 'cox_p', 'log_rank_p', 'higher_risk_of_death'];
+  displayedColumnsSnvSurvival = ['cancertype', 'symbol', 'sur_type', 'log_rank_p', 'hr', 'cox_p', 'higher_risk_of_death', 'Mutant', 'WT'];
   displayedColumnsSnvSurvivalHeader = [
     'Cancer type',
     'Gene symbol',
@@ -38,6 +38,8 @@ export class SnvSurvivalComponent implements OnInit, OnChanges, AfterViewInit {
     'Cox P value',
     'Logrank P value',
     'Higher risk of death',
+    '# of Mutant',
+    '# of WT',
   ];
   expandedElement: SnvSurvivalTableRecord;
   expandedColumn: string;

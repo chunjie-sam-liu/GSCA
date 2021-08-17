@@ -16,25 +16,13 @@
         in these samples.
       </p>
       <p>
-        Survival analysis only performed for groups with <span class="phighlight">more than 5 samples</span>. And at least 2 groups are
-        needed.
+        Survival analysis only performed for groups with <span class="phighlight"> ≥ 2 samples</span>. And at least 2 groups are needed.
       </p>
       <p>
         <span class="phighlight">R package survival </span>was used to fit survival time and survival status within groups.
         <span class="phighlight">Cox Proportional-Hazards model and Logrank tests</span> were performed to test the survival difference
         between WT and Mutant groups.
       </p>
-      <p>
-        Note that the users may <span class="phighlight">could not get the survival results (shown as --)</span> in sevaral cases,
-        including:
-      </p>
-      <ul>
-        <li class="lilight">1. The PFS data are not avaliable for some cancers, including TGCT, LAML, CHOL, UVM, and THYM.</li>
-        <li class="lilight">
-          2. A gene does not have enough mutation, which lead the number of groups (with at least 2 samples) that used for survival
-          comparing is not enough (two groups are needed).
-        </li>
-      </ul>
 
       <li>Interpretation</li>
       <p>GSCA provides two forms of results, including table and figure.</p>
@@ -42,16 +30,27 @@
       <ul>
         <li>The result table:</li>
         <p>
-          Presents detailed information about Cancer type, Gene symbol, Survival type, Hazard Ratio, Cox P value, Logrank P value, Higher
-          risk of death.
+          Presents detailed information about Cancer type, Gene symbol, Survival type, Logrank P value, Hazard Ratio, Cox P value, Higher
+          risk of death, # of Mutant, and # of WT.
         </p>
         <p>Survival type including OS and PFS.</p>
         <p>
           Higher risk of death indicates the group with higher risk of death. When the <span class="phighlight">Hazard ratio</span> of
           Mutant group compared with low WT group is <span class="phighlight">greather than 1</span>, we think Mutant group has higher risk
-          of death, else WT group has higher risk of death. Or you can judge it according to other standards, such as
-          <span class="phighlight">median survival time</span>.
+          of death, else WT group has higher risk of death. Or you can judge it by yourself according to other standards, such as
+          <span class="phighlight">median survival time</span>. When "Not applicable" presents in column ‘Higher risk of death’, there is no
+          hazard ratio result for judgement.
         </p>
+        <p>Note that the users may <span class="phighlight">get the "Not applicable"</span> in sevaral cases,including:</p>
+        <ul>
+          <li class="lilight">1. The PFS data are not avaliable for LAML.</li>
+          <li class="lilight">
+            2. A gene does not have enough mutation, which lead the number of groups (with at least 2 samples) that used for survival
+            comparing is not enough (two groups are needed).
+          </li>
+          <li class="lilight">3. HR equal to 1.</li>
+        </ul>
+        <p># of Mutant and # of WT indicate the number of samples (have survival data) with and without SNV, respectively.</p>
         <li>GSCA provides result figures including:</li>
         <ul>
           <li>Kaplan-Meier curves:</li>

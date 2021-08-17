@@ -73,7 +73,7 @@ if(nrow(fetched_snv_maf)>0){
     
     if(length(unique(fetched_snv_maf.non_synonymous$entrez))>=2){
       # oncoplot
-      png(filename = filepath_snvoncoplot,height = 4,width = 6,units = "in",res=500)
+      png(filename = filepath_snvoncoplot,height = 6,width = 10,units = "in",res=500)
       oncoplot(
         maf = maf_project, 
         clinicalFeatures = "Cancer_type", sortByMutation = TRUE, sortByAnnotation = TRUE,
@@ -82,7 +82,7 @@ if(nrow(fetched_snv_maf)>0){
       dev.off()
       
       pdf_name_snvoncoplot <- gsub("\\.png",".pdf",filepath_snvoncoplot)
-      pdf(file = pdf_name_snvoncoplot,height = 4,width = 6)
+      pdf(file = pdf_name_snvoncoplot,height = 6,width = 10)
       oncoplot(
         maf = maf_project, 
         clinicalFeatures = "Cancer_type", sortByMutation = TRUE, sortByAnnotation = TRUE,
