@@ -14,6 +14,7 @@ model_methycortable = {
     "cancertype": fields.String(attribute="cancertype"),
     "spm": fields.Float(attribute="spm"),
     "fdr": fields.Float(attribute="fdr"),
+    "gene": fields.String(attribute="gene"),
 }
 
 
