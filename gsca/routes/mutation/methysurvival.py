@@ -16,6 +16,8 @@ model_methysurvivaltable = {
     "cox_p": fields.Float(attribute="cox_p"),
     "HR": fields.Float(attribute="HR"),
     "higher_risk_of_death": fields.String(attribute="higher_risk_of_death"),
+    "tag": fields.String(attribute="tag"),
+    "sur_type": fields.String(attribute="sur_type"),
 }
 
 
