@@ -17,7 +17,7 @@ filepath_trend <- args[4]
 apppath <- args[5]
 
 
-# tableuuid <- 'a4328776-90de-4a35-aa79-f256aa6ee014'
+# tableuuid <- 'de6a6b34-4be7-439c-bf90-e25d35849400'
 # tablecol <- 'preanalysised_gsva'
 # filepath <- "/home/huff/github/GSCA/gsca-r-plot/pngs/91fec0d9-74ce-4036-b1b6-b5fdd8afa1b0.png"
 # apppath <- '/home/huff/github/GSCA'
@@ -83,6 +83,8 @@ combine_data %>%
   tidyr::unnest() %>%
   tidyr::unnest() -> gsva_score_stage_test_res
 
+stages_class <- tibble::tibble(stage=c("StageI","StageII","StageIII","StageIV","intermediate","poor","good"),
+                               stage1=c("StageI","StageII","StageIII","StageIV","StageII","StageIII","StageI"),)
 gsva_score_stage_test_res %>%
   dplyr::mutate(mean.n = paste(signif(mean_exp,2),n,sep = "/"),
               stage = purrr::map(stage,.f=function(.x){
@@ -91,6 +93,10 @@ gsva_score_stage_test_res %>%
   tidyr::unnest(stage) %>%
   dplyr::select(-mean_exp,-n) %>%
   unique() %>%
+  dplyr::mutate(mean.n = ifelse(stage_type=="igcccg_stage",paste(mean.n,"(",stage,")",sep=""),mean.n)) %>%
+  dplyr::inner_join(stages_class,by="stage") %>%
+  dplyr::select(-stage) %>%
+  dplyr::rename(stage=stage1) %>%
   tidyr::spread(key="stage",value="mean.n") -> gsva_score_stage
 
 # Insert table ------------------------------------------------------------
