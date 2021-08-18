@@ -219,6 +219,7 @@ export class StageComponent implements OnInit, OnChanges, AfterViewChecked {
           validSymbol: [this.expandedElement.symbol],
           cancerTypeSelected: [this.expandedElement.cancertype],
           validColl: [collectionlist.expr_stage.collnames[collectionlist.expr_stage.cancertypes.indexOf(this.expandedElement.cancertype)]],
+          surType: [this.expandedElement.stagetype],
         };
 
         this.expressionApiService.getStageSingleGenePlot(postTerm).subscribe(
