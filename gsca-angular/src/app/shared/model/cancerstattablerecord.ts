@@ -3,9 +3,13 @@
 export interface CancerStatTableRecord {
   cancer_types: string;
   expr: string;
-  survival: string;
+  OS: string;
+  PFS: string;
+  pathologic_stage: string;
+  masaoka_stage: string;
+  clinical_stage: string;
+  igcccg_stage: string;
   subtype: string;
-  stage: string;
   immune: string;
   cnv: string;
   snv: string;
