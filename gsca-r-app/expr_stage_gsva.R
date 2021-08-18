@@ -143,20 +143,24 @@ color_list <- for_plot %>%
 
 source(file.path(apppath, "gsca-r-app/utils/fn_figure_height.R"))
 size_width <- 4+length(unique(for_plot$cancertype))*0.5
+for_plot$stage_type %>% unique() %>% length() -> n.stagetype
 
 box_plot <- box_plot_single_gene_multi_cancers_facetgrid(data = for_plot,aesx = "stage",aesy="gsva",facets="stage_type~cancertype",color = "stage",color_name = "Satges",color_labels = color_list$stage,color_values = color_list$color,title = "GSVA score in stages of selected cancer types", xlab = 'Cancer type', ylab = 'GSVA score')
 
 
-ggsave(filename = filepath_box, plot = box_plot, device = 'png', width = size_width, height =  6)
+ggsave(filename = filepath_box, plot = box_plot, device = 'png', width = size_width, height =  4*n.stagetype)
 pdf_name <- gsub("\\.png",".pdf", filepath_box)
-ggsave(filename = pdf_name, plot = box_plot, device = 'pdf', width = size_width, height = 6)
+ggsave(filename = pdf_name, plot = box_plot, device = 'pdf', width = size_width, height = 6*n.stagetype)
 
 # trend Plot --------------------------------------------------------------------
+stages_trend <- tibble::tibble(stage=c("Stage I","Stage II","Stage III","Stage IV","intermediate","poor","good"),
+                                  stage1=c("Stage I","Stage II","Stage III","Stage IV","Stage II","Stage III","Stage II"),
+                                  rank=c(1,2,3,4,2,3,1))
 gsva_score_stage_test_res %>%
   dplyr::select(-diff_p, -diff_method,-trend_method) %>%
-  dplyr::inner_join(stages_included,by="stage") %>%
+  dplyr::inner_join(stages_trend,by="stage") %>%
   dplyr::mutate(`Trend P`=ifelse(trend_p>0.05,">0.05","<=0.05")) %>%
-  dplyr::mutate(stage = purrr::map(stage,.f=function(.x){
+  dplyr::mutate(stage = purrr::map(stage1,.f=function(.x){
     sub3 <- gsub(pattern = "Stage ",replacement = "",.x)
     return(sub3)
   })) %>%
@@ -195,7 +199,7 @@ trendplot <- trend_plot(data = for_plot_trend,
 
 
 # Save image --------------------------------------------------------------
-
-ggsave(filename = filepath_trend, plot = trendplot, device = 'png', width = size_width, height =  4)
+for_plot_trend$stage_type %>% unique() %>% length() -> n.stagetype
+ggsave(filename = filepath_trend, plot = trendplot, device = 'png', width = size_width, height =  4*n.stagetype)
 pdf_name <- gsub("\\.png",".pdf", filepath_trend)
-ggsave(filename = pdf_name, plot = trendplot, device = 'pdf', width = size_width, height = 4)
+ggsave(filename = pdf_name, plot = trendplot, device = 'pdf', width = size_width, height = 4*n.stagetype)
