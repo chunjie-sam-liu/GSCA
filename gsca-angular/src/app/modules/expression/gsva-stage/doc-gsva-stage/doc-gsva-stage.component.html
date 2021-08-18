@@ -7,10 +7,11 @@
     <ul>
       <li>Methods</li>
       <p>
-        For GSVA and stage analysis, GSCA used clinical data of tumor samples from 26 cancer types (HNSC, LUSC, COAD, STAD, LUAD, BRCA,
-        UCEC, KIRC, READ, BLCA, CESC, THCA, TGCT, LIHC, PAAD, CRC, CHOL, ACC, UVM, SKCM, MESO, DLBC, UCS, KICH, KIRP, ESCA). GSVA score and
-        clinical stage data were merged by sample barcode. The stage subgroup must have at least 5 samples. GSCA compared the GSVA score
-        among groups through <span class="phighlight">Wilcoxon test (number of stage groups == 2)</span> and
+        For GSVA and stage analysis, GSCA used 4 types of stage (pathologic, clinical, masaoka (for THYM only), and igcccg stage (for TGCT
+        only)) data of 9478 tumor samples from 27 cancer types (ACC, BLCA, BRCA, CESC, CHOL, COAD, DLBC, ESCA, HNSC, KICH, KIRC, KIRP, LIHC,
+        LUAD, LUSC, MESO, OV, PAAD, READ, SKCM, STAD, TGCT, THCA, THYM, UCEC, UCS, UVM). GSVA score and clinical stage data were merged by
+        sample barcode. The stage subgroup must have at least 5 samples. GSCA compared the GSVA score among groups through
+        <span class="phighlight">Wilcoxon test (number of stage groups == 2)</span> and
         <span class="phighlight">ANOVA test (number of stage groups > 2)</span>.
       </p>
       <p>
