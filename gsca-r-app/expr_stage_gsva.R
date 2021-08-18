@@ -143,14 +143,19 @@ color_list <- for_plot %>%
 
 source(file.path(apppath, "gsca-r-app/utils/fn_figure_height.R"))
 size_width <- 4+length(unique(for_plot$cancertype))*0.5
-for_plot$stage_type %>% unique() %>% length() -> n.stagetype
+
 
 box_plot <- box_plot_single_gene_multi_cancers_facetgrid(data = for_plot,aesx = "stage",aesy="gsva",facets="stage_type~cancertype",color = "stage",color_name = "Satges",color_labels = color_list$stage,color_values = color_list$color,title = "GSVA score in stages of selected cancer types", xlab = 'Cancer type', ylab = 'GSVA score')
 
-
-ggsave(filename = filepath_box, plot = box_plot, device = 'png', width = size_width, height =  4*n.stagetype)
+for_plot$stage_type %>% unique() %>% length() -> n.stagetype
+if(n.stagetype>1){
+  height=3*n.stagetype
+}else{
+  height=4
+}
+ggsave(filename = filepath_box, plot = box_plot, device = 'png', width = size_width, height =  height)
 pdf_name <- gsub("\\.png",".pdf", filepath_box)
-ggsave(filename = pdf_name, plot = box_plot, device = 'pdf', width = size_width, height = 6*n.stagetype)
+ggsave(filename = pdf_name, plot = box_plot, device = 'pdf', width = size_width, height = height)
 
 # trend Plot --------------------------------------------------------------------
 stages_trend <- tibble::tibble(stage=c("Stage I","Stage II","Stage III","Stage IV","intermediate","poor","good"),
@@ -200,6 +205,11 @@ trendplot <- trend_plot(data = for_plot_trend,
 
 # Save image --------------------------------------------------------------
 for_plot_trend$stage_type %>% unique() %>% length() -> n.stagetype
-ggsave(filename = filepath_trend, plot = trendplot, device = 'png', width = size_width, height =  4*n.stagetype)
+if(n.stagetype>1){
+  height=2*n.stagetype
+}else{
+  height=3
+}
+ggsave(filename = filepath_trend, plot = trendplot, device = 'png', width = size_width, height =  height)
 pdf_name <- gsub("\\.png",".pdf", filepath_trend)
-ggsave(filename = pdf_name, plot = trendplot, device = 'pdf', width = size_width, height = 4*n.stagetype)
+ggsave(filename = pdf_name, plot = trendplot, device = 'pdf', width = size_width, height = height)
