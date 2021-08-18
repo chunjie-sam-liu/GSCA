@@ -2,6 +2,7 @@ from flask import Blueprint, request, send_file
 from gsca.db import mongo
 from flask_restful import Api, Resource, fields, marshal_with, reqparse
 from gsca.utils.checkplot import CheckPlot, CheckParallelPlot
+from gsca.utils.check_survivalPlot import CheckSurvivalPlot
 
 stage = Blueprint("stage", __name__)
 api = Api(stage)
@@ -73,7 +74,7 @@ api.add_resource(StageHeatTrendPlot, "/stageheattrendplot")
 class StagePlotSingleGene(Resource):
     def post(self):
         args = request.get_json()
-        checkplot = CheckPlot(args=args, purpose="stagesinglegene", rplot="stageplot_singlegene.R")
+        checkplot = CheckSurvivalPlot(args=args, purpose="stagesinglegene", rplot="stageplot_singlegene.R")
         res = checkplot.check_run()
         if res["run"]:
             checkplot.plot(filepath=res["filepath"])

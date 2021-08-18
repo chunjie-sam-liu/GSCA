@@ -30,9 +30,10 @@ export class GsvaStageComponent implements OnInit, OnChanges, AfterViewInit {
   showGSVAStageTable = true;
   @ViewChild('paginatorGSVAStage') paginatorGSVAStage: MatPaginator;
   @ViewChild(MatSort) sortGSVAStage: MatSort;
-  displayedColumnsGSVAStage = ['cancertype', 'diff_p', 'trend_p', 'trend_score', 'StageI', 'StageII', 'StageIII', 'StageIV'];
+  displayedColumnsGSVAStage = ['cancertype', 'stage_type', 'diff_p', 'trend_p', 'trend_score', 'StageI', 'StageII', 'StageIII', 'StageIV'];
   displayedColumnsGSVAStageHeader = [
     'Cancer type',
+    'Stage type',
     'P value of difference test',
     'P value of trend test',
     'Score of trend test',
