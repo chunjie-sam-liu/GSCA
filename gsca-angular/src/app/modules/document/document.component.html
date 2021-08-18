@@ -89,7 +89,7 @@
             </p>
 
             <li>
-              <h3>Cancer <a href="https://www.cancer.gov/about-cancer/diagnosis-staging/staging" target="_blank">Stage</a></h3>
+              <h3>Cancer Stage</h3>
             </li>
             <p>
               This function allows the comparison of gene expression between stages. A trend analysis was utilized to get the trend of
@@ -792,7 +792,7 @@
                   Data process
                   <ul>
                     <li>14 cancers have over ten paired tumor and normal samples.</li>
-                    <li>Processed with RSEM normalized expression</li>
+                    <li>RSEM normalized mRNA expression data were downloaded without any further processing.</li>
                   </ul>
                 </li>
               </ul>
@@ -801,13 +801,17 @@
                 <li>
                   Survival
                   <ul>
-                    <li>including overall survival(OS) and progression free survival(PFS)</li>
+                    <li>Including overall survival(OS) and progression free survival(PFS).</li>
                   </ul>
                 </li>
                 <li>
                   Stage
                   <ul>
-                    <li>including stage I, II, III, IV</li>
+                    <li>
+                      Stage data were further grouped into stage I, II, III, and IV. Undefined stages, such as stage x, were excluded.
+                    </li>
+                    <li>Contain 9478 tumor samples from 27 cancer types</li>
+                    <li>Including pathologic, clinical, masaoka (for THYM only), and igcccg (for TGCT only) stage.</li>
                   </ul>
                 </li>
                 <li>

@@ -19,17 +19,14 @@
         classified in Excluded group, which will not be considered in this analysis.
       </p>
       <p>
-        Survival analysis was performed when at least 2 groups with <span class="phighlight">more than 2 samples</span>. And groups with ≤ 5
-        samples were also remained to perform survival analysis, togather with groups have more than 2 samples.
+        Survival analysis was performed when at least 2 groups with <span class="phighlight">more than 2 samples</span>. And groups with < 2
+        samples were also remained to draw survival curve.
       </p>
       <p>
         <span class="phighlight">R package survival </span>was used to fit survival time and survival status within gene set CNV groups.
         <span class="phighlight">Logrank test</span> was performed to test the survival difference between groups.
       </p>
-      <p>
-        Note that the users may <span class="phighlight">could not get the survival results (shown as --)</span> in sevaral cases,
-        including:
-      </p>
+      <p>Note that the users may <span class="phighlight">could not get the survival results</span> in sevaral cases, including:</p>
       <ul>
         <li class="lilight">1. The PFS data are not avaliable for LAML.</li>
         <li class="lilight">
