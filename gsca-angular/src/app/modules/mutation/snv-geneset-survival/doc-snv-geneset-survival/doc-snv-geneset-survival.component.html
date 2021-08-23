@@ -15,7 +15,7 @@
         The gene set SNV represents the <span class="phighlight">integrated SNV status</span> of inputted gene set for each sample. A sample
         is classified into Mutant group only when at least one gene in the input gene set is mutated in the sample. If all genes in inputted
         gene set have no SNV in a sample, this sample is classified into WT group. Only samples have
-        <span class="phighlight">effective mutants</span> are included in Mutant group.
+        <span class="phighlight">deleterious mutants</span> are included in Mutant group.
       </p>
       <p>Survival analysis only performed for groups with <span class="phighlight">>2 samples</span>. And at least 2 groups are needed.</p>
       <p>
@@ -23,16 +23,15 @@
         <span class="phighlight">Cox Proportional-Hazards model and Logrank tests</span> were performed to test the survival difference
         between groups.
       </p>
-      <p>
-        Note that the users may <span class="phighlight">could not get the survival results (shown as --)</span> in sevaral cases,
-        including:
-      </p>
+      <p>Note that the users may <span class="phighlight">could not get the survival results</span> in sevaral cases, including:</p>
       <ul>
         <li class="lilight">1. The PFS data are not avaliable for LAML.</li>
         <li class="lilight">
-          2. The inputted gene set do not have enough mutation, which lead the number of groups (have > 2 samples) that used for survival
-          comparing is not enough (two groups are needed).
+          2. The inputted gene set do not have enough mutation, which lead the number of groups (<span class="phighlight"
+            >have > 2 samples</span
+          >) that used for survival comparing is not enough (two groups are needed).
         </li>
+        <li class="lilight">3. HR equal to 1.</li>
       </ul>
 
       <li>Interpretation</li>
@@ -48,15 +47,14 @@
         <p>
           Higher risk of death indicates the group with higher risk of death. When the <span class="phighlight">Hazard ratio</span> of
           Mutant group compared with low WT group is <span class="phighlight">greather than 1</span>, we think Mutant group has higher risk
-          of death, else WT group has higher risk of death. Or you can judge it according to other standards, such as
-          <span class="phighlight">median survival time</span>.
+          of death, else WT group has higher risk of death.
         </p>
         <li>GSCA provides result figures including:</li>
         <ul>
           <li>Kaplan-Meier curves:</li>
           <p>
-            By clicking buttons in table, GSCA draws Kaplan-Meier curves between WT and Mutant (effective mutation) groups of specific gene
-            in specific cancer.
+            By clicking buttons in table, GSCA draws Kaplan-Meier curves between WT and Mutant (deleterious mutation) groups of specific
+            gene in specific cancer.
           </p>
 
           <li>Bubble plot:</li>

@@ -89,11 +89,12 @@
             </p>
 
             <li>
-              <h3>Cancer <a href="https://www.cancer.gov/about-cancer/diagnosis-staging/staging" target="_blank">TNM Stage</a></h3>
+              <h3>Cancer Stage</h3>
             </li>
             <p>
-              This function allows the comparison of gene expression between TNM stages. A trend analysis was utilized to get the trend of
-              expression as the disease progresses.
+              This function allows the comparison of gene expression between stages. A trend analysis was utilized to get the trend of
+              expression as the disease progresses. Four types of stage (pathologic, clinical, masaoka (for THYM only), and igcccg stage
+              (for TGCT only)) data of 9478 tumor samples from 27 cancer types are used in stage analyses.
             </p>
           </ol>
         </mat-card-content>
@@ -215,9 +216,9 @@
 
                 <li>Stage and expression</li>
                 <p>
-                  This module estimates the change of expression between TNM stages (from stage I to IV). The bubble color and the bubble
-                  size represent the FDR significance. Black outline border indicates FDR ≤ 0.05. Users can found that PODXL is
-                  significantly different among stage in KIRC.
+                  This module estimates the change of expression between stages (from stage I to IV). The bubble color and the bubble size
+                  represent the FDR significance. Black outline border indicates FDR ≤ 0.05. Users can found that PODXL is significantly
+                  different among stage in KIRC.
                 </p>
                 <div fxLayout="row" fxLayoutAlign="center center">
                   <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'Exprstage.png'" alt="stageexprsummary" />
@@ -318,7 +319,7 @@
 
                 <li>Stage and GSVA score</li>
                 <p>
-                  The <span class="phighlight">boxplot</span> compares the GSVA score of inputed gene set between TNM stages. The
+                  The <span class="phighlight">boxplot</span> compares the GSVA score of inputed gene set between stages. The
                   <span class="phighlight">trend plot</span> persents the trend of middle GSVA score from stage I to stage IV. Users can
                   find that the overall expression level of example gene set are trend to upregulate in KICH, KIRP and LUSC, and trend to
                   downregulate in KIRC and LUAD, but without statistical significance (Tend P > 0.05, estimated by Mann-Kendall Trend Test).
@@ -440,7 +441,7 @@
                     <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'lollipop.png'" alt="Lollipop" />
                   </div>
 
-                  <li>The heatmap summarizes the frequency of effective mutations in selected caner types.</li>
+                  <li>The heatmap summarizes the frequency of deleterious mutations in selected caner types.</li>
                   <br />
                   <div fxLayout="row" fxLayoutAlign="center center">
                     <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'SNV.png'" alt="snvheatmap" />
@@ -448,7 +449,7 @@
 
                   <li>The summary plot gives the count and type of variants in the sample and gene levels.</li>
                   <p>
-                    Plot 1 (Variant Classification): the count of each type of effective mutation (Missense_Mutation, Nonsense_Mutation,
+                    Plot 1 (Variant Classification): the count of each type of deleterious mutation (Missense_Mutation, Nonsense_Mutation,
                     Frame_Shift_Ins, Splice_Site, Frame_Shift_Del, In_Frame_Del, In_Frame_Ins) of inputted gene set in selected cancer
                     types.
                   </p>
@@ -791,7 +792,7 @@
                   Data process
                   <ul>
                     <li>14 cancers have over ten paired tumor and normal samples.</li>
-                    <li>Processed with RSEM normalized expression</li>
+                    <li>RSEM normalized mRNA expression data were downloaded without any further processing.</li>
                   </ul>
                 </li>
               </ul>
@@ -800,13 +801,17 @@
                 <li>
                   Survival
                   <ul>
-                    <li>including overall survival(OS) and progression free survival(PFS)</li>
+                    <li>Including overall survival(OS) and progression free survival(PFS).</li>
                   </ul>
                 </li>
                 <li>
                   Stage
                   <ul>
-                    <li>including stage I, II, III, IV</li>
+                    <li>
+                      Stage data were further grouped into stage I, II, III, and IV. Undefined stages, such as stage x, were excluded.
+                    </li>
+                    <li>Contain 9478 tumor samples from 27 cancer types</li>
+                    <li>Including pathologic, clinical, masaoka (for THYM only), and igcccg (for TGCT only) stage.</li>
                   </ul>
                 </li>
                 <li>

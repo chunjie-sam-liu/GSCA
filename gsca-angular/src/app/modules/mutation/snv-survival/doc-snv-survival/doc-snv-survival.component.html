@@ -12,7 +12,7 @@
         barcode.
       </p>
       <p>
-        Tumor samples were divided into Mutant group when the specific gene is mutated (<span class="phighlight">effective mutants</span>)
+        Tumor samples were divided into Mutant group when the specific gene is mutated (<span class="phighlight">deleterious mutants</span>)
         in these samples.
       </p>
       <p>Survival analysis only performed for groups with <span class="phighlight">> 2 samples</span>. And at least 2 groups are needed.</p>
@@ -35,16 +35,15 @@
         <p>
           Higher risk of death indicates the group with higher risk of death. When the <span class="phighlight">Hazard ratio</span> of
           Mutant group compared with low WT group is <span class="phighlight">greather than 1</span>, we think Mutant group has higher risk
-          of death, else WT group has higher risk of death. Or you can judge it by yourself according to other standards, such as
-          <span class="phighlight">median survival time</span>. When "Not applicable" presents in column ‘Higher risk of death’, there is no
+          of death, else WT group has higher risk of death. When "Not applicable" presents in column ‘Higher risk of death’, there is no
           hazard ratio result for judgement.
         </p>
         <p>Note that the users may <span class="phighlight">get the "Not applicable"</span> in sevaral cases,including:</p>
         <ul>
           <li class="lilight">1. The PFS data are not avaliable for LAML.</li>
           <li class="lilight">
-            2. A gene does not have enough mutation, which lead the number of groups (have > 2 samples) that used for survival comparing is
-            not enough (two groups are needed).
+            2. A gene does not have enough mutation, which lead the number of groups (<span class="phighlight">have > 2 samples</span>) that
+            used for survival comparing is not enough (two groups are needed).
           </li>
           <li class="lilight">3. HR equal to 1.</li>
         </ul>
@@ -53,7 +52,7 @@
         <ul>
           <li>Kaplan-Meier curves:</li>
           <p>
-            By clicking buttons in table result, GSCA draws Kaplan-Meier curves between WT and Mutant (effective mutation) groups of
+            By clicking buttons in table result, GSCA draws Kaplan-Meier curves between WT and Mutant (deleterious mutation) groups of
             specific gene in specific cancer.
           </p>
 

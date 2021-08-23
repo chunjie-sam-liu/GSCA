@@ -38,7 +38,7 @@ fetched_data <- purrr::map(.x = search_colls, .f = fn_fetch_mongo, pattern="_imm
 # pic size ----------------------------------------------------------------
 
 source(file.path(apppath, "gsca-r-app/utils/fn_figure_height.R"))
-size <- fn_height_width(length(unique(fetched_data$symbol)),length(unique(fetched_data$cancertype)))
+size <- fn_height_width(search_genes,search_cancertypes)
 
 # Sort ----------------------------------------------------------------
 source(file.path(apppath,"gsca-r-app/utils/common_used_summary_plot_functions.R"))
@@ -88,6 +88,6 @@ plot <- bubble_plot(data=for_plot,
                     title=title)
 
 # Save --------------------------------------------------------------------
-ggsave(filename = filepath, plot = plot, device = 'png', width = size$width+2, height = size$height)
+ggsave(filename = filepath, plot = plot, device = 'png', width = size$width+2, height = size$height+2)
 pdf_name <- gsub("\\.png",".pdf",filepath)
-ggsave(filename = pdf_name, plot = plot, device = 'pdf', width = size$width+2, height = size$height)
+ggsave(filename = pdf_name, plot = plot, device = 'pdf', width = size$width+2, height = size$height+2)

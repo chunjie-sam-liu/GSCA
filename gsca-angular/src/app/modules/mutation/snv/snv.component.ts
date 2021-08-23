@@ -34,8 +34,8 @@ export class SnvComponent implements OnInit, OnChanges, AfterViewInit {
   displayedColumnsSnvHeader = [
     'Cancer type',
     'Gene symbol',
-    'Effective mutation',
-    'Non-effective mutation',
+    'Deleterious mutation',
+    'Non-deleterious mutation',
     'Total sample size',
     'Percentage',
   ];
