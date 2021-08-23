@@ -39,7 +39,10 @@ if(nrow(fetched_data)>0){
   source(file.path(apppath,"gsca-r-app/utils/common_used_summary_plot_functions.R"))
   
   fetched_data_clean_pattern <- fn_get_pattern(
-    .x = fetched_data %>% dplyr::rename(value=cox_p,trend=higher_risk_of_death) %>% dplyr::filter(sur_type=="OS"),
+    .x = fetched_data %>% 
+      dplyr::filter(!is.na(cox_p)) %>%
+      dplyr::rename(value=cox_p,trend=higher_risk_of_death) %>% 
+      dplyr::filter(sur_type=="OS"),
     trend1="WT",
     trend2="Mutant",
     p_cutoff=0.05,

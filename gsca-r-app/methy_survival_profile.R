@@ -36,16 +36,25 @@ fetched_data <- purrr::map(.x = search_colls, .f = fn_fetch_mongo, pattern="_met
 
 # Sort ----------------------------------------------------------------
 source(file.path(apppath,"gsca-r-app/utils/common_used_summary_plot_functions.R"))
-
-fetched_data_clean_pattern <- fn_get_pattern(
-  .x = fetched_data %>% dplyr::rename(value=cox_p,trend=higher_risk_of_death),
-  trend1="Hypermethylation",
-  trend2="Hypomethylation",
-  p_cutoff=0.05,
-  selections =c("cancertype","symbol"))
-cancer_rank <- fn_get_cancer_types_rank(.x = fetched_data_clean_pattern)
-gene_rank <- fn_get_gene_rank_v2(.x = fetched_data_clean_pattern)
-for_plot <- fn_pval_label(.x = fetched_data %>% dplyr::rename(value=cox_p)) %>%
+fetched_data %>%
+  dplyr::filter(!is.na(cox_p)) %>%
+  dplyr::mutate(sig = ifelse(cox_p>0.05, 0, 1)) %>%
+  dplyr::mutate(sig = sig*log10(HR)) %>%
+  dplyr::group_by(symbol) %>%
+  dplyr::mutate(rank = sum(sig)) %>%
+  dplyr::select(rank) %>%
+  unique() %>%
+  dplyr::arrange(rank) -> gene_rank
+fetched_data %>%
+  dplyr::filter(!is.na(cox_p)) %>%
+  dplyr::mutate(sig = ifelse(cox_p>0.05, 0, 1)) %>%
+  dplyr::mutate(sig = sig*log10(HR)) %>%
+  dplyr::group_by(cancertype) %>%
+  dplyr::mutate(rank = sum(sig)) %>%
+  dplyr::select(rank) %>%
+  unique() %>%
+  dplyr::arrange(rank) -> cancer_rank
+for_plot <- fn_pval_label(.x = fetched_data %>% dplyr::filter(!is.na(cox_p)) %>% dplyr::rename(value=cox_p)) %>%
   dplyr::filter(!is.na(HR)) %>%
   dplyr::mutate(HR = ifelse(HR>10,10,HR)) %>%
   dplyr::mutate(logp = -log10(value),

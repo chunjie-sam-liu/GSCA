@@ -40,7 +40,10 @@ fetched_data <- purrr::map(.x = search_cancertypes, .f = fn_fetch_mongo, pattern
 source(file.path(apppath,"gsca-r-app/utils/common_used_summary_plot_functions.R"))
 
 fetched_data_clean_pattern <- fn_get_pattern(
-  .x = fetched_data %>% dplyr::rename(value=pval,trend=higher_risk_of_death) %>% dplyr::filter(sur_type=="OS"),
+  .x = fetched_data %>% 
+    dplyr::filter(!is.na(pval)) %>%
+    dplyr::rename(value=pval,trend=higher_risk_of_death) %>% 
+    dplyr::filter(sur_type=="OS"),
   trend1="Higher expr.",
   trend2="Lower expr.",
   p_cutoff=0.05,
