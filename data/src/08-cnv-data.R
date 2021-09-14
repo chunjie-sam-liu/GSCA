@@ -6,13 +6,13 @@ library(magrittr)
 rda_path <- "/home/huff/github/GSCA/data"
 load(file = file.path(rda_path,"rda",'01-gene-symbols.rda'))
 gsca_conf <- readr::read_lines(file = file.path(rda_path,"src",'gsca.conf'))
-cnv_symbol_search_symbol_final <- readr::read_rds(file = 'data/rda/cnv_symbol_search_symbol_final.rds.gz') %>% 
+cnv_symbol_search_symbol_final <- readr::read_rds(file = '/home/huff/github/GSCA/data/rda/cnv_symbol_search_symbol_final.rds.gz') %>% 
   dplyr::select(cnvsymbol, entrez, symbol)
 
 # Load cnv ----------------------------------------------------------------
 
-cnv <- readr::read_rds(file = '/home/huff/data/GSCALite/TCGA/cnv/pancan34_cnv.rds.gz')
-
+# cnv_old <- readr::read_rds(file = '/home/huff/data/GSCALite/TCGA/cnv/pancan34_cnv.rds.gz')
+cnv <- readr::read_rds(file = '/home/huff/data/GSCA/cnv/pancan34_cnv.IdTrans.rds.gz')
 
 # Function ----------------------------------------------------------------
 
@@ -42,12 +42,13 @@ fn_gene_tcga_all_cnv <- function(cancer_types, cnv) {
   .x <- cnv
   message(glue::glue('{.y} CNV data processing.'))
   
-  cnv_symbol_search_symbol_final %>% 
-    dplyr::inner_join(
-      .x %>% dplyr::rename(cnvsymbol = symbol),
-      by = 'cnvsymbol'
-    ) %>% 
-    dplyr::select(-cnvsymbol) %>% 
+  # cnv_symbol_search_symbol_final %>% 
+  #  dplyr::inner_join(
+  #    .x %>% dplyr::rename(cnvsymbol = symbol),
+  #    by = 'cnvsymbol'
+  #  ) %>% 
+  #  dplyr::select(-cnvsymbol) %>% 
+  .x %>%
     dplyr::group_by(entrez, symbol) %>% 
     tidyr::nest() %>% 
     dplyr::ungroup() -> 
