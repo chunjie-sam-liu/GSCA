@@ -4,9 +4,48 @@ datapath <- "/home/huff/data/GSCA"
 # clinical ----------------------------------------------------------------
 
 clinical <- readr::read_rds(file.path(datapath,"clinical","pancan34_clinical_stage_survival_subtype.rds.gz"))
-clinical %>%
-  dplyr::select(cancer_types,subtype=n.x, survival= n.y, stage=n)-> clinical_statistical
 
+stage <- readr::read_rds(file.path(datapath,"clinical","Pancan.Merge.clinical-STAGE.rds.gz")) %>%
+  dplyr::mutate(stage = purrr::map(stage, .f=function(.x){
+    .x %>%
+      dplyr::mutate(sample_name=toupper(barcode)) %>%
+      dplyr::select(-barcode) %>%
+      tidyr::gather(-sample_name,key="stage_type",value="stage")
+  }))
+
+survival <- readr::read_rds(file.path(datapath,"clinical","pancan33_survival_NEW.rds.gz"))
+
+clinical %>%
+  dplyr::select(cancer_types,subtype=n.x)-> subtype_statistical
+
+stage %>%
+  dplyr::mutate(count= purrr::map(stage,.f=function(.x){
+    .x %>%
+      dplyr::filter(!is.na(stage)) %>%
+      dplyr::group_by(stage_type) %>%
+      dplyr::mutate(stage=dplyr::n()) %>%
+      dplyr::select(stage_type,stage) %>%
+      unique()
+  })) %>%
+  dplyr::select(-stage) %>%
+  tidyr::unnest() %>%
+  dplyr::filter(stage_type %in% c("clinical_stage","igcccg_stage" ,"masaoka_stage","pathologic_stage")) %>%
+  tidyr::spread(key=stage_type,value=stage) -> stage_statistical
+
+survival %>%
+  dplyr::mutate(count= purrr::map(combine,.f=function(.x){
+    .x %>%
+      dplyr::select(pfs_status, pfs_days) %>%
+      dplyr::filter(!is.na(pfs_status) & !is.na(pfs_days)) %>%
+      nrow() -> .n_pfs
+    .x %>%
+      dplyr::select(os_days, os_status) %>%
+      dplyr::filter(!is.na(os_days) & !is.na(os_status)) %>%
+      nrow() -> .n_os
+    tibble::tibble(PFS=.n_pfs,OS=.n_os)
+  })) %>%
+  dplyr::select(-combine) %>%
+  tidyr::unnest()  -> survival_statistical
 
 # mRNA expre AND Immune--------------------------------------------------------------
 all_expr <- readr::read_rds(file.path(datapath,"expr","pancan33_expr.IdTrans.rds.gz"))
@@ -16,9 +55,15 @@ all_expr %>%
     ncol(.x)-2
   })) %>%
   tidyr::unnest() -> expr_statistical
-expr_statistical %>%
-  dplyr::mutate(immune=expr) %>%
-  dplyr::select(-expr)-> immune_statistical
+
+all_immune <- readr::read_rds(file.path(datapath,"TIL","pan33_ImmuneCellAI.rds.gz"))
+
+all_immune %>%
+  dplyr::mutate(immune=purrr::map(ImmuneCellAI,.f=function(.x){
+    nrow(.x)
+  })) %>%
+  dplyr::select(-ImmuneCellAI) %>%
+  tidyr::unnest()-> immune_statistical
 
 
 # cnv ---------------------------------------------------------------------
@@ -35,7 +80,7 @@ cnv%>%
 # snv ---------------------------------------------------------------------
 
 snv <- readr::read_rds(file.path(datapath,"TIL","pancan33_sample_with_snv.rds.gz"))
-sample_with_snv <- readr::read_rds(file.path(data_path,"pancan33_sample_with_snv.rds.gz"))
+sample_with_snv <- readr::read_rds(file.path(datapath,"pancan33_sample_with_snv.rds.gz"))
 
 snv %>%
   dplyr::mutate(snv = purrr::map(sample_with_snv,.f=function(.x){
@@ -59,7 +104,9 @@ methy_data %>%
 
 
 expr_statistical %>%
-  dplyr::full_join(clinical_statistical, by="cancer_types") %>%
+  dplyr::full_join(subtype_statistical, by="cancer_types") %>%
+  dplyr::full_join(stage_statistical, by="cancer_types") %>%
+  dplyr::full_join(survival_statistical, by="cancer_types") %>%
   dplyr::full_join(immune_statistical, by="cancer_types") %>%
   dplyr::full_join(cnv_statistical, by="cancer_types") %>%
   dplyr::full_join(snv_statistical, by="cancer_types") %>%
