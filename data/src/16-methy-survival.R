@@ -9,14 +9,14 @@ library(magrittr)
 
 rda_path <- "/home/huff/github/GSCA/data/"
 data_path <- "/home/huff/data/GSCA/methy"
-mongo_dump_path <- "/home/huff/data/GSCA/mongo_dump"
+mongo_dump_path <- "/home/huff/data/GSCA/mongo_dump/2021-09-15_ClinicalRenew_dump"
 
 gsca_conf <- readr::read_lines(file = file.path(rda_path,"src",'gsca.conf'))
 
 
 # load methy data ---------------------------------------------------------
 
-methy_survival <- readr::read_rds(file.path(data_path,"pan33_methy_survival_NEW210812.rds.gz")) %>%
+methy_survival_OsPfs <- readr::read_rds(file.path(data_path,"pan33_methy_survival_NEW210812.rds.gz")) %>%
   dplyr::mutate(data = purrr::map(data,.f=function(.x){
     .x %>%
       dplyr::mutate(tag = strsplit(as.character(gene),"_")[[1]][1], 
@@ -29,7 +29,20 @@ methy_survival <- readr::read_rds(file.path(data_path,"pan33_methy_survival_NEW2
       dplyr::select(entrez, symbol,tag,logRankP,coxP,HR,sur_type,higher_risk_of_death)
   }))
 
-
+methy_survival_DssDfi <- readr::read_rds(file.path(data_path,"pan33_methy_DSS-DFI_survival_210914.rds.gz")) %>%
+  dplyr::mutate(data = purrr::map(data,.f=function(.x){
+    .x %>%
+      dplyr::mutate(tag = strsplit(as.character(gene),"_")[[1]][1], 
+                    sur_type=toupper(sur_type), 
+                    coxP=coxp_categorical,
+                    logRankP=logrankp,
+                    HR=1/hr_categorical
+      ) %>%
+      dplyr::ungroup() %>%
+      dplyr::select(entrez, symbol,tag,logRankP,coxP,HR,sur_type,higher_risk_of_death)
+  }))
+methy_survival_OsPfs %>%
+  rbind(methy_survival_DssDfi) ->methy_survival
 # function ----------------------------------------------------------------
 
 fn_methy_survival_mongo <-function(cancer_types,data){
@@ -44,7 +57,7 @@ fn_methy_survival_mongo <-function(cancer_types,data){
   .coll$drop()
   .coll$insert(data=.x)
   .coll$index(add='{"symbol": 1}')
-  .coll$export(file(file.path(mongo_dump_path,"2021-08-15_ClinicalRenew_dump",paste(.coll_name,"dump.json",sep="-"))))
+  .coll$export(file(file.path(mongo_dump_path,paste(.coll_name,"dump.json",sep="-"))))
   
   message(glue::glue('Save all {.y} methy survival into mongo'))
   

@@ -8,7 +8,8 @@ library(magrittr)
 
 gsca_path <- file.path("/home/huff/data/GSCA")
 rda_path <- "/home/huff/github/GSCA/data/"
-mongo_dump_path <- "/home/huff/data/GSCA/mongo_dump"
+mongo_dump_path <- "/home/huff/data/GSCA/mongo_dump/2021-09-15_ClinicalRenew_dump"
+data_path <- "/home/huff/data/TCGA-survival-time/cell.2018.survival"
 
 # load data ---------------------------------------------------------------
 
@@ -22,8 +23,22 @@ stage <- readr::read_rds(file.path(gsca_path,"clinical","Pancan.Merge.clinical-S
       tidyr::gather(-sample_name,key="stage_type",value="stage")
   }))
 
-survival <- readr::read_rds(file.path(gsca_path,"clinical","pancan33_survival_NEW.rds.gz"))
-
+survival_OsPfs <- readr::read_rds(file.path(gsca_path,"clinical","pancan33_survival_NEW.rds.gz")) %>%
+  tidyr::unnest()
+survival_DssDfi <- readr::read_rds(file.path(data_path,"TCGA_pancan_cancer_cell_survival_time.rds.gz")) %>%
+  dplyr::mutate(survival=purrr::map(data,.f=function(.x){
+    .x %>%
+      dplyr::select(sample_name=bcr_patient_barcode,dss_status=DSS_cr, dss_days=DSS.time.cr,dfi_status=DFI.cr, dfi_days=DFI.time.cr) %>%
+      dplyr::mutate(dss_status=ifelse(dss_status=="#N/A", NA, as.numeric(dss_status))) %>%
+      dplyr::mutate(dss_days=ifelse(dss_days=="#N/A", NA, as.numeric(dss_days))) %>%
+      dplyr::mutate(dfi_status=ifelse(dfi_status=="#N/A", NA, as.numeric(dfi_status))) %>%
+      dplyr::mutate(dfi_days=ifelse(dfi_days=="#N/A", NA, as.numeric(dfi_days))) 
+  })) %>%
+  dplyr::select(-data,cancer_types=type) %>%
+  tidyr::unnest()
+survival_OsPfs %>%
+  dplyr::full_join(survival_DssDfi, by=c("cancer_types", "sample_name")) %>%
+  tidyr::nest(-cancer_types,.key = "combine") -> survival
   
 gsca_conf <- readr::read_lines(file = file.path(rda_path,"src",'gsca.conf'))
 
@@ -83,7 +98,13 @@ fn_list_survival <- function(.x){
     os_status = list(.x$os_status),
     pfs_months = list(.x$pfs_months ),
     pfs_days = list(.x$pfs_days),
-    pfs_status = list(.x$pfs_status)
+    pfs_status = list(.x$pfs_status),
+    dss_months = list(.x$dss_months ),
+    dss_days = list(.x$dss_days),
+    dss_status = list(.x$dss_status),
+    dfi_months = list(.x$dfi_months ),
+    dfi_days = list(.x$dfi_days),
+    dfi_status = list(.x$dfi_status)
   )
 }
 
@@ -106,7 +127,7 @@ fn_survival <- function(class, data) {
   .coll$drop()
   .coll$insert(data = .dd)
   .coll$index(add = '{"cancer_types": 1}')
-  .coll$export(file(file.path(mongo_dump_path,"2021-08-15_ClinicalRenew_dump",paste(.coll_name,"dump.json",sep="-"))))
+  .coll$export(file(file.path(mongo_dump_path,paste(.coll_name,"dump.json",sep="-"))))
   
   message(glue::glue('Save all {.y} all survival data into mongo'))
   
@@ -116,7 +137,7 @@ fn_survival <- function(class, data) {
 system.time(
   survival %>%
     tidyr::unnest() %>%
-    dplyr::mutate(os_months = os_days/30, pfs_months =pfs_days/30) %>%
+    dplyr::mutate(os_months = os_days/30, pfs_months =pfs_days/30, dss_months =dss_days/30, dfi_months =dfi_days/30) %>%
     dplyr::mutate(class="all") %>%
     tidyr::nest(-class) %>%
     purrr::pmap(.f = fn_survival) ->
@@ -152,7 +173,7 @@ fn_stage <- function(class, data) {
   .coll$drop()
   .coll$insert(data = .dd)
   .coll$index(add = '{"cancer_types": 1}')
-  .coll$export(file(file.path(mongo_dump_path,"2021-08-15_ClinicalRenew_dump",paste(.coll_name,"dump.json",sep="-"))))
+  .coll$export(file(file.path(mongo_dump_path,paste(.coll_name,"dump.json",sep="-"))))
   
   message(glue::glue('Save all {.y} all stage data into mongo'))
   

@@ -10,7 +10,7 @@ library(magrittr)
 
 rda_path <- "/home/huff/github/GSCA/data"
 data_path <- "/home/huff/data/GSCA/snv"
-mongo_dump_path <- "/home/huff/data/GSCA/mongo_dump/2021-08-15_ClinicalRenew_dump"
+mongo_dump_path <- "/home/huff/data/GSCA/mongo_dump/2021-09-15_ClinicalRenew_dump"
 
 gsca_conf <- readr::read_lines(file = file.path(rda_path,"src",'gsca.conf'))
 
@@ -50,12 +50,21 @@ fn_snv_survival_mongo <-function(cancer_types,data){
 }
 
 # data --------------------------------------------------------------------
-snv_survival <- readr::read_rds(file.path(data_path,"pan33_snv_survival_NEW_210813.rds.gz"))
+snv_survival_OsPfs <- readr::read_rds(file.path(data_path,"pan33_snv_survival_NEW_210813.rds.gz")) %>%
+  dplyr::ungroup() %>%
+  tidyr::unnest()
+snv_survival_DssDfi <- readr::read_rds(file.path(data_path,"pan33_snv_DSS-DFI_survival_210914.rds.gz")) %>%
+  dplyr::mutate(survival_res=purrr::map(survival_res,.f=function(.x){
+    .x %>%
+      dplyr::mutate(higher_risk_of_death=as.character(higher_risk_of_death))
+  }))
+  dplyr::ungroup() %>%
+  tidyr::unnest()
+
 groups <- tibble::tibble(higher_risk_of_death=c("Mutated","Non-mutated","Not applicable"),
                higher_risk_of_death_rename = c("Mutant","WT","Not applicable"))
-snv_survival %>%
-  dplyr::ungroup() %>%
-  tidyr::unnest() %>%
+snv_survival_OsPfs %>%
+  rbind(snv_survival_DssDfi) %>%
   dplyr::mutate(higher_risk_of_death=ifelse(!is.na(higher_risk_of_death),higher_risk_of_death,"Not applicable")) %>%
   # dplyr::mutate(higher_risk_of_death=ifelse(`2_mutated`<2 ,"Not applicable(# of mutant < 2)",higher_risk_of_death)) %>%
   dplyr::inner_join(groups, by="higher_risk_of_death") %>%
