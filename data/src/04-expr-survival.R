@@ -5,7 +5,7 @@ library(magrittr)
 
 # Load data ---------------------------------------------------------------
 rda_path <- "/home/huff/github/GSCA/data"
-mongo_dump_path <- "/home/huff/data/GSCA/mongo_dump/2021-08-15_ClinicalRenew_dump"
+mongo_dump_path <- "/home/huff/data/GSCA/mongo_dump/2021-09-15_ClinicalRenew_dump"
 
 gsca_conf <- readr::read_lines(file = file.path(rda_path,"src",'gsca.conf'))
 
@@ -29,11 +29,17 @@ gsca_conf <- readr::read_lines(file = file.path(rda_path,"src",'gsca.conf'))
 #   readr::write_rds(file.path("/home/huff/data/GSCA/expr/pan33_expr_survival.rds.gz"))
 
 # expr_survival <- readr::read_rds(file = '/home/huff/data/GSCA/expr/pan33_expr_survival.rds.gz')
-expr_survival <- readr::read_rds(file = '/home/huff/data/GSCA/expr/pan33_expr_survival_NEW210812.rds.gz') %>%
+expr_survival_OsPfs <- readr::read_rds(file = '/home/huff/data/GSCA/expr/pan33_expr_survival_NEW210812.rds.gz') %>%
+  tidyr::unnest() %>%
+  dplyr::mutate(`hr_categorical(H/L)`=1/hr_categorical) %>%
+  dplyr::rename(`hr_categorical(L/H)`=hr_categorical)
+expr_survival_DssDfi <- readr::read_rds(file = '/home/huff/data/GSCA/expr/pan33_expr_DSS-DFI_survival_210914.rds.gz') %>%
   tidyr::unnest() %>%
   dplyr::mutate(`hr_categorical(H/L)`=1/hr_categorical) %>%
   dplyr::rename(`hr_categorical(L/H)`=hr_categorical)
 
+expr_survival_OsPfs %>%
+  rbind(expr_survival_DssDfi) ->expr_survival
 # load(file = file.path(rda_path,"rda",'01-gene-symbols.rda'))
 # 
 # search_symbol <- search_symbol %>%
