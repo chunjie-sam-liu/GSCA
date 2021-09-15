@@ -25,15 +25,17 @@ fn_survival <- function(data,title,color,logrankp=NA,ylab){
     dplyr::mutate(status=as.numeric(status),time=as.numeric(time)) %>%
     dplyr::filter(status %in% c(0,1)) %>%
     dplyr::filter(!is.na(group)) -> .data_f
+  .data_f %>%
+    dplyr::group_by(group) %>%
+    dplyr::mutate(n=dplyr::n()) %>%
+    dplyr::select(group,n) %>%
+    dplyr::ungroup() %>%
+    dplyr::filter(n>2) %>%
+    .$group %>% unique() -> .group
+  .group %>% length() -> len_group
+  .data_f %>%
+    dplyr::filter(group %in% .group) -> .data_f
   if(is.na(logrankp)){
-    .data_f %>%
-      dplyr::group_by(group) %>%
-      dplyr::mutate(n=dplyr::n()) %>%
-      dplyr::select(group,n) %>%
-      dplyr::ungroup() %>%
-      dplyr::filter(n>2) %>%
-      .$group %>% unique() %>% length() -> len_group
-    
     if(!is.na(len_group)){
       logrankp <- tryCatch(
         1 - pchisq(survival::survdiff(survival::Surv(time, status) ~ group, data = .data_f, na.action = na.exclude)$chisq, df = len_group - 1),

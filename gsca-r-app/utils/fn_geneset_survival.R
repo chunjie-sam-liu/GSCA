@@ -2,30 +2,36 @@
 # snv gene set survival calculation
 ####################################
 
-survival_group <- tibble::tibble(type=c("os","pfs"),
-                                 time=c("os_months","pfs_months"),
-                                 status=c("os_status","pfs_status"))
+survival_group <- tibble::tibble(type=c("OS","PFS","os","pfs","DSS","DFI","dss","dfi"),
+                                 time=c("os_months","pfs_months","os_months","pfs_months","dss_months","dfi_months","dss_months","dfi_months"),
+                                 status=c("os_status","pfs_status","os_status","pfs_status","dss_status","dfi_status","dss_status","dfi_status"))
 
 fn_cox_logp <- function(.d){
-  .d %>%
-    dplyr::filter(!is.na(group)) %>%
+  .d %>% 
     dplyr::filter(!is.na(time)) %>%
     dplyr::filter(!is.na(status)) %>%
+    dplyr::mutate(status=as.numeric(status),time=as.numeric(time)) %>%
+    dplyr::filter(status %in% c(0,1)) %>%
+    dplyr::filter(!is.na(group)) -> .data_f
+  .data_f %>%
     dplyr::group_by(group) %>%
     dplyr::mutate(n=dplyr::n()) %>%
     dplyr::select(group,n) %>%
     dplyr::ungroup() %>%
     dplyr::filter(n>2) %>%
-    .$group %>% unique() %>% length() -> len_group
+    .$group %>% unique() -> .group
+  .group %>% unique() %>% length() -> len_group
+  .data_f %>%
+    dplyr::filter(group %in% .group) -> .data_f
   if(!is.na(len_group)){
     if(len_group==2){
       kmp <- tryCatch(
-        1 - pchisq(survival::survdiff(survival::Surv(time, status) ~ group, data = .d, na.action = na.exclude)$chisq, df = len_group - 1),
+        1 - pchisq(survival::survdiff(survival::Surv(time, status) ~ group, data = .data_f, na.action = na.exclude)$chisq, df = len_group - 1),
         error = function(e) {1}
       )
 
       coxp <- tryCatch(
-        broom::tidy(survival::coxph(survival::Surv(time, status) ~ group, data = .d, na.action = na.exclude)),
+        broom::tidy(survival::coxph(survival::Surv(time, status) ~ group, data = .data_f, na.action = na.exclude)),
         error = function(e) {1}
       )
       if (!is.numeric(coxp)) {
@@ -84,6 +90,17 @@ fn_survival_res <- function(.cancer_types,.combine){
       rbind(pfs) -> tmp
   } else {
     os -> tmp
+  }
+  
+  # dfi survival -----
+  if (length(grep("dfi",colnames(.combine)))>0) {
+    fn_survival(.combine,sur_type="dfi") %>%
+      dplyr::mutate(sur_type="dfi")-> dfi
+    
+    tmp %>%
+      rbind(dfi) -> tmp
+  } else {
+    tmp -> tmp
   }
 
   tmp
