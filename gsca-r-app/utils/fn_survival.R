@@ -11,28 +11,31 @@ expr_group <- tibble::tibble(group=c("median","up_quantile","low_quantile"),
 
 # survival type -----------------------------------------------------------
 
-survival_group <- tibble::tibble(type=c("OS","PFS","os","pfs"),
-                                 time=c("os_months","pfs_months","os_months","pfs_months"),
-                                 status=c("os_status","pfs_status","os_status","pfs_status"))
+survival_group <- tibble::tibble(type=c("OS","PFS","os","pfs","DSS","DFI","dss","dfi"),
+                                 time=c("os_months","pfs_months","os_months","pfs_months","dss_months","dfi_months","dss_months","dfi_months"),
+                                 status=c("os_status","pfs_status","os_status","pfs_status","dss_status","dfi_status","dss_status","dfi_status"))
 
 # function to draw survival plot ------------------------------------------
 
 library(survminer)
 fn_survival <- function(data,title,color,logrankp=NA,ylab){
+  data %>% 
+    dplyr::filter(!is.na(time)) %>%
+    dplyr::filter(!is.na(status)) %>%
+    dplyr::filter(status %in% c(0,1)) %>%
+    dplyr::filter(!is.na(group)) -> .data_f
   if(is.na(logrankp)){
-    data %>% 
-      dplyr::filter(!is.na(time)) %>%
-      dplyr::filter(!is.na(status)) %>%
-      dplyr::filter(!is.na(group)) %>%
+    .data_f %>%
       dplyr::group_by(group) %>%
       dplyr::mutate(n=dplyr::n()) %>%
       dplyr::select(group,n) %>%
       dplyr::ungroup() %>%
       dplyr::filter(n>2) %>%
       .$group %>% unique() %>% length() -> len_group
+    
     if(!is.na(len_group)){
       logrankp <- tryCatch(
-        1 - pchisq(survival::survdiff(survival::Surv(time, status) ~ group, data = data, na.action = na.exclude)$chisq, df = len_group - 1),
+        1 - pchisq(survival::survdiff(survival::Surv(time, status) ~ group, data = .data_f, na.action = na.exclude)$chisq, df = len_group - 1),
         error = function(e) {1}
       )
     }else{
@@ -41,10 +44,10 @@ fn_survival <- function(data,title,color,logrankp=NA,ylab){
   } else {
     logrankp<-logrankp
   }
-  fit <- survfit(survival::Surv(time, status) ~ group, data = data, na.action = na.exclude)
-  x_lable <- max(data$time)/4
+  fit <- survfit(survival::Surv(time, status) ~ group, data = .data_f, na.action = na.exclude)
+  x_lable <- max(.data_f$time)/4
   color %>%
-    dplyr::inner_join(data,by="group") %>%
+    dplyr::inner_join(.data_f,by="group") %>%
     dplyr::group_by(group) %>%
     dplyr::mutate(n = n()) %>%
     dplyr::ungroup() %>%
@@ -53,7 +56,7 @@ fn_survival <- function(data,title,color,logrankp=NA,ylab){
     unique() %>%
     dplyr::arrange(group) -> color_paired
   survminer::ggsurvplot(fit,pval=F, #pval.method = T,
-                        data = data,
+                        data = .data_f,
                         surv.median.line = "hv",
                         title = paste(title), # change it when doing diff data
                         ylab = ylab,

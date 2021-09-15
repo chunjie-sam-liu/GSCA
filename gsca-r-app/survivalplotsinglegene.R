@@ -20,7 +20,7 @@ break_point <- "median"
 color_list <- tibble::tibble(color=c( "#CD2626","#00B2EE"),
                              group=c("Higher expr.","Lower expr."))
 
-# search_str = 'A2M@BRCA_expr_survival@OS'
+# search_str = 'A2M@BRCA_expr_survival@DSS'
 # filepath = '/home/huff/github/GSCA/gsca-r-plot/pngs/9624753a-1aae-4288-b610-9c9337f960c6.png'
 # apppath <- '/home/huff/github/GSCA'
 

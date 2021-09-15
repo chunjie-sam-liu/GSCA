@@ -32,9 +32,9 @@ fn_fetch_mongo_all_survival <- function(.data, .key, .keyindex) {
   .coll <- mongolite::mongo(collection = coll, url = gsca_conf)
   .coll$find(
     query = fn_query_str_utils(.key,.keyindex),
-    fields = '{"cancer_types": true, "sample_name": true, "os_months": true,"os_status": true, "pfs_months": true,"pfs_status": true,"_id": false}'
+    fields = '{"cancer_types": true, "sample_name": true, "os_months": true,"os_status": true, "pfs_months": true,"pfs_status": true,"dss_months": true,"dss_status": true,"dfi_months": true,"dfi_status": true,"_id": false}'
   ) %>%
-    tidyr::unnest(cols = c(cancer_types, sample_name, os_months, os_status, pfs_months, pfs_status)) 
+    tidyr::unnest(cols = c(cancer_types, sample_name, os_months, os_status, pfs_months, pfs_status, dss_months, dss_status, dfi_months, dfi_status)) 
 }
 
 # function to fectch all_subtype of a cancer type from mongo -------------
