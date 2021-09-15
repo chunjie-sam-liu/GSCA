@@ -22,6 +22,7 @@ fn_survival <- function(data,title,color,logrankp=NA,ylab){
   data %>% 
     dplyr::filter(!is.na(time)) %>%
     dplyr::filter(!is.na(status)) %>%
+    dplyr::mutate(status=as.numeric(status),time=as.numeric(time)) %>%
     dplyr::filter(status %in% c(0,1)) %>%
     dplyr::filter(!is.na(group)) -> .data_f
   if(is.na(logrankp)){
