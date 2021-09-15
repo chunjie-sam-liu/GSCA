@@ -49,7 +49,7 @@ fn_fetch_data <- function(.uuid) {
 fetched_data <- fn_fetch_data(.uuid = tableuuid)$cnvgeneset[[1]] %>%
   tidyr::nest(data = c(group , sample_name))
 
-fields <- '{"cancer_types": true, "sample_name": true, "os_months": true,"os_status": true, "pfs_months": true,"pfs_status": true,"_id": false}'
+fields <- '{"cancer_types": true, "sample_name": true, "os_months": true,"os_status": true, "pfs_months": true,"pfs_status": true,"dss_months": true,"dss_status": true,"dfi_months": true,"dfi_status": true,"_id": false}'
 fetched_survival_data <- purrr::map(.x = "all_survival", .f = fn_fetch_mongo, pattern="_survival",fields = fields,.key=fetched_data$cancertype,.keyindex="cancer_types") %>%
   dplyr::bind_rows() %>%
   dplyr::group_by(cancer_types) %>%

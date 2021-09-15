@@ -46,7 +46,7 @@ if(ncol(fetched_data)>0){
     dplyr::mutate(sample_name=substr(barcode,1,12)) %>%
     tidyr::nest(data = c(barcode, group , sample_name)) -> fetched_data
   
-  fields <- '{"cancer_types": true, "sample_name": true, "os_months": true,"os_status": true, "pfs_months": true,"pfs_status": true,"_id": false}'
+  fields <- '{"cancer_types": true, "sample_name": true, "os_months": true,"os_status": true, "pfs_months": true,"pfs_status": true,"dss_months": true,"dss_status": true,"dfi_months": true,"dfi_status": true,"_id": false}'
   fetched_survival_data <- purrr::map(.x = "all_survival", .f = fn_fetch_mongo, pattern="_survival",fields = fields,.key=fetched_data$cancertype,.keyindex="cancer_types") %>%
     dplyr::bind_rows() %>%
     dplyr::group_by(cancer_types) %>%
