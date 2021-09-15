@@ -153,7 +153,7 @@ if(ncol(fetched_data)>0){
                              fillmipoint =1,
                              fillbreaks =fillbreaks,
                              colorgroup="group",
-                             cancer_rank=c("OS","PFS"), 
+                             cancer_rank=c("OS","PFS","DSS","DFI"),  
                              gene_rank=cancer_rank$cancertype, 
                              sizename= "-Log(Cox P)", 
                              fillname="Hazard ratio",  
