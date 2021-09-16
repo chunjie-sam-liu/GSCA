@@ -75,11 +75,6 @@
   },
   "peacock.remoteColor": "#215732",
   "peacock.color": "#215732",
-  "workbench.colorTheme": "Default Light+",
-  "cSpell.words": [
-    "GSCA",
-    "Methylation",
-    "immunogenomic",
-    "microenvironment"
-  ]
+  "workbench.colorTheme": "Community Material Theme Darker High Contrast",
+  "cSpell.words": ["GSCA", "Methylation", "immunogenomic", "microenvironment"]
 }
