@@ -92,6 +92,17 @@ fn_survival_res <- function(.cancer_types,.combine){
     os -> tmp
   }
   
+  # dss survival -----
+  if (length(grep("dss",colnames(.combine)))>0) {
+    fn_survival(.combine,sur_type="dss") %>%
+      dplyr::mutate(sur_type="dss")-> dss
+    
+    tmp %>%
+      rbind(dss) -> tmp
+  } else {
+    tmp -> tmp
+  }
+  
   # dfi survival -----
   if (length(grep("dfi",colnames(.combine)))>0) {
     fn_survival(.combine,sur_type="dfi") %>%
