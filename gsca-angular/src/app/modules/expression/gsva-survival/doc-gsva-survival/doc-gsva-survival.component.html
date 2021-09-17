@@ -7,9 +7,10 @@
     <ul>
       <li>Methods</li>
       <p>
-        For GSVA and Survival analysis, GSCA estimates the association between GSVA score and survival (includes OS and PFS). GSCA used
-        clinical data of tumor samples from 33 cancer types. Uncensored data was left out. GSVA score and clinical survival data were merged
-        by sample barcode, median GSVA score was used to divide tumor samples into high and low GSVA score groups. Then, R package
+        For GSVA and Survival analysis, GSCA estimates the association between GSVA score and survival (includes OS, PFS, DSS, and DFI).
+        GSCA used clinical data of tumor samples from 33 cancer types. Uncensored data was left out. GSVA score and clinical survival data
+        were merged by sample barcode, median GSVA score was used to divide tumor samples into high and low GSVA score groups. Then, R
+        package
         <span class="phighlight">survival</span> was used to fit survival time and survival status of two groups.
         <span class="phighlight">Cox Proportional-Hazards</span> model and <span class="phighlight">Logrank tests</span> were performed.
       </p>
@@ -29,7 +30,8 @@
         <li>The result table:</li>
         <p>
           Presents detailed information about Cancer type, Gene symbol, Survival type, Hazard Ratio, Cox P value, Logrank P value, Higher
-          risk of death. Survival type including overall survival (OS) and progression free survival (PFS). When the
+          risk of death. Survival type including overall survival(OS), progression free survival(PFS), disease specific survival(DSS), and
+          disease free survival(DFI). When the
           <span class="phighlight">Hazard ratio</span> of Higer GSVA group compared with Lower GSVA group is
           <span class="phighlight">greather than 1</span>, Higer GSVA group has higher risk of death, else Lower GSVA group has higher risk
           of death.
