@@ -9,7 +9,8 @@
       <li>Methods</li>
       <p>
         The clinical survival data and CNV data were downloaded from TCGA database. And the CNV data and clinical survival data were merged
-        by sample barcode.
+        by sample barcode. Samples that have <span class="phighlight">competing risk</span> for death from cancer were filtered out (for DSS
+        and DFI data).
       </p>
       <p>
         The gene set CNV represents the <span class="phighlight">integrated CNV status</span> of inputted gene set for each sample. A sample
@@ -26,7 +27,10 @@
         <span class="phighlight">R package survival </span>was used to fit survival time and survival status within gene set CNV groups.
         <span class="phighlight">Logrank test</span> was performed to test the survival difference between groups.
       </p>
-      <p>Note that the users may <span class="phighlight">could not get the survival results</span> in sevaral cases, including:</p>
+      <p>
+        Note that the users may <span class="phighlight">could not get the survival results</span> in sevaral cases, and there are some
+        suggestions for survival analysis:
+      </p>
       <ul>
         <li class="lilight">
           1. The OS data are avaliable for all cancer types, while survival analysis for OS is not recommded for DLBC, PCPG, TGCT, and THYM

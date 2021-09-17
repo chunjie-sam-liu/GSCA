@@ -12,15 +12,22 @@
         <a href="https://genomebiology.biomedcentral.com/articles/10.1186/gb-2011-12-4-r41">GISTICS2.0</a>.
       </p>
       <p>
-        The p value of survival analysis was get from groups with <span class="phighlight"> ≥2 samples</span>. But the group with < 2
-        samples were also remained to perform draw the survival curve.
+        GSCA used clinical data of tumor samples from 33 cancer types. Uncensored data was left out. Samples that have
+        <span class="phighlight">competing risk</span> for death from cancer were filtered out (for DSS and DFI data).
       </p>
       <p>
         CNV data and clinical survival data were merged by sample barcode. The samples were divided into WT, Amp. and Dele. groups.
         <span class="phighlight">R package survival</span> was used to fit survival time and survival status within groups. Logrank tests
         were performed to test the survival difference between groups.
       </p>
-      <p>Note that the users may <span class="phighlight">could not get the survival results</span> in sevaral cases, including:</p>
+      <p>
+        The p value of survival analysis was get from groups with <span class="phighlight"> ≥2 samples</span>. But the group with < 2
+        samples were also remained to perform draw the survival curve.
+      </p>
+      <p>
+        Note that the users may <span class="phighlight">could not get the survival results</span> in sevaral cases, and there are some
+        suggestions for survival analysis:
+      </p>
       <ul>
         <li class="lilight">
           1. The OS data are avaliable for all cancer types, while survival analysis for OS is not recommded for DLBC, PCPG, TGCT, and THYM
