@@ -764,6 +764,10 @@
                 from NCI Genomic Data Commons
               </h3>
               <h4><span class="phighlight">Statistics</span> of samples in cancer types</h4>
+              <p>
+                Samples that have <span class="phighlight">competing risk</span> for death from cancer were filtered out (for DSS and DFI
+                data).
+              </p>
               <div>
                 <mat-form-field>
                   <input matInput placeholder="Search" (keyup)="applyFilter($event)" #inputCan />
