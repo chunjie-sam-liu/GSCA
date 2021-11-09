@@ -262,7 +262,7 @@
                 </div>
 
                 <li>Survival and expression</li>
-                <p>This module estimates the survival (OS and PFS ) difference between high and low gene expression groups.</p>
+                <p>This module estimates the survival (OS, PFS, DSS, and DFI) difference between high and low gene expression groups.</p>
                 <p>
                   The color from blue to red represent the hazard ratio, size represents statistical significance in
                   <span class="phighlight">bubble plot</span>. Black outline border indicates Cox P ≤ 0.05. Users can find that SLC4A7 is
@@ -764,6 +764,10 @@
                 from NCI Genomic Data Commons
               </h3>
               <h4><span class="phighlight">Statistics</span> of samples in cancer types</h4>
+              <p>
+                Samples that have <span class="phighlight">competing risk</span> for death from cancer were filtered out (for DSS and DFI
+                data).
+              </p>
               <div>
                 <mat-form-field>
                   <input matInput placeholder="Search" (keyup)="applyFilter($event)" #inputCan />
@@ -801,7 +805,10 @@
                 <li>
                   Survival
                   <ul>
-                    <li>Including overall survival(OS) and progression free survival(PFS).</li>
+                    <li>
+                      Including overall survival(OS), progression free survival(PFS), disease specific survival(DSS), and disease free
+                      survival(DFI).
+                    </li>
                   </ul>
                 </li>
                 <li>

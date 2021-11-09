@@ -14,9 +14,14 @@
         into this analysis.
       </p>
       <p>
-        The overall survival data of 33 cancer types were donwloaded from TCGA database, some uncensored data was left out. Methylation data
-        and clinical survival data were merged by sample barcode, median methylation level was used to divide tumor samples into high and
-        low methylation groups.
+        GSCA donwloaded clinical data of tumor samples from 33 cancer types from TCGA and
+        <a href="https://www.cell.com/cell/abstract/S0092-8674(18)30229-0" target="_blank">(Liu et al, Cell, 2018)</a>. Uncensored data was
+        left out. Samples that have <span class="phighlight">competing risk</span> for death from cancer were filtered out (for DSS and DFI
+        data).
+      </p>
+      <p>
+        Methylation data and clinical survival data were merged by sample barcode, median methylation level was used to divide tumor samples
+        into high and low methylation groups.
       </p>
       <p>
         <span class="phighlight">R package survival</span> was used to fit survival time and survival status within two groups.
@@ -24,6 +29,29 @@
         methylation group compared with low methylation group. A <span class="phighlight">Logrank test</span> was performed to test whether
         the survival difference between the groups is statistically significant.
       </p>
+      <p>
+        Note that the users may <span class="phighlight">could not get the survival results</span> in sevaral cases, and there are some
+        suggestions for survival analysis:
+      </p>
+      <ul>
+        <li class="lilight">
+          1. The OS data are avaliable for all cancer types, while survival analysis for OS is not recommded for DLBC, PCPG, TGCT, and THYM
+          <a href="https://www.cell.com/cell/abstract/S0092-8674(18)30229-0" target="_blank">(Liu et al, Cell, 2018)</a>.
+        </li>
+        <li class="lilight">
+          2. The PFS data are not avaliable for LAML. Survival analysis for PFS is not recommded for PCPG
+          <a href="https://www.cell.com/cell/abstract/S0092-8674(18)30229-0" target="_blank">(Liu et al, Cell, 2018)</a>.
+        </li>
+        <li class="lilight">
+          3. The DSS data are not avaliable for LAML. Survival analysis for DSS is not recommded for DLBC, PCPG, PRAD, TGCT, THCA, and
+          THYM<a href="https://www.cell.com/cell/abstract/S0092-8674(18)30229-0" target="_blank">(Liu et al, Cell, 2018)</a>.
+        </li>
+        <li class="lilight">
+          4. The DFI data are not avaliable for LAML, SKCM, THYM, and UVM. Survival analysis for DFI is not recommded for DLBC, GBM, KICH,
+          MESO, PCPG, and READ<a href="https://www.cell.com/cell/abstract/S0092-8674(18)30229-0" target="_blank">(Liu et al, Cell, 2018)</a
+          >.
+        </li>
+      </ul>
 
       <li>Interpretation</li>
       <p>GSCA provides two forms of results, including table and figure.</p>

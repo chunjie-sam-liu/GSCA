@@ -12,19 +12,42 @@
         <a href="https://genomebiology.biomedcentral.com/articles/10.1186/gb-2011-12-4-r41">GISTICS2.0</a>.
       </p>
       <p>
-        The p value of survival analysis was get from groups with <span class="phighlight"> ≥2 samples</span>. But the group with < 2
-        samples were also remained to perform draw the survival curve.
+        GSCA used clinical data of tumor samples from 33 cancer types. Uncensored data was left out. Samples that have
+        <span class="phighlight">competing risk</span> for death from cancer were filtered out (for DSS and DFI data).
       </p>
       <p>
         CNV data and clinical survival data were merged by sample barcode. The samples were divided into WT, Amp. and Dele. groups.
         <span class="phighlight">R package survival</span> was used to fit survival time and survival status within groups. Logrank tests
         were performed to test the survival difference between groups.
       </p>
-      <p>Note that the users may <span class="phighlight">could not get the survival results</span> in sevaral cases, including:</p>
+      <p>
+        The p value of survival analysis was get from groups with <span class="phighlight"> ≥2 samples</span>. But the group with < 2
+        samples were also remained to perform draw the survival curve.
+      </p>
+      <p>
+        Note that the users may <span class="phighlight">could not get the survival results</span> in sevaral cases, and there are some
+        suggestions for survival analysis:
+      </p>
       <ul>
-        <li class="lilight">1. The PFS data are not avaliable for LAML.</li>
         <li class="lilight">
-          2. A gene does not have enough CNVs, which lead the number of groups (with at least 2 samples) that used for survival comparing is
+          1. The OS data are avaliable for all cancer types, while survival analysis for OS is not recommded for DLBC, PCPG, TGCT, and THYM
+          <a href="https://www.cell.com/cell/abstract/S0092-8674(18)30229-0" target="_blank">(Liu et al, Cell, 2018)</a>.
+        </li>
+        <li class="lilight">
+          2. The PFS data are not avaliable for LAML. Survival analysis for PFS is not recommded for PCPG
+          <a href="https://www.cell.com/cell/abstract/S0092-8674(18)30229-0" target="_blank">(Liu et al, Cell, 2018)</a>.
+        </li>
+        <li class="lilight">
+          3. The DSS data are not avaliable for LAML. Survival analysis for DSS is not recommded for DLBC, PCPG, PRAD, TGCT, THCA, and
+          THYM<a href="https://www.cell.com/cell/abstract/S0092-8674(18)30229-0" target="_blank">(Liu et al, Cell, 2018)</a>.
+        </li>
+        <li class="lilight">
+          4. The DFI data are not avaliable for LAML, SKCM, THYM, and UVM. Survival analysis for DFI is not recommded for DLBC, GBM, KICH,
+          MESO, PCPG, and READ<a href="https://www.cell.com/cell/abstract/S0092-8674(18)30229-0" target="_blank">(Liu et al, Cell, 2018)</a
+          >.
+        </li>
+        <li class="lilight">
+          5. A gene does not have enough CNVs, which lead the number of groups (with at least 2 samples) that used for survival comparing is
           not enough (at least two groups are needed).
         </li>
       </ul>
@@ -38,7 +61,8 @@
       <ul>
         <li>The result table:</li>
         <p>
-          Presents detailed information about Cancer type, Gene symbol, Survival type, Logrank P value. Survival type including OS and PFS.
+          Presents detailed information about Cancer type, Gene symbol, Survival type, Logrank P value. Survival type including OS, PFS,
+          DSS, and DFI.
         </p>
         <p></p>
 

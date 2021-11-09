@@ -7,9 +7,16 @@
     <ul>
       <li>Methods</li>
       <p>
-        For GSVA and Survival analysis, GSCA estimates the association between GSVA score and survival (includes OS and PFS). GSCA used
-        clinical data of tumor samples from 33 cancer types. Uncensored data was left out. GSVA score and clinical survival data were merged
-        by sample barcode, median GSVA score was used to divide tumor samples into high and low GSVA score groups. Then, R package
+        For GSVA and Survival analysis, GSCA estimates the association between GSVA score and survival (includes OS, PFS, DSS, and DFI).
+        GSCA used clinical data of tumor samples from 33 cancer types.
+      </p>
+      <p>
+        Uncensored data was left out. Samples that have <span class="phighlight">competing risk</span> for death from cancer were filtered
+        out (for DSS and DFI data).
+      </p>
+      <p>
+        GSVA score and clinical survival data were merged by sample barcode, median GSVA score was used to divide tumor samples into high
+        and low GSVA score groups. Then, R package
         <span class="phighlight">survival</span> was used to fit survival time and survival status of two groups.
         <span class="phighlight">Cox Proportional-Hazards</span> model and <span class="phighlight">Logrank tests</span> were performed.
       </p>
@@ -23,13 +30,37 @@
           expression</span
         >.
       </p>
+      <p>
+        Note that the users may <span class="phighlight">could not get the survival results</span> in sevaral cases, and there are some
+        suggestions for survival analysis:
+      </p>
+      <ul>
+        <li class="lilight">
+          1. The OS data are avaliable for all cancer types, while survival analysis for OS is not recommded for DLBC, PCPG, TGCT, and THYM
+          <a href="https://www.cell.com/cell/abstract/S0092-8674(18)30229-0" target="_blank">(Liu et al, Cell, 2018)</a>.
+        </li>
+        <li class="lilight">
+          2. The PFS data are not avaliable for LAML. Survival analysis for PFS is not recommded for PCPG
+          <a href="https://www.cell.com/cell/abstract/S0092-8674(18)30229-0" target="_blank">(Liu et al, Cell, 2018)</a>.
+        </li>
+        <li class="lilight">
+          3. The DSS data are not avaliable for LAML. Survival analysis for DSS is not recommded for DLBC, PCPG, PRAD, TGCT, THCA, and
+          THYM<a href="https://www.cell.com/cell/abstract/S0092-8674(18)30229-0" target="_blank">(Liu et al, Cell, 2018)</a>.
+        </li>
+        <li class="lilight">
+          4. The DFI data are not avaliable for LAML, SKCM, THYM, and UVM. Survival analysis for DFI is not recommded for DLBC, GBM, KICH,
+          MESO, PCPG, and READ<a href="https://www.cell.com/cell/abstract/S0092-8674(18)30229-0" target="_blank">(Liu et al, Cell, 2018)</a
+          >.
+        </li>
+      </ul>
       <li>Interpretation</li>
       <p>GSCA provides two forms of results, including table and figure.</p>
       <ul>
         <li>The result table:</li>
         <p>
           Presents detailed information about Cancer type, Gene symbol, Survival type, Hazard Ratio, Cox P value, Logrank P value, Higher
-          risk of death. Survival type including overall survival (OS) and progression free survival (PFS). When the
+          risk of death. Survival type including overall survival(OS), progression free survival(PFS), disease specific survival(DSS), and
+          disease free survival(DFI). When the
           <span class="phighlight">Hazard ratio</span> of Higer GSVA group compared with Lower GSVA group is
           <span class="phighlight">greather than 1</span>, Higer GSVA group has higher risk of death, else Lower GSVA group has higher risk
           of death.
