@@ -18,6 +18,7 @@ apppath <- args[3]
 break_point <- "median"
 
 # search_str <-'A2M@KICH_methy_survival@OS'
+# search_str <-'GSDMD@KIRC_methy_survival@OS'
 # apppath <- '/home/huff/github/GSCA'
 search_str_split <- strsplit(x = search_str, split = '@')[[1]]
 search_genes <- strsplit(x = search_str_split[1], split = '#')[[1]]
@@ -45,6 +46,7 @@ fetched_methy_data <- purrr::map(.x = paste(search_cancertypes,"_all_methy",sep=
 
 fetched_methy_data %>%
   dplyr::filter(type=="tumor") %>%
+  dplyr::filter(!is.na(methy)) %>%
   unique() %>%
   dplyr::inner_join(fetched_survival_data,by=c("sample_name")) -> combine_data
 
@@ -60,7 +62,6 @@ survival_group  %>%
   dplyr::filter(type %in% survival_type) -> survival_type_to_draw
 
 combine_data %>%
-  dplyr::filter(!is.na(methy)) %>%
   dplyr::select(symbol,sample_name,methy,cancer_types,time=survival_type_to_draw$time,status=survival_type_to_draw$status) %>%
   dplyr::filter(!is.na(time)) %>%
   dplyr::filter(!is.na(status)) %>%
