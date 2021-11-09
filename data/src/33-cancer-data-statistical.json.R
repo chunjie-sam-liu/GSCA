@@ -13,7 +13,22 @@ stage <- readr::read_rds(file.path(datapath,"clinical","Pancan.Merge.clinical-ST
       tidyr::gather(-sample_name,key="stage_type",value="stage")
   }))
 
-survival <- readr::read_rds(file.path(datapath,"clinical","pancan33_survival_NEW.rds.gz"))
+survival_OsFfs <- readr::read_rds(file.path(datapath,"clinical","pancan33_survival_NEW.rds.gz"))
+survival_DssDfi <- survival <- readr::read_rds(file.path("/home/huff/data/TCGA-survival-time/cell.2018.survival","TCGA_pancan_cancer_cell_survival_time.rds.gz")) %>%
+  dplyr::mutate(survival=purrr::map(data,.f=function(.x){
+    .x %>%
+      dplyr::select(sample_name=bcr_patient_barcode,dss_status=DSS_cr, dss_days=DSS.time.cr,dfi_status=DFI.cr, dfi_days=DFI.time.cr)
+  })) %>%
+  dplyr::select(-data,cancer_types=type)
+survival_DssDfi %>%
+  dplyr::inner_join(survival_OsFfs, by="cancer_types") %>%
+  dplyr::mutate(combine=purrr::map2(survival,combine,.f=function(.x,.y){
+    .x %>%
+      dplyr::inner_join(.y,by="sample_name")
+  })) %>%
+  dplyr::select(-survival) -> survival
+  
+
 
 clinical %>%
   dplyr::select(cancer_types,subtype=n.x)-> subtype_statistical
@@ -42,7 +57,17 @@ survival %>%
       dplyr::select(os_days, os_status) %>%
       dplyr::filter(!is.na(os_days) & !is.na(os_status)) %>%
       nrow() -> .n_os
-    tibble::tibble(PFS=.n_pfs,OS=.n_os)
+    .x %>%
+      dplyr::select(dss_days, dss_status) %>%
+      dplyr::filter(dss_days!="#N/A" & dss_status!="#N/A") %>%
+      dplyr::filter(dss_status!="2") %>%
+      nrow() -> .n_dss
+    .x %>%
+      dplyr::select(dfi_days, dfi_status) %>%
+      dplyr::filter(dfi_days!="#N/A" & dfi_status!="#N/A") %>%
+      dplyr::filter(dfi_status!="2") %>%
+      nrow() -> .n_dfi
+    tibble::tibble(PFS=.n_pfs,OS=.n_os,DSS=.n_dss,DFI=.n_dfi)
   })) %>%
   dplyr::select(-combine) %>%
   tidyr::unnest()  -> survival_statistical
