@@ -16,7 +16,7 @@ gsca_conf <- readr::read_lines(file = file.path(rda_path,"src",'gsca.conf'))
 
 # load methy data ---------------------------------------------------------
 
-methy_survival_OsPfs <- readr::read_rds(file.path(data_path,"pan33_methy_survival_NEW210812.rds.gz")) %>%
+methy_survival_OsPfs <- readr::read_rds(file.path(data_path,"pan33_methy_survival_NEW211108.rds.gz")) %>%
   dplyr::mutate(data = purrr::map(data,.f=function(.x){
     .x %>%
       dplyr::mutate(tag = strsplit(as.character(gene),"_")[[1]][1], 
@@ -27,9 +27,10 @@ methy_survival_OsPfs <- readr::read_rds(file.path(data_path,"pan33_methy_surviva
                     ) %>%
       dplyr::ungroup() %>%
       dplyr::select(entrez, symbol,tag,logRankP,coxP,HR,sur_type,higher_risk_of_death)
-  }))
+  })) %>%
+  tidyr::unnest()
 
-methy_survival_DssDfi <- readr::read_rds(file.path(data_path,"pan33_methy_DSS-DFI_survival_210914.rds.gz")) %>%
+methy_survival_DssDfi <- readr::read_rds(file.path(data_path,"pan33_methy_DSS-DFI_survival_211108.rds.gz")) %>%
   dplyr::mutate(data = purrr::map(data,.f=function(.x){
     .x %>%
       dplyr::mutate(tag = strsplit(as.character(gene),"_")[[1]][1], 
@@ -40,7 +41,8 @@ methy_survival_DssDfi <- readr::read_rds(file.path(data_path,"pan33_methy_DSS-DF
       ) %>%
       dplyr::ungroup() %>%
       dplyr::select(entrez, symbol,tag,logRankP,coxP,HR,sur_type,higher_risk_of_death)
-  }))
+  }))%>%
+  tidyr::unnest()
 methy_survival_OsPfs %>%
   rbind(methy_survival_DssDfi) ->methy_survival
 # function ----------------------------------------------------------------
@@ -66,6 +68,7 @@ fn_methy_survival_mongo <-function(cancer_types,data){
 
 # data --------------------------------------------------------------------
 methy_survival %>%
+  tidyr::nest(-cancer_types) %>%
   purrr::pmap(.f=fn_methy_survival_mongo) -> methy_survival_mongo_data
 
 # Save image --------------------------------------------------------------
