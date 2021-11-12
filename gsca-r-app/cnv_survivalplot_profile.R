@@ -84,8 +84,8 @@ heat_plot <- bubble_plot(data=for_plot,
                          colorname="Logrank P value",
                          title="Survival difference between CNV groups")
 # Save --------------------------------------------------------------------
-ggsave(filename = filepath, plot = heat_plot, device = 'png', width = (size$width)*1.6, height = size$height+2)
+ggsave(filename = filepath, plot = heat_plot, device = 'png', width = (size$width)*2.5, height = size$height+2)
 pdf_name <- gsub("\\.png",".pdf",filepath)
-ggsave(filename = pdf_name, plot = heat_plot, device = 'pdf', width = (size$width)*1.6, height = size$height+2)
+ggsave(filename = pdf_name, plot = heat_plot, device = 'pdf', width = (size$width)*2.5, height = size$height+2)
 
 
