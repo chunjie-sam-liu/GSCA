@@ -88,6 +88,6 @@ heat_plot <- bubble_plot(data=for_plot,
                     title=title)
 
 # Save --------------------------------------------------------------------
-ggsave(filename = filepath, plot = heat_plot, device = 'png', width = size$width+2, height = size$height+2)
+ggsave(filename = filepath, plot = heat_plot, device = 'png', width = (size$width)*1.6, height = size$height+2)
 pdf_name <- gsub("\\.png",".pdf",filepath)
-ggsave(filename = pdf_name, plot = heat_plot, device = 'pdf', width = size$width+2, height = size$height+2)
+ggsave(filename = pdf_name, plot = heat_plot, device = 'pdf', width = (size$width)*1.6, height = size$height+2)

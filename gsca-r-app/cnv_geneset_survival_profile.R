@@ -149,6 +149,6 @@ heat_plot <- bubble_plot(data=for_plot,
                          colorname="Logrank P value",
                          title=title)
 # Save --------------------------------------------------------------------
-ggsave(filename = filepath, plot = heat_plot, device = 'png', width = 4, height = size$height)
+ggsave(filename = filepath, plot = heat_plot, device = 'png', width = 6, height = size$height)
 pdf_name <- gsub("\\.png",".pdf",filepath)
-ggsave(filename = pdf_name, plot = heat_plot, device = 'pdf', width = 4, height = size$height)
+ggsave(filename = pdf_name, plot = heat_plot, device = 'pdf', width = 6, height = size$height)

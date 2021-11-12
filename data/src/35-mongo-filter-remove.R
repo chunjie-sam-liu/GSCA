@@ -20,4 +20,5 @@ fn_query_str_utils <- function(.key,.keyindex) {
 filtered_uuids$uuid
 
 filtered_uuids %>%
+  dplyr::select(uuid,purpose) %>%
   readr::write_tsv(file.path("/home/huff/github/GSCA/gsca-r-plot/FilesWithNewRes_NeedToRemove.tsv"))
