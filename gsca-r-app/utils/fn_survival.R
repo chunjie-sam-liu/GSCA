@@ -23,7 +23,7 @@ fn_survival <- function(data,title,color,logrankp=NA,ylab){
     dplyr::filter(!is.na(time)) %>%
     dplyr::filter(!is.na(status)) %>%
     dplyr::filter(!is.na(group)) %>%
-    dplyr::filter(!is.na(methy)) %>%
+    #dplyr::filter(!is.na(methy)) %>%
     dplyr::mutate(status=as.numeric(status),time=as.numeric(time)) %>%
     dplyr::filter(status %in% c(0,1)) %>%
     dplyr::filter(!is.na(group)) -> .data_f
