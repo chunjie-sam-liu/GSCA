@@ -22,8 +22,8 @@ fn_transform_samples <- function(.x) {
     .y
   
   .y %>% 
-    dplyr::mutate(tmp = substr(x = aliquot, start = 14, stop = 15)) %>% 
-    dplyr::mutate(type = ifelse(tmp == '01', 'tumor', 'normal')) %>% 
+    dplyr::mutate(tmp = substr(x = aliquot, start = 14, stop = 14)) %>% 
+    dplyr::mutate(type = ifelse(tmp == '0', 'tumor', 'normal')) %>% 
     dplyr::mutate(barcode = substr(x = aliquot, start = 1, stop = 16)) %>% 
     dplyr::mutate(sample_name = substr(x = barcode, start = 1, stop = 12)) -> 
     .yy
