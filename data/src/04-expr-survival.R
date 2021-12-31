@@ -74,7 +74,8 @@ expr_survival %>%
   dplyr::rename("cancertype"="cancer_types") %>%
   dplyr::mutate(sur_type=toupper(sur_type)) %>%
   dplyr::mutate(higher_risk_of_death =ifelse(is.na(higher_risk_of_death),"Not applicable",higher_risk_of_death)) %>%
-  dplyr::mutate(logrankp=ifelse(logrankp==1,NA,logrankp)) %>%
+  dplyr::mutate(logrankp=ifelse(logrankp==1,NA,logrankp)) %>% 
+  dplyr::filter(!is.na(coxp_categorical)|!is.na(logrankp)|!is.na(coxp_continus)|!is.na(hr_continus)|!is.na(`hr_categorical(H/L)`)) %>%
   dplyr::group_by(cancertype) %>%
   tidyr::nest() %>%
   dplyr::ungroup() ->
