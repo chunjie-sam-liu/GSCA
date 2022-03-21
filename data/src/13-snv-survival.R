@@ -57,7 +57,7 @@ snv_survival_DssDfi <- readr::read_rds(file.path(data_path,"pan33_snv_DSS-DFI_su
   dplyr::mutate(survival_res=purrr::map(survival_res,.f=function(.x){
     .x %>%
       dplyr::mutate(higher_risk_of_death=as.character(higher_risk_of_death))
-  }))
+  })) %>%
   dplyr::ungroup() %>%
   tidyr::unnest()
 
@@ -68,7 +68,8 @@ snv_survival_OsPfs %>%
   dplyr::mutate(higher_risk_of_death=ifelse(!is.na(higher_risk_of_death),higher_risk_of_death,"Not applicable")) %>%
   # dplyr::mutate(higher_risk_of_death=ifelse(`2_mutated`<2 ,"Not applicable(# of mutant < 2)",higher_risk_of_death)) %>%
   dplyr::inner_join(groups, by="higher_risk_of_death") %>%
-  dplyr::select(-higher_risk_of_death,higher_risk_of_death=higher_risk_of_death_rename,WT=`1_nonmutated`,Mutant=`2_mutated`) %>%
+  dplyr::select(-higher_risk_of_death,higher_risk_of_death=higher_risk_of_death_rename,WT=`1_nonmutated`,Mutant=`2_mutated`) %>% 
+  dplyr::filter(!is.na(logrankp)|!is.na(cox_p)|!is.na(hr)) %>%
   dplyr::filter(Mutant>2) %>%
   tidyr::nest(data = c(Hugo_Symbol, entrez, logrankp, cox_p, hr, higher_risk_of_death,Mutant,WT,sur_type)) %>%
   dplyr::arrange(cancer_types) %>%

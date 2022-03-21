@@ -68,6 +68,7 @@ fn_methy_survival_mongo <-function(cancer_types,data){
 
 # data --------------------------------------------------------------------
 methy_survival %>%
+  dplyr::filter(!is.na(logRankP)) %>%
   tidyr::nest(-cancer_types) %>%
   purrr::pmap(.f=fn_methy_survival_mongo) -> methy_survival_mongo_data
 

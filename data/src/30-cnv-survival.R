@@ -42,6 +42,7 @@ cnv_survival_DssDfi <- readr::read_rds(file.path(data_path,"pan33_cnv_DSS-DFI_su
   tidyr::unnest()
 cnv_survival_OsPfs %>%
   rbind(cnv_survival_DssDfi) %>%
+  dplyr::filter(!is.na(logrankp)) %>%
   tidyr::nest(-cancer_types) -> cnv_survival    
 
 # Function ----------------------------------------------------------------
