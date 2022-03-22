@@ -33,6 +33,7 @@ export class MethylationComponent implements OnInit, OnChanges, AfterViewInit {
   displayedColumnsMethyHeader = ['Cancer type', 'Gene symbol', 'Tag', 'Methylation (Tumor-Normal)', 'Trend', 'P value', 'FDR'];
   expandedElement: MethyTableRecord;
   expandedColumn: string;
+  validCancertype: string;
 
   // DE methylation plot
   methyImageLoading = true;
@@ -63,6 +64,7 @@ export class MethylationComponent implements OnInit, OnChanges, AfterViewInit {
     this.methyImageLoading = true;
 
     const postTerm = this._validCollection(this.searchTerm);
+    this.validCancertype = this._validCancer(this.searchTerm);
 
     if (!postTerm.validColl.length) {
       this.dataSourceMethyLoading = false;
@@ -142,7 +144,14 @@ export class MethylationComponent implements OnInit, OnChanges, AfterViewInit {
       .filter(Boolean);
     return st;
   }
-
+  private _validCancer(st: ExprSearch): any {
+    const validCancer = st.cancerTypeSelected
+      .map((val) => {
+        return collectionlist.methy_diff.cancertypes[collectionlist.methy_diff.cancertypes.indexOf(val)];
+      })
+      .filter(Boolean);
+    return validCancer;
+  }
   public applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSourceMethy.filter = filterValue.trim().toLowerCase();
