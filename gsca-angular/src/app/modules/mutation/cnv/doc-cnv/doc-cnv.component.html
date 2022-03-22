@@ -5,23 +5,30 @@
       <mat-panel-description></mat-panel-description>
     </mat-expansion-panel-header>
     <ul>
-      <p>
-        The CNV summary module presents the summary of inputted genes’ CNV in selected cancer types.
-      </p>
+      <p>The CNV summary module presents the summary of inputted genes’ CNV in selected cancer types.</p>
       <li>Methods</li>
       <p>
-        CNV data of 11495 samples were downloaded from TCGA database, and were processed through <a href="https://genomebiology.biomedcentral.com/articles/10.1186/gb-2011-12-4-r41">GISTICS2.0</a>, which attempts to identify significantly altered regions of amplification or deletion across sets of patients. 
+        CNV data of 11495 samples were downloaded from TCGA database, and were processed through
+        <a href="https://genomebiology.biomedcentral.com/articles/10.1186/gb-2011-12-4-r41">GISTIC2.0</a>, which attempts to identify
+        significantly altered regions of amplification or deletion across sets of patients.
       </p>
       <p><span class="phighlight">According to the GISTIC score derived from GISTIC, and indicate the copy-number level per gene:</span></p>
       <ul>
         <li class="lilight">-2 or Deep Deletion indicates a deep loss, possibly a <span class="phighlight">homozygous deletion</span>.</li>
-        <li class="lilight">-1 or Shallow Deletion indicates a shallow loss, possibly a <span class="phighlight">heterozygous deletion</span>.
+        <li class="lilight">
+          -1 or Shallow Deletion indicates a shallow loss, possibly a <span class="phighlight">heterozygous deletion</span>.
         </li>
         <li class="lilight">0 is diploid.</li>
-        <li class="lilight">1 or Gain indicates a low-level gain (a few additional copies copies, <span class="phighlight">often broad</span>), possibly a <span class="phighlight">heterozygous amplification</span>.</li>
-        <li class="lilight">2 or Amplification indicate a high-level amplification (more copies, <span class="phighlight">often focal</span>), possibly a <span class="phighlight">homozygous amplification</span>.</li>
+        <li class="lilight">
+          1 or Gain indicates a low-level gain (a few additional copies copies, <span class="phighlight">often broad</span>), possibly a
+          <span class="phighlight">heterozygous amplification</span>.
+        </li>
+        <li class="lilight">
+          2 or Amplification indicate a high-level amplification (more copies, <span class="phighlight">often focal</span>), possibly a
+          <span class="phighlight">homozygous amplification</span>.
+        </li>
       </ul>
-        
+
       <p>GSCA summarizes the above four types (GISTIC score: -2, -1, 1, 2) of CNV in inputted genes in selected cancer types.</p>
 
       <li>Interpretation</li>
@@ -30,7 +37,8 @@
       <ul>
         <li>The result table:</li>
         <p>
-          presents detailed information about Cancer type, Gene symbol, Total amp.(%), Total dele.(%), Hete amp.(%), Hete dele.(%), Homo amp.(%) and Homo dele.(%).
+          presents detailed information about Cancer type, Gene symbol, Total amp.(%), Total dele.(%), Hete amp.(%), Hete dele.(%), Homo
+          amp.(%) and Homo dele.(%).
         </p>
         <p>Total amp.(%): the percentage of samples with copy number amplification, including heterozygous and homozygous amplification.</p>
         <p>Total dele.(%): the percentage of samples with copy number deletion, including heterozygous and homozygous deletion.</p>
@@ -41,7 +49,9 @@
         <li>GSCA provides result figures including:</li>
         <ul>
           <li>Oncoplot:</li>
-          <p>By clicking the gene symbol button in the table result, an oncoplot presents the distribution of CNV classes of a specific gene.</p>
+          <p>
+            By clicking the gene symbol button in the table result, an oncoplot presents the distribution of CNV classes of a specific gene.
+          </p>
 
           <li>CNV pie plot:</li>
           <p>
@@ -51,8 +61,9 @@
 
           <li>Heterozygous CNV plot:</li>
           <p>
-            Using bubbles to represent the percentage of heterozygous CNV, including heterozygous amplification and deletion of each gene in each cancer. The bubble size is positively correlate with percentage, the bubble color bule represents
-            deletion, red represents amplification. The heterozygous CNV is generally happened, so the plot will full of points.
+            Using bubbles to represent the percentage of heterozygous CNV, including heterozygous amplification and deletion of each gene in
+            each cancer. The bubble size is positively correlate with percentage, the bubble color blue represents deletion, red represents
+            amplification. The heterozygous CNV is generally happened, so the plot will full of points.
           </p>
 
           <li>Homozygous CNV plot:</li>
