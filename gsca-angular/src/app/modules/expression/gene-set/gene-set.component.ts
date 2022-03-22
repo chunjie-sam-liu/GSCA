@@ -23,6 +23,7 @@ export class GeneSetComponent implements OnInit, OnChanges, AfterViewInit {
   @ViewChild(MatSort) sortGSVA: MatSort;
   displayedColumnsGSVA = ['cancertype', 'tumor_gsva', 'normal_gsva', 'log2fc', 'pval'];
   displayedColumnsGSVAHeader = ['Cancer type', 'Tumor GSVA', 'Normal GSVA', 'Fold change', 'P value'];
+  validCancertype: string;
 
   // GSVA deg image
   GSVAImage: any;
@@ -38,6 +39,7 @@ export class GeneSetComponent implements OnInit, OnChanges, AfterViewInit {
     this.dataSourceGSVALoading = true;
     this.GSVAImageLoading = true;
     const postTerm = this._validCollection(this.searchTerm);
+    this.validCancertype = this._validCancer(this.searchTerm);
 
     if (!postTerm.validColl.length) {
       this.dataSourceGSVALoading = false;
@@ -94,12 +96,19 @@ export class GeneSetComponent implements OnInit, OnChanges, AfterViewInit {
   private _validCollection(st: ExprSearch): any {
     st.validColl = st.cancerTypeSelected
       .map((val) => {
-        return collectionList.all_expr.collnames[collectionList.all_expr.cancertypes.indexOf(val)];
+        return collectionList.degsva_expr.collnames[collectionList.degsva_expr.cancertypes.indexOf(val)];
       })
       .filter(Boolean);
     return st;
   }
-
+  private _validCancer(st: ExprSearch): any {
+    const validCancer = st.cancerTypeSelected
+      .map((val) => {
+        return collectionList.degsva_expr.cancertypes[collectionList.degsva_expr.cancertypes.indexOf(val)];
+      })
+      .filter(Boolean);
+    return validCancer;
+  }
   private _createImageFromBlob(res: Blob, present: string) {
     const reader = new FileReader();
     reader.addEventListener(
