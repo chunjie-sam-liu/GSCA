@@ -18,6 +18,12 @@
 
         <button class="export-container" mat-raised-button color="primary" (click)="exportExcel()">Export Table</button>
 
+        <p>
+          <span class="phighlight"
+            >In your selected cancer types, only {{ validCancertype }} have >10 pairs of tumor-normal samples and have been analyzed for
+            differential expression.</span
+          >
+        </p>
         <table mat-table [dataSource]="dataSourceDeg" multiTemplateDataRows matSort>
           <ng-container matColumnDef="{{ column }}" *ngFor="let column of displayedColumnsDeg; index as ind">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ displayedColumnsDegHeader[ind] }}</th>

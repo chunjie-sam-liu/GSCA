@@ -25,6 +25,8 @@
           </button>
         </mat-form-field>
         <button class="export-container" mat-raised-button color="primary" (click)="exportExcel()">Export Table</button>
+        <p><span class="phighlight">Please find the recommended use of the endpoints in the above help page.</span></p>
+
         <table mat-table [dataSource]="snvGenesetSurvivalTable" multiTemplateDataRows>
           <ng-container matColumnDef="{{ column }}" *ngFor="let column of displayedColumnsSnvGenesetSurvival; index as ind">
             <th mat-header-cell *matHeaderCellDef>{{ displayedColumnsSnvGenesetSurvivalHeader[ind] }}</th>
@@ -87,7 +89,7 @@
       <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
         <mat-card-header>
           <mat-card-title
-            >Figrue summarizes the survival difference between gene set mutant (deleterious) and wide type in the selected
+            >Figure summarizes the survival difference between gene set mutant (deleterious) and wide type in the selected
             cancers</mat-card-title
           >
         </mat-card-header>

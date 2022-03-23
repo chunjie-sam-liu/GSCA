@@ -13,7 +13,7 @@
         <mat-card-content>
           <p>
             Gene Set Cancer Analysis (GSCA) is an enhanced version of
-            <a href="http://bioinfo.life.hust.edu.cn/web/GSCALite/" target="_blank">GSCALite</a>, which is a database to search, investicage
+            <a href="http://bioinfo.life.hust.edu.cn/web/GSCALite/" target="_blank">GSCALite</a>, which is a database to search, investigate
             and explore the gene set cancer analysis relate to mRNA expression, mutation, immune infiltration and drug resistance. The
             alterations of DNA, RNA and immune microenvironment could contribute to the cancer initiation, progress, diagnosis, prognosis,
             therapy. In bio-big data era, individual causal gene signal could be masked by massive background noises. A set of genes or
@@ -82,7 +82,7 @@
               <h3>Detailed single gene result</h3>
             </li>
             <p>
-              This function provides detialed results of single gene of batch calculation, which avoid fussy input options when the users
+              This function provides detailed results of single gene of batch calculation, which avoid fussy input options when the users
               have plenty of candidate genes. For example, if you want to get the KM survival plot of several genes in several cancers,
               simply enter the gene list and select the cancer types, then click the specific button to get the survival plot of a gene in a
               cancer.
@@ -174,7 +174,7 @@
                   This part analyze the differential expression between tumor and adjacent normal samples. The bubble color from purple to
                   red represent the fold change between tumor and normal samples. The size of dot correlates the significance of FDR. The
                   dot was filtered by the fold change (FC>2) and statistical significance (FDR ≤ 0.05). As the following, users can find
-                  that the A2M is significantly downregulated in LUSC.
+                  that the A2M is significantly down-regulated in LUSC.
                 </p>
                 <div fxLayout="row" fxLayoutAlign="center center">
                   <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'DEGplot.png'" alt="differentialExpression" />
@@ -198,12 +198,12 @@
                   GSCA gives the degree to which the inputted gene set is overrepresented at the top or bottom of all genes ranked by gene
                   expression fold change between tumor and normal. <span class="phighlight">Bar plot</span> and
                   <span class="phighlight">enrichment plot</span> present the enrichment score of gene set against all 20000+ genes
-                  (backgroud) in selected cancers. The result presents the distribution of the tumor-normal expression changes of each gene
+                  (background) in selected cancers. The result presents the distribution of the tumor-normal expression changes of each gene
                   in inputted gene set against all genes.
                 </p>
                 <p>
-                  By clicking "LUSC" button in the result table, the users can find that among the inputed gene set, most of them are
-                  downregulated in LUSC, distributed on the right blue side (middle color bar) of
+                  By clicking "LUSC" button in the result table, the users can find that among the inputted gene set, most of them are
+                  down-regulated in LUSC, distributed on the right blue side (middle color bar) of
                   <span class="phighlight">enrichment plot</span>.
                 </p>
 
@@ -279,7 +279,7 @@
                   <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'exprsurvivalsinglegene.png'" alt="survivalsingle" />
                 </div>
 
-                <li>Expression & pathwawy activity</li>
+                <li>Expression & pathway activity</li>
                 <p>
                   This module estimates the difference of gene expression between pathway activity groups (activation and inhibition), which
                   defined by median pathway scores.
@@ -309,7 +309,7 @@
               <ul>
                 <li>Differential GSVA score</li>
                 <p>
-                  The <span class="phighlight">boxplot</span> compares the GSVA score of inputed gene set between tumor and normal samples.
+                  The <span class="phighlight">boxplot</span> compares the GSVA score of inputted gene set between tumor and normal samples.
                   The users can find that the overall expression level of example gene set are significantly lower in tumor samples of KICH,
                   KIRP, LUAD and LUSC than that in normal samples.
                 </p>
@@ -319,10 +319,10 @@
 
                 <li>Stage and GSVA score</li>
                 <p>
-                  The <span class="phighlight">boxplot</span> compares the GSVA score of inputed gene set between stages. The
-                  <span class="phighlight">trend plot</span> persents the trend of middle GSVA score from stage I to stage IV. Users can
-                  find that the overall expression level of example gene set are trend to upregulate in KICH, KIRP and LUSC, and trend to
-                  downregulate in KIRC and LUAD, but without statistical significance (Tend P > 0.05, estimated by Mann-Kendall Trend Test).
+                  The <span class="phighlight">boxplot</span> compares the GSVA score of inputted gene set between stages. The
+                  <span class="phighlight">trend plot</span> presents the trend of middle GSVA score from stage I to stage IV. Users can
+                  find that the overall expression level of example gene set are trend to up-regulate in KICH, KIRP and LUSC, and trend to
+                  down-regulate in KIRC and LUAD, but without statistical significance (Tend P > 0.05, estimated by Mann-Kendall Trend Test).
                   Note that the p value of Mann-Kendall test for trend analysis is depend on the number of subjects, here is the number of
                   stages (n=4), which is too small to get a significant P value (<0.05). A P value of 0.09 indicates the most extreme
                   situation, which continuous reduce or increase. Therefore, the P value of trend test is for reference only.
@@ -336,8 +336,8 @@
 
                 <li>Subtype and GSVA score</li>
                 <p>
-                  The <span class="phighlight">boxplot</span>compare the GSVA score of inputed gene set among cancer subtypes. The users can
-                  find that the GSVA score significantly upregulated in LUAD subtypes, from subtype 1 to 6.
+                  The <span class="phighlight">boxplot</span>compare the GSVA score of inputted gene set among cancer subtypes. The users can
+                  find that the GSVA score significantly up-regulated in LUAD subtypes, from subtype 1 to 6.
                 </p>
                 <div fxLayout="row" fxLayoutAlign="center center">
                   <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'GSVAsubtype.png'" alt="gsvasubtype" />
@@ -379,7 +379,7 @@
             <p>
               In modules provide single gene level analysis, <span class="phighlight">bubble plot</span> presents the summary of the
               correlation for each cancer. The bubble color from blue to red represent the correlation. Bubble size are correlate with FDR
-              significancec. Black outline border indicates FDR ≤ 0.05. By clicking gene symbol buttons in tables, users can get the
+              significance. Black outline border indicates FDR ≤ 0.05. By clicking gene symbol buttons in tables, users can get the
               detailed result of single gene through scatter plot with fitting line (mRNA expression, CNV and methylation), or
               <span class="phighlight">boxplot</span>(SNV).
             </p>

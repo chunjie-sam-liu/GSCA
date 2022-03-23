@@ -1,7 +1,9 @@
 <mat-card fxFlex appMaterialElevation defaultElevation="0" raisedElevation="0">
   <mat-expansion-panel hideToggle>
     <mat-expansion-panel-header>
-      <mat-panel-title> Click here for the detailed description of methods and results </mat-panel-title>
+      <mat-panel-title>
+        <mat-icon class="pred">info</mat-icon>Click here for the detailed description of methods and results
+      </mat-panel-title>
       <mat-panel-description></mat-panel-description>
     </mat-expansion-panel-header>
     <ul>
@@ -15,7 +17,7 @@
         <span class="phighlight">ANOVA test (number of stage groups > 2)</span>.
       </p>
       <p>
-        GSVA score represents the variation of gene set activity over a specific cancer’s sample population in an unsupervised manner, whcih
+        GSVA score represents the variation of gene set activity over a specific cancer’s sample population in an unsupervised manner, which
         was calculated through R package
         <a href="https://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-14-7" target="_blank">GSVA.</a>
         Briefly,
@@ -50,8 +52,7 @@
           way. Stage type including pathologic, clinical, masaoka (for THYM only), and igcccg stage (for TGCT only).
         </p>
         <p>
-          When TGCT cancer type was selected, the stage type good, intermediate, and poor are intergtared into column Stage I, II, and III,
-          respectively.
+          When TGCT cancer type was selected, the stage type good, intermediate, and poor are shown as Stage I, II, and III, respectively.
         </p>
         <li>GSCA provides result figures including:</li>
         <ul>

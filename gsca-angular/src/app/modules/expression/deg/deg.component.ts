@@ -43,6 +43,7 @@ export class DegComponent implements OnInit, OnChanges, AfterViewInit {
   ];
   expandedElement: DegTableRecord;
   expandedColumn: string;
+  validCancertype: string;
 
   // degPlot
   degImage: any;
@@ -71,6 +72,7 @@ export class DegComponent implements OnInit, OnChanges, AfterViewInit {
     this.degImageLoading = true;
 
     const postTerm = this._validCollection(this.searchTerm);
+    this.validCancertype = this._validCancer(this.searchTerm);
 
     if (!postTerm.validColl.length) {
       this.dataSourceDegLoading = false;
@@ -81,6 +83,9 @@ export class DegComponent implements OnInit, OnChanges, AfterViewInit {
         'The differential expression analysis is based on cancer types which have at least ten tumor-normal paired samples, including THCA, KIRP, BLCA, LIHC, HNSC, BRCA, LUAD, PRAD, ESCA, KICH, LUSC, KIRC, STAD and COAD. Please select at least one of these cancer type to get the result of differential analysis.'
       );
     } else {
+      //if (this.validCancertype.length < this.searchTerm.cancerTypeSelected.length) {
+      //  window.alert(this.validCancertype);
+      //}
       this.showDEGTable = true;
       this.expressionApiService.getDEGTable(postTerm).subscribe(
         (res) => {
@@ -149,6 +154,15 @@ export class DegComponent implements OnInit, OnChanges, AfterViewInit {
       .filter(Boolean);
 
     return st;
+  }
+  private _validCancer(st: ExprSearch): any {
+    const validCancer = st.cancerTypeSelected
+      .map((val) => {
+        return collectionList.deg.cancertypes[collectionList.deg.cancertypes.indexOf(val)];
+      })
+      .filter(Boolean);
+
+    return validCancer;
   }
 
   public applyFilter(event: Event) {

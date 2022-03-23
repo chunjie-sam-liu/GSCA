@@ -1,7 +1,10 @@
 <mat-card fxFlex appMaterialElevation defaultElevation="0" raisedElevation="0">
   <mat-expansion-panel hideToggle>
     <mat-expansion-panel-header>
-      <mat-panel-title> Click here for the detailed description of methods and results </mat-panel-title>
+      <mat-panel-title>
+        <mat-icon class="pred">info</mat-icon>
+        Click here for the detailed description of methods and results
+      </mat-panel-title>
       <mat-panel-description></mat-panel-description>
     </mat-expansion-panel-header>
     <ul>
@@ -17,8 +20,8 @@
       </p>
       <p>
         This method has been employed in
-        <a href="https://genome.cshlp.org/content/21/12/2004.full">A. Schlattl et al, 2011</a> to relate copy-number to transcriptome
-        sequencing data.
+        <a href="https://genome.cshlp.org/content/21/12/2004.full">A. Schlattl et al, 2011</a> to correlate copy-number to transcription
+        data.
       </p>
 
       <li>Interpretation</li>
@@ -27,7 +30,7 @@
       <ul>
         <li>The result table:</li>
         <p>Presents detailed information about Cancer type, Gene symbol, Spearman correlation and FDR.</p>
-        <p>Spearman correlation indicates the correlation coeeficient.</p>
+        <p>Spearman correlation indicates the correlation coefficient.</p>
         <p>FDR indicates the adjusted P value using FDR method.</p>
 
         <li>GSCA provides result figures including:</li>

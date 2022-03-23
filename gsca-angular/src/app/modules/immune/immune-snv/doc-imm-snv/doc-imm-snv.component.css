@@ -26,3 +26,6 @@ a {
 mat-panel-description {
   font-size: large;
 }
+.pred {
+  color: green;
+}

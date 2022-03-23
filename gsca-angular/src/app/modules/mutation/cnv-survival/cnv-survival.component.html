@@ -26,6 +26,7 @@
             </button>
           </mat-form-field>
           <button class="export-container" mat-raised-button color="primary" (click)="exportExcel()">Export Table</button>
+          <p><span class="phighlight">Please find the recommended use of the endpoints in the above help page.</span></p>
 
           <table mat-table [dataSource]="dataSourceCnvSurvival" multiTemplateDataRows matSort>
             <ng-container matColumnDef="{{ column }}" *ngFor="let column of displayedColumnsCnvSurvival; index as ind">

@@ -30,3 +30,10 @@ mat-panel-description {
   color: rgb(230, 20, 20);
   background-color: #f8f8f8;
 }
+.lilight {
+  font-size: medium;
+  font-weight: normal;
+}
+.pred {
+  color: green;
+}

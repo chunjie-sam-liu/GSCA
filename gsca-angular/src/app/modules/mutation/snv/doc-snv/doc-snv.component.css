@@ -33,3 +33,6 @@ mat-panel-description {
 img {
   width: 600px;
 }
+.pred {
+  color: green;
+}

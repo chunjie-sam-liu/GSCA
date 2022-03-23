@@ -1,7 +1,9 @@
 <mat-card fxFlex appMaterialElevation defaultElevation="0" raisedElevation="0">
   <mat-expansion-panel hideToggle>
     <mat-expansion-panel-header>
-      <mat-panel-title> Click here for the detailed description of methods and results </mat-panel-title>
+      <mat-panel-title>
+        <mat-icon class="pred">info</mat-icon> Click here for the detailed description of methods and results
+      </mat-panel-title>
       <mat-panel-description></mat-panel-description>
     </mat-expansion-panel-header>
     <ul>
@@ -10,28 +12,33 @@
         GSVA and pathway activity module presents the correlation between GSVA score and pathway activity, which defined by pathway scores.
       </p>
       <p>
-        Reverse phase protein array (RPPA) data from (<a href="https://www.tcpaportal.org/tcpa/" target="_blank">TCPA database</a>) were used to calculate pathway activity score of 10 cancer related pathways for 7876 samples (from TCGA database) from 32 cancer types. RPPA is a high-throughput antibody-based technique with the procedures similar to that of Western blots. Proteins are extracted from tumor tissue or cultured cells, denatured by SDS, printed on nitrocellulose-coated slides followed by antibody
-        probe.
+        Reverse phase protein array (RPPA) data from (<a href="https://www.tcpaportal.org/tcpa/" target="_blank">TCPA database</a>) were
+        used to calculate pathway activity score of 10 cancer related pathways for 7876 samples (from TCGA database) from 32 cancer types.
+        RPPA is a high-throughput antibody-based technique with the procedures similar to that of Western blots. Proteins are extracted from
+        tumor tissue or cultured cells, denatured by SDS, printed on nitrocellulose-coated slides followed by antibody probe.
       </p>
 
       <p>
-        The pathway GSCA included are: <span class="phighlight">TSC/mTOR, RTK, RAS/MAPK, PI3K/AKT, Hormone ER, Hormone AR, EMT, DNA Damage Response, Cell Cycle,
-        Apoptosis pathways</span>. They are all famous cancer related pathways.
+        The pathway GSCA included are:
+        <span class="phighlight"
+          >TSC/mTOR, RTK, RAS/MAPK, PI3K/AKT, Hormone ER, Hormone AR, EMT, DNA Damage Response, Cell Cycle, Apoptosis pathways</span
+        >. They are all famous cancer related pathways.
       </p>
 
       <p>
         RBN RPPA data were median-centered and normalized by standard deviation across all samples for each component to obtain the relative
-        protein level. The pathway activity score is then the sum of the relative protein level of all positive regulatory components minus that of
-        negative regulatory components in a particular pathway (<a href="https://doi.org/10.1038/ncomms4887" target="_blank"
+        protein level. The pathway activity score is then the sum of the relative protein level of all positive regulatory components minus
+        that of negative regulatory components in a particular pathway (<a href="https://doi.org/10.1038/ncomms4887" target="_blank"
           >R. Akbani et al.</a
         >).
       </p>
 
       <p>
-        GSVA score represents the variation of gene set activity over a specific cancer’s sample population in an unsupervised manner, whcih
+        GSVA score represents the variation of gene set activity over a specific cancer’s sample population in an unsupervised manner, which
         was calculated through R package
         <a href="https://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-14-7" target="_blank">GSVA.</a>
-        Briefly, the GSVA score represents the <span class="phighlight">integrated level of the expression of gene set</span>, which is <span class="phighlight">positively correlate</span> with gene expression. 
+        Briefly, the GSVA score represents the <span class="phighlight">integrated level of the expression of gene set</span>, which is
+        <span class="phighlight">positively correlate</span> with gene expression.
       </p>
       <li>Interpretation</li>
       <p></p>
@@ -42,8 +49,8 @@
         <ul>
           <li>Heat plot:</li>
           <p>
-            Summary the correlations between GSVA score and pathway activity among selected cancers types. *: P value <= 0.05; #: FDR
-            <= 0.05.
+            Summary the correlations between GSVA score and pathway activity among selected cancers types. *: P value <= 0.05; #: FDR <=
+            0.05.
           </p>
           <li>Scatter plot:</li>
           <p>

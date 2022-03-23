@@ -1,7 +1,9 @@
 <mat-card fxFlex appMaterialElevation defaultElevation="0" raisedElevation="0">
   <mat-expansion-panel hideToggle>
     <mat-expansion-panel-header>
-      <mat-panel-title> Click here for the detailed description of methods and results </mat-panel-title>
+      <mat-panel-title>
+        <mat-icon class="pred">info</mat-icon> Click here for the detailed description of methods and results
+      </mat-panel-title>
       <mat-panel-description>Immune infiltration & GSVA score</mat-panel-description>
     </mat-expansion-panel-header>
     <ul>
@@ -30,7 +32,7 @@
       <p>
         The estimates the abundance of 24 immune cell types were based on gene set signature (Document).
         <span class="phighlight"
-          >Please avoid an overlap bettwen input genes and the signature used to estimate the immune cell infiltrate</span
+          >Please avoid an overlap between input genes and the signature used to estimate the immune cell infiltrate</span
         >.
       </p>
       <li>Interpretation</li>
@@ -51,7 +53,7 @@
         <ul>
           <li>Summary plot:</li>
           <p>
-            Heatmap summarizes the significance of P value and FDR for the spearman correlation analysis between GSVA score of inputed gene
+            Heatmap summarizes the significance of P value and FDR for the spearman correlation analysis between GSVA score of inputted gene
             set and immune cells' infiltrates. *: P value ≤ 0.05; #: FDR ≤ 0.05
           </p>
           <li>Scatter plot:</li>

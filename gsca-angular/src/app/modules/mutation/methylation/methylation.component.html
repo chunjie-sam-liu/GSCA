@@ -5,7 +5,7 @@
       <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
         <mat-card-header>
           <mat-card-title
-            >Table presents the detailed information about the methyaltion difference between tumor and normal samples of inputed genes in
+            >Table presents the detailed information about the methylation difference between tumor and normal samples of inputted genes in
             the selected cancers</mat-card-title
           >
         </mat-card-header>
@@ -19,6 +19,13 @@
           </button>
         </mat-form-field>
         <button class="export-container" mat-raised-button color="primary" (click)="exportExcel()">Export Table</button>
+        <p>
+          <span class="phighlight"
+            >In your selected cancer types, only {{ validCancertype }} have >10 pairs of tumor-normal samples and have been analyzed for
+            differential methylation.</span
+          >
+        </p>
+        <p><span class="phighlight">Only the results with p-value≤0.05 are presented in the table and figure.</span></p>
         <table mat-table [dataSource]="dataSourceMethy" multiTemplateDataRows matSort>
           <ng-container matColumnDef="{{ column }}" *ngFor="let column of displayedColumnsMethy; index as ind">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ displayedColumnsMethyHeader[ind] }}</th>
@@ -95,7 +102,7 @@
       <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
         <mat-card-header>
           <mat-card-title
-            >Figure summarizes the methyaltion difference between tumor and normal samples of inputted genes in the selected
+            >Figure summarizes the methylation difference between tumor and normal samples of inputted genes in the selected
             cancers</mat-card-title
           >
         </mat-card-header>

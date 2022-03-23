@@ -145,6 +145,25 @@ export default {
       'UVM',
     ],
   },
+  degsva_expr: {
+    collnames: [
+      'BLCA_all_expr',
+      'BRCA_all_expr',
+      'COAD_all_expr',
+      'ESCA_all_expr',
+      'HNSC_all_expr',
+      'KICH_all_expr',
+      'KIRC_all_expr',
+      'KIRP_all_expr',
+      'LIHC_all_expr',
+      'LUAD_all_expr',
+      'LUSC_all_expr',
+      'PRAD_all_expr',
+      'STAD_all_expr',
+      'THCA_all_expr',
+    ],
+    cancertypes: ['BLCA', 'BRCA', 'COAD', 'ESCA', 'HNSC', 'KICH', 'KIRC', 'KIRP', 'LIHC', 'LUAD', 'LUSC', 'PRAD', 'STAD', 'THCA'],
+  },
   all_immune: {
     collnames: [
       'ACC_all_immune',
