@@ -27,3 +27,7 @@ mat-card-content {
   margin-bottom: 20px;
   background-color: rgb(123, 123, 166);
 }
+.phighlight {
+  color: rgb(230, 20, 20);
+  background-color: #f8f8f8;
+}

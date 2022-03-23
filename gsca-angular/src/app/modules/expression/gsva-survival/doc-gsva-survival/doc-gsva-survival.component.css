@@ -34,3 +34,6 @@ mat-panel-description {
   font-size: medium;
   font-weight: normal;
 }
+.pred {
+  color: green;
+}

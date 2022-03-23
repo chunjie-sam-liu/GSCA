@@ -26,11 +26,14 @@ a {
 mat-panel-description {
   font-size: large;
 }
-.lilight{
+.lilight {
   font-weight: normal;
   font-size: medium;
 }
 .phighlight {
   color: rgb(230, 20, 20);
   background-color: #f8f8f8;
+}
+.pred {
+  color: green;
 }
