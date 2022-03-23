@@ -13,7 +13,7 @@ search_str <- args[1]
 filepath <- args[2]
 apppath <- args[3]
 
-# search_str = 'TP53@LUSC_expr_subtype'
+# search_str = 'A2M#ACE#ANGPT2#BPI#CD1B#CDR1#EGR2#EGR3#HBEGF#HERPUD1#MCM2#PCTP#PODXL#PPY#PTGS2#RCAN1#SLC4A7#THBD@BLCA_expr_subtype#BRCA_expr_subtype#COAD_expr_subtype#GBM_expr_subtype#HNSC_expr_subtype#KIRC_expr_subtype#LUAD_expr_subtype#LUSC_expr_subtype#STAD_expr_subtype'
 # filepath = '/home/huff/github/GSCA/gsca-r-plot/pngs/5579084c-505e-4a23-832d-3b95ae50758a.png'
 # apppath = '/home/huff/github/GSCA'
 
@@ -47,9 +47,13 @@ fn_fetch_mongo <- function(.x) {
 }
 
 fn_filter_pattern <- function(fdr) {
-  if ((fdr <= 0.05)) {
-    return(1)
-  } else {
+  if(!is.na(fdr)){
+    if ((fdr <= 0.05)) {
+      return(1)
+    } else {
+      return(0)
+    }
+  }else {
     return(0)
   }
 }
@@ -137,7 +141,7 @@ if(nrow(fetched_data)>0){
 
 }else{
   source(file.path(apppath, "gsca-r-app/utils/fn_NA_notice_fig.R"))
-  fn_NA_notice_fig("Caution: \nno significant result for your search.\nSubtype analysis only applicable to \nHNSC, LUSC, COAD, STAD, LUAD, GBM, \nBRCA, UCEC, KIRC, READ, BLCA cancer.\nOR input more genes could be help.") -> p
+  fn_NA_notice_fig("Caution: \nno significant result for your search.\nSubtype analysis only applicable to \nHNSC, LUSC, COAD, STAD, LUAD, GBM, \nBRCA, KIRC, BLCA cancer.\nOR input more genes could be help.") -> p
   # Save --------------------------------------------------------------------
   ggsave(filename = filepath, plot = p, device = 'png', width = size$width, height = 4)
   pdf_name <- gsub("\\.png",".pdf",filepath)
