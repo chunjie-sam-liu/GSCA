@@ -34,6 +34,7 @@ export class GsvaSubtypeComponent implements OnInit, OnChanges, AfterViewInit {
   ];
   expandedElement: GSVASubtypeTableRecord;
   expandedColumn: string;
+  validCancertype: string;
 
   // GSVA subtype image
   GSVASubtypeImage: any;
@@ -55,6 +56,7 @@ export class GsvaSubtypeComponent implements OnInit, OnChanges, AfterViewInit {
     this.dataSourceGSVASubtypeLoading = true;
     this.GSVASubtypeImageLoading = true;
     const postTerm = this._validCollection(this.searchTerm);
+    this.validCancertype = this._validCancer(this.searchTerm);
 
     if (!postTerm.validColl.length) {
       this.dataSourceGSVASubtypeLoading = false;
@@ -62,7 +64,7 @@ export class GsvaSubtypeComponent implements OnInit, OnChanges, AfterViewInit {
       this.showGSVASubtypeTable = false;
       this.showGSVASubtypeImage = false;
       window.alert(
-        'The subtype analysis is based on cancer types which have subtype data, including BLCA, BRCA, COAD, GBM  HNSC, KIRC, LUAD, LUSC, and STAD. Please select at least one of these cancer type to get the result of subtype analysis.'
+        'The subtype analysis is based on 11 cancer types which have subtype data, including BLCA, BRCA, COAD, GBM  HNSC, KIRC, LUAD, LUSC, and STAD. Please select at least one of these cancer type to get the result of subtype analysis.'
       );
     } else {
       this.expressionApiService.getGSVAAnalysis(postTerm).subscribe(
@@ -120,7 +122,14 @@ export class GsvaSubtypeComponent implements OnInit, OnChanges, AfterViewInit {
       .filter(Boolean);
     return st;
   }
-
+  private _validCancer(st: ExprSearch): any {
+    const validCancer = st.cancerTypeSelected
+      .map((val) => {
+        return collectionList.expr_subtype.cancertypes[collectionList.expr_subtype.cancertypes.indexOf(val)];
+      })
+      .filter(Boolean);
+    return validCancer;
+  }
   private _createImageFromBlob(res: Blob, present: string) {
     const reader = new FileReader();
     reader.addEventListener(

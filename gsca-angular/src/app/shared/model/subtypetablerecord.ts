@@ -4,6 +4,11 @@ export interface SubtypeTableRecord {
   entrez: number;
   symbol: string;
   pval: number;
-  fdr: number;
   cancertype: string;
+  Subtype1: string;
+  Subtype2: string;
+  Subtype3: string;
+  Subtype4: string;
+  Subtype5: string;
+  Subtype6: string;
 }
