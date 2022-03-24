@@ -40,6 +40,10 @@ const routes: Routes = [
         path: 'terms',
         loadChildren: () => import('src/app/modules/terms/terms.module').then((m) => m.TermsModule),
       },
+      {
+        path: 'download-page',
+        loadChildren: () => import('src/app/modules/download-page/download-page.module').then((m) => m.DownloadPageModule),
+      },
     ],
   },
 ];
