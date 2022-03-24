@@ -7,9 +7,10 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { MrnaComponent } from './mrna/mrna.component';
 import { SnvComponent } from './snv/snv.component';
 import { CnvComponent } from './cnv/cnv.component';
+import { MethyComponent } from './methy/methy.component';
 
 @NgModule({
-  declarations: [DownloadPageComponent, MrnaComponent, SnvComponent, CnvComponent],
+  declarations: [DownloadPageComponent, MrnaComponent, SnvComponent, CnvComponent, MethyComponent],
   imports: [CommonModule, DownloadPageRoutingModule, SharedModule],
 })
 export class DownloadPageModule {}
