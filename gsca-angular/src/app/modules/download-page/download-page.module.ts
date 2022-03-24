@@ -9,9 +9,10 @@ import { SnvComponent } from './snv/snv.component';
 import { CnvComponent } from './cnv/cnv.component';
 import { MethyComponent } from './methy/methy.component';
 import { ImmuneComponent } from './immune/immune.component';
+import { PathwayComponent } from './pathway/pathway.component';
 
 @NgModule({
-  declarations: [DownloadPageComponent, MrnaComponent, SnvComponent, CnvComponent, MethyComponent, ImmuneComponent],
+  declarations: [DownloadPageComponent, MrnaComponent, SnvComponent, CnvComponent, MethyComponent, ImmuneComponent, PathwayComponent],
   imports: [CommonModule, DownloadPageRoutingModule, SharedModule],
 })
 export class DownloadPageModule {}
