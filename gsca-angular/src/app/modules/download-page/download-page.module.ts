@@ -11,9 +11,10 @@ import { MethyComponent } from './methy/methy.component';
 import { ImmuneComponent } from './immune/immune.component';
 import { PathwayComponent } from './pathway/pathway.component';
 import { SurvivalComponent } from './survival/survival.component';
+import { SubtypeComponent } from './subtype/subtype.component';
 
 @NgModule({
-  declarations: [DownloadPageComponent, MrnaComponent, SnvComponent, CnvComponent, MethyComponent, ImmuneComponent, PathwayComponent, SurvivalComponent],
+  declarations: [DownloadPageComponent, MrnaComponent, SnvComponent, CnvComponent, MethyComponent, ImmuneComponent, PathwayComponent, SurvivalComponent, SubtypeComponent],
   imports: [CommonModule, DownloadPageRoutingModule, SharedModule],
 })
 export class DownloadPageModule {}
