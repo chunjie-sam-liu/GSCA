@@ -12,9 +12,10 @@ import { ImmuneComponent } from './immune/immune.component';
 import { PathwayComponent } from './pathway/pathway.component';
 import { SurvivalComponent } from './survival/survival.component';
 import { SubtypeComponent } from './subtype/subtype.component';
+import { StageComponent } from './stage/stage.component';
 
 @NgModule({
-  declarations: [DownloadPageComponent, MrnaComponent, SnvComponent, CnvComponent, MethyComponent, ImmuneComponent, PathwayComponent, SurvivalComponent, SubtypeComponent],
+  declarations: [DownloadPageComponent, MrnaComponent, SnvComponent, CnvComponent, MethyComponent, ImmuneComponent, PathwayComponent, SurvivalComponent, SubtypeComponent, StageComponent],
   imports: [CommonModule, DownloadPageRoutingModule, SharedModule],
 })
 export class DownloadPageModule {}
