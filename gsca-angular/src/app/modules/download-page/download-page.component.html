@@ -1,1 +1,72 @@
-<p>download-page works!</p>
+<div fxLayout="column" fxFill>
+  <div fxFlex="none">
+    <h1 class="page-header">Download</h1>
+    <h3>
+      GSCA provided data download available for mRNA expression, SNV, CNV, methylation, immune cell abundance, pathway activity, and
+      clinical (survival, stage, subtype).
+    </h3>
+  </div>
+  <div fxFlex fxLayout="column" fxLayoutGap="10px" class="not-float">
+    <mat-tab-group>
+      <ng-container>
+        <mat-tab label="mRNA expression">
+          <div fxFlex="grow">
+            <app-mrna fxLayout="row" fxLayout.lt-lg="column" fxLayoutGap="10px" fxLayoutWrap fxLayoutAlign="center"></app-mrna>
+          </div>
+        </mat-tab>
+      </ng-container>
+
+      <ng-container>
+        <mat-tab label="SNV">
+          <div fxFlex="grow"></div>
+        </mat-tab>
+      </ng-container>
+
+      <ng-container>
+        <mat-tab label="CNV">
+          <div fxFlex="grow"></div>
+        </mat-tab>
+      </ng-container>
+
+      <ng-container>
+        <mat-tab label="Methylation">
+          <div fxFlex="grow"></div>
+        </mat-tab>
+      </ng-container>
+
+      <ng-container>
+        <mat-tab label="Immune">
+          <div fxFlex="grow"></div>
+        </mat-tab>
+      </ng-container>
+
+      <ng-container>
+        <mat-tab label="Pathway activity">
+          <div fxFlex="grow"></div>
+        </mat-tab>
+      </ng-container>
+
+      <ng-container>
+        <mat-tab label="Survival">
+          <div fxFlex="grow"></div>
+        </mat-tab>
+      </ng-container>
+
+      <ng-container>
+        <mat-tab label="Stage">
+          <div fxFlex="grow"></div>
+        </mat-tab>
+      </ng-container>
+
+      <ng-container>
+        <mat-tab label="Subtype">
+          <div fxFlex="grow"></div>
+        </mat-tab>
+      </ng-container>
+    </mat-tab-group>
+  </div>
+
+  <div fxFlex="none">
+    <app-footer></app-footer>
+  </div>
+</div>
