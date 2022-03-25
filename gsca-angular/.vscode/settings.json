@@ -1,6 +1,6 @@
 {
   "workbench.sideBar.location": "left",
-  "workbench.iconTheme": "material-icon-theme",
+  // "workbench.iconTheme": "material-icon-theme",
   "workbench.editor.tabCloseButton": "left",
 
   "editor.showFoldingControls": "always",
@@ -16,8 +16,8 @@
   },
   "gitlens.mode.active": "zen",
   "git.confirmSync": false,
-  "terminal.integrated.shellArgs.linux": ["-i", "-l"],
-  "terminal.integrated.shell.linux": "bash",
+  // "terminal.integrated.shellArgs.linux": ["-i", "-l"],
+  // "terminal.integrated.shell.linux": "bash",
   "terminal.integrated.inheritEnv": true,
 
   "remote.SSH.connectTimeout": 10000,
