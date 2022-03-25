@@ -11,3 +11,9 @@ GET http://localhost:5000/api/resource/responseplot/f5645de6-8587-4a83-8502-4c77
 
 ###
 GET http://localhost:5000/api/resource/responseplot/1ffb5e8f-38ff-4c4d-aa23-29b39e07edc5.png
+
+###
+GET http://localhost:5000/api/resource/ResponseDataDownload/ACC.mRAN_expr.tsv.gz
+
+###
+GET http://localhost:5000/api/resource/ResponseDataDownload/a
