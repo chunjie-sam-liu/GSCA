@@ -10,7 +10,7 @@ export class DownloadPageApiService extends BaseHttpService {
     super(http);
   }
 
-  //download raw data
+  // download raw data
   public getResourceDataURL(filename: string): string {
     return this.generateRoute('resource/ResponseDataDownload/' + filename);
   }
