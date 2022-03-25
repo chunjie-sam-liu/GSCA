@@ -8,7 +8,7 @@
 
         <ng-container></ng-container>
 
-        <table mat-table [dataSource]="mrnatable" multiTemplateDataRows class="halftable">
+        <table mat-table [dataSource]="mrnatable" multiTemplateDataRows>
           <ng-container matColumnDef="{{ column }}" *ngFor="let column of displayedColumnsMrnaDownload; index as ind">
             <th mat-header-cell *matHeaderCellDef>{{ displayedColumnsMrnaDownloadHeader[ind] }}</th>
             <td mat-cell *matCellDef="let element">
