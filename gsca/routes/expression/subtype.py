@@ -10,8 +10,13 @@ model_subtypetable = {
     "entrez": fields.Integer(attribute="entrez"),
     "symbol": fields.String(attribute="symbol"),
     "pval": fields.Float(attribute="pval"),
-    "fdr": fields.Float(attribute="fdr"),
     "cancertype": fields.String(attribute="cancertype"),
+    "Subtype1": fields.String(attribute="Subtype1"),
+    "Subtype2": fields.String(attribute="Subtype2"),
+    "Subtype3": fields.String(attribute="Subtype3"),
+    "Subtype4": fields.String(attribute="Subtype4"),
+    "Subtype5": fields.String(attribute="Subtype5"),
+    "Subtype6": fields.String(attribute="Subtype6"),
 }
 
 

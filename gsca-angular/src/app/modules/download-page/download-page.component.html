@@ -1,0 +1,88 @@
+<div fxLayout="column" fxFill>
+  <div fxFlex="none">
+    <h1 class="page-header">Download</h1>
+    <h3>
+      GSCA provided data download available for mRNA expression, SNV, CNV, methylation, immune cell abundance, pathway activity, and
+      clinical (survival, stage, subtype).
+    </h3>
+  </div>
+  <div fxFlex fxLayout="column" fxLayoutGap="10px" class="not-float">
+    <mat-tab-group>
+      <ng-container>
+        <mat-tab label="mRNA expression">
+          <div fxFlex="grow">
+            <app-mrna fxLayout="row" fxLayout.lt-lg="column" fxLayoutGap="10px" fxLayoutWrap fxLayoutAlign="center"></app-mrna>
+          </div>
+        </mat-tab>
+      </ng-container>
+
+      <ng-container>
+        <mat-tab label="SNV">
+          <div fxFlex="grow">
+            <app-snv fxLayout="row" fxLayout.lt-lg="column" fxLayoutGap="10px" fxLayoutWrap fxLayoutAlign="center"></app-snv>
+          </div>
+        </mat-tab>
+      </ng-container>
+
+      <ng-container>
+        <mat-tab label="CNV">
+          <div fxFlex="grow">
+            <app-cnv fxLayout="row" fxLayout.lt-lg="column" fxLayoutGap="10px" fxLayoutWrap fxLayoutAlign="center"></app-cnv>
+          </div>
+        </mat-tab>
+      </ng-container>
+
+      <ng-container>
+        <mat-tab label="Methylation">
+          <div fxFlex="grow">
+            <app-methy fxLayout="row" fxLayout.lt-lg="column" fxLayoutGap="10px" fxLayoutWrap fxLayoutAlign="center"></app-methy>
+          </div>
+        </mat-tab>
+      </ng-container>
+
+      <ng-container>
+        <mat-tab label="Immune">
+          <div fxFlex="grow">
+            <app-immune fxLayout="row" fxLayout.lt-lg="column" fxLayoutGap="10px" fxLayoutWrap fxLayoutAlign="center"></app-immune>
+          </div>
+        </mat-tab>
+      </ng-container>
+
+      <ng-container>
+        <mat-tab label="Pathway activity">
+          <div fxFlex="grow">
+            <app-pathway fxLayout="row" fxLayout.lt-lg="column" fxLayoutGap="10px" fxLayoutWrap fxLayoutAlign="center"></app-pathway>
+          </div>
+        </mat-tab>
+      </ng-container>
+
+      <ng-container>
+        <mat-tab label="Survival">
+          <div fxFlex="grow">
+            <app-survival fxLayout="row" fxLayout.lt-lg="column" fxLayoutGap="10px" fxLayoutWrap fxLayoutAlign="center"></app-survival>
+          </div>
+        </mat-tab>
+      </ng-container>
+
+      <ng-container>
+        <mat-tab label="Stage">
+          <div fxFlex="grow">
+            <app-stage fxLayout="row" fxLayout.lt-lg="column" fxLayoutGap="10px" fxLayoutWrap fxLayoutAlign="center"></app-stage>
+          </div>
+        </mat-tab>
+      </ng-container>
+
+      <ng-container>
+        <mat-tab label="Subtype">
+          <div fxFlex="grow">
+            <app-subtype fxLayout="row" fxLayout.lt-lg="column" fxLayoutGap="10px" fxLayoutWrap fxLayoutAlign="center"></app-subtype>
+          </div>
+        </mat-tab>
+      </ng-container>
+    </mat-tab-group>
+  </div>
+
+  <div fxFlex="none">
+    <app-footer></app-footer>
+  </div>
+</div>

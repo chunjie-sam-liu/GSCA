@@ -1,3 +1,4 @@
+from tabnanny import filename_only
 from flask import Blueprint, send_file
 from flask_restful import Api, Resource
 from gsca import app
@@ -20,3 +21,4 @@ class ResponsePlot(Resource):
 
 
 api.add_resource(ResponsePlot, "/<string:uuidname>")
+

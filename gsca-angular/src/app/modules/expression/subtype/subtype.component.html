@@ -15,7 +15,9 @@
           </button>
         </mat-form-field>
         <button class="export-container" mat-raised-button color="primary" (click)="exportExcel()">Export Table</button>
-
+        <p>
+          <span class="phighlight">Among your selected cancer types, only {{ validCancertype }} have subtype information.</span>
+        </p>
         <table mat-table [dataSource]="subtypeTable" multiTemplateDataRows matSort>
           <ng-container matColumnDef="{{ column }}" *ngFor="let column of displayedColumnsSubtype; index as ind">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ displayedColumnsSubtypeHeader[ind] }}</th>
@@ -28,8 +30,16 @@
               </ng-template>
               <ng-template #plain>
                 {{
-                  column === 'cancertype'
+                  column === 'cancertype' ||
+                  column === 'Subtype1' ||
+                  column === 'Subtype2' ||
+                  column === 'Subtype3' ||
+                  column === 'Subtype4' ||
+                  column === 'Subtype5' ||
+                  column === 'Subtype6'
                     ? element[column]
+                    : element[column] == null
+                    ? '--'
                     : element[column] < 0.01
                     ? element[column].toExponential(2)
                     : (element[column] | number: '1.2-2')

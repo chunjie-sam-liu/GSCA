@@ -29,10 +29,21 @@ export class SubtypeComponent implements OnInit, OnChanges, AfterViewChecked {
   showSubtypeTable = true;
   @ViewChild('paginatorSubtype') paginatorSubtype: MatPaginator;
   @ViewChild(MatSort) sortSubtype: MatSort;
-  displayedColumnsSubtype = ['cancertype', 'symbol', 'pval', 'fdr'];
-  displayedColumnsSubtypeHeader = ['Cancer type', 'Gene symbol', 'P value', 'FDR'];
+  displayedColumnsSubtype = ['cancertype', 'symbol', 'pval', 'Subtype1', 'Subtype2', 'Subtype3', 'Subtype4', 'Subtype5', 'Subtype6'];
+  displayedColumnsSubtypeHeader = [
+    'Cancer type',
+    'Gene symbol',
+    'P value',
+    'Subtype1 (mean/n)',
+    'Subtype2 (mean/n)',
+    'Subtype3 (mean/n)',
+    'Subtype4 (mean/n)',
+    'Subtype5 (mean/n)',
+    'Subtype6 (mean/n)',
+  ];
   expandedElement: SubtypeTableRecord;
   expandedColumn: string;
+  validCancertype: string;
 
   // subtype image
   subtypeImageLoading = true;
@@ -57,6 +68,7 @@ export class SubtypeComponent implements OnInit, OnChanges, AfterViewChecked {
     this.subtypeTableLoading = true;
 
     const postTerm = this._validCollection(this.searchTerm);
+    this.validCancertype = this._validCancer(this.searchTerm);
 
     if (!postTerm.validColl.length) {
       this.subtypeImageLoading = false;
@@ -64,7 +76,7 @@ export class SubtypeComponent implements OnInit, OnChanges, AfterViewChecked {
       this.showSubtypeImage = false;
       this.showSubtypeTable = false;
       window.alert(
-        'The subtype analysis is based on cancer types which have subtype data, including BLCA, BRCA, COAD, GBM  HNSC, KIRC, LUAD, LUSC, and STAD. Please select at least one of these cancer type to get the result of subtype analysis.'
+        'The subtype analysis is based on 11 cancer types which have subtype data, including BLCA, BRCA, COAD, GBM  HNSC, KIRC, LUAD, LUSC, and STAD. Please select at least one of these cancer type to get the result of subtype analysis.'
       );
     } else {
       this.showSubtypeTable = true;
@@ -137,7 +149,14 @@ export class SubtypeComponent implements OnInit, OnChanges, AfterViewChecked {
       .filter(Boolean);
     return st;
   }
-
+  private _validCancer(st: ExprSearch): any {
+    const validCancer = st.cancerTypeSelected
+      .map((val) => {
+        return collectionlist.expr_subtype.cancertypes[collectionlist.expr_subtype.cancertypes.indexOf(val)];
+      })
+      .filter(Boolean);
+    return validCancer;
+  }
   public applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.subtypeTable.filter = filterValue.trim().toLowerCase();
