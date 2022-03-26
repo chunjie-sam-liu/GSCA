@@ -29,7 +29,7 @@
           </p>
           <p>
             In this enhanced GSCA, we uniquely provide gene set search and compile scores by gene set enrichment analysis (GSEA) and gene
-            set variable analysis (GSVA) to investigate genomic variations and clinical outcomes. Thus, the unique functions of GSCA are:
+            set variation analysis (GSVA) to investigate genomic variations and clinical outcomes. Thus, the unique functions of GSCA are:
             (i) exploring correlations between SNV/CNV/methylation and expression score compiled by GSEA and GSVA of a gene set; (ii)
             investigating correlations between immune cell abundance and genomic variations of a gene set or patient’s clinical outcomes in
             cancer; (iii) prioritizing drugs by drug sensitivity of gene expression. In conclusion, The GSCA database provides a one-stop
@@ -322,10 +322,10 @@
                   The <span class="phighlight">boxplot</span> compares the GSVA score of inputted gene set between stages. The
                   <span class="phighlight">trend plot</span> presents the trend of middle GSVA score from stage I to stage IV. Users can
                   find that the overall expression level of example gene set are trend to up-regulate in KICH, KIRP and LUSC, and trend to
-                  down-regulate in KIRC and LUAD, but without statistical significance (Tend P > 0.05, estimated by Mann-Kendall Trend Test).
-                  Note that the p value of Mann-Kendall test for trend analysis is depend on the number of subjects, here is the number of
-                  stages (n=4), which is too small to get a significant P value (<0.05). A P value of 0.09 indicates the most extreme
-                  situation, which continuous reduce or increase. Therefore, the P value of trend test is for reference only.
+                  down-regulate in KIRC and LUAD, but without statistical significance (Tend P > 0.05, estimated by Mann-Kendall Trend
+                  Test). Note that the p value of Mann-Kendall test for trend analysis is depend on the number of subjects, here is the
+                  number of stages (n=4), which is too small to get a significant P value (<0.05). A P value of 0.09 indicates the most
+                  extreme situation, which continuous reduce or increase. Therefore, the P value of trend test is for reference only.
                 </p>
                 <div fxLayout="row" fxLayoutAlign="center center">
                   <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'GSVAstagebox.png'" alt="gsvastagebox" />
@@ -336,8 +336,8 @@
 
                 <li>Subtype and GSVA score</li>
                 <p>
-                  The <span class="phighlight">boxplot</span>compare the GSVA score of inputted gene set among cancer subtypes. The users can
-                  find that the GSVA score significantly up-regulated in LUAD subtypes, from subtype 1 to 6.
+                  The <span class="phighlight">boxplot</span>compare the GSVA score of inputted gene set among cancer subtypes. The users
+                  can find that the GSVA score significantly up-regulated in LUAD subtypes, from subtype 1 to 6.
                 </p>
                 <div fxLayout="row" fxLayoutAlign="center center">
                   <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'GSVAsubtype.png'" alt="gsvasubtype" />
@@ -379,8 +379,8 @@
             <p>
               In modules provide single gene level analysis, <span class="phighlight">bubble plot</span> presents the summary of the
               correlation for each cancer. The bubble color from blue to red represent the correlation. Bubble size are correlate with FDR
-              significance. Black outline border indicates FDR ≤ 0.05. By clicking gene symbol buttons in tables, users can get the
-              detailed result of single gene through scatter plot with fitting line (mRNA expression, CNV and methylation), or
+              significance. Black outline border indicates FDR ≤ 0.05. By clicking gene symbol buttons in tables, users can get the detailed
+              result of single gene through scatter plot with fitting line (mRNA expression, CNV and methylation), or
               <span class="phighlight">boxplot</span>(SNV).
             </p>
             <div fxLayout="row" fxLayoutAlign="center center">
