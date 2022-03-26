@@ -10,7 +10,7 @@ api = Api(responsedatadownload)
 
 class ResponseDataDownload(Resource):
     apppath = Path(app.root_path).parent  # notice apppath parent
-    resource_data = apppath / "gsca-download/expr"
+    resource_data = apppath / "gsca-download"
 
     def get(self, filename):
 
