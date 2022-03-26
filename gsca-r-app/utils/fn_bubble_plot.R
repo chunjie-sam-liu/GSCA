@@ -11,7 +11,7 @@ bubble_plot <- function(data, cancer, gene, size, color, ylab="Symbol",xlab="Can
       scale_size_continuous(
         name = sizename, # "-Log10(FDR)"
         breaks = c(0,1.3,2,3,4),
-        labels = c("1","0.05","0.01","0.001","≤0.0001")
+        labels = c("1","0.05","0.01","0.001","<=0.0001")
       ) +
       guides(size=guide_legend(title.position="top")) +
       scale_color_gradient2(
