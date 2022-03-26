@@ -11,8 +11,10 @@ bubble_plot <- function(data, cancer, gene, size, fill, fillmipoint=0, fillbreak
     ylab(ylab) +
     xlab(xlab) +
     scale_size_continuous(
-      name = sizename, # "-Log10(FDR)"
-      guide=FALSE
+      name = sizename,#  "-Log10(FDR)"
+      breaks = c(0,1.3,2,3,4),
+      labels = c("1","0.05","0.01","0.001","≤0.0001")
+      #guide=FALSE
     ) +
     scale_fill_gradient2(
       name = fillname, # "Methylation diff (T - N)",
