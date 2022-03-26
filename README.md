@@ -3,14 +3,13 @@
 [![Paper link](https://img.shields.io/badge/Published%20in-Bioinformatics-12688.svg)](https://academic.oup.com/bioinformatics/advance-article/doi/10.1093/bioinformatics/bty411/5001392)
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](https://github.com/Gchunjie-sam-liu/GSCA)
 
-[**GSCA**](http://bioinfo.life.hust.edu.cn/GSCA) is an integrated genomic and immunogenomic web-based platform for gene set cancer research. It is an update of our previous webserver [GSCALite](http://bioinfo.life.hust.edu.cn/web/GSCALite/) - [Git Repo](https://github.com/chunjie-sam-liu/GSCALite).
+[**GSCA**](http://bioinfo.life.hust.edu.cn/GSCA) is an integrated genomic, pharmacogenomic, and immunogenomic web-based platform for gene set cancer research. It is an update of our previous webserver [GSCALite](http://bioinfo.life.hust.edu.cn/web/GSCALite/) - [Git Repo](https://github.com/chunjie-sam-liu/GSCALite).
 
 # Intro
 
 > The alterations of DNA, RNA and immune microenvironment could contribute to the cancer initiation, progress, diagnosis, prognosis, therapy. In bio-big data era, individual causal gene signal could be masked by massive background noises. A set of genes or compiled gene set scores from multiple dimensional data across a large number patients per stage could represent a snap shot of the underlying cancer process.
 
 > In this updated GSCA, we provide a series of services to perform gene set genomic (Expression, SNV, CNV and methylation) and immunogenomic (24 immune cells) analyses. Besides, combining clinical information and small molecular drugs, user could mine candidate biomarkers and valuable small drugs for better experimental design and further clinical trials. GSCA integrates over ten thousand genomic data in 33 cancer types from TCGA and over 750 small molecule drugs from GDSC and CTRP. Immunogenomic analysis was performed through our ImmuCellAI with 24 immunes cells.
-
 
 # Distinguished features
 
@@ -24,4 +23,5 @@
 - Methylation: update correlates with gene set expression and survival.
 
 # The main features
+
 ![figure2](gsca-angular/src/assets/imgs/figure2.png)
