@@ -75,9 +75,12 @@ box_plot_single_gene_single_cancer <- function(data,aesx,aesy,color,color_name,c
   data %>%
     dplyr::select(aesy) %>%
     max() ->.max
+  data %>%
+    dplyr::select(aesy) %>%
+    min() ->.min
   label.y <- c()
   for (i in 1:length(comp_list)) {
-    .tmp <- .max*0.25*i+.max
+    .tmp <- .max*0.1*i+.max
     label.y <- c(label.y,.tmp)
   }
   
@@ -85,7 +88,7 @@ box_plot_single_gene_single_cancer <- function(data,aesx,aesy,color,color_name,c
     ggplot(aes_string(x = aesx, y = aesy, color = color)) +
     geom_boxplot(outlier.colour = NA) +
     geom_jitter(alpha=0.5,size=0.5,width = 0.2) +
-    scale_y_continuous(limits = c(0,max(label.y)+ylimitfold*.max)) +
+    scale_y_continuous(limits = c(.min,max(label.y)+ylimitfold*.max)) +
     scale_color_manual(name = color_name, labels = color_labels, values = color_values)+
     labs(title = title, x = xlab, y = ylab)  +
     ggpubr::stat_compare_means(comparisons = comp_list, method = method,label = "p.signif",label.y=label.y, vjust = 10) +
@@ -121,12 +124,15 @@ box_plot_single_gene_single_cancer_nocompare <- function(data,aesx,aesy,color,co
   data %>%
     dplyr::select(aesy) %>%
     max() ->.max
+  data %>%
+    dplyr::select(aesy) %>%
+    min() ->.min
   
   data %>%
     ggplot(aes_string(x = aesx, y = aesy, color = color)) +
     geom_boxplot(outlier.colour = NA) +
     geom_jitter(alpha=0.5,size=0.5,width = 0.2) +
-    scale_y_continuous(limits = c(0,.max+0.1*.max)) +
+    scale_y_continuous(limits = c(.min,.max+0.1*.max)) +
     scale_color_manual(name = color_name, labels = color_labels, values = color_values)+
     labs(title = title, x = xlab, y = ylab)  +
     annotate("text", 
