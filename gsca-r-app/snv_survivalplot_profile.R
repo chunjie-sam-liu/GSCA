@@ -79,7 +79,7 @@ if(nrow(fetched_data)>0){
                            colorgroup="group",
                            cancer_rank=cancer_rank$cancertype, 
                            gene_rank=gene_rank$symbol, 
-                           sizename= "-Log(Cox P)", 
+                           sizename= "Cox P value", 
                            fillname="Hazard ratio", 
                            colorvalue=c("black","grey"), 
                            colorbreaks=c("<=0.05",">0.05"),

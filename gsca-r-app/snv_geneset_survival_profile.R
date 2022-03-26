@@ -155,7 +155,7 @@ if(ncol(fetched_data)>0){
                              colorgroup="group",
                              cancer_rank=c("OS","PFS","DSS","DFI"),  
                              gene_rank=cancer_rank$cancertype, 
-                             sizename= "-Log(Cox P)", 
+                             sizename= "Cox P value", 
                              fillname="Hazard ratio",  
                              colorvalue=c("black","grey"), 
                              colorbreaks=c("<=0.05",">0.05"),

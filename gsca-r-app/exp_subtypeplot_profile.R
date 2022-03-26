@@ -128,7 +128,7 @@ if(nrow(fetched_data)>0){
                    colorgroup="group",
                    cancer_rank=cancer_rank$cancertype,
                    gene_rank=gene_rank$symbol,
-                   sizename= "-Log(10) FDR",
+                   sizename= "FDR",
                    fillname="-Log(10) FDR",
                    colorvalue=c("black","grey"),
                    colorbreaks=c("<=0.05",">0.05"),
