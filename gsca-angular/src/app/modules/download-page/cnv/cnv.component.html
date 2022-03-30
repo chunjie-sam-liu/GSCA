@@ -7,7 +7,7 @@
         </mat-card-header>
 
         <ng-container></ng-container>
-
+        <p>CNV data downloaded from TCGA database were processed through GISTIC2.0</p>
         <table mat-table [dataSource]="mrnatable" multiTemplateDataRows>
           <ng-container matColumnDef="{{ column }}" *ngFor="let column of displayedColumnsMrnaDownload; index as ind">
             <th mat-header-cell *matHeaderCellDef>{{ displayedColumnsMrnaDownloadHeader[ind] }}</th>

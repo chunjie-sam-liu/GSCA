@@ -7,7 +7,10 @@
         </mat-card-header>
 
         <ng-container></ng-container>
-
+        <p>
+          The abundance of 24 immune cell types was estimated by ImmuCellAI, based on RSEM-normalized mRNA expression data downloaded from
+          the TCGA database.
+        </p>
         <table mat-table [dataSource]="mrnatable" multiTemplateDataRows>
           <ng-container matColumnDef="{{ column }}" *ngFor="let column of displayedColumnsMrnaDownload; index as ind">
             <th mat-header-cell *matHeaderCellDef>{{ displayedColumnsMrnaDownloadHeader[ind] }}</th>

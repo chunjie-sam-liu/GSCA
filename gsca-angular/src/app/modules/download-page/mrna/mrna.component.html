@@ -8,6 +8,10 @@
 
         <ng-container></ng-container>
 
+        <p>
+          RSEM-normalized mRNA expression data were downloaded from UCSC Xena (http://xena.ucsc.edu/), which has been corrected for batch
+          effects.
+        </p>
         <table mat-table [dataSource]="mrnatable" multiTemplateDataRows>
           <ng-container matColumnDef="{{ column }}" *ngFor="let column of displayedColumnsMrnaDownload; index as ind">
             <th mat-header-cell *matHeaderCellDef>{{ displayedColumnsMrnaDownloadHeader[ind] }}</th>

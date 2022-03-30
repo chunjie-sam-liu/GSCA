@@ -7,7 +7,11 @@
         </mat-card-header>
 
         <ng-container></ng-container>
-
+        <p>
+          Processed TCGA SNV data were downloaded from the Synapse database (id: syn7824274). Non-synonymous mutations, including missense
+          and nonsense mutations, frameshift insertion, frameshift deletion, splice site, and in-frame deletion and insertion, were
+          considered deleterious mutations. Only deleterious mutations were treated as mutants in modules related to SNV data.
+        </p>
         <table mat-table [dataSource]="mrnatable" multiTemplateDataRows>
           <ng-container matColumnDef="{{ column }}" *ngFor="let column of displayedColumnsMrnaDownload; index as ind">
             <th mat-header-cell *matHeaderCellDef>{{ displayedColumnsMrnaDownloadHeader[ind] }}</th>

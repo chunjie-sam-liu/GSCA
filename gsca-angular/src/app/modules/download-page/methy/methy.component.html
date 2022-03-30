@@ -7,7 +7,10 @@
         </mat-card-header>
 
         <ng-container></ng-container>
-
+        <p>
+          Illumina Human Methylation 450k-level 3 methylation data were obtained. Correlation analyses were performed for each gene to
+          identify the methylation site most negatively correlated with the gene’s expression.
+        </p>
         <table mat-table [dataSource]="mrnatable" multiTemplateDataRows>
           <ng-container matColumnDef="{{ column }}" *ngFor="let column of displayedColumnsMrnaDownload; index as ind">
             <th mat-header-cell *matHeaderCellDef>{{ displayedColumnsMrnaDownloadHeader[ind] }}</th>

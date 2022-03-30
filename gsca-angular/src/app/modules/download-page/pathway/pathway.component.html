@@ -8,6 +8,11 @@
 
         <ng-container></ng-container>
 
+        <p>
+          Protein expression data by reverse phase protein array (RPPA) were downloaded from the TCPA database. Pathway activity scores of
+          10 cancer-related pathways (TSC/mTOR, RTK, RAS/MAPK, PI3K/AKT, hormone ER, hormone AR, EMT, DNA damage response, cell cycle, and
+          apoptosis pathways) were calculated on the basis of published study.(R. Akbani et al.)
+        </p>
         <table mat-table [dataSource]="mrnatable" multiTemplateDataRows>
           <ng-container matColumnDef="{{ column }}" *ngFor="let column of displayedColumnsMrnaDownload; index as ind">
             <th mat-header-cell *matHeaderCellDef>{{ displayedColumnsMrnaDownloadHeader[ind] }}</th>
