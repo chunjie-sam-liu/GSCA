@@ -16,7 +16,7 @@ filepath <- args[3]
 apppath <- args[4]
 
 
-# tableuuid <- 'd6fe01ae-b1fe-4f9b-ac92-60210edca6bc'
+# tableuuid <- 'd179bb0f-c587-475e-8add-e5e985591c87'
 # tableuuid <- '97a3df0e-9fb1-45b1-ae05-84d0c7a9e68'
 
 # tablecol <- 'preanalysised_snvgeneset'
@@ -96,13 +96,18 @@ if(ncol(fetched_data)>0){
     
     .combined_gsva_rppa_nested %>%
       dplyr::mutate(fc = purrr::map(data,.f=function(.x){
-        .x %>%
-          dplyr::group_by(group) %>%
-          dplyr::mutate(mean = mean(TIL)) %>%
-          dplyr::select(group, mean) %>%
-          unique() %>%
-          tidyr::spread(key="group", value = "mean") %>%
-          dplyr::mutate(fc = `2Mutant`/`1WT`)
+        .x$group %>% sort() %>% unique() %>% length()-> .groups
+        if(.groups>1){
+          .x %>%
+            dplyr::group_by(group) %>%
+            dplyr::mutate(mean = mean(TIL)) %>%
+            dplyr::select(group, mean) %>%
+            unique() %>%
+            tidyr::spread(key="group", value = "mean") %>%
+            dplyr::mutate(fc = `2Mutant`/`1WT`)
+        }else{
+          tibble::tibble()        }
+       
       })) %>%
       dplyr::select(-data) %>%
       dplyr::ungroup() %>%
