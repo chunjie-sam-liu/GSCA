@@ -796,7 +796,10 @@
                   Data process
                   <ul>
                     <li>14 cancers have over ten paired tumor and normal samples.</li>
-                    <li>RSEM normalized mRNA expression data were downloaded without any further processing.</li>
+                    <li>
+                      RSEM normalized mRNA expression data were downloaded from harmonized TCGA PanCan Atlas data in UCSC Xena
+                      <a href="http://xena.ucsc.edu/">UCSC Xena</a>, which has been normalized for removing batch effects.
+                    </li>
                   </ul>
                 </li>
               </ul>
@@ -833,14 +836,16 @@
                 <li>
                   Data process
                   <ul>
+                    <li>Processed TCGA SNV data were downloaded from the Synapse database (id: syn7824274).</li>
                     <li>
-                      Mutant including 7 types of mutations:
+                      Non-synonymous mutations, including
                       <span class="phighlight"
                         >Missense_Mutation, Nonsense_Mutation, Frame_Shift_Ins, Splice_Site, Frame_Shift_Del, In_Frame_Del,
-                        In_Frame_Ins.</span
-                      >
+                        In_Frame_Ins</span
+                      >, were considered deleterious mutations.
                     </li>
                     <li>Wide type(WT): others.</li>
+                    <li>Only deleterious mutations were treated as mutants in modules related to SNV data.</li>
                   </ul>
                 </li>
               </ul>
