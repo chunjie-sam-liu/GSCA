@@ -31,7 +31,7 @@ fn_cnv_oncoplot <- function(data,aesx,aesy,fill,fillname,fillcolor,filllimit,fil
       legend.key.size = unit(0.25, "cm"),
       legend.text = element_text(size = 8),
       legend.title = element_text(size = 12),
-      legend.key = element_rect(fill = "white", colour = "black")
+      legend.key = element_rect(fill = "white", colour = "white")
     ) +
     labs(title = title, x = xlab, y = ylab) -> p
   return(p)

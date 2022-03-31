@@ -30,7 +30,7 @@ gradient_heatmap <- function(data,aesx,aesy,fill,fillname,fillbreaks,yrank,title
       legend.text = element_text(size = 10),
       axis.title = element_text(size=12),
       legend.title = element_text(size = 12),
-      legend.key = element_rect(fill = "white", colour = "black"),
+      legend.key = element_rect(fill = "white", colour = "white"),
       legend.key.size = unit(0.5, "cm"),
       plot.title = element_text(size = 14),
       strip.background =  element_rect(fill="white",color="black"),

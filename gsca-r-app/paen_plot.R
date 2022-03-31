@@ -103,7 +103,7 @@ if (ncol(enrichRes)>0) {
         axis.text.y = element_text(size = 12,colour = "black"),
         legend.title = element_text(size = 16),
         legend.text = element_text(size = 14),
-        legend.key = element_rect(fill = "white", colour = "black"),
+        legend.key = element_rect(fill = "white", colour = "white"),
         legend.key.size = unit(0.5, "cm"),
       ) +
       labs(

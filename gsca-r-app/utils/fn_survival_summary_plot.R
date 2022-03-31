@@ -37,7 +37,7 @@ fn_survival_summary_plot <- function(data,aesx,aesy,color,fill,label,y_rank,x_ra
       legend.text = element_text(size = 12),
       legend.title = element_text(size = 12),
       legend.key.size = unit(0.5, "cm"),
-      legend.key = element_rect(fill = "white", colour = "black"),
+      legend.key = element_rect(fill = "white", colour = "white"),
       strip.background =  element_rect(fill="white",color="black"),
       strip.text = element_text(color="black",size = 12)
     )
@@ -76,6 +76,6 @@ fn_survival_summary_plot_onlyP <- function(data,aesx,aesy,fill,y_rank,x_rank,fil
       
       legend.text = element_text(size = 12),
       legend.title = element_text(size = 14),
-      legend.key = element_rect(fill = "white", colour = "black")
+      legend.key = element_rect(fill = "white", colour = "white")
     )
 }

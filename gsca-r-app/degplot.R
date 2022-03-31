@@ -120,7 +120,7 @@ fetched_data %>%
     axis.text.y = element_text(colour = "black", size = 12),
     legend.text = element_text(size = 12),
     legend.title = element_text(size = 14),
-    legend.key = element_rect(fill = "white", colour = "black")
+    legend.key = element_rect(fill = "white", colour = "white")
   ) +
   labs(
     x = "Cancer",

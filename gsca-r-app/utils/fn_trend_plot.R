@@ -30,7 +30,7 @@ trend_plot <- function(data,aesx,aesy,linecolor,linetype,xlabels,facetgrid="symb
       legend.text = element_text(size = 10),
       axis.title = element_text(size=12),
       legend.title = element_text(size = 12),
-      legend.key = element_rect(fill = "white", colour = "black"),
+      legend.key = element_rect(fill = "white", colour = "white"),
       legend.key.size = unit(0.5, "cm"),
       plot.title = element_text(size = 14),
       strip.background =  element_blank(),
