@@ -86,7 +86,7 @@ fillbreaks <- sort(unique(c(0,round(c(fc_min,fc_max,seq(fc_min,fc_max,length.out
 
 fetched_data %>%
   ggplot(aes(x = cancertype, y = symbol)) +
-  geom_point(aes(size = -log2(fdr), fill = log2(fc), colour=group), shape = 21,stroke = 1) +
+  geom_point(aes(size = -log10(fdr), fill = log2(fc), colour=group), shape = 21,stroke = 1) +
   scale_fill_gradient2(
     low = CPCOLS[1],
     mid = CPCOLS[2],
@@ -97,9 +97,12 @@ fetched_data %>%
     breaks =fillbreaks,
     name = "log2(FC)"
   ) +
-  scale_size_continuous(
-    guide=FALSE
-  ) +
+    scale_size_continuous(
+      name = "FDR",#  "-Log10(FDR)"
+      breaks = c(0,1.3,2,3,4),
+      labels = c("1","0.05","0.01","0.001","<=0.0001")
+      #guide=FALSE
+    ) +
   scale_color_manual(values = c("black","grey"),
                      breaks = c("<=0.05",">0.05"),
                      name="FDR")+
