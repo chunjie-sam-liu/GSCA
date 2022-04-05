@@ -17,3 +17,14 @@ GET http://localhost:5000/api/resource/ResponseDataDownload/ACC.mRAN_expr.tsv.gz
 
 ###
 GET http://localhost:5000/api/resource/ResponseDataDownload/a
+
+
+###
+GET http://bioinfo.life.hust.edu.cn/GSCA/api/resource/ResponseDataDownload/ACC.mRAN_expr.tsv.gz
+
+###
+GET http://bioinfo.life.hust.edu.cn/GSCA/api/resource/ResponseDataDownload/a
+
+
+###
+GET https://bioinfo.life.hust.edu.cn
