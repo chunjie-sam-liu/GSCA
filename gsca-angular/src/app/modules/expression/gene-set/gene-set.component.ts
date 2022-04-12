@@ -22,7 +22,7 @@ export class GeneSetComponent implements OnInit, OnChanges, AfterViewInit {
   @ViewChild('paginatorGSVA') paginatorGSVA: MatPaginator;
   @ViewChild(MatSort) sortGSVA: MatSort;
   displayedColumnsGSVA = ['cancertype', 'tumor_gsva', 'normal_gsva', 'log2fc', 'pval'];
-  displayedColumnsGSVAHeader = ['Cancer type', 'Tumor GSVA', 'Normal GSVA', 'Fold change', 'P value'];
+  displayedColumnsGSVAHeader = ['Cancer type', 'Tumor GSVA', 'Normal GSVA', 'log2 FC(T/N)', 'P value'];
   validCancertype: string;
 
   // GSVA deg image
