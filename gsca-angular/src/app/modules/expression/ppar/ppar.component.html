@@ -80,6 +80,14 @@
             activity</mat-card-title
           >
         </mat-card-header>
+        <p>
+          <span class="phighlight"
+            >The number in each cell indicates that the percentage of cancer types, in which a specific gene showed significant association
+            with a specific pathway, among your selected cancer types. For example, you selected 4 cancer types, the expression of gene X
+            have an activate effect to the pathway P in 3 of the 4 cancer types, then the number in the specific cell (P_A, X) is
+            3/4=75%.</span
+          >
+        </p>
         <mat-card-content>
           <ng-container *ngIf="!RPPAImageLoading; else loading">
             <a [href]="RPPAImagePdfURL" target="_blank" mat-button mat-mini-fab color="warn" arial-label="download" class="download-button">
