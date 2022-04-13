@@ -95,6 +95,18 @@ rppa_percent.filter %>%
 # bubble_plot --------------------------------------------------------------------
 source(file.path(apppath, "gsca-r-app/utils/fn_NA_notice_fig.R"))
 if(nrow(rppa_per_ready)>0){
+  rppa_per_ready$per %>% max() -> .max
+  rppa_per_ready$per %>% min() -> .min
+  if(.max>0){
+    .max_label <- paste(.max,"\nActivate",sep="")
+  } else{
+    .max_label <- paste(.max)
+  }
+  if(.min<0){
+    .min_label <- paste(abs(.min),"\nInhibit",sep="")
+  } else{
+    .min_label <- paste(abs(.min))
+  }
   rppa_per_ready %>%
     ggplot(aes(x = pathway, y = symbol)) +
     xlab("Pathway") + ylab("Symbol") +
@@ -108,8 +120,8 @@ if(nrow(rppa_per_ready)>0){
       high = "red",
       mid = "white",
       low = "blue",
-      breaks = seq(-100, 100, length.out = 5),
-      labels = c("100", "50", "0", "50", "100")
+      breaks = c(.min,0,.max),
+      labels = c(.min_label, "0",.max_label)
     ) +
     theme(
       axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1),
