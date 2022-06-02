@@ -6,11 +6,11 @@ library(magrittr)
 rda_path <- "/home/huff/github/GSCA/data"
 gsca_conf <- readr::read_lines(file = file.path(rda_path,"src",'gsca.conf'))
 
-cnv_symbol_search_symbol_final <- readr::read_rds(file = 'data/rda/cnv_symbol_search_symbol_final.rds.gz') %>% 
+cnv_symbol_search_symbol_final <- readr::read_rds(file = file.path(rda_path,'rda/cnv_symbol_search_symbol_final.rds.gz')) %>% 
   dplyr::select(entrez, symbol)
 
 # Load cnv ----------------------------------------------------------------
-cnv_expr <- readr::read_rds(file = '/home/huff/data/GSCA/mutation/cnv/pancan34_all_exp-cor-cnv.NEW.IdTrans.rds.gz')
+cnv_expr <- readr::read_rds(file = '/home/huff/data/GSCA/cnv/pancan34_all_exp-cor-cnv.NEW.IdTrans.rds.gz')
 
 # Function ----------------------------------------------------------------
 
@@ -22,6 +22,7 @@ fn_gene_tcga_all_cor_cnv_expr <- function(cancer_types, spm) {
   .x %>% 
     dplyr::left_join(cnv_symbol_search_symbol_final, by = 'symbol') %>% 
     dplyr::mutate(fdr = .fdr) %>%
+    dplyr::mutate(fdr = ifelse(fdr==0,10^-100,fdr)) %>%
     dplyr::mutate(logfdr = -log10(fdr)) %>% 
     dplyr::select(entrez, symbol, spm, fdr, logfdr) -> 
     .dd
