@@ -145,7 +145,7 @@ source(file.path(apppath, "gsca-r-app/utils/fn_figure_height.R"))
 size_width <- 4+length(unique(for_plot$cancertype))*0.5
 
 
-box_plot <- box_plot_single_gene_multi_cancers_facetgrid(data = for_plot,aesx = "stage",aesy="gsva",facets="stage_type~cancertype",color = "stage",color_name = "Satges",color_labels = color_list$stage,color_values = color_list$color,title = "GSVA score in stages of selected cancer types", xlab = 'Cancer type', ylab = 'GSVA score')
+box_plot <- box_plot_single_gene_multi_cancers_facetgrid(data = for_plot,aesx = "stage",aesy="gsva",facets="stage_type~cancertype",color = "stage",color_name = "Stages",color_labels = color_list$stage,color_values = color_list$color,title = "GSVA score in stages of selected cancer types", xlab = 'Cancer type', ylab = 'GSVA score')
 
 for_plot$stage_type %>% unique() %>% length() -> n.stagetype
 if(n.stagetype>1){

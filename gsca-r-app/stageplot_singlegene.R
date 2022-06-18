@@ -82,7 +82,7 @@ for(i in 1:ncol(combn_matrix)){
   comp_list[[i]] <- combn_matrix[,i]
 }
 
-plot <- box_plot_single_gene_single_cancer(data = for_plot,aesx = "stage",aesy="expr",color = "group_n",color_name = "Satge",color_labels =  color_list$group_n,color_values = color_list$color,title = title,xlab = 'Stage', ylab = 'Expression log2(RSEM)',xangle = 0,comp_list=comp_list,ylimitfold=0.1)
+plot <- box_plot_single_gene_single_cancer(data = for_plot,aesx = "stage",aesy="expr",color = "group_n",color_name = "Stage",color_labels =  color_list$group_n,color_values = color_list$color,title = title,xlab = 'Stage', ylab = 'Expression log2(RSEM)',xangle = 0,comp_list=comp_list,ylimitfold=0.1)
 # Save --------------------------------------------------------------------
 ggsave(filename = filepath, plot = plot, device = 'png', width = 6, height = 3)
 pdf_name <- gsub("\\.png",".pdf",filepath)
