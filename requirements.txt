@@ -19,7 +19,7 @@ jsonschema==3.2.0
 lazy-object-proxy==1.4.3
 MarkupSafe==1.1.1
 mccabe==0.6.1
-numpy==1.18.5
+numpy==1.22.0
 pathspec==0.8.0
 pycodestyle==2.6.0
 pyflakes==2.2.0
