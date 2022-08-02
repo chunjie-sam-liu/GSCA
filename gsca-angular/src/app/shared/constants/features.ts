@@ -5,18 +5,17 @@ export default [
     color: 'warn',
   },
   {
-    feature:
-      'GSVA: exploring association between immune infiltrate/clinical/SNV/CNV/methylation and expression score compiled by GSVA of a gene set.',
+    feature: 'GSVA: exploring association between immune infiltrate/clinical and expression score compiled by GSVA of your gene set.',
     type: 'fiber_new',
     color: 'warn',
   },
   {
-    feature: 'Immune: investigating correlations between immune cell abundance and genomic variations of a gene set in cancer.',
+    feature: 'Immune: investigating correlations between immune cell abundance and genomic variations of your gene set in cancer.',
     type: 'fiber_new',
     color: 'warn',
   },
   {
-    feature: 'Expression: differential expression and association with clinical outcomes.',
+    feature: 'Survival: genomic associations with 4 survival types.',
     type: 'fiber_new',
     color: 'warn',
   },
