@@ -135,6 +135,12 @@ span.strong {
   /* font-size: larger; */
 }
 
+span.blue {
+  color: #1d50b1;
+  font-weight: bolder;
+  /* font-size: larger; */
+}
+
 p.home {
   font-size: large;
   text-align: justify;
