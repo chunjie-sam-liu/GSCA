@@ -5,7 +5,7 @@ export default [
     color: 'warn',
   },
   {
-    feature: 'GSVA: exploring association between immune infiltrate/clinical and expression score compiled by GSVA of your gene set.',
+    feature: 'GSVA: exploring the association between immune infiltrate/clinical and expression score compiled by GSVA of your gene set.',
     type: 'fiber_new',
     color: 'warn',
   },
