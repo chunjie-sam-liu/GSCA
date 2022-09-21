@@ -172,7 +172,7 @@
                 <li>Differential expression</li>
                 <p>
                   This part analyze the differential expression between tumor and adjacent normal samples. The bubble color from purple to
-                  red represent the fold change between tumor and normal samples. The size of dot correlates the significance of FDR. The
+                  red represents the fold change between tumor and normal samples. The size of dot correlates the significance of FDR. The
                   dot was filtered by the fold change (FC>2) and statistical significance (FDR ≤ 0.05). As the following, users can find
                   that the A2M is significantly down-regulated in LUSC.
                 </p>
@@ -196,7 +196,7 @@
                 <li>GSEA enrichment</li>
                 <p>
                   GSCA gives the degree to which the inputted gene set is overrepresented at the top or bottom of all genes ranked by gene
-                  expression fold change between tumor and normal. <span class="phighlight">Bar plot</span> and
+                  expression fold change between tumor and normal samples. <span class="phighlight">Bar plot</span> and
                   <span class="phighlight">enrichment plot</span> present the enrichment score of gene set against all 20000+ genes
                   (background) in selected cancers. The result presents the distribution of the tumor-normal expression changes of each gene
                   in inputted gene set against all genes.
@@ -248,7 +248,7 @@
 
                 <li>Subtype and expression</li>
                 <p>
-                  This module estimates the expression difference between subtypes. The color from white to red represent the FDR
+                  This module estimates the expression difference between subtypes. The color from white to red represents the FDR
                   significance in heat map. Users can find that CD1B is significantly differential expressed among subtypes in LUAD. Through
                   clicking the buttons "CD1B" in the specific row of the result table, users can get the detailed distribution of CD1B
                   expression among subtypes of LUSC through
@@ -264,7 +264,7 @@
                 <li>Survival and expression</li>
                 <p>This module estimates the survival (OS, PFS, DSS, and DFI) difference between high and low gene expression groups.</p>
                 <p>
-                  The color from blue to red represent the hazard ratio, size represents statistical significance in
+                  The color from blue to red represents the hazard ratio, size represents statistical significance in
                   <span class="phighlight">bubble plot</span>. Black outline border indicates Cox P ≤ 0.05. Users can find that SLC4A7 is
                   significantly associated with KICH patients’ OS.
                 </p>
@@ -378,7 +378,7 @@
 
             <p>
               In modules provide single gene level analysis, <span class="phighlight">bubble plot</span> presents the summary of the
-              correlation for each cancer. The bubble color from blue to red represent the correlation. Bubble size are correlate with FDR
+              correlation for each cancer. The bubble color from blue to red represents the correlation. Bubble size are correlate with FDR
               significance. Black outline border indicates FDR ≤ 0.05. By clicking gene symbol buttons in tables, users can get the detailed
               result of single gene through scatter plot with fitting line (mRNA expression, CNV and methylation), or
               <span class="phighlight">boxplot</span>(SNV).
@@ -505,7 +505,7 @@
                 <li>Single gene SNV and survival</li>
                 <p>Survival analysis was performed for groups with > 2 samples. And at least 2 groups are needed.</p>
                 <p>
-                  This function provide survival analysis between mutant and wide type. The color from blue to red represent the hazard
+                  This function provide survival analysis between mutant and wide type. The color from blue to red represents the hazard
                   ratio, size represents statistical significance in <span class="phighlight">bubble plot</span>. Black outline border
                   indicates Cox P ≤ 0.05. Here, there are no significant results.
                 </p>
@@ -736,9 +736,9 @@
               <li><a href="https://portals.broadinstitute.org/ctrp/" target="_blank">CTRP</a></li>
             </ul>
             <p>
-              These results are present in <span class="phighlight">bubble plot</span>. The color from blue to red represent the correlation
-              between mRNA expression and IC50. The bubble size positively correlate with the FDR significance. Black outline border
-              indicates FDR ≤ 0.05.
+              These results are present in <span class="phighlight">bubble plot</span>. The color from blue to red represents the
+              correlation between mRNA expression and IC50. The bubble size positively correlate with the FDR significance. Black outline
+              border indicates FDR ≤ 0.05.
             </p>
             <div fxLayout="row" fxLayoutAlign="center center">
               <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'gdscfrug.png'" alt="gdscdrug" />

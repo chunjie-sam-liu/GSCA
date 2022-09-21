@@ -2,7 +2,7 @@
   <mat-expansion-panel hideToggle>
     <mat-expansion-panel-header>
       <mat-panel-title
-        ><mat-icon class="pred">info</mat-icon>Click here for the detailed description of methods and results
+        ><mat-icon class="pred">info</mat-icon>Click here for the detailed description of methods and results.
       </mat-panel-title>
       <mat-panel-description></mat-panel-description>
     </mat-expansion-panel-header>
@@ -57,10 +57,10 @@
       <li>Interpretation</li>
       <p>GSCA provides two forms of results, including table and figure.</p>
       <ul>
-        <li>The result table:</li>
+        <li>Table:</li>
         <p>
-          Presents detailed information about Cancer type, Gene symbol, Survival type, Hazard Ratio, Cox P value, Logrank P value, Higher
-          risk of death. Survival type including OS, PFS, DSS, and DFI.
+          The table presents detailed information about Cancer type, Gene symbol, Survival type, Hazard Ratio, Cox P value, Logrank P value,
+          Higher risk of death. Survival type including OS, PFS, DSS, and DFI.
         </p>
         <p>
           Column "Higher risk of death" indicates the group with higher risk of death. When the
@@ -69,19 +69,20 @@
           has higher risk of death. When "Not applicable" presents in column "Higher risk of death", there is no survival result.
         </p>
 
-        <li>GSCA provides result figures including:</li>
+        <li>GSCA provides result figures, including:</li>
         <ul>
           <li>Bubble plot:</li>
           <p>
-            Presents the Hazard ratio and Cox p value though bubble color and size. The row is the gene set symbol and column is the
+            Presents the Hazard ratio and Cox p value though bubble color and size. The row is the gene set symbol, and column is the
             selected cancer types. The bubble color from blue to red represents the hazard ratio from low to high, bubble size is positively
             correlate with the Cox P value significance. Black outline border indicates Cox P value ≤ 0.05.
           </p>
 
           <li>Kaplan-Meier curves:</li>
           <p>
-            By clicking buttons in table result, GSCA draws Kaplan-Meier curves between high and low expression of specific gene in specific
-            cancer. The genes with Kaplan-Meier Logrank test p-value less than 0.05 would be retained and gathered into final figure.
+            By clicking any one button in the table, GSCA would draw the Kaplan-Meier curves for high and low expression of specific gene in
+            specific cancer. The genes with Kaplan-Meier Logrank test p-value less than 0.05 would be retained and gathered into final
+            figure.
           </p>
         </ul>
       </ul>

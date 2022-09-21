@@ -2,7 +2,7 @@
   <mat-expansion-panel hideToggle>
     <mat-expansion-panel-header>
       <mat-panel-title>
-        <mat-icon class="pred">info</mat-icon> Click here for the detailed description of methods and results
+        <mat-icon class="pred">info</mat-icon> Click here for the detailed description of methods and results.
       </mat-panel-title>
       <mat-panel-description></mat-panel-description>
     </mat-expansion-panel-header>
@@ -26,25 +26,27 @@
       <p>GSCA provides two forms of results, including table and figure.</p>
 
       <ul>
-        <li>The result table:</li>
-        <p>Presents detailed information about Cancer type, Gene symbol, Tag, Methylation(Tumor-Normal), Trend, P value and FDR.</p>
+        <li>Table:</li>
+        <p>
+          The table presents detailed information about Cancer type, Gene symbol, Tag, Methylation(Tumor-Normal), Trend, P value and FDR.
+        </p>
         <p>Tag: the tag id of methylation site within the region of the specific gene.</p>
         <p>Methylation(Tumor-Normal): the mean methylation of tumor samples subtracts that of normal samples.</p>
         <p>Trend: changes of methylation in tumor samples compared with normal samples.</p>
 
-        <li>GSCA provides result figures including:</li>
+        <li>GSCA provides result figures, including:</li>
         <ul>
           <li>Bubble plot:</li>
           <p>
-            Presents the fold change and FDR through bubble color and size. The row is the gene symbol and the column is the selected cancer
-            types. The bubble color from blue to red represent the methylation difference between tumor and normal. The size dot is
-            positively correlate with the FDR significance. The dot was filtered by FDR significance (FDR ≤ 0.05).
+            The bubble plot presents the fold change and FDR through bubble color and size. The row is the gene symbol and the column is the
+            selected cancer types. The bubble color from blue to red represents the methylation difference between tumor and normal samples.
+            The size dot is positively correlate with the FDR significance. The dot was filtered by FDR significance (FDR ≤ 0.05).
           </p>
 
           <li>Box plot:</li>
           <p>
-            By clicking buttons in table result, GSCA gives boxplot to compare the gene expression between tumor and normal in single cancer
-            (click cancer type name) or pan-cancer (click gene symbol name).
+            By clicking any one button in the table, GSCA would show a boxplot for the gene expression between tumor and normal samples in
+            single cancer (click cancer type name) or multiple cancer (click gene symbol name).
           </p>
         </ul>
       </ul>

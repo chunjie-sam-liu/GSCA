@@ -2,41 +2,41 @@
   <mat-expansion-panel hideToggle>
     <mat-expansion-panel-header>
       <mat-panel-title>
-        <mat-icon class="pred">info</mat-icon> Click here for the detailed description of methods and results
+        <mat-icon class="pred">info</mat-icon> Click here for the detailed description of methods and results.
       </mat-panel-title>
       <!-- <mat-panel-description>Differential expression</mat-panel-description> -->
     </mat-expansion-panel-header>
     <ul>
       <li>Methods</li>
       <p>
-        Based on normalized and battch corrected <span class="phighlight">RSEM</span> mRNA expression,
+        Based on normalized and batch corrected <span class="phighlight">RSEM</span> mRNA expression,
         <span class="phighlight">GSCA provides differential expression analysis for 14 TCGA cancer types </span>(THCA, KIRP, BLCA, LIHC,
         HNSC, BRCA, LUAD, PRAD, ESCA, KICH, LUSC, KIRC, STAD, COAD), which have over ten paired tumor and normal samples. The fold change is
-        calculated by mean(Tumor) / mean(Normal), p-value was estimated by <span class="phighlight">t-test</span> and was further adjusted
-        by FDR.
+        calculated by mean(Tumor) / mean(Normal), the p-value was estimated by <span class="phighlight">t-test</span> and was further
+        adjusted by FDR.
       </p>
 
       <li>Interpretation</li>
       <ul>
-        <li>The result table:</li>
+        <li>Table:</li>
         <p>
-          Presents detailed information about differential expression analysis, including Cancer type, Gene symbol, Expr. Tumor, Expr.
-          Normal, Fold change, FDR and # samples. [Expr.: Expression.]
+          The table presents detailed information about differential expression analysis, including Cancer type, Gene symbol, Expr. tumor,
+          Expr. normal, Fold change, FDR and # samples. [Expr.: Expression]
         </p>
 
-        <li>GSCA provides result figures including:</li>
+        <li>GSCA provides result figures, including:</li>
         <ul>
           <li>Bubble plot:</li>
           <p>
-            Presents the fold change and FDR though bubble color and size. The row is the gene set symbol and column is the selected cancer
-            types. The bubble color from purple to red represent the fold change between tumor vs normal. The size of dots are positively
-            correlate with the FDR significance.
+            The bubble plot presents the fold change and FDR though bubble color and size. The row is the gene set symbol, and column is the
+            selected cancer types. The bubble color from purple to red represents the fold change between tumor vs. normal. The size of dots
+            is positively correlated with the FDR significance.
           </p>
 
           <li>Boxplot:</li>
           <p>
-            By clicking buttons in table result, GSCA gives boxplot to compare the gene expression between tumor and normal in single cancer
-            or pan-cancer.
+            By clicking any one button in the table, GSCA would show a boxplot for the gene expression between tumor and normal samples in
+            single cancer (click cancer type name) or multiple cancer (click gene symbol name).
           </p>
         </ul>
       </ul>

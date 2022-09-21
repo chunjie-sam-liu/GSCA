@@ -10,14 +10,14 @@
       <li>Methods</li>
       <p>
         For GSEA (Gene Set Enrichment Analysis) analysis, GSCA gives the degree to which the inputted gene set is overrepresented at the top
-        or bottom of all genes ranked by <span class="phighlight">gene expression fold change</span> between tumor and normal. We performed
-        GSEA calculation based on R package fgsea. Please find detailed information about GSEA
+        or bottom of all genes ranked by <span class="phighlight">gene expression fold change</span> between tumor and normal samples. We
+        performed GSEA calculation based on R package fgsea. Please find detailed information about GSEA
         <a href="https://www.gsea-msigdb.org/gsea/doc/GSEAUserGuideFrame.html?Interpreting_GSEA" target="_blank">here</a>.
       </p>
       <li>Interpretation</li>
       <p>GSCA provides two forms of results, including table and figure.</p>
       <ul>
-        <li>The result table:</li>
+        <li>Table:</li>
         <p>GSCA presents detailed information about Cancer type, ES, NES, P value and P adj.</p>
         <ul>
           <li>ES</li>
@@ -39,7 +39,7 @@
           <li>P adj.</li>
           <p>Adjusted P value or FDR (false discovery rate).</p>
         </ul>
-        <li>GSCA provides result figures including:</li>
+        <li>GSCA provides result figures, including:</li>
         <ul>
           <li>Bar plot:</li>
           <p>
@@ -48,9 +48,10 @@
           </p>
           <li>Enrichment plot:</li>
           <p>
-            By clicking buttons in table result, provides a graphical view of the enrichment score for a gene set. The top portion of the
-            plot shows the running ES for the gene set as the analysis walks down the ranked list. The score at the peak of the plot (the
-            score <span class="phighlight">furthest from 0.0</span>) is the ES for the gene set. Gene sets with a distinct peak at the
+            By clicking any one button in the table, provides a graphical view of the enrichment score for a gene set. The top portion of
+            the plot shows the running ES for the gene set as the analysis walks down the ranked list. The score at the peak of the plot
+            (the score
+            <span class="phighlight">furthest from 0.0</span>) is the ES for the gene set. Gene sets with a distinct peak at the
             <span class="phighlight">beginning</span> or <span class="phighlight">end</span> of the ranked list are generally
             <span class="phighlight">the most interesting</span>.
           </p>
