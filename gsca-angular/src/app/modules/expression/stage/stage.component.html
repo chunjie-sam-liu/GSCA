@@ -28,7 +28,7 @@
               </ng-template>
               <ng-template #plain>
                 {{
-                  column !== 'fdr' && column !== 'pval'
+                  column !== 'fdr' || column !== 'pval'
                     ? element[column]
                     : element[column] < 0.01
                     ? element[column].toExponential(2)
