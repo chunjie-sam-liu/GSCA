@@ -139,3 +139,5 @@ gsca-r-rds/README
 gsca-r-rds/maf/*gz
 gsca-r-rds/maf_tsv/*gz
 gsca-download/
+gsca-angular/.vscode/settings.json
+.vscode/settings.json
