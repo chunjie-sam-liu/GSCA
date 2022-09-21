@@ -34,6 +34,8 @@
                     ? element[column]
                     : column !== 'logrankp' && column !== 'coxp_categorical'
                     ? (element[column] | number: '1.2-2')
+                    : element[column] == null
+                    ? '--'
                     : element[column] < 0.01
                     ? element[column].toExponential(2)
                     : (element[column] | number: '1.2-2')

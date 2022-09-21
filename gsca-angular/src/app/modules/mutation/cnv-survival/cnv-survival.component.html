@@ -42,6 +42,8 @@
                   {{
                     column === 'worse_group' || column === 'cancertype' || column === 'sur_type' || column === 'higher_risk_of_death'
                       ? element[column]
+                      : element[column] == null
+                      ? '--'
                       : element[column] < 0.01
                       ? element[column].toExponential(2)
                       : (element[column] | number: '1.2-2')
