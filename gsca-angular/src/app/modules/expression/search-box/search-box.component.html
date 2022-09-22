@@ -35,7 +35,7 @@
             </button>
           </mat-form-field> -->
           <mat-option *ngFor="let cancerType of cancerTypeList" [value]="cancerType.shortname">
-            ({{ cancerType.shortname }}) {{ cancerType.fullname }}, <span class="phighlight">{{ cancerType.expr }}</span>
+            ({{ cancerType.shortname }}) {{ cancerType.fullname }}, <span class="phighlight">{{ cancerType.label }}</span>
           </mat-option>
         </mat-select>
       </mat-form-field>
