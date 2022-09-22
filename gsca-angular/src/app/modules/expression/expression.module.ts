@@ -31,6 +31,7 @@ import { PathwayEnrichmentComponent } from './pathway-enrichment/pathway-enrichm
 import { GsvascoreComponent } from './gsvascore/gsvascore.component';
 import { DocGsvascoreComponent } from './gsvascore/doc-gsvascore/doc-gsvascore.component';
 import { DocPaenComponent } from './pathway-enrichment/doc-paen/doc-paen.component';
+import { GsdbComponent } from './search-box/gsdb/gsdb.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +63,7 @@ import { DocPaenComponent } from './pathway-enrichment/doc-paen/doc-paen.compone
     GsvascoreComponent,
     DocGsvascoreComponent,
     DocPaenComponent,
+    GsdbComponent,
   ],
   imports: [CommonModule, ExpressionRoutingModule, SharedModule],
 })
