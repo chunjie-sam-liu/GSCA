@@ -80,7 +80,7 @@ export class DegComponent implements OnInit, OnChanges, AfterViewInit {
       this.showDEGTable = false;
       this.showDEGImage = false;
       window.alert(
-        'The differential expression analysis is based on cancer types which have at least ten tumor-normal paired samples, including THCA, KIRP, BLCA, LIHC, HNSC, BRCA, LUAD, PRAD, ESCA, KICH, LUSC, KIRC, STAD and COAD. Please select at least one of these cancer type to get the result of differential analysis.'
+        'The differential expression analysis is based on cancer types which have at least ten tumor-normal paired samples, including THCA, KIRP, BLCA, LIHC, HNSC, BRCA, LUAD, PRAD, ESCA, KICH, LUSC, KIRC, STAD and COAD. Please select at least one of these cancer types to get the result of differential analysis.'
       );
     } else {
       //if (this.validCancertype.length < this.searchTerm.cancerTypeSelected.length) {
