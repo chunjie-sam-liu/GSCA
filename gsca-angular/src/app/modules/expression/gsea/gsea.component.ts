@@ -156,14 +156,18 @@ export class GseaComponent implements OnInit, OnChanges, AfterViewInit {
       this.gseaSingleCancerTypeImageLoading = true;
       this.showgseaSingleCancerTypeImage = false;
       if (this.expandedColumn === 'cancertype') {
-        this.expressionApiService.getGSEASingleCancerTypePlot(this.gseaResourceUUID, this.expandedElement.cancertype).subscribe(
+        const postTerm = {
+          uuidname: this.gseaResourceUUID,
+          cancerTypeSelected: this.expandedElement.cancertype,
+        };
+        this.expressionApiService.getGSEASingleCancerTypePlot(postTerm.uuidname, postTerm.cancerTypeSelected).subscribe(
           (res) => {
             this.gseaSingleCancerTypePdfURL = this.expressionApiService.getResourcePlotURL(res.gseaplotsinglecancertypeuuid, 'pdf');
             this.expressionApiService.getResourcePlotBlob(res.gseaplotsinglecancertypeuuid, 'png').subscribe(
               (r) => {
+                this._createImageFromBlob(r, 'gseaSingleCancerTypeImage');
                 this.gseaSingleCancerTypeImageLoading = false;
                 this.showgseaSingleCancerTypeImage = true;
-                this._createImageFromBlob(r, 'gseaSingleCancerTypeImage');
               },
               (e) => {
                 this.gseaSingleCancerTypeImageLoading = false;
