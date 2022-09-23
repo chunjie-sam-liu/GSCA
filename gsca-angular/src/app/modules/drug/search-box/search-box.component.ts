@@ -45,8 +45,12 @@ export class SearchBoxComponent implements OnInit {
       window.alert('Please select at least one cancer type');
       return;
     } */
-    if (searchTerm.validSymbol.length < 1) {
-      window.alert('Please input at least one gene symbol');
+    if (searchTerm.validSymbol.length < 2) {
+      window.alert('Please input at least two gene symbol');
+      return;
+    }
+    if (searchTerm.validSymbol.length > 500) {
+      window.alert('Please input at most 500 gene symbol');
       return;
     }
     if (Object.values(this.showList).indexOf(true) < 0) {

@@ -2,6 +2,15 @@
 POST http://localhost:5000/api/expression/stage/stagetable HTTP/1.1
 content-type: application/json
 
+{"validSymbol":["A2M","ACE","ANGPT2","BPI","CD1B","CDR1","EGR2","EGR3","HBEGF","HERPUD1","MCM2","PCTP","PODXL","PPY","PTGS2","RCAN1","SLC4A7","THBD"],"cancerTypeSelected":["ACC" ,"BLCA", "BRCA", "CESC", "CHOL", "COAD", "DLBC", "ESCA", "HNSC", "KICH", "KIRC", "KIRP", "LIHC", "LUAD", "LUSC",
+"MESO", "OV",   "PAAD", "READ", "SKCM", "STAD", "TGCT", "THCA", "THYM", "UCEC", "UCS",  "UVM"],"validColl":["ACC_expr_stage",  "BLCA_expr_stage" ,"BRCA_expr_stage", "CESC_expr_stage", "CHOL_expr_stage", "COAD_expr_stage",
+"DLBC_expr_stage", "ESCA_expr_stage" ,"HNSC_expr_stage", "KICH_expr_stage" ,"KIRC_expr_stage", "KIRP_expr_stage","LIHC_expr_stage" ,"LUAD_expr_stage" ,"LUSC_expr_stage", "MESO_expr_stage" ,"OV_expr_stage",   "PAAD_expr_stage",
+"READ_expr_stage", "SKCM_expr_stage", "STAD_expr_stage", "TGCT_expr_stage" ,"THCA_expr_stage", "THYM_expr_stage","UCEC_expr_stage", "UCS_expr_stage" , "UVM_expr_stage" ]}
+
+### stage table
+POST http://localhost:5000/api/expression/stage/stagetable HTTP/1.1
+content-type: application/json
+
 {"validSymbol":["A2M","ACE","ANGPT2","BPI","CD1B","CDR1","EGR2","EGR3","HBEGF","HERPUD1","MCM2","PCTP","PODXL","PPY","PTGS2","RCAN1","SLC4A7","THBD"],"cancerTypeSelected":["KICH","KIRC","KIRP","LUAD","LUSC"],"validColl":["KIRC_expr_stage","LUAD_expr_stage","LUSC_expr_stage"]}
 
 ### stage plot

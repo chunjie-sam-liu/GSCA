@@ -15,9 +15,9 @@
         </mat-form-field>
         <button class="export-container" mat-raised-button color="primary" (click)="exportExcel()">Export Table</button>
 
-        <table mat-table [dataSource]="dataSourceGSEA" multiTemplateDataRows>
+        <table mat-table [dataSource]="dataSourceGSEA" multiTemplateDataRows matSort>
           <ng-container matColumnDef="{{ column }}" *ngFor="let column of displayedColumnsGSEA; index as ind">
-            <th mat-header-cell *matHeaderCellDef>{{ displayedColumnsGSEAHeader[ind] }}</th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ displayedColumnsGSEAHeader[ind] }}</th>
             <td mat-cell *matCellDef="let element">
               <ng-container *ngIf="column === 'cancertype'; then btn; else plain"></ng-container>
               <ng-template #btn>
@@ -29,6 +29,8 @@
                 {{
                   column !== 'pval' && column !== 'padj'
                     ? (element[column] | number: '1.2-2')
+                    : element[column] == null
+                    ? '--'
                     : element[column] < 0.01
                     ? element[column].toExponential(2)
                     : (element[column] | number: '1.2-2')

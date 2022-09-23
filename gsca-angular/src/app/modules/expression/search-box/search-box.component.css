@@ -41,3 +41,7 @@ mat-card-title {
   margin-bottom: 5px;
   color: rgb(170, 114, 185);
 }
+.phighlight {
+  color: rgb(192, 113, 212);
+  text-align: right;
+}

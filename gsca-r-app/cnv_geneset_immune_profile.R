@@ -43,42 +43,48 @@ fn_fetch_data <- function(.uuid) {
 
 fetched_data <- fn_fetch_data(.uuid = tableuuid)$cnvgeneset[[1]]
 if(ncol(fetched_data)>0){
-  fetched_data %>% 
-    tibble::as_tibble() %>% 
-    tidyr::nest(-cancertype) -> gsva_score_nest
-  
-  fields <- '{"_id": false}'
-  fetched_immu_data <- purrr::map(.x =paste(gsva_score_nest$cancertype,"all_immune",sep="_"), .f = fn_fetch_mongo_all, pattern="_all_immune",fields = fields) %>%
+  fetched_data %>%
+    tibble::as_tibble() %>%
+    tidyr::nest(data = c(sample_name, group)) -> gsva_score_nest
+
+  suppressWarnings(fields <- '{"_id": false}')
+  suppressWarnings(
+    fetched_immu_data <- purrr::map(.x =paste(gsva_score_nest$cancertype,"all_immune",sep="_"), .f = fn_fetch_mongo_all, pattern="_all_immune",fields = fields) %>%
     dplyr::bind_rows() %>%
     dplyr::group_by(cancertype) %>%
     tidyr::nest() %>%
     dplyr::ungroup() %>%
     dplyr::rename("ImmuneCellAI"="data")
-  
+    )
+
   # stage analysis -------------------------------------------------------
   gsva_score_nest %>%
     dplyr::inner_join(fetched_immu_data, by="cancertype") -> combine_data
-  
-  
+
+
   # function to get correlation ---------------------------------------------
-  
+
   fn_gsva_immu_cor <- function(genesetcnv,data){
-    
+    #print(cancertype)
     data %>%
       dplyr::filter(substr(aliquot,14,14)=="0") %>%
       dplyr::select(-barcode)  -> .combined_immu
-    
+
     genesetcnv %>%
       dplyr::inner_join(.combined_immu,by="sample_name") -> .combined_gsva_rppa
-    
+
     .combined_gsva_rppa %>%
       dplyr::filter(group != "Excluded") %>%
       dplyr::filter(!is.na(TIL)) %>%
       dplyr::group_by(cell_type) %>%
       tidyr::nest() -> .combined_gsva_rppa_nested
-    
+
     .combined_gsva_rppa_nested %>%
       dplyr::mutate(cor = purrr::map(data,.f=function(.x){
+        .x %>%
+          dplyr::group_by(group) %>%
+          dplyr::mutate(n=dplyr::n()) %>%
+          dplyr::filter(n>=5) -> .x
         if(length(unique(.x$group)) == 2){
           broom::tidy(wilcox.test(TIL~group,data=.x))
         }else if(length(unique(.x$group)) > 2){
@@ -90,23 +96,23 @@ if(ncol(fetched_data)>0){
       dplyr::select(-data) %>%
       tidyr::unnest() %>%
       dplyr::ungroup() -> .cor_res
-    
-    
-    
+
+
+
     .fdr <- p.adjust(.cor_res$p.value)
-    
+
     .cor_res %>%
       dplyr::mutate(fdr = .fdr)
   }
-  
+
   fn_gsva_immu_fc <- function(genesetcnv,data){
     data %>%
       dplyr::filter(substr(aliquot,14,14)=="0") %>%
       dplyr::select(-barcode)  -> .combined_immu
-    
+
     genesetcnv %>%
       dplyr::inner_join(.combined_immu,by="sample_name") -> .combined_gsva_rppa
-    
+
     .combined_gsva_rppa %>%
       dplyr::filter(group != "Excluded") %>%
       dplyr::filter(!is.na(TIL)) %>%
@@ -114,7 +120,7 @@ if(ncol(fetched_data)>0){
       tidyr::nest() -> .combined_gsva_rppa_nested
     .f_fc <- function(.y, .com){
       if(length(unique(.y$group)) == 2){
-        
+
         .y %>%
           dplyr::filter(group=="WT") %>%
           .$TIL %>%
@@ -135,7 +141,7 @@ if(ncol(fetched_data)>0){
           dplyr::filter(group %in% c("WT","Dele.")) -> dele_WT
         .x %>%
           dplyr::filter(group %in% c("WT","Amp.")) -> amp_WT
-        
+
         .f_fc(dele_WT,"Dele. vs. WT") %>%
           rbind(.f_fc(amp_WT,"Amp. vs. WT"))
       })) %>%
@@ -154,7 +160,7 @@ if(ncol(fetched_data)>0){
   )
   gsva_score_rppa_test_res %>%
     dplyr::mutate(method_short=strsplit(method,split = " ")[[1]][1]) -> gsva_score_rppa_test_res
-  
+
   suppressWarnings(
     combine_data %>%
       dplyr::mutate(res = purrr::map2(data,ImmuneCellAI,fn_gsva_immu_fc)) %>%
@@ -165,22 +171,23 @@ if(ncol(fetched_data)>0){
   # Insert table ------------------------------------------------------------
   insert_data <- list(uuid = tableuuid, res_table = gsva_score_rppa_test_res)
   #post_gsva_coll$drop()
+  # post_gsva_coll$remove(query = glue::glue('{"uuid": "<tableuuid>"}', .open = '<', .close = '>'))
   uuid_query <- post_gsva_coll$find(
     query = fn_query_str(.x = tableuuid),
     fields = '{"uuid": true, "_id": false}'
   )
-  
+
   if (nrow(uuid_query) == 0) {
     post_gsva_coll$insert(data = insert_data)
     post_gsva_coll$index(add = '{"uuid": 1}')
     message("insert data into preanalysised_cnvgeneset_immu")
   }
-  
+
   # Plot --------------------------------------------------------------------
   gsva_score_rppa_test_fc %>%
     dplyr::mutate(label=ifelse(p.value<=0.05, "*","")) %>%
     dplyr::mutate(logP=-log10(p.value))-> gsva_score_rppa_test_res.label
-  
+
   gsva_score_rppa_test_res.label %>%
     dplyr::filter(!is.na(logP)) %>%
     dplyr::mutate(celltypecor=ifelse(p.value<=0.05&fc>1,"Higher in CNV","Not significant")) %>%
@@ -205,7 +212,8 @@ if(ncol(fetched_data)>0){
       # axis.title.x = element_text(size = 6),
       # axis.title.y = element_text(size = 6),
       # legend.title = element_text(size = 6),
-      panel.background = element_rect(fill = "white", color = NA),
+      panel.background = element_rect(colour = "black", fill = "white"),
+      # panel.background = element_rect(fill = "white", color = NA),
       panel.grid = element_line(colour = "grey", linetype = "dashed"),
       panel.grid.major = element_line(
         colour = "grey",
@@ -214,19 +222,19 @@ if(ncol(fetched_data)>0){
       )
     ) +
     ylab("-log10 (P value)") +
-    xlab("log2 fold change of immune cell abundance (CNV vs. WT)") + 
-    geom_vline(xintercept = 0,col="grey",lwd=0.5) + 
+    xlab("log2 fold change of immune cell abundance (CNV vs. WT)") +
+    geom_vline(xintercept = 0,col="grey",lwd=0.5) +
     geom_hline(yintercept = 1.3,col="grey",lwd=0.5) -> plot
   # pic size ----------------------------------------------------------------
-  
+
   source(file.path(apppath, "gsca-r-app/utils/fn_figure_height.R"))
   size_width <- 4+length(unique(gsva_score_rppa_test_res.label$cancertype))*0.5
-  
-  
+
+
   ggsave(filename = filepath, plot = plot, device = 'png', width = 8, height = size_width)
   pdf_name <- gsub("\\.png",".pdf", filepath)
   ggsave(filename = pdf_name, plot = plot, device = 'pdf', width = 8, height = size_width)
-  
+
 }else{
   source(file.path(apppath, "gsca-r-app/utils/fn_NA_notice_fig.R"))
   fn_NA_notice_fig("Caution: \nnot applicable for your search.\nPlease check if there are no CNVs\n in your search?") -> p

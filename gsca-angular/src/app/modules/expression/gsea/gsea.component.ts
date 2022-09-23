@@ -60,7 +60,7 @@ export class GseaComponent implements OnInit, OnChanges, AfterViewInit {
       this.showGSEATable = false;
       this.showGSEAImage = false;
       window.alert(
-        'The GSEA enrichment analysis is based on differential analysis, please select at least one cancer type which has at least ten tumor-normal paired samples. These cancer types including THCA, KIRP, BLCA, LIHC, HNSC, BRCA, LUAD, PRAD, ESCA, KICH, LUSC, KIRC, STAD and COAD.'
+        'The GSEA enrichment analysis is based on cancer types with sufficient paired tumor-normal samples (>= 10). These cancer types including THCA, KIRP, BLCA, LIHC, HNSC, BRCA, LUAD, PRAD, ESCA, KICH, LUSC, KIRC, STAD and COAD. Or you can explore "GSVA score" section which provides GSVA score for single sample.'
       );
     } else {
       this.expressionApiService.getGSEAAnalysis(postTerm).subscribe(
@@ -156,14 +156,18 @@ export class GseaComponent implements OnInit, OnChanges, AfterViewInit {
       this.gseaSingleCancerTypeImageLoading = true;
       this.showgseaSingleCancerTypeImage = false;
       if (this.expandedColumn === 'cancertype') {
-        this.expressionApiService.getGSEASingleCancerTypePlot(this.gseaResourceUUID, this.expandedElement.cancertype).subscribe(
+        const postTerm = {
+          uuidname: this.gseaResourceUUID,
+          cancerTypeSelected: this.expandedElement.cancertype,
+        };
+        this.expressionApiService.getGSEASingleCancerTypePlot(postTerm.uuidname, postTerm.cancerTypeSelected).subscribe(
           (res) => {
             this.gseaSingleCancerTypePdfURL = this.expressionApiService.getResourcePlotURL(res.gseaplotsinglecancertypeuuid, 'pdf');
             this.expressionApiService.getResourcePlotBlob(res.gseaplotsinglecancertypeuuid, 'png').subscribe(
               (r) => {
+                this._createImageFromBlob(r, 'gseaSingleCancerTypeImage');
                 this.gseaSingleCancerTypeImageLoading = false;
                 this.showgseaSingleCancerTypeImage = true;
-                this._createImageFromBlob(r, 'gseaSingleCancerTypeImage');
               },
               (e) => {
                 this.gseaSingleCancerTypeImageLoading = false;
