@@ -14,10 +14,13 @@
         barcode.
       </p>
       <p>
-        Tumor samples were divided into Mutant group when the specific gene is mutated (<span class="phighlight">deleterious mutants</span>)
-        in these samples.
+        Tumor samples were classified as Mutant group when the specific gene was mutated (<span class="phighlight">deleterious mutants</span
+        >) in these samples.
       </p>
-      <p>Survival analysis only performed for groups with <span class="phighlight">> 2 samples</span>. And at least 2 groups are needed.</p>
+      <p>
+        Survival analysis was only performed for groups with <span class="phighlight">> 2 samples</span>. And at least two groups are
+        needed.
+      </p>
       <p>
         <span class="phighlight">R package survival </span>was used to fit survival time and survival status within groups.
         <span class="phighlight">Cox Proportional-Hazards model and Logrank tests</span> were performed to test the survival difference
@@ -36,16 +39,16 @@
           Attention for using the endpoints of OS, PFI, DFI, and DSS (<a
             href="https://www.cell.com/cell/abstract/S0092-8674(18)30229-0"
             target="_blank"
-            >Liu et al, Cell, 2018</a
+            >Liu et al., Cell, 2018</a
           >).
         </li>
         <p>
           ACC: number of events is small; <br />
           BRCA: need a longer follow-up for OS and DSS; <br />
           CHOL: sample size is too small for OS, DSS, DFI, and PFI; <br />
-          DLBC: sample size and number of events are too small, need a longer follow-up; <br />
+          DLBC: sample size and number of events are too small, and need a longer follow-up; <br />
           GBM: number of disease-free cases is small;<br />
-          KICH: number of events is too small, need a longer follow-up; <br />
+          KICH: number of events is too small, and need a longer follow-up; <br />
           KIRC: number of events is small; <br />
           LGG: need a longer follow-up for OS and DSS; <br />
           LIHC: need a longer follow-up DSS; <br />
@@ -60,7 +63,7 @@
         </p>
       </ul>
       <li>Interpretation</li>
-      <p>GSCA provides two forms of results, including table and figure.</p>
+      <p>GSCA provides two forms of results, including the tables and figures.</p>
 
       <ul>
         <li>Table:</li>
@@ -80,19 +83,19 @@
           <li class="lilight">
             1. The OS data are available for all cancer types, while survival analysis for OS is not recommended for DLBC, PCPG, TGCT, and
             THYM
-            <a href="https://www.cell.com/cell/abstract/S0092-8674(18)30229-0" target="_blank">(Liu et al, Cell, 2018)</a>.
+            <a href="https://www.cell.com/cell/abstract/S0092-8674(18)30229-0" target="_blank">(Liu et al., Cell, 2018)</a>.
           </li>
           <li class="lilight">
             2. The PFS data are not available for LAML. Survival analysis for PFS is not recommended for PCPG
-            <a href="https://www.cell.com/cell/abstract/S0092-8674(18)30229-0" target="_blank">(Liu et al, Cell, 2018)</a>.
+            <a href="https://www.cell.com/cell/abstract/S0092-8674(18)30229-0" target="_blank">(Liu et al., Cell, 2018)</a>.
           </li>
           <li class="lilight">
             3. The DSS data are not available for LAML. Survival analysis for DSS is not recommended for DLBC, PCPG, PRAD, TGCT, THCA, and
-            THYM<a href="https://www.cell.com/cell/abstract/S0092-8674(18)30229-0" target="_blank">(Liu et al, Cell, 2018)</a>.
+            THYM<a href="https://www.cell.com/cell/abstract/S0092-8674(18)30229-0" target="_blank">(Liu et al., Cell, 2018)</a>.
           </li>
           <li class="lilight">
             4. The DFI data are not available for LAML, SKCM, THYM, and UVM. Survival analysis for DFI is not recommended for DLBC, GBM,
-            KICH<a href="https://www.cell.com/cell/abstract/S0092-8674(18)30229-0" target="_blank">(Liu et al, Cell, 2018)</a>, MESO, PCPG,
+            KICH<a href="https://www.cell.com/cell/abstract/S0092-8674(18)30229-0" target="_blank">(Liu et al., Cell, 2018)</a>, MESO, PCPG,
             and READ.
           </li>
           <li class="lilight">
@@ -112,9 +115,9 @@
 
           <li>Bubble plot:</li>
           <p>
-            Presents the Hazard ratio and Cox p value though bubble color and size. The column is the gene set symbol and row is the
-            selected cancer types. The bubble color from blue to red represents the hazard ratio from low to high, bubble size is positively
-            correlate with the Cox P value significance. Black outline border indicates Cox P value ≤ 0.05.
+            This plot presents the Hazard ratio and Cox p value though bubble color and size. The column is the gene set symbol and row is
+            the selected cancer types. The bubble color from blue to red represents the hazard ratio from low to high, bubble size is
+            positively correlate with the Cox P value significance. Black outline border indicates Cox P value ≤ 0.05.
           </p>
         </ul>
       </ul>
