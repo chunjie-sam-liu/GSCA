@@ -38,7 +38,7 @@
                 ></ng-container>
                 <ng-template #btn>
                   <!-- <button mat-raised-button class="expand-button" (click)="expandDetail(element, column)"> -->
-                  {{ element[column] }}
+                  {{ element[column] == '' ? '--' : element[column] }}
                   <!-- </button> -->
                 </ng-template>
                 <ng-template #plain>

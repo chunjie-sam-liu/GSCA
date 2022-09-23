@@ -1,1 +1,42 @@
-<p>gsdb works!</p>
+<div fxFlex>
+  <mat-expansion-panel hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title> <mat-icon class="pred">info</mat-icon> Don't know what gene set to input? Click here! </mat-panel-title>
+    </mat-expansion-panel-header>
+    <ul>
+      <li>Methods</li>
+      <p>
+        Based on normalized and batch corrected <span class="phighlight">RSEM</span> mRNA expression,
+        <span class="phighlight">GSCA provides differential expression analysis for 14 TCGA cancer types </span>(THCA, KIRP, BLCA, LIHC,
+        HNSC, BRCA, LUAD, PRAD, ESCA, KICH, LUSC, KIRC, STAD, COAD), which have over ten paired tumor and normal samples. The fold change is
+        calculated by mean(Tumor) / mean(Normal), the p-value was estimated by <span class="phighlight">t-test</span> and was further
+        adjusted by FDR.
+      </p>
+
+      <li>Interpretation</li>
+      <ul>
+        <li>Table:</li>
+        <p>
+          The table presents detailed information about differential expression analysis, including Cancer type, Gene symbol, Expr. tumor,
+          Expr. normal, Fold change, FDR and # samples. [Expr.: Expression]
+        </p>
+
+        <li>GSCA provides result figures, including:</li>
+        <ul>
+          <li>Bubble plot:</li>
+          <p>
+            The bubble plot presents the fold change and FDR though bubble color and size. The row is the gene set symbol, and column is the
+            selected cancer types. The bubble color from purple to red represents the fold change between tumor vs. normal. The size of dots
+            is positively correlated with the FDR significance.
+          </p>
+
+          <li>Boxplot:</li>
+          <p>
+            By clicking any one button in the table, GSCA would show a boxplot for the gene expression between tumor and normal samples in
+            single cancer (click cancer type name) or multiple cancer (click gene symbol name).
+          </p>
+        </ul>
+      </ul>
+    </ul>
+  </mat-expansion-panel>
+</div>
