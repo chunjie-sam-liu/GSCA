@@ -33,7 +33,7 @@ fetched_snv_maf <- purrr::map(.x = paste(search_cancertypes,"_snv_maf",sep=""), 
   dplyr::bind_rows()
 
 
-# judgement ---------------------------------------------------------------
+# judgment ---------------------------------------------------------------
 
 effective_mut <- c("Missense_Mutation","Nonsense_Mutation","Frame_Shift_Ins","Splice_Site","Frame_Shift_Del","In_Frame_Del","In_Frame_Ins")
 
@@ -53,38 +53,38 @@ if(nrow(fetched_snv_maf)>0){
     png(filename = filepath_snvsummary,height = 4,width = 6,units = "in",res=500)
     plotmafSummary(maf = maf_project, rmOutlier = TRUE, addStat = 'median', dashboard = TRUE, titvRaw = FALSE)
     dev.off()
-    
+
     pdf_name_snvsummary <- gsub("\\.png",".pdf",filepath_snvsummary)
     pdf(file = pdf_name_snvsummary,height = 4,width = 6)
     plotmafSummary(maf = maf_project, rmOutlier = TRUE, addStat = 'median', dashboard = TRUE, titvRaw = FALSE)
     dev.off()
-    
+
     # titv plot
     maf.titv = titv(maf = maf_project, plot = FALSE, useSyn = TRUE)
-    
+
     png(filename = filepath_snvtitvplot,height = 4,width = 6,units = "in",res=500)
     plotTiTv(res = maf.titv)
     dev.off()
-    
+
     pdf_name_snvtitvplot <- gsub("\\.png",".pdf",filepath_snvtitvplot)
     pdf(file = pdf_name_snvtitvplot,height = 4,width = 6)
     plotTiTv(res = maf.titv)
     dev.off()
-    
+
     if(length(unique(fetched_snv_maf.non_synonymous$entrez))>=2){
       # oncoplot
       png(filename = filepath_snvoncoplot,height = 6,width = 10,units = "in",res=500)
       oncoplot(
-        maf = maf_project, 
+        maf = maf_project,
         clinicalFeatures = "Cancer_type", sortByMutation = TRUE, sortByAnnotation = TRUE,
         top = 10
       )
       dev.off()
-      
+
       pdf_name_snvoncoplot <- gsub("\\.png",".pdf",filepath_snvoncoplot)
       pdf(file = pdf_name_snvoncoplot,height = 6,width = 10)
       oncoplot(
-        maf = maf_project, 
+        maf = maf_project,
         clinicalFeatures = "Cancer_type", sortByMutation = TRUE, sortByAnnotation = TRUE,
         top = 10
       )
@@ -104,7 +104,7 @@ if(nrow(fetched_snv_maf)>0){
     ggsave(filename = filepath_snvsummary, plot = p, device = 'png', width = 6, height = 4)
     pdf_name <- gsub("\\.png",".pdf",filepath_snvsummary)
     ggsave(filename = pdf_name, plot = p, device = 'pdf', width = 6, height = 4)
-    
+
     ggsave(filename = filepath_snvoncoplot, plot = p, device = 'png', width = 6, height = 4)
     ggsave(filename = filepath_snvtitvplot, plot = p, device = 'png', width = 6, height = 4)
     pdf_name_snvtitvplot <- gsub("\\.png",".pdf",filepath_snvtitvplot)
@@ -112,7 +112,7 @@ if(nrow(fetched_snv_maf)>0){
     ggsave(filename = pdf_name_snvoncoplot, plot = p, device = 'pdf', width = 6, height = 4)
     ggsave(filename = pdf_name_snvtitvplot, plot = p, device = 'pdf', width = 6, height = 4)
   }
-  
+
 }else{
   source(file.path(apppath, "gsca-r-app/utils/fn_NA_notice_fig.R"))
   fn_NA_notice_fig("Caution: \nNo mutations found\nin your search gene list.") -> p
@@ -120,7 +120,7 @@ if(nrow(fetched_snv_maf)>0){
   ggsave(filename = filepath_snvsummary, plot = p, device = 'png', width = 6, height = 4)
   pdf_name <- gsub("\\.png",".pdf",filepath_snvsummary)
   ggsave(filename = pdf_name, plot = p, device = 'pdf', width = 6, height = 4)
-  
+
   ggsave(filename = filepath_snvoncoplot, plot = p, device = 'png', width = 6, height = 4)
   ggsave(filename = filepath_snvtitvplot, plot = p, device = 'png', width = 6, height = 4)
   pdf_name_snvtitvplot <- gsub("\\.png",".pdf",filepath_snvtitvplot)
