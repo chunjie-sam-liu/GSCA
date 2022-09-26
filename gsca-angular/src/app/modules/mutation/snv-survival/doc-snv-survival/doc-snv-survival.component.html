@@ -14,7 +14,8 @@
         barcode.
       </p>
       <p>
-        Tumor samples were classified as Mutant group when the specific gene was mutated (<span class="phighlight">deleterious mutants</span
+        Tumor samples were classified as the Mutant group when the specific gene was mutated (<span class="phighlight"
+          >deleterious mutants</span
         >) in these samples.
       </p>
       <p>
@@ -24,7 +25,7 @@
       <p>
         <span class="phighlight">R package survival </span>was used to fit survival time and survival status within groups.
         <span class="phighlight">Cox Proportional-Hazards model and Logrank tests</span> were performed to test the survival difference
-        between WT and Mutant groups.
+        between the WT and Mutant groups.
       </p>
       <p><span class="phighlight">There are some suggestions for survival analysis:</span></p>
       <ul>
@@ -36,14 +37,15 @@
           The DFI data are not available for LAML, SKCM, THYM, and UVM.
         </p>
         <li class="lilight">
-          Attention for using the endpoints of OS, PFI, DFI, and DSS (<a
+          The survival analysis can be performed as long as there are survival events. However, there are few things you should know about
+          the endpoints of TCGA OS, PFI, DFI, and DSS data (<a
             href="https://www.cell.com/cell/abstract/S0092-8674(18)30229-0"
             target="_blank"
             >Liu et al., Cell, 2018</a
           >).
         </li>
         <p>
-          ACC: number of events is small; <br />
+          ACC: The number of events is small; <br />
           BRCA: need a longer follow-up for OS and DSS; <br />
           CHOL: sample size is too small for OS, DSS, DFI, and PFI; <br />
           DLBC: sample size and number of events are too small, and need a longer follow-up; <br />
@@ -71,14 +73,15 @@
           The table presents detailed information about Cancer type, Gene symbol, Survival type, Logrank P value, Hazard Ratio, Cox P value,
           Higher risk of death, # of Mutant, and # of WT.
         </p>
-        <p>Survival type including OS, PFS, DSS, and DFI.</p>
+        <p>Survival types include OS, PFS, DSS, and DFI.</p>
         <p>
-          Higher risk of death indicates the group with higher risk of death. When the <span class="phighlight">Hazard ratio</span> of
-          Mutant group compared with low WT group is <span class="phighlight">greater than 1</span>, we think Mutant group has higher risk
-          of death, else WT group has higher risk of death. When "Not applicable" presents in column ‘Higher risk of death’, there is no
-          hazard ratio result for judgement.
+          The 'Higher risk of death' indicates the group with a higher risk of death. When the
+          <span class="phighlight">Hazard ratio</span> of the Mutant group compared with the low WT group is
+          <span class="phighlight">greater than 1</span>, we think the Mutant group has a higher risk of death, and else WT group has a
+          higher risk of death. When the warning of 'Not applicable' comes up in the column of 'Higher risk of death', there is no hazard
+          ratio result for judgment.
         </p>
-        <p>Note that the users may <span class="phighlight">get the "Not applicable"</span> in several cases,including:</p>
+        <p>Note that the users may <span class="phighlight">get the the warning of 'Not applicable'</span> in several cases, including:</p>
         <ul>
           <li class="lilight">
             1. The OS data are available for all cancer types, while survival analysis for OS is not recommended for DLBC, PCPG, TGCT, and
@@ -99,8 +102,8 @@
             and READ.
           </li>
           <li class="lilight">
-            5. A gene does not have enough mutation, which lead the number of groups (<span class="phighlight">have > 2 samples</span>) that
-            used for survival comparing is not enough (two groups are needed).
+            5. There are not enough samples (two groups and more than two samples in each groups are needed) used for survival comparing
+            analysis if a gene lacks enough mutation.
           </li>
           <li class="lilight">6. HR equal to 1.</li>
         </ul>
