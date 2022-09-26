@@ -19,9 +19,10 @@ import { ImmuneSnvGenesetComponent } from './immune-snv-geneset/immune-snv-genes
 import { DocImmuneCnvGsvaComponent } from './immune-cnv-gsva/doc-immune-cnv-gsva/doc-immune-cnv-gsva.component';
 import { DocImmuneGsvaComponent } from './immune-gsva/doc-immune-gsva/doc-immune-gsva.component';
 import { DocImmuneSnvGenesetComponent } from './immune-snv-geneset/doc-immune-snv-geneset/doc-immune-snv-geneset.component';
+import { GsdbComponent } from './search-box/gsdb/gsdb.component';
 
 @NgModule({
-  declarations: [ImmuneComponent, SearchBoxComponent, ImmuneExprComponent, ImmuneCnvComponent, ImmuneSnvComponent, ImmuneMethyComponent, ImmuneCnvGsvaComponent, DocImmCnvComponent, DocImmExprComponent, DocImmMethyComponent, DocImmSnvComponent, ImmuneGsvaComponent, ImmuneSnvGenesetComponent, DocImmuneCnvGsvaComponent, DocImmuneGsvaComponent, DocImmuneSnvGenesetComponent],
+  declarations: [ImmuneComponent, SearchBoxComponent, ImmuneExprComponent, ImmuneCnvComponent, ImmuneSnvComponent, ImmuneMethyComponent, ImmuneCnvGsvaComponent, DocImmCnvComponent, DocImmExprComponent, DocImmMethyComponent, DocImmSnvComponent, ImmuneGsvaComponent, ImmuneSnvGenesetComponent, DocImmuneCnvGsvaComponent, DocImmuneGsvaComponent, DocImmuneSnvGenesetComponent, GsdbComponent],
   imports: [CommonModule, ImmuneRoutingModule, SharedModule],
 })
 export class ImmuneModule {}
