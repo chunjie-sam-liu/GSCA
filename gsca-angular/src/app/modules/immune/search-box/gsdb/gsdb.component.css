@@ -1,0 +1,28 @@
+mat-expansion-panel-header {
+  background-color: thistle;
+}
+.pred {
+  color: green;
+}
+mat-panel-description {
+  font-size: large;
+}
+mat-panel-title {
+  color: black;
+  font-weight: bolder;
+  font-size: medium;
+}
+mat-expansion-panel {
+  background-color: rgb(236, 228, 236);
+}
+a {
+  color: cornflowerblue;
+}
+li {
+  font-weight: bold;
+  font-size: medium;
+}
+
+p {
+  font-size: medium;
+}
