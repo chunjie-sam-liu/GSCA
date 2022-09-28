@@ -8,7 +8,7 @@
         </mat-card-header>
         <ng-container *ngIf="!dataSourceGSEALoading; else loading"></ng-container>
         <mat-form-field>
-          <input matInput placeholder="Input" (keyup)="applyFilter($event)" #inputGSEA />
+          <input matInput placeholder="Search" (keyup)="applyFilter($event)" #inputGSEA />
           <button mat-icon-button color="warn" matPrefix>
             <mat-icon style="font-weight: bolder">search</mat-icon>
           </button>

@@ -8,7 +8,7 @@
         </mat-card-header>
         <ng-container *ngIf="!dataSourcePaenLoading; else loading"></ng-container>
         <mat-form-field>
-          <input matInput placeholder="Input" (keyup)="applyFilter($event)" #inputPaen />
+          <input matInput placeholder="Search" (keyup)="applyFilter($event)" #inputPaen />
           <button mat-icon-button color="warn" matPrefix>
             <mat-icon style="font-weight: bolder">search</mat-icon>
           </button>
