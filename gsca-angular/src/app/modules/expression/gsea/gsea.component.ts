@@ -170,7 +170,6 @@ export class GseaComponent implements OnInit, OnChanges, AfterViewInit {
                 this.showgseaSingleCancerTypeImage = true;
               },
               (e) => {
-                this.gseaSingleCancerTypeImageLoading = false;
                 this.showgseaSingleCancerTypeImage = false;
               }
             );
