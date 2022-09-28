@@ -56,11 +56,11 @@ export class SearchBoxComponent implements OnInit {
       return;
     }
     if (searchTerm.validSymbol.length < 2) {
-      window.alert('Please input at least two gene symbol');
+      window.alert('Please input at least 2 gene symbols');
       return;
     }
     if (searchTerm.validSymbol.length > 500) {
-      window.alert('Please input at most 500 gene symbol');
+      window.alert('Please input at most 500 gene symbols');
       return;
     }
     if (Object.values(this.showList).indexOf(true) < 0) {
