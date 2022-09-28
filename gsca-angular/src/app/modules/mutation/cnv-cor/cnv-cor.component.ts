@@ -43,7 +43,7 @@ export class CnvCorComponent implements OnInit, OnChanges, AfterViewInit {
 
   // single gene cor
   cnvCorSingleGeneImage: any;
-  cnvCorSingleGeneImageLoading = true;
+  cnvCorSingleGeneImageLoading = false;
   showCnvCorSingleGeneImage = false;
   cnvCorSingleGenePdfURL: string;
 

@@ -65,7 +65,7 @@ export class CnvComponent implements OnInit, OnChanges, AfterViewInit {
   // single gene cnv imgae
   cnvSingleGeneImage: any;
   showCnvSingleGeneImage = true;
-  cnvSingleGeneImageLoading = true;
+  cnvSingleGeneImageLoading = false;
   cnvSingleGenePdfURL: string;
 
   constructor(private mutationApiService: MutationApiService) {}

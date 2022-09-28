@@ -45,7 +45,7 @@ export class GsvaRppaComponent implements OnInit, OnChanges, AfterViewInit {
   gsvaRPPAResourceUUID: string;
   GSVARPPASingleCancerImage: any;
   GSVARPPASingleCancerPdfURL: string;
-  GSVARPPASingleCancerImageLoading = true;
+  GSVARPPASingleCancerImageLoading = false;
   showGSVARPPASingleCancerImage = true;
 
   constructor(private expressionApiService: ExpressionApiService) {}

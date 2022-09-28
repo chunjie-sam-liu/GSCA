@@ -52,7 +52,7 @@ export class MethySurvivalComponent implements OnInit, OnChanges, AfterViewInit 
 
   // single gene survival
   methySurvivalSingleGeneImage: any;
-  methySurvivalSingleGeneImageLoading = true;
+  methySurvivalSingleGeneImageLoading = false;
   showMethySurvivalSingleGeneImage = false;
   methySurvivalSingleGenePdfURL: string;
 

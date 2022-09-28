@@ -53,7 +53,7 @@ export class SubtypeComponent implements OnInit, OnChanges, AfterViewChecked {
 
   // single gene
   subtypeSingleGeneImage: any;
-  subtypeSingleGeneImageLoading = true;
+  subtypeSingleGeneImageLoading = false;
   showSubtypeSingleGeneImage = false;
   subtypeSingleGenePdfURL: string;
 

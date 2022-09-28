@@ -42,7 +42,7 @@ export class ImmuneExprComponent implements OnInit, OnChanges, AfterViewInit {
 
   // single gene cor
   immExprCorSingleGeneImage: any;
-  immExprCorSingleGeneImageLoading = true;
+  immExprCorSingleGeneImageLoading = false;
   showImmExprCorSingleGeneImage = false;
   immExprCorSingleGenePdfURL: string;
 

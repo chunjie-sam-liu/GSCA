@@ -51,7 +51,7 @@ export class GsvaSurvivalComponent implements OnInit, OnChanges, AfterViewInit {
   gsvaSurvivalResourceUUID: string;
   GSVASurvivalSingleCancerImage: any;
   GSVASurvivalSingleCancerPdfURL: string;
-  GSVASurvivalSingleCancerImageLoading = true;
+  GSVASurvivalSingleCancerImageLoading = false;
   showGSVASurvivalSingleCancerImage = true;
 
   constructor(private expressionApiService: ExpressionApiService) {}

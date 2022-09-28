@@ -54,13 +54,13 @@ export class DegComponent implements OnInit, OnChanges, AfterViewInit {
   // single gene
   degSingleGeneImage: any;
   degSingleGenePdfURL: string;
-  degSingleGeneImageLoading = true;
+  degSingleGeneImageLoading = false;
   showDEGSingleGeneImage = false;
 
   // single cancer type
   degSingleCancerTypeImage: any;
   degSingleCancerTypePdfURL: string;
-  degSingleCancerTypeImageLoading = true;
+  degSingleCancerTypeImageLoading = false;
   showdegSingleCancerTypeImage = false;
 
   constructor(private expressionApiService: ExpressionApiService) {}

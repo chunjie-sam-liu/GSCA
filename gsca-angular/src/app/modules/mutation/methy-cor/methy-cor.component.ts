@@ -43,7 +43,7 @@ export class MethyCorComponent implements OnInit, OnChanges, AfterViewInit {
 
   // single gene cor
   methyCorSingleGeneImage: any;
-  methyCorSingleGeneImageLoading = true;
+  methyCorSingleGeneImageLoading = false;
   showMethyCorSingleGeneImage = false;
   methyCorSingleGenePdfURL: string;
 

@@ -45,7 +45,7 @@ export class ImmuneGsvaComponent implements OnInit, OnChanges, AfterViewInit {
   gsvaImmuResourceUUID: string;
   GSVAImmuSingleCellImage: any;
   GSVAImmuSingleCellPdfURL: string;
-  GSVAImmuSingleCellImageLoading = true;
+  GSVAImmuSingleCellImageLoading = false;
   showGSVAImmuSingleCellImage = true;
 
   constructor(private immuneApiService: ImmuneApiService) {}

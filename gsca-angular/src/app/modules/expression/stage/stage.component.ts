@@ -64,7 +64,7 @@ export class StageComponent implements OnInit, OnChanges, AfterViewChecked {
 
   // single gene
   stageSingleGeneImage: any;
-  stageSingleGeneImageLoading = true;
+  stageSingleGeneImageLoading = false;
   showStageSingleGeneImage = false;
   stageSingleGenePdfURL: string;
   constructor(private expressionApiService: ExpressionApiService) {}

@@ -29,7 +29,7 @@ export class ImmuneCnvComponent implements OnInit, OnChanges, AfterViewInit {
   showImmCnvCorTable = true;
   @ViewChild('paginatorImmCnvCor') paginatorImmCnvCor: MatPaginator;
   @ViewChild(MatSort) sortImmCnvCor: MatSort;
-  displayedColumnsImmCnvCor = ['cancertype', 'symbol', 'cell_type', 'cor','p_value', 'fdr'];
+  displayedColumnsImmCnvCor = ['cancertype', 'symbol', 'cell_type', 'cor', 'p_value', 'fdr'];
   displayedColumnsImmCnvCorHeader = ['Cancer type', 'Gene symbol', 'Cell type', 'Correlation', 'P value', 'FDR'];
   expandedElement: ImmCorTableRecord;
   expandedColumn: string;
@@ -42,7 +42,7 @@ export class ImmuneCnvComponent implements OnInit, OnChanges, AfterViewInit {
 
   // single gene cor
   immCnvCorSingleGeneImage: any;
-  immCnvCorSingleGeneImageLoading = true;
+  immCnvCorSingleGeneImageLoading = false;
   showImmCnvCorSingleGeneImage = false;
   immCnvCorSingleGenePdfURL: string;
 

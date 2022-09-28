@@ -44,7 +44,7 @@ export class CnvSurvivalComponent implements OnInit, OnChanges, AfterViewInit {
 
   // cnv single gene survival
   cnvSurvivalSingleGeneImage: any;
-  cnvSurvivalSingleGeneImageLoading = true;
+  cnvSurvivalSingleGeneImageLoading = false;
   showCnvSurvivalSingleGeneImage = false;
   cnvSurvivalSingleGenePdfURL: string;
 
