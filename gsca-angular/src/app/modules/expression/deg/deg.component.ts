@@ -54,13 +54,13 @@ export class DegComponent implements OnInit, OnChanges, AfterViewInit {
   // single gene
   degSingleGeneImage: any;
   degSingleGenePdfURL: string;
-  degSingleGeneImageLoading = true;
+  degSingleGeneImageLoading = false;
   showDEGSingleGeneImage = false;
 
   // single cancer type
   degSingleCancerTypeImage: any;
   degSingleCancerTypePdfURL: string;
-  degSingleCancerTypeImageLoading = true;
+  degSingleCancerTypeImageLoading = false;
   showdegSingleCancerTypeImage = false;
 
   constructor(private expressionApiService: ExpressionApiService) {}
@@ -80,7 +80,7 @@ export class DegComponent implements OnInit, OnChanges, AfterViewInit {
       this.showDEGTable = false;
       this.showDEGImage = false;
       window.alert(
-        'The differential expression analysis is based on cancer types which have at least ten tumor-normal paired samples, including THCA, KIRP, BLCA, LIHC, HNSC, BRCA, LUAD, PRAD, ESCA, KICH, LUSC, KIRC, STAD and COAD. Please select at least one of these cancer types to get the result of differential analysis. Or you can explore "GSVA score" section which provides expression analysis based on single sample.'
+        'The "GSEA score", "Differential expression", and "Differential GSVA" are based on cancer types with sufficient paired tumor-normal samples (>= 10), including THCA, KIRP, BLCA, LIHC, HNSC, BRCA, LUAD, PRAD, ESCA, KICH, LUSC, KIRC, STAD and COAD. Please select at least one of these cancer types to access these analyses. Or you can explore "GSVA score" section or other sections, which provide gene expression analyses without a limitation on the paired tumor-normal sample size'
       );
     } else {
       //if (this.validCancertype.length < this.searchTerm.cancerTypeSelected.length) {

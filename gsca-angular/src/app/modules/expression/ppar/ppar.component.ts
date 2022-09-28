@@ -43,7 +43,7 @@ export class PparComponent implements OnInit, OnChanges, AfterViewChecked {
 
   // single gene
   RPPASingleGeneImage: any;
-  RPPASingleGeneImageLoading = true;
+  RPPASingleGeneImageLoading = false;
   showRPPASingleGeneImage = false;
   RPPASingleGenePdfURL: string;
 

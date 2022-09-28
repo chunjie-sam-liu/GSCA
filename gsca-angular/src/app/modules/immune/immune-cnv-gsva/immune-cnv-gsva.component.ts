@@ -43,7 +43,7 @@ export class ImmuneCnvGsvaComponent implements OnInit, OnChanges, AfterViewInit 
 
   // single gene cor
   immGenesetCnvCorSingleGeneImage: any;
-  immGenesetCnvCorSingleGeneImageLoading = true;
+  immGenesetCnvCorSingleGeneImageLoading = false;
   showImmGenesetCnvCorSingleGeneImage = false;
   immGenesetCnvCorSingleGenePdfURL: string;
 

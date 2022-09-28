@@ -42,7 +42,7 @@ export class ImmuneMethyComponent implements OnInit, OnChanges, AfterViewInit {
 
   // single gene cor
   immMethyCorSingleGeneImage: any;
-  immMethyCorSingleGeneImageLoading = true;
+  immMethyCorSingleGeneImageLoading = false;
   showImmMethyCorSingleGeneImage = false;
   immMethyCorSingleGenePdfURL: string;
 

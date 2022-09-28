@@ -25,6 +25,7 @@ import { DocMethyComponent } from './methylation/doc-methy/doc-methy.component';
 import { DocSnvComponent } from './snv/doc-snv/doc-snv.component';
 import { DocSnvGenesetSurvivalComponent } from './snv-geneset-survival/doc-snv-geneset-survival/doc-snv-geneset-survival.component';
 import { DocSnvSurvivalComponent } from './snv-survival/doc-snv-survival/doc-snv-survival.component';
+import { GsdbComponent } from './search-box/gsdb/gsdb.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { DocSnvSurvivalComponent } from './snv-survival/doc-snv-survival/doc-snv
     DocSnvComponent,
     DocSnvGenesetSurvivalComponent,
     DocSnvSurvivalComponent,
+    GsdbComponent,
   ],
   imports: [CommonModule, MutationRoutingModule, SharedModule],
 })

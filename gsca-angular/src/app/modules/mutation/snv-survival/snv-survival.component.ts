@@ -52,7 +52,7 @@ export class SnvSurvivalComponent implements OnInit, OnChanges, AfterViewInit {
 
   // single gene survival
   snvSurvivalSingleGeneImage: any;
-  snvSurvivalSingleGeneImageLoading = true;
+  snvSurvivalSingleGeneImageLoading = false;
   showSnvSurvivalSingleGeneImage = false;
   snvSurvivalSingleGenePdfURL: string;
 

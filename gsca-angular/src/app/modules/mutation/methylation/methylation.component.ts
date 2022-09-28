@@ -43,13 +43,13 @@ export class MethylationComponent implements OnInit, OnChanges, AfterViewInit {
 
   // DE methylation single gene
   methySingleGeneImage: any;
-  methySingleGeneImageLoading = true;
+  methySingleGeneImageLoading = false;
   showMethySingleGeneImage = false;
   methySingleGenePdfURL: string;
 
   // DE methylation single cancer
   methySingleCancerImage: any;
-  methySingleCancerImageLoading = true;
+  methySingleCancerImageLoading = false;
   showMethySingleCancerImage = false;
   methySingleCancerPdfURL: string;
 

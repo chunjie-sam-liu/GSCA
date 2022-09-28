@@ -27,9 +27,9 @@
         <button class="export-container" mat-raised-button color="primary" (click)="exportExcel()">Export Table</button>
         <p><span class="phighlight">Please find the attention for using the endpoints in the above help page.</span></p>
 
-        <table mat-table [dataSource]="cnvGenesetSurvivalTable" multiTemplateDataRows>
+        <table mat-table [dataSource]="cnvGenesetSurvivalTable" multiTemplateDataRows matSort>
           <ng-container matColumnDef="{{ column }}" *ngFor="let column of displayedColumnsCnvGenesetSurvival; index as ind">
-            <th mat-header-cell *matHeaderCellDef>{{ displayedColumnsCnvGenesetSurvivalHeader[ind] }}</th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ displayedColumnsCnvGenesetSurvivalHeader[ind] }}</th>
             <td mat-cell *matCellDef="let element">
               <ng-container *ngIf="column === 'cancertype'; then btn; else plain"></ng-container>
               <ng-template #btn>

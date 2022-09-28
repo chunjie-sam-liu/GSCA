@@ -50,7 +50,7 @@ export class SnvComponent implements OnInit, OnChanges, AfterViewInit {
 
   // single gene lolliplot
   snvSingleGeneImage: any;
-  snvSingleGeneImageLoading = true;
+  snvSingleGeneImageLoading = false;
   showSnvSingleGeneImage = false;
   snvSingleGenePdfURL: string;
 

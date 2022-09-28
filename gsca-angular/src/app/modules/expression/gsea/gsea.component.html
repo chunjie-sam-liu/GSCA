@@ -8,7 +8,7 @@
         </mat-card-header>
         <ng-container *ngIf="!dataSourceGSEALoading; else loading"></ng-container>
         <mat-form-field>
-          <input matInput placeholder="Input" (keyup)="applyFilter($event)" #inputGSEA />
+          <input matInput placeholder="Search" (keyup)="applyFilter($event)" #inputGSEA />
           <button mat-icon-button color="warn" matPrefix>
             <mat-icon style="font-weight: bolder">search</mat-icon>
           </button>
@@ -21,9 +21,7 @@
             <td mat-cell *matCellDef="let element">
               <ng-container *ngIf="column === 'cancertype'; then btn; else plain"></ng-container>
               <ng-template #btn>
-                <button mat-raised-button class="expand-button" (click)="expandDetail(element, column)">
-                  {{ element[column] }}
-                </button>
+                <button mat-raised-button class="expand-button" (click)="expandDetail(element, column)">{{ element[column] }}</button>
               </ng-template>
               <ng-template #plain>
                 {{
@@ -72,22 +70,21 @@
         </table>
         <mat-paginator #paginatorGSEA [pageSizeOptions]="[10, 20]" showFirstLastButtons></mat-paginator>
       </mat-card>
-    </ng-container>
-
-    <ng-container *ngIf="showGSEAImage">
-      <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
-        <mat-card-header>
-          <mat-card-title>The summary figure of enrichment score of gene set in the selected cancers.</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-          <ng-container *ngIf="!GSEAImageLoading; else loading">
-            <a mat-button mat-mini-fab color="warn" arial-label="download" [href]="GSEAPdfURL" target="_blank" class="download-button">
-              <mat-icon>cloud_download</mat-icon>
-            </a>
-            <img [src]="GSEAImage" alt="degplot" loading="lazy" />
-          </ng-container>
-        </mat-card-content>
-      </mat-card>
+      <ng-container *ngIf="showGSEAImage">
+        <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
+          <mat-card-header>
+            <mat-card-title>The summary figure of enrichment score of gene set in the selected cancers.</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <ng-container *ngIf="!GSEAImageLoading; else loading">
+              <a mat-button mat-mini-fab color="warn" arial-label="download" [href]="GSEAPdfURL" target="_blank" class="download-button">
+                <mat-icon>cloud_download</mat-icon>
+              </a>
+              <img [src]="GSEAImage" alt="degplot" loading="lazy" />
+            </ng-container>
+          </mat-card-content>
+        </mat-card>
+      </ng-container>
     </ng-container>
   </div>
   <ng-template #loading>

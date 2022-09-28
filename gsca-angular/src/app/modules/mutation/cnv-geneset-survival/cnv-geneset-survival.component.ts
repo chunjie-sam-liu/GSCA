@@ -44,7 +44,7 @@ export class CnvGenesetSurvivalComponent implements OnInit, OnChanges, AfterView
   // single cancertype survival
   cnvGenesetSurvivalResourceUUID: string;
   cnvGenesetSurvivalSingleCancerImage: any;
-  cnvGenesetSurvivalSingleCancerImageLoading = true;
+  cnvGenesetSurvivalSingleCancerImageLoading = false;
   showCnvGenesetSurvivalSingleCancerImage = false;
   cnvGenesetSurvivalSingleCancerPdfURL: string;
 

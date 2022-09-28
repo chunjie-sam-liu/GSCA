@@ -1,3 +1,23 @@
+mat-expansion-panel-header {
+  background-color: thistle;
+}
+mat-expansion-panel {
+  background-color: rgb(236, 228, 236);
+}
+.pred {
+  color: green;
+}
+
+mat-panel-description {
+  font-size: large;
+}
+
+mat-panel-title {
+  color: rgba(0, 0, 0, 0.616);
+  font-weight: bolder;
+  font-size: medium;
+}
+
 .mat-card-title {
   display: inline;
   margin-left: -17px;

@@ -59,7 +59,7 @@ export class SurvivalComponent implements OnInit, OnChanges, AfterViewInit {
 
   // single gene
   survivalSingleGeneImage: any;
-  survivalSingleGeneImageLoading = true;
+  survivalSingleGeneImageLoading = false;
   showSurvivalSingleGeneImage = false;
   survivalSingleGenePdfURL: string;
 

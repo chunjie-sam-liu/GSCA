@@ -8,9 +8,10 @@ import { SearchBoxComponent } from './search-box/search-box.component';
 import { FeatureDiscriptionComponent } from './feature-discription/feature-discription.component';
 import { CitationComponent } from './citation/citation.component';
 import { UpdateLogComponent } from './update-log/update-log.component';
+import { ExpendedLogComponent } from './update-log/expended-log/expended-log.component';
 
 @NgModule({
-  declarations: [DashboardComponent, SearchBoxComponent, FeatureDiscriptionComponent, CitationComponent, UpdateLogComponent],
+  declarations: [DashboardComponent, SearchBoxComponent, FeatureDiscriptionComponent, CitationComponent, UpdateLogComponent, ExpendedLogComponent],
   imports: [CommonModule, DashboardRoutingModule, SharedModule],
 })
 export class DashboardModule {}

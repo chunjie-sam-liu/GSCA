@@ -52,7 +52,7 @@ export class SnvGenesetSurvivalComponent implements OnInit, OnChanges, AfterView
   // single cancertype survival
   snvGenesetSurvivalResourceUUID: string;
   snvGenesetSurvivalSingleCancerImage: any;
-  snvGenesetSurvivalSingleCancerImageLoading = true;
+  snvGenesetSurvivalSingleCancerImageLoading = false;
   showSnvGenesetSurvivalSingleCancerImage = false;
   snvGenesetSurvivalSingleCancerPdfURL: string;
 

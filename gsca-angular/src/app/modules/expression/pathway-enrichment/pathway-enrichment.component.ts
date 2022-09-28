@@ -46,7 +46,7 @@ export class PathwayEnrichmentComponent implements OnInit, OnChanges, AfterViewI
   PaenResourceUUID: string;
   PaenSingleCancerTypeImage: any;
   PaenSingleCancerTypePdfURL: string;
-  PaenSingleCancerTypeImageLoading = true;
+  PaenSingleCancerTypeImageLoading = false;
   showPaenSingleCancerTypeImage = false;
 
   constructor(private expressionApiService: ExpressionApiService) {}
