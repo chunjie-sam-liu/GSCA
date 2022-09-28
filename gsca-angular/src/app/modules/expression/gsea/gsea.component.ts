@@ -42,7 +42,7 @@ export class GseaComponent implements OnInit, OnChanges, AfterViewInit {
   gseaResourceUUID: string;
   gseaSingleCancerTypeImage: any;
   gseaSingleCancerTypePdfURL: string;
-  gseaSingleCancerTypeImageLoading = true;
+  gseaSingleCancerTypeImageLoading = false;
   showgseaSingleCancerTypeImage = false;
 
   constructor(private expressionApiService: ExpressionApiService) {}
