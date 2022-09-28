@@ -60,7 +60,7 @@ export class GseaComponent implements OnInit, OnChanges, AfterViewInit {
       this.showGSEATable = false;
       this.showGSEAImage = false;
       window.alert(
-        'The GSEA enrichment analysis is based on cancer types with sufficient paired tumor-normal samples (>= 10). These cancer types including THCA, KIRP, BLCA, LIHC, HNSC, BRCA, LUAD, PRAD, ESCA, KICH, LUSC, KIRC, STAD and COAD. Or you can explore "GSVA score" section which provides GSVA score for single sample.'
+        'The "GSEA score", "Differential expression", and "Differential GSVA" are based on cancer types with sufficient paired tumor-normal samples (>= 10). These cancer types including THCA, KIRP, BLCA, LIHC, HNSC, BRCA, LUAD, PRAD, ESCA, KICH, LUSC, KIRC, STAD and COAD. Or you can explore "GSVA score" section or other sections, which provides gene expression analysis without a limitation on the paired tumor-normal sample size'
       );
     } else {
       this.expressionApiService.getGSEAAnalysis(postTerm).subscribe(
