@@ -18,9 +18,9 @@
         </mat-form-field>
         <button class="export-container" mat-raised-button color="primary" (click)="exportExcel()">Export Table</button>
         <p><span class="phighlight">Please find the attention for using the endpoints in the above help page.</span></p>
-        <table mat-table [dataSource]="dataSourceGSVASurvival" multiTemplateDataRows>
+        <table mat-table [dataSource]="dataSourceGSVASurvival" multiTemplateDataRows matSort>
           <ng-container matColumnDef="{{ column }}" *ngFor="let column of displayedColumnsGSVASurvival; index as ind">
-            <th mat-header-cell *matHeaderCellDef>{{ displayedColumnsGSVASurvivalHeader[ind] }}</th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ displayedColumnsGSVASurvivalHeader[ind] }}</th>
             <td mat-cell *matCellDef="let element">
               <ng-container *ngIf="column === 'cancertype'; then btn; else plain"></ng-container>
               <ng-template #btn>

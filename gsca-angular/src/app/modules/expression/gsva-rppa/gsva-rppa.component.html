@@ -18,9 +18,9 @@
         </mat-form-field>
         <button class="export-container" mat-raised-button color="primary" (click)="exportExcel()">Export Table</button>
 
-        <table mat-table [dataSource]="dataSourceGSVARPPA" multiTemplateDataRows>
+        <table mat-table [dataSource]="dataSourceGSVARPPA" multiTemplateDataRows matSort>
           <ng-container matColumnDef="{{ column }}" *ngFor="let column of displayedColumnsGSVARPPA; index as ind">
-            <th mat-header-cell *matHeaderCellDef>{{ displayedColumnsGSVARPPAHeader[ind] }}</th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ displayedColumnsGSVARPPAHeader[ind] }}</th>
             <td mat-cell *matCellDef="let element">
               <ng-container *ngIf="column === 'pathway'; then btn; else plain"></ng-container>
               <ng-template #btn>

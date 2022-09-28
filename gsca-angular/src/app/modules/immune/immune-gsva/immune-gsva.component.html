@@ -18,9 +18,9 @@
         </mat-form-field>
         <button class="export-container" mat-raised-button color="primary" (click)="exportExcel()">Export Table</button>
 
-        <table mat-table [dataSource]="dataSourceGSVAImmu" multiTemplateDataRows>
+        <table mat-table [dataSource]="dataSourceGSVAImmu" multiTemplateDataRows matSort>
           <ng-container matColumnDef="{{ column }}" *ngFor="let column of displayedColumnsGSVAImmu; index as ind">
-            <th mat-header-cell *matHeaderCellDef>{{ displayedColumnsGSVAImmuHeader[ind] }}</th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ displayedColumnsGSVAImmuHeader[ind] }}</th>
             <td mat-cell *matCellDef="let element">
               <ng-container *ngIf="column === 'celltype'; then btn; else plain"></ng-container>
               <ng-template #btn>
