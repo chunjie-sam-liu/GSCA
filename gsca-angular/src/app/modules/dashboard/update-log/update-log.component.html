@@ -4,30 +4,21 @@
   </mat-card-header>
   <mat-card-content>
     <mat-selection-list [multiple]="false">
-      <p><span class="blue">2021-11-12</span> Re-calculated methylation & survival results. DETAILS:</p>
-      <p>Corrected several error results. The results after this update shall prevail.</p>
-      <hr />
-      <p><span class="blue">2021-9-14</span> Added DFS and DSS survival results. DETAILS:</p>
-      <p>
-        1) Used DFS and DSS data from
-        <a href="https://www.cell.com/cell/abstract/S0092-8674(18)30229-0" target="_blank">Liu et al., Cell, 2018</a>.
-      </p>
-      <p>2) Supplemented DFS and DSS results.</p>
-      <hr />
-      <p><span class="blue">2021-8-18</span> Updated survival data and results. DETAILS:</p>
-      <p>
-        1) Used OS and PFS data from
-        <a href="https://www.cell.com/cell/abstract/S0092-8674(18)30229-0" target="_blank">Liu et al., Cell, 2018</a>.
-      </p>
-      <p>2) Sample counts were updated.</p>
-      <p>3) Re-calculated all results related to survival using updated survival data. The results after this update shall prevail.</p>
-      <hr />
-      <p><span class="blue">2021-8-18</span> Updated stage data and results. DETAILS:</p>
-      <p>
-        1) Added clinical, igcccg, and masaoka stage data from TCGA database. The previous GSCA used only the pathologic stage for
-        calculation.
-      </p>
-      <p>2) Supplemented stage results using clinical, igcccg, and masaoka stage data.</p>
+      <ul>
+        <li><span class="blue">2022-9-28</span></li>
+        <p>Added sample count information in cancer type selection box of Expression module.</p>
+        <br />
+
+        <li><span class="blue">2022-9-27</span></li>
+        <p>Added a prompt of quick entrance of biological pathway databases to get gene sets.</p>
+        <br />
+
+        <li><span class="blue">2022-9-26</span></li>
+        <p>Corrected grammar errors.</p>
+        <p>Fixed bugs.</p>
+        <p>All tables were sorted.</p>
+      </ul>
     </mat-selection-list>
   </mat-card-content>
+  <app-expended-log fxLayout="row" fxLayout.lt-lg="column" fxLayoutWrap fxLayoutAlign="center"></app-expended-log>
 </mat-card>

@@ -1,0 +1,48 @@
+mat-expansion-panel-header {
+  background-color: thistle;
+}
+mat-expansion-panel {
+  background-color: rgb(236, 228, 236);
+}
+.pred {
+  color: green;
+}
+
+mat-panel-description {
+  font-size: large;
+}
+
+mat-panel-title {
+  color: rgba(0, 0, 0, 0.616);
+  font-weight: bolder;
+  font-size: medium;
+}
+
+.mat-card-title {
+  display: inline;
+  margin-left: -17px;
+  font-size: 22px;
+  font-weight: bolder;
+  /* color: #bb2ccb; */
+}
+mat-list-option {
+  margin-bottom: 0px;
+}
+p {
+  font-size: medium;
+  margin-bottom: 0px;
+  margin-top: 0px;
+}
+
+.mat-list-base .mat-list-item .mat-list-icon,
+.mat-list-base .mat-list-option .mat-list-icon {
+  font-size: 40px;
+  margin-left: -17px;
+  width: 40px;
+  height: 60px;
+  padding: 0px;
+}
+
+span {
+  /* color: #cc51da; */
+}
