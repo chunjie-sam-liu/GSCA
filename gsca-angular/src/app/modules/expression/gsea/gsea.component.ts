@@ -32,6 +32,7 @@ export class GseaComponent implements OnInit, OnChanges, AfterViewInit {
   displayedColumnsGSEAHeader = ['Cancer type', 'ES', 'NES', 'P value', 'P adj.'];
   expandedElement: GSEATableRecord;
   expandedColumn: string;
+  validCancertype: string;
 
   GSEAImage: any;
   GSEAPdfURL: string;
