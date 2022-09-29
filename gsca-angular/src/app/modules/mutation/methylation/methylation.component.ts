@@ -71,6 +71,9 @@ export class MethylationComponent implements OnInit, OnChanges, AfterViewInit {
       this.methyImageLoading = false;
       this.showMethyTable = false;
       this.showMethyImage = false;
+      window.alert(
+        'The "Differential methylation" is based on cancer types with sufficient paired tumor-normal samples (>= 10), including THCA, KIRP, BLCA, LIHC, HNSC, BRCA, LUAD, PRAD, ESCA, KICH, LUSC, KIRC, STAD and COAD. \n\nPlease select at least one of these cancer types to access these analyses. \n\nOr you can explore other methylation analyses'
+      );
     } else {
       // get methyTable
       this.showMethyTable = true;
