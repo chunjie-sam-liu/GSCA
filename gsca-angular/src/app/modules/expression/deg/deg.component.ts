@@ -80,7 +80,7 @@ export class DegComponent implements OnInit, OnChanges, AfterViewInit {
       this.showDEGTable = false;
       this.showDEGImage = false;
       window.alert(
-        'The "GSEA score", "Differential expression", and "Differential GSVA" are based on cancer types with sufficient paired tumor-normal samples (>= 10), including THCA, KIRP, BLCA, LIHC, HNSC, BRCA, LUAD, PRAD, ESCA, KICH, LUSC, KIRC, STAD and COAD. Please select at least one of these cancer types to access these analyses. Or you can explore "GSVA score" section or other sections, which provide gene expression analyses without a limitation on the paired tumor-normal sample size'
+        'The "GSEA score", "Differential expression", and "Differential GSVA" are based on cancer types with sufficient paired tumor-normal samples (>= 10), including THCA, KIRP, BLCA, LIHC, HNSC, BRCA, LUAD, PRAD, ESCA, KICH, LUSC, KIRC, STAD and COAD. \n\nPlease select at least one of these cancer types to access these analyses. \n\nOr you can explore "GSVA score" analysis or other analyses, which provide gene expression analyses without a limitation on the paired tumor-normal sample size'
       );
     } else {
       //if (this.validCancertype.length < this.searchTerm.cancerTypeSelected.length) {
