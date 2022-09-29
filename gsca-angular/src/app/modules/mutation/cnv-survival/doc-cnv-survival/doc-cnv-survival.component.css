@@ -3,6 +3,9 @@ mat-panel-title {
   font-weight: bolder;
   font-size: medium;
 }
+.pred {
+  color: green;
+}
 mat-card-content {
   text-align: center;
 }
