@@ -2,7 +2,7 @@
   <mat-expansion-panel hideToggle>
     <mat-expansion-panel-header>
       <mat-panel-title
-        ><mat-icon class="pred">info</mat-icon>Click here for the detailed description of methods and results.
+        ><mat-icon class="pred">info</mat-icon>Click here for a detailed description of the methods and results.
       </mat-panel-title>
       <mat-panel-description></mat-panel-description>
     </mat-expansion-panel-header>
@@ -14,8 +14,8 @@
       </p>
       <p>
         Merged mRNA expression and clinical survival data by sample barcode, <span class="phighlight">median mRNA value </span>was used to
-        divide tumor samples into high and low expression groups. Then, we use R package survival to fit survival time and survival status
-        within two groups. Cox Proportional-Hazards model and Logrank tests were performed for every gene in every cancer.
+        divide tumor samples into high and low expression groups. Then, we use R package survival to fit the survival time and survival
+        status within two groups. Cox Proportional-Hazards model and Logrank tests were performed for every gene in every cancer.
       </p>
 
       <p><span class="phighlight">There are some suggestions for survival analysis:</span></p>
@@ -28,7 +28,7 @@
           The DFI data are not available for LAML, SKCM, THYM, and UVM.
         </p>
         <li class="lilight">
-          The survival analysis can be performed as long as there are survival events. However, there are few things you should know about
+          The survival analysis can be performed as long as there are survival events. However, there are a few things you should know about
           the endpoints of TCGA OS, PFI, DFI, and DSS data (<a
             href="https://www.cell.com/cell/abstract/S0092-8674(18)30229-0"
             target="_blank"
@@ -56,7 +56,7 @@
         </p>
       </ul>
       <li>Interpretation</li>
-      <p>GSCA provides two forms of results, including the tables and figures.</p>
+      <p>GSCA provides two forms of results, including tables and figures.</p>
       <ul>
         <li>Table:</li>
         <p>
@@ -75,15 +75,15 @@
         <ul>
           <li>Bubble plot:</li>
           <p>
-            This plot presents the Hazard ratio and Cox p value though bubble color and size. The row is the gene set symbol, and column is
-            the selected cancer types. The bubble color from blue to red represents the hazard ratio from low to high, bubble size is
-            positively correlate with the Cox P value significance. Black outline border indicates Cox P value ≤ 0.05.
+            This plot presents the Hazard ratio and Cox p value through bubble color and size. The row is the gene set symbol, and column is
+            the selected cancer types. The bubble color from blue to red represents the hazard ratio from low to high, and bubble size is
+            positively correlated with the Cox P value significance. The black outline border indicates Cox P value ≤ 0.05.
           </p>
 
           <li>Kaplan-Meier curves:</li>
           <p>
-            By clicking any one button in the table, GSCA would draw the Kaplan-Meier curves for high and low expression of specific gene in
-            specific cancer. The genes with Kaplan-Meier Logrank test p-value less than 0.05 would be retained and gathered into final
+            By clicking any one button in the table, GSCA would draw the Kaplan-Meier curves for high and low expression of a specific gene
+            in specific cancer. The genes with Kaplan-Meier Logrank test p-value less than 0.05 would be retained and gathered into final
             figure.
           </p>
         </ul>

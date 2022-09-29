@@ -2,7 +2,7 @@
   <mat-expansion-panel hideToggle>
     <mat-expansion-panel-header>
       <mat-panel-title>
-        <mat-icon class="pred">info</mat-icon> Click here for the detailed description of methods and results.
+        <mat-icon class="pred">info</mat-icon> Click here for a detailed description of the methods and results.
       </mat-panel-title>
       <mat-panel-description></mat-panel-description>
     </mat-expansion-panel-header>
@@ -12,7 +12,7 @@
       <p>The SNV data of 10234 samples from 33 cancer types were collected from TCGA database.</p>
       <p>
         <span class="phighlight">Seven types</span> of mutation were included in this analysis: Missense_Mutation, Nonsense_Mutation,
-        Frame_Shift_Ins, Splice_Site, Frame_Shift_Del, In_Frame_Del, In_Frame_Ins. We call these types of mutations as
+        Frame_Shift_Ins, Splice_Site, Frame_Shift_Del, In_Frame_Del, In_Frame_Ins. We call these types of mutations
         <span class="phighlight">deleterious mutations</span>. And the non-deleterious mutations include Silent, Intron, IGR, 3'UTR, 5'UTR,
         3'Flank, and 5'Flank.
       </p>
@@ -25,10 +25,8 @@
           The table presents detailed information about Cancer type, Gene symbol, deleterious mutation, Non-deleterious mutation, Total
           sample size and Percentage.
         </p>
-        <p>
-          Deleterious mutation: the number of samples that have at least one deleterious mutation site on the region of a specific gene.
-        </p>
-        <p>Non-deleterious mutation: the number of samples that have non-deleterious mutation site on the region of a specific gene.</p>
+        <p>Deleterious mutation: the number of samples with at least one deleterious mutation site on the region of a specific gene.</p>
+        <p>Non-deleterious mutation: the number of samples with a non-deleterious mutation site on the region of a specific gene.</p>
         <p>Total sample size: the number of samples with SNV mutation data.</p>
         <p>Percentage: the percentage of samples with deleterious mutations.</p>
 
@@ -36,15 +34,15 @@
         <ul>
           <li>Lollipop plot:</li>
           <p>
-            By clicking the gene symbol button, GSCA will give you a lollipop plot which presents the mutation site, type and count of a
+            By clicking the gene symbol button, GSCA will give you a lollipop plot that presents the mutation site, type and count of a
             specific gene in the sample set of a specific cancer type.
           </p>
 
           <li>Percentage heatmap:</li>
-          <p>Heatmap summarizes the frequency of deleterious mutations in selected caner types.</p>
+          <p>Heatmap summarizes the frequency of deleterious mutations in selected cancer types.</p>
 
           <li>Summary plot:</li>
-          <p>This plot summarizes the count and type of variants in sample and gene levels.</p>
+          <p>This plot summarizes the count and type of variants in the sample and gene levels.</p>
           <p>
             Plot 1 (Variant Classification): the count of each type of deleterious mutation (Missense_Mutation, Nonsense_Mutation,
             Frame_Shift_Ins, Splice_Site, Frame_Shift_Del, In_Frame_Del, In_Frame_Ins) of inputted gene set in selected cancer types.
@@ -52,8 +50,8 @@
           <p>Plot 2 (Variant Type): the SNP and DEL count of inputted gene set in selected cancer types.</p>
           <p>Plot 3 (SNV class): the count of each SNV class of inputted gene set ins selected cancer types.</p>
           <p>
-            Plot 4 (Variants per sample): the count of variants in each sample. One bar indicates a sample, and the color of bar corresponds
-            to the color of variant classification.
+            Plot 4 (Variants per sample): the count of variants in each sample. One bar indicates a sample, and the color of the bar
+            corresponds to the color of variant classification.
           </p>
           <p>
             Plot 5 (Variant Classification summary): box plot shows the distribution of the count of each variant classification in the
@@ -68,8 +66,8 @@
           </p>
           <p>
             <span class="phighlight"
-              >Note that in this plot, only samples that have at least one SNV are included. The following plot shows that top 10 genes are
-              altered in 213 samples, and 251 samples have at least one SNV in input gene set.</span
+              >In this plot, only samples that have at least one SNV are included. The following plot shows that the top 10 genes are
+              altered in 213 samples, and 251 samples have at least one SNV in the input gene set.</span
             >
           </p>
           <div fxLayout="row" fxLayoutAlign="center center">
@@ -79,11 +77,11 @@
           <li>Titv plot:</li>
           <p>
             Classifies the mutations into Transitions(Ti) and transversions(Tv). <span class="phighlight">Transitions</span> are
-            interchanges of two-ring purines (A<->G) or of one-ring pyrimidines (C<->T):therefore, they involve bases of similar shapes.
+            interchanges of two-ring purines (A<->G) or of one-ring pyrimidines (C<->T): therefore, they involve bases of similar shapes.
             <span class="phighlight">Transversions</span> are interchanges of a purine for pyrimidine bases, which involve the exchange of
             one-ring and two-ring structures. Although there are twice as many possible transversions,
-            <span class="phighlight">transition mutations are generated at higher frequency than transversions in whole gene</span> because
-            of the molecular mechanisms by which they are generated. As well, transitions are less likely to result in amino acid
+            <span class="phighlight">transition mutations are generated at a higher frequency than transversions in the whole gene</span>
+            because of the molecular mechanisms by which they are generated. As well, transitions are less likely to result in amino acid
             substitutions (due to "wobble") and are therefore more likely to persist as "silent substitutions" in populations as single
             nucleotide polymorphisms (SNPs).
           </p>

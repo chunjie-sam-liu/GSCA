@@ -3,12 +3,12 @@
     <mat-expansion-panel-header>
       <mat-panel-title>
         <mat-icon class="pred">info</mat-icon>
-        Click here for the detailed description of methods and results.
+        Click here for a detailed description of the methods and results.
       </mat-panel-title>
       <mat-panel-description></mat-panel-description>
     </mat-expansion-panel-header>
     <ul>
-      <p>This module analyze the relationship between CNV and mRNA expression through correlation analysis.</p>
+      <p>This module analyzes the relationship between CNV and mRNA expression through correlation analysis.</p>
       <li>Methods</li>
       <p>
         The RSEM normalized mRNA expression data and CNV data were downloaded from TCGA database. The mRNA expression data and CNV raw data
@@ -25,27 +25,27 @@
       </p>
 
       <li>Interpretation</li>
-      <p>GSCA provides two forms of results, including the tables and figures.</p>
+      <p>GSCA provides two forms of results, including tables and figures.</p>
 
       <ul>
         <li>Table:</li>
         <p>The table presents detailed information about Cancer type, Gene symbol, Spearman correlation and FDR.</p>
         <p>Spearman correlation indicates the correlation coefficient.</p>
-        <p>FDR indicates the adjusted P value using FDR method.</p>
+        <p>FDR indicates the adjusted P value using the FDR method.</p>
 
         <li>GSCA provides result figures, including:</li>
         <ul>
           <li>Scatter plot:</li>
           <p>
             By clicking the gene symbol buttons in the result table, a scatter plot will show you the detailed relationship between mRNA
-            expression and CNV, with fitted line.
+            expression and CNV, with a fitted line.
           </p>
 
           <li>Bubble plot:</li>
           <p>
-            Bubble plot represents the profile between inputted genes’ mRNA expression and CNV level. Blue bubbles represent negative
+            The Bubble plot represents the profile between inputted genes’ mRNA expression and CNV level. Blue bubbles represent negative
             correlations, red bubbles represent positive correlations, the deeper of the color, the higher of the correlation. Bubble size
-            is positively correlated with the FDR significance. Black outline border indicates FDR ≤ 0.05.
+            is positively correlated with the FDR significance. The black outline border indicates FDR ≤ 0.05.
           </p>
         </ul>
       </ul>

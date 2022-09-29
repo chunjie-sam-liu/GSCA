@@ -2,7 +2,7 @@
   <mat-expansion-panel hideToggle>
     <mat-expansion-panel-header>
       <mat-panel-title>
-        <mat-icon class="pred">info</mat-icon>Click here for the detailed description of methods and results.
+        <mat-icon class="pred">info</mat-icon>Click here for a detailed description of the methods and results.
       </mat-panel-title>
       <mat-panel-description></mat-panel-description>
     </mat-expansion-panel-header>
@@ -26,7 +26,7 @@
         into high and low methylation groups.
       </p>
       <p>
-        <span class="phighlight">R package survival</span> was used to fit survival time and survival status within two groups.
+        <span class="phighlight">R package survival</span> was used to fit the survival time and survival status within two groups.
         <span class="phighlight">Cox Proportional-Hazards</span> model was constructed to get the risk ratio (Hazard ratio) of high
         methylation group compared with the low methylation group. A <span class="phighlight">Logrank test</span> was performed to test
         whether the survival difference between the groups is statistically significant.
@@ -41,7 +41,7 @@
           The DFI data are not available for LAML, SKCM, THYM, and UVM.
         </p>
         <li class="lilight">
-          The survival analysis can be performed as long as there are survival events. However, there are few things you should know about
+          The survival analysis can be performed as long as there are survival events. However, there are a few things you should know about
           the endpoints of TCGA OS, PFI, DFI, and DSS data (<a
             href="https://www.cell.com/cell/abstract/S0092-8674(18)30229-0"
             target="_blank"
@@ -70,7 +70,7 @@
       </ul>
 
       <li>Interpretation</li>
-      <p>GSCA provides two forms of results, including the tables and figures.</p>
+      <p>GSCA provides two forms of results, including tables and figures.</p>
 
       <ul>
         <li>The result table:</li>
@@ -90,15 +90,15 @@
         <ul>
           <li>Bubble plot:</li>
           <p>
-            This plot presents the Hazard ratio and Cox p value through bubble color and size. The column is gene symbols and row is the
+            This plot presents the Hazard ratio and Cox p value through bubble color and size. The column is gene symbols and the row is the
             selected cancer types. The bubble color from blue to red represents the hazard ratio from low to high, the bubble size is
-            positively correlate with the Cox P value significance. Black outline border indicates Cox P value ≤ 0.05.
+            positively correlate with the Cox P value significance. The black outline border indicates Cox P value ≤ 0.05.
           </p>
 
           <li>Kaplan-Meier curves:</li>
           <p>
-            By clicking any one button in the table, GSCA would draw the Kaplan-Meier curves for the methylation groups of specific gene in
-            specific cancer.
+            By clicking any one button in the table, GSCA would draw the Kaplan-Meier curves for the methylation groups of a specific gene
+            in specific cancer.
           </p>
         </ul>
       </ul>

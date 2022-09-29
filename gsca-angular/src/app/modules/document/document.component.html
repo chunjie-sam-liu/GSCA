@@ -217,7 +217,7 @@
                 <li>Stage and expression</li>
                 <p>
                   This module estimates the change of expression between stages (from stage I to IV). The bubble color and the bubble size
-                  represent the FDR significance. Black outline border indicates FDR ≤ 0.05. Users can found that PODXL is significantly
+                  represent the FDR significance. The black outline border indicates FDR ≤ 0.05. Users can found that PODXL is significantly
                   different among stage in KIRC.
                 </p>
                 <div fxLayout="row" fxLayoutAlign="center center">
@@ -265,8 +265,8 @@
                 <p>This module estimates the survival (OS, PFS, DSS, and DFI) difference between high and low gene expression groups.</p>
                 <p>
                   The color from blue to red represents the hazard ratio, size represents statistical significance in
-                  <span class="phighlight">bubble plot</span>. Black outline border indicates Cox P ≤ 0.05. Users can find that SLC4A7 is
-                  significantly associated with KICH patients’ OS.
+                  <span class="phighlight">bubble plot</span>. The black outline border indicates Cox P ≤ 0.05. Users can find that SLC4A7
+                  is significantly associated with KICH patients’ OS.
                 </p>
                 <div fxLayout="row" fxLayoutAlign="center center">
                   <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'exprsurvival.png'" alt="survivalsummary" />
@@ -379,8 +379,8 @@
             <p>
               In modules provide single gene level analysis, <span class="phighlight">bubble plot</span> presents the summary of the
               correlation for each cancer. The bubble color from blue to red represents the correlation. Bubble size are correlate with FDR
-              significance. Black outline border indicates FDR ≤ 0.05. By clicking gene symbol buttons in tables, users can get the detailed
-              result of single gene through scatter plot with fitting line (mRNA expression, CNV and methylation), or
+              significance. The black outline border indicates FDR ≤ 0.05. By clicking gene symbol buttons in the tables, users can get the
+              detailed result of single gene through scatter plot with fitting line (mRNA expression, CNV and methylation), or
               <span class="phighlight">boxplot</span>(SNV).
             </p>
             <div fxLayout="row" fxLayoutAlign="center center">
@@ -441,7 +441,7 @@
                     <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'lollipop.png'" alt="Lollipop" />
                   </div>
 
-                  <li>The heatmap summarizes the frequency of deleterious mutations in selected caner types.</li>
+                  <li>The heatmap summarizes the frequency of deleterious mutations in selected cancer types.</li>
                   <br />
                   <div fxLayout="row" fxLayoutAlign="center center">
                     <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'SNV.png'" alt="snvheatmap" />
@@ -474,9 +474,9 @@
                     num of gene set <10, show all) mutated genes in your gene set and a SNV classification of SNV types
                   </li>
                   <p>
-                    Also provides the classification of SNV types. Note that in this plot, only samples have at least one SNV are included.
-                    As the following plot showing that top 10 genes are altered in 213 samples, and there are 251 samples have at least one
-                    SNV in input gene set.
+                    Also provides the classification of SNV types. In this plot, only samples have at least one SNV are included. As the
+                    following plot showing that the top 10 genes are altered in 213 samples, and there are 251 samples have at least one SNV
+                    in input gene set.
                   </p>
                   <br />
                   <div fxLayout="row" fxLayoutAlign="center center">
@@ -490,8 +490,8 @@
                   <p>
                     Plot 1(upper left) using box plot shows the distribution of SVN class of inputted gene set in the sample set of selected
                     cancer types. Note that in most cases, one type of SNV class could not exist in more than half of samples. Therefore,
-                    the median value (thick black line) of box plot generally locate at 0, especially when the size of inputted gene set is
-                    small or when the frequency of SNV of gene set is low.
+                    the box plot's median value (thick black line) generally locate at 0, especially when the size of inputted gene set is
+                    small or when the frequency of SNV of the gene set is low.
                   </p>
                   <p>
                     Plot 2(upper right) using box plot shows the distribution of Ti (A<->G and C<->T) and Tv (others) of inputted gene set
@@ -506,7 +506,7 @@
                 <p>Survival analysis was performed for groups with > 2 samples. And at least 2 groups are needed.</p>
                 <p>
                   This function provide survival analysis between mutant and wide type. The color from blue to red represents the hazard
-                  ratio, size represents statistical significance in <span class="phighlight">bubble plot</span>. Black outline border
+                  ratio, size represents statistical significance in <span class="phighlight">bubble plot</span>. The black outline border
                   indicates Cox P ≤ 0.05. Here, there are no significant results.
                 </p>
                 <div fxLayout="row" fxLayoutAlign="center center">
@@ -562,8 +562,8 @@
                   </div>
 
                   <li>
-                    CNV pie plot gives you a global profile that shows the constitute of Heterozygous/Homozygous CNV of each gene in each
-                    cancer. A pie represents the proportion of different types of CNV of one gene in one cancer, and different color
+                    CNV pie plot gives you a global profile that shows the constitute of the Heterozygous/Homozygous CNV of each gene in
+                    each cancer. A pie represents the proportion of different types of CNV of one gene in one cancer, and different color
                     represent different types of CNV.
                   </li>
                   <br />
@@ -616,7 +616,7 @@
 
                 <li>Single gene CNV and survival</li>
                 <p>
-                  This function provides summary and single gene survival result between CNV and wide type. The color from blue to red and
+                  This function provides a summary and single gene survival result between CNV and wide type. The color from blue to red and
                   the bubble size represent the statistical significance in <span class="phighlight">bubble plot</span>. Black outline
                   border indicates Logrank P ≤ 0.05.
                 </p>
@@ -637,7 +637,7 @@
                 <p>This part estimate the survival difference between gene set CNV groups (amplification, deletion and wide type)</p>
                 <p>
                   The color from blue to red, and the bubble size represent the statistical significance in
-                  <span class="phighlight">bubble plot</span>. Black outline border indicates Logrank P ≤ 0.05. Here, there are no
+                  <span class="phighlight">bubble plot</span>. The black outline border indicates Logrank P ≤ 0.05. Here, there are no
                   significant results.
                 </p>
                 <div fxLayout="row" fxLayoutAlign="center center">
@@ -703,9 +703,9 @@
 
                 <li>Methylation and survival</li>
                 <p>
-                  This module provides summary and single gene survival result between high and low methylation. In
+                  This module provides a summary and single gene survival result between high and low methylation. In
                   <span class="phighlight">bubble plot</span>, the color from blue to red correlates with the hazard ratio, the bubble size
-                  represents statistical significance. Black outline border indicates Cox P ≤ 0.05.
+                  represents statistical significance. The black outline border indicates Cox P ≤ 0.05.
                 </p>
                 <div fxLayout="row" fxLayoutAlign="center center">
                   <img mat-card-image [src]="assets + '/imgs/doc_pic/' + 'methysurvival.png'" alt="methysurvival" />

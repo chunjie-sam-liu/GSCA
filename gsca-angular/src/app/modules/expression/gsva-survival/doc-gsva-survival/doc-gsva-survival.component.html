@@ -2,7 +2,7 @@
   <mat-expansion-panel hideToggle>
     <mat-expansion-panel-header>
       <mat-panel-title>
-        <mat-icon class="pred">info</mat-icon>Click here for the detailed description of methods and results.
+        <mat-icon class="pred">info</mat-icon>Click here for a detailed description of the methods and results.
       </mat-panel-title>
       <mat-panel-description></mat-panel-description>
     </mat-expansion-panel-header>
@@ -19,7 +19,7 @@
       <p>
         GSVA score and clinical survival data were merged by sample barcode, median GSVA score was used to divide tumor samples into high
         and low GSVA score groups. Then, R package
-        <span class="phighlight">survival</span> was used to fit survival time and survival status of two groups.
+        <span class="phighlight">survival</span> was used to fit the survival time and survival status of two groups.
         <span class="phighlight">Cox Proportional-Hazards</span> model and <span class="phighlight">Logrank tests</span> were performed.
       </p>
       <p>
@@ -28,7 +28,7 @@
         <a href="https://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-14-7" target="_blank">GSVA.</a>
         Briefly,
         <span class="phighlight"
-          >the GSVA score represents the integrated level of the expression of gene set, which is positively correlate with gene
+          >the GSVA score represents the integrated level of the expression of gene set, which is positively correlated with gene
           expression</span
         >.
       </p>
@@ -42,31 +42,31 @@
           The DFI data are not available for LAML, SKCM, THYM, and UVM.
         </p>
         <li class="lilight">
-          Whne using the endpoints of OS, PFI, DFI, and DSS , please note the following information (Ref:
+          When using the endpoints of OS, PFI, DFI, and DSS , please note the following information (Ref:
           <a href="https://www.cell.com/cell/abstract/S0092-8674(18)30229-0" target="_blank">Liu et al., Cell, 2018</a>):
         </li>
         <p>
-          ACC: number of events is small; <br />
-          BRCA: need a longer follow-up for OS and DSS; <br />
-          CHOL: sample size is too small for OS, DSS, DFI, and PFI; <br />
-          DLBC: sample size and number of events are too small, and need a longer follow-up; <br />
-          GBM: number of disease-free cases is small;<br />
-          KICH: number of events is too small, and need a longer follow-up; <br />
-          KIRC: number of events is small; <br />
-          LGG: need a longer follow-up for OS and DSS; <br />
-          LIHC: need a longer follow-up DSS; <br />
-          MESO: sample size for DFI is small; <br />
-          PCPG: need a longer follow-up for OS, DSS, DFI, and PFI; number of events is small; <br />
-          PRAD: need a longer follow-up for OS and DSS;<br />
-          READ: need a longer follow-up for OS, DSS, and DFI; number of events for DFI is too small; <br />
-          TGCT: number of events is small for OS and DSS; need a longer follow-up; <br />
-          THCA: number of events is small for OS and DSS; need a longer follow-up; <br />
-          THYM: number of events is too small for OS and DSS; need a longer follow-up; <br />
-          UCS: sample size is small.<br />
+          ACC: The number of events is small; <br />
+          BRCA: These samples require a longer follow-up for OS and DSS; <br />
+          CHOL: The sample size is too small for OS, DSS, DFI, and PFI; <br />
+          DLBC: The sample size and number of events are too small, and these events require a longer follow-up; <br />
+          GBM: The number of disease-free cases is small;<br />
+          KICH: The number of events is too small, and these events require a longer follow-up; <br />
+          KIRC: The number of events is small; <br />
+          LGG: These samples need a longer follow-up for OS and DSS; <br />
+          LIHC: These samples need a longer follow-up DSS; <br />
+          MESO: The sample size for DFI is small; <br />
+          PCPG: These samples need a longer follow-up for OS, DSS, DFI, and PFI. The number of events is small; <br />
+          PRAD: These samples need a longer follow-up for OS and DSS;<br />
+          READ: These samples need a longer follow-up for OS, DSS, and DFI. The number of events for DFI is too small; <br />
+          TGCT: The number of events is small for OS and DSS, and these events need a longer follow-up; <br />
+          THCA: The number of events is small for OS and DSS, and these events need a longer follow-up; <br />
+          THYM: The number of events is too small for OS and DSS, and these events need a longer follow-up; <br />
+          UCS: The sample size is small.<br />
         </p>
       </ul>
       <li>Interpretation</li>
-      <p>GSCA provides two forms of results, including the tables and figures.</p>
+      <p>GSCA provides two forms of results, including tables and figures.</p>
       <ul>
         <li>Table:</li>
         <p>
@@ -81,8 +81,8 @@
         <ul>
           <li>Bubble plot:</li>
           <p>
-            This plot presents the Hazard ratio and Cox p value though bubble color and size. The row is the survival type and the column is
-            the selected cancer types. The bubble color from blue to red represents the hazard ratio from low to high; the bubble size is
+            This plot presents the Hazard ratio and Cox p value through bubble color and size. The row is the survival type and the column
+            is the selected cancer types. The bubble color from blue to red represents the hazard ratio from low to high; the bubble size is
             positively correlate with the Cox P value significance. The black outline border of bubbles indicates Cox P value ≤ 0.05.
           </p>
           <li>Kaplan-Meier curves:</li>

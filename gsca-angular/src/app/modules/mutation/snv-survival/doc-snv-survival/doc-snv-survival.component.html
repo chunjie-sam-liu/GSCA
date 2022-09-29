@@ -2,7 +2,7 @@
   <mat-expansion-panel hideToggle>
     <mat-expansion-panel-header>
       <mat-panel-title>
-        <mat-icon class="pred">info</mat-icon>Click here for the detailed description of methods and results.
+        <mat-icon class="pred">info</mat-icon>Click here for a detailed description of the methods and results.
       </mat-panel-title>
       <mat-panel-description></mat-panel-description>
     </mat-expansion-panel-header>
@@ -23,7 +23,7 @@
         needed.
       </p>
       <p>
-        <span class="phighlight">R package survival </span>was used to fit survival time and survival status within groups.
+        <span class="phighlight">R package survival </span>was used to fit the survival time and survival status within groups.
         <span class="phighlight">Cox Proportional-Hazards model and Logrank tests</span> were performed to test the survival difference
         between the WT and Mutant groups.
       </p>
@@ -37,7 +37,7 @@
           The DFI data are not available for LAML, SKCM, THYM, and UVM.
         </p>
         <li class="lilight">
-          The survival analysis can be performed as long as there are survival events. However, there are few things you should know about
+          The survival analysis can be performed as long as there are survival events. However, there are a few things you should know about
           the endpoints of TCGA OS, PFI, DFI, and DSS data (<a
             href="https://www.cell.com/cell/abstract/S0092-8674(18)30229-0"
             target="_blank"
@@ -65,7 +65,7 @@
         </p>
       </ul>
       <li>Interpretation</li>
-      <p>GSCA provides two forms of results, including the tables and figures.</p>
+      <p>GSCA provides two forms of results, including tables and figures.</p>
 
       <ul>
         <li>Table:</li>
@@ -77,11 +77,11 @@
         <p>
           The 'Higher risk of death' indicates the group with a higher risk of death. When the
           <span class="phighlight">Hazard ratio</span> of the Mutant group compared with the low WT group is
-          <span class="phighlight">greater than 1</span>, we think the Mutant group has a higher risk of death, and else WT group has a
+          <span class="phighlight">greater than 1</span>, we think the Mutant group has a higher risk of death, and else the WT group has a
           higher risk of death. When the warning of 'Not applicable' comes up in the column of 'Higher risk of death', there is no hazard
           ratio result for judgment.
         </p>
-        <p>Note that the users may <span class="phighlight">get the the warning of 'Not applicable'</span> in several cases, including:</p>
+        <p>Note that the users may <span class="phighlight">get the warning of 'Not applicable'</span> in several cases, including:</p>
         <ul>
           <li class="lilight">
             1. The OS data are available for all cancer types, while survival analysis for OS is not recommended for DLBC, PCPG, TGCT, and
@@ -102,7 +102,7 @@
             and READ.
           </li>
           <li class="lilight">
-            5. There are not enough samples (two groups and more than two samples in each groups are needed) used for survival comparing
+            5. There are not enough samples (two groups and more than two samples in each group are needed) used for survival comparing
             analysis if a gene lacks enough mutation.
           </li>
           <li class="lilight">6. HR equal to 1.</li>
@@ -113,14 +113,14 @@
           <li>Kaplan-Meier curves:</li>
           <p>
             By clicking any one button in the table, GSCA would draw Kaplan-Meier curves for the WT and Mutant (deleterious mutation) groups
-            of specific gene in specific cancer.
+            of a specific gene in specific cancer.
           </p>
 
           <li>Bubble plot:</li>
           <p>
-            This plot presents the Hazard ratio and Cox p value though bubble color and size. The column is the gene set symbol and row is
-            the selected cancer types. The bubble color from blue to red represents the hazard ratio from low to high, bubble size is
-            positively correlate with the Cox P value significance. Black outline border indicates Cox P value ≤ 0.05.
+            This plot presents the Hazard ratio and Cox p value through bubble color and size. The column is the gene set symbol, and the
+            row is the selected cancer types. The bubble color from blue to red represents the hazard ratio from low to high, and bubble
+            size is positively correlated with the Cox P value significance. The black outline border indicates Cox P value ≤ 0.05.
           </p>
         </ul>
       </ul>

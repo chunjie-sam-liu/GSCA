@@ -2,12 +2,12 @@
   <mat-expansion-panel hideToggle>
     <mat-expansion-panel-header>
       <mat-panel-title>
-        <mat-icon class="pred">info</mat-icon> Click here for the detailed description of methods and results.
+        <mat-icon class="pred">info</mat-icon> Click here for a detailed description of the methods and results.
       </mat-panel-title>
       <mat-panel-description></mat-panel-description>
     </mat-expansion-panel-header>
     <ul>
-      <p>Gene set CNV & survival module provides summary of survival between gene set CNV and wide type.</p>
+      <p>Gene set CNV & survival module provides a summary of survival between gene set CNV and wide type.</p>
       <li>Methods</li>
       <p>
         The clinical survival data and CNV data were downloaded from TCGA database. And the CNV data and clinical survival data were merged
@@ -17,7 +17,7 @@
       <p>
         The gene set CNV represents the <span class="phighlight">integrated CNV status</span> of inputted gene set for each sample. A sample
         is classified into Amp. or Dele. group only when at least one gene in the input gene set is consistently amplified or deleted in
-        this sample. If all genes in inputted gene set have no CNV in a sample, this sample is classified into WT group. When genes have
+        this sample. If all genes in inputted gene set have no CNV in a sample, this sample is classified into the WT group. When genes have
         inconsistent CNV status, for example, gene A was amplified in sample 1, gene B was deleted in sample 1, then sample 1 will be
         classified in Excluded group, which will not be considered in this analysis.
       </p>
@@ -26,7 +26,7 @@
         samples were also remained to draw survival curve.
       </p>
       <p>
-        <span class="phighlight">R package survival </span>was used to fit survival time and survival status within gene set CNV groups.
+        <span class="phighlight">R package survival </span>was used to fit the survival time and survival status within gene set CNV groups.
         <span class="phighlight">Logrank test</span> was performed to test the survival difference between groups.
       </p>
       <p><span class="phighlight">There are some suggestions for survival analysis:</span></p>
@@ -39,7 +39,7 @@
           The DFI data are not available for LAML, SKCM, THYM, and UVM.
         </p>
         <li class="lilight">
-          The survival analysis can be performed as long as there are survival events. However, there are few things you should know about
+          The survival analysis can be performed as long as there are survival events. However, there are a few things you should know about
           the endpoints of TCGA OS, PFI, DFI, and DSS data (<a
             href="https://www.cell.com/cell/abstract/S0092-8674(18)30229-0"
             target="_blank"
@@ -47,28 +47,28 @@
           >).
         </li>
         <p>
-          ACC: number of events is small; <br />
-          BRCA: need a longer follow-up for OS and DSS; <br />
-          CHOL: sample size is too small for OS, DSS, DFI, and PFI; <br />
-          DLBC: sample size and number of events are too small, and need a longer follow-up; <br />
-          GBM: number of disease-free cases is small;<br />
-          KICH: number of events is too small, and need a longer follow-up; <br />
-          KIRC: number of events is small; <br />
-          LGG: need a longer follow-up for OS and DSS; <br />
-          LIHC: need a longer follow-up DSS; <br />
-          MESO: sample size for DFI is small; <br />
-          PCPG: need a longer follow-up for OS, DSS, DFI, and PFI; number of events is small; <br />
-          PRAD: need a longer follow-up for OS and DSS;<br />
-          READ: need a longer follow-up for OS, DSS, and DFI; number of events for DFI is too small; <br />
-          TGCT: number of events is small for OS and DSS; need a longer follow-up; <br />
-          THCA: number of events is small for OS and DSS; need a longer follow-up; <br />
-          THYM: number of events is too small for OS and DSS; need a longer follow-up; <br />
-          UCS: sample size is small.<br />
+          ACC: The number of events is small; <br />
+          BRCA: These samples need a longer follow-up for OS and DSS; <br />
+          CHOL: The sample size is too small for OS, DSS, DFI, and PFI; <br />
+          DLBC: The sample size and number of events are too small, and these events need a longer follow-up; <br />
+          GBM: The number of disease-free cases is small;<br />
+          KICH: The number of events is too small, and these events need a longer follow-up; <br />
+          KIRC: The number of events is small; <br />
+          LGG: These samples need a longer follow-up for OS and DSS; <br />
+          LIHC: These samples need a longer follow-up DSS; <br />
+          MESO: The sample size for DFI is small; <br />
+          PCPG: These samples need a longer follow-up for OS, DSS, DFI, and PFI. The number of events is small; <br />
+          PRAD: These samples need a longer follow-up for OS and DSS;<br />
+          READ: These samples need a longer follow-up for OS, DSS, and DFI. The number of events for DFI is too small; <br />
+          TGCT: The number of events is small for OS and DSS, and these evens need a longer follow-up; <br />
+          THCA: The number of events is small for OS and DSS, and these events need a longer follow-up; <br />
+          THYM: The number of events is too small for OS and DSS, and these evens need a longer follow-up; <br />
+          UCS: The sample size is small.<br />
         </p>
       </ul>
 
       <li>Interpretation</li>
-      <p>GSCA provides two forms of results, including the tables and figures.</p>
+      <p>GSCA provides two forms of results, including tables and figures.</p>
 
       <ul>
         <li>Table:</li>
@@ -80,13 +80,14 @@
         <li>GSCA provides result figures, including:</li>
         <ul>
           <li>Kaplan-Meier curves:</li>
-          <p>By clicking any one button in table, GSCA would draw the Kaplan-Meier curves between groups in specific cancer.</p>
+          <p>By clicking any one button in the table, GSCA would draw the Kaplan-Meier curves between groups in specific cancer.</p>
 
           <li>Bubble plot:</li>
           <p>
             This plot presents the Logrank p value through bubble color and size. The column is selected cancer types and the row is
             survival type (OS, PFS, DSS, and DFI). The bubble color from blue to red represents the hazard ratio from low to high, bubble
-            size is positively correlate with the significance of Logrank P value. Black outline border indicates Logrank P value ≤ 0.05.
+            size is positively correlated with the significance of Logrank P value. The black outline border indicates Logrank P value ≤
+            0.05.
           </p>
         </ul>
       </ul>

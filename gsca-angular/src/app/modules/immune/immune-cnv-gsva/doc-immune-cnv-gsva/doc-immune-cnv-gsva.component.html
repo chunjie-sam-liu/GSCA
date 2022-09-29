@@ -2,7 +2,7 @@
   <mat-expansion-panel hideToggle>
     <mat-expansion-panel-header>
       <mat-panel-title>
-        <mat-icon class="pred">info</mat-icon>Click here for the detailed description of methods and results.
+        <mat-icon class="pred">info</mat-icon>Click here for a detailed description of the methods and results.
       </mat-panel-title>
       <mat-panel-description>Immune infiltration & Gene set CNV</mat-panel-description>
     </mat-expansion-panel-header>
@@ -19,7 +19,7 @@
       <p>
         The gene set CNV represents the <span class="phighlight">integrated CNV status</span> of inputted gene set for each sample. A sample
         is classified into Amp. or Dele. group only when at least one gene in the input gene set is consistently amplified or deleted in
-        this sample. If all genes in inputted gene set have no CNV in a sample, this sample is classified into WT group. When genes have
+        this sample. If all genes in inputted gene set have no CNV in a sample, this sample is classified into the WT group. When genes have
         inconsistent CNV status, for example, gene A was amplified in sample 1, gene B was deleted in sample 1, then sample 1 will be
         classified in Excluded group, which will not be considered in this analysis.
       </p>
@@ -29,7 +29,7 @@
         FDR.
       </p>
       <li>Interpretation</li>
-      <p>This module provides two forms of results, including the tables and figures.</p>
+      <p>This module provides two forms of results, including tables and figures.</p>
       <p class="phighlight">
         Note that input too much genes will make it difficult to interpret the gene set CNV result. Genes with functional relationship will
         be better for interpretation. It is worth noting that in some cases, a few genes in a gene set may have much higher frequency of CNV
@@ -39,7 +39,7 @@
         <li>Table:</li>
         <p>The table presents detailed information about Cancer type, Cell type, P value, FDR and Method.</p>
         <p>
-          Cell type: the immune cell type, including Dendritic cell and B cell et al., please find the detailed information on
+          Cell type: there are 24 types immune cell, such as Dendritic cell and B cell et al., more details are available on
           <a href="http://bioinfo.life.hust.edu.cn/GSCA/#/document">document</a>
         </p>
         <p>P value: the P value of Wilcoxon test or One way ANOVA test.</p>
@@ -53,7 +53,7 @@
             Using color to indicate the P value significant (green) and FDR significant (red) results.
           </p>
           <li>Box plot:</li>
-          <p>By clicking Cell type buttons in tables, users can get the distribution of immune infiltrate between CNV groups.</p>
+          <p>By clicking Cell type buttons in the tables, users can get the distribution of immune infiltrate between CNV groups.</p>
         </ul>
       </ul>
     </ul>
