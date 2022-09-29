@@ -53,6 +53,7 @@ export class GseaComponent implements OnInit, OnChanges, AfterViewInit {
     this.dataSourceGSEALoading = true;
     this.GSEAImageLoading = true;
     const postTerm = this._validCollection(this.searchTerm);
+    this.validCancertype = this._validCancer(this.searchTerm);
 
     if (!postTerm.validColl.length) {
       this.dataSourceGSEALoading = false;
@@ -139,7 +140,15 @@ export class GseaComponent implements OnInit, OnChanges, AfterViewInit {
       reader.readAsDataURL(res);
     }
   }
+  private _validCancer(st: ExprSearch): any {
+    const validCancer = st.cancerTypeSelected
+      .map((val) => {
+        return collectionList.deg.cancertypes[collectionList.deg.cancertypes.indexOf(val)];
+      })
+      .filter(Boolean);
 
+    return validCancer;
+  }
   public applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSourceGSEA.filter = filterValue.trim().toLowerCase();
