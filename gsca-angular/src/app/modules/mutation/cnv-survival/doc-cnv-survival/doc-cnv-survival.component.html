@@ -10,11 +10,11 @@
       <p>CNV & survival module provides a summary of survival differences between CNV and the wide type of each gene.</p>
       <li>Methods</li>
       <p>
-        CNV data of 11495 samples were downloaded from TCGA database, and were processed through
+        CNV data of 11495 samples were downloaded from the TCGA database, and were processed through
         <a href="https://genomebiology.biomedcentral.com/articles/10.1186/gb-2011-12-4-r41">GISTIC2.0</a>.
       </p>
       <p>
-        GSCA used clinical data of tumor samples from 33 cancer types. Uncensored data was left out. Samples that have
+        GSCA used clinical data of tumor samples from 33 cancer types. Uncensored data was left out. Samples that have a
         <span class="phighlight">competing risk</span> for death from cancer were filtered out (for DSS and DFI data).
       </p>
       <p>
@@ -23,8 +23,8 @@
         tests were performed to test the survival difference between groups.
       </p>
       <p>
-        The p value of survival analysis was obtained from groups with <span class="phighlight"> ≥2 samples</span>. But the group with < 2
-        samples were also remained to draw the survival curve.
+        The P value of survival analysis was obtained from groups with <span class="phighlight"> ≥2 samples</span>. But the group with < 2
+        samples also remained to draw the survival curve.
       </p>
       <p><span class="phighlight">There are some suggestions for survival analysis:</span></p>
       <ul>
@@ -49,7 +49,7 @@
           CHOL: The sample size is too small for OS, DSS, DFI, and PFI; <br />
           DLBC: The sample size and number of events are too small, and these samples need a longer follow-up; <br />
           GBM: The number of disease-free cases is small;<br />
-          KICH: The number of events is too small, and these evens need a longer follow-up; <br />
+          KICH: The number of events is too small, and these events need a longer follow-up; <br />
           KIRC: The number of events is small; <br />
           LGG: These samples need a longer follow-up for OS and DSS; <br />
           LIHC: These samples need a longer follow-up DSS; <br />
@@ -67,13 +67,13 @@
       <p>GSCA provides two forms of results, including tables and figures.</p>
       <p>
         Note that in some cases, samples with survival data are not cover samples with CNV data. Therefore, the
-        <span class="phighlight">number of samples in each CNV group may be a little different from CNV summary modules</span>.
+        <span class="phighlight">number of samples in each CNV group may be a little different from the CNV summary modules</span>.
       </p>
       <ul>
         <li>Table:</li>
         <p>
-          The table presents detailed information about Cancer type, Gene symbol, Survival type, Logrank P value. Survival types include OS,
-          PFS, DSS, and DFI.
+          The table presents detailed information about Cancer type, Gene symbol, Survival type, and Logrank P value. Survival types include
+          OS, PFS, DSS, and DFI.
         </p>
         <p></p>
 
@@ -81,13 +81,13 @@
         <ul>
           <li>Kaplan-Meier curves:</li>
           <p>
-            By clicking any one button in the table, GSCA would draw the Kaplan-Meier curves for a groups of a specific gene in specific
+            By clicking any one button in the table, GSCA would draw the Kaplan-Meier curves between groups of a specific gene in specific
             cancer.
           </p>
 
           <li>Bubble plot:</li>
           <p>
-            This plot presents the Logrank p value through bubble color and size. The column is the gene set symbol, and the row is the
+            This plot presents the Logrank P value through bubble color and size. The column is the gene set symbol, and the row is the
             selected cancer types. The bubble color from blue to red represents the significance of Logrank P value from low to high, the
             bubble size is positively correlated with the significance of Logrank P value. The black outline border indicates Logrank P
             value ≤ 0.05.

@@ -14,13 +14,13 @@
           <p>
             Gene Set Cancer Analysis (GSCA) is an enhanced version of
             <a href="http://bioinfo.life.hust.edu.cn/web/GSCALite/" target="_blank">GSCALite</a>, which is a database to search, investigate
-            and explore the gene set cancer analysis relate to mRNA expression, mutation, immune infiltration and drug resistance. The
-            alterations of DNA, RNA and immune microenvironment could contribute to the cancer initiation, progress, diagnosis, prognosis,
-            therapy. In bio-big data era, individual causal gene signal could be masked by massive background noises. A set of genes or
-            compiled gene set scores from multiple dimensional data across a large number patients per stage could represent a snap shot of
-            the underlying cancer process. In this enhanced GSCA, we provide a series of services to perform gene set genomic (Expression,
-            SNV, CNV and methylation) and immunogenomic (24 immune cells) analyses. Besides, combining clinical information and small
-            molecular drugs, user could mine candidate biomarkers and valuable small drugs for better experimental design and further
+            and explore the gene set cancer analysis relate to mRNA expression, mutation, immune infiltration, and drug resistance. The
+            alterations of DNA, RNA, and immune microenvironment could contribute to the cancer initiation, progress, diagnosis, prognosis,
+            and therapy. In the bio-big data era, an individual causal gene signal could be masked by massive background noises. A set of
+            genes or compiled gene set scores from multiple dimensional data across a large number of patients per stage could represent a
+            snapshot of the underlying cancer process. In this enhanced GSCA, we provide a series of services to perform gene set genomic
+            (Expression, SNV, CNV and methylation) and immunogenomic (24 immune cells) analyses. Besides, combining clinical information and
+            small molecular drugs, users could mine candidate biomarkers and valuable small drugs for better experimental design and further
             clinical trials. GSCA integrates over 10,000 multi-dimensional genomic data across 33 cancer types from
             <a href="https://portal.gdc.cancer.gov" target="_blank">TCGA</a> and over 750 small molecule drugs from
             <a href="http://www.cancerrxgene.org/" target="_blank">GDSC</a> and
@@ -63,8 +63,8 @@
               <h3>Gene set estimation</h3>
             </li>
             <p>
-              This function allows users to estimate the integrated estimation of the gene set in the aspect of mRNA expression, SNV and CNV
-              levels. This make it possible to carry out calculation in the gene set level instead of single gene. For instance, GSVA
+              This function allows users to estimate the integrated estimation of the gene set in the aspect of mRNA expression, SNV, and
+              CNV levels. This makes it possible to carry out calculation at the gene set level instead of a single gene. For instance, GSVA
               analysis was performed to estimate the integrated level of gene set expression for each
               <a href="https://www.cancer.gov/about-nci/organization/ccg/research/structural-genomics/tcga" target="_blank">TCGA</a> sample.
             </p>
@@ -73,8 +73,8 @@
               <h3>Association with immune infiltration</h3>
             </li>
             <p>
-              This function allows users to estimate the association of genomic features (RNA sequencing expression, SNV, CNV and
-              methylation) with 24 immune cells infiltration, evaluated by
+              This function allows users to estimate the association of genomic features (RNA sequencing expression, SNV, CNV, and
+              methylation) with 24 types of immune cell infiltration, evaluated by
               <a href="http://bioinfo.life.hust.edu.cn/ImmuCellAI/#!/" target="_blank">ImmuCellAI</a>.
             </p>
 
@@ -82,7 +82,7 @@
               <h3>Detailed single gene result</h3>
             </li>
             <p>
-              This function provides detailed results of single gene of batch calculation, which avoid fussy input options when the users
+              This function provides detailed results of a single gene of batch calculation, which avoid fussy input options when the users
               have plenty of candidate genes. For example, if you want to get the KM survival plot of several genes in several cancers,
               simply enter the gene list and select the cancer types, then click the specific button to get the survival plot of a gene in a
               cancer.
@@ -112,8 +112,8 @@
           <ol>
             <li>
               <p>
-                Click "Example" button to get example inputs. Or enter the official symbols of gene set with more than 2 genes and less than
-                50 in the "Input your interested gene set with 2-500 genes".
+                Click the "Example" button to get example inputs. Or enter the official symbols of a gene set with more than 2 genes and
+                less than 50 in the "Input gene set with 2-500 genes".
               </p>
             </li>
             <li>
@@ -123,7 +123,7 @@
               <p>Select at least one analysis.</p>
             </li>
             <li>
-              <p>Click "Search" button to get the results of your interest gene set.</p>
+              <p>Click the "Search" button to get the results of your interest gene set.</p>
             </li>
           </ol>
         </mat-card-content>
@@ -143,12 +143,12 @@
   <div fxLayout="row" fxLayout.lt-lg="column" fxLayoutGap="10px" fxLayoutWrap fxLayoutAlign="center" class="not-float">
     <mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
       <mat-card-header>
-        <mat-card-title>Try out example and results interpretation</mat-card-title>
+        <mat-card-title>Try out an example and results interpretation</mat-card-title>
       </mat-card-header>
       <p>
-        By click "Example" button, GSCA will search gene set "A2M, ACE, ANGPT2, BPI, CD1B, CDR1, EGR2, EGR3, HBEGF, HERPUD1, MCM2, PCTP,
+        By click the "Example" button, GSCA will search gene set "A2M, ACE, ANGPT2, BPI, CD1B, CDR1, EGR2, EGR3, HBEGF, HERPUD1, MCM2, PCTP,
         PODXL, PPY, PTGS2, RCAN1, SLC4A7, THBD" in cancer types "KICH, KIRC, KIRP, LUAD, LUSC". Here presents some example results and their
-        interpretation. Please find detailed information of methods on each result panel of each module.
+        interpretation. Please find detailed information at HELP page on each result panel of each module.
       </p>
       <div fxLayout="column" fxLayoutGap="10px">
         <div fxLayout="row" fxLayoutAlign="center center">

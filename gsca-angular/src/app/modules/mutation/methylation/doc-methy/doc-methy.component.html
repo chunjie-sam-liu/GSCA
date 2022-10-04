@@ -10,15 +10,15 @@
       <p>Differential methylation module provides differential analysis of methylation between tumor and normal sample groups.</p>
       <li>Methods</li>
       <p>
-        Illumina HumanMethylation 450k level 3 data were downloaded from TCGA database. In total,
+        Illumina HumanMethylation 450k level 3 data were downloaded from the TCGA database. In total,
         <span class="phighlight">14 cancer types</span> (THCA, KIRP, BLCA, LIHC, HNSC, BRCA, LUAD, PRAD, ESCA, KICH, LUSC, KIRC, STAD,
-        COAD), which <span class="phighlight">have more than 10 paired tumor and adjacent non-tumor samples</span>, were selected and
+        COAD), which <span class="phighlight">have more than 10 paired of tumor and adjacent non-tumor samples</span>, were selected and
         processed into this analysis.
       </p>
       <p>
-        Generally, there are multiple methylation sites in the region of one gene. Therefore, there are multiple tags store the methylation
-        level of each site. Before differential methylation analysis, we performed correlation analysis to
-        <span class="phighlight">filter the sites most negatively correlate with gene expression</span> into this analysis.
+        Generally, there are multiple methylation sites in the region of one gene. Therefore, there are multiple tags that store the
+        methylation level of each site. Before differential methylation analysis, we performed correlation analysis to
+        <span class="phighlight">filter the sites most negatively correlated with gene expression</span> into this analysis.
       </p>
       <p>The p-value was estimated by <span class="phighlight">t-test</span> and was further adjusted by FDR.</p>
 
@@ -28,9 +28,9 @@
       <ul>
         <li>Table:</li>
         <p>
-          The table presents detailed information about Cancer type, Gene symbol, Tag, Methylation(Tumor-Normal), Trend, P value and FDR.
+          The table presents detailed information about Cancer type, Gene symbol, Tag, Methylation(Tumor-Normal), Trend, P value, and FDR.
         </p>
-        <p>Tag: the tag id of methylation site within the region of the specific gene.</p>
+        <p>Tag: the tag id of the methylation site within the region of the specific gene.</p>
         <p>Methylation(Tumor-Normal): the mean methylation of tumor samples subtracts that of normal samples.</p>
         <p>Trend: changes of methylation in tumor samples compared with normal samples.</p>
 

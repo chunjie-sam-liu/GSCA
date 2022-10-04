@@ -9,28 +9,28 @@
     <ul>
       <li>Methods</li>
       <p>
-        The expression and subtype analysis is used to find subtype relevant changes of gene expression. For this function, GSCA used
+        The expression and subtype analysis is used to find subtype-relevant changes of gene expression. For this function, GSCA used
         clinical data of tumor samples from 9 cancer types (HNSC, LUSC, COAD, STAD, LUAD, GBM, BRCA, KIRC, BLCA). mRNA expression and
         clinical subtype data were merged by sample barcode. The subtype subgroup must have at least 5 samples. GSCA compared the GSVA score
-        among groups through <span class="phighlight">Wilcoxon test (number of subtype groups == 2)</span> and
+        among groups through the <span class="phighlight">Wilcoxon test (number of subtype groups == 2)</span> and
         <span class="phighlight">ANOVA test (number of subtype groups > 2)</span>.
       </p>
-      <p>Subtypes indicates molecular subtypes, if available, else indicates clustering subtypes.</p>
+      <p>Subtypes indicate molecular subtypes, if available, else indicate clustering subtypes.</p>
 
       <li>Interpretation</li>
       <p>GSCA provides two forms of results, including tables and figures.</p>
 
       <ul>
         <li>Table:</li>
-        <p>The table presents detailed information about Cancer type, Gene symbol, P value and FDR.</p>
+        <p>The table presents detailed information about Cancer type, Gene symbol, P value, and FDR.</p>
 
-        <li>GSCA provides result figure, including:</li>
+        <li>GSCA provides result figures, including:</li>
         <ul>
           <li>Bubble plot:</li>
           <p>
             This plot presents the FDR through bubble color and size. The row is the gene set symbol and the column is the selected cancer
             types. The bubble color from white to red represents the significance of FDR; the bubble size is positively correlated with the
-            significance. The black outline border of bubbles indicate FDR ≤ 0.05.
+            significance. The black outline border of bubbles indicates FDR ≤ 0.05.
           </p>
 
           <li>Box plot:</li>

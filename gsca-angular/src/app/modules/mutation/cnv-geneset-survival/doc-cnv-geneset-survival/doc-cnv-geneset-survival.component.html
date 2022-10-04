@@ -10,20 +10,20 @@
       <p>Gene set CNV & survival module provides a summary of survival between gene set CNV and wide type.</p>
       <li>Methods</li>
       <p>
-        The clinical survival data and CNV data were downloaded from TCGA database. And the CNV data and clinical survival data were merged
-        by sample barcode. Samples that have <span class="phighlight">competing risk</span> for death from cancer were filtered out (for DSS
-        and DFI data).
+        The clinical survival data and CNV data were downloaded from the TCGA database. And the CNV data and clinical survival data were
+        merged by sample barcode. Samples that have a <span class="phighlight">competing risk</span> for death from cancer were filtered out
+        (for DSS and DFI data).
       </p>
       <p>
         The gene set CNV represents the <span class="phighlight">integrated CNV status</span> of inputted gene set for each sample. A sample
-        is classified into Amp. or Dele. group only when at least one gene in the input gene set is consistently amplified or deleted in
+        is classified into Amp. or Dele. group, only when at least one gene in the input gene set is consistently amplified or deleted in
         this sample. If all genes in inputted gene set have no CNV in a sample, this sample is classified into the WT group. When genes have
         inconsistent CNV status, for example, gene A was amplified in sample 1, gene B was deleted in sample 1, then sample 1 will be
-        classified in Excluded group, which will not be considered in this analysis.
+        classified in the Excluded group, which will not be considered in this analysis.
       </p>
       <p>
         Survival analysis was performed when at least 2 groups with <span class="phighlight">more than 2 samples</span>. And groups with < 2
-        samples were also remained to draw survival curve.
+        samples also remained to draw survival curves.
       </p>
       <p>
         <span class="phighlight">R package survival </span>was used to fit the survival time and survival status within gene set CNV groups.
@@ -60,7 +60,7 @@
           PCPG: These samples need a longer follow-up for OS, DSS, DFI, and PFI. The number of events is small; <br />
           PRAD: These samples need a longer follow-up for OS and DSS;<br />
           READ: These samples need a longer follow-up for OS, DSS, and DFI. The number of events for DFI is too small; <br />
-          TGCT: The number of events is small for OS and DSS, and these evens need a longer follow-up; <br />
+          TGCT: The number of events is small for OS and DSS, and these events need a longer follow-up; <br />
           THCA: The number of events is small for OS and DSS, and these events need a longer follow-up; <br />
           THYM: The number of events is too small for OS and DSS, and these evens need a longer follow-up; <br />
           UCS: The sample size is small.<br />
@@ -73,20 +73,20 @@
       <ul>
         <li>Table:</li>
         <p>
-          The table presents detailed information about Cancer type, Survival type, Logrank P value. Survival types include OS, PFS, DSS,
-          and DFI.
+          The table presents detailed information about Cancer type, Survival type, and Logrank P value. Survival types include OS, PFS,
+          DSS, and DFI.
         </p>
 
         <li>GSCA provides result figures, including:</li>
         <ul>
           <li>Kaplan-Meier curves:</li>
-          <p>By clicking any one button in the table, GSCA would draw the Kaplan-Meier curves between groups in specific cancer.</p>
+          <p>By clicking any one button in the table, GSCA would draw the Kaplan-Meier curves between groups.</p>
 
           <li>Bubble plot:</li>
           <p>
             This plot presents the Logrank p value through bubble color and size. The column is selected cancer types and the row is
-            survival type (OS, PFS, DSS, and DFI). The bubble color from blue to red represents the hazard ratio from low to high, bubble
-            size is positively correlated with the significance of Logrank P value. The black outline border indicates Logrank P value ≤
+            survival types (OS, PFS, DSS, and DFI). The bubble color from blue to red represents the hazard ratio from low to high, bubble
+            size is positively correlated with the significance of the Logrank P value. The black outline border indicates Logrank P value ≤
             0.05.
           </p>
         </ul>

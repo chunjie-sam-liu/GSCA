@@ -9,8 +9,8 @@
     <ul>
       <li>Methods</li>
       <p>
-        For expression and survival analysis, GSCA used 33 cancer types clinical data from tumor samples, some uncensored data was left
-        out.Samples that have <span class="phighlight">competing risk</span> for death from cancer were filtered out (for DSS and DFI data).
+        For expression and survival analysis, GSCA used 33 cancer types clinical data from tumor samples, some uncensored data was left out.
+        Samples that have a <span class="phighlight">competing risk</span> for death from cancer were filtered out (for DSS and DFI data).
       </p>
       <p>
         Merged mRNA expression and clinical survival data by sample barcode, <span class="phighlight">median mRNA value </span>was used to
@@ -37,21 +37,21 @@
         </li>
         <p>
           ACC: number of events is small; <br />
-          BRCA: need a longer follow-up for OS and DSS; <br />
+          BRCA: needs a longer follow-up for OS and DSS; <br />
           CHOL: sample size is too small for OS, DSS, DFI, and PFI; <br />
-          DLBC: sample size and number of events are too small, and need a longer follow-up; <br />
+          DLBC: sample size and number of events are too small, and needs a longer follow-up; <br />
           GBM: number of disease-free cases is small;<br />
-          KICH: number of events is too small, and need a longer follow-up; <br />
+          KICH: number of events is too small, and needs a longer follow-up; <br />
           KIRC: number of events is small; <br />
-          LGG: need a longer follow-up for OS and DSS; <br />
-          LIHC: need a longer follow-up DSS; <br />
+          LGG: needs a longer follow-up for OS and DSS; <br />
+          LIHC: needs a longer follow-up DSS; <br />
           MESO: sample size for DFI is small; <br />
-          PCPG: need a longer follow-up for OS, DSS, DFI, and PFI; number of events is small; <br />
-          PRAD: need a longer follow-up for OS and DSS;<br />
-          READ: need a longer follow-up for OS, DSS, and DFI; number of events for DFI is too small; <br />
-          TGCT: number of events is small for OS and DSS; need a longer follow-up; <br />
-          THCA: number of events is small for OS and DSS; need a longer follow-up; <br />
-          THYM: number of events is too small for OS and DSS; need a longer follow-up; <br />
+          PCPG: needs a longer follow-up for OS, DSS, DFI, and PFI; number of events is small; <br />
+          PRAD: needs a longer follow-up for OS and DSS;<br />
+          READ: needs a longer follow-up for OS, DSS, and DFI; number of events for DFI is too small; <br />
+          TGCT: number of events is small for OS and DSS; needs a longer follow-up; <br />
+          THCA: number of events is small for OS and DSS; needs a longer follow-up; <br />
+          THYM: number of events is too small for OS and DSS; needs a longer follow-up; <br />
           UCS: sample size is small.<br />
         </p>
       </ul>
@@ -61,30 +61,30 @@
         <li>Table:</li>
         <p>
           The table presents detailed information about Cancer type, Gene symbol, Survival type, Hazard Ratio, Cox P value, Logrank P value,
-          Higher risk of death. Survival types include OS, PFS, DSS, and DFI.
+          and Higher risk of death. Survival types include OS, PFS, DSS, and DFI.
         </p>
         <p>
           Column "Higher risk of death" indicates the group with a higher risk of death. When the
-          <span class="phighlight">Hazard ratio</span> of "Higher expr." group compared with "Lower expr." group is
-          <span class="phighlight">greater than 1</span>, we think "Higher expr." group has a higher risk of death, else "Lower expr." group
-          has a lower risk of death. When the warning of 'Not applicable' comes up in the column of 'Higher risk of death', there is no
-          survival result.
+          <span class="phighlight">Hazard ratio</span> of the "Higher expr." group compared with the "Lower expr." group is
+          <span class="phighlight">greater than 1</span>, we think the "Higher expr." group has a higher risk of death, else the "Lower
+          expr." group has a higher risk of death. When the warning of 'Not applicable' comes up in the column of 'Higher risk of death',
+          there is no survival result.
         </p>
 
         <li>GSCA provides result figures, including:</li>
         <ul>
           <li>Bubble plot:</li>
           <p>
-            This plot presents the Hazard ratio and Cox p value through bubble color and size. The row is the gene set symbol, and column is
-            the selected cancer types. The bubble color from blue to red represents the hazard ratio from low to high, and bubble size is
-            positively correlated with the Cox P value significance. The black outline border indicates Cox P value ≤ 0.05.
+            This plot presents the Hazard ratio and Cox P value through bubble color and size. The row is the gene set symbol, and the
+            column is the selected cancer types. The bubble color from blue to red represents the hazard ratio from low to high, and bubble
+            size is positively correlated with the Cox P value significance. The black outline border indicates Cox P value ≤ 0.05.
           </p>
 
           <li>Kaplan-Meier curves:</li>
           <p>
             By clicking any one button in the table, GSCA would draw the Kaplan-Meier curves for high and low expression of a specific gene
-            in specific cancer. The genes with Kaplan-Meier Logrank test p-value less than 0.05 would be retained and gathered into final
-            figure.
+            in specific cancer. The genes with Kaplan-Meier Logrank test p-values less than 0.05 would be retained and gathered into the
+            final figure.
           </p>
         </ul>
       </ul>

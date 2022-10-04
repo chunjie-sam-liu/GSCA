@@ -9,37 +9,37 @@
     <ul>
       <li>Methods</li>
       <p>
-        Expression and pathway activity module estimates the difference of genes expression between pathway activity groups (activation and
-        inhibition), which defined by <span class="phighlight">median pathway scores</span>.
+        Expression and pathway activity module estimates the difference in gene expression between pathway activity groups (activation and
+        inhibition), which are defined by <span class="phighlight">median pathway scores</span>.
       </p>
 
       <p>
         Reverse phase protein array (RPPA) data from (<a href="https://www.tcpaportal.org/tcpa/" target="_blank">TCPA database</a>) were
-        used to calculate pathway activity score of 10 cancer related pathways for 7876 samples (from TCGA database) from 32 cancer types.
-        RPPA is a high-throughput antibody-based technique with the procedures similar to that of Western blots. Proteins are extracted from
-        tumor tissue or cultured cells, denatured by SDS, printed on nitrocellulose-coated slides followed by antibody probe.
+        used to calculate the pathway activity score of 10 cancer-related pathways for 7876 samples (from the TCGA database) from 32 cancer
+        types. RPPA is a high-throughput antibody-based technique with procedures similar to that of Western blots. Proteins are extracted
+        from tumor tissue or cultured cells, denatured by SDS, and printed on nitrocellulose-coated slides followed by an antibody probe.
       </p>
 
       <p>
-        The pathway GSCA included are:
+        The pathways GSCA included are
         <span class="phighlight"
-          >TSC/mTOR, RTK, RAS/MAPK, PI3K/AKT, Hormone ER, Hormone AR, EMT, DNA Damage Response, Cell Cycle, Apoptosis pathways</span
-        >. They are all famous cancer related pathways.
+          >TSC/mTOR, RTK, RAS/MAPK, PI3K/AKT, Hormone ER, Hormone AR, EMT, DNA Damage Response, Cell Cycle, and Apoptosis pathways</span
+        >. They are all famous cancer-related pathways.
       </p>
 
       <p>
-        RBN RPPA data were median-centered and normalized by standard deviation across all samples for each component to obtain the relative
-        protein level. The pathway score is then the sum of the relative protein level of all positive regulatory components minus that of
-        negative regulatory components in a particular pathway (<a href="https://doi.org/10.1038/ncomms4887" target="_blank"
+        RBN RPPA data were median-centered and normalized by the standard deviation across all samples for each component to obtain the
+        relative protein level. The pathway score is then the sum of the relative protein level of all positive regulatory components minus
+        that of negative regulatory components in a particular pathway (<a href="https://doi.org/10.1038/ncomms4887" target="_blank"
           >R. Akbani et al.</a
         >).
       </p>
 
       <p>
-        Samples were divided into 2 groups (High and Low) by median gene expression, the difference of pathway activity score (PAS) between
-        groups is defined by <span class="phighlight">student T test</span>, p value was adjusted by FDR, FDR<=0.05 is considered as
-        significant. When PAS (Gene A High expression) > PAS(Gene A Low expression), we consider gene A may have an activate effect to a
-        pathway, otherwise have an inhibitory effect to a pathway. A similar method has been applied in
+        Samples were divided into 2 groups (High and Low) by median gene expression, the difference in pathway activity score (PAS) between
+        groups is defined by the <span class="phighlight">student T test</span>, P value was adjusted by FDR, and FDR<=0.05 is considered as
+        significant. When PAS (Gene A High expression) > PAS(Gene A Low expression), we consider gene A may have an activate effect on a
+        pathway, otherwise have an inhibitory effect on a pathway. A similar method has been applied in
         <a href="https://pubmed.ncbi.nlm.nih.gov/29525205/" target="_blank">Y. Ye et al</a>.
       </p>
 
@@ -49,27 +49,27 @@
       <ul>
         <li>Table:</li>
         <p>
-          GSCA presents detailed information about Cancer type, Gene symbol, Pathway, FDR and Potential effects of gene mRNA on pathway
+          GSCA presents detailed information about Cancer type, Gene symbol, Pathway, FDR, and Potential effects of gene mRNA on pathway
           activity.
         </p>
         <p>
-          Potential effects of gene mRNA on pathway activity: if samples in higher gene expression group have significantly (FDR <=0.05)
-          higher pathway activity, we believe that the gene may has a potential activate effect on pathway activity, otherwise the gene may
-          be considered has potential inhibitory effect on pathway activity.
+          Potential effects of gene mRNA on pathway activity: if samples in the higher gene expression group have significantly (FDR <=0.05)
+          higher pathway activity, we believe that the gene may have a potential activating effect on pathway activity, otherwise the gene
+          may be considered to have a potential inhibitory effect on pathway activity.
         </p>
 
         <li>GSCA provides result figures, including:</li>
         <ul>
           <li>Heat map:</li>
           <p>
-            Percentage of cancers in which a gene have effect (FDR <=0.05) on the pathway among selected cancers types, the number in each
+            Percentage of cancers in which a gene has an effect (FDR <=0.05) on the pathway among selected cancer types, the number in each
             cell indicates the percentage.
           </p>
 
           <li>Box plot:</li>
           <p>
             By clicking any one button in the table, GSCA would draw the boxplot for the pathway activity score between high and low
-            expression groups in the specific cancer.
+            expression groups in specific cancer.
           </p>
         </ul>
       </ul>

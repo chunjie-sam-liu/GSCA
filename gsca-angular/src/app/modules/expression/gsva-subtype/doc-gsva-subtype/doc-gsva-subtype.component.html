@@ -9,35 +9,35 @@
     <ul>
       <li>Methods</li>
       <p>
-        The GSVA and subtype analysis is used to find subtype relevant changes of gene set expression. For this function, GSCA used clinical
-        data of tumor samples from 9 cancer types (HNSC, LUSC, COAD, STAD, LUAD, GBM, BRCA, KIRC, BLCA). GSVA score and clinical subtype
+        The GSVA and subtype analysis is used to find subtype-relevant changes in gene set expression. For this function, GSCA used clinical
+        data from tumor samples from 9 cancer types (HNSC, LUSC, COAD, STAD, LUAD, GBM, BRCA, KIRC, BLCA). GSVA score and clinical subtype
         data were merged by sample barcode. The subtype subgroup must have at least 5 samples. GSCA compared the GSVA score among groups
-        through <span class="phighlight">Wilcoxon test (number of subtype groups == 2)</span> and
+        through the <span class="phighlight">Wilcoxon test (number of subtype groups == 2)</span> and
         <span class="phighlight">ANOVA test (number of subtype groups > 2)</span>.
       </p>
       <p>
-        GSVA score represents the variation of gene set activity over a specific cancer’s sample population in an unsupervised manner, which
-        was calculated through R package
+        GSVA score represents the variation of gene set activity over a specific cancer sample population in an unsupervised manner, which
+        was calculated through the R package
         <a href="https://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-14-7" target="_blank">GSVA.</a>
         Briefly,
         <span class="phighlight"
-          >the GSVA score represents the integrated level of the expression of gene set, which is positively correlated with gene
+          >the GSVA score represents the integrated level of the expression of a gene set, which is positively correlated with the gene set
           expression</span
         >.
       </p>
-      <p>Subtypes indicates molecular subtypes, if available, else indicates clustered subtypes.</p>
+      <p>Subtypes indicate molecular subtypes, if available, else indicates clustered subtypes.</p>
       <li>Interpretation</li>
       <p>GSCA provides two forms of results, including tables and figures.</p>
       <ul>
         <li>Table:</li>
-        <p>The table presents detailed information about Cancer type, P value and GSVA score in each subtype (Subtype1(mean/n)).</p>
-        <p>P value: the statistical significance estimated by Wilcoxon test (subtype groups == 2) and ANOVA test (subtype groups > 2).</p>
-        <p>Subtype(mean/n)) presents the subtype names, mean GSVA score and number of samples.</p>
-        <li>GSCA provides result figures, including:</li>
-        <ul>
-          <li>Box plot:</li>
-          <p>Compares the GSVA score between subtypes of specific cancer.</p>
-        </ul>
+        <p>The table presents detailed information about Cancer type, P value, and GSVA score in each subtype (Subtype1(mean/n)).</p>
+        <p>
+          P value: the statistical significance estimated by the Wilcoxon test (subtype groups == 2) and the ANOVA test (subtype groups >
+          2).
+        </p>
+        <p>Subtype(mean/n)) presents the subtype names, mean GSVA score, and number of samples.</p>
+        <li>Box plot:</li>
+        <p>Compares the GSVA score between subtypes of specific cancer.</p>
       </ul>
     </ul>
   </mat-expansion-panel>

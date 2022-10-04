@@ -17,20 +17,20 @@
       <p>Gene set SNV & survival module provides a summary of the result of survival difference between gene set mutant and wide type.</p>
       <li>Methods</li>
       <p>
-        The SNV data and clinical survival data were collected from TCGA database. SNV data and clinical survival data were merged by sample
-        barcode.
+        The SNV data and clinical survival data were collected from the TCGA database. SNV data and clinical survival data were merged by
+        sample barcode.
       </p>
       <p>
         The gene set SNV represents the <span class="phighlight">integrated SNV status</span> of inputted gene set for each sample. A sample
         is classified into the Mutant group only when at least one gene in the input gene set is mutated in the sample. If all genes in
-        inputted gene set have no SNV in a sample, this sample is classified into the WT group. Only samples have
+        inputted gene set have no SNV in a sample, this sample is classified into the WT group. Only samples that have
         <span class="phighlight">deleterious mutants</span> are included in the Mutant group.
       </p>
       <p>
         Survival analysis is only performed for groups with <span class="phighlight">>2 samples</span>. And at least two groups are needed.
       </p>
       <p>
-        <span class="phighlight">R package survival</span> was used to fit the survival time and survival status of two groups.
+        <span class="phighlight">R package survival</span> was used to fit the survival time and survival status of the two groups.
         <span class="phighlight">Cox Proportional-Hazards model and Logrank tests</span> were performed to test the survival difference
         between groups.
       </p>
@@ -55,16 +55,16 @@
           ACC: The number of events is small; <br />
           BRCA: These samples need a longer follow-up for OS and DSS; <br />
           CHOL: The sample size is too small for OS, DSS, DFI, and PFI; <br />
-          DLBC: The sample size and number of events are too small, and these sampls need a longer follow-up; <br />
+          DLBC: The sample size and number of events are too small, and these samples need a longer follow-up; <br />
           GBM: The number of disease-free cases is small;<br />
           KICH: The number of events is too small, and these events need a longer follow-up; <br />
           KIRC: The number of events is small; <br />
-          LGG: Thses samples need a longer follow-up for OS and DSS; <br />
+          LGG: These samples need a longer follow-up for OS and DSS; <br />
           LIHC: These samples need a longer follow-up DSS; <br />
           MESO: The sample size for DFI is small; <br />
           PCPG: These samples need a longer follow-up for OS, DSS, DFI, and PFI, and the number of events is small; <br />
           PRAD: These samples need a longer follow-up for OS and DSS;<br />
-          READ: These samples need a longer follow-up for OS, DSS, and DFI, and number of events for DFI is too small; <br />
+          READ: These samples need a longer follow-up for OS, DSS, and DFI, and the number of events for DFI is too small; <br />
           TGCT: The number of events is small for OS and DSS, and these events need a longer follow-up; <br />
           THCA: The number of events is small for OS and DSS, and these events need a longer follow-up; <br />
           THYM: The number of events is too small for OS and DSS, and these events need a longer follow-up; <br />
@@ -78,8 +78,8 @@
       <ul>
         <li>Table:</li>
         <p>
-          The table presents detailed information about Cancer type, Survival type, Hazard Ratio, Cox P value, Logrank P value, Higher risk
-          of death.
+          The table presents detailed information about Cancer type, Survival type, Hazard Ratio, Cox P value, Logrank P value, and Higher
+          risk of death.
         </p>
         <p>Survival types include OS, PFS, DSS, and DFI.</p>
         <p>Hazard Ratio: the risk of death of the Mutant group compared with the WT group.</p>
@@ -94,13 +94,13 @@
           <li>Kaplan-Meier curves:</li>
           <p>
             By clicking any one button in the table, GSCA would draw the Kaplan-Meier curves between WT and Mutant (deleterious mutation)
-            groups of specific gene in specific cancer.
+            groups of a specific gene in specific cancer.
           </p>
 
           <li>Bubble plot:</li>
           <p>
             This plot presents the Hazard ratio and Cox p value through bubble color and size. The column is selected cancer types and the
-            row is survival type (OS, PFS, DSS, and DFI). The bubble color from blue to red represents the hazard ratio from low to high,
+            row is survival types (OS, PFS, DSS, and DFI). The bubble color from blue to red represents the hazard ratio from low to high,
             bubble size is positively correlated with the Cox P value significance. The black outline border indicates Cox P value ≤ 0.05.
           </p>
         </ul>

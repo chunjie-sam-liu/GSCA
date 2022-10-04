@@ -18,19 +18,19 @@
       </p>
       <p>
         The GSVA score represents the <span class="phighlight">integrated level of the expression</span> of gene set, which is positively
-        correlate with the expression of gene set. Therefore,
+        correlated with the expression of the gene set. Therefore,
         <span class="phighlight"
-          >if the GSVA score in tumor group is higher than that in adjacent group, it can indicate that the overall expression of the gene
-          set in the tumor group is higher</span
-        >. The GSVA score was calculated through R package
+          >if the GSVA score in the tumor group is higher than that in the adjacent group, it can indicate that the overall expression of
+          the gene set in the tumor group is higher</span
+        >. The GSVA score was calculated through the R package
         <a href="https://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-14-7" target="_blank">GSVA</a>
       </p>
       <p>
-        The association between immune cells’ infiltrates and gene set expression level was represented by correlation coefficient, which
+        The association between immune cells’ infiltrates and gene set expression level was represented by a correlation coefficient, which
         was evaluated through Spearman correlation analysis. The P value was adjusted by FDR.
       </p>
       <p>
-        The estimates the abundance of 24 immune cell types were based on gene set signature (Document).
+        The estimates of the abundance of 24 immune cell types were based on gene set signature (Document).
         <span class="phighlight"
           >Please avoid an overlap between input genes and the signature used to estimate the immune cell infiltrate</span
         >.
@@ -39,13 +39,13 @@
       <p>This module provides two forms of results, including tables and figures.</p>
       <ul>
         <li>Table:</li>
-        <p>The table presents detailed information about Cancer type, Cell type, Spearman cor., P value and FDR.</p>
+        <p>The table presents detailed information about Cancer type, Cell type, Spearman cor., P value, and FDR.</p>
         <p>
-          Cell type: there are 24 types immune cell, such as Dendritic cell and B cell et al.. More details are available on
+          Cell type: there are 24 types immune cell, such as Dendritic cell and B cell et al.. More details are available in the
           <a href="http://bioinfo.life.hust.edu.cn/GSCA/#/document">document</a>
         </p>
         <p>
-          Spearman cor.: the Spearman correlation coefficient between the GSVA score of inputted gene set and the specific immune cell’s
+          Spearman cor.: the Spearman correlation coefficient between the GSVA score of the inputted gene set and the specific immune cell’s
           infiltrate.
         </p>
         <p>FDR: the false discovery rate.</p>
@@ -53,13 +53,13 @@
         <ul>
           <li>Summary plot:</li>
           <p>
-            Heatmap summarizes the significance of P value and FDR for the spearman correlation analysis between GSVA score of inputted gene
-            set and immune cells' infiltrates. *: P value ≤ 0.05; #: FDR ≤ 0.05
+            Heatmap summarizes the significance of P value and FDR for the spearman correlation analysis between GSVA score of the inputted
+            gene set and immune cells' infiltrates. *: P value ≤ 0.05; #: FDR ≤ 0.05
           </p>
           <li>Scatter plot:</li>
           <p>
-            By clicking Cell type buttons in the tables, users can get the detailed result of GSVA score correlated with specific immune
-            cell's infiltrate through scatter plot, with fitting line.
+            By clicking the Cell type buttons in the tables, users can get the detailed result of the GSVA score correlated with a specific
+            immune cell's infiltrate through a scatter plot, with a fitting line.
           </p>
         </ul>
       </ul>
