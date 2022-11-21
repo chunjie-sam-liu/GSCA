@@ -5,6 +5,11 @@
   <mat-card-content>
     <mat-selection-list [multiple]="false">
       <ul>
+        <li><span class="blue">2022-11-21</span></li>
+        <p>Fixed the bug that SNV data cannot be extracted from .gz format.</p>
+        <p>Added the citation information.</p>
+        <br />
+
         <li><span class="blue">2022-9-28</span></li>
         <p>Added sample count information in cancer type selection box of Expression module.</p>
         <br />
@@ -22,4 +27,30 @@
     </mat-selection-list>
   </mat-card-content>
   <app-expended-log fxLayout="row" fxLayout.lt-lg="column" fxLayoutWrap fxLayoutAlign="center"></app-expended-log>
+</mat-card>
+
+<mat-card fxFlex appMaterialElevation defaultElevation="4" raisedElevation="4">
+  <mat-card-header>
+    <mat-card-title>Cite us</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-selection-list [multiple]="false">
+      <ul>
+        <li><span class="blue">2022-11-21</span></li>
+        <p>
+          Chun-Jie Liu, Fei-Fei Hu, Gui-Yan Xie, Ya-Ru Miao, Xin-Wen Li, Yan Zeng, An-Yuan Guo. GSCA: an Integrated Platform for Gene Set
+          Cancer Analysis at Genomic, Pharmacogenomic, and Immunogenomic Levels. Briefings in bioinformatics, 2022,
+          <span class="blue">Accepted</span>.
+        </p>
+        <br />
+
+        <li><span class="blue">2018-11-01</span></li>
+        <p>
+          Chun-Jie Liu, Fei-Fei Hu, Meng-Xuan Xia, Leng Han, Qiong Zhang和An-Yuan Guo. GSCALite: A Web Server for Gene Set Cancer Analysis.
+          Bioinformatics,2018, 34(21): 3771–72.
+        </p>
+        <br />
+      </ul>
+    </mat-selection-list>
+  </mat-card-content>
 </mat-card>
