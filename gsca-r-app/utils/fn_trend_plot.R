@@ -7,7 +7,7 @@ trend_plot <- function(data,aesx,aesy,linecolor,linetype,xlabels,facetgrid="symb
     scale_x_continuous(labels= xlabels) +
     labs(title = title) +
     xlab(xlab) +
-    ylab(ylab) + 
+    ylab(ylab) +
     scale_color_gradient2(
       name = colorname, # "Methylation diff (T - N)",
       n.breaks=10,
@@ -34,7 +34,8 @@ trend_plot <- function(data,aesx,aesy,linecolor,linetype,xlabels,facetgrid="symb
       legend.key.size = unit(0.5, "cm"),
       plot.title = element_text(size = 14),
       strip.background =  element_blank(),
-      strip.text = element_text(color="black",size = 12),
+      strip.text = element_text(color="black",size = 10),
+      strip.text.y = element_text(angle = 360,hjust = 0),
       panel.spacing = unit(0.1, "lines")
     ) -> p
   return(p)

@@ -50,7 +50,7 @@ fetched_stage_data <- purrr::map(.x = "all_stage", .f = fn_fetch_mongo, pattern=
 fields <- '{"symbol": true, "barcode": true,"sample_name": true,"type": true,"expr": true,"_id": false}'
 fetched_expr_data <- purrr::map(.x = paste0(search_cancertypes,"_all_expr",sep=""), .f = fn_fetch_mongo, pattern="_all_expr",fields = fields,.key=search_genes,.keyindex="symbol") %>%
   dplyr::bind_rows() %>%
-  dplyr::filter(type=="tumor") 
+  dplyr::filter(type=="tumor")
 
 # combine -----------------------------------------------------------------
 fetched_stage_data%>%
@@ -129,9 +129,9 @@ heat_plot <- gradient_heatmap(data = for_plot_trend,
                               title="Expression tendency in pathologic stages (heatmap)")
 
 # Save --------------------------------------------------------------------
-ggsave(filename = filepath_stageheat, plot = heat_plot, device = 'png', width = size$width, height = size$height)
+ggsave(filename = filepath_stageheat, plot = heat_plot, device = 'png', width = size$width, height = size$height+1)
 filepath_stageheat_pdf_name <- gsub("\\.png",".pdf",filepath_stageheat)
-ggsave(filename = filepath_stageheat_pdf_name, plot = heat_plot, device = 'pdf', width = size$width, height = size$height)
+ggsave(filename = filepath_stageheat_pdf_name, plot = heat_plot, device = 'pdf', width = size$width, height = size$height+2)
 
 
 # TREND PLOT --------------------------------------------------------------
@@ -167,6 +167,6 @@ trendplot <- trend_plot(data = for_plot_trend,
                         ylab="Symbol")
 
 # Save --------------------------------------------------------------------
-ggsave(filename = filepath_stagetrend, plot = trendplot, device = 'png', width = size$width, height = size$height)
+ggsave(filename = filepath_stagetrend, plot = trendplot, device = 'png', width = size$width, height = size$height+1)
 filepath_stagetrend_pdf_name <- gsub("\\.png",".pdf",filepath_stagetrend)
-ggsave(filename = filepath_stagetrend_pdf_name, plot = trendplot, device = 'pdf', width = size$width, height = size$height)
+ggsave(filename = filepath_stagetrend_pdf_name, plot = trendplot, device = 'pdf', width = size$width, height = size$height+2)
