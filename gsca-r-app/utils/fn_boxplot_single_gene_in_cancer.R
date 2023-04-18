@@ -100,7 +100,7 @@ box_plot_single_gene_single_cancer <- function(data,aesx,aesy,color,color_name,c
         linetype = "dashed",
         size = 0.2
       ),
-      plot.title = element_text(size = 18, hjust = 0.5),
+      plot.title = element_text(size = 14, hjust = 0.5),
       axis.title = element_text(size = 14, color = "black"),
       axis.ticks = element_line(color = "black"),
       axis.text.x = element_text(size = 12, angle = xangle, hjust = hjust, vjust = vjust, colour = "black"),
